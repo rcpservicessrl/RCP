@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media — RCP Services | Podcast & Video</title>
+    <meta name="description"
+        content="Contenido multimedia de RCP Services: video corporativo y podcast sobre estrategia empresarial y crecimiento para MIPYMEs." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+        rel="stylesheet" />
+    <link rel="icon" type="image/png" href="Icono RCP.png" />
+    <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="logo-img-link">
+                <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" />
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#problema" data-i18n="nav-problema">El Problema</a></li>
+                <li><a href="index.html#solucion" data-i18n="nav-solucion">Solución</a></li>
+                <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+                <li><a href="index.html#contacto" data-i18n="nav-contacto">Contacto</a></li>
+                <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+                <li><a href="media.html" data-i18n="nav-media" class="active-link">Media</a></li>
+                <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+            </ul>
+            <a href="index.html#contacto" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+            <div class="nav-controls">
+                <select class="lang-select" aria-label="Language" title="Idioma">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle light mode" title="Modo Día/Noche">
+                    <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle music" title="Música ambiental">
+                    <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M9 18V5l12-2v13" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="16" r="3" />
+                    </svg>
+                    <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+                        style="display:none">
+                        <path d="M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO MEDIA ===== -->
+    <section class="hero hero-short" id="inicio">
+        <div class="hero-bg-grid"></div>
+        <div class="container hero-content" style="padding-top:120px;">
+            <div class="hero-badge animate-fade-up">
+                <span class="badge-dot"></span> <span data-i18n="media-badge">Contenido Multimedia</span>
+            </div>
+            <h1 class="hero-title animate-fade-up delay-1" data-i18n="media-title">
+                Aprende, crece y <span class="accent">transforma</span>
+            </h1>
+            <p class="hero-sub animate-fade-up delay-2" data-i18n="media-sub">
+                Video corporativo, podcast estratégico y recursos que inspiran la reanimación de tu negocio.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== VIDEO SECTION ===== -->
+    <section class="section problema">
+        <div class="container">
+            <div class="section-label animate-on-scroll" data-i18n="media-video-label">Video Corporativo</div>
+            <h2 class="section-title animate-on-scroll" data-i18n="media-video-title">RCP: <span
+                    class="accent">Crecimiento Imparable</span></h2>
+            <p class="section-sub animate-on-scroll" data-i18n="media-video-desc">
+                Descubre cómo transformamos MIPYMEs dominicanas con nuestro ecosistema integral de renovación,
+                consultoría y publicidad.
+            </p>
+
+            <div class="media-player animate-on-scroll">
+                <video controls preload="metadata" poster="Icono RCP.png" class="media-video">
+                    <source src="RCP__Crecimiento_Imparable.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+            </div>
+
+            <div class="media-details animate-on-scroll">
+                <h3 data-i18n="media-video-notes-title">📋 Sobre este video</h3>
+                <ul>
+                    <li data-i18n="media-video-note1">Presentación del ecosistema R·C·P y cómo impacta a las MIPYMEs
+                    </li>
+                    <li data-i18n="media-video-note2">Casos de uso de la Agencia 360° en República Dominicana</li>
+                    <li data-i18n="media-video-note3">Nuestra propuesta de valor y diferenciación en el mercado</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PODCAST SECTION ===== -->
+    <section class="section solucion">
+        <div class="container">
+            <div class="section-label animate-on-scroll" data-i18n="media-podcast-label">Podcast</div>
+            <h2 class="section-title animate-on-scroll" data-i18n="media-podcast-title">Pretotipado y el <span
+                    class="accent">costo real</span> de crecer</h2>
+            <p class="section-sub animate-on-scroll" data-i18n="media-podcast-desc">
+                Una conversación profunda sobre estrategia empresarial, validación de ideas y cómo reducir riesgos
+                antes de invertir en el crecimiento de tu negocio.
+            </p>
+
+            <div class="media-player audio-player animate-on-scroll">
+                <div class="podcast-card">
+                    <div class="podcast-icon">🎙️</div>
+                    <div class="podcast-info">
+                        <h3 data-i18n="media-podcast-ep">Episodio 1</h3>
+                        <p data-i18n="media-podcast-name">Pretotipado y el costo real de crecer</p>
+                    </div>
+                </div>
+                <audio controls preload="metadata" class="media-audio">
+                    <source src="Pretotipado_y_el_costo_real_de_crecer.m4a" type="audio/mp4">
+                    Tu navegador no soporta la reproducción de audio.
+                </audio>
+            </div>
+
+            <div class="media-details animate-on-scroll">
+                <h3 data-i18n="media-podcast-notes-title">📋 Temas del episodio</h3>
+                <ul>
+                    <li data-i18n="media-podcast-note1">Técnicas de pretotipado para validar ideas antes de invertir
+                    </li>
+                    <li data-i18n="media-podcast-note2">Experimento "Puerta Falsa": Landing Page para medir el Nivel
+                        Inicial de Interés (NII)</li>
+                    <li data-i18n="media-podcast-note3">MVP "Mago de Oz": Ejecución hiperpersonalizada para validar el
+                        Product-Market Fit</li>
+                    <li data-i18n="media-podcast-note4">Cómo RCP Services aplica la validación estratégica en cada
+                        proyecto</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="section paquetes" style="text-align:center;">
+        <div class="container animate-on-scroll">
+            <h2 class="section-title" data-i18n="media-cta-title">¿Listo para <span class="accent">dar el paso</span>?
+            </h2>
+            <p class="section-sub" data-i18n="media-cta-sub">Agenda tu diagnóstico 360° gratuito y comienza tu
+                transformación.</p>
+            <a href="index.html#contacto" class="btn-cta btn-lg" style="margin-top:24px;"
+                data-i18n="media-cta-btn">Solicitar Diagnóstico Gratis →</a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-img-link">
+                    <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo" />
+                </a>
+                <p data-i18n="footer-desc">Agencia 360° de Transformación Empresarial y Digital<br>para MIPYMEs en la
+                    República Dominicana.</p>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="footer-nav-title">Navegación</h4>
+                <a href="index.html#problema" data-i18n="footer-link-problema">El Problema</a>
+                <a href="index.html#solucion" data-i18n="footer-link-solucion">La Solución</a>
+                <a href="index.html#paquetes" data-i18n="footer-link-paquetes">Paquetes</a>
+                <a href="index.html#contacto" data-i18n="footer-link-contacto">Contacto</a>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="footer-services-title">Servicios</h4>
+                <a href="index.html#solucion" data-i18n="footer-link-renovacion">Renovación</a>
+                <a href="index.html#solucion" data-i18n="footer-link-consultoria">Consultoría</a>
+                <a href="index.html#solucion" data-i18n="footer-link-publicidad">Publicidad</a>
+            </div>
+            <div class="footer-contact">
+                <h4 data-i18n="footer-contact-title">Contacto</h4>
+                <p>Av. Rómulo Betancourt 1302<br>Bella Vista, Santo Domingo, R.D.</p>
+                <p><a href="tel:8298068092">829-806-8092</a></p>
+                <p><a href="mailto:info@rcp.services">info@rcp.services</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p data-i18n="footer-copy">© 2025 RCP Services. Todos los derechos reservados. Hecho con ❤️ en Santo
+                    Domingo, R.D.</p>
+            </div>
+        </div>
+    </footer>
+
+    </main>
+
+    <a href="#inicio" class="back-top" id="backTop" aria-label="Volver arriba">↑</a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

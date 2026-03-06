@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Únete al Equipo — RCP Services | Carreras</title>
+    <meta name="description"
+        content="Únete a RCP Services como profesional independiente. Colabora en proyectos de consultoría, marketing digital e IA para MIPYMEs dominicanas." />
+    <meta property="og:title" content="Carreras — RCP Services" />
+    <meta property="og:description"
+        content="Trabaja con nosotros como especialista independiente en consultoría, marketing y tecnología." />
+    <meta property="og:image" content="Logo RCP Services.png" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+        rel="stylesheet" />
+    <link rel="icon" type="image/png" href="Icono RCP.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css?v=5" />
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="logo-img-link">
+                <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" />
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#problema" data-i18n="nav-problema">El Problema</a></li>
+                <li><a href="index.html#solucion" data-i18n="nav-solucion">Solución</a></li>
+                <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+                <li><a href="index.html#contacto" data-i18n="nav-contacto">Contacto</a></li>
+                <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+                <li><a href="media.html" data-i18n="nav-media">Media</a></li>
+                <li><a href="carreras.html" data-i18n="nav-carreras" class="active-link">Carreras</a></li>
+            </ul>
+            <a href="index.html#contacto" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+            <div class="nav-controls">
+                <select class="lang-select" aria-label="Language" title="Idioma">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle light mode" title="Modo Día/Noche">
+                    <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle music" title="Música ambiental">
+                    <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M9 18V5l12-2v13" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="16" r="3" />
+                    </svg>
+                    <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+                        style="display:none">
+                        <path d="M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero hero-short" id="inicio">
+        <div class="hero-bg-grid"></div>
+        <div class="container hero-content" style="padding-top: 120px;">
+            <div class="hero-badge animate-fade-up">
+                <span class="badge-dot"></span> <span data-i18n="careers-badge">Oportunidades Profesionales</span>
+            </div>
+            <h1 class="hero-title animate-fade-up delay-1" data-i18n="careers-title">
+                Colabora con el <span class="accent">futuro</span><br />de las MIPYMEs
+            </h1>
+            <p class="hero-sub animate-fade-up delay-2" data-i18n="careers-sub">
+                Buscamos profesionales independientes apasionados por la transformación empresarial.
+                Trabaja por proyecto, con autonomía total y desde cualquier lugar.
+            </p>
+        </div>
+    </section>
+
+    <main>
+
+        <!-- ===== POR QUÉ RCP ===== -->
+        <section class="section problema">
+            <div class="container">
+                <div class="section-label animate-on-scroll" data-i18n="careers-why-label">¿Por qué RCP?</div>
+                <h2 class="section-title animate-on-scroll" data-i18n="careers-why-title">Un modelo de trabajo <span
+                        class="accent">diferente</span></h2>
+                <p class="section-sub animate-on-scroll" data-i18n="careers-why-text">
+                    Operamos bajo un modelo de economía colaborativa: no contratamos empleados fijos,
+                    ensamblamos equipos de especialistas por proyecto. Tú decides cuándo, dónde y cómo trabajar.
+                </p>
+                <div class="cards-grid three-col" style="margin-top:48px;">
+                    <div class="card card-dark animate-on-scroll">
+                        <div class="card-icon">🕐</div>
+                        <h3 data-i18n="careers-val1-title">Autonomía Total</h3>
+                        <p data-i18n="careers-val1-text">Elige tus horarios y lugar de trabajo. Sin registro de jornada,
+                            sin exclusividad. Tú eres tu propio jefe.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll">
+                        <div class="card-icon">📋</div>
+                        <h3 data-i18n="careers-val2-title">Contratos por Proyecto</h3>
+                        <p data-i18n="careers-val2-text">Cada colaboración se define por entregables concretos. Sabes
+                            exactamente qué entregar y cuándo cobrar.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll">
+                        <div class="card-icon">🚀</div>
+                        <h3 data-i18n="careers-val3-title">Impacto Real</h3>
+                        <p data-i18n="careers-val3-text">Transforma negocios reales. Cada proyecto impacta directamente
+                            la vida de emprendedores dominicanos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PERFILES BUSCADOS ===== -->
+        <section class="section solucion">
+            <div class="container">
+                <div class="section-label animate-on-scroll" data-i18n="careers-roles-label">Perfiles que Buscamos</div>
+                <h2 class="section-title animate-on-scroll" data-i18n="careers-roles-title">Áreas de <span
+                        class="accent">colaboración</span></h2>
+
+                <div class="cards-grid" style="grid-template-columns: repeat(4, 1fr); margin-top:48px; gap:20px;">
+                    <div class="card card-dark animate-on-scroll" style="border-top:3px solid #ef4444;">
+                        <div class="card-icon" style="font-size:2rem;">⚖️</div>
+                        <h3 data-i18n="careers-role1-title">Consultoría Legal</h3>
+                        <p data-i18n="careers-role1-text">Abogados con experiencia en formalización empresarial, ONAPI,
+                            DGII, Ventanilla Única y licitaciones del Estado.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll" style="border-top:3px solid #f97316;">
+                        <div class="card-icon" style="font-size:2rem;">📊</div>
+                        <h3 data-i18n="careers-role2-title">Consultoría Financiera</h3>
+                        <p data-i18n="careers-role2-text">Contadores y analistas financieros expertos en auditorías,
+                            reestructuración y planificación fiscal para MIPYMEs.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll" style="border-top:3px solid var(--accent);">
+                        <div class="card-icon" style="font-size:2rem;">📱</div>
+                        <h3 data-i18n="careers-role3-title">Marketing Digital</h3>
+                        <p data-i18n="careers-role3-text">Especialistas en Meta Ads, Google Ads, SEO, CRM,
+                            automatización Martech y estrategia de contenidos.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll" style="border-top:3px solid #22c55e;">
+                        <div class="card-icon" style="font-size:2rem;">🤖</div>
+                        <h3 data-i18n="careers-role4-title">Tecnología e IA</h3>
+                        <p data-i18n="careers-role4-text">Desarrolladores web, ingenieros de IA, diseñadores UX/UI y
+                            especialistas en automatización con herramientas de inteligencia artificial.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CÓMO FUNCIONA ===== -->
+        <section class="section paquetes">
+            <div class="container">
+                <div class="section-label animate-on-scroll" data-i18n="careers-process-label">El Proceso</div>
+                <h2 class="section-title animate-on-scroll" data-i18n="careers-process-title">¿Cómo <span
+                        class="accent">colaboramos</span>?</h2>
+
+                <div class="cards-grid three-col" style="margin-top:48px;">
+                    <div class="card card-dark animate-on-scroll" style="text-align:center;">
+                        <div class="card-icon" style="font-size:2.5rem;">1️⃣</div>
+                        <h3 data-i18n="careers-step1-title">Postulación</h3>
+                        <p data-i18n="careers-step1-text">Envíanos tu CV y portafolio a través del formulario. Cuéntanos
+                            tu especialidad y experiencia.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll" style="text-align:center;">
+                        <div class="card-icon" style="font-size:2.5rem;">2️⃣</div>
+                        <h3 data-i18n="careers-step2-title">Evaluación</h3>
+                        <p data-i18n="careers-step2-text">Revisamos tu perfil y, si hay match, te invitamos a una
+                            conversación breve para conocerte.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll" style="text-align:center;">
+                        <div class="card-icon" style="font-size:2.5rem;">3️⃣</div>
+                        <h3 data-i18n="careers-step3-title">Colaboración</h3>
+                        <p data-i18n="careers-step3-text">Te asignamos proyectos según tu especialidad. Firmas un
+                            acuerdo de colaboración y empiezas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ESTÁNDARES ===== -->
+        <section class="section trust">
+            <div class="container">
+                <div class="section-label animate-on-scroll" data-i18n="careers-standards-label">Excelencia Operativa
+                </div>
+                <h2 class="section-title animate-on-scroll" data-i18n="careers-standards-title">Nuestros <span
+                        class="accent">estándares</span></h2>
+                <p class="section-sub animate-on-scroll" data-i18n="careers-standards-text">
+                    Garantizamos calidad a través de procesos estandarizados, documentación exhaustiva y auditorías de
+                    entregables con cero errores críticos.
+                </p>
+                <div class="cards-grid three-col" style="margin-top:48px;">
+                    <div class="card card-dark animate-on-scroll">
+                        <div class="card-icon">📖</div>
+                        <h3 data-i18n="careers-std1-title">SOPs Documentados</h3>
+                        <p data-i18n="careers-std1-text">Cada proceso tiene un procedimiento operativo estándar con
+                            instrucciones claras y replicables.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll">
+                        <div class="card-icon">✅</div>
+                        <h3 data-i18n="careers-std2-title">Auditorías de Calidad</h3>
+                        <p data-i18n="careers-std2-text">Sistema de checklists con política de cero errores críticos
+                            antes de cada entrega al cliente.</p>
+                    </div>
+                    <div class="card card-dark animate-on-scroll">
+                        <div class="card-icon">🔒</div>
+                        <h3 data-i18n="careers-std3-title">Confidencialidad</h3>
+                        <p data-i18n="careers-std3-text">Todos los colaboradores firman acuerdos de confidencialidad
+                            (NDA) para proteger la información de nuestros clientes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA APLICAR ===== -->
+        <section class="section contacto-section" style="text-align:center;">
+            <div class="container animate-on-scroll">
+                <h2 class="section-title" data-i18n="careers-cta-title">¿Listo para <span
+                        class="accent">colaborar</span>?</h2>
+                <p class="section-sub" data-i18n="careers-cta-sub">Envíanos tu perfil y nos pondremos en contacto cuando
+                    haya un proyecto para ti.</p>
+                <a href="mailto:rcpservicessrl@gmail.com?subject=Postulación%20RCP%20Services" class="btn-cta btn-lg"
+                    style="margin-top:24px;" data-i18n="careers-cta-btn">Enviar mi CV →</a>
+                <p style="margin-top:16px; color:var(--text-muted); font-size:0.85rem;" data-i18n="careers-cta-hint">
+                    Envía tu CV y portafolio a <strong>rcpservicessrl@gmail.com</strong> indicando tu área de
+                    especialidad.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container footer-inner">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-img-link">
+                        <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo" />
+                    </a>
+                    <p data-i18n="footer-desc">Agencia 360° de Transformación Empresarial y Digital<br>para MIPYMEs en
+                        la
+                        República Dominicana.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer-nav-title">Navegación</h4>
+                    <a href="index.html#problema" data-i18n="footer-link-problema">El Problema</a>
+                    <a href="index.html#solucion" data-i18n="footer-link-solucion">La Solución</a>
+                    <a href="index.html#paquetes" data-i18n="footer-link-paquetes">Paquetes</a>
+                    <a href="index.html#contacto" data-i18n="footer-link-contacto">Contacto</a>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer-services-title">Servicios</h4>
+                    <a href="index.html#solucion" data-i18n="footer-link-renovacion">Renovación</a>
+                    <a href="index.html#solucion" data-i18n="footer-link-consultoria">Consultoría</a>
+                    <a href="index.html#solucion" data-i18n="footer-link-publicidad">Publicidad</a>
+                </div>
+                <div class="footer-contact">
+                    <h4 data-i18n="footer-contact-title">Contacto</h4>
+                    <p>Av. Rómulo Betancourt 1302<br>Bella Vista, Santo Domingo, R.D.</p>
+                    <p><a href="tel:8298068092">829-806-8092</a></p>
+                    <p><a href="mailto:info@rcp.services">info@rcp.services</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <p data-i18n="footer-copy">© 2026 RCP Services. Todos los derechos reservados. Hecho con ❤️ en Santo
+                        Domingo, R.D.</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <a href="#inicio" class="back-top" id="backTop" aria-label="Volver arriba">↑</a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

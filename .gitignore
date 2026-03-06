@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Docs (keep out of repo)
+*.docx
+
+# Large media (consider Git LFS for these)
+# *.mp4
+# *.m4a
+# *.mp3

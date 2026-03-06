@@ -1,0 +1,13 @@
+{
+  "name": "RCP Services",
+  "short_name": "RCP",
+  "description": "Agencia 360° de Transformación Empresarial y Digital",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#282829",
+  "theme_color": "#FCB53F",
+  "icons": [
+    { "src": "Icono RCP.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "Icono RCP.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
