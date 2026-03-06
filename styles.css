@@ -368,9 +368,11 @@ body {
 }
 
 .nav-logo {
-  height: clamp(40px, 5vw, 60px);
+  height: clamp(36px, 4.5vw, 50px);
+  max-width: 180px;
   width: auto;
   display: block;
+  object-fit: contain;
   transition: var(--transition);
 }
 
