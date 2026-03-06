@@ -2188,3 +2188,67 @@ select option:hover {
 body.light-mode {
   --text-muted: #4a4a5a;
 }
+
+/* Responsive YouTube embed */
+.video-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Podcast card */
+.podcast-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.podcast-icon {
+  font-size: 2.5rem;
+}
+
+.podcast-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.podcast-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+.media-details {
+  margin-top: 32px;
+}
+
+.media-details h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.media-details ul {
+  padding-left: 20px;
+}
+
+.media-details li {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
