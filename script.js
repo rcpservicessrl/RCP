@@ -909,20 +909,49 @@ if (phoneField) {
     return defaultReplies[Math.floor(Math.random() * defaultReplies.length)];
   }
 
+  // Webhook endpoint configuration (can be updated to production URL when deployed)
+  const RCP_CHATBOT_WEBHOOK_URL = 'http://localhost:5678/webhook/rcp-chat';
+
   function handleUserInput(text) {
     if (!text.trim()) return;
     addMessage(text, 'user');
     chatInput.value = '';
+    
     // Show typing indicator
     const typingDiv = document.createElement('div');
     typingDiv.className = 'chat-msg bot chat-typing';
     typingDiv.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    setTimeout(() => {
+
+    // Call the local/production n8n webhook (with fallback to local FAQ on error/offline)
+    fetch(RCP_CHATBOT_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: text })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Webhook error');
+      return response.json();
+    })
+    .then(data => {
       typingDiv.remove();
-      addMessage(getReply(text));
-    }, 600 + Math.random() * 500);
+      if (data && data.response) {
+        addMessage(data.response);
+      } else {
+        addMessage(getReply(text));
+      }
+    })
+    .catch(error => {
+      console.warn('Webhook call failed, using local FAQ fallback:', error);
+      // Fallback response with slight artificial delay
+      setTimeout(() => {
+        typingDiv.remove();
+        addMessage(getReply(text));
+      }, 500);
+    });
   }
 
   function openChat() {
