@@ -1,3 +1,7 @@
+// ─── WEBHOOK ENDPOINTS (n8n Production Tunnel) ───
+const RCP_CHATBOT_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_chatbot/trigger/rcp-chat';
+const RCP_LEAD_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+
 // ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -759,8 +763,7 @@ if (contactForm) {
     };
 
     // Pipeline 1: Send to n8n backend (creates Odoo CRM lead + WhatsApp notification + AI diagnostic)
-    const RCP_LEAD_URL = 'https://0f957b2329139e.lhr.life/webhook/rcp_lead_capture/webhook%2520lead/rcp-lead';
-    fetch(RCP_LEAD_URL, {
+    fetch(RCP_LEAD_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
@@ -1041,10 +1044,7 @@ if (phoneField) {
     return defaults[Math.floor(Math.random() * defaults.length)];
   }
 
-  // Webhook endpoint configuration (can be updated to production URL when deployed)
-  const RCP_CHATBOT_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_chatbot/trigger/rcp-chat';
-  // Lead capture webhook (sends form data to n8n -> Odoo CRM)
-  const RCP_LEAD_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+  // Using global constants RCP_CHATBOT_WEBHOOK_URL and RCP_LEAD_WEBHOOK_URL
 
   function handleUserInput(text) {
     if (!text.trim()) return;
