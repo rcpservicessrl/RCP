@@ -1,6 +1,6 @@
 // ─── WEBHOOK ENDPOINTS (n8n Production Tunnel) ───
-const RCP_CHATBOT_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_chatbot/trigger/rcp-chat';
-const RCP_LEAD_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_CHATBOT_WEBHOOK_URL = 'https://9bb21fa2dcd5ba.lhr.life/webhook/rcp_chatbot/trigger/rcp-chat';
+const RCP_LEAD_WEBHOOK_URL = 'https://9bb21fa2dcd5ba.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
