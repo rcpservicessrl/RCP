@@ -2254,3 +2254,238 @@ body.light-mode {
   color: var(--text-muted);
   line-height: 1.5;
 }
+
+/* ═══════════════════════════════════════════════
+   ─── ECOSISTEMA OPERATIVO SOBERANO ────────────
+   ═══════════════════════════════════════════════ */
+
+.eco-section {
+  background: linear-gradient(180deg, var(--black) 0%, var(--black-2) 50%, var(--black) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(252,181,63,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.eco-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Eco Cards — subtle glow on hover */
+.eco-card {
+  transition: var(--transition);
+  border: 1px solid var(--card-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(252,181,63,0) 0%, rgba(252,181,63,0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.eco-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(252,181,63,0.12);
+}
+
+.eco-card:hover::after {
+  opacity: 1;
+}
+
+/* Comparison Table */
+.eco-compare {
+  margin-top: 40px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.eco-compare-header {
+  padding: 28px 30px;
+  text-align: center;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.eco-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.eco-compare-col {
+  padding: 36px 32px;
+}
+
+.eco-compare-col h4 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.eco-compare-trad {
+  border-right: 1px solid var(--card-border);
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.eco-compare-rcp {
+  background: rgba(252, 181, 63, 0.03);
+}
+
+.eco-compare-col .feature-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.eco-compare-col .feature-list li {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* 11 Layers Visual Grid */
+.eco-layers {
+  margin-top: 56px;
+  text-align: center;
+}
+
+.eco-layers-heading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.eco-layers-sub {
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+.eco-layers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.eco-layer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.eco-layer-pill:hover {
+  border-color: var(--accent);
+  background: rgba(252,181,63,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(252,181,63,0.1);
+}
+
+/* Staggered entrance animation for pills */
+.eco-layers-grid .eco-layer-pill {
+  opacity: 0;
+  animation: pillFadeIn 0.4s ease forwards;
+}
+
+.eco-layers-grid .eco-layer-pill:nth-child(1)  { animation-delay: 0.05s; }
+.eco-layers-grid .eco-layer-pill:nth-child(2)  { animation-delay: 0.10s; }
+.eco-layers-grid .eco-layer-pill:nth-child(3)  { animation-delay: 0.15s; }
+.eco-layers-grid .eco-layer-pill:nth-child(4)  { animation-delay: 0.20s; }
+.eco-layers-grid .eco-layer-pill:nth-child(5)  { animation-delay: 0.25s; }
+.eco-layers-grid .eco-layer-pill:nth-child(6)  { animation-delay: 0.30s; }
+.eco-layers-grid .eco-layer-pill:nth-child(7)  { animation-delay: 0.35s; }
+.eco-layers-grid .eco-layer-pill:nth-child(8)  { animation-delay: 0.40s; }
+.eco-layers-grid .eco-layer-pill:nth-child(9)  { animation-delay: 0.45s; }
+.eco-layers-grid .eco-layer-pill:nth-child(10) { animation-delay: 0.50s; }
+.eco-layers-grid .eco-layer-pill:nth-child(11) { animation-delay: 0.55s; }
+
+@keyframes pillFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Light theme overrides */
+[data-theme="light"] .eco-section {
+  background: linear-gradient(180deg, #fff 0%, #f5f3ef 50%, #fff 100%);
+}
+
+[data-theme="light"] .eco-compare-trad {
+  background: rgba(239, 68, 68, 0.04);
+}
+
+[data-theme="light"] .eco-compare-rcp {
+  background: rgba(252, 181, 63, 0.06);
+}
+
+[data-theme="light"] .eco-layer-pill {
+  background: #fff;
+  border-color: #d5d0c8;
+}
+
+[data-theme="light"] .eco-layer-pill:hover {
+  background: rgba(252,181,63,0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .eco-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eco-compare-trad {
+    border-right: none;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .eco-compare-col {
+    padding: 24px 20px;
+  }
+
+  .eco-layers-grid {
+    gap: 8px;
+  }
+
+  .eco-layer-pill {
+    font-size: 0.78rem;
+    padding: 8px 14px;
+  }
+}

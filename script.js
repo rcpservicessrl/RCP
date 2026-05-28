@@ -324,7 +324,50 @@ const translations = {
     'media-podcast-note4': 'Cómo RCP Services aplica la validación estratégica en cada proyecto',
     'media-cta-title': '¿Listo para <span class="accent">dar el paso</span>?',
     'media-cta-sub': 'Agenda tu diagnóstico 360° gratuito y comienza tu transformación.',
-    'media-cta-btn': 'Solicitar Diagnóstico Gratis →'
+    'media-cta-btn': 'Solicitar Diagnóstico Gratis →',
+    // ──── Ecosistema Soberano ────
+    'nav-ecosistema': 'Ecosistema',
+    'section-label-ecosistema': 'El Núcleo Digital',
+    'section-title-ecosistema': 'Un Ecosistema Operativo <span class="accent">Soberano</span> para tu Empresa',
+    'section-sub-ecosistema': 'Dejamos atrás la era del software fragmentado. Instalamos un núcleo digital unificado y privado.',
+    'eco-card-1-title': 'Soberanía Digital',
+    'eco-card-1-desc': 'Infraestructura digital privada. Eres dueño absoluto de tus bases de datos, contraseñas y operaciones, libre de tarifas recurrentes abusivas.',
+    'eco-card-2-title': 'Automatización Total',
+    'eco-card-2-desc': 'Unimos tus ventas, inventario, facturación y CRM en un solo canal automático. Tu empresa trabaja sola mientras duermes.',
+    'eco-card-3-title': 'IA Corporativa Privada',
+    'eco-card-3-desc': 'Asistentes de IA entrenados en tu local exclusivamente con tus manuales y políticas corporativas. Información 100% segura y confidencial.',
+    'eco-card-4-title': 'Estudio Creativo',
+    'eco-card-4-desc': 'Generación automática de piezas publicitarias, logos y banners con inteligencia artificial privada. Sin depender de diseñadores externos para cada pieza.',
+    'eco-card-5-title': 'Mensajería Inteligente',
+    'eco-card-5-desc': 'Bot de WhatsApp y Telegram conectado a tu CRM que responde a clientes 24/7 con la voz y conocimiento de tu empresa.',
+    'eco-card-6-title': 'Dashboard Directivo',
+    'eco-card-6-desc': 'Panel de control en tiempo real con métricas clave: CAC, LTV, ROI, ROAS. Tu junta directiva digital con datos accionables.',
+    'eco-comparativa-title': 'La Diferencia del Modelo Soberano',
+    'eco-comp-tradicional-title': 'Modelo Tradicional (Fragmentado)',
+    'eco-comp-rcp-title': 'Modelo RCP 360 Core (Soberano)',
+    'comp-item-1-trad': '❌ Múltiples suscripciones mensuales de software',
+    'comp-item-1-rcp': '✅ Costo de software de terceros reducido a $0',
+    'comp-item-2-trad': '❌ Proveedores sueltos sin comunicación entre sí',
+    'comp-item-2-rcp': '✅ Un solo equipo multidisciplinario unificado',
+    'comp-item-3-trad': '❌ Datos en servidores de terceros (poca privacidad)',
+    'comp-item-3-rcp': '✅ Base de datos vectorial y cifrada 100% privada',
+    'comp-item-4-trad': '❌ IA genérica compartida con millones de usuarios',
+    'comp-item-4-rcp': '✅ IA privada entrenada exclusivamente con tus datos',
+    'comp-item-5-trad': '❌ Sin automatización: todo depende de intervención humana',
+    'comp-item-5-rcp': '✅ Motor de automatización que conecta todas las capas 24/7',
+    'eco-layers-title': '11 Capas Integradas',
+    'eco-layers-sub': 'Cada capa de nuestro ecosistema trabaja en sincronía perfecta para tu empresa:',
+    'eco-layer-1': '🗄️ Base de Datos Blindada',
+    'eco-layer-2': '🧠 Motor de IA Local',
+    'eco-layer-3': '🔀 Enrutador Multi-IA',
+    'eco-layer-4': '💬 Chat Interno RAG',
+    'eco-layer-5': '⚡ Motor de Automatización',
+    'eco-layer-6': '📡 Gateway de Mensajería',
+    'eco-layer-7': '🔐 Túnel Cifrado',
+    'eco-layer-8': '🏢 Base de Datos ERP',
+    'eco-layer-9': '📊 ERP Central',
+    'eco-layer-10': '🎨 Estudio Creativo IA',
+    'eco-layer-11': '🎓 Plataforma de Capacitación'
   },
   en: {
     'nav-problema': 'The Problem',
@@ -556,7 +599,50 @@ const translations = {
     'media-podcast-note4': 'How RCP Services applies strategic validation in every project',
     'media-cta-title': 'Ready to <span class="accent">take the leap</span>?',
     'media-cta-sub': 'Schedule your free 360° diagnosis and begin your transformation.',
-    'media-cta-btn': 'Request Free Diagnosis →'
+    'media-cta-btn': 'Request Free Diagnosis →',
+    // ──── Sovereign Ecosystem (EN) ────
+    'nav-ecosistema': 'Ecosystem',
+    'section-label-ecosistema': 'The Digital Core',
+    'section-title-ecosistema': 'A <span class="accent">Sovereign</span> Business Operating System',
+    'section-sub-ecosistema': 'Leave fragmented software behind. We install a private, unified digital core in your business.',
+    'eco-card-1-title': 'Digital Sovereignty',
+    'eco-card-1-desc': 'Private digital infrastructure. You own 100% of your databases, passwords, and operations, free from abusive monthly subscriptions.',
+    'eco-card-2-title': 'Total Automation',
+    'eco-card-2-desc': 'We sync your sales, inventory, invoicing, and CRM into one single automated engine. Your business operates 24/7.',
+    'eco-card-3-title': 'Private Enterprise AI',
+    'eco-card-3-desc': 'AI assistants trained locally with your proprietary manuals and corporate data. 100% confidential and secure.',
+    'eco-card-4-title': 'Creative Studio',
+    'eco-card-4-desc': 'Automatic generation of ads, logos, and banners with private AI. No need for external designers for every piece.',
+    'eco-card-5-title': 'Smart Messaging',
+    'eco-card-5-desc': 'WhatsApp and Telegram bots connected to your CRM that respond to clients 24/7 with your company\'s voice and knowledge.',
+    'eco-card-6-title': 'Executive Dashboard',
+    'eco-card-6-desc': 'Real-time control panel with key metrics: CAC, LTV, ROI, ROAS. Your digital board of directors with actionable data.',
+    'eco-comparativa-title': 'The Sovereign Difference',
+    'eco-comp-tradicional-title': 'Traditional Model (Fragmented)',
+    'eco-comp-rcp-title': 'RCP 360 Core (Sovereign)',
+    'comp-item-1-trad': '❌ Multiple monthly software subscriptions',
+    'comp-item-1-rcp': '✅ Third-party software costs reduced to $0',
+    'comp-item-2-trad': '❌ Disconnected agencies working separately',
+    'comp-item-2-rcp': '✅ One single unified advisory board',
+    'comp-item-3-trad': '❌ Data stored on third-party servers (low privacy)',
+    'comp-item-3-rcp': '✅ 100% Private, encrypted, and vectorized database',
+    'comp-item-4-trad': '❌ Generic AI shared with millions of users',
+    'comp-item-4-rcp': '✅ Private AI trained exclusively with your data',
+    'comp-item-5-trad': '❌ No automation: everything depends on human intervention',
+    'comp-item-5-rcp': '✅ Automation engine connecting all layers 24/7',
+    'eco-layers-title': '11 Integrated Layers',
+    'eco-layers-sub': 'Each layer of our ecosystem works in perfect sync for your business:',
+    'eco-layer-1': '🗄️ Shielded Database',
+    'eco-layer-2': '🧠 Local AI Engine',
+    'eco-layer-3': '🔀 Multi-AI Router',
+    'eco-layer-4': '💬 Internal RAG Chat',
+    'eco-layer-5': '⚡ Automation Engine',
+    'eco-layer-6': '📡 Messaging Gateway',
+    'eco-layer-7': '🔐 Encrypted Tunnel',
+    'eco-layer-8': '🏢 ERP Database',
+    'eco-layer-9': '📊 Central ERP',
+    'eco-layer-10': '🎨 AI Creative Studio',
+    'eco-layer-11': '🎓 Training Platform'
   }
 };
 
@@ -662,8 +748,26 @@ if (contactForm) {
       return;
     }
 
+    // ─── DUAL PIPELINE: EmailJS (notification) + n8n Webhook (CRM/Odoo/AI Diagnostic) ───
+    const formData = {
+      user_name: contactForm.querySelector('[name="user_name"]')?.value || '',
+      user_company: contactForm.querySelector('[name="user_company"]')?.value || '',
+      user_email: contactForm.querySelector('[name="user_email"]')?.value || '',
+      user_phone: contactForm.querySelector('[name="user_phone"]')?.value || '',
+      user_service: contactForm.querySelector('[name="user_service"]')?.value || '',
+      user_message: contactForm.querySelector('[name="user_message"]')?.value || ''
+    };
+
+    // Pipeline 1: Send to n8n backend (creates Odoo CRM lead + WhatsApp notification + AI diagnostic)
+    const RCP_LEAD_URL = 'https://c30acf4ce604bb.lhr.life/webhook/rcp-lead';
+    fetch(RCP_LEAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    }).catch(err => console.warn('Lead webhook fallback (backend offline):', err));
+
+    // Pipeline 2: EmailJS email notification
     if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-      // Real EmailJS integration
       emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
         .then(() => {
           btn.textContent = '✅ ¡Solicitud enviada! Te contactaremos pronto.';
@@ -685,7 +789,7 @@ if (contactForm) {
           }, 3000);
         });
     } else {
-      // Fallback: simulate success (EmailJS not configured yet)
+      // Fallback: show success even if EmailJS not configured (n8n pipeline still runs)
       setTimeout(() => {
         btn.textContent = '✅ ¡Solicitud enviada! Te contactaremos pronto.';
         btn.style.background = '#22c55e';
@@ -866,11 +970,15 @@ if (phoneField) {
     }
   ];
 
-  const defaultReplies = [
+  const defaultReplies_es = [
     '🤓 ¡Buena pregunta! Para darte la mejor respuesta, te recomiendo agendar un <a href="#contacto" style="color:var(--accent)">diagnóstico 360° gratuito</a>. Es sin compromiso y en menos de 30 min tendrás claridad total.',
   ];
+  const defaultReplies_en = [
+    '🤓 Great question! For the best answer, I recommend scheduling a <a href="#contacto" style="color:var(--accent)">free 360° diagnosis</a>. It\'s risk-free and in less than 30 min you\'ll have total clarity.',
+  ];
 
-  const quickButtons = ['¿Qué servicios ofrecen?', '¿Cuánto cuesta?', 'Diagnóstico gratis', 'Contacto'];
+  const quickButtons_es = ['¿Qué servicios ofrecen?', '¿Cuánto cuesta?', 'Diagnóstico gratis', 'Contacto'];
+  const quickButtons_en = ['What services do you offer?', 'How much does it cost?', 'Free diagnosis', 'Contact'];
 
   function addMessage(text, type = 'bot') {
     const div = document.createElement('div');
@@ -883,7 +991,9 @@ if (phoneField) {
   function addQuickButtons() {
     const container = document.createElement('div');
     container.className = 'chat-quick-btns';
-    quickButtons.forEach(label => {
+    const isEN = document.documentElement.lang === 'en';
+    const buttons = isEN ? quickButtons_en : quickButtons_es;
+    buttons.forEach(label => {
       const btn = document.createElement('button');
       btn.className = 'chat-quick-btn';
       btn.textContent = label;
@@ -897,7 +1007,18 @@ if (phoneField) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
+  // ─── SECURITY GUARDRAIL: Confidential keyword list ───
+  const CONFIDENTIAL_KEYWORDS = ['docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 'webhook', 'pgvector', 'moodle', 'inventree', 'openclaw', 'open webui', 'api key', 'apikey', 'credenciales', 'credentials', 'servidor interno', 'internal server', 'ip address', '192.168', '127.0.0', 'puerto 5678', 'port 5678', 'puerto 4000', 'port 4000', 'puerto 8069', 'port 8069', 'puerto 11434', 'port 11434', 'puerto 8188', 'port 8188', 'ssh tunnel', 'localhost.run', 'lhr.life'];
+  const SECURITY_RESPONSE_ES = '🔒 <strong>Seguridad y Confidencialidad:</strong> Para garantizar la protección de datos, toda nuestra infraestructura digital opera bajo estrictos protocolos de cifrado privado de punta a punta. Las especificaciones técnicas de servidores, bases de datos y herramientas internas son confidenciales y se manejan en entornos aislados. Si requieres detalles de integración para tu empresa, te invitamos a <a href="#contacto" style="color:var(--accent)">agendar una sesión de consultoría técnica privada</a>.';
+  const SECURITY_RESPONSE_EN = '🔒 <strong>Security & Confidentiality:</strong> To guarantee data protection, all our digital infrastructure operates under strict end-to-end private encryption protocols. Technical specifications of servers, databases, and internal tools are confidential and managed in isolated environments. If you require integration details for your business, we invite you to <a href="#contacto" style="color:var(--accent)">schedule a private technical consulting session</a>.';
+
+  function isConfidentialQuery(text) {
+    const lower = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return CONFIDENTIAL_KEYWORDS.some(kw => lower.includes(kw));
+  }
+
   function getReply(input) {
+    const isEN = document.documentElement.lang === 'en';
     const lower = input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     let bestScore = 0;
     let bestAnswer = null;
@@ -910,21 +1031,34 @@ if (phoneField) {
       }
       if (score > bestScore) {
         bestScore = score;
-        bestAnswer = item.a;
+        // Use English answer if available and site is in EN
+        bestAnswer = (isEN && item.a_en) ? item.a_en : item.a;
       }
     }
 
     if (bestAnswer) return bestAnswer;
-    return defaultReplies[Math.floor(Math.random() * defaultReplies.length)];
+    const defaults = isEN ? defaultReplies_en : defaultReplies_es;
+    return defaults[Math.floor(Math.random() * defaults.length)];
   }
 
   // Webhook endpoint configuration (can be updated to production URL when deployed)
   const RCP_CHATBOT_WEBHOOK_URL = 'https://c30acf4ce604bb.lhr.life/webhook/rcp-chat';
+  // Lead capture webhook (sends form data to n8n -> Odoo CRM)
+  const RCP_LEAD_WEBHOOK_URL = 'https://c30acf4ce604bb.lhr.life/webhook/rcp-lead';
 
   function handleUserInput(text) {
     if (!text.trim()) return;
     addMessage(text, 'user');
     chatInput.value = '';
+
+    // ─── SECURITY GUARDRAIL: Intercept confidential queries BEFORE sending to webhook ───
+    if (isConfidentialQuery(text)) {
+      const isEN = document.documentElement.lang === 'en';
+      setTimeout(() => {
+        addMessage(isEN ? SECURITY_RESPONSE_EN : SECURITY_RESPONSE_ES);
+      }, 300);
+      return; // BLOCK: Never send confidential queries to the server
+    }
     
     // Show typing indicator
     const typingDiv = document.createElement('div');
@@ -933,13 +1067,13 @@ if (phoneField) {
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Call the local/production n8n webhook (with fallback to local FAQ on error/offline)
+    // Call the backend AI pipeline (n8n -> LiteLLM -> Gemini/Ollama) with fallback to local FAQ
     fetch(RCP_CHATBOT_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: text })
+      body: JSON.stringify({ message: text, lang: document.documentElement.lang || 'es' })
     })
     .then(response => {
       if (!response.ok) throw new Error('Webhook error');
@@ -954,8 +1088,8 @@ if (phoneField) {
       }
     })
     .catch(error => {
-      console.warn('Webhook call failed, using local FAQ fallback:', error);
-      // Fallback response with slight artificial delay
+      console.warn('Backend AI pipeline unavailable, using local FAQ fallback:', error);
+      // Fallback to client-side FAQ with slight artificial delay
       setTimeout(() => {
         typingDiv.remove();
         addMessage(getReply(text));
