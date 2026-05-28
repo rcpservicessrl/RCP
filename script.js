@@ -1,4 +1,4 @@
-﻿// ─── NAVBAR SCROLL ───
+// ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
@@ -734,6 +734,11 @@ if (phoneField) {
   // FAQ knowledge base — scored by keyword hit count for smarter matching
   // Supports Spanish (a) and English (a_en) answers based on selected language
   const faq = [
+    {
+      k: ['docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 'webhook', 'ip', 'token', 'clave', 'servidor', 'api key', 'credenciales', 'base de datos', 'database', 'port', 'puerto', 'server'],
+      a: '🔒 <strong>Seguridad y Confidencialidad:</strong> Para garantizar la protección de datos, toda nuestra infraestructura digital opera bajo estrictos protocolos de cifrado privado de punta a punta. Las especificaciones técnicas de servidores, bases de datos y herramientas internas son confidenciales y se manejan en entornos aislados. Si requieres detalles de integración para tu empresa, te invitamos a agendar una sesión de consultoría técnica privada.',
+      a_en: '🔒 <strong>Security & Confidentiality:</strong> To guarantee data protection, all our digital infrastructure operates under strict end-to-end private encryption protocols. Technical specifications of servers, databases, and internal tools are confidential and managed in isolated environments. If you require integration details for your business, we invite you to schedule a private technical consulting session.'
+    },
     {
       k: ['servicio', 'hacen', 'ofrec', 'qué hacen', 'que hacen', 'service', 'what do', 'do you do', 'pilar'],
       a: '¡Buena pregunta! 😊 Somos una <strong>Agencia 360°</strong> con tres pilares:<br><br>🔄 <strong>Renovación</strong> — Rebranding, IA y mejora de procesos.<br>⚖️ <strong>Consultoría</strong> — Formalización legal, fiscal y auditoría financiera.<br>📣 <strong>Publicidad</strong> — Marketing digital, embudos de conversión y CRM.<br><br>¿Quieres saber más sobre alguno de estos pilares?',
