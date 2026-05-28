@@ -732,132 +732,136 @@ if (phoneField) {
   let isOpen = false;
 
   // FAQ knowledge base — scored by keyword hit count for smarter matching
+  // Supports Spanish (a) and English (a_en) answers based on selected language
   const faq = [
     {
-      k: ['servicio', 'hacen', 'ofrec', 'qué hacen', 'que hacen', 'service', 'what do', 'do you do'],
-      a: '¡Buena pregunta! 😊 Somos una <strong>Agencia 360°</strong> con tres pilares:<br><br>🔄 <strong>Renovación</strong> — Rebranding, IA, procesos<br>⚖️ <strong>Consultoría</strong> — Legal, financiera, formalización<br>📣 <strong>Publicidad</strong> — Marketing digital, campañas, CRM<br><br>Todo integrado en un solo ecosistema. ¿Quieres saber más sobre alguno?'
+      k: ['servicio', 'hacen', 'ofrec', 'qué hacen', 'que hacen', 'service', 'what do', 'do you do', 'pilar'],
+      a: '¡Buena pregunta! 😊 Somos una <strong>Agencia 360°</strong> con tres pilares:<br><br>🔄 <strong>Renovación</strong> — Rebranding, IA y mejora de procesos.<br>⚖️ <strong>Consultoría</strong> — Formalización legal, fiscal y auditoría financiera.<br>📣 <strong>Publicidad</strong> — Marketing digital, embudos de conversión y CRM.<br><br>¿Quieres saber más sobre alguno de estos pilares?',
+      a_en: 'Great question! 😊 We are a <strong>360° Agency</strong> built on three pillars:<br><br>🔄 <strong>Revitalization</strong> — Rebranding, AI implementation, and process optimization.<br>⚖️ <strong>Consulting</strong> — Legal/tax formalization and financial auditing.<br>📣 <strong>Promotion</strong> — Digital marketing, conversion funnels, and CRM.<br><br>Would you like to know more about any of these?'
     },
-
     {
-      k: ['precio', 'costo', 'cuánto', 'cuanto cuesta', 'tarifa', 'cost', 'price', 'how much', 'pago', 'inversión'],
-      a: '💰 Tenemos 3 planes adaptados a cada etapa:<br><br>📦 <strong>Básico</strong> — Pago único (formalización + branding + web)<br>📊 <strong>Avanzado</strong> — Setup + iguala mensual (auditoría + campañas)<br>⭐ <strong>Premium</strong> — Retainer mensual (CRM con IA, Martech, 24/7)<br><br>Cada cotización es personalizada según tu negocio. ¿Te agendo un <a href="#contacto" style="color:var(--accent)">diagnóstico gratuito</a>? 🎯'
+      k: ['precio', 'costo', 'cuánto', 'cuanto cuesta', 'tarifa', 'cost', 'price', 'how much', 'pago', 'inversión', 'inversion', 'planes', 'plan', 'paquete'],
+      a: '💰 Tenemos 3 paquetes principales adaptados a la etapa de tu negocio:<br><br>📦 <strong>Básico (Reanimación Temprana)</strong> — Pago único. Para formalización, marca y web base.<br>📊 <strong>Avanzado (Estabilización y Crecimiento)</strong> — Setup + iguala mensual. Para auditoría, procesos y campañas activas.<br>⭐ <strong>Premium (Vitalidad y Liderazgo)</strong> — Retainer mensual. CRM con IA, Martech 360 y acompañamiento directivo.<br><br>¿Te gustaría que te coticemos alguno en específico o agendamos tu <a href="#contacto" style="color:var(--accent)">diagnóstico gratuito</a>? 🎯',
+      a_en: '💰 We offer 3 main packages tailored to your business stage:<br><br>📦 <strong>Basic (Early Revival)</strong> — One-time payment. Best for formalization, brand, and basic web presence.<br>📊 <strong>Advanced (Stabilization & Growth)</strong> — Setup + monthly retainer. Includes financial audit, processes, and active campaigns.<br>⭐ <strong>Premium (Vitality & Leadership)</strong> — Monthly retainer. Advanced CRM with AI, 360 Martech, and direct board-level advice.<br><br>Would you like details on a specific plan or shall we schedule your <a href="#contacto" style="color:var(--accent)">free diagnosis</a>? 🎯'
     },
-
+    {
+      k: ['basico', 'reanimacion temprana', 'basic', 'early revival'],
+      a: '📦 <strong>Paquete Básico: Reanimación Temprana</strong> (Pago único):<br><br>Diseñado para emprendedores y pequeños negocios informales. Incluye:<br>✅ Diagnóstico empresarial básico.<br>✅ Formalización legal (ONAPI, Registro Mercantil, RNC).<br>✅ Diseño de logotipo e identidad visual base.<br>✅ Landing page con perfiles de redes sociales.<br><br>Es ideal para sentar las bases de tu negocio. ¿Te interesa?',
+      a_en: '📦 <strong>Basic Plan: Early Revival</strong> (One-time payment):<br><br>Designed for startup entrepreneurs and informal small businesses. Includes:<br>✅ Basic business diagnosis.<br>✅ Legal formalization (ONAPI, Mercantile Registry, Tax ID/RNC).<br>✅ Logo design and basic visual identity.<br>✅ Landing page and social media profiles setup.<br><br>It is ideal for building your business foundations. Interested?'
+    },
+    {
+      k: ['avanzado', 'estabilizacion y crecimiento', 'advanced', 'stabilization'],
+      a: '📊 <strong>Paquete Avanzado: Estabilización y Crecimiento</strong> (Setup + Iguala mensual):<br><br>Para empresas en marcha que buscan ordenar sus operaciones y vender más. Incluye:<br>✅ Todo lo del Plan Básico.<br>✅ Auditoría financiera profunda y planificación fiscal.<br>✅ Optimización y manuales de procesos internos (SOPs).<br>✅ Campañas activas en Meta Ads y Google Ads.<br>✅ Posicionamiento SEO local y reportes mensuales.<br><br>Ideal para acelerar tus ventas ordenadamente. ¿Hablamos de este plan?',
+      a_en: '📊 <strong>Advanced Plan: Stabilization & Growth</strong> (Setup + Monthly retainer):<br><br>For active businesses looking to organize operations and scale sales. Includes:<br>✅ Everything in the Basic Plan.<br>✅ Deep financial audit and tax planning.<br>✅ Internal process optimization and SOP manuals.<br>✅ Active advertising campaigns on Meta Ads & Google Ads.<br>✅ Local SEO optimization and monthly reports.<br><br>Ideal for scaling your sales structure. Shall we discuss this plan?'
+    },
+    {
+      k: ['premium', 'vitalidad y liderazgo', 'vitality and leadership'],
+      a: '⭐ <strong>Paquete Premium: Vitalidad y Liderazgo</strong> (Retainer mensual):<br><br>Nuestra solución más robusta para empresas que buscan dominar su nicho y automatizar. Incluye:<br>✅ Todo lo del Plan Avanzado.<br>✅ CRM inteligente configurado con Inteligencia Actorial.<br>✅ Automatizaciones operativas avanzadas.<br>✅ Campañas de marketing multicanal integrales.<br>✅ Tablero digital (dashboard) de métricas en tiempo real.<br>✅ Acompañamiento como tu Junta Directiva Externa y asesoría para licitaciones.<br><br>¿Te gustaría agendar una reunión para este plan?',
+      a_en: '⭐ <strong>Premium Plan: Vitality & Leadership</strong> (Monthly retainer):<br><br>Our most robust solution for companies seeking to dominate their niche and automate. Includes:<br>✅ Everything in the Advanced Plan.<br>✅ Smart CRM configured with Artificial Intelligence.<br>✅ Advanced operational and marketing automations.<br>✅ Comprehensive multi-channel marketing campaigns.<br>✅ Real-time KPI dashboard (CAC, LTV, ROI).<br>✅ Ongoing advisory as your External Board of Directors and bidding preparation.<br><br>Would you like to schedule a call for this plan?'
+    },
     {
       k: ['diagnóstico', 'diagnostico', 'gratis', 'gratuito', 'free', 'diagnosis'],
-      a: '🎁 ¡Por supuesto! Ofrecemos un <strong>Diagnóstico 360° totalmente gratuito</strong>. Analizamos tu negocio en las tres áreas (Renovación, Consultoría y Publicidad) y te entregamos un plan de acción personalizado.<br><br>Es sin compromiso y te da claridad total sobre dónde estás y hacia dónde puedes ir. <a href="#contacto" style="color:var(--accent)">Solicítalo aquí →</a>'
+      a: '🎁 ¡Por supuesto! Ofrecemos un <strong>Diagnóstico 360° totalmente gratuito</strong>.<br><br>Analizamos tu negocio en tres dimensiones: marca/procesos, situación legal/fiscal y marketing digital. Te entregamos un reporte con tu score de arritmia y los puntos de fuga de dinero.<br><br>Es 100% sin compromiso. <a href="#contacto" style="color:var(--accent)">Solicítalo haciendo clic aquí →</a>',
+      a_en: '🎁 Absolutely! We offer a **fully free 360° Business Diagnosis**.<br><br>We audit your business across three dimensions: branding/processes, legal/tax health, and digital marketing. We deliver a report showing your business arrhythmia score and where you are losing money.<br><br>It is 100% risk-free. <a href="#contacto" style="color:var(--accent)">Request it here →</a>'
     },
-
     {
-      k: ['contact', 'teléfono', 'telefono', 'llamar', 'whatsapp', 'correo', 'email', 'phone', 'call'],
-      a: '📱 ¡Estamos a un mensaje de distancia!<br><br>📍 <strong>Oficinas</strong>: Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo<br>💬 <strong>WhatsApp</strong>: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a><br>📧 <strong>Email</strong>: <a href="mailto:rcpservicessrl@gmail.com" style="color:var(--accent)">rcpservicessrl@gmail.com</a><br>📸 <strong>Instagram</strong>: <a href="https://www.instagram.com/rcpservices/" style="color:var(--accent)">@rcpservices</a><br><br>¿Prefieres que te llamemos? Déjanos tu número en el <a href="#contacto" style="color:var(--accent)">formulario</a> 😉'
+      k: ['contact', 'teléfono', 'telefono', 'llamar', 'whatsapp', 'correo', 'email', 'phone', 'call', 'oficina', 'donde estan', 'bella vista'],
+      a: '📱 ¡Estamos a un mensaje de distancia!<br><br>📍 <strong>Oficinas</strong>: Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, R.D.<br>💬 <strong>WhatsApp</strong>: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a><br>📧 <strong>Email</strong>: <a href="mailto:rcpservicessrl@gmail.com" style="color:var(--accent)">rcpservicessrl@gmail.com</a><br>📸 <strong>Instagram</strong>: <a href="https://www.instagram.com/rcpservices/" style="color:var(--accent)">@rcpservices</a><br><br>¿Prefieres que te contactemos nosotros? Déjanos tus datos en el <a href="#contacto" style="color:var(--accent)">formulario</a>.',
+      a_en: '📱 We are just a message away!<br><br>📍 **Headquarters**: Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, D.R.<br>💬 **WhatsApp**: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a><br>📧 **Email**: <a href="mailto:rcpservicessrl@gmail.com" style="color:var(--accent)">rcpservicessrl@gmail.com</a><br>📸 **Instagram**: <a href="https://www.instagram.com/rcpservices/" style="color:var(--accent)">@rcpservices</a><br><br>Or let us contact you: fill out the <a href="#contacto" style="color:var(--accent)">contact form</a>.'
     },
-
     {
-      k: ['renovación', 'renovacion', 'rebranding', 'marca', 'revitalization', 'identidad', 'proceso'],
-      a: '🔄 <strong>Renovación Estratégica</strong> es nuestro primer pilar. Incluye:<br><br>✅ Rebranding corporativo con identidad sólida<br>✅ Implementación de IA en procesos internos<br>✅ Automatización de flujos operativos<br>✅ Diseño de cultura organizacional orientada a resultados<br><br>Es como darle un <em>desfibrilador</em> a tu empresa 💪'
+      k: ['renovación', 'renovacion', 'rebranding', 'marca', 'revitalization', 'identidad', 'proceso', 'automatiz'],
+      a: '🔄 <strong>Renovación Estratégica</strong> es el primer pilar. Consiste en:<br><br>✅ Rediseñar la identidad visual y marca corporativa (Rebranding).<br>✅ Analizar la salud de tu marca en el mercado.<br>✅ Automatizar flujos de trabajo e introducir herramientas de IA para ahorrar tiempo y dinero.<br>✅ Rediseñar y documentar procesos internos (SOPs).<br><br>¡Inyectamos nueva energía operativa en tu negocio!',
+      a_en: '🔄 <strong>Strategic Revitalization</strong> is our first pillar. It includes:<br><br>✅ Redesigning corporate identity and brand image (Rebranding).<br>✅ Market brand health analysis.<br>✅ Workflow automation and AI tools integration to save time and money.<br>✅ Standard operating procedures (SOPs) mapping and documentation.<br><br>We inject new operational energy into your business!'
     },
-
     {
-      k: ['consultoría', 'consultoria', 'legal', 'financ', 'formalización', 'formalizacion', 'auditoría', 'auditoria'],
-      a: '⚖️ <strong>Consultoría Integral</strong> te cubre en dos frentes:<br><br>📑 <strong>Legal</strong>: Formalización expedita (Ventanilla Única, ONAPI, DGII), preparación para licitaciones del Estado<br>📊 <strong>Financiera</strong>: Auditoría, reestructuración, planificación fiscal, saneamiento<br><br>¿Sabías que con la <strong>Ley 488-08</strong> puedes acceder al 20% de las compras del Estado? 🏛️'
+      k: ['consultoría', 'consultoria', 'legal', 'financ', 'formalización', 'formalizacion', 'auditoría', 'auditoria', 'contab', 'rnc', 'dgii', 'onapi', 'impuestos', 'fiscal'],
+      a: '⚖️ <strong>Consultoría Integral</strong> blindará legal y financieramente tu empresa:<br><br>📑 <strong>Legal y Fiscal</strong>: Registro en ONAPI, Cámara de Comercio, obtención de RNC, planificación fiscal, contratos y regularización ante la DGII.<br>📊 <strong>Financiero</strong>: Auditoría contable, balances, reducción de costos y saneamiento de cuentas.<br><br>Te convertimos en un negocio formal elegible para créditos y grandes clientes. ¿Tienes alguna duda fiscal?',
+      a_en: '⚖️ <strong>Comprehensive Consulting</strong> secures your business legally and financially:<br><br>📑 **Legal & Tax**: Trademark registration with ONAPI, Mercantile Registry, Tax ID (RNC) setup, tax planning, and DGII compliance.<br>📊 **Financial**: Accounting audits, financial statements, cost reductions, and debt restructuring.<br><br>We transform your informal business into a corporate entity eligible for bank credit and major clients.'
     },
-
     {
-      k: ['publicidad', 'marketing', 'digital', 'campaña', 'campana', 'ads', 'seo', 'promotion', 'meta ads', 'google ads'],
-      a: '📣 <strong>Publicidad Digital</strong> con tecnología de punta:<br><br>🌐 Ecosistemas web de alta conversión<br>📱 Campañas Meta Ads y Google Ads optimizadas por IA<br>🤖 Automatización Martech completa<br>📈 Gestión de CRM y posicionamiento SEO<br><br>No vendemos publicidad genérica — creamos máquinas de captación de clientes 🎯'
+      k: ['publicidad', 'marketing', 'digital', 'campaña', 'campana', 'ads', 'seo', 'promotion', 'meta ads', 'google ads', 'web', 'landing', 'crm'],
+      a: '📣 <strong>Publicidad Digital</strong> orientada al retorno de inversión (ROI):<br><br>🌐 Desarrollo de sitios web y landing pages rápidas y optimizadas para móviles.<br>🎯 Campañas en Meta Ads (Facebook/Instagram) y Google Ads.<br>📈 Posicionamiento SEO local para aparecer en Google Maps.<br>🤖 Configuración de CRM y automatizaciones de Martech (marketing tecnológico).<br><br>No buscamos likes de vanidad, buscamos conversiones y clientes reales.',
+      a_en: '📣 <strong>Digital Promotion</strong> focused on return on investment (ROI):<br><br>🌐 Web development and conversion-focused landing pages.<br>🎯 Target ads campaigns on Meta Ads (Facebook/Instagram) and Google Ads.<br>📈 Local SEO positioning to get you found on Google Maps.<br>🤖 CRM setup and Martech (marketing technology) automations.<br><br>We do not sell vanity likes; we build client-acquisition machines.'
     },
-
     {
-      k: ['mipyme', 'pyme', 'pequeña', 'empresa', 'negocio', 'emprendimiento'],
-      a: '🏢 Estamos enfocados 100% en <strong>MIPYMEs en República Dominicana</strong>. El 98.5% de las empresas dominicanas son MIPYMEs, y la mayoría padece:<br><br>📉 Baja productividad<br>⚠️ Informalidad<br>🌐 Ceguera digital<br><br>Nosotros atacamos esos tres dolores simultáneamente. ¡Es como una reanimación empresarial! 🫀'
+      k: ['mipyme', 'pyme', 'pequeña', 'empresa', 'negocio', 'emprendimiento', 'dominicana'],
+      a: '🏢 Nos especializamos exclusivamente en <strong>MIPYMEs de la República Dominicana</strong>.<br><br>El 98.5% del tejido empresarial dominicano son MIPYMEs, y la gran mayoría enfrenta informalidad, procesos ineficientes y baja presencia online. Diseñamos tarifas accesibles y metodologías prácticas para nuestro mercado.',
+      a_en: '🏢 We specialize exclusively in **Dominican MSMEs** (Micro, Small, and Medium Enterprises).<br><br>98.5% of Dominican companies are MSMEs. Most face challenges with legal informality, inefficient manual processes, and lack of digital presence. We tailor accessible rates and practical methods for our local market.'
     },
-
     {
-      k: ['ley', '488', 'estado', 'gobierno', 'licitación', 'licitacion', 'promipyme', 'micm'],
-      a: '🏛️ ¡Esta es una joya que pocos conocen! Con la <strong>Ley 488-08</strong>, las MIPYMEs formalizadas acceden a:<br><br>🏆 El <strong>20% de las compras del Estado</strong><br>💰 Financiamientos blandos a través de Promipyme<br>🤝 Vinculación con MICM y Centros MIPYMES<br><br>Nosotros te preparamos completo para que puedas licitar. ¿Te interesa?'
+      k: ['ley', '488', 'estado', 'gobierno', 'licitación', 'licitacion', 'promipyme', 'micm', 'rpe'],
+      a: '🏛️ ¡Esta es una gran oportunidad! Con la **Ley 488-08**, las MIPYMEs formalizadas en R.D. tienen acceso a:<br><br>🏆 La **reserva del 20% de las compras del Estado** (licitaciones exclusivas para MIPYMEs).<br>💰 Préstamos blandos en Promipyme (tasas de hasta 12% anual).<br>🤝 Programas especiales de fondos y apoyo con el MICM.<br><br>En RCP te ayudamos a obtener tu certificación MIPYME y tu Registro de Proveedor del Estado (RPE) paso a paso.',
+      a_en: '🏛️ This is a huge opportunity! Under **Law 488-08**, formalized MSMEs in the D.R. gain access to:<br><br>🏆 A **20% mandatory reserve in government procurement** (bids exclusive for MSMEs).<br>💰 Soft loans via Promipyme (interest rates around 12% annually).<br>🤝 Specialized funding programs through the MICM.<br><br>At RCP, we handle your MSME certification and Government Provider Registry (RPE) setup step by step.'
     },
-
     {
-      k: ['oceano', 'océano', 'azul', 'erac', 'competencia', 'estrategia'],
-      a: '🌊 Aplicamos la <strong>Estrategia de Océano Azul (ERAC)</strong>:<br><br>✂️ <strong>Eliminamos</strong> la fricción de múltiples proveedores<br>⏱️ <strong>Reducimos</strong> la microgestión administrativa<br>📈 <strong>Aumentamos</strong> el enfoque en ROI e IA<br>🚀 <strong>Creamos</strong> una Junta Directiva Externa 360°<br><br>No competimos con las agencias tradicionales — <em>las hacemos irrelevantes</em> 😏'
+      k: ['oceano', 'océano', 'azul', 'erac', 'competencia', 'estrategia', 'diferencia'],
+      a: '🌊 Aplicamos la **Estrategia de Océano Azul (Matriz ERAC)** para hacer irrelevante a la competencia:<br><br>✂️ **Eliminamos**: La fragmentación de tener múltiples proveedores descoordinados.<br>⏱️ **Reducimos**: La microgestión del dueño de negocio y la burocracia legal.<br>📈 **Aumentamos**: El enfoque en rentabilidad real (ROI) y automatización con IA.<br>🚀 **Creamos**: Una Junta Directiva Externa 360° unificada en un solo canal.',
+      a_en: '🌊 We apply the **Blue Ocean Strategy (ERRC Framework)** to make the competition irrelevant:<br><br>✂️ **Eliminate**: The friction and cost of managing multiple isolated providers.<br>⏱️ **Reduce**: Administrative micromanagement for the owner and legal bureaucracy.<br>📈 **Raise**: Clear focus on actual profitability (ROI) and AI process automation.<br>🚀 **Create**: A unified External Board of Directors (CFO, CMO, Legal) in a single channel.'
     },
-
     {
-      k: ['equipo', 'team', 'quién', 'quien', 'fundador', 'balmis'],
-      a: '👥 ¡Un equipo multidisciplinario a tu servicio!<br><br>🎯 <strong>Balmis Reynoso</strong> — Gerente de Ventas<br>⚖️ Unidad de Consultoría Legal y Financiera<br>🔄 Unidad de Renovación y Procesos<br>📣 Unidad de Publicidad y Tecnología (Martech)<br><br>Somos tu <strong>Junta Directiva Externa</strong> completa 💼'
+      k: ['equipo', 'team', 'quién', 'quien', 'fundador', 'balmis', 'lider'],
+      a: '👥 ¡Un equipo multidisciplinario dominicano a tu servicio!<br><br>🎯 <strong>Balmis Reynoso</strong> — Gerente de Ventas y Estrategia.<br>⚖️ Unidad de Consultoría Legal y Financiera.<br>🔄 Unidad de Renovación y Procesos.<br>📣 Unidad de Publicidad y Tecnología (Martech).<br><br>Operamos bajo un modelo colaborativo, integrando a los mejores profesionales independientes para tu proyecto.',
+      a_en: '👥 A Dominican multidisciplinary team at your service!<br><br>🎯 <strong>Balmis Reynoso</strong> — Sales & Strategy Manager.<br>⚖️ Legal & Financial Consulting Unit.<br>🔄 Revitalization & Process Optimization Unit.<br>📣 Promotion & Technology (Martech) Unit.<br><br>We operate under a collaborative model, bringing together specialized independent professionals for your project.'
     },
-
     {
       k: ['junta', 'directiva', 'externa', 'board'],
-      a: '💼 Operamos como tu <strong>Junta Directiva Externa</strong>. Imagina tener:<br><br>👔 Un CFO (Director Financiero)<br>⚖️ Un Director Legal<br>📣 Un CMO (Director de Marketing)<br><br>...todo en un solo canal, sin los costos de una nómina ejecutiva. <em>Es como tener un equipo directivo premium accesible para tu MIPYME.</em>'
+      a: '💼 Operamos como tu **Junta Directiva Externa**. Imagina contar con:<br><br>👔 Un CFO (Director Financiero) cuidando tu rentabilidad.<br>⚖️ Un Director Legal blindando tus contratos.<br>📣 Un CMO (Director de Marketing) atrayendo clientes diarios.<br><br>Todo coordinado en una sola tarifa mensual, sin los costos de una nómina ejecutiva tradicional. ¡Es el cerebro estratégico que tu MIPYME necesita!',
+      a_en: '💼 We operate as your **External Board of Directors**. Imagine having:<br><br>👔 A CFO (Chief Financial Officer) watching your profit margins.<br>⚖️ A Legal Director shielding your business contracts.<br>📣 A CMO (Chief Marketing Officer) driving daily client acquisition.<br><br>All integrated for a single monthly fee, saving you the cost of executive payrolls. It is the strategic brain your business deserves!'
     },
-
     {
-      k: ['ia', 'inteligencia artificial', 'ai', 'chatbot', 'automatiz', 'tecnología', 'tecnologia', 'crm'],
-      a: '🤖 <strong>La IA es nuestro motor secreto</strong>:<br><br>📝 Acelera redacción legal y financiera<br>🎯 Segmenta publicidad con precisión predictiva<br>💬 Opera chatbots 24/7 para calificar prospectos<br>📊 CRM inteligente con automatización completa<br><br>La tecnología no reemplaza al humano — lo <em>potencia</em> ⚡'
+      k: ['ia', 'inteligencia artificial', 'ai', 'chatbot', 'tecnología', 'tecnologia', 'app', 'plataforma', 'rcp 360', 'pwa', 'supabase', 'flutterflow'],
+      a: '🤖 **Tecnología e IA en RCP**:<br><br>Utilizamos herramientas de IA (como Gemini) para acelerar borradores legales, diagnosticar arritmias y automatizar el CRM. Además, estamos diseñando la plataforma **RCP 360 (PWA)** en FlutterFlow y Supabase para que puedas ver el avance legal, aprobar publicidad estilo Tinder (swipe) y monitorear tus ventas en tiempo real.',
+      a_en: '🤖 **Technology & AI at RCP**:<br><br>We leverage AI models (like Gemini) to draft legal contracts, run diagnostics, and automate CRM workflows. We are also building the **RCP 360 App (PWA)** on FlutterFlow & Supabase, allowing clients to track legal steps, approve marketing assets via swipes, and view real-time ROI metrics.'
     },
-
     {
       k: ['hola', 'hello', 'hey', 'buenas', 'buenos', 'hi', 'saludos'],
-      a: '¡Hola! 👋 ¡Qué bueno verte por aquí! Soy el asistente virtual de <strong>RCP Services</strong>.<br><br>Puedo ayudarte con información sobre nuestros servicios, planes, cómo trabajamos, o agendarte un diagnóstico gratuito. ¿Qué te gustaría saber? 😊'
+      a: '¡Hola! 👋 ¡Qué bueno saludarte! Soy el asistente virtual de **RCP Services**.<br><br>Puedo responder tus dudas sobre formalización (ONAPI/DGII), la Ley 488-08, nuestros planes y precios, o agendarte un diagnóstico gratuito. ¿De qué trata tu negocio? 😊',
+      a_en: 'Hello! 👋 Nice to meet you! I\'m the **RCP Services** virtual assistant.<br><br>I can answer questions about local business formalization, Law 488-08, our plans and rates, or book a free 360° diagnosis. What is your business about? 😊'
     },
-
     {
       k: ['gracias', 'thanks', 'perfecto', 'genial', 'excelente', 'thank', 'ok', 'vale', 'bien'],
-      a: '¡Con muchísimo gusto! 🙌 Ha sido un placer ayudarte. Recuerda que puedes:<br><br>📋 <a href="#contacto" style="color:var(--accent)">Solicitar un diagnóstico gratuito</a><br>💬 <a href="https://wa.me/18298068092" style="color:var(--accent)">Escribirnos por WhatsApp</a><br><br>¡Estamos aquí para ti cuando lo necesites! 🤝'
+      a: '¡Con muchísimo gusto! 🙌 Ha sido un placer ayudarte. Recuerda que puedes:<br><br>📋 <a href="#contacto" style="color:var(--accent)">Solicitar tu diagnóstico 360° gratuito</a>.<br>💬 <a href="https://wa.me/18298068092" style="color:var(--accent)">Escribirnos directamente por WhatsApp</a>.<br><br>¡Éxito con tu negocio! 🤝',
+      a_en: 'You are very welcome! 🙌 It has been a pleasure. Remember you can:<br><br>📋 <a href="#contacto" style="color:var(--accent)">Apply for your free 360° diagnosis</a>.<br>💬 <a href="https://wa.me/18298068092" style="color:var(--accent)">Chat directly on WhatsApp</a>.<br><br>Wishing your business great success! 🤝'
     },
-
     {
       k: ['podcast', 'video', 'media', 'contenido'],
-      a: '🎬 ¡Tenemos contenido increíble para ti!<br><br>🎥 <strong>Video</strong>: <em>"Crecimiento Imparable"</em> — Nuestra visión empresarial<br>🎙️ <strong>Podcast</strong>: <em>"Pretotipado y el costo real de crecer"</em> — Estrategias de validación<br><br>Visita nuestra <a href="media.html" style="color:var(--accent)">página de Media →</a>'
+      a: '🎬 ¡Tenemos contenido educativo de valor para ti!<br><br>🎥 **Video**: *"Crecimiento Imparable"* — La visión de RCP Services.<br>🎙️ **Podcast**: *"Pretotipado y el costo real de crecer"* — Estrategias para validar tus ideas antes de gastar dinero.<br><br>Puedes verlos en nuestra <a href="media.html" style="color:var(--accent)">página de Media →</a>.',
+      a_en: '🎬 We have great educational content for you!<br><br>🎥 **Video**: *"Unstoppable Growth"* — The vision of RCP Services.<br>🎙️ **Podcast**: *"Pretotyping and the real cost of growth"* — How to validate business ideas before spending capital.<br><br>Check them out on our <a href="media.html" style="color:var(--accent)">Media Page →</a>.'
     },
-
     {
-      k: ['nosotros', 'about', 'historia', 'empresa', 'quienes son'],
-      a: '🏢 ¡Conoce nuestra historia! Somos una agencia nacida en Santo Domingo con una misión clara: <strong>reanimar MIPYMEs dominicanas</strong>.<br><br>Visita nuestra <a href="nosotros.html" style="color:var(--accent)">página Nosotros →</a> para conocer nuestra estrategia de Océano Azul, modelo de negocio y equipo.'
+      k: ['nosotros', 'about', 'historia', 'quienes son', 'quienes somos'],
+      a: '🏢 RCP Services nació en Santo Domingo para inyectar oxígeno estratégico, operativo y comercial a las MIPYMEs de la República Dominicana.<br><br>Para conocer nuestro Canvas de Negocio, el equipo y la tesis de Océano Azul, visita la <a href="nosotros.html" style="color:var(--accent)">página de Nosotros →</a>.',
+      a_en: '🏢 RCP Services was founded in Santo Domingo to inject strategic, operational, and commercial oxygen into Dominican MSMEs.<br><br>To see our Business Model Canvas, team structure, and Blue Ocean thesis, visit our <a href="nosotros.html" style="color:var(--accent)">About Us Page →</a>.'
     },
-
     {
       k: ['horario', 'hora', 'tiempo', 'cuanto tarda', 'plazo', 'demora', 'timeline', 'how long'],
-      a: '⏱️ Nuestros tiempos de ejecución:<br><br>📦 <strong>Básico</strong>: 1-3 semanas<br>📊 <strong>Avanzado</strong>: 3-4 semanas<br>⭐ <strong>Premium</strong>: 4-6 semanas + acompañamiento continuo<br><br>¡Somos ágiles y orientados a resultados! La velocidad es parte de nuestro ADN 🧬'
+      a: '⏱️ Nuestros plazos promedio de ejecución son bastante ágiles:<br><br>📦 <strong>Básico (Reanimación)</strong>: 1 a 3 semanas.<br>📊 <strong>Avanzado (Estabilización)</strong>: 3 a 4 semanas.<br>⭐ <strong>Premium (Vitalidad)</strong>: 4 a 6 semanas + acompañamiento permanente mensual.<br><br>¡Hacemos honor a la "R" de Rapidez en nuestra promesa! ⚡',
+      a_en: '⏱️ Our average execution timelines are highly agile:<br><br>📦 <strong>Basic (Revival)</strong>: 1 to 3 weeks.<br>📊 <strong>Advanced (Stabilization)</strong>: 3 to 4 weeks.<br>⭐ <strong>Premium (Vitality)</strong>: 4 to 6 weeks + ongoing advisory.<br><br>We live up to the "Speed" promise in our name! ⚡'
     },
-
-    {
-      k: ['santo domingo', 'dominicana', 'ubicación', 'ubicacion', 'donde', 'dirección', 'direccion', 'oficina'],
-      a: '📍 ¡Te esperamos!<br><br><strong>Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, R.D.</strong><br><br>También podemos agendar reuniones virtuales si no estás en la capital. <a href="#contacto" style="color:var(--accent)">Contáctanos →</a>'
-    },
-
-    // -- New from operatividad doc --
     {
       k: ['funnel', 'embudo', 'captación', 'captacion', 'cómo captan', 'como captan', 'clientes'],
-      a: '📊 Nuestro proceso de captación sigue un embudo estratégico:<br><br>1️⃣ <strong>Atracción</strong>: Campañas educativas en Meta y Google<br>2️⃣ <strong>Consideración</strong>: Landing Page + Diagnóstico 360° gratuito<br>3️⃣ <strong>Conversión</strong>: Consulta personalizada con un experto RCP<br>4️⃣ <strong>Fidelización</strong>: Resultados tangibles → upgrades a paquetes superiores<br><br>No vendemos en frío — <em>educamos, demostramos y conquistamos</em> 🎯'
+      a: '📊 Nuestro embudo de captación propio consta de 4 etapas:<br><br>1️⃣ **Atracción**: Contenido educativo sobre formalización e impuestos.<br>2️⃣ **Consideración**: Diagnóstico 360° gratuito para auditar arritmias.<br>3️⃣ **Conversión**: Presentación de propuesta y plan a medida.<br>4️⃣ **Fidelización**: Resultados comerciales tangibles y upgrades a planes superiores.<br><br>Hacemos lo mismo para tu negocio para que captes clientes de forma predecible.',
+      a_en: '📊 Our proprietary client acquisition funnel has 4 stages:<br><br>1️⃣ **Attract**: Educational content on tax compliance, sales, and growth.<br>2️⃣ **Consider**: Free 360° Diagnosis to audit business weaknesses.<br>3️⃣ **Convert**: Pitching a tailored transformation plan.<br>4️⃣ **Retain**: Delivering tangible sales ROI to unlock tier upgrades.<br><br>We implement this same funnel for your company.'
     },
-
     {
       k: ['colmado', 'ferretería', 'ferreteria', 'salón', 'salon', 'belleza', 'odontol', 'colegio', 'caso', 'ejemplo', 'case'],
-      a: '🏪 Hemos trabajado con todo tipo de MIPYMEs:<br><br>🏪 <strong>Colmados/Ferreterías</strong>: Formalización rápida para acceder a préstamos Promipyme al 12% anual<br>💇 <strong>Salones/Consultorios</strong>: Captación con Meta Ads para citas pre-calificadas<br>🏫 <strong>Colegios/Empresas de servicios</strong>: Preparación para licitaciones del Estado + CRM + chatbots 24/7<br><br>¿Cuál se parece a tu negocio? 😊'
+      a: '🏪 ¡Trabajamos con diversos sectores!<br><br>🏪 **Colmados y Ferreterías**: Formalización legal rápida para acceder a financiamientos blandos.<br>💇 **Salones de Belleza y Clínicas**: Campañas en redes para captar citas y automatización de agenda.<br>🏫 **Colegios y Servicios B2B**: Configuración de CRM, chatbots de atención y preparación para licitaciones gubernamentales.',
+      a_en: '🏪 We work across diverse sectors!<br><br>🏪 **Minimarkets & Hardware stores**: Rapid legal formalization to access bank credit.<br>💇 **Salons & Dental clinics**: Targeted campaigns to drive appointment bookings and calendar automation.<br>🏫 **Schools & B2B Services**: CRM setups, support chatbots, and government bidding readiness.'
     },
-
     {
       k: ['trabaj', 'carrera', 'career', 'empleo', 'vacante', 'job', 'colabor', 'contratar', 'reclutar'],
-      a: '🚀 ¡Estamos buscando talento! Trabajamos con profesionales independientes en:<br><br>⚖️ Consultoría Legal<br>📊 Consultoría Financiera<br>📱 Marketing Digital<br>🤖 Tecnología e IA<br><br>Modelo flexible: tú decides horarios y lugar. Visita <a href="carreras.html" style="color:var(--accent)">nuestra página de Carreras →</a>'
+      a: '🚀 ¡Buscamos talentos independientes dominicanos! Colaboramos por proyectos bajo un modelo flexible en las áreas de:<br><br>⚖️ Derecho Corporativo (DGII/ONAPI).<br>📊 Contabilidad y Finanzas.<br>📱 Marketing Digital y SEO.<br>🤖 Desarrollo Web e Inteligencia Artificial.<br><br>Visita nuestra <a href="carreras.html" style="color:var(--accent)">página de Carreras →</a> para postularte.',
+      a_en: '🚀 We are seeking Dominican freelance talent! We collaborate on a project basis under a flexible model in:<br><br>⚖️ Corporate Law (DGII/ONAPI).<br>📊 Accounting & Corporate Finance.<br>📱 Digital Marketing & SEO.<br>🤖 Web Development & AI Engineering.<br><br>Visit our <a href="carreras.html" style="color:var(--accent)">Careers Page →</a> to apply.'
     },
-
     {
       k: ['sop', 'proceso', 'calidad', 'estándar', 'estandar', 'quality', 'standard'],
-      a: '✅ Operamos bajo estándares industriales:<br><br>📖 <strong>SOPs documentados</strong> para cada proceso<br>✔️ <strong>Auditorías de calidad</strong> con política de cero errores críticos<br>🔒 <strong>NDAs obligatorios</strong> para proteger tu información<br><br>Es como McDonald\'s pero para servicios empresariales — <em>consistencia garantizada</em> 🎯'
-    },
-
-    {
-      k: ['kpi', 'métrica', 'metrica', 'roi', 'roas', 'retorno', 'resultados', 'medir'],
-      a: '📈 Medimos todo con KPIs claros:<br><br>📊 <strong>CAC</strong>: Costo de adquisición por cliente<br>💰 <strong>LTV</strong>: Valor de vida del cliente (meta: LTV ≥ 3× CAC)<br>🎯 <strong>ROAS</strong>: Retorno de inversión publicitaria<br>📉 <strong>Margen Neto</strong>: Ahorro operativo demostrable<br><br>No prometemos resultados — <em>los demostramos con datos</em> 📊'
-    },
+      a: '✅ Garantizamos calidad industrial en servicios intangibles:<br><br>📖 **Procedimientos Operativos Estándar (SOPs)** documentados para cada paso.<br>✔️ **Checklists de control de calidad** con política de cero errores críticos antes de entregar al cliente.<br>🔒 **Acuerdos de confidencialidad (NDA)** firmados por todos los consultores.<br><br>¡Hacemos honor a la "C" de Calidad! 🎯',
+      a_en: '✅ We guarantee industrial-grade quality for professional services:<br><br>📖 Documented **Standard Operating Procedures (SOPs)** for every process.<br>✔️ Strict **quality control checklists** (zero-critical-error policy) before delivery.<br>🔒 Secure **non-disclosure agreements (NDAs)** signed by all collaborators.'
+    }
   ];
 
   const defaultReplies = [
-    '🤔 Hmm, esa es una pregunta interesante que merece una respuesta personalizada. ¿Te gustaría que un humano del equipo te responda? Escríbenos por <a href="https://wa.me/18298068092" style="color:var(--accent)">WhatsApp (829-806-8092)</a> 💬',
-    '😊 No estoy 100% seguro de tener la respuesta perfecta para eso. Pero nuestro equipo sí la tiene — <a href="#contacto" style="color:var(--accent)">déjanos tus datos</a> y te contactamos rápido.',
     '🤓 ¡Buena pregunta! Para darte la mejor respuesta, te recomiendo agendar un <a href="#contacto" style="color:var(--accent)">diagnóstico 360° gratuito</a>. Es sin compromiso y en menos de 30 min tendrás claridad total.',
   ];
 
