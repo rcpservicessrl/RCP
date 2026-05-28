@@ -1,4 +1,4 @@
-// ─── NAVBAR SCROLL ───
+﻿// ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
@@ -914,7 +914,7 @@ if (phoneField) {
   }
 
   // Webhook endpoint configuration (can be updated to production URL when deployed)
-  const RCP_CHATBOT_WEBHOOK_URL = 'http://localhost:5678/webhook/rcp-chat';
+  const RCP_CHATBOT_WEBHOOK_URL = 'https://c30acf4ce604bb.lhr.life/webhook/rcp-chat';
 
   function handleUserInput(text) {
     if (!text.trim()) return;
@@ -999,3 +999,4 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
