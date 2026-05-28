@@ -1042,9 +1042,9 @@ if (phoneField) {
   }
 
   // Webhook endpoint configuration (can be updated to production URL when deployed)
-  const RCP_CHATBOT_WEBHOOK_URL = 'https://0f957b2329139e.lhr.life/webhook/rcp_chatbot/disparador%2520webhook/rcp-chat';
+  const RCP_CHATBOT_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_chatbot/trigger/rcp-chat';
   // Lead capture webhook (sends form data to n8n -> Odoo CRM)
-  const RCP_LEAD_WEBHOOK_URL = 'https://0f957b2329139e.lhr.life/webhook/rcp_lead_capture/webhook%2520lead/rcp-lead';
+  const RCP_LEAD_WEBHOOK_URL = 'https://6c5c409b4c6e74.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
   function handleUserInput(text) {
     if (!text.trim()) return;
