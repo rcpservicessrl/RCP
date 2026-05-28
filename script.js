@@ -654,7 +654,7 @@ if (contactForm) {
     btn.disabled = true;
 
     // Client-side validation
-    const emailField = contactForm.querySelector('[name="email"]');
+    const emailField = contactForm.querySelector('[name="user_email"]');
     if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
       btn.textContent = '❌ Email inválido';
       btn.style.background = '#ef4444';
