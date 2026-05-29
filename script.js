@@ -371,7 +371,122 @@ const translations = {
     'eco-layer-8': '🏢 Base de Datos ERP',
     'eco-layer-9': '📊 ERP Central',
     'eco-layer-10': '🎨 Estudio Creativo IA',
-    'eco-layer-11': '🎓 Plataforma de Capacitación'
+    'eco-layer-11': '🎓 Plataforma de Capacitación',
+    'nav-servicios': 'Servicios',
+    'nav-portal': 'Portal',
+    'cat-badge': 'Catálogo Interactivo 360°',
+    'cat-title': 'Diseña tu ruta de <span class="accent">transformación</span>',
+    'cat-sub': 'Elige uno de nuestros paquetes estratégicos optimizados o selecciona bloques individuales a la carta para crear una experiencia totalmente adaptada a tu negocio.',
+    'cat-filter-label': 'Tu Situación Actual',
+    'cat-filter-title': '¿En qué etapa se encuentra tu <span class="accent">negocio</span>?',
+    'cat-filter-sub': 'Selecciona tu etapa para ver la recomendación ideal de nuestro instinto leopardo.',
+    'cat-stage1-title': 'Idea / Informal',
+    'cat-stage1-desc': 'Quiero formalizarme y lanzar',
+    'cat-stage2-title': 'Activo / Crecimiento',
+    'cat-stage2-desc': 'Busco organizar e impulsar ventas',
+    'cat-stage3-title': 'Escalar / Liderazgo',
+    'cat-stage3-desc': 'Automatizar al 100% con IA privada',
+    'cat-basico-short': 'Bases legales, fiscales y visuales sólidas para iniciar con fuerza.',
+    'cat-avanzado-short': 'Integración total del ERP/CRM centralizado y marketing digital activo.',
+    'cat-premium-short': 'Soberanía digital absoluta, IA Corporativa Privada y Dashboard Directivo.',
+    'cat-buy-basico': 'Adquirir Paquete',
+    'cat-buy-avanzado': 'Adquirir Paquete',
+    'cat-buy-premium': 'Adquirir Paquete',
+    'weeks': 'Semanas',
+    'setup-label': 'Instalación:',
+    'monthly-label': 'Mensual:',
+    'cat-feat-1': 'Diagnóstico 360° Inicial',
+    'cat-feat-2': 'Formalización ONAPI (Nombre comercial)',
+    'cat-feat-3': 'Registro Mercantil (Cámara de Comercio)',
+    'cat-feat-4': 'RNC DGII (Registro Nacional del Contribuyente)',
+    'cat-feat-5': 'Logotipo e Identidad Visual Básica',
+    'cat-feat-6': 'Landing Page autoadministrable de Captura',
+    'cat-feat-7': 'Base de Datos de Clientes Básica',
+    'cat-feat-8': 'Todo lo del paquete Básico, MÁS:',
+    'cat-feat-9': 'Auditoría Financiera y Planificación Fiscal',
+    'cat-feat-10': 'Instalación Ecosistema ERP + CRM (Odoo)',
+    'cat-feat-11': 'Control centralizado de Inventario, Compras y Ventas',
+    'cat-feat-12': 'Motor de Automatización de Leads (n8n Webhooks)',
+    'cat-feat-13': 'Campañas Activas de Publicidad (Meta/Google Ads)',
+    'cat-feat-14': 'Posicionamiento SEO Local Dominicana',
+    'cat-feat-15': 'Reporte mensual de rendimiento directivo',
+    'cat-feat-16': 'Todo lo del paquete Avanzado, MÁS:',
+    'cat-feat-17': 'Motor de IA Corporativa Privada Local (Ollama)',
+    'cat-feat-18': 'Chatbots corporativos entrenados con tus manuales',
+    'cat-feat-19': 'Estudio Creativo IA Local (ComfyUI automático)',
+    'cat-feat-20': 'Automatización avanzada de WhatsApp y CRM',
+    'cat-feat-21': 'Dashboard Directivo en tiempo real (LTV/CAC/ROAS)',
+    'cat-feat-22': 'Acompañamiento en licitaciones (Ley 488-08)',
+    'cat-feat-23': 'Asesoría de Junta Directiva Externa 24/7',
+    'cat-custom-label': 'A la Carta',
+    'cat-custom-title': 'Arma tu Ecosistema <span class="accent">Personalizado</span>',
+    'cat-custom-sub': 'Selecciona los bloques de servicios que tu negocio necesita en este momento. Añádelos a tu carrito para calcular el rango de inversión.',
+    'cat-tab-pd': 'Publicidad Digital',
+    'cat-tab-pi': 'Publicidad Impresa',
+    'block-r1-title': 'Identidad Visual Básica',
+    'block-r1-desc': 'Logotipo principal, paleta cromática corporativa, tipografías y manual básico de uso.',
+    'block-r2-title': 'Rebranding Corporativo Premium',
+    'block-r2-desc': 'Rediseño completo de marca, manual de identidad avanzado, papelería institucional y activos digitales optimizados.',
+    'block-r3-title': 'Modelado de Procesos y SOPs',
+    'block-r3-desc': 'Estructuración y digitalización de flujos de trabajo clave de tu empresa en manuales operativos ágiles.',
+    'block-c1-title': 'Formalización Comercial Completa',
+    'block-c1-desc': 'Constitución legal: Registro de Nombre en ONAPI, Registro Mercantil en Cámara de Comercio y Registro en DGII (RNC).',
+    'block-c2-title': 'Registro de Marca en ONAPI',
+    'block-c2-desc': 'Protección legal de tu marca comercial o logo en ONAPI, incluyendo tasas gubernamentales y gestión legal completa.',
+    'block-c3-title': 'Auditoría y Planificación Fiscal',
+    'block-c3-desc': 'Evaluación del estado financiero e impositivo y estructuración de un plan fiscal óptimo para reducir contingencias.',
+    'block-c4-title': 'Licitaciones Públicas (Ley 488-08)',
+    'block-c4-desc': 'Obtención del RPE y certificación MIPYME mujer/general, más asesoría estratégica para postular a compras estatales.',
+    'block-pd1-title': 'Landing Page de Conversión',
+    'block-pd1-desc': 'Página web de aterrizaje ultra-rápida, optimizada para captar prospectos, integrada con CRM y base de datos.',
+    'block-pd2-title': 'Campañas Meta & Google Ads',
+    'block-pd2-desc': 'Diseño, segmentación y optimización mensual de publicidad pagada para generar leads y ventas calificadas.',
+    'block-pd3-title': 'Ecosistema CRM Automatizado',
+    'block-pd3-desc': 'Instalación y configuración del módulo CRM en ERP (Odoo) con flujos automatizados de captación y seguimiento.',
+    'block-pd4-title': 'Posicionamiento SEO Local',
+    'block-pd4-desc': 'Optimización SEO en Google Maps, Search Console y ficha local para capturar clientes en Santo Domingo y R.D.',
+    'block-pi1-title': 'Papelería Corporativa Completa',
+    'block-pi1-desc': 'Diseño e impresión de tarjetas de presentación de lujo, hojas timbradas, carpetas institucionales y sobres.',
+    'block-pi2-title': 'Branding de Vehículos / Flota',
+    'block-pi2-desc': 'Diseño adaptado y rotulado con vinil de alta calidad para vehículos comerciales o flota corporativa.',
+    'block-pi3-title': 'Material POP & Uniformes',
+    'block-pi3-desc': 'Diseño corporativo y producción de uniformes bordados/impresos, gorras, tazas y artículos promocionales.',
+    'block-pi4-title': 'Rotulación de Fachadas y Letreros',
+    'block-pi4-desc': 'Diseño y rotulación en acrílico, letrero luminoso o vinil para la fachada física de tu local comercial.',
+    'cart-title-side': 'Mi Ecosistema Personalizado',
+    'cart-empty': 'Selecciona bloques a la izquierda para armar tu cotización.',
+    'cart-total-setup': 'Inversión Única (Setup):',
+    'cart-total-monthly': 'Mensualidad (Retainer):',
+    'cart-checkout-btn': 'Proceder a Cotización',
+    'sched-label': 'Agendamiento',
+    'sched-title': 'Agenda tu Diagnóstico <span class="accent">360° Gratuito</span>',
+    'sched-sub': 'Elige un espacio en nuestro calendario. Analizaremos tu empresa en una llamada de 45 minutos vía Google Meet.',
+    'sched-meeting-name': 'Diagnóstico 360° de Pulso',
+    'sched-pitch': '"Analizaremos los latidos de tu negocio en finanzas, marketing y operaciones legales. Te daremos una propuesta clara de renovación."',
+    'sched-select-date': '1. Selecciona Fecha y Hora (AST)',
+    'sched-select-time': 'Horarios Disponibles para esta Fecha:',
+    'sched-select-day-first': 'Selecciona un día laboral en el calendario para ver los horarios.',
+    'sched-fill-info': '2. Confirma tus Datos de Contacto',
+    'form-name': 'Nombre Completo',
+    'form-email': 'Correo Electrónico',
+    'form-phone': 'Teléfono / WhatsApp',
+    'form-company': 'Empresa / Proyecto',
+    'form-message': '¿Qué dolor o arritmia principal quieres erradicar?',
+    'sched-back': 'Atrás',
+    'sched-confirm': 'Confirmar Diagnóstico 360°',
+    'sched-success-title': '¡Diagnóstico Programado con Éxito!',
+    'sched-success-desc': 'Hemos reservado tu espacio en Google Calendar. Se ha enviado un enlace de Google Meet y los detalles de confirmación a tu correo.',
+    'sched-success-btn': 'Agendar Otra Consulta',
+    'cat-trust-title': '¿Por qué confiar en <span class="accent">RCP Services</span>?',
+    'nav-nosotros': 'Nosotros',
+    'nav-media': 'Media',
+    'nav-carreras': 'Carreras',
+    'about-badge': 'Quiénes somos',
+    'about-title': 'Somos el <span class="accent">oxígeno estratégico</span> de tu empresa',
+    'about-sub': 'Una Agencia 360° que centraliza renovación, consultoría y publicidad bajo un ecosistema de inteligencia artificial para MIPYMEs dominicanas.',
+    'about-mision-label': 'Nuestra misión',
+    'about-mision-title': 'Erradicar la <span class="accent">arritmia empresarial</span>',
+    'about-mision-text': 'La arritmia empresarial es el conjunto de síntomas que impiden a una MIPYME crecer: baja productividad, informalidad y ceguera digital. RCP Services nació para erradicarla.'
   },
   en: {
     'nav-problema': 'The Problem',
@@ -646,7 +761,116 @@ const translations = {
     'eco-layer-8': '🏢 ERP Database',
     'eco-layer-9': '📊 Central ERP',
     'eco-layer-10': '🎨 AI Creative Studio',
-    'eco-layer-11': '🎓 Training Platform'
+    'eco-layer-11': '🎓 Training Platform',
+    'nav-servicios': 'Services',
+    'nav-portal': 'Portal',
+    'cat-badge': 'Interactive 360° Catalog',
+    'cat-title': 'Design your <span class="accent">transformation</span> path',
+    'cat-sub': 'Choose one of our optimized strategic packages or select individual blocks a la carte to create an experience completely tailored to your business.',
+    'cat-filter-label': 'Your Current Situation',
+    'cat-filter-title': 'What stage is your <span class="accent">business</span> in?',
+    'cat-filter-sub': 'Select your stage to see the ideal recommendation from our leopard instinct.',
+    'cat-stage1-title': 'Idea / Informal',
+    'cat-stage1-desc': 'I want to formalize and launch',
+    'cat-stage2-title': 'Active / Growth',
+    'cat-stage2-desc': 'Looking to organize and boost sales',
+    'cat-stage3-title': 'Scale / Leadership',
+    'cat-stage3-desc': '100% automate with private enterprise AI',
+    'cat-basico-short': 'Solid legal, fiscal, and visual foundations to start strong.',
+    'cat-avanzado-short': 'Total integration of the centralized ERP/CRM and active digital marketing.',
+    'cat-premium-short': 'Absolute digital sovereignty, Private Enterprise AI, and Executive Dashboard.',
+    'cat-buy-basico': 'Purchase Package',
+    'cat-buy-avanzado': 'Purchase Package',
+    'cat-buy-premium': 'Purchase Package',
+    'weeks': 'Weeks',
+    'setup-label': 'Setup:',
+    'monthly-label': 'Monthly:',
+    'cat-feat-1': 'Initial 360° Diagnosis',
+    'cat-feat-2': 'ONAPI Formalization (Brand name)',
+    'cat-feat-3': 'Mercantile Registry (Chamber of Commerce)',
+    'cat-feat-4': 'DGII RNC (Taxpayer National Registry)',
+    'cat-feat-5': 'Basic Logo & Brand Identity',
+    'cat-feat-6': 'Self-managed Capture Landing Page',
+    'cat-feat-7': 'Basic Client Database',
+    'cat-feat-8': 'Everything in Basic, PLUS:',
+    'cat-feat-9': 'Financial Audit & Fiscal Planning',
+    'cat-feat-10': 'ERP + CRM Ecosystem Setup (Odoo)',
+    'cat-feat-11': 'Centralized Inventory, Purchasing, and Sales control',
+    'cat-feat-12': 'Lead Automation Engine (n8n Webhooks)',
+    'cat-feat-13': 'Active Ad Campaigns (Meta/Google Ads)',
+    'cat-feat-14': 'Dominican Local SEO Optimization',
+    'cat-feat-15': 'Monthly executive performance report',
+    'cat-feat-16': 'Everything in Advanced, PLUS:',
+    'cat-feat-17': 'Private Local Enterprise AI Engine (Ollama)',
+    'cat-feat-18': 'Corporate chatbots trained with your handbooks',
+    'cat-feat-19': 'Local AI Creative Studio (Automatic ComfyUI)',
+    'cat-feat-20': 'Advanced WhatsApp and CRM Automation',
+    'cat-feat-21': 'Real-time Executive Dashboard (LTV/CAC/ROAS)',
+    'cat-feat-22': 'Bidding process accompaniment (Ley 488-08)',
+    'cat-feat-23': '24/7 External Board of Directors Advisory',
+    'cat-custom-label': 'A La Carte',
+    'cat-custom-title': 'Build your <span class="accent">Customized</span> Ecosystem',
+    'cat-custom-sub': 'Select the service blocks that your business needs right now. Add them to your cart to estimate the investment range.',
+    'cat-tab-pd': 'Digital Promotion',
+    'cat-tab-pi': 'Print Promotion',
+    'block-r1-title': 'Basic Visual Identity',
+    'block-r1-desc': 'Primary logo, corporate color palette, typographies, and basic brand manual.',
+    'block-r2-title': 'Premium Corporate Rebranding',
+    'block-r2-desc': 'Complete brand redesign, advanced identity manual, institutional stationery, and optimized digital assets.',
+    'block-r3-title': 'Process Modeling & SOPs',
+    'block-r3-desc': 'Structuring and digitizing key workflows of your company into agile operational manuals.',
+    'block-c1-title': 'Complete Business Formalization',
+    'block-c1-desc': 'Legal constitution: ONAPI Name registration, Chamber of Commerce Mercantile Registry, and DGII RNC.',
+    'block-c2-title': 'ONAPI Trademark Registry',
+    'block-c2-desc': 'Legal protection of your brand name or logo in ONAPI, including government fees and complete legal management.',
+    'block-c3-title': 'Financial Audit & Fiscal Planning',
+    'block-c3-desc': 'Evaluation of financial and tax status and structuring an optimal tax plan to reduce contingencies.',
+    'block-c4-title': 'Public Bids (Ley 488-08)',
+    'block-c4-desc': 'Obtaining RPE and general/female MSME certification, plus strategic advice for applying to government purchases.',
+    'block-pd1-title': 'Conversion Landing Page',
+    'block-pd1-desc': 'Ultra-fast landing page, optimized to capture prospects, integrated with CRM and database.',
+    'block-pd2-title': 'Meta & Google Ads Campaigns',
+    'block-pd2-desc': 'Design, targeting, and monthly optimization of paid advertising to generate qualified leads and sales.',
+    'block-pd3-title': 'Automated CRM Ecosystem',
+    'block-pd3-desc': 'Installation and configuration of the CRM module in ERP (Odoo) with automated capture and follow-up flows.',
+    'block-pd4-title': 'Local SEO Positioning',
+    'block-pd4-desc': 'SEO optimization on Google Maps, Search Console, and local business listing to capture Dominican clients.',
+    'block-pi1-title': 'Complete Corporate Stationery',
+    'block-pi1-desc': 'Design and printing of luxury business cards, letterheads, institutional folders, and envelopes.',
+    'block-pi2-title': 'Vehicle / Fleet Branding',
+    'block-pi2-desc': 'Custom design and high-quality vinyl wrapping for commercial vehicles or corporate fleet.',
+    'block-pi3-title': 'POP Material & Uniforms',
+    'block-pi3-desc': 'Corporate design and production of embroidered/printed uniforms, caps, mugs, and promotional articles.',
+    'block-pi4-title': 'Facade Signage and Letreros',
+    'block-pi4-desc': 'Acrylic, light-box, or vinyl facade design and installation for your brick-and-mortar commercial local.',
+    'cart-title-side': 'My Customized Ecosystem',
+    'cart-empty': 'Select blocks on the left to build your quote.',
+    'cart-total-setup': 'One-time Investment (Setup):',
+    'cart-total-monthly': 'Monthly Retainer:',
+    'cart-checkout-btn': 'Proceed to Quote',
+    'sched-label': 'Scheduling',
+    'sched-title': 'Schedule your <span class="accent">Free 360° Diagnosis</span>',
+    'sched-sub': 'Choose an open slot in our calendar. We will analyze your company in a 45-minute call via Google Meet.',
+    'sched-meeting-name': '360° Diagnosis with Pulso',
+    'sched-pitch': '"We will analyze your business heartbeats in finances, marketing, and legal operations. We\'ll provide a clear renovation proposal."',
+    'sched-select-date': '1. Select Date and Time (AST)',
+    'sched-select-time': 'Available Time Slots for this Date:',
+    'sched-select-day-first': 'Select a working day on the calendar to see available slots.',
+    'sched-fill-info': '2. Confirm your Contact Information',
+    'form-name': 'Full Name',
+    'form-email': 'Email Address',
+    'form-phone': 'Phone / WhatsApp',
+    'form-company': 'Company / Project',
+    'form-message': 'What main pain or arrhythmia do you want to eradicate?',
+    'sched-back': 'Back',
+    'sched-confirm': 'Confirm 360° Diagnosis',
+    'sched-success-title': 'Diagnosis Scheduled Successfully!',
+    'sched-success-desc': 'We have booked your spot on Google Calendar. A Google Meet link and confirmation details have been sent to your email.',
+    'sched-success-btn': 'Schedule Another Consultation',
+    'cat-trust-title': 'Why trust <span class="accent">RCP Services</span>?',
+    'nav-nosotros': 'About Us',
+    'nav-media': 'Media',
+    'nav-carreras': 'Careers'
   }
 };
 
@@ -1139,10 +1363,423 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
+// ═══════════════════════════════════════════════
+// CATALOGO DE SERVICIOS INTERACTIVO & CALENDARIO
+// ═══════════════════════════════════════════════
+(function() {
+  // ─── FILTRO DE ETAPA ───
+  const stageButtons = document.querySelectorAll('.filter-pill');
+  if (stageButtons.length > 0) {
+    stageButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        stageButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const stage = btn.dataset.stage;
+        
+        // Remove featured classes and badges first
+        document.querySelectorAll('.package-detail-card').forEach(card => {
+          card.classList.remove('featured');
+          const badge = card.querySelector('.featured-badge');
+          if (badge) badge.remove();
+        });
+        
+        let recommendedCardId = 'pkg-basico';
+        if (stage === 'growth') recommendedCardId = 'pkg-avanzado';
+        else if (stage === 'leader') recommendedCardId = 'pkg-premium';
+        
+        const recCard = document.getElementById(recommendedCardId);
+        if (recCard) {
+          recCard.classList.add('featured');
+          
+          // inject badge
+          const badge = document.createElement('div');
+          badge.className = 'featured-badge';
+          badge.textContent = document.documentElement.lang === 'en' ? '⭐ RECOMMENDED' : '⭐ RECOMENDADO';
+          recCard.querySelector('.pkg-header').prepend(badge);
+          
+          // Smooth scroll to card
+          recCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  }
 
+  // ─── TAB DE CATEGORIAS COMPONENTES ───
+  const blockTabBtns = document.querySelectorAll('.block-tab-btn');
+  const blockGrids = document.querySelectorAll('.blocks-grid');
+  if (blockTabBtns.length > 0) {
+    blockTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        blockTabBtns.forEach(b => b.classList.remove('active'));
+        blockGrids.forEach(g => g.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        document.getElementById('cat-' + cat).classList.add('active');
+      });
+    });
+  }
 
+  // ─── CARRITO A LA CARTA ───
+  let cart = [];
+  const cartItemsList = document.getElementById('cartItemsList');
+  const cartSetupTotal = document.getElementById('cartSetupTotal');
+  const cartMonthlyTotal = document.getElementById('cartMonthlyTotal');
+  const btnCartCheckout = document.getElementById('btnCartCheckout');
+  const addCartButtons = document.querySelectorAll('.btn-add-cart');
 
+  function updateCartUI() {
+    if (!cartItemsList) return;
+    cartItemsList.innerHTML = '';
+    
+    if (cart.length === 0) {
+      cartItemsList.innerHTML = `<div class="cart-empty-msg" data-i18n="cart-empty">${document.documentElement.lang === 'en' ? 'Select blocks on the left to build your quote.' : 'Selecciona bloques a la izquierda para armar tu cotización.'}</div>`;
+      cartSetupTotal.textContent = 'RD$ 0';
+      cartMonthlyTotal.textContent = 'RD$ 0 /mes';
+      btnCartCheckout.classList.add('btn-disabled');
+      btnCartCheckout.disabled = true;
+      return;
+    }
 
+    let minSetup = 0, maxSetup = 0;
+    let minMonthly = 0, maxMonthly = 0;
 
+    cart.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
+      
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'cart-item-name';
+      nameSpan.textContent = item.name;
+      
+      const priceSpan = document.createElement('span');
+      priceSpan.className = 'cart-item-price';
+      
+      if (item.recurring) {
+        priceSpan.textContent = `RD$ ${item.min.toLocaleString()} - ${item.max.toLocaleString()}/m`;
+        minMonthly += item.min;
+        maxMonthly += item.max;
+      } else {
+        priceSpan.textContent = `RD$ ${item.min.toLocaleString()} - ${item.max.toLocaleString()}`;
+        minSetup += item.min;
+        maxSetup += item.max;
+      }
 
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'btn-remove-cart';
+      removeBtn.innerHTML = '&times;';
+      removeBtn.addEventListener('click', () => {
+        removeFromCart(item.id);
+      });
 
+      itemDiv.appendChild(nameSpan);
+      itemDiv.appendChild(priceSpan);
+      itemDiv.appendChild(removeBtn);
+      cartItemsList.appendChild(itemDiv);
+    });
+
+    cartSetupTotal.textContent = `RD$ ${minSetup.toLocaleString()} - ${maxSetup.toLocaleString()}`;
+    cartMonthlyTotal.textContent = `RD$ ${minMonthly.toLocaleString()} - ${maxMonthly.toLocaleString()} /mes`;
+    btnCartCheckout.classList.remove('btn-disabled');
+    btnCartCheckout.disabled = false;
+  }
+
+  function addToCart(id, name, min, max, recurring) {
+    if (cart.some(item => item.id === id)) return;
+    cart.push({ id, name, min, max, recurring });
+    const btn = document.querySelector(`.btn-add-cart[data-id="${id}"]`);
+    if (btn) {
+      btn.classList.add('added');
+    }
+    updateCartUI();
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    const btn = document.querySelector(`.btn-add-cart[data-id="${id}"]`);
+    if (btn) {
+      btn.classList.remove('added');
+    }
+    updateCartUI();
+  }
+
+  if (addCartButtons.length > 0) {
+    addCartButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const name = btn.dataset.name;
+        const min = parseInt(btn.dataset.min, 10);
+        const max = parseInt(btn.dataset.max, 10);
+        const recurring = btn.dataset.recurring === 'true';
+
+        if (btn.classList.contains('added')) {
+          removeFromCart(id);
+        } else {
+          addToCart(id, name, min, max, recurring);
+        }
+      });
+    });
+  }
+
+  if (btnCartCheckout) {
+    btnCartCheckout.addEventListener('click', () => {
+      const itemsEncoded = encodeURIComponent(JSON.stringify(cart));
+      window.location.href = `checkout.html?custom_items=${itemsEncoded}`;
+    });
+  }
+
+  // ─── INTERACTIVE CALENDAR WIDGET ───
+  const prevMonthBtn = document.getElementById('prevMonthBtn');
+  const nextMonthBtn = document.getElementById('nextMonthBtn');
+  const calendarMonthYearLabel = document.getElementById('calendarMonthYearLabel');
+  const calendarDaysGrid = document.getElementById('calendarDaysGrid');
+  const slotsGrid = document.getElementById('slotsGrid');
+  
+  let currentBookingDate = new Date();
+  let selectedDateString = null;
+  let selectedTimeSlot = null;
+
+  const monthsES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  const monthsEN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  function renderCalendar() {
+    if (!calendarDaysGrid) return;
+    calendarDaysGrid.innerHTML = '';
+    
+    const year = currentBookingDate.getFullYear();
+    const month = currentBookingDate.getMonth();
+    
+    const isEN = document.documentElement.lang === 'en';
+    calendarMonthYearLabel.textContent = `${isEN ? monthsEN[month] : monthsES[month]} ${year}`;
+    
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const lastDayDate = new Date(year, month + 1, 0).getDate();
+    const prevLastDayDate = new Date(year, month, 0).getDate();
+    
+    // Pad previous month
+    for (let x = firstDayIndex; x > 0; x--) {
+      const span = document.createElement('span');
+      span.className = 'disabled prev-month';
+      span.textContent = prevLastDayDate - x + 1;
+      calendarDaysGrid.appendChild(span);
+    }
+    
+    // Current month days
+    const today = new Date();
+    for (let i = 1; i <= lastDayDate; i++) {
+      const span = document.createElement('span');
+      const checkDate = new Date(year, month, i);
+      
+      const dayOfWeek = checkDate.getDay();
+      const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+      
+      const diffTime = checkDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const isPastOrTooFar = (diffDays < 0 || diffDays > 30);
+      
+      span.textContent = i;
+      
+      if (checkDate.toDateString() === today.toDateString()) {
+        span.classList.add('today');
+      }
+      
+      if (isWeekend || isPastOrTooFar) {
+        span.classList.add('disabled');
+      } else {
+        const dateString = `${year}-${String(month+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+        span.dataset.date = dateString;
+        
+        if (selectedDateString === dateString) {
+          span.classList.add('active');
+        }
+        
+        span.addEventListener('click', () => {
+          document.querySelectorAll('#calendarDaysGrid span').forEach(s => s.classList.remove('active'));
+          span.classList.add('active');
+          selectedDateString = dateString;
+          selectedTimeSlot = null;
+          generateTimeSlots(checkDate);
+        });
+      }
+      calendarDaysGrid.appendChild(span);
+    }
+  }
+
+  function generateTimeSlots(date) {
+    if (!slotsGrid) return;
+    slotsGrid.innerHTML = '';
+    
+    const isEN = document.documentElement.lang === 'en';
+    
+    const slots = [
+      "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
+      "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"
+    ];
+    
+    slots.forEach(slot => {
+      const span = document.createElement('span');
+      span.textContent = slot;
+      
+      // simulated randomized occupied slots
+      const isBusy = (Math.random() < 0.25);
+      if (isBusy) {
+        span.classList.add('disabled');
+        span.textContent += isEN ? ' (Busy)' : ' (Ocupado)';
+      } else {
+        span.addEventListener('click', () => {
+          document.querySelectorAll('#slotsGrid span').forEach(s => s.classList.remove('active'));
+          span.classList.add('active');
+          selectedTimeSlot = slot;
+          proceedToBookingStep2();
+        });
+      }
+      slotsGrid.appendChild(span);
+    });
+  }
+
+  function proceedToBookingStep2() {
+    const bookingStep1 = document.getElementById('bookingStep1');
+    const bookingStep2 = document.getElementById('bookingStep2');
+    const selectedSlotSummary = document.getElementById('selectedSlotSummary');
+    
+    if (!bookingStep1 || !bookingStep2) return;
+    
+    bookingStep1.style.display = 'none';
+    bookingStep2.style.display = 'block';
+    
+    const isEN = document.documentElement.lang === 'en';
+    const dateObj = new Date(selectedDateString + 'T00:00:00');
+    const formattedDate = dateObj.toLocaleDateString(isEN ? 'en-US' : 'es-DO', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    
+    selectedSlotSummary.innerHTML = `
+      <p>📅 <strong>${formattedDate}</strong></p>
+      <p>⏱️ <strong>${selectedTimeSlot} - ${getEndTime(selectedTimeSlot)} (AST)</strong></p>
+    `;
+  }
+
+  function getEndTime(timeStr) {
+    if (timeStr.includes("09:00")) return "09:45 AM";
+    if (timeStr.includes("10:00")) return "10:45 AM";
+    if (timeStr.includes("11:00")) return "11:45 AM";
+    if (timeStr.includes("12:00")) return "12:45 PM";
+    if (timeStr.includes("02:00")) return "02:45 PM";
+    if (timeStr.includes("03:00")) return "03:45 PM";
+    if (timeStr.includes("04:00")) return "04:45 PM";
+    if (timeStr.includes("05:00")) return "05:45 PM";
+    return "45 Minutos";
+  }
+
+  if (prevMonthBtn) {
+    prevMonthBtn.addEventListener('click', () => {
+      currentBookingDate.setMonth(currentBookingDate.getMonth() - 1);
+      renderCalendar();
+    });
+  }
+  if (nextMonthBtn) {
+    nextMonthBtn.addEventListener('click', () => {
+      currentBookingDate.setMonth(currentBookingDate.getMonth() + 1);
+      renderCalendar();
+    });
+  }
+
+  const btnBackToStep1 = document.getElementById('btnBackToStep1');
+  if (btnBackToStep1) {
+    btnBackToStep1.addEventListener('click', () => {
+      document.getElementById('bookingStep2').style.display = 'none';
+      document.getElementById('bookingStep1').style.display = 'block';
+    });
+  }
+
+  if (calendarDaysGrid) {
+    renderCalendar();
+  }
+
+  // Booking submit
+  const bookingForm = document.getElementById('bookingForm');
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const btnConfirm = document.getElementById('btnConfirmBooking');
+      btnConfirm.textContent = document.documentElement.lang === 'en' ? 'Scheduling...' : 'Agendando...';
+      btnConfirm.disabled = true;
+
+      const name = document.getElementById('schedName').value;
+      const email = document.getElementById('schedEmail').value;
+      const phone = document.getElementById('schedPhone').value;
+      const company = document.getElementById('schedCompany').value;
+      const message = document.getElementById('schedMessage').value;
+
+      const isEN = document.documentElement.lang === 'en';
+      const dateObj = new Date(selectedDateString + 'T00:00:00');
+      const formattedDate = dateObj.toLocaleDateString(isEN ? 'en-US' : 'es-DO', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        from_phone: phone,
+        from_company: company,
+        message: `Cita Programada para Diagnóstico 360°.\nFecha: ${formattedDate}\nHora: ${selectedTimeSlot}\n\nDetalles adicionales:\n${message}`,
+        reply_to: email
+      };
+
+      const emailJSCall = emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
+      
+      const n8nCall = fetch('https://4e91ce7572a4c7.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email, phone, company, message,
+          appointment_date: selectedDateString,
+          appointment_time: selectedTimeSlot,
+          lead_source: 'Google Calendar Widget'
+        })
+      });
+
+      Promise.allSettled([emailJSCall, n8nCall])
+        .then(() => {
+          document.getElementById('bookingStep2').style.display = 'none';
+          const step3 = document.getElementById('bookingStep3');
+          step3.style.display = 'block';
+          
+          document.getElementById('successDate').textContent = formattedDate;
+          document.getElementById('successTime').textContent = `${selectedTimeSlot} - ${getEndTime(selectedTimeSlot)} (AST)`;
+          
+          const randomId = Math.random().toString(36).substring(2, 5) + '-' + Math.random().toString(36).substring(2, 6) + '-' + Math.random().toString(36).substring(2, 5);
+          const meetLink = `https://meet.google.com/${randomId}`;
+          document.getElementById('successMeetLink').href = meetLink;
+          document.getElementById('successMeetLink').textContent = meetLink;
+
+          btnConfirm.textContent = isEN ? 'Confirm 360° Diagnosis' : 'Confirmar Diagnóstico 360°';
+          btnConfirm.disabled = false;
+        });
+    });
+  }
+
+  const btnBookingReset = document.getElementById('btnBookingReset');
+  if (btnBookingReset) {
+    btnBookingReset.addEventListener('click', () => {
+      document.getElementById('bookingStep3').style.display = 'none';
+      document.getElementById('bookingStep1').style.display = 'block';
+      selectedDateString = null;
+      selectedTimeSlot = null;
+      if (bookingForm) bookingForm.reset();
+      renderCalendar();
+      if (slotsGrid) {
+        slotsGrid.innerHTML = `<p class="slots-empty-msg" data-i18n="sched-select-day-first">${document.documentElement.lang === 'en' ? 'Select a working day on the calendar to see available slots.' : 'Selecciona un día laboral en el calendario para ver los horarios.'}</p>`;
+      }
+    });
+  }
+})();
+
+// ─── PWA SERVICE WORKER REGISTRATION ───
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then((reg) => console.log('[PWA] Service Worker registered successfully:', reg.scope))
+      .catch((err) => console.warn('[PWA] Service Worker registration failed:', err));
+  });
+}

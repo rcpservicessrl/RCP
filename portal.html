@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Clientes - RCP Services</title>
+  <meta name="description" content="Inicia sesión en tu Portal de Clientes de RCP Services para monitorear tus trámites y ver tu dashboard directivo en tiempo real." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Icono RCP.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css?v=6" />
+  
+  <style>
+    .portal-box {
+      max-width: 450px;
+      margin: 40px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .portal-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .portal-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .portal-header-logo {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+    .portal-header h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .portal-header p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .portal-form-group {
+      margin-bottom: 20px;
+    }
+    .portal-form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .portal-form-group input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .portal-form-group input:focus {
+      border-color: var(--accent);
+      background: rgba(252,181,63,0.02);
+      outline: none;
+    }
+    .portal-actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 0.8rem;
+    }
+    .portal-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .portal-checkbox-label input {
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+    .portal-link {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .portal-link:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
+    }
+    .portal-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin: 25px 0;
+    }
+    .portal-divider::before,
+    .portal-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .portal-divider:not(:empty)::before {
+      margin-right: .5em;
+    }
+    .portal-divider:not(:empty)::after {
+      margin-left: .5em;
+    }
+    .btn-google-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: var(--font);
+      font-size: 0.88rem;
+    }
+    .btn-google-login:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--text-muted);
+    }
+    .google-icon {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo-img-link">
+        <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#problema" data-i18n="nav-problema">El Problema</a></li>
+        <li><a href="index.html#solucion" data-i18n="nav-solucion">Solución</a></li>
+        <li><a href="index.html#ecosistema" data-i18n="nav-ecosistema">Ecosistema</a></li>
+        <li><a href="servicios.html" data-i18n="nav-servicios">Servicios</a></li>
+        <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+        <li><a href="index.html#contacto" data-i18n="nav-contacto">Contacto</a></li>
+        <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+        <li><a href="media.html" data-i18n="nav-media">Media</a></li>
+        <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+        <li><a href="portal.html" data-i18n="nav-portal" class="active-link">Portal</a></li>
+      </ul>
+      <a href="servicios.html#agendar-diagnostico" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+      <div class="nav-controls">
+        <select class="lang-select" aria-label="Language" title="Idioma">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
+        <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle light mode" title="Modo Día/Noche">
+          <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle music" title="Música ambiental">
+          <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M9 18V5l12-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="18" cy="16" r="3" />
+          </svg>
+          <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <path d="M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z" />
+          </svg>
+        </button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main style="padding-top: 100px; min-height: calc(100vh - 350px); display: flex; align-items: center; justify-content: center; position: relative;">
+    <div class="hero-bg-grid" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
+    
+    <!-- PORTAL BOX -->
+    <div class="portal-box animate-on-scroll">
+      <!-- VIEW 1: LOGIN -->
+      <div id="loginView">
+        <div class="portal-header">
+          <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo" id="portalLogo" />
+          <h2 data-i18n="port-login-title">Acceso Directivo</h2>
+          <p data-i18n="port-login-sub">Monitorea tus KPIs, estados de trámites y reportes fiscales del Ecosistema Soberano.</p>
+        </div>
+        
+        <form id="loginForm">
+          <div class="portal-form-group">
+            <label for="loginEmail" data-i18n="form-email">Correo Electrónico</label>
+            <input type="email" id="loginEmail" required placeholder="Ej. info@rcp.services" />
+          </div>
+          <div class="portal-form-group">
+            <label for="loginPassword" data-i18n="port-pass">Contraseña</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" />
+          </div>
+          
+          <div class="portal-actions-row">
+            <label class="portal-checkbox-label">
+              <input type="checkbox" id="rememberMe" checked />
+              <span data-i18n="port-remember">Recordarme</span>
+            </label>
+            <a class="portal-link" id="btnForgotPass" data-i18n="port-forgot">¿Olvidaste tu contraseña?</a>
+          </div>
+          
+          <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-login">Iniciar Sesión</button>
+        </form>
+        
+        <div class="portal-divider" data-i18n="port-or">O CONTINÚA CON</div>
+        
+        <button class="btn-google-login" id="btnGoogleLogin">
+          <svg class="google-icon" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+          </svg>
+          <span data-i18n="port-btn-google">Iniciar con Google</span>
+        </button>
+        
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          ¿Aún no tienes cuenta? <a class="portal-link" id="btnGoToSignup" data-i18n="port-btn-register">Registrarme</a>
+        </p>
+      </div>
+
+      <!-- VIEW 2: SIGNUP -->
+      <div id="signupView" style="display:none">
+        <div class="portal-header">
+          <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo" id="portalLogoSignup" />
+          <h2 data-i18n="port-register-title">Crear Cuenta Directiva</h2>
+          <p data-i18n="port-register-sub">Registra tus credenciales para acceder a tu Ecosistema Soberano.</p>
+        </div>
+        
+        <form id="signupForm">
+          <div class="portal-form-group">
+            <label for="signupName" data-i18n="form-name">Nombre Completo</label>
+            <input type="text" id="signupName" required placeholder="Ej. Balmis Reynoso" />
+          </div>
+          <div class="portal-form-group">
+            <label for="signupCompany" data-i18n="form-company">Empresa / Proyecto</label>
+            <input type="text" id="signupCompany" required placeholder="Ej. Mi Negocio SRL" />
+          </div>
+          <div class="portal-form-group">
+            <label for="signupEmail" data-i18n="form-email">Correo Electrónico</label>
+            <input type="email" id="signupEmail" required placeholder="Ej. info@rcp.services" />
+          </div>
+          <div class="portal-form-group">
+            <label for="signupPassword" data-i18n="port-pass">Contraseña</label>
+            <input type="password" id="signupPassword" required placeholder="Min. 8 caracteres" minlength="8" />
+          </div>
+          
+          <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-create">Crear mi Cuenta</button>
+        </form>
+        
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          ¿Ya tienes cuenta? <a class="portal-link" id="btnGoToLogin" data-i18n="port-btn-login-back">Iniciar Sesión</a>
+        </p>
+      </div>
+
+      <!-- VIEW 3: FORGOT PASSWORD -->
+      <div id="forgotView" style="display:none">
+        <div class="portal-header">
+          <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo" id="portalLogoForgot" />
+          <h2 data-i18n="port-forgot-title">Restablecer Contraseña</h2>
+          <p data-i18n="port-forgot-sub">Ingresa tu correo. Te enviaremos las instrucciones de restablecimiento.</p>
+        </div>
+        
+        <form id="forgotForm">
+          <div class="portal-form-group">
+            <label for="forgotEmail" data-i18n="form-email">Correo Electrónico</label>
+            <input type="email" id="forgotEmail" required placeholder="Ej. info@rcp.services" />
+          </div>
+          
+          <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-send">Enviar Enlace</button>
+        </form>
+        
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          <a class="portal-link" id="btnGoToLoginFromForgot" data-i18n="sched-back">Atrás</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-col brand-col">
+        <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo" />
+        <p class="footer-tagline" data-i18n="footer-tagline">Reanimando el corazón de tu negocio.</p>
+        <p class="footer-copyright">&copy; 2026 RCP Services SRL. <span data-i18n="footer-rights">Todos los derechos reservados.</span></p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-links-title">Navegación</h4>
+        <ul>
+          <li><a href="index.html#problema" data-i18n="nav-problema">El Problema</a></li>
+          <li><a href="index.html#solucion" data-i18n="nav-solucion">Solución</a></li>
+          <li><a href="index.html#ecosistema" data-i18n="nav-ecosistema">Ecosistema</a></li>
+          <li><a href="servicios.html" data-i18n="nav-servicios">Servicios</a></li>
+          <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-company-title">Compañía</h4>
+        <ul>
+          <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+          <li><a href="media.html" data-i18n="nav-media">Media</a></li>
+          <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+          <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-contact-title">Contacto</h4>
+        <p class="footer-contact-info">📞 829-806-8092 / 829-644-8883</p>
+        <p class="footer-contact-info">✉️ info@rcp.services</p>
+        <p class="footer-contact-info" data-i18n="footer-address">Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, R.D.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase Auth SDK Mocks & Real Bindings -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="script.js?v=6"></script>
+  
+  <script>
+    (function() {
+      // Parse parameters (Prefill signup info if they just bought a package!)
+      const params = new URLSearchParams(window.location.search);
+      const isSignup = params.get('signup') === 'true';
+      const email = params.get('email');
+      const name = params.get('name');
+      const company = params.get('company');
+
+      const loginView = document.getElementById('loginView');
+      const signupView = document.getElementById('signupView');
+      const forgotView = document.getElementById('forgotView');
+
+      if (isSignup) {
+        loginView.style.display = 'none';
+        signupView.style.display = 'block';
+        
+        if (email) document.getElementById('signupEmail').value = decodeURIComponent(email);
+        if (name) document.getElementById('signupName').value = decodeURIComponent(name);
+        if (company) document.getElementById('signupCompany').value = decodeURIComponent(company);
+      }
+
+      // View transitions
+      document.getElementById('btnForgotPass').addEventListener('click', () => {
+        loginView.style.display = 'none';
+        forgotView.style.display = 'block';
+      });
+      document.getElementById('btnGoToSignup').addEventListener('click', () => {
+        loginView.style.display = 'none';
+        signupView.style.display = 'block';
+      });
+      document.getElementById('btnGoToLogin').addEventListener('click', () => {
+        signupView.style.display = 'none';
+        loginView.style.display = 'block';
+      });
+      document.getElementById('btnGoToLoginFromForgot').addEventListener('click', () => {
+        forgotView.style.display = 'none';
+        loginView.style.display = 'block';
+      });
+
+      // Interactive Auth submission (Mock + Firebase connection)
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const emailInput = document.getElementById('loginEmail').value;
+          
+          // Save in session storage to pass to dashboard
+          sessionStorage.setItem('active_user_email', emailInput);
+          sessionStorage.setItem('active_user_name', emailInput.split('@')[0]);
+          
+          window.location.href = 'dashboard.html';
+        });
+      }
+
+      const signupForm = document.getElementById('signupForm');
+      if (signupForm) {
+        signupForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const emailInput = document.getElementById('signupEmail').value;
+          const nameInput = document.getElementById('signupName').value;
+          const companyInput = document.getElementById('signupCompany').value;
+          
+          // Store active registration
+          sessionStorage.setItem('active_user_email', emailInput);
+          sessionStorage.setItem('active_user_name', nameInput);
+          sessionStorage.setItem('active_user_company', companyInput);
+          
+          window.location.href = 'dashboard.html';
+        });
+      }
+
+      const forgotForm = document.getElementById('forgotForm');
+      if (forgotForm) {
+        forgotForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert(document.documentElement.lang === 'en' 
+            ? 'Password reset link sent to your email.' 
+            : 'Enlace de restablecimiento enviado a tu correo.');
+          forgotView.style.display = 'none';
+          loginView.style.display = 'block';
+        });
+      }
+
+      const btnGoogleLogin = document.getElementById('btnGoogleLogin');
+      if (btnGoogleLogin) {
+        btnGoogleLogin.addEventListener('click', () => {
+          sessionStorage.setItem('active_user_email', 'director@miempresa.com');
+          sessionStorage.setItem('active_user_name', 'Socio Estratégico');
+          window.location.href = 'dashboard.html';
+        });
+      }
+    })();
+  </script>
+</body>
+
+</html>

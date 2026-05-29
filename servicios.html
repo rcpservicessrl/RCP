@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Servicios - RCP Services</title>
+  <meta name="description"
+    content="Explora el catálogo interactivo de servicios 360 de RCP Services. Elige paquetes estratégicos o arma tu propio bloque de servicios en República Dominicana." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Icono RCP.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css?v=6" />
+</head>
+
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo-img-link">
+        <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#problema" data-i18n="nav-problema">El Problema</a></li>
+        <li><a href="index.html#solucion" data-i18n="nav-solucion">Solución</a></li>
+        <li><a href="index.html#ecosistema" data-i18n="nav-ecosistema">Ecosistema</a></li>
+        <li><a href="servicios.html" data-i18n="nav-servicios" class="active-link">Servicios</a></li>
+        <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+        <li><a href="index.html#contacto" data-i18n="nav-contacto">Contacto</a></li>
+        <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+        <li><a href="media.html" data-i18n="nav-media">Media</a></li>
+        <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+        <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
+      </ul>
+      <a href="#agendar-diagnostico" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+      <div class="nav-controls">
+        <select class="lang-select" aria-label="Language" title="Idioma">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
+        <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle light mode" title="Modo Día/Noche">
+          <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle music" title="Música ambiental">
+          <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M9 18V5l12-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="18" cy="16" r="3" />
+          </svg>
+          <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <path d="M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z" />
+          </svg>
+        </button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SERVICES ===== -->
+  <section class="hero hero-short" id="inicio">
+    <div class="hero-bg-grid"></div>
+    <div class="container hero-content" style="padding-top: 120px;">
+      <div class="hero-badge animate-fade-up">
+        <span class="badge-dot"></span> <span data-i18n="cat-badge">Catálogo Interactivo 360°</span>
+      </div>
+      <h1 class="hero-title animate-fade-up delay-1" data-i18n="cat-title">
+        Diseña tu ruta de <span class="accent">transformación</span>
+      </h1>
+      <p class="hero-sub animate-fade-up delay-2" data-i18n="cat-sub">
+        Elige uno de nuestros paquetes estratégicos optimizados o selecciona bloques individuales a la carta para crear una experiencia totalmente adaptada a tu negocio.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== STAGE FILTER SECTION ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label animate-on-scroll" data-i18n="cat-filter-label">Tu Situación Actual</div>
+      <h2 class="section-title animate-on-scroll" data-i18n="cat-filter-title">¿En qué etapa se encuentra tu <span class="accent">negocio</span>?</h2>
+      <p class="section-sub animate-on-scroll" data-i18n="cat-filter-sub">Selecciona tu etapa para ver la recomendación ideal de nuestro instinto leopardo.</p>
+      
+      <div class="catalog-filter animate-on-scroll">
+        <button class="filter-pill active" data-stage="startup">
+          <span class="pill-icon">🌱</span>
+          <div class="pill-text">
+            <span class="pill-title" data-i18n="cat-stage1-title">Idea / Informal</span>
+            <span class="pill-desc" data-i18n="cat-stage1-desc">Quiero formalizarme y lanzar</span>
+          </div>
+        </button>
+        <button class="filter-pill" data-stage="growth">
+          <span class="pill-icon">📈</span>
+          <div class="pill-text">
+            <span class="pill-title" data-i18n="cat-stage2-title">Activo / Crecimiento</span>
+            <span class="pill-desc" data-i18n="cat-stage2-desc">Busco organizar e impulsar ventas</span>
+          </div>
+        </button>
+        <button class="filter-pill" data-stage="leader">
+          <span class="pill-icon">🚀</span>
+          <div class="pill-text">
+            <span class="pill-title" data-i18n="cat-stage3-title">Escalar / Liderazgo</span>
+            <span class="pill-desc" data-i18n="cat-stage3-desc">Automatizar al 100% con IA privada</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- PACKAGES GRID -->
+      <div class="catalog-grid animate-on-scroll">
+        <!-- Básico -->
+        <div class="package-detail-card" id="pkg-basico">
+          <div class="pkg-header">
+            <span class="pkg-tier" data-i18n="tier-basico">Básico</span>
+            <h3 class="pkg-name" data-i18n="name-basico">Reanimación Temprana</h3>
+            <p class="pkg-desc" data-i18n="cat-basico-short">Bases legales, fiscales y visuales sólidas para iniciar con fuerza.</p>
+            <div class="pkg-price-box">
+              <span class="pkg-price-range">RD$ 20,000 - 35,000</span>
+              <span class="pkg-price-tag" data-i18n="label-basico">Pago único</span>
+            </div>
+            <span class="timeline-badge">⏱️ 1 - 3 <span data-i18n="weeks">Semanas</span></span>
+          </div>
+          <div class="pkg-body">
+            <ul class="pkg-features">
+              <li><span class="check">✓</span> <strong data-i18n="cat-feat-1">Diagnóstico 360° Inicial</strong></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-2">Formalización ONAPI (Nombre comercial)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-3">Registro Mercantil (Cámara de Comercio)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-4">RNC DGII (Registro Nacional del Contribuyente)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-5">Logotipo e Identidad Visual Básica</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-6">Landing Page autoadministrable de Captura</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-7">Base de Datos de Clientes Básica</span></li>
+            </ul>
+            <a href="checkout.html?package=basico" class="btn-cta btn-full" data-i18n="cat-buy-basico">Adquirir Paquete</a>
+          </div>
+        </div>
+
+        <!-- Avanzado -->
+        <div class="package-detail-card featured" id="pkg-avanzado">
+          <div class="featured-badge" data-i18n="badge-premium">⭐ RECOMENDADO</div>
+          <div class="pkg-header">
+            <span class="pkg-tier" data-i18n="tier-avanzado">Avanzado</span>
+            <h3 class="pkg-name" data-i18n="name-avanzado">Estabilización y Crecimiento</h3>
+            <p class="pkg-desc" data-i18n="cat-avanzado-short">Integración total del ERP/CRM centralizado y marketing digital activo.</p>
+            <div class="pkg-price-box">
+              <div class="pkg-price-split">
+                <div>
+                  <span class="price-type" data-i18n="setup-label">Instalación:</span>
+                  <span class="pkg-price-range font-sm">RD$ 40,000 - 60,000</span>
+                </div>
+                <div class="price-separator">/</div>
+                <div>
+                  <span class="price-type" data-i18n="monthly-label">Iguala:</span>
+                  <span class="pkg-price-range font-sm">RD$ 15,000 - 25,000</span>
+                </div>
+              </div>
+              <span class="pkg-price-tag" data-i18n="label-avanzado">Setup + Iguala mensual</span>
+            </div>
+            <span class="timeline-badge">⏱️ 3 - 4 <span data-i18n="weeks">Semanas</span></span>
+          </div>
+          <div class="pkg-body">
+            <ul class="pkg-features">
+              <li><span class="check text-gold">✓</span> <strong data-i18n="cat-feat-8">Todo lo del paquete Básico, MÁS:</strong></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-9">Auditoría Financiera y Planificación Fiscal</span></li>
+              <li><span class="check">✓</span> <strong data-i18n="cat-feat-10">Instalación Ecosistema ERP + CRM (Odoo)</strong></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-11">Control centralizado de Inventario, Compras y Ventas</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-12">Motor de Automatización de Leads (n8n Webhooks)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-13">Campañas Activas de Publicidad (Meta/Google Ads)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-14">Posicionamiento SEO Local Dominicana</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-15">Reporte mensual de rendimiento directivo</span></li>
+            </ul>
+            <a href="checkout.html?package=avanzado" class="btn-cta btn-full" data-i18n="cat-buy-avanzado">Adquirir Paquete</a>
+          </div>
+        </div>
+
+        <!-- Premium -->
+        <div class="package-detail-card" id="pkg-premium">
+          <div class="pkg-header">
+            <span class="pkg-tier" data-i18n="tier-premium">Premium</span>
+            <h3 class="pkg-name" data-i18n="name-premium">Vitalidad y Liderazgo</h3>
+            <p class="pkg-desc" data-i18n="cat-premium-short">Soberanía digital absoluta, IA Corporativa Privada y Dashboard Directivo.</p>
+            <div class="pkg-price-box">
+              <div class="pkg-price-split">
+                <div>
+                  <span class="price-type" data-i18n="setup-label">Instalación:</span>
+                  <span class="pkg-price-range font-sm">RD$ 75,000 - 120,000</span>
+                </div>
+                <div class="price-separator">/</div>
+                <div>
+                  <span class="price-type" data-i18n="monthly-label">Retainer:</span>
+                  <span class="pkg-price-range font-sm">RD$ 30,000 - 50,000</span>
+                </div>
+              </div>
+              <span class="pkg-price-tag" data-i18n="label-premium">Retainer mensual</span>
+            </div>
+            <span class="timeline-badge">⏱️ 4 - 6 <span data-i18n="weeks">Semanas</span></span>
+          </div>
+          <div class="pkg-body">
+            <ul class="pkg-features">
+              <li><span class="check text-gold">✓</span> <strong data-i18n="cat-feat-16">Todo lo del paquete Avanzado, MÁS:</strong></li>
+              <li><span class="check">✓</span> <strong data-i18n="cat-feat-17">Motor de IA Corporativa Privada Local (Ollama)</strong></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-18">Chatbots corporativos entrenados con tus manuales</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-19">Estudio Creativo IA Local (ComfyUI automático)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-20">Automatización avanzada de WhatsApp y CRM</span></li>
+              <li><span class="check">✓</span> <strong data-i18n="cat-feat-21">Dashboard Directivo en tiempo real (LTV/CAC/ROAS)</strong></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-22">Acompañamiento en licitaciones (Ley 488-08)</span></li>
+              <li><span class="check">✓</span> <span data-i18n="cat-feat-23">Asesoría de Junta Directiva Externa 24/7</span></li>
+            </ul>
+            <a href="checkout.html?package=premium" class="btn-cta btn-full" data-i18n="cat-buy-premium">Adquirir Paquete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODULAR CATALOGUE (BLOCK CARTS) ===== -->
+  <section class="section problem" style="background-color: var(--black-2);">
+    <div class="container">
+      <div class="section-label animate-on-scroll" data-i18n="cat-custom-label">A la Carta</div>
+      <h2 class="section-title animate-on-scroll" data-i18n="cat-custom-title">Arma tu Ecosistema <span class="accent">Personalizado</span></h2>
+      <p class="section-sub animate-on-scroll" data-i18n="cat-custom-sub">Selecciona los bloques de servicios que tu negocio necesita en este momento. Añádelos a tu carrito para calcular el rango de inversión.</p>
+
+      <!-- BLOCKS INTERFACE -->
+      <div class="cart-container-layout animate-on-scroll">
+        <div class="blocks-explorer">
+          <!-- Categorías Tabs -->
+          <div class="blocks-tabs">
+            <button class="block-tab-btn active" data-cat="renovacion" data-i18n="tab-r">Renovación</button>
+            <button class="block-tab-btn" data-cat="consultoria" data-i18n="tab-c">Consultoría</button>
+            <button class="block-tab-btn" data-cat="pub-digital" data-i18n="cat-tab-pd">Publicidad Digital</button>
+            <button class="block-tab-btn" data-cat="pub-impresa" data-i18n="cat-tab-pi">Publicidad Impresa</button>
+          </div>
+
+          <!-- Bloques Grid -->
+          <div class="blocks-grid active" id="cat-renovacion">
+            <!-- Item 1 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🎨</span>
+                <h4 class="block-title" data-i18n="block-r1-title">Identidad Visual Básica</h4>
+              </div>
+              <p class="block-description" data-i18n="block-r1-desc">Logotipo principal, paleta cromática corporativa, tipografías y manual básico de uso.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 15,000 - 30,000</span>
+                <button class="btn-add-cart" data-id="r1" data-name="Identidad Visual Básica" data-min="15000" data-max="30000">+</button>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🏆</span>
+                <h4 class="block-title" data-i18n="block-r2-title">Rebranding Corporativo Premium</h4>
+              </div>
+              <p class="block-description" data-i18n="block-r2-desc">Rediseño completo de marca, manual de identidad avanzado, papelería institucional y activos digitales optimizados.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 40,000 - 80,000</span>
+                <button class="btn-add-cart" data-id="r2" data-name="Rebranding Corporativo Premium" data-min="40000" data-max="80000">+</button>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">📊</span>
+                <h4 class="block-title" data-i18n="block-r3-title">Modelado de Procesos y SOPs</h4>
+              </div>
+              <p class="block-description" data-i18n="block-r3-desc">Estructuración y digitalización de flujos de trabajo clave de tu empresa en manuales operativos ágiles.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 30,000 - 60,000</span>
+                <button class="btn-add-cart" data-id="r3" data-name="Modelado de Procesos y SOPs" data-min="30000" data-max="60000">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="blocks-grid" id="cat-consultoria">
+            <!-- Item 1 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🏢</span>
+                <h4 class="block-title" data-i18n="block-c1-title">Formalización Comercial Completa</h4>
+              </div>
+              <p class="block-description" data-i18n="block-c1-desc">Constitución legal: Registro de Nombre en ONAPI, Registro Mercantil en Cámara de Comercio y Registro en DGII (RNC).</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 25,000 - 45,000</span>
+                <button class="btn-add-cart" data-id="c1" data-name="Formalización Comercial Completa" data-min="25000" data-max="45000">+</button>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🏷️</span>
+                <h4 class="block-title" data-i18n="block-c2-title">Registro de Marca en ONAPI</h4>
+              </div>
+              <p class="block-description" data-i18n="block-c2-desc">Protección legal de tu marca comercial o logo en ONAPI, incluyendo tasas gubernamentales y gestión legal completa.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 15,000 - 25,000</span>
+                <button class="btn-add-cart" data-id="c2" data-name="Registro de Marca en ONAPI" data-min="15000" data-max="25000">+</button>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">⚖️</span>
+                <h4 class="block-title" data-i18n="block-c3-title">Auditoría y Planificación Fiscal</h4>
+              </div>
+              <p class="block-description" data-i18n="block-c3-desc">Evaluación del estado financiero e impositivo y estructuración de un plan fiscal óptimo para reducir contingencias.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 20,000 - 40,000</span>
+                <button class="btn-add-cart" data-id="c3" data-name="Auditoría y Planificación Fiscal" data-min="20000" data-max="40000">+</button>
+              </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🏦</span>
+                <h4 class="block-title" data-i18n="block-c4-title">Licitaciones Públicas (Ley 488-08)</h4>
+              </div>
+              <p class="block-description" data-i18n="block-c4-desc">Obtención del RPE y certificación MIPYME mujer/general, más asesoría estratégica para postular a compras estatales.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 30,000 - 60,000</span>
+                <button class="btn-add-cart" data-id="c4" data-name="Licitaciones Públicas (Ley 488-08)" data-min="30000" data-max="60000">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="blocks-grid" id="cat-pub-digital">
+            <!-- Item 1 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">💻</span>
+                <h4 class="block-title" data-i18n="block-pd1-title">Landing Page de Conversión</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pd1-desc">Página web de aterrizaje ultra-rápida, optimizada para captar prospectos, integrada con CRM y base de datos.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 18,000 - 35,000</span>
+                <button class="btn-add-cart" data-id="pd1" data-name="Landing Page de Conversión" data-min="18000" data-max="35000">+</button>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">📢</span>
+                <h4 class="block-title" data-i18n="block-pd2-title">Campañas Meta & Google Ads</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pd2-desc">Diseño, segmentación y optimización mensual de publicidad pagada para generar leads y ventas calificadas.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 15,000 - 30,000<small>/mes</small></span>
+                <button class="btn-add-cart" data-id="pd2" data-name="Campañas Meta & Google Ads" data-min="15000" data-max="30000" data-recurring="true">+</button>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🔗</span>
+                <h4 class="block-title" data-i18n="block-pd3-title">Ecosistema CRM Automatizado</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pd3-desc">Instalación y configuración del módulo CRM en ERP (Odoo) con flujos automatizados de captación y seguimiento.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 25,000 - 50,000</span>
+                <button class="btn-add-cart" data-id="pd3" data-name="Ecosistema CRM Automatizado" data-min="25000" data-max="50000">+</button>
+              </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🔍</span>
+                <h4 class="block-title" data-i18n="block-pd4-title">Posicionamiento SEO Local</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pd4-desc">Optimización SEO en Google Maps, Search Console y ficha local para capturar clientes en Santo Domingo y R.D.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 12,000 - 25,000<small>/mes</small></span>
+                <button class="btn-add-cart" data-id="pd4" data-name="Posicionamiento SEO Local" data-min="12000" data-max="25000" data-recurring="true">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="blocks-grid" id="cat-pub-impresa">
+            <!-- Item 1 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">✉️</span>
+                <h4 class="block-title" data-i18n="block-pi1-title">Papelería Corporativa Completa</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pi1-desc">Diseño e impresión de tarjetas de presentación de lujo, hojas timbradas, carpetas institucionales y sobres.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 8,000 - 15,000</span>
+                <button class="btn-add-cart" data-id="pi1" data-name="Papelería Corporativa Completa" data-min="8000" data-max="15000">+</button>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🚚</span>
+                <h4 class="block-title" data-i18n="block-pi2-title">Branding de Vehículos / Flota</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pi2-desc">Diseño adaptado y rotulado con vinil de alta calidad para vehículos comerciales o flota corporativa.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 15,000 - 40,000</span>
+                <button class="btn-add-cart" data-id="pi2" data-name="Branding de Vehículos / Flota" data-min="15000" data-max="40000">+</button>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">👕</span>
+                <h4 class="block-title" data-i18n="block-pi3-title">Material POP & Uniformes</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pi3-desc">Diseño corporativo y producción de uniformes bordados/impresos, gorras, tazas y artículos promocionales.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 10,000 - 25,000</span>
+                <button class="btn-add-cart" data-id="pi3" data-name="Material POP & Uniformes" data-min="10000" data-max="25000">+</button>
+              </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="block-card">
+              <div class="block-card-header">
+                <span class="block-icon">🏪</span>
+                <h4 class="block-title" data-i18n="block-pi4-title">Rotulación de Fachadas y Letreros</h4>
+              </div>
+              <p class="block-description" data-i18n="block-pi4-desc">Diseño y rotulación en acrílico, letrero luminoso o vinil para la fachada física de tu local comercial.</p>
+              <div class="block-footer">
+                <span class="block-price-range">RD$ 20,000 - 60,000</span>
+                <button class="btn-add-cart" data-id="pi4" data-name="Rotulación de Fachadas y Letreros" data-min="20000" data-max="60000">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PERSISTENT SIDE CART -->
+        <div class="cart-summary-sidebar">
+          <h3 data-i18n="cart-title-side">Mi Ecosistema Personalizado</h3>
+          <div class="cart-items-list" id="cartItemsList">
+            <div class="cart-empty-msg" data-i18n="cart-empty">Selecciona bloques a la izquierda para armar tu cotización.</div>
+          </div>
+          <hr class="cart-hr" />
+          <div class="cart-totals">
+            <div class="total-row">
+              <span data-i18n="cart-total-setup">Inversión Única (Setup):</span>
+              <strong id="cartSetupTotal">RD$ 0</strong>
+            </div>
+            <div class="total-row">
+              <span data-i18n="cart-total-monthly">Mensualidad (Retainer):</span>
+              <strong id="cartMonthlyTotal">RD$ 0 /mes</strong>
+            </div>
+          </div>
+          <button class="btn-cta btn-full btn-disabled" id="btnCartCheckout" disabled data-i18n="cart-checkout-btn">Proceder a Cotización</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GOOGLE CALENDAR SCHEDULING INTERACTIVE WIDGET ===== -->
+  <section class="section" id="agendar-diagnostico">
+    <div class="container">
+      <div class="section-label animate-on-scroll" data-i18n="sched-label">Agendamiento</div>
+      <h2 class="section-title animate-on-scroll" data-i18n="sched-title">Agenda tu Diagnóstico <span class="accent">360° Gratuito</span></h2>
+      <p class="section-sub animate-on-scroll" data-i18n="sched-sub">Elige un espacio en nuestro calendario. Analizaremos tu empresa en una llamada de 45 minutos vía Google Meet.</p>
+
+      <div class="scheduling-widget animate-on-scroll">
+        <div class="widget-sidebar-info">
+          <div class="meeting-card">
+            <span class="meeting-icon">🐆</span>
+            <h4 data-i18n="sched-meeting-name">Diagnóstico 360° de Pulso</h4>
+            <p class="meeting-duration">⏱️ 45 Minutos</p>
+            <p class="meeting-loc">📹 Google Meet (Enlace automático)</p>
+            <hr class="cart-hr" />
+            <p class="meeting-pitch" data-i18n="sched-pitch">
+              "Analizaremos los latidos de tu negocio en finanzas, marketing y operaciones legales. Te daremos una propuesta clara de renovación."
+            </p>
+          </div>
+        </div>
+
+        <div class="widget-booking-flow">
+          <!-- Step 1: Calendar Select -->
+          <div class="booking-step" id="bookingStep1">
+            <h4 data-i18n="sched-select-date">1. Selecciona Fecha e Hora (AST)</h4>
+            <div class="calendar-wrapper">
+              <div class="calendar-header-nav">
+                <button id="prevMonthBtn">&lt;</button>
+                <span id="calendarMonthYearLabel">Junio 2026</span>
+                <button id="nextMonthBtn">&gt;</button>
+              </div>
+              <div class="calendar-grid-header">
+                <span>Do</span><span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span>
+              </div>
+              <div class="calendar-days" id="calendarDaysGrid">
+                <!-- Days will be loaded by JS -->
+              </div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="time-slots-container">
+              <h5 data-i18n="sched-select-time">Horarios Disponibles para esta Fecha:</h5>
+              <div class="slots-grid" id="slotsGrid">
+                <p class="slots-empty-msg" data-i18n="sched-select-day-first">Selecciona un día laboral en el calendario para ver los horarios.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Customer Info Form (Initially hidden) -->
+          <div class="booking-step" id="bookingStep2" style="display:none">
+            <h4 data-i18n="sched-fill-info">2. Confirma tus Datos de Contacto</h4>
+            <form id="bookingForm" class="contacto-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="schedName" data-i18n="form-name">Nombre Completo</label>
+                  <input type="text" id="schedName" required placeholder="Ej. Balmis Reynoso" />
+                </div>
+                <div class="form-group">
+                  <label for="schedEmail" data-i18n="form-email">Correo Electrónico</label>
+                  <input type="email" id="schedEmail" required placeholder="Ej. info@rcp.services" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="schedPhone" data-i18n="form-phone">Teléfono / WhatsApp</label>
+                  <input type="tel" id="schedPhone" required placeholder="Ej. 829-806-8092" />
+                </div>
+                <div class="form-group">
+                  <label for="schedCompany" data-i18n="form-company">Empresa / Proyecto</label>
+                  <input type="text" id="schedCompany" required placeholder="Ej. Mi Negocio SRL" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="schedMessage" data-i18n="form-message">¿Qué dolor o arritmia principal quieres erradicar?</label>
+                <textarea id="schedMessage" placeholder="Ej. Ventas bajas, falta de control en inventario, etc."></textarea>
+              </div>
+              
+              <div class="selected-slot-summary" id="selectedSlotSummary">
+                <!-- JS populated -->
+              </div>
+
+              <div class="booking-form-actions">
+                <button type="button" class="btn-outline" id="btnBackToStep1" data-i18n="sched-back">Atrás</button>
+                <button type="submit" class="btn-cta" id="btnConfirmBooking" data-i18n="sched-confirm">Confirmar Diagnóstico 360°</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step 3: Success Screen (Initially hidden) -->
+          <div class="booking-step success-screen" id="bookingStep3" style="display:none">
+            <span class="success-icon">🐆🎉</span>
+            <h4 data-i18n="sched-success-title">¡Diagnóstico Programado con Éxito!</h4>
+            <p data-i18n="sched-success-desc">Hemos reservado tu espacio en Google Calendar. Se ha enviado un enlace de Google Meet y los detalles de confirmación a tu correo.</p>
+            
+            <div class="success-details-card">
+              <p>📅 <strong id="successDate">Martes, 2 de Junio de 2026</strong></p>
+              <p>⏱️ <strong id="successTime">10:00 AM - 10:45 AM (AST)</strong></p>
+              <p>📹 <strong id="successMeet">Google Meet</strong> <a href="#" id="successMeetLink" target="_blank" class="accent-link">Entrar a la llamada</a></p>
+            </div>
+            
+            <button class="btn-cta" id="btnBookingReset" data-i18n="sched-success-btn">Agendar Otra Consulta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BUILDERS IN CATALOGUE ===== -->
+  <section class="section" style="background-color: var(--black-3);">
+    <div class="container">
+      <div class="section-label animate-on-scroll" data-i18n="trust-label">Respaldo Soberano</div>
+      <h2 class="section-title animate-on-scroll" data-i18n="cat-trust-title">¿Por qué confiar en <span class="accent">RCP Services</span>?</h2>
+      <div class="trust-cards-grid animate-on-scroll" style="margin-top: 50px;">
+        <div class="trust-card">
+          <span class="trust-icon">⚡</span>
+          <h4 data-i18n="trust-card-1-title">Rapidez Leoparda</h4>
+          <p data-i18n="trust-card-1-desc">Implementaciones rápidas en semanas, no en meses. Operamos bajo metodologías ágiles de alta velocidad.</p>
+        </div>
+        <div class="trust-card">
+          <span class="trust-icon">💎</span>
+          <h4 data-i18n="trust-card-2-title">Calidad Garantizada</h4>
+          <p data-i18n="trust-card-2-desc">Un equipo multidisciplinario experto actúa como tu Junta Directiva Externa, auditando cada proceso.</p>
+        </div>
+        <div class="trust-card">
+          <span class="trust-icon">🏷️</span>
+          <h4 data-i18n="trust-card-3-title">Precio Justo</h4>
+          <p data-i18n="trust-card-3-desc">Estructuras de costos transparentes basadas en el mercado y reducción drástica de licencias de software.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-col brand-col">
+        <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo" />
+        <p class="footer-tagline" data-i18n="footer-tagline">Reanimando el corazón de tu negocio.</p>
+        <p class="footer-copyright">&copy; 2026 RCP Services SRL. <span data-i18n="footer-rights">Todos los derechos reservados.</span></p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-links-title">Navegación</h4>
+        <ul>
+          <li><a href="index.html#problema" data-i18n="nav-problema">El Problema</a></li>
+          <li><a href="index.html#solucion" data-i18n="nav-solucion">Solución</a></li>
+          <li><a href="index.html#ecosistema" data-i18n="nav-ecosistema">Ecosistema</a></li>
+          <li><a href="servicios.html" data-i18n="nav-servicios">Servicios</a></li>
+          <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-company-title">Compañía</h4>
+        <ul>
+          <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+          <li><a href="media.html" data-i18n="nav-media">Media</a></li>
+          <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+          <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-contact-title">Contacto</h4>
+        <p class="footer-contact-info">📞 829-806-8092 / 829-644-8883</p>
+        <p class="footer-contact-info">✉️ info@rcp.services</p>
+        <p class="footer-contact-info" data-i18n="footer-address">Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, R.D.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CHATBOT WIDGET ===== -->
+  <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir asistente de chat" title="Chatear con Pulso">
+    <span class="chatbot-btn-badge" id="chatbotBadge">1</span>
+    <span class="chatbot-btn-icon">🐆</span>
+  </button>
+
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-header">
+      <div class="chatbot-header-info">
+        <div class="chatbot-avatar-wrapper">
+          <span class="chatbot-avatar-icon">🐆</span>
+          <span class="online-dot"></span>
+        </div>
+        <div>
+          <h4 class="chatbot-header-name">Pulso</h4>
+          <p class="chatbot-header-status" data-i18n="chat-status">Asistente Virtual · Online</p>
+        </div>
+      </div>
+      <button class="chatbot-close-btn" id="chatbotCloseBtn" aria-label="Cerrar chat">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <!-- Welcome message -->
+      <div class="chatbot-msg bot-msg">
+        <div class="chatbot-msg-bubble">
+          <p data-i18n="chat-welcome">¡Hola! Soy **Pulso**, el leopardo mascota de RCP Services. ¿Listo para dar un zarpazo comercial y erradicar la arritmia de tu negocio? Puedo guiarte sobre nuestros servicios de Renovación, Consultoría y Publicidad.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chatbot-quick-actions" id="chatbotQuickActions">
+      <button class="quick-action-btn" data-i18n="chat-qa-1">¿Qué es RCP?</button>
+      <button class="quick-action-btn" data-i18n="chat-qa-2">Ver Paquetes</button>
+      <button class="quick-action-btn" data-i18n="chat-qa-3">Diagnóstico 360°</button>
+    </div>
+    <form class="chatbot-input-area" id="chatbotForm">
+      <input type="text" class="chatbot-input" id="chatbotInput" data-i18n-placeholder="chat-placeholder" placeholder="Escribe un mensaje..." required />
+      <button type="submit" class="chatbot-send-btn" aria-label="Enviar mensaje">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Audio elements for ambient music -->
+  <audio id="ambientMusic" loop src="Fondo Tech Emotivo.mp3"></audio>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("pYaPyXxVIzbydrMpZ");
+    })();
+  </script>
+  <script src="script.js?v=6"></script>
+</body>
+
+</html>

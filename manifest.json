@@ -1,13 +1,41 @@
 {
   "name": "RCP Services",
-  "short_name": "RCP",
-  "description": "Agencia 360° de Transformación Empresarial y Digital",
-  "start_url": "/",
+  "short_name": "RCP Services",
+  "description": "Agencia 360° de Transformación Empresarial y Digital para MIPYMEs en R.D.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#282829",
+  "background_color": "#0a0a0a",
   "theme_color": "#FCB53F",
+  "orientation": "any",
   "icons": [
-    { "src": "Icono RCP.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "Icono RCP.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "Icono RCP.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Icono RCP.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Servicios",
+      "short_name": "Servicios",
+      "description": "Explora nuestro catálogo interactivo 360°",
+      "url": "./servicios.html",
+      "icons": [{ "src": "Icono RCP.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Portal de Clientes",
+      "short_name": "Portal",
+      "description": "Inicia sesión en tu dashboard directivo",
+      "url": "./portal.html",
+      "icons": [{ "src": "Icono RCP.png", "sizes": "192x192" }]
+    }
   ]
 }
