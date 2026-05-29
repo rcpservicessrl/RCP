@@ -222,7 +222,7 @@ body {
 
 /* ─── TYPOGRAPHY ─── */
 .accent {
-  color: var(--accent);
+  color: var(--accent) !important;
 }
 
 .section-label {
@@ -258,8 +258,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--accent);
-  color: var(--black);
+  background: var(--accent) !important;
+  color: var(--black) !important;
   font-family: var(--font);
   font-size: clamp(0.9rem, 1.1vw, 1.05rem);
   font-weight: 700;
@@ -818,7 +818,7 @@ body {
 
 .pricing-featured {
   background: linear-gradient(160deg, var(--card-bg) 0%, var(--black-2) 100%);
-  border: 2px solid var(--accent);
+  border: 2px solid var(--accent) !important;
   box-shadow: 0 0 24px rgba(252, 181, 63, 0.08);
   position: relative;
 }
@@ -827,8 +827,8 @@ body {
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: var(--black);
-  background: var(--accent);
+  color: var(--black) !important;
+  background: var(--accent) !important;
   border-radius: 100px;
   padding: 4px 12px;
   align-self: flex-start;
@@ -872,7 +872,7 @@ body {
 }
 
 .check-sm {
-  color: var(--accent);
+  color: var(--accent) !important;
   font-size: 0.75rem;
   flex-shrink: 0;
   margin-top: 2px;
@@ -1398,9 +1398,9 @@ select option:hover {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent) !important;
   border: none;
-  color: var(--black);
+  color: var(--black) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2488,6 +2488,36 @@ body.light-mode {
     font-size: 0.78rem;
     padding: 8px 14px;
   }
+}
+
+/* ==========================================
+   VISITED & ACTIVE OVERRIDES SAFEGUARDS
+   ========================================== */
+a:visited,
+.btn-cta:visited,
+.btn-outline:visited,
+.btn-ghost:visited,
+.nav-links a:visited {
+  color: inherit;
+}
+.btn-cta:visited {
+  color: var(--black) !important;
+  background: var(--accent) !important;
+}
+[data-theme="light"] .btn-cta:visited {
+  color: var(--white) !important;
+}
+.btn-outline:visited {
+  color: var(--text) !important;
+}
+.btn-ghost:visited {
+  color: var(--text-muted) !important;
+}
+.nav-links a:visited {
+  color: var(--text) !important;
+}
+.nav-links a:hover {
+  color: var(--accent) !important;
 }
 
 /* ==========================================
