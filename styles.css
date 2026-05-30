@@ -2958,6 +2958,11 @@ a:visited,
   padding-bottom: 15px;
   margin-bottom: 30px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth physics scroll on iOS */
+  scrollbar-width: none; /* hide default scrollbar on Firefox */
+}
+.blocks-tabs::-webkit-scrollbar {
+  display: none; /* hide default scrollbar on Chrome, Safari and Opera */
 }
 .block-tab-btn {
   background: none;
@@ -2970,6 +2975,7 @@ a:visited,
   cursor: pointer;
   border-radius: 8px;
   white-space: nowrap;
+  flex-shrink: 0; /* prevent squeezing and text truncation on mobile screens */
   transition: all 0.3s ease;
 }
 .block-tab-btn:hover {
