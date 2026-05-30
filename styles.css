@@ -1754,15 +1754,23 @@ select option:hover {
 
   /* Force 1-column layouts on all screens under 1150px to prevent card squeezing */
   .catalog-grid,
-  .pricing-grid {
+  .pricing-grid,
+  .cart-container-layout,
+  .blocks-grid {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
     padding: 0 4px !important;
   }
 
   .package-detail-card,
-  .pricing-card {
+  .pricing-card,
+  .block-card {
     padding: 30px 24px !important; /* compact internal padding to keep beautiful margins on mobile */
+  }
+
+  .blocks-tabs {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
   }
 }
 
