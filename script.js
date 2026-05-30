@@ -27,15 +27,53 @@ document.querySelectorAll('.trust-card[data-tooltip]').forEach(card => {
   let audio = null;
   let isPlaying = false;
 
-  function startMusic() {
-    audio = new Audio('Fondo Tech Emotivo.mp3');
-    audio.loop = true;
-    audio.volume = 0.15; // 15% volume
-    audio.play().catch(() => { /* autoplay blocked, ignore */ });
-    isPlaying = true;
-    btn.classList.add('playing');
-    iconOff.style.display = 'none';
-    iconOn.style.display = '';
+  const savedPlaying = localStorage.getItem('rcp-music-playing') === 'true';
+  const savedTime = parseFloat(localStorage.getItem('rcp-music-time') || '0');
+
+  function setupTimeUpdateListener() {
+    if (!audio) return;
+    audio.addEventListener('timeupdate', () => {
+      localStorage.setItem('rcp-music-time', audio.currentTime.toString());
+    });
+  }
+
+  function startMusic(time = 0) {
+    if (!audio) {
+      audio = new Audio('Fondo Tech Emotivo.mp3');
+      audio.loop = true;
+      audio.volume = 0.15;
+    }
+    audio.currentTime = time;
+    audio.play().then(() => {
+      isPlaying = true;
+      localStorage.setItem('rcp-music-playing', 'true');
+      btn.classList.add('playing');
+      iconOff.style.display = 'none';
+      iconOn.style.display = '';
+      setupTimeUpdateListener();
+    }).catch(() => {
+      // Autoplay blocked. We wait for user interaction to resume
+      localStorage.setItem('rcp-music-playing', 'true');
+      const resumeOnInteraction = () => {
+        if (!audio) return;
+        audio.play().then(() => {
+          isPlaying = true;
+          btn.classList.add('playing');
+          iconOff.style.display = 'none';
+          iconOn.style.display = '';
+          setupTimeUpdateListener();
+        }).catch(err => console.warn('Interaction play failed:', err));
+        
+        // Remove listeners
+        window.removeEventListener('click', resumeOnInteraction);
+        window.removeEventListener('touchstart', resumeOnInteraction);
+        window.removeEventListener('scroll', resumeOnInteraction);
+      };
+      
+      window.addEventListener('click', resumeOnInteraction);
+      window.addEventListener('touchstart', resumeOnInteraction);
+      window.addEventListener('scroll', resumeOnInteraction);
+    });
   }
 
   function stopMusic() {
@@ -45,14 +83,21 @@ document.querySelectorAll('.trust-card[data-tooltip]').forEach(card => {
       audio = null;
     }
     isPlaying = false;
+    localStorage.setItem('rcp-music-playing', 'false');
+    localStorage.setItem('rcp-music-time', '0');
     btn.classList.remove('playing');
     iconOff.style.display = '';
     iconOn.style.display = 'none';
   }
 
   btn.addEventListener('click', () => {
-    if (isPlaying) { stopMusic(); } else { startMusic(); }
+    if (isPlaying) { stopMusic(); } else { startMusic(0); }
   });
+
+  // Restore music state on load
+  if (savedPlaying) {
+    startMusic(savedTime);
+  }
 })();
 
 // ═══════════════════════════════════════════════
@@ -62,26 +107,35 @@ const themeBtn = document.getElementById('themeBtn');
 const sunIcon = document.getElementById('sunIcon');
 const moonIcon = document.getElementById('moonIcon');
 
+function applyTheme(theme) {
+  const isLight = theme === 'light';
+  if (isLight) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    if (sunIcon) sunIcon.style.display = '';
+    if (moonIcon) moonIcon.style.display = 'none';
+    document.querySelectorAll('.nav-logo, .theme-logo').forEach(img => {
+      img.src = 'Logo RCP Services.png';
+    });
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    if (sunIcon) sunIcon.style.display = 'none';
+    if (moonIcon) moonIcon.style.display = '';
+    document.querySelectorAll('.nav-logo, .theme-logo').forEach(img => {
+      img.src = 'Logo RCP  fondo negro.png';
+    });
+  }
+}
+
+// Restore saved theme on load
+const savedTheme = localStorage.getItem('rcp-theme') || 'dark';
+applyTheme(savedTheme);
+
 if (themeBtn) {
   themeBtn.addEventListener('click', () => {
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    if (isLight) {
-      document.documentElement.removeAttribute('data-theme');
-      sunIcon.style.display = 'none';
-      moonIcon.style.display = '';
-      // Restore dark logos (navbar only — footer stays dark)
-      document.querySelectorAll('.nav-logo').forEach(img => {
-        img.src = 'Logo RCP  fondo negro.png';
-      });
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-      sunIcon.style.display = '';
-      moonIcon.style.display = 'none';
-      // Swap navbar to light-friendly logo (footer keeps dark logo)
-      document.querySelectorAll('.nav-logo').forEach(img => {
-        img.src = 'Logo RCP Services.png';
-      });
-    }
+    const nextTheme = isLight ? 'dark' : 'light';
+    localStorage.setItem('rcp-theme', nextTheme);
+    applyTheme(nextTheme);
   });
 }
 
@@ -123,13 +177,13 @@ const translations = {
     // Tabs R-C-P
     'tab-r': '<span class="tab-letter">R</span> Renovación',
     'tab-c': '<span class="tab-letter">C</span> Consultoría',
-    'tab-p': '<span class="tab-letter">P</span> Publicidad',
+    'tab-p': '<span class="tab-letter">P</span> Publicidad 360°',
     'panel-r-title': 'Renovación <span class="accent">Estratégica</span>',
     'panel-r-desc': 'Inyectamos nueva identidad y tecnología de vanguardia en el núcleo de tu empresa:',
     'panel-c-title': 'Consultoría <span class="accent">Integral</span>',
     'panel-c-desc': 'Tu salud financiera y legalidad, blindadas para competir al más alto nivel:',
-    'panel-p-title': 'Publicidad <span class="accent">Digital</span>',
-    'panel-p-desc': 'Ecosistemas digitales que convierten clics en clientes recurrentes:',
+    'panel-p-title': 'Publicidad e Impresión <span class="accent">360°</span>',
+    'panel-p-desc': 'Ecosistemas de marketing omnicanal que combinan publicidad digital de alta conversión y producción física personalizada en talleres propios:',
     // Paquetes
     'section-label-paquetes': 'Paquetes de Crecimiento',
     'section-title-paquetes': 'Elige tu nivel de <span class="accent">transformación</span>',
@@ -196,7 +250,7 @@ const translations = {
     'footer-link-contacto': 'Contacto',
     'footer-link-renovacion': 'Renovación',
     'footer-link-consultoria': 'Consultoría',
-    'footer-link-publicidad': 'Publicidad',
+    'footer-link-publicidad': 'Publicidad 360°',
     'footer-copy': '© 2026 RCP Services. Todos los derechos reservados. Hecho con ❤️ en Santo Domingo, R.D.',
     'erac-hub-label': 'E · R · A · C',
     'erac-a-letter': 'A',
@@ -422,8 +476,25 @@ const translations = {
     'cat-custom-label': 'A la Carta',
     'cat-custom-title': 'Arma tu Ecosistema <span class="accent">Personalizado</span>',
     'cat-custom-sub': 'Selecciona los bloques de servicios que tu negocio necesita en este momento. Añádelos a tu carrito para calcular el rango de inversión.',
-    'cat-tab-pd': 'Publicidad Digital',
-    'cat-tab-pi': 'Publicidad Impresa',
+    'cat-tab-pub': 'Publicidad e Impresión 360°',
+    'block-r4-title': 'Automatización Operativa IA',
+    'block-r4-desc': 'Implementación de agentes de IA locales para automatizar respuestas, clasificar correos y gestionar tareas operativas sin intervención humana.',
+    'block-r5-title': 'Cultura Organizacional',
+    'block-r5-desc': 'Definición de valores corporativos, manuales de convivencia, y capacitación en metodologías ágiles para equipos dinámicos.',
+    'block-r6-title': 'Auditoría CX (Experiencia del Cliente)',
+    'block-r6-desc': 'Análisis profundo de los puntos de contacto del cliente con tu marca, identificando cuellos de botella y diseñando flujos de deleite.',
+    'block-c5-title': 'Contratos & NDAs Comerciales',
+    'block-c5-desc': 'Redacción y revisión legal de contratos con clientes, proveedores, acuerdos de confidencialidad y términos de servicio blindados.',
+    'block-c6-title': 'Iguala Mensual Contable',
+    'block-c6-desc': 'Gestión mensual de contabilidad, conciliación bancaria, preparación de libros contables e informes de salud financiera.',
+    'block-c7-title': 'Auditoría y Cumplimiento Laboral',
+    'block-c7-desc': 'Revisión técnica de contratos de trabajo, cumplimiento con el Ministerio de Trabajo (TSS) y mitigación de riesgos de demandas.',
+    'block-p9-title': 'Desarrollo E-commerce Avanzado',
+    'block-p9-desc': 'Tienda en línea completa con carrito de compras, pasarela de pago local (CardNet o similar) e integración automática con inventario ERP.',
+    'block-p10-title': 'Edición Multimedia Tik Tok/Reels',
+    'block-p10-desc': 'Producción y edición mensual de videos dinámicos verticales de alta fidelidad, diseñados para captar atención y viralizar en redes.',
+    'block-p11-title': 'Impresión Gran Formato',
+    'block-p11-desc': 'Producción e instalación de vallas publicitarias, bajantes, banners gigantes y rotulación exterior de alta durabilidad.',
     'block-r1-title': 'Identidad Visual Básica',
     'block-r1-desc': 'Logotipo principal, paleta cromática corporativa, tipografías y manual básico de uso.',
     'block-r2-title': 'Rebranding Corporativo Premium',
@@ -519,13 +590,13 @@ const translations = {
     // Tabs R·C·P — English analogs keeping R, C, P initials
     'tab-r': '<span class="tab-letter">R</span> Revitalization',
     'tab-c': '<span class="tab-letter">C</span> Consulting',
-    'tab-p': '<span class="tab-letter">P</span> Promotion',
+    'tab-p': '<span class="tab-letter">P</span> 360° Promotion',
     'panel-r-title': 'Strategic <span class="accent">Revitalization</span>',
     'panel-r-desc': 'We inject new identity and cutting-edge technology into the core of your business:',
     'panel-c-title': 'Comprehensive <span class="accent">Consulting</span>',
     'panel-c-desc': 'Your financial health and legality, armored to compete at the highest level:',
-    'panel-p-title': 'Digital <span class="accent">Promotion</span>',
-    'panel-p-desc': 'Digital ecosystems that convert clicks into recurring clients:',
+    'panel-p-title': '360° Advertising & <span class="accent">Print</span>',
+    'panel-p-desc': 'Omnichannel marketing systems combining high-conversion digital advertising and custom physical printing in our own workshops:',
     // Paquetes
     'section-label-paquetes': 'Growth Plans',
     'section-title-paquetes': 'Choose your <span class="accent">transformation</span> level',
@@ -587,7 +658,7 @@ const translations = {
     'footer-link-contacto': 'Contact',
     'footer-link-renovacion': 'Revitalization',
     'footer-link-consultoria': 'Consulting',
-    'footer-link-publicidad': 'Promotion',
+    'footer-link-publicidad': '360° Promotion',
     'footer-copy': '© 2026 RCP Services. All rights reserved. Made with ❤️ in Santo Domingo, D.R.',
     'erac-hub-label': 'E · R · R · C',
     'erac-a-letter': 'R',
@@ -813,8 +884,25 @@ const translations = {
     'cat-custom-label': 'A La Carte',
     'cat-custom-title': 'Build your <span class="accent">Customized</span> Ecosystem',
     'cat-custom-sub': 'Select the service blocks that your business needs right now. Add them to your cart to estimate the investment range.',
-    'cat-tab-pd': 'Digital Promotion',
-    'cat-tab-pi': 'Print Promotion',
+    'cat-tab-pub': '360° Advertising & Print',
+    'block-r4-title': 'AI Operational Automation',
+    'block-r4-desc': 'Implementation of local AI agents to automate replies, classify emails, and manage operational tasks without human intervention.',
+    'block-r5-title': 'Organizational Culture',
+    'block-r5-desc': 'Definition of corporate values, coexistence manuals, and agile methodology training for dynamic teams.',
+    'block-r6-title': 'CX Audit (Customer Experience)',
+    'block-r6-desc': 'Deep analysis of customer touchpoints with your brand, identifying bottlenecks and designing delight workflows.',
+    'block-c5-title': 'Contracts & Commercial NDAs',
+    'block-c5-desc': 'Legal drafting and review of contracts with clients, suppliers, non-disclosure agreements, and armored terms of service.',
+    'block-c6-title': 'Monthly Accounting Retainer',
+    'block-c6-desc': 'Monthly management of accounting, bank reconciliation, ledger preparation, and financial health reports.',
+    'block-c7-title': 'Labor Audit & Compliance',
+    'block-c7-desc': 'Technical review of employment contracts, TSS compliance with the Ministry of Labor, and litigation risk mitigation.',
+    'block-p9-title': 'Advanced E-commerce Development',
+    'block-p9-desc': 'Complete online store with shopping cart, local payment gateway (CardNet or similar), and automatic ERP inventory integration.',
+    'block-p10-title': 'TikTok & Reels Video Editing',
+    'block-p10-desc': 'Monthly production and editing of dynamic high-fidelity vertical videos, tailored to capture attention and go viral.',
+    'block-p11-title': 'Large Format Printing',
+    'block-p11-desc': 'Production and installation of outdoor billboards, banners, large backdrops, and high-durability exterior signage.',
     'block-r1-title': 'Basic Visual Identity',
     'block-r1-desc': 'Primary logo, corporate color palette, typographies, and basic brand manual.',
     'block-r2-title': 'Premium Corporate Rebranding',
@@ -1063,7 +1151,7 @@ if (phoneField) {
 }
 
 // ═══════════════════════════════════════════════
-// ─── CHATBOT ENGINE (Smart FAQ + Scoring) ──────
+// ─── CHATBOT ENGINE (Persistent & Session-Aware) 
 // ═══════════════════════════════════════════════
 (function () {
   const chatbotBtn = document.getElementById('chatbotBtn');
@@ -1075,9 +1163,11 @@ if (phoneField) {
   if (!chatbotBtn || !chatPanel) return;
 
   let isOpen = false;
+  let history = [];
 
-  // FAQ knowledge base — scored by keyword hit count for smarter matching
-  // Supports Spanish (a) and English (a_en) answers based on selected language
+  const GREETING_ES = `¡Hola! Soy Pulso, el leopardo y asistente de RCP Services.<br>¿Te gustaría empezar con tu <strong>Diagnóstico 360° Gratuito</strong> para erradicar la arritmia empresarial? 🐆`;
+  const GREETING_EN = `Hello! I'm Pulso, the leopard and assistant of RCP Services.<br>Would you like to start with your <strong>Free 360° Diagnosis</strong> to eradicate business arrhythmia? 🐆`;
+
   const faq = [
     {
       k: ['docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 'webhook', 'ip', 'token', 'clave', 'servidor', 'api key', 'credenciales', 'base de datos', 'database', 'port', 'puerto', 'server'],
@@ -1086,8 +1176,8 @@ if (phoneField) {
     },
     {
       k: ['servicio', 'hacen', 'ofrec', 'qué hacen', 'que hacen', 'service', 'what do', 'do you do', 'pilar'],
-      a: 'Somos una <strong>Agencia 360°</strong> que integra 🔄 <strong>Renovación</strong> (procesos e IA), ⚖️ <strong>Consultoría</strong> (legal/fiscal) y 📣 <strong>Publicidad</strong> (web y marketing). ¿Cuál de estos te interesa?',
-      a_en: 'We are a <strong>360° Agency</strong> built on three pillars: 🔄 <strong>Revitalization</strong> (processes/AI), ⚖️ <strong>Consulting</strong> (legal/tax), and 📣 <strong>Promotion</strong> (web/marketing). Which one interests you?'
+      a: 'Somos una <strong>Agencia 360°</strong> que integra 🔄 <strong>Renovación</strong> (procesos e IA), ⚖️ <strong>Consultoría</strong> (legal/fiscal) y 📣 <strong>Publicidad e Impresión 360°</strong>. ¿Cuál de estos te interesa?',
+      a_en: 'We are a <strong>360° Agency</strong> built on three pillars: 🔄 <strong>Revitalization</strong> (processes/AI), ⚖️ <strong>Consulting</strong> (legal/tax), and 📣 <strong>360° Advertising & Print</strong>. Which one interests you?'
     },
     {
       k: ['precio', 'costo', 'cuánto', 'cuanto cuesta', 'tarifa', 'cost', 'price', 'how much', 'pago', 'inversión', 'inversion', 'planes', 'plan', 'paquete'],
@@ -1130,9 +1220,9 @@ if (phoneField) {
       a_en: '⚖️ <strong>Comprehensive Consulting:</strong> We handle legal formalization (ONAPI, Mercantile Registry, Tax ID/RNC), tax planning/DGII compliance, and accounting audits to secure your business growth.'
     },
     {
-      k: ['publicidad', 'marketing', 'digital', 'campaña', 'campana', 'ads', 'seo', 'promotion', 'meta ads', 'google ads', 'web', 'landing', 'crm'],
-      a: '📣 <strong>Publicidad Digital:</strong> Creamos embudos de conversión con landing pages ultra-rápidas, campañas optimizadas en Meta/Google Ads, posicionamiento SEO Local en Google Maps y CRM (Odoo) automatizado para ventas reales.',
-      a_en: '📣 <strong>Digital Promotion:</strong> We build conversion funnels, fast landing pages, optimized Meta/Google Ads campaigns, Local SEO on Google Maps, and automated CRM setups for real sales.'
+      k: ['publicidad', 'marketing', 'digital', 'campaña', 'campana', 'ads', 'seo', 'promotion', 'meta ads', 'google ads', 'web', 'landing', 'crm', 'impresión', 'impresion', 'letrero', 'volante', 'tarjeta'],
+      a: '📣 <strong>Publicidad e Impresión 360°:</strong> Creamos embudos web y landing pages de alta conversión, campañas Meta/Google Ads, posicionamiento SEO Local, y producimos impresos físicos de alta gama (papelería, uniformes, letreros y flota rotulada) en nuestros propios talleres.',
+      a_en: '📣 <strong>360° Advertising & Print:</strong> We build high-converting web funnels, Meta/Google Ads campaigns, Local SEO, and produce premium physical prints (stationery, uniforms, signage, and fleet branding) in our own custom workshops.'
     },
     {
       k: ['mipyme', 'pyme', 'pequeña', 'empresa', 'negocio', 'emprendimiento', 'dominicana'],
@@ -1211,22 +1301,41 @@ if (phoneField) {
     }
   ];
 
-  const defaultReplies_es = [
-    '🤓 ¡Excelente pregunta! Para darte la respuesta exacta para tu caso, te recomiendo agendar un <a href="#contacto" style="color:var(--accent)">diagnóstico 360° gratuito</a> en menos de 30 minutos.',
-  ];
-  const defaultReplies_en = [
-    '🤓 Great question! For the most accurate answer tailored to your case, I highly recommend booking a <a href="#contacto" style="color:var(--accent)">free 360° diagnosis</a>.'
-  ];
+  const defaultReplies_es = ['🤓 ¡Excelente pregunta! Para darte la respuesta exacta para tu caso, te recomiendo agendar un <a href="#contacto" style="color:var(--accent)">diagnóstico 360° gratuito</a> en menos de 30 minutos.'];
+  const defaultReplies_en = ['🤓 Great question! For the most accurate answer tailored to your case, I highly recommend booking a <a href="#contacto" style="color:var(--accent)">free 360° diagnosis</a>.'];
 
   const quickButtons_es = ['¿Qué servicios ofrecen?', '¿Cuánto cuesta?', 'Diagnóstico gratis', 'Contacto'];
   const quickButtons_en = ['What services do you offer?', 'How much does it cost?', 'Free diagnosis', 'Contact'];
 
-  function addMessage(text, type = 'bot') {
+  function saveHistory() {
+    localStorage.setItem('rcp-chat-history', JSON.stringify(history));
+    localStorage.setItem('rcp-chat-last-active', Date.now().toString());
+  }
+
+  function checkSession() {
+    const lastActive = parseInt(localStorage.getItem('rcp-chat-last-active') || '0');
+    const elapsed = Date.now() - lastActive;
+    if (elapsed > 15 * 60 * 1000) {
+      localStorage.removeItem('rcp-chat-history');
+      localStorage.removeItem('rcp-chat-last-active');
+      localStorage.removeItem('rcp-chat-open');
+      history = [];
+    } else {
+      history = JSON.parse(localStorage.getItem('rcp-chat-history') || '[]');
+    }
+  }
+
+  function addMessage(text, type = 'bot', save = true) {
     const div = document.createElement('div');
     div.className = 'chat-msg ' + type;
     div.innerHTML = text;
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    if (save) {
+      history.push({ text, type });
+      saveHistory();
+    }
   }
 
   function addQuickButtons() {
@@ -1248,7 +1357,6 @@ if (phoneField) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  // ─── SECURITY GUARDRAIL: Confidential keyword list ───
   const CONFIDENTIAL_KEYWORDS = ['docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 'webhook', 'pgvector', 'moodle', 'inventree', 'openclaw', 'open webui', 'api key', 'apikey', 'credenciales', 'credentials', 'servidor interno', 'internal server', 'ip address', '192.168', '127.0.0', 'puerto 5678', 'port 5678', 'puerto 4000', 'port 4000', 'puerto 8069', 'port 8069', 'puerto 11434', 'port 11434', 'puerto 8188', 'port 8188', 'ssh tunnel', 'localhost.run', 'lhr.life'];
   const SECURITY_RESPONSE_ES = '🔒 <strong>Seguridad y Confidencialidad:</strong> Para garantizar la protección de datos, toda nuestra infraestructura digital opera bajo estrictos protocolos de cifrado privado de punta a punta. Las especificaciones técnicas de servidores, bases de datos y herramientas internas son confidenciales y se manejan en entornos aislados. Si requieres detalles de integración para tu empresa, te invitamos a <a href="#contacto" style="color:var(--accent)">agendar una sesión de consultoría técnica privada</a>.';
   const SECURITY_RESPONSE_EN = '🔒 <strong>Security & Confidentiality:</strong> To guarantee data protection, all our digital infrastructure operates under strict end-to-end private encryption protocols. Technical specifications of servers, databases, and internal tools are confidential and managed in isolated environments. If you require integration details for your business, we invite you to <a href="#contacto" style="color:var(--accent)">schedule a private technical consulting session</a>.';
@@ -1272,7 +1380,6 @@ if (phoneField) {
       }
       if (score > bestScore) {
         bestScore = score;
-        // Use English answer if available and site is in EN
         bestAnswer = (isEN && item.a_en) ? item.a_en : item.a;
       }
     }
@@ -1282,23 +1389,21 @@ if (phoneField) {
     return defaults[Math.floor(Math.random() * defaults.length)];
   }
 
-  // Using global constants RCP_CHATBOT_WEBHOOK_URL and RCP_LEAD_WEBHOOK_URL
-
   function handleUserInput(text) {
     if (!text.trim()) return;
     addMessage(text, 'user');
     chatInput.value = '';
 
-    // ─── SECURITY GUARDRAIL: Intercept confidential queries BEFORE sending to webhook ───
+    localStorage.setItem('rcp-chat-last-active', Date.now().toString());
+
     if (isConfidentialQuery(text)) {
       const isEN = document.documentElement.lang === 'en';
       setTimeout(() => {
         addMessage(isEN ? SECURITY_RESPONSE_EN : SECURITY_RESPONSE_ES);
       }, 300);
-      return; // BLOCK: Never send confidential queries to the server
+      return;
     }
     
-    // Show typing indicator
     const typingDiv = document.createElement('div');
     typingDiv.className = 'chat-msg bot chat-typing';
     typingDiv.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
@@ -1335,23 +1440,38 @@ if (phoneField) {
     });
   }
 
-  function openChat() {
+  function openChat(focus = true) {
     chatPanel.classList.add('open');
     isOpen = true;
-    if (!chatMessages.hasChildNodes()) {
+    localStorage.setItem('rcp-chat-open', 'true');
+    
+    checkSession();
+
+    if (history.length === 0) {
       const isEN = document.documentElement.lang === 'en';
-      addMessage(isEN
-        ? 'Hello! 👋 I\'m <strong>Pulso</strong>, the official leopard mascot and virtual assistant of RCP Services. How can I help you today?'
-        : '¡Hola! 👋 Soy <strong>Pulso</strong>, el leopardo mascota y asistente virtual oficial de RCP Services. ¿En qué puedo ayudarte hoy?'
-      );
+      addMessage(isEN ? GREETING_EN : GREETING_ES, 'bot');
       addQuickButtons();
+    } else {
+      if (!chatMessages.hasChildNodes()) {
+        history.forEach(msg => {
+          const div = document.createElement('div');
+          div.className = 'chat-msg ' + msg.type;
+          div.innerHTML = msg.text;
+          chatMessages.appendChild(div);
+        });
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
     }
-    setTimeout(() => chatInput.focus(), 400);
+
+    if (focus) {
+      setTimeout(() => chatInput.focus(), 400);
+    }
   }
 
   function closeChat() {
     chatPanel.classList.remove('open');
     isOpen = false;
+    localStorage.setItem('rcp-chat-open', 'false');
   }
 
   chatbotBtn.addEventListener('click', () => {
@@ -1364,6 +1484,15 @@ if (phoneField) {
   chatInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') handleUserInput(chatInput.value);
   });
+
+  // Restore active session on load
+  const lastActive = parseInt(localStorage.getItem('rcp-chat-last-active') || '0');
+  const elapsed = Date.now() - lastActive;
+  const wasOpen = localStorage.getItem('rcp-chat-open') === 'true';
+
+  if (wasOpen && elapsed < 15 * 60 * 1000) {
+    openChat(false);
+  }
 })();
 
 // ─── SMOOTH ANCHOR SCROLL ───

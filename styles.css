@@ -1690,9 +1690,15 @@ select option:hover {
     background: var(--black, #000000) !important;
     align-items: center;
     justify-content: center;
-    gap: 32px;
-    font-size: 1.3rem;
-    z-index: 2000;
+    gap: 24px;
+    font-size: 1.2rem;
+    z-index: 2100;
+    overflow-y: auto;
+    padding: 80px 24px 45px;
+  }
+
+  .nav-links.open a {
+    font-size: 1.2rem !important;
   }
 
   .nav-links.open::before {

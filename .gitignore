@@ -14,3 +14,7 @@ desktop.ini
 # *.mp4
 # *.m4a
 # *.mp3
+
+# Installers and large archives
+*.exe
+*.zip
