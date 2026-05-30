@@ -1759,7 +1759,15 @@ select option:hover {
   .blocks-grid {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
-    padding: 0 4px !important;
+    width: auto !important; /* prevent overflow or fixed width stretching */
+  }
+
+  /* Force safe margins from screen edges on mobile/tablet viewports */
+  .catalog-grid,
+  .pricing-grid,
+  .cart-container-layout {
+    margin-left: 16px !important;
+    margin-right: 16px !important;
   }
 
   .package-detail-card,
