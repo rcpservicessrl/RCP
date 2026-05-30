@@ -3493,11 +3493,14 @@ a:visited,
   }
 }
 @media (max-width: 768px) {
+  .container {
+    padding: 0 16px !important; /* Force secure 16px safety margins globally on mobile screens */
+  }
   .blocks-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .slots-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
