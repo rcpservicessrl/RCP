@@ -12,7 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
         rel="stylesheet" />
     <link rel="icon" type="image/png" href="Icono RCP.png" />
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 
 <body>
@@ -28,9 +28,14 @@
                 <li><a href="servicios.html" data-i18n="nav-servicios">Servicios</a></li>
                 <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
                 <li><a href="index.html#contacto" data-i18n="nav-contacto">Contacto</a></li>
-                <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
-                <li><a href="media.html" data-i18n="nav-media" class="active-link">Media</a></li>
-                <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+                <li class="nav-dropdown">
+                  <a href="#" class="dropdown-trigger active-link"><span data-i18n="nav-compania">Compañía</span> <span class="arrow">▼</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+                    <li><a href="media.html" data-i18n="nav-media" class="active-link">Media</a></li>
+                    <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+                  </ul>
+                </li>
                 <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
             </ul>
             <a href="index.html#contacto" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
@@ -287,7 +292,7 @@
     </div>
   </div>
 
-    <script src="script.js?v=10"></script>
+    <script src="script.js?v=12"></script>
 </body>
 
 </html>

@@ -96,6 +96,7 @@ const translations = {
     'nav-paquetes': 'Paquetes',
     'nav-contacto': 'Contacto',
     'nav-cta': 'Diagnóstico 360°',
+    'nav-compania': 'Compañía',
     // Hero
     'hero-badge': 'Agencia 360° · República Dominicana',
     'hero-title': 'Reanimando el <span class="accent">corazón</span> de tu empresa<br />para un crecimiento <span class="accent">indetenible</span>.',
@@ -494,6 +495,7 @@ const translations = {
     'nav-paquetes': 'Plans',
     'nav-contacto': 'Contact',
     'nav-cta': '360° Diagnosis',
+    'nav-compania': 'Company',
     'hero-badge': '360° Agency · Dominican Republic',
     'hero-title': 'Reviving the <span class="accent">heart</span> of your business<br />for <span class="accent">unstoppable</span> growth.',
     'hero-sub': 'We eradicate business arrhythmia. We are your External Board of Directors that centralizes your finances, legal affairs, and marketing under a single <strong>360°</strong> ecosystem.',
@@ -876,12 +878,18 @@ const translations = {
 
 const langSelect = document.querySelector('.lang-select');
 
-// Restore saved language preference
-const savedLang = localStorage.getItem('rcp-lang');
-if (savedLang && langSelect) {
-  langSelect.value = savedLang;
-  applyTranslations(savedLang);
+// Restore saved language preference or detect browser language
+let currentLang = localStorage.getItem('rcp-lang');
+if (!currentLang) {
+  const browserLang = (navigator.language || 'es').toLowerCase();
+  currentLang = browserLang.startsWith('en') ? 'en' : 'es';
+  localStorage.setItem('rcp-lang', currentLang);
 }
+
+if (langSelect) {
+  langSelect.value = currentLang;
+}
+applyTranslations(currentLang);
 
 function applyTranslations(lang) {
   document.documentElement.lang = lang;
@@ -910,10 +918,16 @@ const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('open');
+  if (navLinks.classList.contains('open')) {
+    document.body.classList.add('menu-open');
+  } else {
+    document.body.classList.remove('menu-open');
+  }
 });
 navLinks.addEventListener('click', (e) => {
   if (e.target.tagName === 'A' || navLinks.classList.contains('open')) {
     navLinks.classList.remove('open');
+    document.body.classList.remove('menu-open');
   }
 });
 
