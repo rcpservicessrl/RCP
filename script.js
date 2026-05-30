@@ -1013,9 +1013,24 @@ hamburger.addEventListener('click', () => {
   }
 });
 navLinks.addEventListener('click', (e) => {
-  if (e.target.tagName === 'A' || navLinks.classList.contains('open')) {
+  // If clicked on a navigation link, close the menu
+  if (e.target.tagName === 'A') {
     navLinks.classList.remove('open');
     document.body.classList.remove('menu-open');
+    return;
+  }
+  
+  // If clicked on the overlay container, check if it's within the top-right close '✕' button area (approx 80px by 80px)
+  if (e.target === navLinks) {
+    const rect = navLinks.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+    // Close button is positioned at top: 24px; right: 24px; font-size: 1.6rem
+    const isCloseBtnClick = (clickY < 80 && clickX > (rect.width - 80));
+    if (isCloseBtnClick) {
+      navLinks.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
   }
 });
 
