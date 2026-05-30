@@ -1752,20 +1752,39 @@ select option:hover {
     opacity: 1;
   }
 
-  /* Force 1-column layouts on all screens under 1150px to prevent card squeezing */
-  .catalog-grid,
-  .pricing-grid,
-  .cart-container-layout,
-  .blocks-grid {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-    width: auto !important; /* prevent overflow or fixed width stretching */
+  /* Simplify structure on mobile/tablet: replace complex nested grids/flexboxes with standard block flows */
+  .cart-container-layout {
+    display: block !important;
+    width: auto !important;
+    margin: 0 16px !important; /* force 16px safety margin on both sides */
   }
 
-  /* Force safe margins from screen edges on mobile/tablet viewports */
+  .blocks-explorer {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Replace blocks grid with a highly reliable vertical flex column to prevent overflow and ensure margins */
+  .blocks-grid {
+    display: none !important;
+  }
+  
+  .blocks-grid.active {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Stacking vertical flows for packages catalog grids */
   .catalog-grid,
-  .pricing-grid,
-  .cart-container-layout {
+  .pricing-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: auto !important;
     margin-left: 16px !important;
     margin-right: 16px !important;
   }
@@ -1774,11 +1793,14 @@ select option:hover {
   .pricing-card,
   .block-card {
     padding: 30px 24px !important; /* compact internal padding to keep beautiful margins on mobile */
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   .blocks-tabs {
     padding-left: 4px !important;
     padding-right: 4px !important;
+    margin-bottom: 24px !important;
   }
 }
 
