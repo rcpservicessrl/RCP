@@ -1728,14 +1728,19 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
       const emailJSCall = emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
       
-      const n8nCall = fetch('https://4e91ce7572a4c7.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead', {
+      const n8nCall = fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name, email, phone, company, message,
+          user_name: name,
+          user_email: email,
+          user_phone: phone,
+          user_company: company,
+          user_service: 'Diagnóstico 360°',
+          user_message: `Cita agendada para: ${formattedDate} a las ${selectedTimeSlot}. Dolor principal: ${message}`,
+          lead_source: 'Google Calendar Widget',
           appointment_date: selectedDateString,
-          appointment_time: selectedTimeSlot,
-          lead_source: 'Google Calendar Widget'
+          appointment_time: selectedTimeSlot
         })
       });
 

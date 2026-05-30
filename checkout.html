@@ -773,15 +773,23 @@
               emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
 
               // n8n pipeline trigger (simulated webhook buffer call)
-              fetch('https://4e91ce7572a4c7.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead', {
+              fetch(RCP_LEAD_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                  user_name: name,
+                  user_email: email,
+                  user_phone: phone,
+                  user_company: company,
+                  user_service: checkoutItems.map(item => item.name).join(', '),
+                  user_message: `Pago completado hoy. ID Transacción: ${transactionId}. RNC: ${rnc}. Dirección: ${address}. Monto pagado: ${txnData.amountPaid}. Método: ${activeMethod}.`,
+                  lead_source: 'Secured Checkout CardNet',
                   txn_id: transactionId,
-                  name, email, phone, company, rnc, address,
+                  rnc: rnc,
+                  address: address,
                   items: checkoutItems,
                   amount: txnData.amountPaid,
-                  lead_source: 'Secured Checkout CardNet'
+                  action: "checkout"
                 })
               });
 

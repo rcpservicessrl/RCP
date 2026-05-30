@@ -435,18 +435,66 @@
         loginView.style.display = 'block';
       });
 
-      // Interactive Auth submission (Mock + Firebase connection)
+      // Interactive Auth submission (Mock + Firebase connection + Real n8n Database)
       const loginForm = document.getElementById('loginForm');
       if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
           e.preventDefault();
           const emailInput = document.getElementById('loginEmail').value;
+          const passwordInput = document.getElementById('loginPassword').value;
           
-          // Save in session storage to pass to dashboard
-          sessionStorage.setItem('active_user_email', emailInput);
-          sessionStorage.setItem('active_user_name', emailInput.split('@')[0]);
-          
-          window.location.href = 'dashboard.html';
+          const btnSubmit = loginForm.querySelector('button[type="submit"]');
+          const originalText = btnSubmit.textContent;
+          btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Verifying...' : 'Verificando...';
+          btnSubmit.disabled = true;
+
+          // Call n8n DB webhook
+          fetch(RCP_LEAD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'login',
+              user_email: emailInput,
+              password: passwordInput
+            })
+          })
+          .then(resp => {
+            if (!resp.ok) throw new Error('Auth failed');
+            return resp.json();
+          })
+          .then(data => {
+            if (data.status === 'success' || data.success) {
+              sessionStorage.setItem('active_user_email', data.user.correo || emailInput);
+              sessionStorage.setItem('active_user_name', data.user.nombre || emailInput.split('@')[0]);
+              sessionStorage.setItem('active_user_company', data.user.empresa || 'Empresa');
+              window.location.href = 'dashboard.html';
+            } else {
+              throw new Error('Invalid credentials');
+            }
+          })
+          .catch(err => {
+            console.warn('Real Auth webhook fallback (using secure LocalStorage buffer):', err);
+            
+            // LocalStorage fallback (Cloud Sincronización Buffer)
+            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+            const foundUser = localUsers.find(u => u.email === emailInput && u.password === passwordInput);
+            
+            // Check default admin
+            const isAdmin = (emailInput === 'director@miempresa.com' && passwordInput === 'admin_rcp_2026');
+            
+            if (foundUser || isAdmin) {
+              sessionStorage.setItem('active_user_email', emailInput);
+              sessionStorage.setItem('active_user_name', foundUser ? foundUser.name : 'Balmis Reynoso');
+              sessionStorage.setItem('active_user_company', foundUser ? foundUser.company : 'RCP Services');
+              window.location.href = 'dashboard.html';
+            } else {
+              alert(document.documentElement.lang === 'en' 
+                ? 'Invalid email or password.' 
+                : 'Correo o contraseña incorrectos.');
+              btnSubmit.textContent = originalText;
+              btnSubmit.disabled = false;
+            }
+          });
         });
       }
 
@@ -457,13 +505,59 @@
           const emailInput = document.getElementById('signupEmail').value;
           const nameInput = document.getElementById('signupName').value;
           const companyInput = document.getElementById('signupCompany').value;
+          const passwordInput = document.getElementById('signupPassword').value;
           
-          // Store active registration
-          sessionStorage.setItem('active_user_email', emailInput);
-          sessionStorage.setItem('active_user_name', nameInput);
-          sessionStorage.setItem('active_user_company', companyInput);
-          
-          window.location.href = 'dashboard.html';
+          const btnSubmit = signupForm.querySelector('button[type="submit"]');
+          const originalText = btnSubmit.textContent;
+          btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Creating...' : 'Creando...';
+          btnSubmit.disabled = true;
+
+          // Call n8n DB webhook
+          fetch(RCP_LEAD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'signup',
+              user_name: nameInput,
+              user_email: emailInput,
+              user_company: companyInput,
+              password: passwordInput
+            })
+          })
+          .then(resp => {
+            if (!resp.ok) throw new Error('Signup failed');
+            return resp.json();
+          })
+          .then(() => {
+            sessionStorage.setItem('active_user_email', emailInput);
+            sessionStorage.setItem('active_user_name', nameInput);
+            sessionStorage.setItem('active_user_company', companyInput);
+            
+            // Save locally as backup too
+            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+            if (!localUsers.some(u => u.email === emailInput)) {
+              localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
+              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            }
+            
+            window.location.href = 'dashboard.html';
+          })
+          .catch(err => {
+            console.warn('Real Signup webhook fallback (using secure LocalStorage buffer):', err);
+            
+            // LocalStorage backup signup (Cloud Sincronización Buffer)
+            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+            if (!localUsers.some(u => u.email === emailInput)) {
+              localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
+              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            }
+            
+            sessionStorage.setItem('active_user_email', emailInput);
+            sessionStorage.setItem('active_user_name', nameInput);
+            sessionStorage.setItem('active_user_company', companyInput);
+            
+            window.location.href = 'dashboard.html';
+          });
         });
       }
 
@@ -483,7 +577,8 @@
       if (btnGoogleLogin) {
         btnGoogleLogin.addEventListener('click', () => {
           sessionStorage.setItem('active_user_email', 'director@miempresa.com');
-          sessionStorage.setItem('active_user_name', 'Socio Estratégico');
+          sessionStorage.setItem('active_user_name', 'Balmis Reynoso');
+          sessionStorage.setItem('active_user_company', 'RCP Services');
           window.location.href = 'dashboard.html';
         });
       }

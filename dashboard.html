@@ -945,63 +945,111 @@
       // Populate transaction history
       const tableBody = document.getElementById('paymentsTableBody');
       const lastTxnStr = localStorage.getItem('last_transaction');
+      const erpSyncBadge = document.getElementById('erpSyncBadge');
       
       const isEN = document.documentElement.lang === 'en';
 
-      let transactions = [
-        {
-          id: 'TXN-847291',
-          date: '28/05/2026',
-          items: isEN ? 'Basic Rebranding setup' : 'Diseño Identidad Visual Básica',
-          amount: 'RD$ 20,000',
-          method: 'CardNet DOP',
-          sync: 'sync'
-        },
-        {
-          id: 'TXN-739281',
-          date: '10/05/2026',
-          items: isEN ? 'ONAPI registration fee' : 'Formalización ONAPI',
-          amount: 'RD$ 15,000',
-          method: 'CardNet DOP',
-          sync: 'sync'
+      const renderTransactions = (txnList) => {
+        if (!tableBody) return;
+        tableBody.innerHTML = '';
+        if (txnList.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">${isEN ? 'No transactions found.' : 'No se encontraron transacciones.'}</td></tr>`;
+          return;
         }
-      ];
+        txnList.forEach(txn => {
+          const tr = document.createElement('tr');
+          const isSynced = txn.sync === 'sync' || txn.sincronizado_odoo === true || txn.sincronizado_odoo === 'true';
+          tr.innerHTML = `
+            <td><strong>#${txn.id || txn.txn_id}</strong></td>
+            <td>${txn.date || txn.fecha}</td>
+            <td>${txn.items || txn.detalles}</td>
+            <td><strong style="color:var(--accent);">${txn.amount || txn.monto}</strong></td>
+            <td>${txn.method || txn.metodo}</td>
+            <td>
+              <span class="sync-badge ${isSynced ? 'online' : 'offline'}">
+                ✓ ${isSynced ? (isEN ? 'ERP Synced (Odoo)' : 'ERP Sincronizado (Odoo)') : (isEN ? 'Cloud Buffer (Pending)' : 'Buffer Nube (Pendiente)')}
+              </span>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      };
+
+      // Initial loading with mock & localStorage
+      let transactions = [];
+      if (activeEmail === 'director@miempresa.com') {
+        transactions = [
+          {
+            id: 'TXN-847291',
+            date: '28/05/2026',
+            items: isEN ? 'Basic Rebranding setup' : 'Diseño Identidad Visual Básica',
+            amount: 'RD$ 20,000',
+            method: 'CardNet DOP',
+            sync: 'sync'
+          },
+          {
+            id: 'TXN-739281',
+            date: '10/05/2026',
+            items: isEN ? 'ONAPI registration fee' : 'Formalización ONAPI',
+            amount: 'RD$ 15,000',
+            method: 'CardNet DOP',
+            sync: 'sync'
+          }
+        ];
+      }
 
       if (lastTxnStr) {
         try {
           const lastTxn = JSON.parse(lastTxnStr);
-          // Insert inside transaction history
-          transactions.unshift({
-            id: lastTxn.transactionId,
-            date: lastTxn.date,
-            items: lastTxn.items.map(item => item.name).join(', '),
-            amount: lastTxn.amountPaid,
-            method: lastTxn.paymentMethod === 'cardnet' ? 'CardNet DOP' : 'PayPal USD',
-            sync: 'sync' // starts as synced
-          });
+          if (lastTxn.email === activeEmail) {
+            transactions.unshift({
+              id: lastTxn.transactionId,
+              date: lastTxn.date,
+              items: Array.isArray(lastTxn.items) ? lastTxn.items.map(item => item.name).join(', ') : lastTxn.items,
+              amount: lastTxn.amountPaid || lastTxn.amount,
+              method: lastTxn.paymentMethod === 'cardnet' ? 'CardNet DOP' : 'PayPal USD',
+              sync: 'sync'
+            });
+          }
         } catch (e) {
           console.error(e);
         }
       }
 
-      if (tableBody) {
-        tableBody.innerHTML = '';
-        transactions.forEach(txn => {
-          const tr = document.createElement('tr');
-          
-          tr.innerHTML = `
-            <td><strong>#${txn.id}</strong></td>
-            <td>${txn.date}</td>
-            <td>${txn.items}</td>
-            <td><strong style="color:var(--accent);">${txn.amount}</strong></td>
-            <td>${txn.method}</td>
-            <td>
-              <span class="sync-badge online">✓ ${isEN ? 'ERP Synced (Odoo)' : 'ERP Sincronizado (Odoo)'}</span>
-            </td>
-          `;
-          tableBody.appendChild(tr);
-        });
-      }
+      renderTransactions(transactions);
+
+      // Perform real database fetch through n8n
+      fetch(RCP_LEAD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'get_transactions',
+          user_email: activeEmail
+        })
+      })
+      .then(resp => {
+        if (!resp.ok) throw new Error('Failed to fetch from DB');
+        return resp.json();
+      })
+      .then(data => {
+        if (data.status === 'success' || data.success) {
+          const dbTxns = data.transactions || [];
+          if (dbTxns.length > 0) {
+            renderTransactions(dbTxns);
+          }
+          if (erpSyncBadge) {
+            erpSyncBadge.className = 'sync-badge online';
+            erpSyncBadge.textContent = isEN ? '🟢 ERP Online (Odoo Connected)' : '🟢 ERP Online (Odoo Sincronizado)';
+          }
+        }
+      })
+      .catch(err => {
+        console.warn('Real transactions database fetch offline (using LocalStorage buffer):', err);
+        if (erpSyncBadge) {
+          erpSyncBadge.className = 'sync-badge offline';
+          erpSyncBadge.textContent = isEN ? '🟡 Local Cache (Sync Pending)' : '🟡 Caché Local (Pendiente de Sincronización)';
+        }
+      });
 
       // Language Dashboard handler
       const langSelect = document.getElementById('langSelectDashboard');
