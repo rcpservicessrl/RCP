@@ -49,10 +49,15 @@
       padding: 0;
     }
 
+    html {
+      font-size: clamp(15px, 1.1vw, 18px);
+    }
+
     body {
       background: var(--black-2);
       color: var(--text);
       font-family: var(--font);
+      font-size: 1rem;
       min-height: 100vh;
       display: flex;
       overflow-x: hidden;
@@ -171,6 +176,17 @@
       padding: 40px;
       min-height: 100vh;
       position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .workspace-container {
+      max-width: 90rem;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .workspace-header {
@@ -508,6 +524,18 @@
         gap: 15px;
       }
     }
+
+    /* Widescreen Scaling */
+    @media (min-width: 1440px) {
+      html {
+        font-size: clamp(16px, 1.1vw, 19px);
+      }
+    }
+    @media (min-width: 1920px) {
+      html {
+        font-size: clamp(18px, 1.1vw, 21px);
+      }
+    }
   </style>
 </head>
 
@@ -555,7 +583,8 @@
 
   <!-- ===== MAIN WORKSPACE ===== -->
   <main class="main-workspace">
-    <header class="workspace-header">
+    <div class="workspace-container">
+      <header class="workspace-header">
       <div>
         <button class="menu-toggle" id="menuToggle" aria-label="Menú">&#9776;</button>
         <h1 class="workspace-title" data-i18n="dash-title">Junta Directiva Digital</h1>
@@ -851,9 +880,10 @@
         </table>
       </div>
     </div>
+    </div> <!-- End of workspace-container -->
   </main>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=10"></script>
   
   <script>
     (function() {

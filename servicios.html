@@ -16,7 +16,7 @@
     rel="stylesheet" />
   <link rel="icon" type="image/png" href="Icono RCP.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 
 <body>
@@ -80,16 +80,18 @@
   <!-- ===== HERO SERVICES ===== -->
   <section class="hero hero-short" id="inicio">
     <div class="hero-bg-grid"></div>
-    <div class="container hero-content" style="padding-top: 120px;">
-      <div class="hero-badge animate-fade-up">
-        <span class="badge-dot"></span> <span data-i18n="cat-badge">Catálogo Interactivo 360°</span>
+    <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span> <span data-i18n="cat-badge">Catálogo Interactivo 360°</span>
+        </div>
+        <h1 class="hero-title animate-fade-up delay-1" data-i18n="cat-title">
+          Diseña tu ruta de <span class="accent">transformación</span>
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2" data-i18n="cat-sub">
+          Elige uno de nuestros paquetes estratégicos optimizados o selecciona bloques individuales a la carta para crear una experiencia totalmente adaptada a tu negocio.
+        </p>
       </div>
-      <h1 class="hero-title animate-fade-up delay-1" data-i18n="cat-title">
-        Diseña tu ruta de <span class="accent">transformación</span>
-      </h1>
-      <p class="hero-sub animate-fade-up delay-2" data-i18n="cat-sub">
-        Elige uno de nuestros paquetes estratégicos optimizados o selecciona bloques individuales a la carta para crear una experiencia totalmente adaptada a tu negocio.
-      </p>
     </div>
   </section>
 
@@ -634,46 +636,32 @@
   </footer>
 
   <!-- ===== CHATBOT WIDGET ===== -->
-  <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir asistente de chat" title="Chatear con Pulso">
-    <span class="chatbot-btn-badge" id="chatbotBadge">1</span>
-    <span class="chatbot-btn-icon">🐆</span>
-  </button>
+  <div class="chatbot-widget" id="chatbotWidget" title="Asistente Virtual RCP">
+    <div class="chatbot-tooltip" data-i18n="chatbot-tooltip">¿Necesitas ayuda? <strong>Chatea con nosotros</strong>
+    </div>
+    <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir chat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+      </svg>
+    </button>
+  </div>
 
-  <div class="chatbot-panel" id="chatbotPanel">
-    <div class="chatbot-header">
-      <div class="chatbot-header-info">
-        <div class="chatbot-avatar-wrapper">
-          <span class="chatbot-avatar-icon">🐆</span>
-          <span class="online-dot"></span>
-        </div>
-        <div>
-          <h4 class="chatbot-header-name">Pulso</h4>
-          <p class="chatbot-header-status" data-i18n="chat-status">Asistente Virtual · Online</p>
-        </div>
+  <!-- ===== CHAT PANEL ===== -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-avatar">🐆</div>
+      <div class="chat-header-info">
+        <h4 data-i18n="chat-header-title">Pulso</h4>
+        <p data-i18n="chat-header-status">En línea · Respuesta inmediata</p>
       </div>
-      <button class="chatbot-close-btn" id="chatbotCloseBtn" aria-label="Cerrar chat">&times;</button>
+      <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
     </div>
-    <div class="chatbot-messages" id="chatbotMessages">
-      <!-- Welcome message -->
-      <div class="chatbot-msg bot-msg">
-        <div class="chatbot-msg-bubble">
-          <p data-i18n="chat-welcome">¡Hola! Soy **Pulso**, el leopardo mascota de RCP Services. ¿Listo para dar un zarpazo comercial y erradicar la arritmia de tu negocio? Puedo guiarte sobre nuestros servicios de Renovación, Consultoría y Publicidad.</p>
-        </div>
-      </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off" />
+      <button class="chat-send" id="chatSend" aria-label="Enviar">➤</button>
     </div>
-    <div class="chatbot-quick-actions" id="chatbotQuickActions">
-      <button class="quick-action-btn" data-i18n="chat-qa-1">¿Qué es RCP?</button>
-      <button class="quick-action-btn" data-i18n="chat-qa-2">Ver Paquetes</button>
-      <button class="quick-action-btn" data-i18n="chat-qa-3">Diagnóstico 360°</button>
-    </div>
-    <form class="chatbot-input-area" id="chatbotForm">
-      <input type="text" class="chatbot-input" id="chatbotInput" data-i18n-placeholder="chat-placeholder" placeholder="Escribe un mensaje..." required />
-      <button type="submit" class="chatbot-send-btn" aria-label="Enviar mensaje">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-        </svg>
-      </button>
-    </form>
   </div>
 
   <!-- Audio elements for ambient music -->
@@ -686,7 +674,7 @@
       emailjs.init("pYaPyXxVIzbydrMpZ");
     })();
   </script>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=10"></script>
 </body>
 
 </html>

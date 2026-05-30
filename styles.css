@@ -169,13 +169,14 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: clamp(15px, 1.1vw, 18px);
 }
 
 body {
   background: var(--black);
   color: var(--text);
   font-family: var(--font);
-  font-size: clamp(15px, 1.2vw, 18px);
+  font-size: 1rem;
   line-height: 1.7;
   overflow-x: hidden;
 }
@@ -196,9 +197,9 @@ ul {
 
 /* ─── CONTAINER ─── */
 .container {
-  max-width: 1280px;
+  max-width: 80rem;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px);
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
   box-sizing: border-box;
 }
 
@@ -368,7 +369,7 @@ body {
 }
 
 .nav-logo {
-  height: clamp(36px, 4.5vw, 50px);
+  height: clamp(2.25rem, 4.5vw, 3.125rem);
   max-width: 180px;
   width: auto;
   display: block;
@@ -382,10 +383,10 @@ body {
 }
 
 .footer-logo {
-  height: clamp(44px, 5vw, 68px);
+  height: clamp(2.75rem, 5vw, 4.25rem);
   width: auto;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .nav-links {
@@ -537,7 +538,7 @@ body {
   right: 3%;
   top: 50%;
   transform: translateY(-50%);
-  width: clamp(200px, 22vw, 380px);
+  width: clamp(12.5rem, 22vw, 24rem);
   pointer-events: none;
   animation: float 6s ease-in-out infinite;
 }
@@ -585,7 +586,7 @@ body {
 
 .card {
   border-radius: var(--radius);
-  padding: clamp(28px, 3vw, 44px) clamp(24px, 2.5vw, 36px);
+  padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.5rem, 2.5vw, 2.25rem);
   transition: var(--transition);
 }
 
@@ -883,7 +884,7 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
-  padding: clamp(32px, 3.5vw, 52px) clamp(24px, 2.5vw, 40px);
+  padding: clamp(2rem, 3.5vw, 3.25rem) clamp(1.5rem, 2.5vw, 2.5rem);
   text-align: center;
   transition: var(--transition);
   position: relative;
@@ -1176,11 +1177,11 @@ select option:hover {
 }
 
 .qr-full-img {
-  width: clamp(140px, 20vw, 220px);
-  height: clamp(140px, 20vw, 220px);
+  width: clamp(8.75rem, 20vw, 13.75rem);
+  height: clamp(8.75rem, 20vw, 13.75rem);
   border-radius: 12px;
   background: #fff;
-  padding: 8px;
+  padding: 0.5rem;
   box-shadow: 0 0 32px rgba(252, 181, 63, 0.12);
 }
 
@@ -1365,13 +1366,13 @@ select option:hover {
 /* ─── CHATBOT WIDGET ─── */
 .chatbot-widget {
   position: fixed;
-  bottom: 32px;
-  right: 32px;
+  bottom: 2rem;
+  right: 2rem;
   z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .chatbot-tooltip {
@@ -1395,8 +1396,8 @@ select option:hover {
 }
 
 .chatbot-btn {
-  width: 58px;
-  height: 58px;
+  width: 3.625rem;
+  height: 3.625rem;
   border-radius: 50%;
   background: var(--accent) !important;
   border: none;
@@ -1405,7 +1406,7 @@ select option:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(252, 181, 63, 0.25);
+  box-shadow: 0 0.25rem 1rem rgba(252, 181, 63, 0.25);
   transition: var(--transition);
   animation: pulse-btn 3s ease infinite;
 }
@@ -1418,11 +1419,11 @@ select option:hover {
 /* ─── BACK TO TOP ─── */
 .back-top {
   position: fixed;
-  bottom: 32px;
-  left: 32px;
+  bottom: 2rem;
+  left: 2rem;
   z-index: 999;
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 50%;
@@ -1651,6 +1652,29 @@ select option:hover {
 }
 
 @media (max-width: 480px) {
+  .nav-logo {
+    max-width: clamp(100px, 35vw, 130px) !important;
+    height: auto !important;
+  }
+
+  .nav-controls {
+    gap: clamp(4px, 1.5vw, 8px) !important;
+  }
+
+  .nav-controls .icon-btn {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .lang-select {
+    padding: 2px 4px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .nav-inner {
+    gap: clamp(8px, 2.5vw, 16px) !important;
+  }
+
   .hero-actions {
     flex-direction: column;
   }
@@ -1670,6 +1694,25 @@ select option:hover {
     left: 20px;
   }
 }
+
+/* Visited links color safety overrides to prevent blue icons */
+.social-btn:visited {
+  color: var(--text) !important;
+}
+.info-item a:visited {
+  color: var(--text-muted) !important;
+}
+.info-item a:hover {
+  color: var(--accent) !important;
+}
+.info-icon svg {
+  color: var(--accent) !important;
+  fill: var(--accent) !important;
+}
+.social-btn svg {
+  color: currentColor !important;
+}
+
 
 /* ═══════════════════════════════════════════════ */
 /* NEW PAGES: Hero Short, Media, Ocean, Chat      */
@@ -3258,5 +3301,30 @@ a:visited,
   }
   .slots-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================
+   LARGE MONITOR DYNAMIC FLUID SCALING SYSTEM
+   ========================================== */
+
+/* Large Laptops & Standard Desktops (>= 1440px) */
+@media (min-width: 1440px) {
+  html {
+    font-size: clamp(17px, 1.1vw, 20px);
+  }
+}
+
+/* Full HD Screens & 2K Monitors (>= 1920px) */
+@media (min-width: 1920px) {
+  html {
+    font-size: clamp(19px, 1.1vw, 22px);
+  }
+}
+
+/* 4K UHD Monitors & Ultra-wides (>= 2560px) */
+@media (min-width: 2560px) {
+  html {
+    font-size: clamp(21px, 1.1vw, 24px);
   }
 }

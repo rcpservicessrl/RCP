@@ -12,7 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
         rel="stylesheet" />
     <link rel="icon" type="image/png" href="Icono RCP.png" />
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 
 <body>
@@ -76,16 +76,18 @@
     <!-- ===== HERO MEDIA ===== -->
     <section class="hero hero-short" id="inicio">
         <div class="hero-bg-grid"></div>
-        <div class="container hero-content" style="padding-top:120px;">
-            <div class="hero-badge animate-fade-up">
-                <span class="badge-dot"></span> <span data-i18n="media-badge">Contenido Multimedia</span>
+        <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+            <div class="hero-content">
+                <div class="hero-badge animate-fade-up">
+                    <span class="badge-dot"></span> <span data-i18n="media-badge">Contenido Multimedia</span>
+                </div>
+                <h1 class="hero-title animate-fade-up delay-1" data-i18n="media-title">
+                    Aprende, crece y <span class="accent">transforma</span>
+                </h1>
+                <p class="hero-sub animate-fade-up delay-2" data-i18n="media-sub">
+                    Video corporativo, podcast estratégico y recursos que inspiran la reanimación de tu negocio.
+                </p>
             </div>
-            <h1 class="hero-title animate-fade-up delay-1" data-i18n="media-title">
-                Aprende, crece y <span class="accent">transforma</span>
-            </h1>
-            <p class="hero-sub animate-fade-up delay-2" data-i18n="media-sub">
-                Video corporativo, podcast estratégico y recursos que inspiran la reanimación de tu negocio.
-            </p>
         </div>
     </section>
 
@@ -256,7 +258,36 @@
 
     <a href="#inicio" class="back-top" id="backTop" aria-label="Volver arriba">↑</a>
 
-    <script src="script.js?v=6"></script>
+  <!-- ===== CHATBOT WIDGET ===== -->
+  <div class="chatbot-widget" id="chatbotWidget" title="Asistente Virtual RCP">
+    <div class="chatbot-tooltip" data-i18n="chatbot-tooltip">¿Necesitas ayuda? <strong>Chatea con nosotros</strong>
+    </div>
+    <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir chat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- ===== CHAT PANEL ===== -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-avatar">🐆</div>
+      <div class="chat-header-info">
+        <h4 data-i18n="chat-header-title">Pulso</h4>
+        <p data-i18n="chat-header-status">En línea · Respuesta inmediata</p>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off" />
+      <button class="chat-send" id="chatSend" aria-label="Enviar">➤</button>
+    </div>
+  </div>
+
+    <script src="script.js?v=10"></script>
 </body>
 
 </html>

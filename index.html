@@ -21,7 +21,7 @@
     rel="stylesheet" />
   <link rel="icon" type="image/png" href="Icono RCP.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=10" />
   <!-- JSON-LD Organization Schema -->
   <script type="application/ld+json">
   {
@@ -119,37 +119,39 @@
   <!-- ===== HERO ===== -->
   <section class="hero" id="inicio">
     <div class="hero-bg-grid"></div>
-    <div class="container hero-content">
-      <div class="hero-badge animate-fade-up">
-        <span class="badge-dot"></span> <span data-i18n="hero-badge">Agencia 360° · República Dominicana</span>
+    <div class="container" style="position: relative; width: 100%;">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span> <span data-i18n="hero-badge">Agencia 360° · República Dominicana</span>
+        </div>
+        <h1 class="hero-title animate-fade-up delay-1" data-i18n="hero-title">
+          Reanimando el <span class="accent">corazón</span> de tu empresa<br />
+          para un crecimiento <span class="accent">indetenible</span>.
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2" data-i18n="hero-sub">
+          Erradicamos la arritmia empresarial. Somos tu Junta Directiva Externa que centraliza
+          tus finanzas, legalidad y marketing bajo un solo ecosistema <strong>360°</strong>.
+        </p>
+        <div class="hero-actions animate-fade-up delay-3">
+          <a href="#contacto" class="btn-cta btn-lg" data-i18n="hero-cta">Solicita tu Diagnóstico 360° Hoy</a>
+          <a href="#solucion" class="btn-ghost" data-i18n="hero-ghost">Conoce el Ecosistema →</a>
+        </div>
+        <div class="hero-stats animate-fade-up delay-4">
+          <div class="stat"><span class="stat-num">98.5<span class="accent">%</span></span><span class="stat-label"
+              data-i18n="stat-label-1">MIPYMEs afectadas</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span class="stat-num">3<span class="accent">×</span></span><span class="stat-label"
+              data-i18n="stat-label-2">Pilares
+              integrados</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span class="stat-num">360<span class="accent">°</span></span><span class="stat-label"
+              data-i18n="stat-label-3">Visión
+              total</span></div>
+        </div>
       </div>
-      <h1 class="hero-title animate-fade-up delay-1" data-i18n="hero-title">
-        Reanimando el <span class="accent">corazón</span> de tu empresa<br />
-        para un crecimiento <span class="accent">indetenible</span>.
-      </h1>
-      <p class="hero-sub animate-fade-up delay-2" data-i18n="hero-sub">
-        Erradicamos la arritmia empresarial. Somos tu Junta Directiva Externa que centraliza
-        tus finanzas, legalidad y marketing bajo un solo ecosistema <strong>360°</strong>.
-      </p>
-      <div class="hero-actions animate-fade-up delay-3">
-        <a href="#contacto" class="btn-cta btn-lg" data-i18n="hero-cta">Solicita tu Diagnóstico 360° Hoy</a>
-        <a href="#solucion" class="btn-ghost" data-i18n="hero-ghost">Conoce el Ecosistema →</a>
+      <div class="hero-leopard" aria-hidden="true">
+        <img src="Icono RCP.png" alt="" class="hero-leopard-img" aria-hidden="true" loading="lazy" />
       </div>
-      <div class="hero-stats animate-fade-up delay-4">
-        <div class="stat"><span class="stat-num">98.5<span class="accent">%</span></span><span class="stat-label"
-            data-i18n="stat-label-1">MIPYMEs afectadas</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">3<span class="accent">×</span></span><span class="stat-label"
-            data-i18n="stat-label-2">Pilares
-            integrados</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">360<span class="accent">°</span></span><span class="stat-label"
-            data-i18n="stat-label-3">Visión
-            total</span></div>
-      </div>
-    </div>
-    <div class="hero-leopard" aria-hidden="true">
-      <img src="Icono RCP.png" alt="" class="hero-leopard-img" aria-hidden="true" loading="lazy" />
     </div>
   </section>
 
@@ -679,9 +681,9 @@
   <!-- ===== CHAT PANEL ===== -->
   <div class="chat-panel" id="chatPanel">
     <div class="chat-header">
-      <div class="chat-header-avatar">🤖</div>
+      <div class="chat-header-avatar">🐆</div>
       <div class="chat-header-info">
-        <h4 data-i18n="chat-header-title">Asistente RCP</h4>
+        <h4 data-i18n="chat-header-title">Pulso</h4>
         <p data-i18n="chat-header-status">En línea · Respuesta inmediata</p>
       </div>
       <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
@@ -698,7 +700,7 @@
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=10"></script>
 </body>
 
 </html>

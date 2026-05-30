@@ -15,7 +15,7 @@
     rel="stylesheet" />
   <link rel="icon" type="image/png" href="Icono RCP.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=10" />
   
   <style>
     .portal-box {
@@ -361,10 +361,39 @@
     </div>
   </footer>
 
+  <!-- ===== CHATBOT WIDGET ===== -->
+  <div class="chatbot-widget" id="chatbotWidget" title="Asistente Virtual RCP">
+    <div class="chatbot-tooltip" data-i18n="chatbot-tooltip">¿Necesitas ayuda? <strong>Chatea con nosotros</strong>
+    </div>
+    <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir chat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- ===== CHAT PANEL ===== -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-avatar">🐆</div>
+      <div class="chat-header-info">
+        <h4 data-i18n="chat-header-title">Pulso</h4>
+        <p data-i18n="chat-header-status">En línea · Respuesta inmediata</p>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off" />
+      <button class="chat-send" id="chatSend" aria-label="Enviar">➤</button>
+    </div>
+  </div>
+
   <!-- Firebase Auth SDK Mocks & Real Bindings -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=10"></script>
   
   <script>
     (function() {
