@@ -21,7 +21,7 @@
     rel="stylesheet" />
   <link rel="icon" type="image/png" href="Icono RCP.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css" />
   <!-- JSON-LD Organization Schema -->
   <script type="application/ld+json">
   {
@@ -82,6 +82,15 @@
       </ul>
       <a href="#contacto" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
       <div class="nav-controls">
+        <div class="search-container">
+          <input type="text" class="search-input" id="searchInput" placeholder="Preguntar a Pulso..." />
+          <button class="icon-btn search-btn" id="searchBtn" aria-label="Buscar" title="Buscar / Preguntar a Pulso">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
         <select class="lang-select" aria-label="Language" title="Idioma">
           <option value="es">ES</option>
           <option value="en">EN</option>
@@ -217,7 +226,7 @@
               <span class="tab-letter">C</span> Consultoría
             </button>
             <button class="tab-btn" data-tab="publicidad" data-i18n="tab-p">
-              <span class="tab-letter">P</span> Publicidad
+              <span class="tab-letter">P</span> Publicidad 360°
             </button>
           </div>
 
@@ -274,7 +283,7 @@
             <div class="tab-panel" id="publicidad">
               <div class="panel-content">
                 <div class="panel-text">
-                  <h3 data-i18n="panel-p-title">Publicidad <span class="accent">Digital</span></h3>
+                  <h3 data-i18n="panel-p-title">Publicidad 360° <span class="accent">Digital</span></h3>
                   <p data-i18n="panel-p-desc">Ecosistemas digitales que convierten clics en clientes recurrentes:</p>
                   <ul class="feature-list">
                     <li><span class="check">✦</span> Ecosistemas web y landing pages de alta conversión</li>
@@ -631,7 +640,7 @@
       <div class="container footer-inner">
         <div class="footer-brand">
           <a href="#" class="logo-img-link">
-            <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo theme-logo" />
+            <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo" />
           </a>
           <p data-i18n="footer-desc">Agencia 360° de Transformación Empresarial y Digital<br>para MIPYMEs en la
             República
@@ -650,7 +659,7 @@
           <h4 data-i18n="footer-services-title">Servicios</h4>
           <a href="#solucion" data-i18n="footer-link-renovacion">Renovación</a>
           <a href="#solucion" data-i18n="footer-link-consultoria">Consultoría</a>
-          <a href="#solucion" data-i18n="footer-link-publicidad">Publicidad</a>
+          <a href="#solucion" data-i18n="footer-link-publicidad">Publicidad 360°</a>
         </div>
         <div class="footer-contact">
           <h4 data-i18n="footer-contact-title">Contacto</h4>
@@ -705,7 +714,7 @@
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="script.js?v=10"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

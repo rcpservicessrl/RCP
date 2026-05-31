@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v10';
+const CACHE_NAME = 'rcp-services-v13';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -9,8 +9,8 @@ const ASSETS_TO_CACHE = [
   './checkout.html',
   './portal.html',
   './dashboard.html',
-  './styles.css?v=10',
-  './script.js?v=10',
+  './styles.css',
+  './script.js',
   './Icono RCP.png',
   './Logo RCP  fondo negro.png',
   './Logo RCP Services.png',

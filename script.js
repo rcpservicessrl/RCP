@@ -1106,7 +1106,10 @@ if (contactForm) {
     // Pipeline 1: Send to n8n backend (creates Odoo CRM lead + WhatsApp notification + AI diagnostic)
     fetch(RCP_LEAD_WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-RCP-Token': 'gateway_token_seguro_e_interno_2026'
+      },
       body: JSON.stringify(formData)
     }).catch(err => console.warn('Lead webhook fallback (backend offline):', err));
 
@@ -1180,7 +1183,7 @@ if (phoneField) {
   let isOpen = false;
   let history = [];
 
-  const GREETING_ES = `¡Hola! Soy Pulso, el leopardo y asistente de RCP Services.<br>¿Te gustaría empezar con tu <strong>Diagnóstico 360° Gratuito</strong> para erradicar la arritmia empresarial? 🐆`;
+  const GREETING_ES = `¡Hola! Soy Pulso, el leopardo y asistente de RCP Services. ¿En qué te puedo ayudar hoy?`;
   const GREETING_EN = `Hello! I'm Pulso, the leopard and assistant of RCP Services.<br>Would you like to start with your <strong>Free 360° Diagnosis</strong> to eradicate business arrhythmia? 🐆`;
 
   const faq = [
@@ -1191,7 +1194,7 @@ if (phoneField) {
     },
     {
       k: ['servicio', 'hacen', 'ofrec', 'qué hacen', 'que hacen', 'service', 'what do', 'do you do', 'pilar'],
-      a: 'Somos una <strong>Agencia 360°</strong> que integra 🔄 <strong>Renovación</strong> (procesos e IA), ⚖️ <strong>Consultoría</strong> (legal/fiscal) y 📣 <strong>Publicidad e Impresión 360°</strong>. ¿Cuál de estos te interesa?',
+      a: 'Somos una <strong>Agencia 360°</strong> que integra 🔄 <strong>Renovación</strong> (procesos e IA), ⚖️ <strong>Consultoría</strong> (legal/fiscal) y 📣 <strong>Publicidad 360°</strong>. ¿Cuál de estos te interesa?',
       a_en: 'We are a <strong>360° Agency</strong> built on three pillars: 🔄 <strong>Revitalization</strong> (processes/AI), ⚖️ <strong>Consulting</strong> (legal/tax), and 📣 <strong>360° Advertising & Print</strong>. Which one interests you?'
     },
     {
@@ -1236,7 +1239,7 @@ if (phoneField) {
     },
     {
       k: ['publicidad', 'marketing', 'digital', 'campaña', 'campana', 'ads', 'seo', 'promotion', 'meta ads', 'google ads', 'web', 'landing', 'crm', 'impresión', 'impresion', 'letrero', 'volante', 'tarjeta'],
-      a: '📣 <strong>Publicidad e Impresión 360°:</strong> Creamos embudos web y landing pages de alta conversión, campañas Meta/Google Ads, posicionamiento SEO Local, y producimos impresos físicos de alta gama (papelería, uniformes, letreros y flota rotulada) en nuestros propios talleres.',
+      a: '📣 <strong>Publicidad 360°:</strong> Creamos embudos web y landing pages de alta conversión, campañas Meta/Google Ads, posicionamiento SEO Local, y producimos impresos físicos de alta gama (papelería, uniformes, letreros y flota rotulada) en nuestros propios talleres.',
       a_en: '📣 <strong>360° Advertising & Print:</strong> We build high-converting web funnels, Meta/Google Ads campaigns, Local SEO, and produce premium physical prints (stationery, uniforms, signage, and fleet branding) in our own custom workshops.'
     },
     {
@@ -1429,7 +1432,8 @@ if (phoneField) {
     fetch(RCP_CHATBOT_WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-RCP-Token': 'gateway_token_seguro_e_interno_2026'
       },
       body: JSON.stringify({ message: text, lang: document.documentElement.lang || 'es' })
     })
@@ -1508,6 +1512,17 @@ if (phoneField) {
   if (wasOpen && elapsed < 15 * 60 * 1000) {
     openChat(false);
   }
+
+  window.rcpChatbot = {
+    openChat: openChat,
+    handleSearch: function(query) {
+      if (!isOpen) openChat(true);
+      setTimeout(() => {
+        chatInput.value = query;
+        handleUserInput(query);
+      }, 500);
+    }
+  };
 })();
 
 // ─── SMOOTH ANCHOR SCROLL ───
@@ -1888,7 +1903,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       
       const n8nCall = fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-RCP-Token': 'gateway_token_seguro_e_interno_2026'
+        },
         body: JSON.stringify({
           user_name: name,
           user_email: email,
@@ -1946,3 +1964,58 @@ if ('serviceWorker' in navigator) {
       .catch((err) => console.warn('[PWA] Service Worker registration failed:', err));
   });
 }
+
+
+// ═══════════════════════════════════════════════
+// GLOBAL SEARCH LINKED TO CHATBOT
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  const searchContainers = document.querySelectorAll('.search-container');
+  
+  searchContainers.forEach(container => {
+    const searchBtn = container.querySelector('.search-btn');
+    const searchInput = container.querySelector('.search-input');
+    
+    if(!searchBtn || !searchInput) return;
+    
+    searchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!container.classList.contains('active')) {
+        container.classList.add('active');
+        setTimeout(() => searchInput.focus(), 100);
+      } else {
+        const val = searchInput.value.trim();
+        if (val) {
+          if (window.rcpChatbot) {
+            window.rcpChatbot.handleSearch(val);
+          }
+          searchInput.value = '';
+          container.classList.remove('active');
+        } else {
+          container.classList.remove('active');
+        }
+      }
+    });
+    
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const val = searchInput.value.trim();
+        if (val) {
+          if (window.rcpChatbot) {
+            window.rcpChatbot.handleSearch(val);
+          }
+          searchInput.value = '';
+          container.classList.remove('active');
+        }
+      }
+    });
+    
+    // close on click outside
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        container.classList.remove('active');
+      }
+    });
+  });
+});
