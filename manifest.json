@@ -10,16 +10,28 @@
   "orientation": "any",
   "icons": [
     {
-      "src": "Icono RCP.png",
+      "src": "icono-rcp.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "Icono RCP.png",
+      "src": "icono-rcp.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icono-rcp.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icono-rcp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "shortcuts": [
@@ -28,14 +40,14 @@
       "short_name": "Servicios",
       "description": "Explora nuestro catálogo interactivo 360°",
       "url": "./servicios.html",
-      "icons": [{ "src": "Icono RCP.png", "sizes": "192x192" }]
+      "icons": [{ "src": "icono-rcp.png", "sizes": "192x192" }]
     },
     {
       "name": "Portal de Clientes",
       "short_name": "Portal",
       "description": "Inicia sesión en tu dashboard directivo",
       "url": "./portal.html",
-      "icons": [{ "src": "Icono RCP.png", "sizes": "192x192" }]
+      "icons": [{ "src": "icono-rcp.png", "sizes": "192x192" }]
     }
   ]
 }

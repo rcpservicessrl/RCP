@@ -11,7 +11,7 @@ const ASSETS_TO_CACHE = [
   './dashboard.html',
   './styles.css',
   './script.js',
-  './Icono RCP.png',
+  './icono-rcp.png',
   './Logo RCP  fondo negro.png',
   './Logo RCP Services.png',
   './Logo RCP Services.jpg',
