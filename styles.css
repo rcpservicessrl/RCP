@@ -1891,8 +1891,14 @@ select option:hover {
 
 @media (max-width: 480px) {
   .nav-logo {
-    max-width: clamp(100px, 35vw, 130px) !important;
+    max-width: clamp(130px, 45vw, 160px) !important;
     height: auto !important;
+  }
+
+  .footer-logo {
+    height: clamp(3.5rem, 10vw, 5.5rem) !important;
+    max-width: 260px !important;
+    margin-bottom: 1.5rem !important;
   }
 
   .nav-controls {
