@@ -1725,6 +1725,14 @@ select option:hover {
     height: 100vh !important;
   }
 
+  /* Prevent backdrop-filter from creating a containing block that traps the mobile menu */
+  body.menu-open .navbar {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: transparent !important;
+    border-bottom: none !important;
+  }
+
   /* Flat listing for mobile menu nested items */
   .nav-dropdown .dropdown-trigger {
     display: none !important;

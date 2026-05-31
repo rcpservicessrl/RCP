@@ -1013,8 +1013,9 @@ hamburger.addEventListener('click', () => {
   }
 });
 navLinks.addEventListener('click', (e) => {
-  // If clicked on a navigation link, close the menu
-  if (e.target.tagName === 'A') {
+  // If clicked on a navigation link (but not a dropdown trigger), close the menu
+  const link = e.target.closest('a');
+  if (link && !link.classList.contains('dropdown-trigger')) {
     navLinks.classList.remove('open');
     document.body.classList.remove('menu-open');
     return;
