@@ -131,11 +131,14 @@
 [data-theme="light"] .footer {
   background: #1a1a1a;
   color: #e8e8ea;
+  --text: #e8e8ea;
+  --text-muted: #8a8a98;
 }
 
 [data-theme="light"] .footer-bottom {
   background: #111;
   color: #8a8a98;
+  --text-muted: #8a8a98;
 }
 
 [data-theme="light"] .social-btn {
