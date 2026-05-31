@@ -171,6 +171,11 @@
   border-color: var(--accent);
 }
 
+[data-theme="light"] .tab-btn.active .tab-letter {
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.1);
+}
+
 html {
   scroll-behavior: smooth;
   font-size: clamp(15px, 1.1vw, 18px);
