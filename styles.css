@@ -2572,6 +2572,14 @@ body.light-mode {
   z-index: 0;
 }
 
+.eco-section {
+  padding: clamp(40px, 4vw, 60px) 0 clamp(30px, 3vw, 45px) 0 !important;
+}
+
+.eco-section .section-sub {
+  margin-bottom: 24px !important;
+}
+
 .eco-section .container {
   position: relative;
   z-index: 1;
@@ -2583,6 +2591,22 @@ body.light-mode {
   border: 1px solid var(--card-border);
   position: relative;
   overflow: hidden;
+  padding: clamp(1.2rem, 1.8vw, 1.6rem) clamp(1rem, 1.5vw, 1.5rem) !important;
+}
+
+.eco-card .card-icon {
+  margin-bottom: 10px !important;
+  font-size: clamp(1.8rem, 2vw, 2.2rem) !important;
+}
+
+.eco-card h3 {
+  margin-bottom: 8px !important;
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem) !important;
+}
+
+.eco-card p {
+  line-height: 1.45 !important;
+  font-size: clamp(0.82rem, 0.9vw, 0.92rem) !important;
 }
 
 .eco-card::after {
