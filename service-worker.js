@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v20';
+const CACHE_NAME = 'rcp-services-v21';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
