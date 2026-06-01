@@ -1822,22 +1822,28 @@ select option:hover {
 }
 
 @media (min-width: 1151px) and (max-width: 1440px) {
+  .container {
+    padding: 0 clamp(1rem, 2vw, 2rem) !important;
+  }
   .nav-inner {
-    gap: clamp(12px, 1.8vw, 24px) !important;
+    gap: clamp(8px, 1.2vw, 16px) !important;
   }
   .nav-links {
-    gap: clamp(8px, 1.2vw, 18px) !important;
+    gap: clamp(6px, 1vw, 12px) !important;
   }
   .nav-logo {
-    max-width: 145px !important;
+    max-width: 130px !important;
   }
   .nav-cta {
-    margin-left: 10px !important;
-    padding: 8px 16px !important;
-    font-size: 0.82rem !important;
+    margin-left: 5px !important;
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
   }
   .nav-links a {
-    font-size: clamp(0.72rem, 0.85vw, 0.82rem) !important;
+    font-size: clamp(0.72rem, 0.8vw, 0.8rem) !important;
+  }
+  .nav-controls {
+    gap: 8px !important;
   }
 }
 
