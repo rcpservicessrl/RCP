@@ -438,7 +438,7 @@ body {
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: clamp(100px, 12vw, 150px) 0 clamp(60px, 8vw, 100px);
+  padding: clamp(80px, 8vw, 110px) 0 clamp(40px, 5vw, 60px);
 }
 
 .hero-bg-grid {
@@ -479,7 +479,7 @@ body {
   font-size: 0.8rem;
   color: var(--accent);
   font-weight: 600;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .badge-dot {
@@ -491,26 +491,26 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5.5vw, 5rem);
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
   font-weight: 900;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  margin-bottom: 26px;
+  margin-bottom: 18px;
 }
 
 .hero-sub {
-  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   color: var(--text-muted);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   max-width: 680px;
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin-bottom: 52px;
+  margin-bottom: 32px;
 }
 
 .hero-stats {
