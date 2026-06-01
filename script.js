@@ -1344,15 +1344,24 @@ if (phoneField) {
     }
   }
 
+  function formatMarkdown(str) {
+    if (!str) return '';
+    return str
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
+  }
+
   function addMessage(text, type = 'bot', save = true) {
     const div = document.createElement('div');
     div.className = 'chat-msg ' + type;
-    div.innerHTML = text;
+    const formatted = formatMarkdown(text);
+    div.innerHTML = formatted;
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     if (save) {
-      history.push({ text, type });
+      history.push({ text: formatted, type });
       saveHistory();
     }
   }
@@ -1476,7 +1485,7 @@ if (phoneField) {
         history.forEach(msg => {
           const div = document.createElement('div');
           div.className = 'chat-msg ' + msg.type;
-          div.innerHTML = msg.text;
+          div.innerHTML = formatMarkdown(msg.text);
           chatMessages.appendChild(div);
         });
         chatMessages.scrollTop = chatMessages.scrollHeight;
