@@ -438,6 +438,40 @@
         console.error("Error initializing Supabase client in portal.html:", e);
       }
 
+      if (supabase) {
+        // Listen for Google OAuth callback / active session
+        supabase.auth.onAuthStateChange(async (event, session) => {
+          if (event === 'SIGNED_IN' && session) {
+            const email = session.user.email;
+            const name = session.user.user_metadata?.full_name || email.split('@')[0];
+            
+            if (email === 'director@miempresa.com' || email === 'rcpservicessrl@gmail.com') {
+              sessionStorage.setItem('active_user_email', email);
+              sessionStorage.setItem('active_user_name', name);
+              sessionStorage.setItem('active_user_company', 'RCP Services (Admin)');
+              sessionStorage.setItem('active_user_role', 'admin');
+              window.location.href = 'dashboard.html';
+              return;
+            }
+            
+            // Verify if regular client exists in DB
+            const { data, error } = await supabase.from('clientes').select('*').eq('email', email).maybeSingle();
+            if (data) {
+              sessionStorage.setItem('active_user_email', email);
+              sessionStorage.setItem('active_user_name', data.owner_name || name);
+              sessionStorage.setItem('active_user_company', data.company_name);
+              sessionStorage.setItem('active_user_role', 'client');
+              window.location.href = 'dashboard.html';
+            } else {
+              alert(document.documentElement.lang === 'en' 
+                ? 'Your Google account is not registered in our client database. Please register first.' 
+                : 'Tu cuenta de Google no está registrada en nuestra base de datos. Por favor, regístrate primero.');
+              await supabase.auth.signOut();
+            }
+          }
+        });
+      }
+
       // Parse parameters (Prefill signup info if they just bought a package!)
       const params = new URLSearchParams(window.location.search);
       const isSignup = params.get('signup') === 'true';
@@ -639,12 +673,32 @@
 
       const btnGoogleLogin = document.getElementById('btnGoogleLogin');
       if (btnGoogleLogin) {
-        btnGoogleLogin.addEventListener('click', () => {
-          sessionStorage.setItem('active_user_email', 'director@miempresa.com');
-          sessionStorage.setItem('active_user_name', 'Balmis Reynoso');
-          sessionStorage.setItem('active_user_company', 'RCP Services');
-          sessionStorage.setItem('active_user_role', 'admin');
-          window.location.href = 'dashboard.html';
+        btnGoogleLogin.addEventListener('click', async () => {
+          if (supabase) {
+            const btnSpan = btnGoogleLogin.querySelector('span');
+            const originalText = btnSpan ? btnSpan.textContent : 'Google';
+            if (btnSpan) btnSpan.textContent = document.documentElement.lang === 'en' ? 'Connecting...' : 'Conectando...';
+            btnGoogleLogin.style.pointerEvents = 'none';
+            btnGoogleLogin.style.opacity = '0.7';
+
+            try {
+              const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                  redirectTo: window.location.origin + window.location.pathname
+                }
+              });
+              if (error) throw error;
+            } catch (err) {
+              console.error("Error with Google Login:", err);
+              if (btnSpan) btnSpan.textContent = originalText;
+              btnGoogleLogin.style.pointerEvents = 'auto';
+              btnGoogleLogin.style.opacity = '1';
+              alert(document.documentElement.lang === 'en' ? 'Error connecting to Google.' : 'Error al conectar con Google.');
+            }
+          } else {
+            alert("Supabase client is not initialized.");
+          }
         });
       }
     })();
