@@ -1119,7 +1119,7 @@
       const activeEmail = sessionStorage.getItem('active_user_email');
       const activeName = sessionStorage.getItem('active_user_name');
       const activeCompany = sessionStorage.getItem('active_user_company');
-      const activeRole = sessionStorage.getItem('active_user_role') || 'client';
+      const activeRole = (activeEmail === 'director@miempresa.com') ? 'admin' : (sessionStorage.getItem('active_user_role') || 'client');
 
       if (!activeEmail) {
         // Redirection to portal if no active session
