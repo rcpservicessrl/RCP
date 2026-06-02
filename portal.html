@@ -463,10 +463,44 @@
               sessionStorage.setItem('active_user_role', 'client');
               window.location.href = 'dashboard.html';
             } else {
-              alert(document.documentElement.lang === 'en' 
-                ? 'Your Google account is not registered in our client database. Please register first.' 
-                : 'Tu cuenta de Google no está registrada en nuestra base de datos. Por favor, regístrate primero.');
-              await supabase.auth.signOut();
+              // Auto-register via Google OAuth
+              const newClient = {
+                company_name: name + " (Auto-Registro)",
+                legal_id: 'Pendiente',
+                owner_name: name,
+                email: email,
+                password: 'Google_OAuth_User',
+                phone: 'Pendiente',
+                address: 'Pendiente',
+                status: 'active',
+                ventas: 0,
+                ventas_trend: '▲ +0%',
+                cpl: 0,
+                cpl_trend: '▼ -0%',
+                roas: 0.0,
+                roas_trend: '▲ +0x',
+                ltv: 0,
+                ltv_trend: '▲ +0%',
+                tramite_onapi: 0,
+                tramite_camara: 0,
+                tramite_dgii: 0,
+                chart_data: [0, 0, 0, 0, 0, 0, 0],
+                pagos: []
+              };
+              
+              const { error: insertError } = await supabase.from('clientes').insert([newClient]);
+              
+              if (insertError) {
+                console.error("Error auto-registering:", insertError);
+                alert(document.documentElement.lang === 'en' ? "Error creating your account." : "Error creando tu cuenta automáticamente.");
+                await supabase.auth.signOut();
+              } else {
+                sessionStorage.setItem('active_user_email', email);
+                sessionStorage.setItem('active_user_name', name);
+                sessionStorage.setItem('active_user_company', newClient.company_name);
+                sessionStorage.setItem('active_user_role', 'client');
+                window.location.href = 'dashboard.html';
+              }
             }
           }
         });

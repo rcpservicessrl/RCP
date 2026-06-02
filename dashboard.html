@@ -1272,7 +1272,10 @@
       // Logout handler
       const btnLogout = document.getElementById('btnLogout');
       if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
+        btnLogout.addEventListener('click', async () => {
+          if (supabase) {
+            await supabase.auth.signOut();
+          }
           sessionStorage.clear();
           window.location.href = 'portal.html';
         });
