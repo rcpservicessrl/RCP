@@ -1103,9 +1103,14 @@
   
   <script>
     (function() {
-      // Initialize Supabase Client
-      const supabaseUrl = 'http://127.0.0.1:54321';
-      const supabaseKey = 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH';
+      // Initialize Supabase Client (auto-detect local vs cloud)
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+      const supabaseUrl = isLocal
+        ? 'http://127.0.0.1:54321'
+        : 'https://wpfovxgbennpgydbellw.supabase.co';
+      const supabaseKey = isLocal
+        ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH'
+        : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
       let supabase = null;
       try {
         if (window.supabase) {
