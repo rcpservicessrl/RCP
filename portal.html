@@ -416,10 +416,23 @@
   <!-- Firebase Auth SDK Mocks & Real Bindings -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
   
   <script>
     (function() {
+      // Initialize Supabase Client
+      const supabaseUrl = 'http://127.0.0.1:54321';
+      const supabaseKey = 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH';
+      let supabase = null;
+      try {
+        if (window.supabase) {
+          supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        }
+      } catch (e) {
+        console.error("Error initializing Supabase client in portal.html:", e);
+      }
+
       // Parse parameters (Prefill signup info if they just bought a package!)
       const params = new URLSearchParams(window.location.search);
       const isSignup = params.get('signup') === 'true';
@@ -458,12 +471,12 @@
         loginView.style.display = 'block';
       });
 
-      // Interactive Auth submission (Mock + Firebase connection + Real n8n Database)
+      // Interactive Auth submission (Real Supabase integration with LocalStorage Fallback)
       const loginForm = document.getElementById('loginForm');
       if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const emailInput = document.getElementById('loginEmail').value;
+          const emailInput = document.getElementById('loginEmail').value.trim();
           const passwordInput = document.getElementById('loginPassword').value;
           
           const btnSubmit = loginForm.querySelector('button[type="submit"]');
@@ -471,63 +484,78 @@
           btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Verifying...' : 'Verificando...';
           btnSubmit.disabled = true;
 
-          // Call n8n DB webhook
-          fetch(RCP_LEAD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              action: 'login',
-              user_email: emailInput,
-              password: passwordInput
-            })
-          })
-          .then(resp => {
-            if (!resp.ok) throw new Error('Auth failed');
-            return resp.json();
-          })
-          .then(data => {
-            if (data.status === 'success' || data.success) {
-              sessionStorage.setItem('active_user_email', data.user.correo || emailInput);
-              sessionStorage.setItem('active_user_name', data.user.nombre || emailInput.split('@')[0]);
-              sessionStorage.setItem('active_user_company', data.user.empresa || 'Empresa');
-              window.location.href = 'dashboard.html';
-            } else {
-              throw new Error('Invalid credentials');
+          // Check default admin
+          const isAdmin = (emailInput === 'director@miempresa.com' && passwordInput === 'admin_rcp_2026');
+          
+          if (isAdmin) {
+            sessionStorage.setItem('active_user_email', emailInput);
+            sessionStorage.setItem('active_user_name', 'Balmis Reynoso');
+            sessionStorage.setItem('active_user_company', 'RCP Services');
+            sessionStorage.setItem('active_user_role', 'admin');
+            window.location.href = 'dashboard.html';
+            return;
+          }
+
+          if (supabase) {
+            try {
+              // Real Supabase Query on `clientes` table
+              const { data, error } = await supabase
+                .from('clientes')
+                .select('*')
+                .eq('email', emailInput)
+                .eq('password', passwordInput)
+                .maybeSingle();
+
+              if (error) throw error;
+
+              if (data) {
+                if (data.status === 'inactive') {
+                  alert(document.documentElement.lang === 'en' 
+                    ? 'Your account is currently inactive. Please contact support.' 
+                    : 'Tu cuenta se encuentra inactiva. Por favor contacta a soporte.');
+                  btnSubmit.textContent = originalText;
+                  btnSubmit.disabled = false;
+                  return;
+                }
+                sessionStorage.setItem('active_user_email', data.email);
+                sessionStorage.setItem('active_user_name', data.owner_name);
+                sessionStorage.setItem('active_user_company', data.company_name);
+                sessionStorage.setItem('active_user_role', 'client');
+                window.location.href = 'dashboard.html';
+                return;
+              }
+            } catch (err) {
+              console.warn('Supabase DB connection failed, falling back to local simulation buffer:', err);
             }
-          })
-          .catch(err => {
-            console.warn('Real Auth webhook fallback (using secure LocalStorage buffer):', err);
-            
-            // LocalStorage fallback (Cloud Sincronización Buffer)
-            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-            const foundUser = localUsers.find(u => u.email === emailInput && u.password === passwordInput);
-            
-            // Check default admin
-            const isAdmin = (emailInput === 'director@miempresa.com' && passwordInput === 'admin_rcp_2026');
-            
-            if (foundUser || isAdmin) {
-              sessionStorage.setItem('active_user_email', emailInput);
-              sessionStorage.setItem('active_user_name', foundUser ? foundUser.name : 'Balmis Reynoso');
-              sessionStorage.setItem('active_user_company', foundUser ? foundUser.company : 'RCP Services');
-              window.location.href = 'dashboard.html';
-            } else {
-              alert(document.documentElement.lang === 'en' 
-                ? 'Invalid email or password.' 
-                : 'Correo o contraseña incorrectos.');
-              btnSubmit.textContent = originalText;
-              btnSubmit.disabled = false;
-            }
-          });
+          }
+
+          // LocalStorage fallback (Local Simulación Buffer)
+          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+          const foundUser = localUsers.find(u => u.email === emailInput && u.password === passwordInput);
+          
+          if (foundUser) {
+            sessionStorage.setItem('active_user_email', emailInput);
+            sessionStorage.setItem('active_user_name', foundUser.name);
+            sessionStorage.setItem('active_user_company', foundUser.company);
+            sessionStorage.setItem('active_user_role', 'client');
+            window.location.href = 'dashboard.html';
+          } else {
+            alert(document.documentElement.lang === 'en' 
+              ? 'Invalid email or password.' 
+              : 'Correo o contraseña incorrectos.');
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+          }
         });
       }
 
       const signupForm = document.getElementById('signupForm');
       if (signupForm) {
-        signupForm.addEventListener('submit', (e) => {
+        signupForm.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const emailInput = document.getElementById('signupEmail').value;
-          const nameInput = document.getElementById('signupName').value;
-          const companyInput = document.getElementById('signupCompany').value;
+          const emailInput = document.getElementById('signupEmail').value.trim();
+          const nameInput = document.getElementById('signupName').value.trim();
+          const companyInput = document.getElementById('signupCompany').value.trim();
           const passwordInput = document.getElementById('signupPassword').value;
           
           const btnSubmit = signupForm.querySelector('button[type="submit"]');
@@ -535,52 +563,60 @@
           btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Creating...' : 'Creando...';
           btnSubmit.disabled = true;
 
-          // Call n8n DB webhook
-          fetch(RCP_LEAD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              action: 'signup',
-              user_name: nameInput,
-              user_email: emailInput,
-              user_company: companyInput,
-              password: passwordInput
-            })
-          })
-          .then(resp => {
-            if (!resp.ok) throw new Error('Signup failed');
-            return resp.json();
-          })
-          .then(() => {
-            sessionStorage.setItem('active_user_email', emailInput);
-            sessionStorage.setItem('active_user_name', nameInput);
-            sessionStorage.setItem('active_user_company', companyInput);
-            
-            // Save locally as backup too
-            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-            if (!localUsers.some(u => u.email === emailInput)) {
-              localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
-              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+          let signupSuccess = false;
+
+          if (supabase) {
+            try {
+              // Real Supabase Insert on `clientes` table
+              const newClient = {
+                company_name: companyInput,
+                legal_id: 'RNC-Pendiente',
+                owner_name: nameInput,
+                email: emailInput,
+                password: passwordInput,
+                phone: 'Pendiente',
+                address: 'Pendiente',
+                status: 'active',
+                ventas: 0,
+                ventas_trend: '▲ +0%',
+                cpl: 0,
+                cpl_trend: '▼ -0%',
+                roas: 0.0,
+                roas_trend: '▲ +0x',
+                ltv: 0,
+                ltv_trend: '▲ +0%',
+                tramite_onapi: 0,
+                tramite_camara: 0,
+                tramite_dgii: 0,
+                chart_data: [0, 0, 0, 0, 0, 0, 0],
+                pagos: []
+              };
+
+              const { data, error } = await supabase
+                .from('clientes')
+                .insert([newClient])
+                .select();
+
+              if (error) throw error;
+              signupSuccess = true;
+            } catch (err) {
+              console.warn('Supabase DB registration failed, registering in local simulation buffer:', err);
             }
-            
-            window.location.href = 'dashboard.html';
-          })
-          .catch(err => {
-            console.warn('Real Signup webhook fallback (using secure LocalStorage buffer):', err);
-            
-            // LocalStorage backup signup (Cloud Sincronización Buffer)
-            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-            if (!localUsers.some(u => u.email === emailInput)) {
-              localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
-              localStorage.setItem('portal_users', JSON.stringify(localUsers));
-            }
-            
-            sessionStorage.setItem('active_user_email', emailInput);
-            sessionStorage.setItem('active_user_name', nameInput);
-            sessionStorage.setItem('active_user_company', companyInput);
-            
-            window.location.href = 'dashboard.html';
-          });
+          }
+
+          // Buffer in LocalStorage
+          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+          if (!localUsers.some(u => u.email === emailInput)) {
+            localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
+            localStorage.setItem('portal_users', JSON.stringify(localUsers));
+          }
+
+          sessionStorage.setItem('active_user_email', emailInput);
+          sessionStorage.setItem('active_user_name', nameInput);
+          sessionStorage.setItem('active_user_company', companyInput);
+          sessionStorage.setItem('active_user_role', 'client');
+          
+          window.location.href = 'dashboard.html';
         });
       }
 
@@ -602,6 +638,7 @@
           sessionStorage.setItem('active_user_email', 'director@miempresa.com');
           sessionStorage.setItem('active_user_name', 'Balmis Reynoso');
           sessionStorage.setItem('active_user_company', 'RCP Services');
+          sessionStorage.setItem('active_user_role', 'admin');
           window.location.href = 'dashboard.html';
         });
       }

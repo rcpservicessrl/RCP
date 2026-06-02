@@ -536,6 +536,33 @@
         font-size: clamp(18px, 1.1vw, 21px);
       }
     }
+    /* --- CLIENTES REALES GRID & FORM SYSTEM --- */
+    .clientes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      width: 100%;
+    }
+    @media (min-width: 1200px) {
+      .clientes-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        align-items: start;
+      }
+    }
+    #clientFormCard {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    #clientFormCard:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 32px rgba(252, 181, 63, 0.05);
+    }
   </style>
 </head>
 
@@ -561,6 +588,9 @@
         </a>
         <a class="nav-item" data-tab="pagos">
           <span>💳</span> <span data-i18n="dash-nav-pagos">Historial de Pagos</span>
+        </a>
+        <a class="nav-item" data-tab="clientes" id="navClientesLink" style="display: none;">
+          <span>👥</span> <span data-i18n="dash-nav-clients">Gestión de Clientes</span>
         </a>
       </nav>
     </div>
@@ -621,6 +651,20 @@
 
     <!-- PANEL 1: OVERVIEW -->
     <div class="dashboard-panel active" id="view-overview">
+      <!-- Admin Selector Row -->
+      <div id="adminSelectorRow" style="display:none; background:rgba(252,181,63,0.05); border:1px solid rgba(252,181,63,0.15); padding:15px 20px; border-radius:10px; margin-bottom:25px; align-items:center; justify-content:space-between; gap:20px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:1.2rem;">👁️</span>
+          <span style="font-size:0.9rem; font-weight:700;">Vista de Administrador:</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <label for="adminClientSelect" style="font-size:0.82rem; color:var(--text-muted);">Visualizar datos de:</label>
+          <select class="lang-select" id="adminClientSelect" style="font-size:0.85rem; padding:6px 14px; min-width:220px; border-radius:6px; background:rgba(252,181,63,0.08);">
+            <option value="default">Vista Global (Simulación)</option>
+          </select>
+        </div>
+      </div>
+
       <!-- KPIs Row -->
       <div class="kpi-row">
         <div class="kpi-card">
@@ -712,19 +756,19 @@
             <div>
               <p style="font-size:0.85rem; font-weight:700; margin-bottom:6px;">Registro en ONAPI</p>
               <div class="progress-bar-track">
-                <div class="progress-bar-fill" style="width: 100%;"></div>
+                <div class="progress-bar-fill" id="overBarOnapi" style="width: 100%;"></div>
               </div>
             </div>
             <div>
               <p style="font-size:0.85rem; font-weight:700; margin-bottom:6px;">Registro Mercantil (Cámara)</p>
               <div class="progress-bar-track">
-                <div class="progress-bar-fill" style="width: 75%;"></div>
+                <div class="progress-bar-fill" id="overBarCamara" style="width: 75%;"></div>
               </div>
             </div>
             <div>
               <p style="font-size:0.85rem; font-weight:700; margin-bottom:6px;">RNC impositivo (DGII)</p>
               <div class="progress-bar-track">
-                <div class="progress-bar-fill" style="width: 40%;"></div>
+                <div class="progress-bar-fill" id="overBarDgii" style="width: 40%;"></div>
               </div>
             </div>
           </div>
@@ -744,10 +788,10 @@
         <div class="tramite-progress-card">
           <div class="tramite-header">
             <span class="tramite-name">Registro de Nombre Comercial y Marca (ONAPI)</span>
-            <span class="tramite-badge completed" data-i18n="dash-completed">Completado</span>
+            <span class="tramite-badge completed" id="mainBadgeOnapi" data-i18n="dash-completed">Completado</span>
           </div>
           <div class="progress-bar-track" style="margin-bottom:12px;">
-            <div class="progress-bar-fill" style="width: 100%;"></div>
+            <div class="progress-bar-fill" id="mainBarOnapi" style="width: 100%;"></div>
           </div>
           <p style="font-size:0.8rem; color:var(--text-muted);" data-i18n="dash-desc-onapi">Certificado de nombre comercial expedido y registrado a favor de la entidad. Activos protegidos legalmente.</p>
         </div>
@@ -756,10 +800,10 @@
         <div class="tramite-progress-card">
           <div class="tramite-header">
             <span class="tramite-name">Registro Mercantil (Cámara de Comercio y Producción)</span>
-            <span class="tramite-badge process" data-i18n="dash-process">En Proceso (75%)</span>
+            <span class="tramite-badge process" id="mainBadgeCamara" data-i18n="dash-process">En Proceso (75%)</span>
           </div>
           <div class="progress-bar-track" style="margin-bottom:12px;">
-            <div class="progress-bar-fill" style="width: 75%;"></div>
+            <div class="progress-bar-fill" id="mainBarCamara" style="width: 75%;"></div>
           </div>
           <p style="font-size:0.8rem; color:var(--text-muted);" data-i18n="dash-desc-rm">Documentación revisada y depositada ante la Cámara de Comercio. En espera de emisión del Registro Mercantil final (3-5 días hábiles).</p>
         </div>
@@ -768,10 +812,10 @@
         <div class="tramite-progress-card">
           <div class="tramite-header">
             <span class="tramite-name">Solicitud de RNC (Dirección General de Impuestos Internos)</span>
-            <span class="tramite-badge review" data-i18n="dash-review">En Verificación (40%)</span>
+            <span class="tramite-badge review" id="mainBadgeDgii" data-i18n="dash-review">En Verificación (40%)</span>
           </div>
           <div class="progress-bar-track" style="margin-bottom:12px;">
-            <div class="progress-bar-fill" style="width: 40%;"></div>
+            <div class="progress-bar-fill" id="mainBarDgii" style="width: 40%;"></div>
           </div>
           <p style="font-size:0.8rem; color:var(--text-muted);" data-i18n="dash-desc-dgii">Formulario de registro nacional de contribuyente depositado vía Oficina Virtual de DGII. En proceso de verificación y generación de clave accesoria.</p>
         </div>
@@ -880,14 +924,273 @@
         </table>
       </div>
     </div>
+
+    <!-- PANEL 5: GESTIÓN DE CLIENTES -->
+    <div class="dashboard-panel" id="view-clientes">
+      <div class="clientes-grid">
+        <!-- Left Side: Table of Clients -->
+        <div class="card-workspace">
+          <div class="card-title-row" style="margin-bottom:20px;">
+            <h3 data-i18n="dash-clients-title">Gestión de Clientes Reales</h3>
+            <div style="display:flex; gap:10px;">
+              <select class="lang-select" id="clientStatusFilter" style="font-size:0.8rem;">
+                <option value="all" data-i18n="dash-clients-filter-all">Todos los Estados</option>
+                <option value="active" data-i18n="dash-clients-filter-active">Activos</option>
+                <option value="inactive" data-i18n="dash-clients-filter-inactive">Inactivos</option>
+              </select>
+              <button class="btn-action-sm" id="btnRefreshClientes" data-i18n="dash-clients-btn-sync">Actualizar</button>
+            </div>
+          </div>
+          
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:25px; line-height:1.5;" data-i18n="dash-clients-desc">
+            Administra tus clientes reales formalizados. Los datos están protegidos bajo la Capa 1 de seguridad relacional (Supabase PostgreSQL con RLS).
+          </p>
+
+          <div style="overflow-x:auto;">
+            <table class="payments-table" style="min-width: 800px;">
+              <thead>
+                <tr>
+                  <th data-i18n="dash-clients-th-company">Empresa</th>
+                  <th data-i18n="dash-clients-th-rnc">RNC</th>
+                  <th data-i18n="dash-clients-th-owner">Representante</th>
+                  <th data-i18n="dash-clients-th-contact">Contacto</th>
+                  <th data-i18n="dash-clients-th-status">Estado</th>
+                  <th data-i18n="dash-clients-th-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="clientesTableBody">
+                <tr>
+                  <td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="dash-clients-loading">Consultando base de datos blindada...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Side: Add / Edit Client Form -->
+        <div class="card-workspace" id="clientFormCard">
+          <div class="card-title-row" style="margin-bottom:20px;">
+            <h3 id="clientFormTitle" data-i18n="dash-clients-form-title-add">Registrar Cliente Real</h3>
+            <span class="sync-badge online" id="clientFormBadge" style="display:none;" data-i18n="dash-clients-badge-edit">Modo Edición</span>
+          </div>
+
+          <form id="clientForm">
+            <input type="hidden" id="clientIdInput" />
+            
+            <div class="portal-form-group" style="margin-bottom:15px;">
+              <label for="clientCompanyName" data-i18n="dash-clients-label-company">Nombre Comercial / Empresa *</label>
+              <input type="text" id="clientCompanyName" required placeholder="Ej. Comercializadora Dominicana SRL" class="form-control" />
+            </div>
+
+            <div class="portal-form-group" style="margin-bottom:15px;">
+              <label for="clientLegalId" data-i18n="dash-clients-label-rnc">RNC (Registro Nacional de Contribuyentes) *</label>
+              <input type="text" id="clientLegalId" required placeholder="Ej. 1-31-12345-6" class="form-control" />
+            </div>
+
+            <div class="portal-form-group" style="margin-bottom:15px;">
+              <label for="clientOwnerName" data-i18n="dash-clients-label-owner">Propietario / Representante Legal *</label>
+              <input type="text" id="clientOwnerName" required placeholder="Ej. Juan Pérez" class="form-control" />
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientEmail" data-i18n="form-email">Correo Electrónico *</label>
+                <input type="email" id="clientEmail" required placeholder="juan@correo.com" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientPassword" data-i18n="port-pass">Contraseña de Acceso *</label>
+                <input type="text" id="clientPassword" required placeholder="client123" class="form-control" />
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientPhone" data-i18n="form-phone">Teléfono / WhatsApp *</label>
+                <input type="text" id="clientPhone" required placeholder="809-555-1234" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientAddress" data-i18n="dash-clients-label-address">Dirección Comercial</label>
+                <input type="text" id="clientAddress" placeholder="Av. Winston Churchill #105, Santo Domingo" class="form-control" />
+              </div>
+            </div>
+
+            <!-- Client Metrics Section -->
+            <h4 style="margin-top: 25px; margin-bottom: 15px; font-weight:800; color:var(--accent);">Métricas de Negocio</h4>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientVentas">Ventas del Mes (RD$) *</label>
+                <input type="number" id="clientVentas" required placeholder="480000" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientVentasTrend">Tendencia Ventas (ej: ▲ +12.4%)</label>
+                <input type="text" id="clientVentasTrend" placeholder="▲ +12.4%" class="form-control" />
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientCac">Costo por Lead / CPL (RD$) *</label>
+                <input type="number" id="clientCac" required placeholder="2500" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientCacTrend">Tendencia CPL (ej: ▼ -8.2%)</label>
+                <input type="text" id="clientCacTrend" placeholder="▼ -8.2%" class="form-control" />
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientRoas">Retorno Ads / ROAS (ej: 4.2) *</label>
+                <input type="number" step="0.1" id="clientRoas" required placeholder="4.2" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientRoasTrend">Tendencia ROAS (ej: ▲ +0.6x)</label>
+                <input type="text" id="clientRoasTrend" placeholder="▲ +0.6x" class="form-control" />
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientLtv">Valor del Cliente / LTV (RD$) *</label>
+                <input type="number" id="clientLtv" required placeholder="35000" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientLtvTrend">Tendencia LTV (ej: ▲ +15%)</label>
+                <input type="text" id="clientLtvTrend" placeholder="▲ +15%" class="form-control" />
+              </div>
+            </div>
+
+            <!-- Client Legal Progress Section -->
+            <h4 style="margin-top: 25px; margin-bottom: 15px; font-weight:800; color:var(--accent);">Estatus de Trámites (%)</h4>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientOnapi">ONAPI (%)</label>
+                <input type="number" id="clientOnapi" min="0" max="100" placeholder="100" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientCamara">Registro Mercantil (%)</label>
+                <input type="number" id="clientCamara" min="0" max="100" placeholder="80" class="form-control" />
+              </div>
+              <div class="portal-form-group">
+                <label for="clientDgii">DGII / RNC (%)</label>
+                <input type="number" id="clientDgii" min="0" max="100" placeholder="20" class="form-control" />
+              </div>
+            </div>
+
+            <div class="portal-form-group" style="margin-bottom:20px;">
+              <label for="clientStatus" data-i18n="dash-clients-label-status">Estado de Cuenta</label>
+              <select class="lang-select" id="clientStatus" style="width:100%; font-size:0.88rem;">
+                <option value="active" data-i18n="dash-clients-status-active">Activo</option>
+                <option value="inactive" data-i18n="dash-clients-status-inactive">Inactivo</option>
+              </select>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+              <button type="submit" class="btn-cta" id="btnSaveClient" style="flex:2; padding:12px; font-size:0.9rem;" data-i18n="dash-clients-btn-save">💾 Guardar Cliente</button>
+              <button type="button" class="btn-action-sm" id="btnCancelEdit" style="flex:1; display:none; padding:12px; border-color:var(--text-muted); color:var(--text);" data-i18n="dash-clients-btn-cancel">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     </div> <!-- End of workspace-container -->
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
   
   <script>
     (function() {
-      // Handle workspace sidebar navigation
+      // Initialize Supabase Client
+      const supabaseUrl = 'http://127.0.0.1:54321';
+      const supabaseKey = 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH';
+      let supabase = null;
+      try {
+        if (window.supabase) {
+          supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        }
+      } catch (e) {
+        console.error("Error initializing Supabase client in dashboard.html:", e);
+      }
+
+      // Check Session & Access Control
+      const activeEmail = sessionStorage.getItem('active_user_email');
+      const activeName = sessionStorage.getItem('active_user_name');
+      const activeCompany = sessionStorage.getItem('active_user_company');
+      const activeRole = sessionStorage.getItem('active_user_role') || 'client';
+
+      if (!activeEmail) {
+        // Redirection to portal if no active session
+        window.location.href = 'portal.html';
+        return;
+      }
+
+      // Setup language dictionary & translation helper
+      const isEN = document.documentElement.lang === 'en';
+
+      const trans = {
+        es: {
+          loading: "Consultando base de datos blindada...",
+          noTxns: "No se encontraron transacciones.",
+          txnSynced: "ERP Sincronizado (Odoo)",
+          txnPending: "Buffer Nube (Pendiente)",
+          statusActive: "Activo",
+          statusInactive: "Inactivo",
+          statusCompleted: "Completado",
+          statusProcess: "En Proceso",
+          statusReview: "En Verificación",
+          descOnapi: "Certificado de nombre comercial expedido y registrado a favor de la entidad. Activos protegidos legalmente.",
+          descRm: "Documentación revisada y depositada ante la Cámara de Comercio. En espera de emisión del Registro Mercantil final (3-5 días hábiles).",
+          descDgii: "Formulario de registro nacional de contribuyente depositado vía Oficina Virtual de DGII. En proceso de verificación y generación de clave accesoria.",
+          confirmDelete: "¿Estás seguro de que deseas eliminar este cliente?",
+          deleteSuccess: "Cliente eliminado correctamente.",
+          saveSuccess: "Cliente guardado correctamente.",
+          formAdd: "Registrar Cliente Real",
+          formEdit: "Editar Cliente Real",
+          btnSave: "💾 Guardar Cliente",
+          btnSaving: "Guardando...",
+          globalView: "Vista Global (Simulación)",
+          noClients: "No hay clientes registrados."
+        },
+        en: {
+          loading: "Querying secured database...",
+          noTxns: "No transactions found.",
+          txnSynced: "ERP Synced (Odoo)",
+          txnPending: "Cloud Buffer (Pending)",
+          statusActive: "Active",
+          statusInactive: "Inactive",
+          statusCompleted: "Completed",
+          statusProcess: "In Progress",
+          statusReview: "Under Review",
+          descOnapi: "Commercial name certificate issued and registered in favor of the entity. Assets legally protected.",
+          descRm: "Documentation reviewed and deposited at the Chamber of Commerce. Awaiting final Mercantile Registry emission (3-5 business days).",
+          descDgii: "National taxpayer registry form deposited via DGII Virtual Office. In verification process and secondary key generation.",
+          confirmDelete: "Are you sure you want to delete this client?",
+          deleteSuccess: "Client deleted successfully.",
+          saveSuccess: "Client saved successfully.",
+          formAdd: "Register Real Client",
+          formEdit: "Edit Real Client",
+          btnSave: "💾 Save Client",
+          btnSaving: "Saving...",
+          globalView: "Global View (Simulation)",
+          noClients: "No registered clients found."
+        }
+      };
+
+      const t = isEN ? trans.en : trans.es;
+
+      // Update basic profile info in sidebar
+      const profileName = document.getElementById('profileName');
+      const profileCompany = document.getElementById('profileCompany');
+      const profileAvatar = document.getElementById('profileAvatar');
+      
+      if (profileName) profileName.textContent = activeName;
+      if (profileCompany) profileCompany.textContent = activeCompany;
+      if (profileAvatar) profileAvatar.textContent = activeName.charAt(0).toUpperCase();
+
+      // Sidebar Navigation Tab switching
       const navItems = document.querySelectorAll('.nav-item[data-tab]');
       const panels = document.querySelectorAll('.dashboard-panel');
       const menuToggle = document.getElementById('menuToggle');
@@ -896,20 +1199,20 @@
       navItems.forEach(item => {
         item.addEventListener('click', () => {
           const tab = item.dataset.tab;
-          
           navItems.forEach(i => i.classList.remove('active'));
           panels.forEach(p => p.classList.remove('active'));
           
           item.classList.add('active');
-          document.getElementById('view-' + tab).classList.add('active');
+          const panel = document.getElementById('view-' + tab);
+          if (panel) panel.classList.add('active');
           
-          if (sidebar.classList.contains('open')) {
+          if (sidebar && sidebar.classList.contains('open')) {
             sidebar.classList.remove('open');
           }
         });
       });
 
-      // support shortcut triggers
+      // Shortcut triggers for tabs
       document.querySelectorAll('[data-tab-nav]').forEach(el => {
         el.addEventListener('click', () => {
           const tab = el.dataset.tabNav;
@@ -918,20 +1221,11 @@
         });
       });
 
-      if (menuToggle) {
+      if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', () => {
           sidebar.classList.toggle('open');
         });
       }
-
-      // Populate dynamic session info
-      const activeEmail = sessionStorage.getItem('active_user_email') || 'director@miempresa.com';
-      const activeName = sessionStorage.getItem('active_user_name') || 'Balmis Reynoso';
-      const activeCompany = sessionStorage.getItem('active_user_company') || 'Mi Negocio SRL';
-
-      document.getElementById('profileName').textContent = activeName;
-      document.getElementById('profileCompany').textContent = activeCompany;
-      document.getElementById('profileAvatar').textContent = activeName.charAt(0).toUpperCase();
 
       // Logout handler
       const btnLogout = document.getElementById('btnLogout');
@@ -942,130 +1236,544 @@
         });
       }
 
-      // Populate transaction history
-      const tableBody = document.getElementById('paymentsTableBody');
-      const lastTxnStr = localStorage.getItem('last_transaction');
-      const erpSyncBadge = document.getElementById('erpSyncBadge');
-      
-      const isEN = document.documentElement.lang === 'en';
-
-      const renderTransactions = (txnList) => {
-        if (!tableBody) return;
-        tableBody.innerHTML = '';
-        if (txnList.length === 0) {
-          tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">${isEN ? 'No transactions found.' : 'No se encontraron transacciones.'}</td></tr>`;
-          return;
-        }
-        txnList.forEach(txn => {
-          const tr = document.createElement('tr');
-          const isSynced = txn.sync === 'sync' || txn.sincronizado_odoo === true || txn.sincronizado_odoo === 'true';
-          tr.innerHTML = `
-            <td><strong>#${txn.id || txn.txn_id}</strong></td>
-            <td>${txn.date || txn.fecha}</td>
-            <td>${txn.items || txn.detalles}</td>
-            <td><strong style="color:var(--accent);">${txn.amount || txn.monto}</strong></td>
-            <td>${txn.method || txn.metodo}</td>
-            <td>
-              <span class="sync-badge ${isSynced ? 'online' : 'offline'}">
-                ✓ ${isSynced ? (isEN ? 'ERP Synced (Odoo)' : 'ERP Sincronizado (Odoo)') : (isEN ? 'Cloud Buffer (Pending)' : 'Buffer Nube (Pendiente)')}
-              </span>
-            </td>
-          `;
-          tableBody.appendChild(tr);
-        });
+      // GLOBAL SIMULATED METRICS BUFFER
+      const defaultMetrics = {
+        company_name: 'RCP Services (Simulación)',
+        owner_name: 'Balmis Reynoso',
+        ventas: 480000,
+        ventas_trend: '▲ +12.4%',
+        cpl: 2500,
+        cpl_trend: '▼ -8.2%',
+        roas: 4.2,
+        roas_trend: '▲ +0.6x',
+        ltv: 35000,
+        ltv_trend: '▲ +15%',
+        tramite_onapi: 100,
+        tramite_camara: 75,
+        tramite_dgii: 40,
+        chart_data: [90000, 170000, 95000, 335000, 220000, 500000, 600000],
+        pagos: [
+          { transactionId: 'TXN-847291', date: '28/05/2026', items: isEN ? 'Basic Rebranding setup' : 'Diseño Identidad Visual Básica', amount: 'RD$ 20,000', method: 'CardNet DOP', sync: 'sync' },
+          { transactionId: 'TXN-739281', date: '10/05/2026', items: isEN ? 'ONAPI registration fee' : 'Formalización ONAPI', amount: 'RD$ 15,000', method: 'CardNet DOP', sync: 'sync' }
+        ]
       };
 
-      // Initial loading with mock & localStorage
-      let transactions = [];
-      if (activeEmail === 'director@miempresa.com') {
-        transactions = [
-          {
-            id: 'TXN-847291',
-            date: '28/05/2026',
-            items: isEN ? 'Basic Rebranding setup' : 'Diseño Identidad Visual Básica',
-            amount: 'RD$ 20,000',
-            method: 'CardNet DOP',
-            sync: 'sync'
-          },
-          {
-            id: 'TXN-739281',
-            date: '10/05/2026',
-            items: isEN ? 'ONAPI registration fee' : 'Formalización ONAPI',
-            amount: 'RD$ 15,000',
-            method: 'CardNet DOP',
-            sync: 'sync'
-          }
-        ];
-      }
+      // FUNCTION TO RENDER ALL METRICS & GRAPHS FOR A CLIENT
+      function renderClientDashboard(client) {
+        // Render KPIs
+        document.getElementById('kpiSales').textContent = 'RD$ ' + (client.ventas || 0).toLocaleString();
+        document.querySelector('#view-overview .kpi-card:nth-child(1) .kpi-change').innerHTML = 
+          `${client.ventas_trend || '▲ +0%'} <span style="color:var(--text-muted); margin-left:4px;">${isEN ? 'vs last mo.' : 'vs mes ant.'}</span>`;
 
-      if (lastTxnStr) {
-        try {
-          const lastTxn = JSON.parse(lastTxnStr);
-          if (lastTxn.email === activeEmail) {
-            transactions.unshift({
-              id: lastTxn.transactionId,
-              date: lastTxn.date,
-              items: Array.isArray(lastTxn.items) ? lastTxn.items.map(item => item.name).join(', ') : lastTxn.items,
-              amount: lastTxn.amountPaid || lastTxn.amount,
-              method: lastTxn.paymentMethod === 'cardnet' ? 'CardNet DOP' : 'PayPal USD',
-              sync: 'sync'
+        document.getElementById('kpiCac').textContent = 'RD$ ' + (client.cpl || 0).toLocaleString();
+        document.querySelector('#view-overview .kpi-card:nth-child(2) .kpi-change').innerHTML = 
+          `${client.cpl_trend || '▼ -0%'} <span style="color:var(--text-muted); margin-left:4px;">${isEN ? 'vs last mo.' : 'vs mes ant.'}</span>`;
+
+        // Handle numeric format differences for ROAS (Postgres REST float/object parsing)
+        let roasVal = 0.0;
+        if (typeof client.roas === 'number') {
+          roasVal = client.roas;
+        } else if (client.roas && typeof client.roas === 'object' && client.roas.Int !== undefined) {
+          roasVal = client.roas.Int / 10;
+        } else if (client.roas) {
+          roasVal = parseFloat(client.roas) || 0.0;
+        }
+        document.getElementById('kpiRoas').textContent = roasVal.toFixed(1) + 'x';
+        document.querySelector('#view-overview .kpi-card:nth-child(3) .kpi-change').innerHTML = 
+          `${client.roas_trend || '▲ +0.0x'} <span style="color:var(--text-muted); margin-left:4px;">${isEN ? 'vs last mo.' : 'vs mes ant.'}</span>`;
+
+        document.getElementById('kpiLtv').textContent = 'RD$ ' + (client.ltv || 0).toLocaleString();
+        document.querySelector('#view-overview .kpi-card:nth-child(4) .kpi-change').innerHTML = 
+          `${client.ltv_trend || '▲ +0%'} <span style="color:var(--text-muted); margin-left:4px;">${isEN ? 'vs last mo.' : 'vs mes ant.'}</span>`;
+
+        // Render Dynamic SVG Sales Projection Graph
+        const chartData = Array.isArray(client.chart_data) ? client.chart_data : [0, 0, 0, 0, 0, 0, 0];
+        const yMax = Math.ceil(Math.max(...chartData, 600000) / 100000) * 100000;
+
+        // Update Y axis labels dynamically
+        const yLabel1 = document.querySelector('.chart-svg text[y="154"]');
+        const yLabel2 = document.querySelector('.chart-svg text[y="104"]');
+        const yLabel3 = document.querySelector('.chart-svg text[y="54"]');
+        if (yLabel1) yLabel1.textContent = (yMax / 3 >= 1000) ? (yMax / 3 / 1000) + 'k' : (yMax / 3);
+        if (yLabel2) yLabel2.textContent = (yMax * 2 / 3 >= 1000) ? Math.round(yMax * 2 / 3 / 1000) + 'k' : Math.round(yMax * 2 / 3);
+        if (yLabel3) yLabel3.textContent = (yMax >= 1000) ? (yMax / 1000) + 'k' : yMax;
+
+        const points = chartData.map((val, idx) => {
+          const x = 50 + idx * 83.33; // 50 to 550 divides nicely into 6 intervals
+          const y = 200 - (val / yMax) * 150; // Coordinates 50 to 200 (150px height)
+          return { x, y };
+        });
+
+        const pathD = `M${points.map(p => `${p.x} ${p.y}`).join(' L')}`;
+        const areaD = `${pathD} L550 200 L50 200 Z`;
+
+        const chartPath = document.querySelector('.chart-path');
+        const chartArea = document.querySelector('.chart-area');
+        if (chartPath) chartPath.setAttribute('d', pathD);
+        if (chartArea) chartArea.setAttribute('d', areaD);
+
+        const circles = document.querySelectorAll('.chart-svg circle');
+        points.forEach((p, idx) => {
+          if (circles[idx]) {
+            circles[idx].setAttribute('cx', p.x);
+            circles[idx].setAttribute('cy', p.y);
+          }
+        });
+
+        // Render Legal Progress Bars & Badges
+        const onapi = parseInt(client.tramite_onapi) || 0;
+        const camara = parseInt(client.tramite_camara) || 0;
+        const dgii = parseInt(client.tramite_dgii) || 0;
+
+        // Progress bar fills
+        document.querySelectorAll('#overBarOnapi, #mainBarOnapi').forEach(el => el.style.width = onapi + '%');
+        document.querySelectorAll('#overBarCamara, #mainBarCamara').forEach(el => el.style.width = camara + '%');
+        document.querySelectorAll('#overBarDgii, #mainBarDgii').forEach(el => el.style.width = dgii + '%');
+
+        // Main status badges & descriptions
+        const badgeOnapi = document.getElementById('mainBadgeOnapi');
+        const badgeCamara = document.getElementById('mainBadgeCamara');
+        const badgeDgii = document.getElementById('mainBadgeDgii');
+
+        const updateBadge = (badge, pct) => {
+          if (!badge) return;
+          badge.className = 'tramite-badge';
+          if (pct >= 100) {
+            badge.classList.add('completed');
+            badge.textContent = t.statusCompleted;
+          } else if (pct >= 40) {
+            badge.classList.add('process');
+            badge.textContent = t.statusProcess + ` (${pct}%)`;
+          } else {
+            badge.classList.add('review');
+            badge.textContent = t.statusReview + ` (${pct}%)`;
+          }
+        };
+        updateBadge(badgeOnapi, onapi);
+        updateBadge(badgeCamara, camara);
+        updateBadge(badgeDgii, dgii);
+
+        // Render Transaction History (Pagos)
+        const tableBody = document.getElementById('paymentsTableBody');
+        const erpSyncBadge = document.getElementById('erpSyncBadge');
+        if (tableBody) {
+          tableBody.innerHTML = '';
+          const payments = Array.isArray(client.pagos) ? client.pagos : [];
+          if (payments.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">${t.noTxns}</td></tr>`;
+          } else {
+            payments.forEach(txn => {
+              const tr = document.createElement('tr');
+              const isSynced = txn.sync === 'sync' || txn.sincronizado_odoo === true || txn.sincronizado_odoo === 'true';
+              tr.innerHTML = `
+                <td><strong>#${txn.id || txn.transactionId}</strong></td>
+                <td>${txn.date}</td>
+                <td>${txn.items}</td>
+                <td><strong style="color:var(--accent);">${txn.amount}</strong></td>
+                <td>${txn.method}</td>
+                <td>
+                  <span class="sync-badge ${isSynced ? 'online' : 'offline'}">
+                    ✓ ${isSynced ? t.txnSynced : t.txnPending}
+                  </span>
+                </td>
+              `;
+              tableBody.appendChild(tr);
             });
           }
-        } catch (e) {
-          console.error(e);
+        }
+        if (erpSyncBadge) {
+          erpSyncBadge.className = 'sync-badge online';
+          erpSyncBadge.textContent = isEN ? '🟢 ERP Online (Odoo Connected)' : '🟢 ERP Online (Odoo Sincronizado)';
         }
       }
 
-      renderTransactions(transactions);
+      // INITIAL DATABASE DATA FETCH FOR ROLE ACCESS
+      let clientList = [];
 
-      // Perform real database fetch through n8n
-      fetch(RCP_LEAD_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'get_transactions',
-          user_email: activeEmail
-        })
-      })
-      .then(resp => {
-        if (!resp.ok) throw new Error('Failed to fetch from DB');
-        return resp.json();
-      })
-      .then(data => {
-        if (data.status === 'success' || data.success) {
-          const dbTxns = data.transactions || [];
-          if (dbTxns.length > 0) {
-            renderTransactions(dbTxns);
+      async function initializeDashboard() {
+        if (activeRole === 'admin') {
+          // ADMIN FLOW
+          const navClientesLink = document.getElementById('navClientesLink');
+          const adminSelectorRow = document.getElementById('adminSelectorRow');
+          const adminClientSelect = document.getElementById('adminClientSelect');
+
+          if (navClientesLink) navClientesLink.style.display = 'flex';
+          if (adminSelectorRow) adminSelectorRow.style.display = 'flex';
+
+          // Set sidebar admin profile visual
+          if (profileName) profileName.textContent = 'Balmis Reynoso';
+          if (profileCompany) profileCompany.textContent = 'RCP Services (Admin)';
+
+          // Load global view by default
+          renderClientDashboard(defaultMetrics);
+
+          if (supabase) {
+            // Load real clients from Supabase DB to populate selector & management CRUD
+            await loadAdminClients();
           }
-          if (erpSyncBadge) {
-            erpSyncBadge.className = 'sync-badge online';
-            erpSyncBadge.textContent = isEN ? '🟢 ERP Online (Odoo Connected)' : '🟢 ERP Online (Odoo Sincronizado)';
+
+          // Listener for Admin client dropdown select view change
+          if (adminClientSelect) {
+            adminClientSelect.addEventListener('change', () => {
+              const selectedVal = adminClientSelect.value;
+              if (selectedVal === 'default') {
+                renderClientDashboard(defaultMetrics);
+              } else {
+                const client = clientList.find(c => c.id === selectedVal);
+                if (client) {
+                  renderClientDashboard(client);
+                }
+              }
+            });
+          }
+
+          // Hook CRUD actions
+          setupAdminCRUD();
+
+        } else {
+          // CLIENT FLOW (LOAD OWN METRICS)
+          const navClientesLink = document.getElementById('navClientesLink');
+          const adminSelectorRow = document.getElementById('adminSelectorRow');
+          if (navClientesLink) navClientesLink.style.display = 'none';
+          if (adminSelectorRow) adminSelectorRow.style.display = 'none';
+
+          let loaded = false;
+          if (supabase) {
+            try {
+              const { data, error } = await supabase
+                .from('clientes')
+                .select('*')
+                .eq('email', activeEmail)
+                .maybeSingle();
+
+              if (error) throw error;
+
+              if (data) {
+                renderClientDashboard(data);
+                // Update profile cards dynamically too
+                if (profileName) profileName.textContent = data.owner_name;
+                if (profileCompany) profileCompany.textContent = data.company_name;
+                loaded = true;
+              }
+            } catch (err) {
+              console.error("Failed to load own database client metrics:", err);
+            }
+          }
+
+          // If supabase fails or client was offline registration, fetch from localStorage simulation buffer
+          if (!loaded) {
+            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+            const localData = localUsers.find(u => u.email === activeEmail);
+            if (localData) {
+              const simClient = Object.assign({}, defaultMetrics, {
+                company_name: localData.company,
+                owner_name: localData.name,
+                chart_data: [10000, 25000, 45000, 75000, 110000, 150000, 200000],
+                pagos: []
+              });
+              renderClientDashboard(simClient);
+              if (profileName) profileName.textContent = simClient.owner_name;
+              if (profileCompany) profileCompany.textContent = simClient.company_name;
+            } else {
+              renderClientDashboard(defaultMetrics);
+            }
           }
         }
-      })
-      .catch(err => {
-        console.warn('Real transactions database fetch offline (using LocalStorage buffer):', err);
-        if (erpSyncBadge) {
-          erpSyncBadge.className = 'sync-badge offline';
-          erpSyncBadge.textContent = isEN ? '🟡 Local Cache (Sync Pending)' : '🟡 Caché Local (Pendiente de Sincronización)';
-        }
-      });
+      }
 
-      // Language Dashboard handler
-      const langSelect = document.getElementById('langSelectDashboard');
-      if (langSelect) {
-        // match global lang select
-        const currentLang = localStorage.getItem('rcp-lang') || 'es';
-        langSelect.value = currentLang;
-        
-        langSelect.addEventListener('change', () => {
-          const lang = langSelect.value;
-          localStorage.setItem('rcp-lang', lang);
-          // Apply translations globally by reloading or accessing main logic if exposed
-          window.location.reload();
+      // LOAD ADMIN CLIENTS LIST
+      async function loadAdminClients() {
+        try {
+          const { data, error } = await supabase
+            .from('clientes')
+            .select('*')
+            .order('company_name', { ascending: true });
+
+          if (error) throw error;
+
+          clientList = data || [];
+          populateAdminSelectors();
+          renderClientsTable();
+        } catch (err) {
+          console.error("Error loading admin clients:", err);
+        }
+      }
+
+      // POPULATE DROPDOWNS
+      function populateAdminSelectors() {
+        const adminClientSelect = document.getElementById('adminClientSelect');
+        if (!adminClientSelect) return;
+
+        // Keep default option
+        adminClientSelect.innerHTML = `<option value="default">${t.globalView}</option>`;
+        clientList.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = `${c.company_name} (${c.owner_name})`;
+          adminClientSelect.appendChild(opt);
         });
       }
-      
+
+      // RENDER CLIENTS CRUD TABLE
+      function renderClientsTable() {
+        const tbody = document.getElementById('clientesTableBody');
+        const filterVal = document.getElementById('clientStatusFilter')?.value || 'all';
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        const filtered = clientList.filter(c => {
+          if (filterVal === 'all') return true;
+          return c.status === filterVal;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">${t.noClients}</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(c => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${c.company_name}</strong></td>
+            <td>${c.legal_id}</td>
+            <td>${c.owner_name}</td>
+            <td>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${c.email}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${c.phone}</div>
+            </td>
+            <td>
+              <span class="sync-badge ${c.status === 'active' ? 'online' : 'offline'}">
+                ${c.status === 'active' ? t.statusActive : t.statusInactive}
+              </span>
+            </td>
+            <td>
+              <button class="btn-action-sm btn-edit-client" data-id="${c.id}" style="margin-right:5px; padding:6px 10px;" title="Editar">✏️</button>
+              <button class="btn-action-sm btn-delete-client" data-id="${c.id}" style="padding:6px 10px; border-color:#ef4444; color:#ef4444;" title="Eliminar">🗑️</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Add event listeners on action buttons
+        tbody.querySelectorAll('.btn-edit-client').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const client = clientList.find(c => c.id === btn.dataset.id);
+            if (client) startEditClient(client);
+          });
+        });
+
+        tbody.querySelectorAll('.btn-delete-client').forEach(btn => {
+          btn.addEventListener('click', () => {
+            deleteClient(btn.dataset.id);
+          });
+        });
+      }
+
+      // EDIT MODE SET
+      function startEditClient(c) {
+        document.getElementById('clientIdInput').value = c.id;
+        document.getElementById('clientCompanyName').value = c.company_name;
+        document.getElementById('clientLegalId').value = c.legal_id;
+        document.getElementById('clientOwnerName').value = c.owner_name;
+        document.getElementById('clientEmail').value = c.email;
+        document.getElementById('clientPassword').value = c.password || '';
+        document.getElementById('clientPhone').value = c.phone;
+        document.getElementById('clientAddress').value = c.address || '';
+        
+        // Business Metrics
+        document.getElementById('clientVentas').value = c.ventas || 0;
+        document.getElementById('clientVentasTrend').value = c.ventas_trend || '▲ +0%';
+        document.getElementById('clientCac').value = c.cpl || 0;
+        document.getElementById('clientCacTrend').value = c.cpl_trend || '▼ -0%';
+
+        let roasVal = 0.0;
+        if (typeof c.roas === 'number') {
+          roasVal = c.roas;
+        } else if (c.roas && typeof c.roas === 'object' && c.roas.Int !== undefined) {
+          roasVal = c.roas.Int / 10;
+        } else if (c.roas) {
+          roasVal = parseFloat(c.roas) || 0.0;
+        }
+        document.getElementById('clientRoas').value = roasVal;
+        document.getElementById('clientRoasTrend').value = c.roas_trend || '▲ +0.0x';
+        document.getElementById('clientLtv').value = c.ltv || 0;
+        document.getElementById('clientLtvTrend').value = c.ltv_trend || '▲ +0%';
+
+        // Legal Progress
+        document.getElementById('clientOnapi').value = c.tramite_onapi || 0;
+        document.getElementById('clientCamara').value = c.tramite_camara || 0;
+        document.getElementById('clientDgii').value = c.tramite_dgii || 0;
+        
+        document.getElementById('clientStatus').value = c.status;
+
+        // Visual states
+        document.getElementById('clientFormTitle').textContent = t.formEdit;
+        document.getElementById('clientFormBadge').style.display = 'inline-block';
+        document.getElementById('btnCancelEdit').style.display = 'inline-block';
+        
+        // Scroll to form
+        const formCard = document.getElementById('clientFormCard');
+        if (formCard) formCard.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // RESET FORM & EDIT STATE
+      function resetClientForm() {
+        document.getElementById('clientForm').reset();
+        document.getElementById('clientIdInput').value = '';
+        document.getElementById('clientFormTitle').textContent = t.formAdd;
+        document.getElementById('clientFormBadge').style.display = 'none';
+        document.getElementById('btnCancelEdit').style.display = 'none';
+      }
+
+      // CRUD ACTIONS ATTACHMENT
+      function setupAdminCRUD() {
+        // Sync filter and refresh
+        const filterSelect = document.getElementById('clientStatusFilter');
+        if (filterSelect) {
+          filterSelect.addEventListener('change', renderClientsTable);
+        }
+
+        const btnRefresh = document.getElementById('btnRefreshClientes');
+        if (btnRefresh) {
+          btnRefresh.addEventListener('click', async () => {
+            const originalText = btnRefresh.textContent;
+            btnRefresh.textContent = isEN ? 'Syncing...' : 'Sincronizando...';
+            btnRefresh.disabled = true;
+            await loadAdminClients();
+            btnRefresh.textContent = originalText;
+            btnRefresh.disabled = false;
+          });
+        }
+
+        // Cancel Edit btn
+        const btnCancelEdit = document.getElementById('btnCancelEdit');
+        if (btnCancelEdit) {
+          btnCancelEdit.addEventListener('click', resetClientForm);
+        }
+
+        // Submit client entry Form
+        const clientForm = document.getElementById('clientForm');
+        if (clientForm) {
+          clientForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btnSave = document.getElementById('btnSaveClient');
+            const originalText = btnSave.textContent;
+            btnSave.textContent = t.btnSaving;
+            btnSave.disabled = true;
+
+            const clientId = document.getElementById('clientIdInput').value;
+            const companyName = document.getElementById('clientCompanyName').value.trim();
+            const legalId = document.getElementById('clientLegalId').value.trim();
+            const ownerName = document.getElementById('clientOwnerName').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
+            const password = document.getElementById('clientPassword').value;
+            const phone = document.getElementById('clientPhone').value.trim();
+            const address = document.getElementById('clientAddress').value.trim();
+
+            const ventas = parseInt(document.getElementById('clientVentas').value) || 0;
+            const ventasTrend = document.getElementById('clientVentasTrend').value.trim();
+            const cpl = parseInt(document.getElementById('clientCac').value) || 0;
+            const cplTrend = document.getElementById('clientCacTrend').value.trim();
+            const roas = parseFloat(document.getElementById('clientRoas').value) || 0.0;
+            const roasTrend = document.getElementById('clientRoasTrend').value.trim();
+            const ltv = parseInt(document.getElementById('clientLtv').value) || 0;
+            const ltvTrend = document.getElementById('clientLtvTrend').value.trim();
+
+            const onapi = parseInt(document.getElementById('clientOnapi').value) || 0;
+            const camara = parseInt(document.getElementById('clientCamara').value) || 0;
+            const dgii = parseInt(document.getElementById('clientDgii').value) || 0;
+
+            const status = document.getElementById('clientStatus').value;
+
+            const payload = {
+              company_name: companyName,
+              legal_id: legalId,
+              owner_name: ownerName,
+              email: email,
+              password: password,
+              phone: phone,
+              address: address,
+              ventas: ventas,
+              ventas_trend: ventasTrend,
+              cpl: cpl,
+              cpl_trend: cplTrend,
+              roas: roas,
+              roas_trend: roasTrend,
+              ltv: ltv,
+              ltv_trend: ltvTrend,
+              tramite_onapi: onapi,
+              tramite_camara: camara,
+              tramite_dgii: dgii,
+              status: status
+            };
+
+            try {
+              if (clientId) {
+                // UPDATE EXISITING
+                const { error } = await supabase
+                  .from('clientes')
+                  .update(payload)
+                  .eq('id', clientId);
+
+                if (error) throw error;
+              } else {
+                // INSERT NEW
+                payload.chart_data = [Math.round(ventas*0.3), Math.round(ventas*0.55), Math.round(ventas*0.45), Math.round(ventas*0.7), Math.round(ventas*0.6), Math.round(ventas*0.85), ventas];
+                payload.pagos = [
+                  { transactionId: 'TXN-' + Math.floor(100000 + Math.random()*900000), date: new Date().toLocaleDateString('es-DO'), items: isEN ? 'Advisory and Legal Constitution Setup' : 'Asesoría y Constitución Legal', amount: 'RD$ ' + Math.round(ventas*0.1).toLocaleString(), method: 'CardNet DOP', sync: 'sync' }
+                ];
+
+                const { error } = await supabase
+                  .from('clientes')
+                  .insert([payload]);
+
+                if (error) throw error;
+              }
+
+              alert(t.saveSuccess);
+              resetClientForm();
+              await loadAdminClients();
+            } catch (err) {
+              console.error("Error saving client:", err);
+              alert(isEN ? "Failed to save client: " + err.message : "Error al guardar cliente: " + err.message);
+            } finally {
+              btnSave.textContent = originalText;
+              btnSave.disabled = false;
+            }
+          });
+        }
+      }
+
+      // DELETE CLIENT ACTION
+      async function deleteClient(id) {
+        if (confirm(t.confirmDelete)) {
+          try {
+            const { error } = await supabase
+              .from('clientes')
+              .delete()
+              .eq('id', id);
+
+            if (error) throw error;
+
+            alert(t.deleteSuccess);
+            await loadAdminClients();
+            
+            // If deleting a client currently previewed in admin selection, fallback
+            const adminClientSelect = document.getElementById('adminClientSelect');
+            if (adminClientSelect && adminClientSelect.value === id) {
+              adminClientSelect.value = 'default';
+              renderClientDashboard(defaultMetrics);
+            }
+          } catch (err) {
+            console.error("Error deleting client:", err);
+            alert(isEN ? "Error deleting client: " + err.message : "Error al eliminar cliente: " + err.message);
+          }
+        }
+      }
+
+      // INITIALIZE RUN
+      initializeDashboard();
+
       // Theme Dashboard handler
       const themeBtn = document.getElementById('themeBtnDashboard');
       if (themeBtn) {
@@ -1087,6 +1795,19 @@
             if (sunIcon) sunIcon.style.display = 'none';
             document.querySelectorAll('#sidebarLogo').forEach(el => el.src = 'Logo RCP  fondo negro.png');
           }
+        });
+      }
+
+      // Sync language control
+      const langSelect = document.getElementById('langSelectDashboard');
+      if (langSelect) {
+        const currentLang = localStorage.getItem('rcp-lang') || 'es';
+        langSelect.value = currentLang;
+        
+        langSelect.addEventListener('change', () => {
+          const lang = langSelect.value;
+          localStorage.setItem('rcp-lang', lang);
+          window.location.reload();
         });
       }
     })();
