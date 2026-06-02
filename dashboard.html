@@ -971,6 +971,8 @@
                 <option value="all" data-i18n="dash-clients-filter-all">Todos los Estados</option>
                 <option value="active" data-i18n="dash-clients-filter-active">Activos</option>
                 <option value="inactive" data-i18n="dash-clients-filter-inactive">Inactivos</option>
+                <option value="review">En Revisión</option>
+                <option value="onboarding">En Onboarding</option>
               </select>
               <span class="sync-badge online" id="clientsSyncBadge">
                 <span class="sync-dot"></span> <span data-i18n="dash-clients-badge-sync">Sincronizado</span>
@@ -1121,6 +1123,8 @@
               <select class="lang-select" id="clientStatus" style="width:100%; font-size:0.88rem;">
                 <option value="active" data-i18n="dash-clients-status-active">Activo</option>
                 <option value="inactive" data-i18n="dash-clients-status-inactive">Inactivo</option>
+                <option value="review">En Revisión</option>
+                <option value="onboarding">En Onboarding</option>
               </select>
             </div>
 
@@ -1491,6 +1495,10 @@
               if (error) throw error;
 
               if (data) {
+                if (data.status === 'onboarding') {
+                  window.location.href = 'onboarding.html';
+                  return;
+                }
                 renderClientDashboard(data);
                 // Update profile cards dynamically too
                 if (profileName) profileName.textContent = data.owner_name;
@@ -1584,11 +1592,12 @@
               <div style="font-size:0.75rem; color:var(--text-muted);">${c.phone}</div>
             </td>
             <td>
-              <span class="sync-badge ${c.status === 'active' ? 'online' : 'offline'}">
-                ${c.status === 'active' ? t.statusActive : t.statusInactive}
+              <span class="sync-badge ${c.status === 'active' ? 'online' : (c.status === 'review' ? 'online' : 'offline')}">
+                ${c.status === 'active' ? t.statusActive : (c.status === 'review' ? 'En Revisión' : (c.status === 'onboarding' ? 'Onboarding' : t.statusInactive))}
               </span>
             </td>
             <td>
+              <button class="btn-action-sm btn-view-diag" data-id="${c.id}" style="margin-right:5px; padding:6px 10px;" title="Ver Diagnóstico 360">📄</button>
               <button class="btn-action-sm btn-edit-client" data-id="${c.id}" style="margin-right:5px; padding:6px 10px;" title="Editar">✏️</button>
               <button class="btn-action-sm btn-delete-client" data-id="${c.id}" style="padding:6px 10px; border-color:#ef4444; color:#ef4444;" title="Eliminar">🗑️</button>
             </td>
@@ -1597,6 +1606,15 @@
         });
 
         // Add event listeners on action buttons
+        tbody.querySelectorAll('.btn-view-diag').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const client = clientList.find(c => c.id === btn.dataset.id);
+            if (client) {
+              const diag = client.diagnostico_360 || {};
+              alert(`Diagnóstico 360 de ${client.company_name}:\n\n1. Etapa de negocio:\n${diag.q1_etapa || 'No respondido'}\n\n2. Desafíos:\n${diag.q2_desafios || 'No respondido'}\n\n3. Intereses:\n${diag.q3_intereses || 'No respondido'}`);
+            }
+          });
+        });
         tbody.querySelectorAll('.btn-edit-client').forEach(btn => {
           btn.addEventListener('click', () => {
             const client = clientList.find(c => c.id === btn.dataset.id);

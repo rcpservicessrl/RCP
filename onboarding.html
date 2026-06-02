@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico 360 - RCP Services</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="icono-rcp.png" />
+  <link rel="stylesheet" href="styles.css?v=22" />
+
+  <style>
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .onboarding-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .step-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .step-header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .step-header p {
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .step-content {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="onboarding-container">
+    <div class="step-header">
+      <h2 id="stepTitle">Bienvenido a RCP Services</h2>
+      <p id="stepDesc">Completa tu perfil para que podamos personalizar tu Dashboard.</p>
+    </div>
+
+    <!-- Step 1: Perfil Empresarial -->
+    <div id="step1" class="step-content active">
+      <div class="form-group">
+        <label for="obPhone">Teléfono de Contacto</label>
+        <input type="text" id="obPhone" class="form-control" placeholder="Ej. 809-555-1234" required />
+      </div>
+      <div class="form-group">
+        <label for="obAddress">Dirección Principal</label>
+        <input type="text" id="obAddress" class="form-control" placeholder="Ciudad, País o Dirección completa" required />
+      </div>
+      <div class="form-group">
+        <label for="obRnc">RNC / Cédula / Identificación Fiscal</label>
+        <input type="text" id="obRnc" class="form-control" placeholder="Ej. 1-31-12345-6" required />
+      </div>
+      <div class="nav-buttons" style="justify-content: flex-end;">
+        <button class="btn-cta" id="btnNext1">Siguiente ➔</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Diagnóstico 360 -->
+    <div id="step2" class="step-content">
+      <div class="form-group">
+        <label for="q1">1. ¿En qué etapa se encuentra tu negocio actualmente?</label>
+        <textarea id="q1" class="form-control" rows="3" placeholder="Ej. Apenas iniciando, en expansión, buscando organizarse..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="q2">2. ¿Cuáles son tus mayores desafíos a nivel legal u operativo?</label>
+        <textarea id="q2" class="form-control" rows="3" placeholder="Ej. No estoy registrado en ONAPI, no entiendo de impuestos, necesito un manual de empleados..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="q3">3. ¿Qué servicios de RCP te interesan más a corto plazo?</label>
+        <textarea id="q3" class="form-control" rows="3" placeholder="Ej. Asesoría legal, branding, marketing digital, etc."></textarea>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn-outline" id="btnPrev2">← Atrás</button>
+        <button class="btn-cta" id="btnSubmitOB">Completar Registro ✓</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+  <script>
+    (function() {
+      // Check session
+      const activeEmail = sessionStorage.getItem('active_user_email');
+      const activeRole = sessionStorage.getItem('active_user_role');
+      if (!activeEmail) {
+        window.location.href = 'portal.html';
+        return;
+      }
+      if (activeRole === 'admin') {
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      // Initialize Supabase Client
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+      const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+      const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+      let supabase = null;
+      try {
+        if (window.supabase) supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      } catch (e) {
+        console.error(e);
+      }
+
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      const stepTitle = document.getElementById('stepTitle');
+      const stepDesc = document.getElementById('stepDesc');
+
+      document.getElementById('btnNext1').addEventListener('click', () => {
+        const phone = document.getElementById('obPhone').value.trim();
+        const address = document.getElementById('obAddress').value.trim();
+        const rnc = document.getElementById('obRnc').value.trim();
+        
+        if (!phone || !address || !rnc) {
+          alert('Por favor, completa todos los campos del Perfil Empresarial antes de continuar.');
+          return;
+        }
+
+        step1.classList.remove('active');
+        step2.classList.add('active');
+        stepTitle.textContent = "Diagnóstico 360";
+        stepDesc.textContent = "Responde brevemente para que nuestros analistas evalúen tu estado actual.";
+      });
+
+      document.getElementById('btnPrev2').addEventListener('click', () => {
+        step2.classList.remove('active');
+        step1.classList.add('active');
+        stepTitle.textContent = "Bienvenido a RCP Services";
+        stepDesc.textContent = "Completa tu perfil para que podamos personalizar tu Dashboard.";
+      });
+
+      document.getElementById('btnSubmitOB').addEventListener('click', async () => {
+        const btnSubmit = document.getElementById('btnSubmitOB');
+        btnSubmit.textContent = 'Guardando...';
+        btnSubmit.disabled = true;
+
+        const payload = {
+          phone: document.getElementById('obPhone').value.trim(),
+          address: document.getElementById('obAddress').value.trim(),
+          legal_id: document.getElementById('obRnc').value.trim(),
+          status: 'review', // Moved out of onboarding!
+          diagnostico_360: {
+            q1_etapa: document.getElementById('q1').value.trim(),
+            q2_desafios: document.getElementById('q2').value.trim(),
+            q3_intereses: document.getElementById('q3').value.trim()
+          }
+        };
+
+        if (supabase) {
+          try {
+            const { error } = await supabase
+              .from('clientes')
+              .update(payload)
+              .eq('email', activeEmail);
+
+            if (error) throw error;
+            
+            // Success
+            window.location.href = 'dashboard.html';
+            return;
+          } catch (err) {
+            console.error("Error updating onboarding data:", err);
+            alert("Hubo un error guardando tu diagnóstico. Intenta de nuevo.");
+            btnSubmit.textContent = 'Completar Registro ✓';
+            btnSubmit.disabled = false;
+            return;
+          }
+        } else {
+          // Local fallback
+          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+          const idx = localUsers.findIndex(u => u.email === activeEmail);
+          if (idx !== -1) {
+            localUsers[idx].status = 'review';
+            localStorage.setItem('portal_users', JSON.stringify(localUsers));
+          }
+          window.location.href = 'dashboard.html';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
