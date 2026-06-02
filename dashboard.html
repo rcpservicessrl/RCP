@@ -537,6 +537,11 @@
       }
     }
     /* --- CLIENTES REALES GRID & FORM SYSTEM --- */
+    .portal-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
     .clientes-grid {
       display: flex;
       flex-direction: column;
@@ -931,19 +936,22 @@
         <!-- Left Side: Table of Clients -->
         <div class="card-workspace">
           <div class="card-title-row" style="margin-bottom:20px;">
-            <h3 data-i18n="dash-clients-title">Gestión de Clientes Reales</h3>
-            <div style="display:flex; gap:10px;">
+            <h3 data-i18n="dash-clients-title">Gestión de Clientes</h3>
+            <div style="display:flex; gap:10px; align-items:center;">
               <select class="lang-select" id="clientStatusFilter" style="font-size:0.8rem;">
                 <option value="all" data-i18n="dash-clients-filter-all">Todos los Estados</option>
                 <option value="active" data-i18n="dash-clients-filter-active">Activos</option>
                 <option value="inactive" data-i18n="dash-clients-filter-inactive">Inactivos</option>
               </select>
+              <span class="sync-badge online" id="clientsSyncBadge">
+                <span class="sync-dot"></span> <span data-i18n="dash-clients-badge-sync">Sincronizado</span>
+              </span>
               <button class="btn-action-sm" id="btnRefreshClientes" data-i18n="dash-clients-btn-sync">Actualizar</button>
             </div>
           </div>
           
-          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:25px; line-height:1.5;" data-i18n="dash-clients-desc">
-            Administra tus clientes reales formalizados. Los datos están protegidos bajo la Capa 1 de seguridad relacional (Supabase PostgreSQL con RLS).
+          <p class="text-muted" style="margin-bottom:20px; font-size:0.9rem;" data-i18n="dash-clients-desc">
+            Administra tus clientes formalizados. Los datos están sincronizados en tiempo real con la base de datos segura.
           </p>
 
           <div style="overflow-x:auto;">
@@ -970,7 +978,7 @@
         <!-- Right Side: Add / Edit Client Form -->
         <div class="card-workspace" id="clientFormCard">
           <div class="card-title-row" style="margin-bottom:20px;">
-            <h3 id="clientFormTitle" data-i18n="dash-clients-form-title-add">Registrar Cliente Real</h3>
+            <h3 id="clientFormTitle" data-i18n="dash-clients-form-title-add">Registrar Cliente</h3>
             <span class="sync-badge online" id="clientFormBadge" style="display:none;" data-i18n="dash-clients-badge-edit">Modo Edición</span>
           </div>
 
@@ -1243,24 +1251,21 @@
 
       // GLOBAL SIMULATED METRICS BUFFER
       const defaultMetrics = {
-        company_name: 'RCP Services (Simulación)',
-        owner_name: 'Balmis Reynoso',
-        ventas: 480000,
-        ventas_trend: '▲ +12.4%',
-        cpl: 2500,
-        cpl_trend: '▼ -8.2%',
-        roas: 4.2,
-        roas_trend: '▲ +0.6x',
-        ltv: 35000,
-        ltv_trend: '▲ +15%',
-        tramite_onapi: 100,
-        tramite_camara: 75,
-        tramite_dgii: 40,
-        chart_data: [90000, 170000, 95000, 335000, 220000, 500000, 600000],
-        pagos: [
-          { transactionId: 'TXN-847291', date: '28/05/2026', items: isEN ? 'Basic Rebranding setup' : 'Diseño Identidad Visual Básica', amount: 'RD$ 20,000', method: 'CardNet DOP', sync: 'sync' },
-          { transactionId: 'TXN-739281', date: '10/05/2026', items: isEN ? 'ONAPI registration fee' : 'Formalización ONAPI', amount: 'RD$ 15,000', method: 'CardNet DOP', sync: 'sync' }
-        ]
+        company_name: 'Vista Global',
+        owner_name: 'Resumen',
+        ventas: 0,
+        ventas_trend: '▲ +0%',
+        cpl: 0,
+        cpl_trend: '▼ -0%',
+        roas: 0,
+        roas_trend: '▲ +0x',
+        ltv: 0,
+        ltv_trend: '▲ +0%',
+        tramite_onapi: 0,
+        tramite_camara: 0,
+        tramite_dgii: 0,
+        chart_data: [0, 0, 0, 0, 0, 0, 0],
+        pagos: []
       };
 
       // FUNCTION TO RENDER ALL METRICS & GRAPHS FOR A CLIENT
