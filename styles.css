@@ -126,6 +126,16 @@
   background: #faf9f7;
   border-color: #d5d0c8;
   color: #1a1a1a;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .form-control:hover {
+  border-color: rgba(252, 181, 63, 0.5);
+  background: #fdfdfc;
+}
+[data-theme="light"] .form-control:focus {
+  background: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.22), inset 0 1px 3px rgba(0,0,0,0.03);
 }
 
 [data-theme="light"] .footer {
@@ -1019,25 +1029,33 @@ body {
 }
 
 .form-control {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
   color: var(--text);
   font-family: var(--font);
   font-size: 0.92rem;
-  padding: 13px 16px;
+  padding: 14px 18px;
   width: 100%;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:hover {
+  border-color: rgba(252, 181, 63, 0.3);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .form-control:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.15);
+  background: rgba(252, 181, 63, 0.02);
+  box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.18), inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form-control::placeholder {
   color: var(--text-muted);
+  opacity: 0.6;
 }
 
 .form-control option {

@@ -59,25 +59,33 @@
     }
     .portal-form-group label {
       display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: 0.82rem;
+      font-weight: 700;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .portal-form-group input {
       width: 100%;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
       color: var(--text);
       font-family: var(--font);
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
+      font-size: 0.92rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .portal-form-group input:hover {
+      border-color: rgba(252, 181, 63, 0.3);
+      background: rgba(255, 255, 255, 0.04);
     }
     .portal-form-group input:focus {
       border-color: var(--accent);
-      background: rgba(252,181,63,0.02);
+      background: rgba(252, 181, 63, 0.02);
+      box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.05);
       outline: none;
     }
     .portal-actions-row {
@@ -311,6 +319,10 @@
             <label for="signupPassword" data-i18n="port-pass">Contraseña</label>
             <input type="password" id="signupPassword" required placeholder="Min. 8 caracteres" minlength="8" />
           </div>
+          <div class="portal-form-group">
+            <label for="signupAccessCode">Código de Acceso Secreto *</label>
+            <input type="text" id="signupAccessCode" required placeholder="Ej. RCP-8F32" style="font-family:monospace; text-transform:uppercase;" />
+          </div>
           
           <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-create">Crear mi Cuenta</button>
         </form>
@@ -339,6 +351,28 @@
         
         <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
           <a class="portal-link" id="btnGoToLoginFromForgot" data-i18n="sched-back">Atrás</a>
+        </p>
+      </div>
+
+      <!-- VIEW 4: ACTIVACIÓN DE CUENTA (GATED ACCESS) -->
+      <div id="activationView" style="display:none">
+        <div class="portal-header">
+          <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo theme-logo" id="portalLogoActivation" />
+          <h2>Activar Cuenta de Portal</h2>
+          <p id="activationDesc">Introduce el Código de Acceso Secreto entregado durante tu reunión de Diagnóstico 360 para activar tu portal.</p>
+        </div>
+        
+        <form id="activationForm">
+          <div class="portal-form-group" style="margin-bottom:20px;">
+            <label for="activationCode">Código de Acceso Secreto</label>
+            <input type="text" id="activationCode" required placeholder="Ej. RCP-8F32" style="font-family:monospace; text-align:center; font-size:1.2rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;" />
+          </div>
+          
+          <button type="submit" class="btn-cta btn-full">Activar y Entrar</button>
+        </form>
+        
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          <a class="portal-link" id="btnCancelActivation">Cancelar e Iniciar con otra cuenta</a>
         </p>
       </div>
     </div>
@@ -370,7 +404,7 @@
       </div>
       <div class="footer-contact">
         <h4 data-i18n="footer-contact-title">Contacto</h4>
-        <p>Av. Rómulo Betancourt 1302<br>Bella Vista, Santo Domingo, R.D.</p>
+        <p>Santo Domingo, R.D.</p>
         <p><a href="tel:8298068092">829-806-8092</a></p>
         <p><a href="mailto:info@rcp.services">info@rcp.services</a></p>
         <a href="https://www.instagram.com/rcp.services_/" target="_blank" rel="noopener"
@@ -457,53 +491,114 @@
             // Verify if regular client exists in DB
             const { data, error } = await supabase.from('clientes').select('*').eq('email', email).maybeSingle();
             if (data) {
-              sessionStorage.setItem('active_user_email', email);
-              sessionStorage.setItem('active_user_name', data.owner_name || name);
-              sessionStorage.setItem('active_user_company', data.company_name);
-              sessionStorage.setItem('active_user_role', 'client');
-              window.location.href = data.status === 'onboarding' ? 'onboarding.html' : 'dashboard.html';
-            } else {
-              // Auto-register via Google OAuth
-              const newClient = {
-                company_name: name + " (Auto-Registro)",
-                legal_id: 'Pendiente',
-                owner_name: name,
-                email: email,
-                password: 'Google_OAuth_User',
-                phone: 'Pendiente',
-                address: 'Pendiente',
-                status: 'onboarding',
-                ventas: 0,
-                ventas_trend: '▲ +0%',
-                cpl: 0,
-                cpl_trend: '▼ -0%',
-                roas: 0.0,
-                roas_trend: '▲ +0x',
-                ltv: 0,
-                ltv_trend: '▲ +0%',
-                tramite_onapi: 0,
-                tramite_camara: 0,
-                tramite_dgii: 0,
-                chart_data: [0, 0, 0, 0, 0, 0, 0],
-                pagos: []
-              };
-              
-              const { error: insertError } = await supabase.from('clientes').insert([newClient]);
-              
-              if (insertError) {
-                console.error("Error auto-registering:", insertError);
-                alert(document.documentElement.lang === 'en' ? "Error creating your account." : "Error creando tu cuenta automáticamente.");
-                await supabase.auth.signOut();
+              if (data.status === 'pending_activation') {
+                showActivationScreen(email, data);
               } else {
                 sessionStorage.setItem('active_user_email', email);
-                sessionStorage.setItem('active_user_name', name);
-                sessionStorage.setItem('active_user_company', newClient.company_name);
+                sessionStorage.setItem('active_user_name', data.owner_name || name);
+                sessionStorage.setItem('active_user_company', data.company_name);
                 sessionStorage.setItem('active_user_role', 'client');
+                window.location.href = data.status === 'onboarding' ? 'onboarding.html' : 'dashboard.html';
+              }
+            } else {
+              // AUTOLOGIN PARA NUEVO REGISTRO
+              // Si no existe, creamos un registro inicial en la tabla 'clientes' en estado 'onboarding'
+              try {
+                const provAccessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+                const newClient = {
+                  email: email,
+                  owner_name: name,
+                  company_name: 'Nueva Empresa',
+                  status: 'onboarding',
+                  access_code: provAccessCode,
+                  password: 'client_google_auth' // Clave temporal para el login de simulación
+                };
+                
+                const { error: insertError } = await supabase
+                  .from('clientes')
+                  .insert([newClient]);
+                
+                if (insertError) throw insertError;
+                
+                sessionStorage.setItem('active_user_email', email);
+                sessionStorage.setItem('active_user_name', name);
+                sessionStorage.setItem('active_user_company', 'Nueva Empresa');
+                sessionStorage.setItem('active_user_role', 'client');
+                
                 window.location.href = 'onboarding.html';
+              } catch (insertErr) {
+                console.error("Error al registrar cliente automático tras Google OAuth:", insertErr);
+                alert(document.documentElement.lang === 'en'
+                  ? 'Failed to initialize account with Google. Please try again.'
+                  : 'Error al inicializar tu cuenta con Google. Por favor, intenta de nuevo.');
+                await supabase.auth.signOut();
               }
             }
           }
         });
+      }
+
+      function showActivationScreen(email, clientData) {
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('signupView').style.display = 'none';
+        document.getElementById('forgotView').style.display = 'none';
+        
+        const activationView = document.getElementById('activationView');
+        if (activationView) {
+          activationView.style.display = 'block';
+        }
+        
+        const activationForm = document.getElementById('activationForm');
+        if (activationForm) {
+          activationForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const codeInput = document.getElementById('activationCode').value.trim().toUpperCase();
+            const btnSubmit = activationForm.querySelector('button[type="submit"]');
+            
+            if (codeInput === (clientData.access_code || '').toUpperCase()) {
+              btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Activating...' : 'Activando...';
+              btnSubmit.disabled = true;
+              
+              if (supabase) {
+                try {
+                  const { error } = await supabase
+                    .from('clientes')
+                    .update({ status: 'onboarding' })
+                    .eq('id', clientData.id);
+                    
+                  if (error) throw error;
+                } catch (updateErr) {
+                  console.error("Error activating account:", updateErr);
+                  alert("Error al activar la cuenta. Inténtalo de nuevo.");
+                  btnSubmit.textContent = 'Activar y Entrar';
+                  btnSubmit.disabled = false;
+                  return;
+                }
+              }
+              
+              sessionStorage.setItem('active_user_email', email);
+              sessionStorage.setItem('active_user_name', clientData.owner_name || email.split('@')[0]);
+              sessionStorage.setItem('active_user_company', clientData.company_name);
+              sessionStorage.setItem('active_user_role', 'client');
+              
+              window.location.href = 'onboarding.html';
+            } else {
+              alert(document.documentElement.lang === 'en'
+                ? 'Invalid Access Code. Please enter the code given by your advisor.'
+                : 'Código de Acceso incorrecto. Por favor introduce el código que te dio tu asesor.');
+            }
+          };
+        }
+
+        const btnCancel = document.getElementById('btnCancelActivation');
+        if (btnCancel) {
+          btnCancel.onclick = async () => {
+            if (supabase) {
+              await supabase.auth.signOut();
+            }
+            window.location.reload();
+          };
+        }
       }
 
       // Parse parameters (Prefill signup info if they just bought a package!)
@@ -630,66 +725,91 @@
           const nameInput = document.getElementById('signupName').value.trim();
           const companyInput = document.getElementById('signupCompany').value.trim();
           const passwordInput = document.getElementById('signupPassword').value;
+          const accessCodeInput = document.getElementById('signupAccessCode').value.trim().toUpperCase();
           
           const btnSubmit = signupForm.querySelector('button[type="submit"]');
           const originalText = btnSubmit.textContent;
-          btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Creating...' : 'Creando...';
+          btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Verifying...' : 'Verificando...';
           btnSubmit.disabled = true;
-
-          let signupSuccess = false;
 
           if (supabase) {
             try {
-              // Real Supabase Insert on `clientes` table
-              const newClient = {
-                company_name: companyInput,
-                legal_id: 'RNC-Pendiente',
-                owner_name: nameInput,
-                email: emailInput,
-                password: passwordInput,
-                phone: 'Pendiente',
-                address: 'Pendiente',
-                status: 'onboarding',
-                ventas: 0,
-                ventas_trend: '▲ +0%',
-                cpl: 0,
-                cpl_trend: '▼ -0%',
-                roas: 0.0,
-                roas_trend: '▲ +0x',
-                ltv: 0,
-                ltv_trend: '▲ +0%',
-                tramite_onapi: 0,
-                tramite_camara: 0,
-                tramite_dgii: 0,
-                chart_data: [0, 0, 0, 0, 0, 0, 0],
-                pagos: []
-              };
-
-              const { data, error } = await supabase
+              // 1. Fetch pre-existing client record created via Booking
+              const { data: clientData, error: selectError } = await supabase
                 .from('clientes')
-                .insert([newClient])
-                .select();
+                .select('*')
+                .eq('email', emailInput)
+                .maybeSingle();
 
-              if (error) throw error;
-              signupSuccess = true;
+              if (selectError) throw selectError;
+
+              if (!clientData) {
+                alert(document.documentElement.lang === 'en'
+                  ? 'No 360 Diagnosis found for this email. Please book your free diagnosis first.'
+                  : 'No se encontró un Diagnóstico 360 agendado para este correo. Por favor agenda tu diagnóstico primero.');
+                btnSubmit.textContent = originalText;
+                btnSubmit.disabled = false;
+                return;
+              }
+
+              // 2. Validate Access Code
+              if ((clientData.access_code || '').toUpperCase() !== accessCodeInput) {
+                alert(document.documentElement.lang === 'en'
+                  ? 'Invalid Secret Access Code. Please enter the code given by your advisor.'
+                  : 'Código de Acceso Secreto incorrecto. Por favor verifícalo.');
+                btnSubmit.textContent = originalText;
+                btnSubmit.disabled = false;
+                return;
+              }
+
+              // 3. Update client record with details and change status to 'onboarding'
+              const { error: updateError } = await supabase
+                .from('clientes')
+                .update({
+                  owner_name: nameInput,
+                  company_name: companyInput,
+                  password: passwordInput,
+                  status: 'onboarding'
+                })
+                .eq('id', clientData.id);
+
+              if (updateError) throw updateError;
+
+              // Success: Buffer in LocalStorage just in case
+              const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+              if (!localUsers.some(u => u.email === emailInput)) {
+                localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
+                localStorage.setItem('portal_users', JSON.stringify(localUsers));
+              }
+
+              sessionStorage.setItem('active_user_email', emailInput);
+              sessionStorage.setItem('active_user_name', nameInput);
+              sessionStorage.setItem('active_user_company', companyInput);
+              sessionStorage.setItem('active_user_role', 'client');
+              
+              window.location.href = 'onboarding.html';
+              return;
+
             } catch (err) {
-              console.warn('Supabase DB registration failed, registering in local simulation buffer:', err);
+              console.error('Error during manual signup verification:', err);
+              alert(document.documentElement.lang === 'en' ? 'Registration failed.' : 'Error al registrar la cuenta.');
+              btnSubmit.textContent = originalText;
+              btnSubmit.disabled = false;
+              return;
             }
+          } else {
+            // Local fallback simulation buffer if Supabase is offline
+            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+            if (!localUsers.some(u => u.email === emailInput)) {
+              localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
+              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            }
+            sessionStorage.setItem('active_user_email', emailInput);
+            sessionStorage.setItem('active_user_name', nameInput);
+            sessionStorage.setItem('active_user_company', companyInput);
+            sessionStorage.setItem('active_user_role', 'client');
+            window.location.href = 'onboarding.html';
           }
-
-          // Buffer in LocalStorage
-          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-          if (!localUsers.some(u => u.email === emailInput)) {
-            localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
-            localStorage.setItem('portal_users', JSON.stringify(localUsers));
-          }
-
-          sessionStorage.setItem('active_user_email', emailInput);
-          sessionStorage.setItem('active_user_name', nameInput);
-          sessionStorage.setItem('active_user_company', companyInput);
-          sessionStorage.setItem('active_user_role', 'client');
-          
-          window.location.href = 'onboarding.html';
         });
       }
 

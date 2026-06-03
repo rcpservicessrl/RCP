@@ -304,7 +304,7 @@ const translations = {
     'careers-cta-title': '¿Listo para <span class="accent">colaborar</span>?',
     'careers-cta-sub': 'Envíanos tu perfil y nos pondremos en contacto cuando haya un proyecto para ti.',
     'careers-cta-btn': 'Enviar mi CV →',
-    'careers-cta-hint': 'Envía tu CV y portafolio a <strong>rcpservicessrl@gmail.com</strong> indicando tu área de especialidad.',
+    'careers-cta-hint': 'Envía tu CV y portafolio a <strong>info@rcp.services</strong> indicando tu área de especialidad.',
     // ──── Nosotros page ────
     'about-badge': 'Quiénes somos',
     'about-title': 'Somos el <span class="accent">oxígeno estratégico</span><br />de tu empresa',
@@ -463,16 +463,16 @@ const translations = {
     'cat-feat-7': 'Base de Datos de Clientes Básica',
     'cat-feat-8': 'Todo lo del paquete Básico, MÁS:',
     'cat-feat-9': 'Auditoría Financiera y Planificación Fiscal',
-    'cat-feat-10': 'Instalación Ecosistema ERP + CRM (Odoo)',
+    'cat-feat-10': 'Instalación Ecosistema ERP + CRM Corporativo',
     'cat-feat-11': 'Control centralizado de Inventario, Compras y Ventas',
-    'cat-feat-12': 'Motor de Automatización de Leads (n8n Webhooks)',
+    'cat-feat-12': 'Motor de Automatización de Leads',
     'cat-feat-13': 'Campañas Activas de Publicidad (Meta/Google Ads)',
     'cat-feat-14': 'Posicionamiento SEO Local Dominicana',
     'cat-feat-15': 'Reporte mensual de rendimiento directivo',
     'cat-feat-16': 'Todo lo del paquete Avanzado, MÁS:',
-    'cat-feat-17': 'Motor de IA Corporativa Privada Local (Ollama)',
+    'cat-feat-17': 'Motor de IA Corporativa Privada',
     'cat-feat-18': 'Chatbots corporativos entrenados con tus manuales',
-    'cat-feat-19': 'Estudio Creativo IA Local (ComfyUI automático)',
+    'cat-feat-19': 'Estudio Creativo IA',
     'cat-feat-20': 'Automatización avanzada de WhatsApp y CRM',
     'cat-feat-21': 'Dashboard Directivo en tiempo real (LTV/CAC/ROAS)',
     'cat-feat-22': 'Acompañamiento en licitaciones (Ley 488-08)',
@@ -518,7 +518,7 @@ const translations = {
     'block-pd2-title': 'Campañas Meta & Google Ads',
     'block-pd2-desc': 'Diseño, segmentación y optimización mensual de publicidad pagada para generar leads y ventas calificadas.',
     'block-pd3-title': 'Ecosistema CRM Automatizado',
-    'block-pd3-desc': 'Instalación y configuración del módulo CRM en ERP (Odoo) con flujos automatizados de captación y seguimiento.',
+    'block-pd3-desc': 'Instalación y configuración del módulo CRM en ERP Corporativo con flujos automatizados de captación y seguimiento.',
     'block-pd4-title': 'Posicionamiento SEO Local',
     'block-pd4-desc': 'Optimización SEO en Google Maps, Search Console y ficha local para capturar clientes en Santo Domingo y R.D.',
     'block-pi1-title': 'Papelería Corporativa Completa',
@@ -716,7 +716,7 @@ const translations = {
     'careers-cta-title': 'Ready to <span class="accent">collaborate</span>?',
     'careers-cta-sub': 'Send us your profile and we\'ll contact you when there\'s a project for you.',
     'careers-cta-btn': 'Send my Resume →',
-    'careers-cta-hint': 'Send your resume and portfolio to <strong>rcpservicessrl@gmail.com</strong> indicating your area of expertise.',
+    'careers-cta-hint': 'Send your resume and portfolio to <strong>info@rcp.services</strong> indicating your area of expertise.',
     // ──── Nosotros page (EN) ────
     'about-badge': 'Who we are',
     'about-title': 'We are the <span class="accent">strategic oxygen</span><br />for your business',
@@ -875,16 +875,16 @@ const translations = {
     'cat-feat-7': 'Basic Client Database',
     'cat-feat-8': 'Everything in Basic, PLUS:',
     'cat-feat-9': 'Financial Audit & Fiscal Planning',
-    'cat-feat-10': 'ERP + CRM Ecosystem Setup (Odoo)',
+    'cat-feat-10': 'ERP + CRM Corporate Setup',
     'cat-feat-11': 'Centralized Inventory, Purchasing, and Sales control',
-    'cat-feat-12': 'Lead Automation Engine (n8n Webhooks)',
+    'cat-feat-12': 'Lead Automation Engine',
     'cat-feat-13': 'Active Ad Campaigns (Meta/Google Ads)',
     'cat-feat-14': 'Dominican Local SEO Optimization',
     'cat-feat-15': 'Monthly executive performance report',
     'cat-feat-16': 'Everything in Advanced, PLUS:',
-    'cat-feat-17': 'Private Local Enterprise AI Engine (Ollama)',
+    'cat-feat-17': 'Private Local Enterprise AI Engine',
     'cat-feat-18': 'Corporate chatbots trained with your handbooks',
-    'cat-feat-19': 'Local AI Creative Studio (Automatic ComfyUI)',
+    'cat-feat-19': 'Local AI Creative Studio',
     'cat-feat-20': 'Advanced WhatsApp and CRM Automation',
     'cat-feat-21': 'Real-time Executive Dashboard (LTV/CAC/ROAS)',
     'cat-feat-22': 'Bidding process accompaniment (Ley 488-08)',
@@ -930,7 +930,7 @@ const translations = {
     'block-pd2-title': 'Meta & Google Ads Campaigns',
     'block-pd2-desc': 'Design, targeting, and monthly optimization of paid advertising to generate qualified leads and sales.',
     'block-pd3-title': 'Automated CRM Ecosystem',
-    'block-pd3-desc': 'Installation and configuration of the CRM module in ERP (Odoo) with automated capture and follow-up flows.',
+    'block-pd3-desc': 'Installation and configuration of the CRM module in Corporate ERP with automated capture and follow-up flows.',
     'block-pd4-title': 'Local SEO Positioning',
     'block-pd4-desc': 'SEO optimization on Google Maps, Search Console, and local business listing to capture Dominican clients.',
     'block-pi1-title': 'Complete Corporate Stationery',
@@ -1218,13 +1218,13 @@ if (phoneField) {
     },
     {
       k: ['avanzado', 'estabilizacion y crecimiento', 'advanced', 'stabilization'],
-      a: '📊 <strong>Paquete Avanzado: Estabilización y Crecimiento</strong> (Setup + Iguala): Para optimizar y vender más. Incluye auditoría fiscal/financiera, ERP/CRM (Odoo), automatización (n8n) y campañas Meta/Google Ads. ¿Hablamos de este plan?',
-      a_en: '📊 <strong>Advanced Plan: Stabilization & Growth</strong> (Setup + Retainer): For scaling sales. Includes tax audit, ERP/CRM (Odoo) setup, automations (n8n), and Meta/Google Ads. Shall we discuss it?'
+      a: '📊 <strong>Paquete Avanzado: Estabilización y Crecimiento</strong> (Setup + Iguala): Para optimizar y vender más. Incluye auditoría fiscal/financiera, ERP/CRM Corporativo, automatización y campañas Meta/Google Ads. ¿Hablamos de este plan?',
+      a_en: '📊 <strong>Advanced Plan: Stabilization & Growth</strong> (Setup + Retainer): For scaling sales. Includes tax audit, ERP/CRM Corporate setup, automations, and Meta/Google Ads. Shall we discuss it?'
     },
     {
       k: ['premium', 'vitalidad y liderazgo', 'vitality and leadership'],
-      a: '⭐ <strong>Paquete Premium: Vitalidad y Liderazgo</strong> (Retainer mensual): Solución de soberanía absoluta. Todo el Plan Avanzado más IA Corporativa Privada (Ollama), Estudio Creativo (ComfyUI), WhatsApp automatizado y Dashboard directivo en tiempo real. ¿Te gustaría agendar una reunión?',
-      a_en: '⭐ <strong>Premium Plan: Vitality & Leadership</strong> (Monthly retainer): Absolute digital sovereignty. Everything in Advanced plus local private AI (Ollama), ComfyUI studio, WhatsApp automation, and real-time dashboard. Schedule a call?'
+      a: '⭐ <strong>Paquete Premium: Vitalidad y Liderazgo</strong> (Retainer mensual): Solución de soberanía absoluta. Todo el Plan Avanzado más IA Corporativa Privada, Estudio Creativo con IA, WhatsApp automatizado y Dashboard directivo en tiempo real. ¿Te gustaría agendar una reunión?',
+      a_en: '⭐ <strong>Premium Plan: Vitality & Leadership</strong> (Monthly retainer): Absolute digital sovereignty. Everything in Advanced plus local private AI, Creative AI studio, WhatsApp automation, and real-time dashboard. Schedule a call?'
     },
     {
       k: ['diagnóstico', 'diagnostico', 'gratis', 'gratuito', 'free', 'diagnosis'],
@@ -1233,8 +1233,8 @@ if (phoneField) {
     },
     {
       k: ['contact', 'teléfono', 'telefono', 'llamar', 'whatsapp', 'correo', 'email', 'phone', 'call', 'oficina', 'donde estan', 'bella vista'],
-      a: '📱 ¡Conéctate al instante!<br>📍 <strong>Oficina</strong>: Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo.<br>💬 <strong>WhatsApp</strong>: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a>.<br>📧 <strong>Email</strong>: <a href="mailto:info@rcp.services" style="color:var(--accent)">info@rcp.services</a>.',
-      a_en: '📱 Get in touch!<br>📍 **Office**: Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo.<br>💬 **WhatsApp**: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a>.<br>📧 **Email**: <a href="mailto:info@rcp.services" style="color:var(--accent)">info@rcp.services</a>.'
+      a: '📱 ¡Conéctate al instante!<br>📍 <strong>Ubicación</strong>: Santo Domingo, R.D.<br>💬 <strong>WhatsApp</strong>: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a>.<br>📧 <strong>Email</strong>: <a href="mailto:info@rcp.services" style="color:var(--accent)">info@rcp.services</a>.',
+      a_en: '📱 Get in touch!<br>📍 **Location**: Santo Domingo, R.D.<br>💬 **WhatsApp**: <a href="https://wa.me/18298068092" style="color:var(--accent)">829-806-8092</a>.<br>📧 **Email**: <a href="mailto:info@rcp.services" style="color:var(--accent)">info@rcp.services</a>.'
     },
     {
       k: ['renovación', 'renovacion', 'rebranding', 'marca', 'revitalization', 'identidad', 'proceso', 'automatiz'],
@@ -1908,12 +1908,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
       });
 
+      const randomId = Math.random().toString(36).substring(2, 5) + '-' + Math.random().toString(36).substring(2, 6) + '-' + Math.random().toString(36).substring(2, 5);
+      const meetLink = `https://meet.google.com/${randomId}`;
+
       const templateParams = {
         from_name: name,
         from_email: email,
         from_phone: phone,
         from_company: company,
-        message: `Cita Programada para Diagnóstico 360°.\nFecha: ${formattedDate}\nHora: ${selectedTimeSlot}\n\nDetalles adicionales:\n${message}`,
+        message: `Cita Programada para Diagnóstico 360°.\nFecha: ${formattedDate}\nHora: ${selectedTimeSlot}\n\nEnlace de Meet: ${meetLink}\n\nDetalles adicionales:\n${message}`,
         reply_to: email
       };
 
@@ -1934,11 +1937,111 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
           user_message: `Cita agendada para: ${formattedDate} a las ${selectedTimeSlot}. Dolor principal: ${message}`,
           lead_source: 'Google Calendar Widget',
           appointment_date: selectedDateString,
-          appointment_time: selectedTimeSlot
+          appointment_time: selectedTimeSlot,
+          meet_link: meetLink
         })
       });
 
-      Promise.allSettled([emailJSCall, n8nCall])
+      // Generate secure 6-character access code
+      function generateAccessCode() {
+        const chars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // Exclude ambiguous chars like I, O
+        let code = '';
+        for (let i = 0; i < 4; i++) {
+          code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return `RCP-${code}`;
+      }
+      const accessCode = generateAccessCode();
+
+      const diagnosticoObj = {
+        appointment_date: selectedDateString,
+        appointment_time: selectedTimeSlot,
+        meet_link: meetLink,
+        challenges: message,
+        created_at: new Date().toISOString()
+      };
+
+      // Initialize Supabase Client
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+      const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+      const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+      let supabaseClient = null;
+      try {
+        if (window.supabase) {
+          supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        }
+      } catch (e) {
+        console.error("Error initializing Supabase client for booking:", e);
+      }
+
+      let supabasePromise = Promise.resolve();
+      if (supabaseClient) {
+        supabasePromise = (async () => {
+          try {
+            // Check if client exists
+            const { data: existingClient, error: selectError } = await supabaseClient
+              .from('clientes')
+              .select('id, status, diagnostico_360')
+              .eq('email', email)
+              .maybeSingle();
+
+            if (selectError) throw selectError;
+
+            if (existingClient) {
+              const updatePayload = {
+                diagnostico_360: diagnosticoObj
+              };
+              if (existingClient.status === 'pending_activation') {
+                updatePayload.access_code = accessCode;
+                updatePayload.company_name = company;
+                updatePayload.owner_name = name;
+                updatePayload.phone = phone;
+              }
+              const { error: updateError } = await supabaseClient
+                .from('clientes')
+                .update(updatePayload)
+                .eq('id', existingClient.id);
+
+              if (updateError) throw updateError;
+            } else {
+              const newClient = {
+                company_name: company,
+                legal_id: 'RNC-Pendiente',
+                owner_name: name,
+                email: email,
+                phone: phone,
+                address: 'Pendiente',
+                status: 'pending_activation',
+                access_code: accessCode,
+                password: 'pending_activation_secret_code',
+                ventas: 0,
+                ventas_trend: '▲ +0%',
+                cpl: 0,
+                cpl_trend: '▼ -0%',
+                roas: 0.0,
+                roas_trend: '▲ +0x',
+                ltv: 0,
+                ltv_trend: '▲ +0%',
+                tramite_onapi: 0,
+                tramite_camara: 0,
+                tramite_dgii: 0,
+                chart_data: [0, 0, 0, 0, 0, 0, 0],
+                pagos: [],
+                diagnostico_360: diagnosticoObj
+              };
+              const { error: insertError } = await supabaseClient
+                .from('clientes')
+                .insert([newClient]);
+
+              if (insertError) throw insertError;
+            }
+          } catch (dbErr) {
+            console.error("Error saving client booking in Supabase:", dbErr);
+          }
+        })();
+      }
+
+      Promise.allSettled([emailJSCall, n8nCall, supabasePromise])
         .then(() => {
           document.getElementById('bookingStep2').style.display = 'none';
           const step3 = document.getElementById('bookingStep3');
@@ -1947,8 +2050,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
           document.getElementById('successDate').textContent = formattedDate;
           document.getElementById('successTime').textContent = `${selectedTimeSlot} - ${getEndTime(selectedTimeSlot)} (AST)`;
           
-          const randomId = Math.random().toString(36).substring(2, 5) + '-' + Math.random().toString(36).substring(2, 6) + '-' + Math.random().toString(36).substring(2, 5);
-          const meetLink = `https://meet.google.com/${randomId}`;
           document.getElementById('successMeetLink').href = meetLink;
           document.getElementById('successMeetLink').textContent = meetLink;
 

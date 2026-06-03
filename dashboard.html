@@ -423,6 +423,10 @@
       background: rgba(252,181,63,0.1);
       color: var(--accent);
     }
+    .sync-badge.pending {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
 
     /* Controls */
     .btn-action-sm {
@@ -544,21 +548,28 @@
     }
     
     .form-control {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
       color: var(--text);
       font-family: var(--font);
       font-size: 0.92rem;
-      padding: 13px 16px;
+      padding: 14px 18px;
       width: 100%;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       outline: none;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-control:hover {
+      border-color: rgba(252, 181, 63, 0.3);
+      background: rgba(255, 255, 255, 0.04);
     }
     
     .form-control:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.15);
+      background: rgba(252, 181, 63, 0.02);
+      box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.18), inset 0 2px 4px rgba(0, 0, 0, 0.05);
     }
     
     .form-control::placeholder {
@@ -570,6 +581,16 @@
       background: #faf9f7;
       border-color: #d5d0c8;
       color: #1a1a1a;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    }
+    [data-theme="light"] .form-control:hover {
+      border-color: rgba(252, 181, 63, 0.5);
+      background: #fdfdfc;
+    }
+    [data-theme="light"] .form-control:focus {
+      background: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(252, 181, 63, 0.22), inset 0 1px 3px rgba(0,0,0,0.03);
     }
     .clientes-grid {
       display: flex;
@@ -682,6 +703,44 @@
     </header>
 
     <!-- ==================== PANELS ==================== -->
+
+    <!-- OVERLAY PARA CLIENTES EN REVISIÓN / DIAGNÓSTICO -->
+    <div id="reviewOverlay" style="display:none; margin-top:20px;">
+      <div style="background: rgba(252, 181, 63, 0.05); border: 1px solid rgba(252, 181, 63, 0.15); border-radius: var(--radius); padding: 40px; text-align: center; backdrop-filter: blur(12px); max-width: 750px; margin: 40px auto; box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: fadeIn 0.5s ease;">
+        <span style="font-size: 3.5rem; display: block; margin-bottom: 20px; animation: pulse 2s infinite;">📋</span>
+        <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 12px;" data-i18n="dash-review-title">Diagnóstico 360° en Proceso</h2>
+        <p style="font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 30px;" data-i18n="dash-review-desc">
+          ¡Felicidades! Hemos capturado exitosamente los datos de tu empresa. Actualmente tu cuenta se encuentra en fase de <strong>Análisis y Constitución Inicial</strong>.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: left; margin-bottom: 35px;">
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 18px; border-radius: 10px;">
+            <div style="font-size: 1.2rem; margin-bottom: 8px;">1️⃣</div>
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;" data-i18n="dash-step1-title">Datos Enviados</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="dash-step1-desc">Tu perfil comercial e intereses han sido registrados en nuestro CRM Corporativo.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 18px; border-radius: 10px;">
+            <div style="font-size: 1.2rem; margin-bottom: 8px;">2️⃣</div>
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;" data-i18n="dash-step2-title">Sesión Meet</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="dash-step2-desc">Evaluaremos la arritmia de tu negocio y presentaremos las soluciones de las 11 capas.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 18px; border-radius: 10px;">
+            <div style="font-size: 1.2rem; margin-bottom: 8px;">3️⃣</div>
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;" data-i18n="dash-step3-title">Desbloqueo</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="dash-step3-desc">Al terminar la sesión de consultoría se te dará tu <strong>Código de Acceso Secreto</strong>.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; justify-content: center;">
+          <a href="https://wa.me/18298068092" target="_blank" class="btn-cta" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;" data-i18n="dash-btn-contact">
+            💬 Contactar a mi Asesor
+          </a>
+          <button class="btn-outline" id="btnExitReview" style="padding: 12px 24px;" data-i18n="dash-btn-logout-overlay">
+            🚪 Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- PANEL 1: OVERVIEW -->
     <div class="dashboard-panel active" id="view-overview">
@@ -934,11 +993,11 @@
       <div class="card-workspace">
         <div class="card-title-row" style="margin-bottom:20px;">
           <h3 data-i18n="dash-title-billing">Historial de Transacciones y Sincronización ERP</h3>
-          <span class="sync-badge online" id="erpSyncBadge">🟢 ERP Online (Odoo Sincronizado)</span>
+          <span class="sync-badge online" id="erpSyncBadge">🟢 ERP Online (Sincronizado)</span>
         </div>
         
         <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:30px; line-height:1.5;" data-i18n="dash-billing-desc">
-          En RCP Services tus datos de transacciones se respaldan de forma blindada. Gracias a nuestro **Buffer de Sincronización en la Nube**, tus pagos y contrataciones se guardan temporalmente de forma privada si el servidor local del ERP (Odoo) se encuentra apagado, sincronizándose automáticamente tan pronto se enciende.
+          En RCP Services tus datos de transacciones se respaldan de forma blindada. Gracias a nuestro **Buffer de Sincronización en la Nube**, tus pagos y contrataciones se guardan temporalmente de forma privada si el servidor local del ERP se encuentra apagado, sincronizándose automáticamente tan pronto se enciende.
         </p>
 
         <table class="payments-table">
@@ -949,7 +1008,7 @@
               <th data-i18n="tbl-items">Servicio / Detalle</th>
               <th data-i18n="tbl-amount">Monto</th>
               <th data-i18n="tbl-method">Método</th>
-              <th data-i18n="tbl-status">Sincronización Odoo ERP</th>
+              <th data-i18n="tbl-status">Sincronización ERP</th>
             </tr>
           </thead>
           <tbody id="paymentsTableBody">
@@ -971,8 +1030,9 @@
                 <option value="all" data-i18n="dash-clients-filter-all">Todos los Estados</option>
                 <option value="active" data-i18n="dash-clients-filter-active">Activos</option>
                 <option value="inactive" data-i18n="dash-clients-filter-inactive">Inactivos</option>
-                <option value="review">En Revisión</option>
+                <option value="pending_activation">Pendiente Activación</option>
                 <option value="onboarding">En Onboarding</option>
+                <option value="review">En Revisión</option>
               </select>
               <span class="sync-badge online" id="clientsSyncBadge">
                 <span class="sync-dot"></span> <span data-i18n="dash-clients-badge-sync">Sincronizado</span>
@@ -993,6 +1053,7 @@
                   <th data-i18n="dash-clients-th-rnc">RNC</th>
                   <th data-i18n="dash-clients-th-owner">Representante</th>
                   <th data-i18n="dash-clients-th-contact">Contacto</th>
+                  <th data-i18n="dash-clients-th-code">Código</th>
                   <th data-i18n="dash-clients-th-status">Estado</th>
                   <th data-i18n="dash-clients-th-actions">Acciones</th>
                 </tr>
@@ -1034,7 +1095,7 @@
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
               <div class="portal-form-group">
                 <label for="clientEmail" data-i18n="form-email">Correo Electrónico *</label>
-                <input type="email" id="clientEmail" required placeholder="juan@correo.com" class="form-control" />
+                <input type="email" id="clientEmail" required placeholder="ejemplo@correo.com" class="form-control" />
               </div>
               <div class="portal-form-group">
                 <label for="clientPassword" data-i18n="port-pass">Contraseña de Acceso *</label>
@@ -1045,11 +1106,22 @@
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
               <div class="portal-form-group">
                 <label for="clientPhone" data-i18n="form-phone">Teléfono / WhatsApp *</label>
-                <input type="text" id="clientPhone" required placeholder="809-555-1234" class="form-control" />
+                <input type="text" id="clientPhone" required placeholder="829-000-0000" class="form-control" />
               </div>
               <div class="portal-form-group">
                 <label for="clientAddress" data-i18n="dash-clients-label-address">Dirección Comercial</label>
                 <input type="text" id="clientAddress" placeholder="Av. Winston Churchill #105, Santo Domingo" class="form-control" />
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+              <div class="portal-form-group">
+                <label for="clientAccessCode">Código de Acceso Secreto</label>
+                <input type="text" id="clientAccessCode" placeholder="Ej. RCP-8F32" class="form-control" />
+              </div>
+              <div class="portal-form-group" style="visibility:hidden">
+                <label>Spacer</label>
+                <input type="text" class="form-control" />
               </div>
             </div>
 
@@ -1123,8 +1195,9 @@
               <select class="lang-select" id="clientStatus" style="width:100%; font-size:0.88rem;">
                 <option value="active" data-i18n="dash-clients-status-active">Activo</option>
                 <option value="inactive" data-i18n="dash-clients-status-inactive">Inactivo</option>
-                <option value="review">En Revisión</option>
+                <option value="pending_activation">Pendiente Activación</option>
                 <option value="onboarding">En Onboarding</option>
+                <option value="review">En Revisión</option>
               </select>
             </div>
 
@@ -1180,10 +1253,12 @@
         es: {
           loading: "Consultando base de datos blindada...",
           noTxns: "No se encontraron transacciones.",
-          txnSynced: "ERP Sincronizado (Odoo)",
+          txnSynced: "ERP Sincronizado",
           txnPending: "Buffer Nube (Pendiente)",
           statusActive: "Activo",
           statusInactive: "Inactivo",
+          statusPending: "Pendiente Activación",
+          clientCode: "Código Acceso",
           statusCompleted: "Completado",
           statusProcess: "En Proceso",
           statusReview: "En Verificación",
@@ -1203,10 +1278,12 @@
         en: {
           loading: "Querying secured database...",
           noTxns: "No transactions found.",
-          txnSynced: "ERP Synced (Odoo)",
+          txnSynced: "ERP Synced",
           txnPending: "Cloud Buffer (Pending)",
           statusActive: "Active",
           statusInactive: "Inactive",
+          statusPending: "Pending Activation",
+          clientCode: "Access Code",
           statusCompleted: "Completed",
           statusProcess: "In Progress",
           statusReview: "Under Review",
@@ -1276,9 +1353,14 @@
       // Logout handler
       const btnLogout = document.getElementById('btnLogout');
       if (btnLogout) {
-        btnLogout.addEventListener('click', async () => {
-          if (supabase) {
-            await supabase.auth.signOut();
+        btnLogout.addEventListener('click', async (e) => {
+          e.preventDefault();
+          try {
+            if (supabase) {
+              await supabase.auth.signOut();
+            }
+          } catch (err) {
+            console.error("Error signing out from Supabase:", err);
           }
           sessionStorage.clear();
           window.location.href = 'portal.html';
@@ -1429,7 +1511,7 @@
         }
         if (erpSyncBadge) {
           erpSyncBadge.className = 'sync-badge online';
-          erpSyncBadge.textContent = isEN ? '🟢 ERP Online (Odoo Connected)' : '🟢 ERP Online (Odoo Sincronizado)';
+          erpSyncBadge.textContent = isEN ? '🟢 ERP Online (Connected)' : '🟢 ERP Online (Sincronizado)';
         }
       }
 
@@ -1499,11 +1581,52 @@
                   window.location.href = 'onboarding.html';
                   return;
                 }
+                
+                if (data.status === 'review' || data.status === 'pending_activation') {
+                  document.getElementById('reviewOverlay').style.display = 'block';
+                  document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');
+                  const sNav = document.querySelector('.sidebar-nav');
+                  if (sNav) sNav.style.display = 'none';
+                  const wHeader = document.querySelector('.workspace-header');
+                  if (wHeader) wHeader.style.display = 'none';
+                  
+                  if (profileName) profileName.textContent = data.owner_name;
+                  if (profileCompany) profileCompany.textContent = data.company_name;
+                  
+                  const btnExitReview = document.getElementById('btnExitReview');
+                  if (btnExitReview) {
+                    btnExitReview.addEventListener('click', async (e) => {
+                      e.preventDefault();
+                      try {
+                        if (supabase) await supabase.auth.signOut();
+                      } catch (err) { console.error(err); }
+                      sessionStorage.clear();
+                      window.location.href = 'portal.html';
+                    });
+                  }
+                  return;
+                }
+
                 renderClientDashboard(data);
-                // Update profile cards dynamically too
                 if (profileName) profileName.textContent = data.owner_name;
                 if (profileCompany) profileCompany.textContent = data.company_name;
                 loaded = true;
+
+                // Subscribe to real-time changes
+                if (supabase) {
+                  supabase.channel('custom-client-channel')
+                    .on(
+                      'postgres_changes',
+                      { event: '*', schema: 'public', table: 'clientes', filter: 'email=eq.' + activeEmail },
+                      (payload) => {
+                        console.log('Realtime change received!', payload);
+                        if (payload.new) {
+                          renderClientDashboard(payload.new);
+                        }
+                      }
+                    )
+                    .subscribe();
+                }
               }
             } catch (err) {
               console.error("Failed to load own database client metrics:", err);
@@ -1515,6 +1638,28 @@
             const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
             const localData = localUsers.find(u => u.email === activeEmail);
             if (localData) {
+              if (localData.status === 'review') {
+                document.getElementById('reviewOverlay').style.display = 'block';
+                document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');
+                const sNav = document.querySelector('.sidebar-nav');
+                if (sNav) sNav.style.display = 'none';
+                const wHeader = document.querySelector('.workspace-header');
+                if (wHeader) wHeader.style.display = 'none';
+                
+                if (profileName) profileName.textContent = localData.name;
+                if (profileCompany) profileCompany.textContent = localData.company;
+                
+                const btnExitReview = document.getElementById('btnExitReview');
+                if (btnExitReview) {
+                  btnExitReview.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sessionStorage.clear();
+                    window.location.href = 'portal.html';
+                  });
+                }
+                return;
+              }
+
               const simClient = Object.assign({}, defaultMetrics, {
                 company_name: localData.company,
                 owner_name: localData.name,
@@ -1577,11 +1722,21 @@
         });
 
         if (filtered.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">${t.noClients}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">${t.noClients}</td></tr>`;
           return;
         }
 
         filtered.forEach(c => {
+          const waPhone = c.phone ? c.phone.replace(/[^0-9]/g, '') : '';
+          let waPrefilled = waPhone;
+          if (waPhone.length === 10 && (waPhone.startsWith('809') || waPhone.startsWith('829') || waPhone.startsWith('849'))) {
+            waPrefilled = '1' + waPhone;
+          }
+          const portalUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'portal.html');
+          const waMsg = encodeURIComponent(`Hola ${c.owner_name}, tu código de acceso secreto para activar tu portal de RCP Services es: ${c.access_code || 'N/A'}\n\nIngresa aquí para activar tu cuenta: ${portalUrl}`);
+          const waLink = `https://wa.me/${waPrefilled}?text=${waMsg}`;
+          const codeDisplay = c.access_code || 'N/A';
+
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td><strong>${c.company_name}</strong></td>
@@ -1592,8 +1747,17 @@
               <div style="font-size:0.75rem; color:var(--text-muted);">${c.phone}</div>
             </td>
             <td>
-              <span class="sync-badge ${c.status === 'active' ? 'online' : (c.status === 'review' ? 'online' : 'offline')}">
-                ${c.status === 'active' ? t.statusActive : (c.status === 'review' ? 'En Revisión' : (c.status === 'onboarding' ? 'Onboarding' : t.statusInactive))}
+              <div style="display:flex; align-items:center; gap:6px;">
+                <code style="background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; font-weight:700; color:var(--accent); font-family:monospace; font-size:0.9rem;">${codeDisplay}</code>
+                ${c.access_code ? `
+                  <button class="btn-action-sm btn-copy-code" data-code="${c.access_code}" style="padding:4px 6px; font-size:0.75rem;" title="Copiar código">📋</button>
+                  <a href="${waLink}" target="_blank" class="btn-action-sm" style="padding:4px 6px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center;" title="Compartir por WhatsApp">💬</a>
+                ` : ''}
+              </div>
+            </td>
+            <td>
+              <span class="sync-badge ${c.status === 'active' ? 'online' : (c.status === 'review' ? 'online' : (c.status === 'pending_activation' ? 'pending' : 'offline'))}">
+                ${c.status === 'active' ? t.statusActive : (c.status === 'review' ? (isEN ? 'Under Review' : 'En Revisión') : (c.status === 'onboarding' ? 'Onboarding' : (c.status === 'pending_activation' ? t.statusPending : t.statusInactive)))}
               </span>
             </td>
             <td>
@@ -1606,6 +1770,23 @@
         });
 
         // Add event listeners on action buttons
+        tbody.querySelectorAll('.btn-copy-code').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const code = btn.dataset.code;
+            navigator.clipboard.writeText(code).then(() => {
+              const originalText = btn.textContent;
+              btn.textContent = 'Copied!';
+              btn.style.color = '#22c55e';
+              setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.color = '';
+              }, 1200);
+            }).catch(err => {
+              console.error('Could not copy text: ', err);
+            });
+          });
+        });
+
         tbody.querySelectorAll('.btn-view-diag').forEach(btn => {
           btn.addEventListener('click', () => {
             const client = clientList.find(c => c.id === btn.dataset.id);
@@ -1639,6 +1820,7 @@
         document.getElementById('clientPassword').value = c.password || '';
         document.getElementById('clientPhone').value = c.phone;
         document.getElementById('clientAddress').value = c.address || '';
+        document.getElementById('clientAccessCode').value = c.access_code || '';
         
         // Business Metrics
         document.getElementById('clientVentas').value = c.ventas || 0;
@@ -1729,6 +1911,7 @@
             const password = document.getElementById('clientPassword').value;
             const phone = document.getElementById('clientPhone').value.trim();
             const address = document.getElementById('clientAddress').value.trim();
+            const accessCode = document.getElementById('clientAccessCode').value.trim();
 
             const ventas = parseInt(document.getElementById('clientVentas').value) || 0;
             const ventasTrend = document.getElementById('clientVentasTrend').value.trim();
@@ -1753,6 +1936,7 @@
               password: password,
               phone: phone,
               address: address,
+              access_code: accessCode,
               ventas: ventas,
               ventas_trend: ventasTrend,
               cpl: cpl,
