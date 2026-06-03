@@ -1582,7 +1582,12 @@
                   return;
                 }
                 
-                if (data.status === 'review' || data.status === 'pending_activation') {
+                if (data.status === 'pending_activation') {
+                  window.location.href = 'portal.html';
+                  return;
+                }
+                
+                if (data.status === 'review') {
                   document.getElementById('reviewOverlay').style.display = 'block';
                   document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');
                   const sNav = document.querySelector('.sidebar-nav');
@@ -1638,6 +1643,14 @@
             const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
             const localData = localUsers.find(u => u.email === activeEmail);
             if (localData) {
+              if (localData.status === 'onboarding') {
+                window.location.href = 'onboarding.html';
+                return;
+              }
+              if (localData.status === 'pending_activation') {
+                window.location.href = 'portal.html';
+                return;
+              }
               if (localData.status === 'review') {
                 document.getElementById('reviewOverlay').style.display = 'block';
                 document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');

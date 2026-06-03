@@ -317,13 +317,6 @@
           </div>
           <div class="portal-form-group">
             <label for="signupPassword" data-i18n="port-pass">Contraseña</label>
-            <input type="password" id="signupPassword" required placeholder="Min. 8 caracteres" minlength="8" />
-          </div>
-          <div class="portal-form-group">
-            <label for="signupAccessCode">Código de Acceso Secreto *</label>
-            <input type="text" id="signupAccessCode" required placeholder="Ej. RCP-8F32" style="font-family:monospace; text-transform:uppercase;" />
-          </div>
-          
           <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-create">Crear mi Cuenta</button>
         </form>
         
@@ -539,6 +532,11 @@
       }
 
       function showActivationScreen(email, clientData) {
+        sessionStorage.setItem('active_user_email', email);
+        sessionStorage.setItem('active_user_name', clientData.owner_name || email.split('@')[0]);
+        sessionStorage.setItem('active_user_company', clientData.company_name);
+        sessionStorage.setItem('active_user_role', 'client');
+
         document.getElementById('loginView').style.display = 'none';
         document.getElementById('signupView').style.display = 'none';
         document.getElementById('forgotView').style.display = 'none';
@@ -563,7 +561,7 @@
                 try {
                   const { error } = await supabase
                     .from('clientes')
-                    .update({ status: 'onboarding' })
+                    .update({ status: 'active' }) // Change to 'active'!
                     .eq('id', clientData.id);
                     
                   if (error) throw error;
@@ -576,12 +574,15 @@
                 }
               }
               
-              sessionStorage.setItem('active_user_email', email);
-              sessionStorage.setItem('active_user_name', clientData.owner_name || email.split('@')[0]);
-              sessionStorage.setItem('active_user_company', clientData.company_name);
-              sessionStorage.setItem('active_user_role', 'client');
+              // Local fallback sync
+              const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+              const idx = localUsers.findIndex(u => u.email === email);
+              if (idx !== -1) {
+                localUsers[idx].status = 'active';
+                localStorage.setItem('portal_users', JSON.stringify(localUsers));
+              }
               
-              window.location.href = 'onboarding.html';
+              window.location.href = 'dashboard.html';
             } else {
               alert(document.documentElement.lang === 'en'
                 ? 'Invalid Access Code. Please enter the code given by your advisor.'
@@ -596,10 +597,58 @@
             if (supabase) {
               await supabase.auth.signOut();
             }
+            sessionStorage.clear();
             window.location.reload();
           };
         }
       }
+
+      // Session restore auto check on page load
+      const restoreSession = async () => {
+        const activeEmail = sessionStorage.getItem('active_user_email');
+        if (activeEmail) {
+          if (activeEmail === 'director@miempresa.com' || activeEmail === 'rcpservicessrl@gmail.com') {
+            window.location.href = 'dashboard.html';
+            return;
+          }
+          if (supabase) {
+            try {
+              const { data, error } = await supabase
+                .from('clientes')
+                .select('*')
+                .eq('email', activeEmail)
+                .maybeSingle();
+              if (data) {
+                if (data.status === 'pending_activation') {
+                  showActivationScreen(activeEmail, data);
+                  return;
+                } else if (data.status === 'onboarding') {
+                  window.location.href = 'onboarding.html';
+                  return;
+                } else if (data.status === 'active') {
+                  window.location.href = 'dashboard.html';
+                  return;
+                }
+              }
+            } catch (err) {
+              console.error("Error verifying active session on load:", err);
+            }
+          }
+          // Local fallback check
+          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+          const found = localUsers.find(u => u.email === activeEmail);
+          if (found) {
+            if (found.status === 'pending_activation') {
+              showActivationScreen(activeEmail, found);
+            } else if (found.status === 'onboarding') {
+              window.location.href = 'onboarding.html';
+            } else if (found.status === 'active') {
+              window.location.href = 'dashboard.html';
+            }
+          }
+        }
+      };
+      restoreSession();
 
       // Parse parameters (Prefill signup info if they just bought a package!)
       const params = new URLSearchParams(window.location.search);
@@ -685,6 +734,10 @@
                   btnSubmit.disabled = false;
                   return;
                 }
+                if (data.status === 'pending_activation') {
+                  showActivationScreen(data.email, data);
+                  return;
+                }
                 sessionStorage.setItem('active_user_email', data.email);
                 sessionStorage.setItem('active_user_name', data.owner_name);
                 sessionStorage.setItem('active_user_company', data.company_name);
@@ -702,6 +755,16 @@
           const foundUser = localUsers.find(u => u.email === emailInput && u.password === passwordInput);
           
           if (foundUser) {
+            if (foundUser.status === 'inactive') {
+              alert('Tu cuenta se encuentra inactiva. Por favor contacta a soporte.');
+              btnSubmit.textContent = originalText;
+              btnSubmit.disabled = false;
+              return;
+            }
+            if (foundUser.status === 'pending_activation') {
+              showActivationScreen(emailInput, foundUser);
+              return;
+            }
             sessionStorage.setItem('active_user_email', emailInput);
             sessionStorage.setItem('active_user_name', foundUser.name);
             sessionStorage.setItem('active_user_company', foundUser.company);
@@ -725,12 +788,13 @@
           const nameInput = document.getElementById('signupName').value.trim();
           const companyInput = document.getElementById('signupCompany').value.trim();
           const passwordInput = document.getElementById('signupPassword').value;
-          const accessCodeInput = document.getElementById('signupAccessCode').value.trim().toUpperCase();
           
           const btnSubmit = signupForm.querySelector('button[type="submit"]');
           const originalText = btnSubmit.textContent;
           btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Verifying...' : 'Verificando...';
           btnSubmit.disabled = true;
+
+          const randomCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
 
           if (supabase) {
             try {
@@ -743,44 +807,55 @@
 
               if (selectError) throw selectError;
 
-              if (!clientData) {
-                alert(document.documentElement.lang === 'en'
-                  ? 'No 360 Diagnosis found for this email. Please book your free diagnosis first.'
-                  : 'No se encontró un Diagnóstico 360 agendado para este correo. Por favor agenda tu diagnóstico primero.');
-                btnSubmit.textContent = originalText;
-                btnSubmit.disabled = false;
-                return;
+              if (clientData) {
+                // Update client record with details and change status to 'onboarding'
+                const { error: updateError } = await supabase
+                  .from('clientes')
+                  .update({
+                    owner_name: nameInput,
+                    company_name: companyInput,
+                    password: passwordInput,
+                    status: 'onboarding'
+                  })
+                  .eq('id', clientData.id);
+
+                if (updateError) throw updateError;
+              } else {
+                // Insert a completely new client record
+                const { error: insertError } = await supabase
+                  .from('clientes')
+                  .insert([{
+                    email: emailInput,
+                    owner_name: nameInput,
+                    company_name: companyInput,
+                    password: passwordInput,
+                    status: 'onboarding',
+                    access_code: randomCode
+                  }]);
+
+                if (insertError) throw insertError;
               }
-
-              // 2. Validate Access Code
-              if ((clientData.access_code || '').toUpperCase() !== accessCodeInput) {
-                alert(document.documentElement.lang === 'en'
-                  ? 'Invalid Secret Access Code. Please enter the code given by your advisor.'
-                  : 'Código de Acceso Secreto incorrecto. Por favor verifícalo.');
-                btnSubmit.textContent = originalText;
-                btnSubmit.disabled = false;
-                return;
-              }
-
-              // 3. Update client record with details and change status to 'onboarding'
-              const { error: updateError } = await supabase
-                .from('clientes')
-                .update({
-                  owner_name: nameInput,
-                  company_name: companyInput,
-                  password: passwordInput,
-                  status: 'onboarding'
-                })
-                .eq('id', clientData.id);
-
-              if (updateError) throw updateError;
 
               // Success: Buffer in LocalStorage just in case
               const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-              if (!localUsers.some(u => u.email === emailInput)) {
-                localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
-                localStorage.setItem('portal_users', JSON.stringify(localUsers));
+              let localUser = localUsers.find(u => u.email === emailInput);
+              if (!localUser) {
+                localUser = { 
+                  email: emailInput, 
+                  name: nameInput, 
+                  company: companyInput, 
+                  password: passwordInput,
+                  status: 'onboarding',
+                  access_code: clientData ? clientData.access_code : randomCode
+                };
+                localUsers.push(localUser);
+              } else {
+                localUser.name = nameInput;
+                localUser.company = companyInput;
+                localUser.password = passwordInput;
+                localUser.status = 'onboarding';
               }
+              localStorage.setItem('portal_users', JSON.stringify(localUsers));
 
               sessionStorage.setItem('active_user_email', emailInput);
               sessionStorage.setItem('active_user_name', nameInput);
@@ -792,7 +867,7 @@
 
             } catch (err) {
               console.error('Error during manual signup verification:', err);
-              alert(document.documentElement.lang === 'en' ? 'Registration failed.' : 'Error al registrar la cuenta.');
+              alert(document.documentElement.lang === 'en' ? 'Registration failed: ' + err.message : 'Error al registrar la cuenta: ' + err.message);
               btnSubmit.textContent = originalText;
               btnSubmit.disabled = false;
               return;
@@ -800,10 +875,25 @@
           } else {
             // Local fallback simulation buffer if Supabase is offline
             const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-            if (!localUsers.some(u => u.email === emailInput)) {
-              localUsers.push({ email: emailInput, name: nameInput, company: companyInput, password: passwordInput });
-              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            let localUser = localUsers.find(u => u.email === emailInput);
+            if (!localUser) {
+              localUser = { 
+                email: emailInput, 
+                name: nameInput, 
+                company: companyInput, 
+                password: passwordInput, 
+                status: 'onboarding', 
+                access_code: randomCode 
+              };
+              localUsers.push(localUser);
+            } else {
+              localUser.name = nameInput;
+              localUser.company = companyInput;
+              localUser.password = passwordInput;
+              localUser.status = 'onboarding';
             }
+            localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            
             sessionStorage.setItem('active_user_email', emailInput);
             sessionStorage.setItem('active_user_name', nameInput);
             sessionStorage.setItem('active_user_company', companyInput);

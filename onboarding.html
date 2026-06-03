@@ -82,6 +82,29 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    .ob-pill-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ob-pill-btn:hover {
+      background: rgba(252, 181, 63, 0.08);
+      border-color: rgba(252, 181, 63, 0.3);
+    }
+    .ob-pill-btn.selected {
+      background: rgba(252, 181, 63, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(252, 181, 63, 0.2);
+    }
   </style>
 </head>
 
@@ -96,7 +119,8 @@
     <div id="step1" class="step-content active">
       <div class="form-group">
         <label for="obPhone">Teléfono de Contacto</label>
-        <input type="text" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000" required />
+        <input type="text" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000" maxlength="12" required />
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Formatos válidos: 809-XXX-XXXX, 829-XXX-XXXX, 849-XXX-XXXX</span>
       </div>
       <div class="form-group">
         <label for="obAddress">Dirección Principal</label>
@@ -113,18 +137,44 @@
 
     <!-- Step 2: Diagnóstico 360 -->
     <div id="step2" class="step-content">
+      <!-- Q1 -->
       <div class="form-group">
-        <label for="q1">1. ¿En qué etapa se encuentra tu negocio actualmente?</label>
-        <textarea id="q1" class="form-control" rows="3" placeholder="Ej. Apenas iniciando, en expansión, buscando organizarse..."></textarea>
+        <label>1. ¿En qué etapa se encuentra tu negocio actualmente?</label>
+        <div class="pills-container" id="q1_pills" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <button type="button" class="ob-pill-btn" data-value="🚀 Idea / Proyecto nuevo">🚀 Idea / Proyecto nuevo</button>
+          <button type="button" class="ob-pill-btn" data-value="🌱 Operando (< 1 año)">🌱 Operando (&lt; 1 año)</button>
+          <button type="button" class="ob-pill-btn" data-value="📈 En crecimiento (1-3 años)">📈 En crecimiento (1-3 años)</button>
+          <button type="button" class="ob-pill-btn" data-value="🏢 Consolidado (> 3 años)">🏢 Consolidado (&gt; 3 años)</button>
+        </div>
+        <input type="text" id="q1_custom" class="form-control" placeholder="Otro comentario o detalle sobre tu etapa..." />
       </div>
+
+      <!-- Q2 -->
       <div class="form-group">
-        <label for="q2">2. ¿Cuáles son tus mayores desafíos a nivel legal u operativo?</label>
-        <textarea id="q2" class="form-control" rows="3" placeholder="Ej. No estoy registrado en ONAPI, no entiendo de impuestos, necesito un manual de empleados..."></textarea>
+        <label>2. ¿Cuáles son tus mayores desafíos a nivel legal u operativo?</label>
+        <div class="pills-container" id="q2_pills" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <button type="button" class="ob-pill-btn" data-value="⚖️ Legal / Constitución">⚖️ Legal / Constitución</button>
+          <button type="button" class="ob-pill-btn" data-value="🛡️ ONAPI / Registro de Marca">🛡️ ONAPI / Registro de Marca</button>
+          <button type="button" class="ob-pill-btn" data-value="💸 Impuestos / DGII">💸 Impuestos / DGII</button>
+          <button type="button" class="ob-pill-btn" data-value="📣 Marketing y Ventas">📣 Marketing y Ventas</button>
+          <button type="button" class="ob-pill-btn" data-value="⚙️ Operaciones / Procesos">⚙️ Operaciones / Procesos</button>
+        </div>
+        <input type="text" id="q2_custom" class="form-control" placeholder="Otros desafíos que enfrentas..." />
       </div>
+
+      <!-- Q3 -->
       <div class="form-group">
-        <label for="q3">3. ¿Qué servicios de RCP te interesan más a corto plazo?</label>
-        <textarea id="q3" class="form-control" rows="3" placeholder="Ej. Asesoría legal, branding, marketing digital, etc."></textarea>
+        <label>3. ¿Qué servicios de RCP te interesan más a corto plazo?</label>
+        <div class="pills-container" id="q3_pills" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <button type="button" class="ob-pill-btn" data-value="📝 Constitución de Empresa">📝 Constitución de Empresa</button>
+          <button type="button" class="ob-pill-btn" data-value="🛡️ Registro de Marca ONAPI">🛡️ Registro de Marca ONAPI</button>
+          <button type="button" class="ob-pill-btn" data-value="🎨 Identidad Corporativa / Branding">🎨 Identidad Corporativa / Branding</button>
+          <button type="button" class="ob-pill-btn" data-value="📊 Campañas Digitales (Ads)">📊 Campañas Digitales (Ads)</button>
+          <button type="button" class="ob-pill-btn" data-value="💻 CRM / Odoo Automatizado">💻 CRM / Odoo Automatizado</button>
+        </div>
+        <input type="text" id="q3_custom" class="form-control" placeholder="Otros servicios de interés..." />
       </div>
+
       <div class="nav-buttons">
         <button class="btn-outline" id="btnPrev2">← Atrás</button>
         <button class="btn-cta" id="btnSubmitOB">Completar Registro ✓</button>
@@ -165,6 +215,51 @@
       const stepTitle = document.getElementById('stepTitle');
       const stepDesc = document.getElementById('stepDesc');
 
+      // Phone Formatter and restriction to digits
+      const phoneInput = document.getElementById('obPhone');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+          let value = e.target.value.replace(/\D/g, ''); // Digits only
+          if (value.length > 10) {
+            value = value.substring(0, 10);
+          }
+          let formatted = '';
+          if (value.length > 0) {
+            formatted += value.substring(0, Math.min(3, value.length));
+          }
+          if (value.length > 3) {
+            formatted += '-' + value.substring(3, Math.min(6, value.length));
+          }
+          if (value.length > 6) {
+            formatted += '-' + value.substring(6, value.length);
+          }
+          e.target.value = formatted;
+        });
+      }
+
+      // Pill selection interactive behavior
+      const q1Pills = document.querySelectorAll('#q1_pills .ob-pill-btn');
+      q1Pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          q1Pills.forEach(p => p.classList.remove('selected'));
+          pill.classList.add('selected');
+        });
+      });
+
+      const q2Pills = document.querySelectorAll('#q2_pills .ob-pill-btn');
+      q2Pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pill.classList.toggle('selected');
+        });
+      });
+
+      const q3Pills = document.querySelectorAll('#q3_pills .ob-pill-btn');
+      q3Pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pill.classList.toggle('selected');
+        });
+      });
+
       document.getElementById('btnNext1').addEventListener('click', () => {
         const phone = document.getElementById('obPhone').value.trim();
         const address = document.getElementById('obAddress').value.trim();
@@ -175,10 +270,22 @@
           return;
         }
 
+        // Validate Dominican area codes
+        const digits = phone.replace(/\D/g, '');
+        if (digits.length < 10) {
+          alert('Por favor, ingresa un número de teléfono de 10 dígitos.');
+          return;
+        }
+        const areaCode = digits.substring(0, 3);
+        if (!['809', '829', '849'].includes(areaCode)) {
+          alert('Por favor, ingresa un número con código de área válido de República Dominicana (809, 829, 849).');
+          return;
+        }
+
         step1.classList.remove('active');
         step2.classList.add('active');
         stepTitle.textContent = "Diagnóstico 360";
-        stepDesc.textContent = "Responde brevemente para que nuestros analistas evalúen tu estado actual.";
+        stepDesc.textContent = "Responde seleccionando las opciones o detallando tu caso.";
       });
 
       document.getElementById('btnPrev2').addEventListener('click', () => {
@@ -193,15 +300,29 @@
         btnSubmit.textContent = 'Guardando...';
         btnSubmit.disabled = true;
 
+        // Retrieve selected values
+        const q1Selected = document.querySelector('#q1_pills .ob-pill-btn.selected');
+        const q1Val = q1Selected ? q1Selected.getAttribute('data-value') : '';
+        const q1Custom = document.getElementById('q1_custom').value.trim();
+        const q1Final = q1Custom ? (q1Val ? `${q1Val} (${q1Custom})` : q1Custom) : q1Val;
+
+        const q2Selected = Array.from(document.querySelectorAll('#q2_pills .ob-pill-btn.selected')).map(p => p.getAttribute('data-value'));
+        const q2Custom = document.getElementById('q2_custom').value.trim();
+        const q2Final = q2Selected.length > 0 ? (q2Custom ? `${q2Selected.join(', ')} (${q2Custom})` : q2Selected.join(', ')) : q2Custom;
+
+        const q3Selected = Array.from(document.querySelectorAll('#q3_pills .ob-pill-btn.selected')).map(p => p.getAttribute('data-value'));
+        const q3Custom = document.getElementById('q3_custom').value.trim();
+        const q3Final = q3Selected.length > 0 ? (q3Custom ? `${q3Selected.join(', ')} (${q3Custom})` : q3Selected.join(', ')) : q3Custom;
+
         const payload = {
           phone: document.getElementById('obPhone').value.trim(),
           address: document.getElementById('obAddress').value.trim(),
           legal_id: document.getElementById('obRnc').value.trim(),
-          status: 'review', // Moved out of onboarding!
+          status: 'pending_activation', // Change to pending_activation!
           diagnostico_360: {
-            q1_etapa: document.getElementById('q1').value.trim(),
-            q2_desafios: document.getElementById('q2').value.trim(),
-            q3_intereses: document.getElementById('q3').value.trim()
+            q1_etapa: q1Final,
+            q2_desafios: q2Final,
+            q3_intereses: q3Final
           }
         };
 
@@ -214,12 +335,24 @@
 
             if (error) throw error;
             
+            // LocalStorage fallback sync just in case
+            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
+            const idx = localUsers.findIndex(u => u.email === activeEmail);
+            if (idx !== -1) {
+              localUsers[idx].status = 'pending_activation';
+              localUsers[idx].phone = payload.phone;
+              localUsers[idx].address = payload.address;
+              localUsers[idx].legal_id = payload.legal_id;
+              localUsers[idx].diagnostico_360 = payload.diagnostico_360;
+              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            }
+
             // Success
-            window.location.href = 'dashboard.html';
+            window.location.href = 'portal.html';
             return;
           } catch (err) {
             console.error("Error updating onboarding data:", err);
-            alert("Hubo un error guardando tu diagnóstico. Intenta de nuevo.");
+            alert("Hubo un error guardando tu diagnóstico: " + (err.message || err) + ". Intenta de nuevo.");
             btnSubmit.textContent = 'Completar Registro ✓';
             btnSubmit.disabled = false;
             return;
@@ -229,10 +362,14 @@
           const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
           const idx = localUsers.findIndex(u => u.email === activeEmail);
           if (idx !== -1) {
-            localUsers[idx].status = 'review';
+            localUsers[idx].status = 'pending_activation';
+            localUsers[idx].phone = payload.phone;
+            localUsers[idx].address = payload.address;
+            localUsers[idx].legal_id = payload.legal_id;
+            localUsers[idx].diagnostico_360 = payload.diagnostico_360;
             localStorage.setItem('portal_users', JSON.stringify(localUsers));
           }
-          window.location.href = 'dashboard.html';
+          window.location.href = 'portal.html';
         }
       });
     })();
