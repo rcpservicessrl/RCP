@@ -119,15 +119,15 @@
       <div class="form-group">
         <label for="obPhone">Teléfono de Contacto</label>
         <div style="display: flex; gap: 10px;">
-          <select id="phonePrefix" class="form-control" style="width: 90px; flex-shrink: 0; padding: 14px 8px; font-size: 0.95rem;">
-            <option value="+1" data-country="DO">🇩🇴 +1</option>
-            <option value="+1" data-country="US">🇺🇸 +1</option>
-            <option value="+34" data-country="ES">🇪🇸 +34</option>
-            <option value="+52" data-country="MX">🇲🇽 +52</option>
-            <option value="+57" data-country="CO">🇨🇴 +57</option>
-            <option value="+58" data-country="VE">🇻🇪 +58</option>
-            <option value="+507" data-country="PA">🇵🇦 +507</option>
-            <option value="+506" data-country="CR">🇨🇷 +506</option>
+          <select id="phonePrefix" class="form-control" style="width: 140px; flex-shrink: 0; padding: 14px 10px; font-size: 0.9rem;">
+            <option value="+1" data-country="DO">🇩🇴 +1 (DO)</option>
+            <option value="+1" data-country="US">🇺🇸 +1 (US)</option>
+            <option value="+34" data-country="ES">🇪🇸 +34 (ES)</option>
+            <option value="+52" data-country="MX">🇲🇽 +52 (MX)</option>
+            <option value="+57" data-country="CO">🇨🇴 +57 (CO)</option>
+            <option value="+58" data-country="VE">🇻🇪 +58 (VE)</option>
+            <option value="+507" data-country="PA">🇵🇦 +507 (PA)</option>
+            <option value="+506" data-country="CR">🇨🇷 +506 (CR)</option>
           </select>
           <input type="tel" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000" required />
         </div>
@@ -255,16 +255,21 @@
           }
         });
         
+        const placeholders = {
+          DO: '829-000-0000',
+          US: '555-555-5555',
+          ES: '600 000 000',
+          MX: '55 1234 5678',
+          CO: '300 123 4567',
+          VE: '412 123 4567',
+          PA: '6000-0000',
+          CR: '8000-0000'
+        };
+
         prefixSelect.addEventListener('change', () => {
           phoneInput.value = '';
           const country = prefixSelect.options[prefixSelect.selectedIndex].getAttribute('data-country');
-          if (country === 'DO' || country === 'US') {
-            phoneInput.placeholder = '829-000-0000';
-          } else if (country === 'ES') {
-            phoneInput.placeholder = '600 000 000';
-          } else {
-            phoneInput.placeholder = 'Número telefónico';
-          }
+          phoneInput.placeholder = 'Ej. ' + (placeholders[country] || 'Número telefónico');
         });
       }
 
