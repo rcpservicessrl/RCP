@@ -116,10 +116,21 @@
     </div>
 
     <!-- Step 1: Perfil Empresarial -->
-    <div id="step1" class="step-content active">
       <div class="form-group">
         <label for="obPhone">Teléfono de Contacto</label>
-        <input type="tel" id="obPhone" class="form-control" placeholder="+1 (829) 000-0000" required />
+        <div style="display: flex; gap: 10px;">
+          <select id="phonePrefix" class="form-control" style="width: 140px; flex-shrink: 0; padding: 14px 10px; font-size: 0.9rem;">
+            <option value="+1" data-country="DO">🇩🇴 +1 (DO)</option>
+            <option value="+1" data-country="US">🇺🇸 +1 (US)</option>
+            <option value="+34" data-country="ES">🇪🇸 +34 (ES)</option>
+            <option value="+52" data-country="MX">🇲🇽 +52 (MX)</option>
+            <option value="+57" data-country="CO">🇨🇴 +57 (CO)</option>
+            <option value="+58" data-country="VE">🇻🇪 +58 (VE)</option>
+            <option value="+507" data-country="PA">🇵🇦 +507 (PA)</option>
+            <option value="+506" data-country="CR">🇨🇷 +506 (CR)</option>
+          </select>
+          <input type="tel" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000" required />
+        </div>
       </div>
       <div class="form-group">
         <label for="obAddress">Dirección Principal</label>
@@ -214,11 +225,46 @@
       const stepTitle = document.getElementById('stepTitle');
       const stepDesc = document.getElementById('stepDesc');
 
-      // Clean phone input to allow standard international phone characters
+      // Contextual phone input formatter and prefix logic
       const phoneInput = document.getElementById('obPhone');
-      if (phoneInput) {
+      const prefixSelect = document.getElementById('phonePrefix');
+      if (phoneInput && prefixSelect) {
         phoneInput.addEventListener('input', (e) => {
-          e.target.value = e.target.value.replace(/[^0-9+\-\(\)\s]/g, '');
+          let val = e.target.value;
+          let digits = val.replace(/\D/g, '');
+          const country = prefixSelect.options[prefixSelect.selectedIndex].getAttribute('data-country');
+          
+          if (country === 'DO' || country === 'US') {
+            if (digits.length > 10) {
+              digits = digits.substring(0, 10);
+            }
+            let formatted = '';
+            if (digits.length > 0) {
+              formatted += digits.substring(0, Math.min(3, digits.length));
+            }
+            if (digits.length > 3) {
+              formatted += '-' + digits.substring(3, Math.min(6, digits.length));
+            }
+            if (digits.length > 6) {
+              formatted += '-' + digits.substring(6, digits.length);
+            }
+            e.target.value = formatted;
+          } else {
+            // Keep clean digits and spacing for other countries
+            e.target.value = val.replace(/[^0-9\-\s]/g, '');
+          }
+        });
+        
+        prefixSelect.addEventListener('change', () => {
+          phoneInput.value = '';
+          const country = prefixSelect.options[prefixSelect.selectedIndex].getAttribute('data-country');
+          if (country === 'DO' || country === 'US') {
+            phoneInput.placeholder = '829-000-0000';
+          } else if (country === 'ES') {
+            phoneInput.placeholder = '600 000 000';
+          } else {
+            phoneInput.placeholder = 'Número telefónico';
+          }
         });
       }
 
@@ -249,17 +295,39 @@
         const phone = document.getElementById('obPhone').value.trim();
         const address = document.getElementById('obAddress').value.trim();
         const rnc = document.getElementById('obRnc').value.trim();
+        const country = prefixSelect.options[prefixSelect.selectedIndex].getAttribute('data-country');
         
         if (!phone || !address || !rnc) {
           alert('Por favor, completa todos los campos del Perfil Empresarial antes de continuar.');
           return;
         }
 
-        // Validate phone number length (at least 7 digits)
         const digits = phone.replace(/\D/g, '');
-        if (digits.length < 7) {
-          alert('Por favor, ingresa un número de teléfono válido (mínimo 7 dígitos).');
-          return;
+        if (country === 'DO') {
+          if (digits.length !== 10) {
+            alert('Por favor, ingresa un número de teléfono de 10 dígitos (ej. 829-000-0000).');
+            return;
+          }
+          const areaCode = digits.substring(0, 3);
+          if (!['809', '829', '849'].includes(areaCode)) {
+            alert('El código de área para República Dominicana debe iniciar con 809, 829 o 849.');
+            return;
+          }
+        } else if (country === 'US') {
+          if (digits.length !== 10) {
+            alert('Por favor, ingresa un número de teléfono de 10 dígitos.');
+            return;
+          }
+        } else if (country === 'ES') {
+          if (digits.length !== 9) {
+            alert('Por favor, ingresa un número de teléfono válido para España (9 dígitos).');
+            return;
+          }
+        } else {
+          if (digits.length < 7) {
+            alert('Por favor, ingresa un número de teléfono válido (mínimo 7 dígitos).');
+            return;
+          }
         }
 
         step1.classList.remove('active');
@@ -295,7 +363,7 @@
         const q3Final = q3Selected.length > 0 ? (q3Custom ? `${q3Selected.join(', ')} (${q3Custom})` : q3Selected.join(', ')) : q3Custom;
 
         const payload = {
-          phone: document.getElementById('obPhone').value.trim(),
+          phone: prefixSelect.value + ' ' + document.getElementById('obPhone').value.trim(),
           address: document.getElementById('obAddress').value.trim(),
           legal_id: document.getElementById('obRnc').value.trim(),
           status: 'pending_activation', // Change to pending_activation!
