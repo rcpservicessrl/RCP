@@ -119,8 +119,8 @@
     <div id="step1" class="step-content active">
       <div class="form-group">
         <label for="obPhone">Teléfono de Contacto</label>
-        <input type="text" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000" maxlength="12" required />
-        <span style="font-size: 0.78rem; color: var(--text-muted);">Formatos válidos: 809-XXX-XXXX, 829-XXX-XXXX, 849-XXX-XXXX</span>
+        <input type="text" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000 o +34 600..." maxlength="20" required />
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Formatos sugeridos: 809-XXX-XXXX (Local) o con código de país (ej. +1, +34, etc.)</span>
       </div>
       <div class="form-group">
         <label for="obAddress">Dirección Principal</label>
@@ -219,19 +219,30 @@
       const phoneInput = document.getElementById('obPhone');
       if (phoneInput) {
         phoneInput.addEventListener('input', (e) => {
-          let value = e.target.value.replace(/\D/g, ''); // Digits only
-          if (value.length > 10) {
-            value = value.substring(0, 10);
+          let val = e.target.value;
+          // Allow digits, hyphens, spaces, parentheses, and leading plus
+          let cleaned = val.replace(/[^0-9+\-\(\)\s]/g, '');
+          
+          if (cleaned.startsWith('+')) {
+            e.target.value = cleaned;
+            return;
           }
+          
+          let digits = cleaned.replace(/\D/g, '');
+          if (digits.length > 10) {
+            e.target.value = cleaned; // Allow free form for longer numbers
+            return;
+          }
+          
           let formatted = '';
-          if (value.length > 0) {
-            formatted += value.substring(0, Math.min(3, value.length));
+          if (digits.length > 0) {
+            formatted += digits.substring(0, Math.min(3, digits.length));
           }
-          if (value.length > 3) {
-            formatted += '-' + value.substring(3, Math.min(6, value.length));
+          if (digits.length > 3) {
+            formatted += '-' + digits.substring(3, Math.min(6, digits.length));
           }
-          if (value.length > 6) {
-            formatted += '-' + value.substring(6, value.length);
+          if (digits.length > 6) {
+            formatted += '-' + digits.substring(6, digits.length);
           }
           e.target.value = formatted;
         });
@@ -270,15 +281,10 @@
           return;
         }
 
-        // Validate Dominican area codes
+        // Validate phone number length (at least 7 digits)
         const digits = phone.replace(/\D/g, '');
-        if (digits.length < 10) {
-          alert('Por favor, ingresa un número de teléfono de 10 dígitos.');
-          return;
-        }
-        const areaCode = digits.substring(0, 3);
-        if (!['809', '829', '849'].includes(areaCode)) {
-          alert('Por favor, ingresa un número con código de área válido de República Dominicana (809, 829, 849).');
+        if (digits.length < 7) {
+          alert('Por favor, ingresa un número de teléfono válido (mínimo 7 dígitos).');
           return;
         }
 
