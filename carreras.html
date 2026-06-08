@@ -83,17 +83,17 @@
                     </svg>
                 </button>
                 <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle music" title="Música ambiental">
-                    <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M9 18V5l12-2v13" />
-                        <circle cx="6" cy="18" r="3" />
-                        <circle cx="18" cy="16" r="3" />
+                    <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
                     </svg>
-                    <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
-                        style="display:none">
-                        <path d="M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z" />
+                    <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                     </svg>
                 </button>
+
             </div>
             <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
         </div>
@@ -291,9 +291,12 @@
                         <input type="url" id="postPortafolio" class="form-control" placeholder="https://linkedin.com/in/tu-perfil" />
                     </div>
                     <div class="portal-form-group" style="margin-bottom: 30px;">
-                        <label for="postCv" data-i18n="careers-form-cv">Subir tu Currículum Vitae (Formato PDF únicamente)</label>
-                        <input type="file" id="postCv" class="form-control" accept=".pdf" required style="padding: 10px 14px;" />
-                    </div>
+                        <div class="portal-form-group">
+    <label class="custom-file-upload" for="postCv">
+        <span class="file-name" data-i18n="choose-file">Selecciona CV</span>
+        <input type="file" id="postCv" class="form-control" accept=".pdf" required style="display:none;" />
+    </label>
+</div>                    </div>
                     <button type="submit" id="btnSubmitPostulacion" class="btn-cta btn-full" style="padding: 14px; font-size: 1rem;" data-i18n="careers-form-btn">
                         Enviar Postulación & CV →
                     </button>
@@ -382,6 +385,7 @@
     </div>
   </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
     <script>
@@ -462,6 +466,21 @@
                 // Éxito: Ocultar form y mostrar card de éxito
                 postulacionForm.style.display = 'none';
                 document.getElementById('successPostulacion').style.display = 'block';
+                // Send notification email via EmailJS
+                if (window.emailjs) {
+                  emailjs.init('YOUR_EMAILJS_USER_ID');
+                  const emailParams = {
+                    nombre: nombre,
+                    email: email,
+                    telefono: telefono,
+                    especialidad: especialidad,
+                    portafolio: portafolio,
+                    cv_url: publicUrl
+                  };
+                  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
+                    .then(() => console.log('EmailJS notification sent'))
+                    .catch(err => console.error('EmailJS error:', err));
+                }
 
               } catch (err) {
                 console.error("Error submitting application:", err);

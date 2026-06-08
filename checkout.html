@@ -301,14 +301,14 @@
           </svg>
         </button>
         <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle music" title="Música ambiental">
-          <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2">
-            <path d="M9 18V5l12-2v13" />
-            <circle cx="6" cy="18" r="3" />
-            <circle cx="18" cy="16" r="3" />
+          <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
           </svg>
-          <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-            <path d="M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z" />
+          <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
           </svg>
         </button>
       </div>
@@ -541,6 +541,7 @@
       emailjs.init("pYaPyXxVIzbydrMpZ");
     })();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
   
   <script>
@@ -854,13 +855,103 @@
                 })
               });
 
+              // Initialize Supabase Client
+              const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+              const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+              const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+              let supabaseClient = null;
+              try {
+                if (window.supabase) {
+                  supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+                }
+              } catch (e) {
+                console.error("Error initializing Supabase client for checkout:", e);
+              }
+
+              const accessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+              const newPago = { id: transactionId, amount: txnData.amountPaid, date: txnData.date, items: checkoutItems };
+
+              let dbPromise = Promise.resolve();
+              if (supabaseClient) {
+                dbPromise = (async () => {
+                  try {
+                    const { data: existingClient, error: selectError } = await supabaseClient
+                      .from('clientes')
+                      .select('id, status, pagos')
+                      .eq('email', email)
+                      .maybeSingle();
+
+                    if (selectError) throw selectError;
+
+                    if (existingClient) {
+                      const existingPagos = Array.isArray(existingClient.pagos) ? existingClient.pagos : [];
+                      existingPagos.push(newPago);
+                      
+                      const updatePayload = {
+                        pagos: existingPagos,
+                        company_name: company,
+                        owner_name: name,
+                        phone: phone,
+                        address: address,
+                        legal_id: rnc
+                      };
+                      if (!existingClient.status || existingClient.status === 'pending_activation') {
+                        updatePayload.status = 'onboarding';
+                      }
+                      
+                      const { error: updateError } = await supabaseClient
+                        .from('clientes')
+                        .update(updatePayload)
+                        .eq('id', existingClient.id);
+
+                      if (updateError) throw updateError;
+                    } else {
+                      const newClient = {
+                        company_name: company,
+                        legal_id: rnc,
+                        owner_name: name,
+                        email: email,
+                        phone: phone,
+                        address: address,
+                        status: 'onboarding',
+                        access_code: accessCode,
+                        password: 'pending_activation_secret_code',
+                        ventas: 0,
+                        ventas_trend: '▲ +0%',
+                        cpl: 0,
+                        cpl_trend: '▼ -0%',
+                        roas: 0.0,
+                        roas_trend: '▲ +0x',
+                        ltv: 0,
+                        ltv_trend: '▲ +0%',
+                        tramite_onapi: 0,
+                        tramite_camara: 0,
+                        tramite_dgii: 0,
+                        chart_data: [0, 0, 0, 0, 0, 0, 0],
+                        pagos: [newPago],
+                        diagnostico_360: {}
+                      };
+                      const { error: insertError } = await supabaseClient
+                        .from('clientes')
+                        .insert([newClient]);
+
+                      if (insertError) throw insertError;
+                    }
+                  } catch (dbErr) {
+                    console.error("Error saving purchase data in Supabase:", dbErr);
+                  }
+                })();
+              }
+
               // Successful screen transition
               procTitle.textContent = isEN ? 'Payment Successful!' : '¡Pago Procesado con Éxito!';
-              procSub.textContent = isEN ? 'Redirecting to Client Portal...' : 'Redirigiendo a tu Portal de Clientes...';
+              procSub.textContent = isEN ? 'Syncing account and redirecting...' : 'Sincronizando cuenta y redirigiendo...';
               
-              setTimeout(() => {
-                window.location.href = `portal.html?signup=true&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&company=${encodeURIComponent(company)}`;
-              }, 1500);
+              Promise.resolve(dbPromise).finally(() => {
+                setTimeout(() => {
+                  window.location.href = `portal.html?signup=true&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&company=${encodeURIComponent(company)}`;
+                }, 1500);
+              });
             }
           }, 300);
         });

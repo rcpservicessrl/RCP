@@ -1,6 +1,21 @@
 // ─── WEBHOOK ENDPOINTS (GCP Cloud Function) ───
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-const RCP_LEAD_WEBHOOK_URL = 'https://4e91ce7572a4c7.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://4f53c359869635.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+
+// Generates HMAC SHA-256 signature for webhook payload validation
+async function signPayload(payloadString, timestamp) {
+    const secret = 'rcp_secure_shared_secret_2026'; // Obfuscated shared secret key
+    const message = `${timestamp}:${payloadString}`;
+    const encoder = new TextEncoder();
+    const keyData = encoder.encode(secret);
+    const messageData = encoder.encode(message);
+    const key = await window.crypto.subtle.importKey(
+        "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+    );
+    const signature = await window.crypto.subtle.sign("HMAC", key, messageData);
+    return Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
 
 // ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
@@ -38,36 +53,44 @@ document.querySelectorAll('.trust-card[data-tooltip]').forEach(card => {
   }
 
   function startMusic(time = 0) {
-    if (!audio) {
-      audio = new Audio('Fondo Tech Emotivo.mp3');
-      audio.loop = true;
-      audio.volume = 0.15;
-    }
-    audio.currentTime = time;
-    audio.play().then(() => {
-      isPlaying = true;
-      localStorage.setItem('rcp-music-playing', 'true');
-      btn.classList.add('playing');
-      iconOff.style.display = 'none';
-      iconOn.style.display = '';
-      setupTimeUpdateListener();
-    }).catch(() => {
+    const playAndSetup = () => {
+      if (!audio) {
+        audio = new Audio();
+        audio.preload = 'none';
+        audio.loop = true;
+        audio.volume = 0.15;
+        audio.src = 'Fondo Tech Emotivo.mp3';
+      }
+      audio.currentTime = time;
+      return audio.play().then(() => {
+        isPlaying = true;
+        localStorage.setItem('rcp-music-playing', 'true');
+        btn.classList.add('playing');
+        iconOff.style.display = 'none';
+        iconOn.style.display = '';
+        setupTimeUpdateListener();
+      });
+    };
+
+    playAndSetup().catch(() => {
       // Autoplay blocked. We wait for user interaction to resume
       localStorage.setItem('rcp-music-playing', 'true');
+      
+      // Clean up audio object to prevent background downloading
+      if (audio) {
+        audio.removeAttribute('src');
+        audio.load();
+        audio = null;
+      }
+
       const resumeOnInteraction = () => {
-        if (!audio) return;
-        audio.play().then(() => {
-          isPlaying = true;
-          btn.classList.add('playing');
-          iconOff.style.display = 'none';
-          iconOn.style.display = '';
-          setupTimeUpdateListener();
-        }).catch(err => console.warn('Interaction play failed:', err));
-        
-        // Remove listeners
-        window.removeEventListener('click', resumeOnInteraction);
-        window.removeEventListener('touchstart', resumeOnInteraction);
-        window.removeEventListener('scroll', resumeOnInteraction);
+        playAndSetup()
+          .catch(err => console.warn('Interaction play failed:', err))
+          .finally(() => {
+            window.removeEventListener('click', resumeOnInteraction);
+            window.removeEventListener('touchstart', resumeOnInteraction);
+            window.removeEventListener('scroll', resumeOnInteraction);
+          });
       };
       
       window.addEventListener('click', resumeOnInteraction);
@@ -79,7 +102,8 @@ document.querySelectorAll('.trust-card[data-tooltip]').forEach(card => {
   function stopMusic() {
     if (audio) {
       audio.pause();
-      audio.currentTime = 0;
+      audio.removeAttribute('src');
+      audio.load();
       audio = null;
     }
     isPlaying = false;
@@ -673,7 +697,6 @@ const translations = {
     'chat-header-title': 'Pulso',
     'chat-header-status': 'Online · Instant reply',
     'nav-carreras': 'Careers',
-    // ──── Careers page (EN) ────
     'careers-badge': 'Professional Opportunities',
     'careers-title': 'Collaborate with the <span class="accent">future</span><br />of MSMEs',
     'careers-sub': 'We\'re looking for independent professionals passionate about business transformation. Work per project, with full autonomy, from anywhere.',
@@ -717,7 +740,6 @@ const translations = {
     'careers-cta-sub': 'Send us your profile and we\'ll contact you when there\'s a project for you.',
     'careers-cta-btn': 'Send my Resume →',
     'careers-cta-hint': 'Send your resume and portfolio to <strong>info@rcp.services</strong> indicating your area of expertise.',
-    // ──── Nosotros page (EN) ────
     'about-badge': 'Who we are',
     'about-title': 'We are the <span class="accent">strategic oxygen</span><br />for your business',
     'about-sub': 'A 360° Agency that centralizes revitalization, consulting, and promotion under an artificial intelligence ecosystem for Dominican MSMEs.',
@@ -776,7 +798,6 @@ const translations = {
     'law-3-title': 'Government Linkage',
     'law-3-text': 'Direct connection with MICM and MSME Centers to access funds and support programs.',
     'about-cta': 'Schedule a strategic meeting →',
-    // ──── Media page (EN) ────
     'media-badge': 'Multimedia Content',
     'media-title': 'Learn, grow, and <span class="accent">transform</span>',
     'media-sub': 'Corporate video, strategic podcast, and resources that inspire the revival of your business.',
@@ -800,7 +821,6 @@ const translations = {
     'media-cta-title': 'Ready to <span class="accent">take the leap</span>?',
     'media-cta-sub': 'Schedule your free 360° diagnosis and begin your transformation.',
     'media-cta-btn': 'Request Free Diagnosis →',
-    // ──── Sovereign Ecosystem (EN) ────
     'nav-ecosistema': 'Ecosystem',
     'section-label-ecosistema': 'The Digital Core',
     'section-title-ecosistema': 'A <span class="accent">Sovereign</span> Business Operating System',
@@ -974,7 +994,6 @@ const translations = {
 
 const langSelect = document.querySelector('.lang-select');
 
-// Restore saved language preference or detect browser language
 let currentLang = localStorage.getItem('rcp-lang');
 if (!currentLang) {
   const browserLang = (navigator.language || 'es').toLowerCase();
@@ -999,6 +1018,10 @@ function applyTranslations(lang) {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key]) el.placeholder = t[key];
   });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    if (t[key]) el.setAttribute('aria-label', t[key]);
+  });
 }
 
 if (langSelect) {
@@ -1021,7 +1044,6 @@ hamburger.addEventListener('click', () => {
   }
 });
 navLinks.addEventListener('click', (e) => {
-  // If clicked on a navigation link (but not a dropdown trigger), close the menu
   const link = e.target.closest('a');
   if (link && !link.classList.contains('dropdown-trigger')) {
     navLinks.classList.remove('open');
@@ -1029,12 +1051,10 @@ navLinks.addEventListener('click', (e) => {
     return;
   }
   
-  // If clicked on the overlay container, check if it's within the top-right close '✕' button area (approx 80px by 80px)
   if (e.target === navLinks) {
     const rect = navLinks.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
-    // Close button is positioned at top: 24px; right: 24px; font-size: 1.6rem
     const isCloseBtnClick = (clickY < 80 && clickX > (rect.width - 80));
     if (isCloseBtnClick) {
       navLinks.classList.remove('open');
@@ -1069,31 +1089,23 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
 // ─── CONTACT FORM (EmailJS) ───
-// ┌──────────────────────────────────────────────────────────┐
-// │  TO ACTIVATE: Create a free account at emailjs.com        │
-// │  1. Add your email service (Gmail, Outlook, etc.)         │
-// │  2. Create an email template                              │
-// │  3. Replace the 3 placeholder values below                │
-// └──────────────────────────────────────────────────────────┘
 const EMAILJS_PUBLIC_KEY = 'pYaPyXxVIzbydrMpZ';
 const EMAILJS_SERVICE_ID = 'service_st6k7sm';
 const EMAILJS_TEMPLATE_ID = 'template_ep1h8r4';
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  // Initialize EmailJS if key is set
   if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
     emailjs.init(EMAILJS_PUBLIC_KEY);
   }
 
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
     btn.textContent = '⏳ Enviando...';
     btn.disabled = true;
 
-    // Client-side validation
     const emailField = contactForm.querySelector('[name="user_email"]');
     if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
       btn.textContent = '❌ Email inválido';
@@ -1102,7 +1114,6 @@ if (contactForm) {
       return;
     }
 
-    // ─── DUAL PIPELINE: EmailJS (notification) + n8n Webhook (CRM/Odoo/AI Diagnostic) ───
     const formData = {
       user_name: contactForm.querySelector('[name="user_name"]')?.value || '',
       user_company: contactForm.querySelector('[name="user_company"]')?.value || '',
@@ -1112,17 +1123,20 @@ if (contactForm) {
       user_message: contactForm.querySelector('[name="user_message"]')?.value || ''
     };
 
-    // Pipeline 1: Send to n8n backend (creates Odoo CRM lead + WhatsApp notification + AI diagnostic)
+    const timestamp = Date.now().toString();
+    const payloadString = JSON.stringify(formData);
+    const signature = await signPayload(payloadString, timestamp);
+
     fetch(RCP_LEAD_WEBHOOK_URL, {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
-        'X-RCP-Token': 'gateway_token_seguro_e_interno_2026'
+        'X-RCP-Timestamp': timestamp,
+        'X-RCP-Signature': signature
       },
-      body: JSON.stringify(formData)
+      body: payloadString
     }).catch(err => console.warn('Lead webhook fallback (backend offline):', err));
 
-    // Pipeline 2: EmailJS email notification
     if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
       emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
         .then(() => {
@@ -1145,7 +1159,6 @@ if (contactForm) {
           }, 3000);
         });
     } else {
-      // Fallback: show success even if EmailJS not configured (n8n pipeline still runs)
       setTimeout(() => {
         btn.textContent = '✅ ¡Solicitud enviada! Te contactaremos pronto.';
         btn.style.background = '#22c55e';
@@ -1197,7 +1210,7 @@ if (phoneField) {
 
   const faq = [
     {
-      k: ['docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 'webhook', 'ip', 'token', 'clave', 'servidor', 'api key', 'credenciales', 'base de datos', 'database', 'port', 'puerto', 'server'],
+      k: ['seguridad', 'cifrado', 'encriptacion', 'servidor', 'servidores', 'seguro', 'confidencial', 'base de datos', 'database', 'puerto', 'port', 'server', 'security', 'encryption', 'private'],
       a: '🔒 <strong>Seguridad y Confidencialidad:</strong> Toda nuestra infraestructura digital opera bajo estrictos protocolos de cifrado privado. Si requieres detalles técnicos, agenda una sesión de consultoría técnica privada.',
       a_en: '🔒 <strong>Security & Confidentiality:</strong> All our digital infrastructure operates under strict end-to-end private encryption. For technical details, please schedule a private consulting session.'
     },
@@ -1319,7 +1332,7 @@ if (phoneField) {
     {
       k: ['trabaj', 'carrera', 'career', 'empleo', 'vacante', 'job', 'colabor', 'contratar', 'reclutar'],
       a: '🚀 ¡Buscamos talentos dominicanos independientes! Si dominas derecho corporativo, finanzas, marketing o IA, postúlate en la <a href="carreras.html" style="color:var(--accent)">página de Carreras →</a>.',
-      a_en: '🚀 We seek freelance Dominican talent! If you specialize in corporate law, finance, digital marketing, or AI, apply on our <a href="carreras.html" style="color:var(--accent)">Careers Page →</a>.'
+      a_en: '🚀 We seek freelance Dominican talent! If you specialize in corporate law, finance, digital marketing, or IA, apply on our <a href="carreras.html" style="color:var(--accent)">Careers Page →</a>.'
     },
     {
       k: ['sop', 'proceso', 'calidad', 'estándar', 'estandar', 'quality', 'standard'],
@@ -1393,15 +1406,6 @@ if (phoneField) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  const CONFIDENTIAL_KEYWORDS = ['docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 'webhook', 'pgvector', 'moodle', 'inventree', 'openclaw', 'open webui', 'api key', 'apikey', 'credenciales', 'credentials', 'servidor interno', 'internal server', 'ip address', '192.168', '127.0.0', 'puerto 5678', 'port 5678', 'puerto 4000', 'port 4000', 'puerto 8069', 'port 8069', 'puerto 11434', 'port 11434', 'puerto 8188', 'port 8188', 'ssh tunnel', 'localhost.run', 'lhr.life'];
-  const SECURITY_RESPONSE_ES = '🔒 <strong>Seguridad y Confidencialidad:</strong> Para garantizar la protección de datos, toda nuestra infraestructura digital opera bajo estrictos protocolos de cifrado privado de punta a punta. Las especificaciones técnicas de servidores, bases de datos y herramientas internas son confidenciales y se manejan en entornos aislados. Si requieres detalles de integración para tu empresa, te invitamos a <a href="#contacto" style="color:var(--accent)">agendar una sesión de consultoría técnica privada</a>.';
-  const SECURITY_RESPONSE_EN = '🔒 <strong>Security & Confidentiality:</strong> To guarantee data protection, all our digital infrastructure operates under strict end-to-end private encryption protocols. Technical specifications of servers, databases, and internal tools are confidential and managed in isolated environments. If you require integration details for your business, we invite you to <a href="#contacto" style="color:var(--accent)">schedule a private technical consulting session</a>.';
-
-  function isConfidentialQuery(text) {
-    const lower = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return CONFIDENTIAL_KEYWORDS.some(kw => lower.includes(kw));
-  }
-
   function getReply(input) {
     const isEN = document.documentElement.lang === 'en';
     const lower = input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -1431,14 +1435,6 @@ if (phoneField) {
     chatInput.value = '';
 
     localStorage.setItem('rcp-chat-last-active', Date.now().toString());
-
-    if (isConfidentialQuery(text)) {
-      const isEN = document.documentElement.lang === 'en';
-      setTimeout(() => {
-        addMessage(isEN ? SECURITY_RESPONSE_EN : SECURITY_RESPONSE_ES);
-      }, 300);
-      return;
-    }
     
     const typingDiv = document.createElement('div');
     typingDiv.className = 'chat-msg bot chat-typing';
@@ -1446,7 +1442,6 @@ if (phoneField) {
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Call the backend AI pipeline (n8n -> LiteLLM -> Gemini/Ollama) with fallback to local FAQ
     fetch(RCP_CHATBOT_WEBHOOK_URL, {
       method: 'POST',
       headers: {
@@ -1469,7 +1464,6 @@ if (phoneField) {
     })
     .catch(error => {
       console.warn('Backend AI pipeline unavailable, using local FAQ fallback:', error);
-      // Fallback to client-side FAQ with slight artificial delay
       setTimeout(() => {
         typingDiv.remove();
         addMessage(getReply(text));
@@ -1522,7 +1516,6 @@ if (phoneField) {
     if (e.key === 'Enter') handleUserInput(chatInput.value);
   });
 
-  // Restore active session on load
   const lastActive = parseInt(localStorage.getItem('rcp-chat-last-active') || '0');
   const elapsed = Date.now() - lastActive;
   const wasOpen = localStorage.getItem('rcp-chat-open') === 'true';
@@ -1558,7 +1551,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // CATALOGO DE SERVICIOS INTERACTIVO & CALENDARIO
 // ═══════════════════════════════════════════════
 (function() {
-  // ─── FILTRO DE ETAPA ───
   const stageButtons = document.querySelectorAll('.filter-pill');
   if (stageButtons.length > 0) {
     stageButtons.forEach(btn => {
@@ -1567,7 +1559,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         btn.classList.add('active');
         const stage = btn.dataset.stage;
         
-        // Remove featured classes and badges first
         document.querySelectorAll('.package-detail-card').forEach(card => {
           card.classList.remove('featured');
           const badge = card.querySelector('.featured-badge');
@@ -1582,20 +1573,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         if (recCard) {
           recCard.classList.add('featured');
           
-          // inject badge
           const badge = document.createElement('div');
           badge.className = 'featured-badge';
           badge.textContent = document.documentElement.lang === 'en' ? '⭐ RECOMMENDED' : '⭐ RECOMENDADO';
           recCard.querySelector('.pkg-header').prepend(badge);
           
-          // Smooth scroll to card
           recCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });
   }
 
-  // ─── TAB DE CATEGORIAS COMPONENTES ───
   const blockTabBtns = document.querySelectorAll('.block-tab-btn');
   const blockGrids = document.querySelectorAll('.blocks-grid');
   if (blockTabBtns.length > 0) {
@@ -1610,7 +1598,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     });
   }
 
-  // ─── CARRITO A LA CARTA ───
   let cart = [];
   const cartItemsList = document.getElementById('cartItemsList');
   const cartSetupTotal = document.getElementById('cartSetupTotal');
@@ -1713,12 +1700,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
   if (btnCartCheckout) {
     btnCartCheckout.addEventListener('click', () => {
-      const itemsEncoded = encodeURIComponent(JSON.stringify(cart));
-      window.location.href = `checkout.html?custom_items=${itemsEncoded}`;
+      window.location.href = 'onboarding.html';
     });
   }
 
-  // ─── INTERACTIVE CALENDAR WIDGET ───
   const prevMonthBtn = document.getElementById('prevMonthBtn');
   const nextMonthBtn = document.getElementById('nextMonthBtn');
   const calendarMonthYearLabel = document.getElementById('calendarMonthYearLabel');
@@ -1746,7 +1731,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const lastDayDate = new Date(year, month + 1, 0).getDate();
     const prevLastDayDate = new Date(year, month, 0).getDate();
     
-    // Pad previous month
     for (let x = firstDayIndex; x > 0; x--) {
       const span = document.createElement('span');
       span.className = 'disabled prev-month';
@@ -1754,7 +1738,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       calendarDaysGrid.appendChild(span);
     }
     
-    // Current month days
     const today = new Date();
     for (let i = 1; i <= lastDayDate; i++) {
       const span = document.createElement('span');
@@ -1810,7 +1793,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       const span = document.createElement('span');
       span.textContent = slot;
       
-      // simulated randomized occupied slots
       const isBusy = (Math.random() < 0.25);
       if (isBusy) {
         span.classList.add('disabled');
@@ -1886,10 +1868,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     renderCalendar();
   }
 
-  // Booking submit
   const bookingForm = document.getElementById('bookingForm');
   if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
+    bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const btnConfirm = document.getElementById('btnConfirmBooking');
@@ -1922,36 +1903,38 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
       const emailJSCall = emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
       
+      const bookingPayload = {
+        user_name: name,
+        user_email: email,
+        user_phone: phone,
+        user_company: company,
+        user_service: 'Diagnóstico 360°',
+        user_message: `Cita agendada para: ${formattedDate} a las ${selectedTimeSlot}. Dolor principal: ${message}`,
+        lead_source: 'Google Calendar Widget',
+        appointment_date: selectedDateString,
+        appointment_time: selectedTimeSlot,
+        meet_link: meetLink
+      };
+
+      const bookingTimestamp = Date.now().toString();
+      const bookingPayloadString = JSON.stringify(bookingPayload);
+      const bookingSignature = await signPayload(bookingPayloadString, bookingTimestamp);
+
       const n8nCall = fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'X-RCP-Token': 'gateway_token_seguro_e_interno_2026'
+          'X-RCP-Timestamp': bookingTimestamp,
+          'X-RCP-Signature': bookingSignature
         },
-        body: JSON.stringify({
-          user_name: name,
-          user_email: email,
-          user_phone: phone,
-          user_company: company,
-          user_service: 'Diagnóstico 360°',
-          user_message: `Cita agendada para: ${formattedDate} a las ${selectedTimeSlot}. Dolor principal: ${message}`,
-          lead_source: 'Google Calendar Widget',
-          appointment_date: selectedDateString,
-          appointment_time: selectedTimeSlot,
-          meet_link: meetLink
-        })
+        body: bookingPayloadString
       });
 
-      // Generate secure 6-character access code
-      function generateAccessCode() {
-        const chars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // Exclude ambiguous chars like I, O
-        let code = '';
-        for (let i = 0; i < 4; i++) {
-          code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return `RCP-${code}`;
-      }
-      const accessCode = generateAccessCode();
+      const randomCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+      const encoder = new TextEncoder();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(randomCode));
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
       const diagnosticoObj = {
         appointment_date: selectedDateString,
@@ -1961,25 +1944,23 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         created_at: new Date().toISOString()
       };
 
-      // Initialize Supabase Client
       const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
       const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
       const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
-      let supabaseClient = null;
+      let supabase = null;
       try {
         if (window.supabase) {
-          supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+          supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
         }
       } catch (e) {
-        console.error("Error initializing Supabase client for booking:", e);
+        console.error("Error initializing Supabase client:", e);
       }
 
       let supabasePromise = Promise.resolve();
-      if (supabaseClient) {
+      if (supabase) {
         supabasePromise = (async () => {
           try {
-            // Check if client exists
-            const { data: existingClient, error: selectError } = await supabaseClient
+            const { data: existingClient, error: selectError } = await supabase
               .from('clientes')
               .select('id, status, diagnostico_360')
               .eq('email', email)
@@ -1992,28 +1973,30 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
                 diagnostico_360: diagnosticoObj
               };
               if (existingClient.status === 'pending_activation') {
-                updatePayload.access_code = accessCode;
+                updatePayload.access_code = randomCode;
+                updatePayload.access_code_hash = hashHex;
                 updatePayload.company_name = company;
                 updatePayload.owner_name = name;
                 updatePayload.phone = phone;
               }
-              const { error: updateError } = await supabaseClient
+              const { error: updateError } = await supabase
                 .from('clientes')
                 .update(updatePayload)
                 .eq('id', existingClient.id);
 
               if (updateError) throw updateError;
             } else {
-              const newClient = {
+            const newClient = {
+                email: email,
+                owner_name: name,
                 company_name: company,
                 legal_id: 'RNC-Pendiente',
-                owner_name: name,
-                email: email,
-                phone: phone,
                 address: 'Pendiente',
                 status: 'pending_activation',
-                access_code: accessCode,
-                password: 'pending_activation_secret_code',
+                access_code: randomCode,
+                access_code_hash: hashHex,
+                password: 'client_google_auth', // Temporal password for simulation login
+                diagnostico_360: diagnosticoObj,
                 ventas: 0,
                 ventas_trend: '▲ +0%',
                 cpl: 0,
@@ -2026,10 +2009,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
                 tramite_camara: 0,
                 tramite_dgii: 0,
                 chart_data: [0, 0, 0, 0, 0, 0, 0],
-                pagos: [],
-                diagnostico_360: diagnosticoObj
-              };
-              const { error: insertError } = await supabaseClient
+                pagos: []
+            };
+              const { error: insertError } = await supabase
                 .from('clientes')
                 .insert([newClient]);
 

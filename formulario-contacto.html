@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Contacto – RCP Services</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container" style="max-width: 600px; margin: 40px auto;">
+    <h1 class="section-title" data-i18n="contact-form-title">Contáctanos</h1>
+    <p data-i18n="contact-form-subtitle">Completa el formulario y envíanos tu información. Puedes adjuntar tu CV en PDF si lo deseas.</p>
+    <form id="contactForm" style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 30px; border-radius: var(--radius); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+      <div class="form-row" style="margin-bottom: 15px;">
+        <label for="contactNombre" data-i18n="contact-form-name">Nombre Completo</label>
+        <input type="text" id="contactNombre" class="form-control" placeholder="Ej. Juan Pérez" required />
+      </div>
+      <div class="form-row" style="margin-bottom: 15px;">
+        <label for="contactEmail" data-i18n="contact-form-email">Correo Electrónico</label>
+        <input type="email" id="contactEmail" class="form-control" placeholder="Ej. tu@correo.com" required />
+      </div>
+      <div class="form-row" style="margin-bottom: 15px;">
+        <label for="contactMensaje" data-i18n="contact-form-message">Mensaje</label>
+        <textarea id="contactMensaje" class="form-control" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+      </div>
+      <!-- Adjuntar CV opcional -->
+      <div class="form-row" style="margin-bottom: 15px;">
+        <label class="custom-file-upload" for="contactCv">
+          <span class="file-name" data-i18n="choose-file">Selecciona CV (PDF)</span>
+          <input type="file" id="contactCv" class="form-control" accept=".pdf" style="display:none;" />
+        </label>
+      </div>
+      <button type="submit" id="btnSubmitContact" class="btn-cta btn-full" style="padding: 12px; font-size: 1rem;" data-i18n="contact-form-btn">Enviar Mensaje</button>
+    </form>
+    <div id="successContact" style="display:none; margin-top:20px; background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: var(--radius); padding: 20px; text-align:center;">
+      <span style="font-size:2rem;">✅</span>
+      <h3 data-i18n="contact-success-title" style="margin-top:10px;">¡Mensaje enviado!</h3>
+      <p data-i18n="contact-success-desc">Gracias por contactarnos. Revisaremos tu mensaje y nos pondremos en contacto pronto.</p>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function() {
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+      const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+      const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+      let supabase = null;
+      try { if (window.supabase) supabase = window.supabase.createClient(supabaseUrl, supabaseKey); }
+      catch(e){ console.error('Supabase init error', e); }
+
+      const form = document.getElementById('contactForm');
+      const fileInput = document.getElementById('contactCv');
+      const fileLabel = document.querySelector('label[for="contactCv"] .file-name');
+
+      // Mostrar nombre del archivo seleccionado
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+          fileLabel.textContent = file.name;
+        } else {
+          fileLabel.textContent = 'Selecciona CV (PDF)';
+        }
+      });
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById('btnSubmitContact');
+          const original = btn.textContent;
+          btn.textContent = 'Enviando...';
+          btn.disabled = true;
+
+          const nombre = document.getElementById('contactNombre').value.trim();
+          const email = document.getElementById('contactEmail').value.trim();
+          const mensaje = document.getElementById('contactMensaje').value.trim();
+          const file = fileInput.files[0];
+
+          let cvUrl = null;
+          if (file && supabase) {
+            const ext = file.name.split('.').pop();
+            const fileName = `${Date.now()}_${nombre.replace(/\s+/g,'_')}.${ext}`;
+            const filePath = `contactos_cvs/${fileName}`;
+            const { data: uploadData, error: uploadError } = await supabase.storage.from('candidatos-cv').upload(filePath, file);
+            if (uploadError) throw uploadError;
+            const { data: { publicUrl } } = supabase.storage.from('candidatos-cv').getPublicUrl(filePath);
+            cvUrl = publicUrl;
+          }
+
+          // Insertar registro en tabla "contactos"
+          if (supabase) {
+            const { error: insertError } = await supabase.from('contactos').insert([
+              { nombre, email, mensaje, cv_url: cvUrl }
+            ]);
+            if (insertError) throw insertError;
+          }
+
+          // Mostrar mensaje de éxito
+          form.style.display = 'none';
+          document.getElementById('successContact').style.display = 'block';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
