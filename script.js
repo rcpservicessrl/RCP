@@ -1,6 +1,6 @@
 // ─── WEBHOOK ENDPOINTS (GCP Cloud Function) ───
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-const RCP_LEAD_WEBHOOK_URL = 'https://f1ad951659b222.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://2f851781e90b21.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // Generates HMAC SHA-256 signature for webhook payload validation
 async function signPayload(payloadString, timestamp) {
@@ -504,7 +504,7 @@ const translations = {
     'cat-custom-label': 'A la Carta',
     'cat-custom-title': 'Arma tu Ecosistema <span class="accent">Personalizado</span>',
     'cat-custom-sub': 'Selecciona los bloques de servicios que tu negocio necesita en este momento. Añádelos a tu carrito para calcular el rango de inversión.',
-    'cat-tab-pub': '<span class="tab-letter">P</span> Publicidad',
+    'cat-tab-pub': '<span class="tab-letter">P</span> Publicidad 360°',
     'block-r4-title': 'Automatización Operativa IA',
     'block-r4-desc': 'Implementación de agentes de IA locales para automatizar respuestas, clasificar correos y gestionar tareas operativas sin intervención humana.',
     'block-r5-title': 'Cultura Organizacional',
@@ -912,7 +912,7 @@ const translations = {
     'cat-custom-label': 'A La Carte',
     'cat-custom-title': 'Build your <span class="accent">Customized</span> Ecosystem',
     'cat-custom-sub': 'Select the service blocks that your business needs right now. Add them to your cart to estimate the investment range.',
-    'cat-tab-pub': '<span class="tab-letter">P</span> Advertising',
+    'cat-tab-pub': '<span class="tab-letter">P</span> 360° Advertising',
     'block-r4-title': 'AI Operational Automation',
     'block-r4-desc': 'Implementation of local AI agents to automate replies, classify emails, and manage operational tasks without human intervention.',
     'block-r5-title': 'Organizational Culture',
@@ -2120,3 +2120,233 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// ═══════════════════════════════════════════════
+// GUIDED TOUR IMPLEMENTATION
+// ═══════════════════════════════════════════════
+(function () {
+  const tourButton = document.getElementById('tourButton');
+  const tourOverlay = document.getElementById('tourOverlay');
+  const tourHighlight = document.getElementById('tourHighlight');
+  const tourTooltip = document.getElementById('tourTooltip');
+  const tourTitle = document.getElementById('tourTitle');
+  const tourContent = document.getElementById('tourContent');
+  const tourProgress = document.getElementById('tourProgress');
+  const tourNext = document.getElementById('tourNext');
+  const tourPrev = document.getElementById('tourPrev');
+  const tourClose = document.getElementById('tourClose');
+
+  if (!tourButton || !tourOverlay) return;
+
+  // Tour steps configuration
+  const tourSteps = [
+    {
+      target: '#inicio',
+      title: '¡Bienvenido a RCP Services! 🐆',
+      content: 'Somos tu Junta Directiva Externa en la República Dominicana, listos para reanimar el corazón de tu empresa con finanzas, legalidad y marketing integrados.'
+    },
+    {
+      target: '#problema',
+      title: 'Conoce el problema que resolvemos',
+      content: '98.5% de las MIPYMEs dominicanas sufren de baja productividad, informalidad y ceguera digital. Aquí te mostramos cómo lo solucionamos.'
+    },
+    {
+      target: '#solucion',
+      title: 'Nuestra solución: El Ecosistema R·C·P',
+      content: 'Renovación, Consultoría y Publicidad 360°, todo bajo un solo techo con inteligencia artificial para acelerar tu crecimiento.'
+    },
+    {
+      target: '#paquetes',
+      title: 'Elije tu plan de crecimiento',
+      content: 'Tenemos paquetes para cada etapa: Básico (Reanimación Temprana), Avanzado (Estabilización y Crecimiento) y Premium (Vitalidad y Liderazgo).'
+    },
+    {
+      target: '#contacto',
+      title: '¡Programa tu diagnóstico 360° gratis!',
+      content: 'Completa el formulario y agenda una cita para analizar tu empresa y darte recomendaciones personalizadas.',
+      isLast: true
+    }
+  ];
+
+  let currentStep = 0;
+  let isTourActive = false;
+
+  // Load saved progress
+  function loadTourProgress() {
+    const savedStep = localStorage.getItem('rcp-tour-step');
+    const tourCompleted = localStorage.getItem('rcp-tour-completed') === 'true';
+    return { savedStep: savedStep ? parseInt(savedStep) : 0, tourCompleted };
+  }
+
+  // Save progress
+  function saveProgress() {
+    localStorage.setItem('rcp-tour-step', currentStep.toString());
+  }
+
+  // Render progress dots
+  function renderProgress() {
+    tourProgress.innerHTML = tourSteps.map((_, index) => 
+      `<div class="tour-progress-dot ${index === currentStep ? 'active' : ''}"></div>`
+    ).join('');
+  }
+
+  // Position tooltip
+  function positionTooltip(targetRect) {
+    const tooltipRect = tourTooltip.getBoundingClientRect();
+    let top = targetRect.bottom + 16;
+    let left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+
+    // Adjust if tooltip goes off screen
+    if (top + tooltipRect.height > window.innerHeight) {
+      top = targetRect.top - tooltipRect.height - 16;
+    }
+    if (left < 16) left = 16;
+    if (left + tooltipRect.width > window.innerWidth - 16) {
+      left = window.innerWidth - tooltipRect.width - 16;
+    }
+
+    tourTooltip.style.top = `${top}px`;
+    tourTooltip.style.left = `${left}px`;
+  }
+
+  // Show tour step
+  function showStep() {
+    const step = tourSteps[currentStep];
+    const target = document.querySelector(step.target);
+
+    if (!target) {
+      // Skip if target not found
+      if (currentStep < tourSteps.length - 1) {
+        currentStep++;
+        showStep();
+      } else {
+        endTour();
+      }
+      return;
+    }
+
+    const rect = target.getBoundingClientRect();
+
+    // Scroll to target
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    setTimeout(() => {
+      // Update highlight
+      tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
+      tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
+      tourHighlight.style.width = `${rect.width + 16}px`;
+      tourHighlight.style.height = `${rect.height + 16}px`;
+
+      // Update tooltip
+      tourTitle.textContent = step.title;
+      tourContent.textContent = step.content;
+      tourNext.textContent = step.isLast ? 'Finalizar' : 'Siguiente';
+      tourPrev.style.display = currentStep === 0 ? 'none' : 'block';
+
+      renderProgress();
+
+      setTimeout(() => positionTooltip(rect), 100);
+    }, 500);
+
+    saveProgress();
+  }
+
+  // Start tour
+  function startTour() {
+    isTourActive = true;
+    tourOverlay.classList.add('active');
+    showStep();
+  }
+
+  // End tour
+  function endTour() {
+    isTourActive = false;
+    tourOverlay.classList.remove('active');
+    localStorage.setItem('rcp-tour-completed', 'true');
+    localStorage.removeItem('rcp-tour-step');
+  }
+
+  // Event listeners
+  tourButton.addEventListener('click', startTour);
+
+  tourClose.addEventListener('click', endTour);
+
+  tourNext.addEventListener('click', () => {
+    if (currentStep < tourSteps.length - 1) {
+      currentStep++;
+      showStep();
+    } else {
+      endTour();
+    }
+  });
+
+  tourPrev.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!isTourActive) return;
+    if (e.key === 'Escape') endTour();
+    if (e.key === 'ArrowRight') tourNext.click();
+    if (e.key === 'ArrowLeft') tourPrev.click();
+  });
+
+  // Update tooltip position on scroll/resize
+  window.addEventListener('scroll', () => {
+    if (!isTourActive) return;
+    const step = tourSteps[currentStep];
+    const target = document.querySelector(step.target);
+    if (target) {
+      const rect = target.getBoundingClientRect();
+      tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
+      tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
+      positionTooltip(rect);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (!isTourActive) return;
+    const step = tourSteps[currentStep];
+    const target = document.querySelector(step.target);
+    if (target) positionTooltip(target.getBoundingClientRect());
+  });
+
+  // Show tour button if not completed yet
+  const { tourCompleted } = loadTourProgress();
+  if (tourCompleted) {
+    tourButton.innerHTML = '<span>🔄</span><span>Volver a recorrer</span>';
+  }
+})();
+
+// ═══════════════════════════════════════════════
+// NEXT SECTION NAVIGATION BUTTONS
+// ═══════════════════════════════════════════════
+(function () {
+  const sections = [
+    { id: 'inicio', next: 'problema' },
+    { id: 'problema', next: 'solucion' },
+    { id: 'solucion', next: 'paquetes' },
+    { id: 'paquetes', next: 'contacto' }
+  ];
+
+  sections.forEach(section => {
+    const target = document.getElementById(section.id);
+    if (!target) return;
+
+    const nextBtn = document.createElement('a');
+    nextBtn.href = `#${section.next}`;
+    nextBtn.className = 'next-section-btn';
+    nextBtn.innerHTML = `
+      <span>Siguiente sección</span>
+      <svg class="next-section-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+    `;
+    target.appendChild(nextBtn);
+  });
+})();
+
