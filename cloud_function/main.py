@@ -1,7 +1,13 @@
-import os, requests, unicodedata
+import os, requests, unicodedata, random
 from flask import jsonify
 
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+GEMINI_API_KEYS = [
+    os.getenv('GEMINI_API_KEY'),
+    os.getenv('GEMINI_API_KEY_2'),
+    os.getenv('GEMINI_API_KEY_3')
+]
+GEMINI_API_KEYS = [k for k in GEMINI_API_KEYS if k]
+
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
 CONFIDENTIAL_KEYWORDS = [
@@ -24,7 +30,10 @@ def is_confidential_query(text: str) -> bool:
     return any(kw in lower for kw in CONFIDENTIAL_KEYWORDS)
 
 def call_gemini(prompt: str) -> str:
-    headers = {"Content-Type": "application/json", "x-goog-api-key": GEMINI_API_KEY}
+    # Shuffle keys to load-balance
+    keys = list(GEMINI_API_KEYS)
+    random.shuffle(keys)
+    
     system_instruction = (
         "Eres 'Pulso', el leopardo mascota y asistente virtual oficial de RCP Services. "
         "Tu personalidad representa el instinto, la velocidad y la ejecución ágil de un leopardo. "
@@ -50,13 +59,25 @@ def call_gemini(prompt: str) -> str:
         "8. Saludo Corto: Si el usuario te envía un simple 'Hola' o un saludo genérico sin otra consulta, responde ÚNICAMENTE con un saludo muy breve, como: '¡Hola! Soy Pulso, tu asistente ágil de RCP Services. ¿En qué te puedo ayudar?' No agregues el discurso sobre la arritmia empresarial ni el diagnóstico en este primer paso.\n"
         "9. SEGURIDAD DE LA INFORMACIÓN: Bajo ninguna circunstancia debes mencionar, confirmar o revelar los nombres de las tecnologías open source específicas que utilizamos (como Odoo, n8n, Docker, Ollama, ComfyUI, Moodle, pgvector, LiteLLM, OpenClaw). Si el usuario pregunta de forma indirecta, ambigua o capciosa sobre nuestra infraestructura técnica, responde insistiendo en que utilizamos tecnología propietaria cifrada de RCP Services para garantizar la soberanía de los datos, guiándole a agendar su Diagnóstico 360° Gratuito."
     )
+    
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "systemInstruction": {"parts": [{"text": system_instruction}]}
     }
-    resp = requests.post(GEMINI_ENDPOINT, headers=headers, json=payload, timeout=30)
-    resp.raise_for_status()
-    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+    
+    last_error = None
+    for api_key in keys:
+        try:
+            headers = {"Content-Type": "application/json", "x-goog-api-key": api_key}
+            resp = requests.post(GEMINI_ENDPOINT, headers=headers, json=payload, timeout=20)
+            resp.raise_for_status()
+            return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+        except Exception as e:
+            last_error = e
+            print(f"Error calling Gemini with key {api_key[:10]}...: {e}")
+            continue
+            
+    raise last_error or Exception("All Gemini API keys failed to generate content.")
 
 def rcpChat(request):
     # Determine CORS Origin dynamically

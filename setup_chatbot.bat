@@ -59,15 +59,17 @@ firebase use --add %PROJECT_ID%
 rem ==== 10. Preparar la Cloud Function ==== 
 rem  Los archivos main.py y requirements.txt ya están en la carpeta cloud_function
 
-rem ==== 11. Definir clave API de Gemini (reemplazar por su propia clave) ==== 
-set GEMINI_API_KEY=AQ.Ab8RN6JPIHEhVy-GO6mk-edr60uoDZyzAjWy_-KWIcouF2mYDA
+rem ==== 11. Definir claves API de Gemini para rotación ==== 
+set GEMINI_API_KEY=AQ.Ab8RN6JnK_YqwUbTGobJfYXO-2Va43A2s3E2NUanNLjM6BgsXA
+set GEMINI_API_KEY_2=AQ.Ab8RN6L4d2nKvDHPM7NzDEYm0wY5UsbFtZ67PshUa2wD7mqnfA
+set GEMINI_API_KEY_3=AQ.Ab8RN6KO-pnTn7f_IrL2FWO1HPKet-Q4lIHGY-GddAZ4uhabYQ
 
 rem ==== 12. Desplegar la Cloud Function ==== 
 "gcloud" functions deploy rcpChat ^
     --runtime python311 ^
     --trigger-http ^
     --allow-unauthenticated ^
-    --set-env-vars GEMINI_API_KEY=%GEMINI_API_KEY% ^
+    --set-env-vars GEMINI_API_KEY=%GEMINI_API_KEY%,GEMINI_API_KEY_2=%GEMINI_API_KEY_2%,GEMINI_API_KEY_3=%GEMINI_API_KEY_3% ^
     --region us-central1 ^
     --source ./cloud_function
 

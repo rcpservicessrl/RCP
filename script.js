@@ -1,6 +1,6 @@
 // ─── WEBHOOK ENDPOINTS (GCP Cloud Function) ───
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-const RCP_LEAD_WEBHOOK_URL = 'https://f89c03213909c5.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://f1ad951659b222.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // Generates HMAC SHA-256 signature for webhook payload validation
 async function signPayload(payloadString, timestamp) {
