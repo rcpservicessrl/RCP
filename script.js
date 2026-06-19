@@ -2296,31 +2296,37 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Update tooltip position on scroll/resize
-  let scrollTimeout;
+  let scrollTicking = false;
   window.addEventListener('scroll', () => {
     if (!isTourActive) return;
-    if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
-    scrollTimeout = requestAnimationFrame(() => {
-      const step = tourSteps[currentStep];
-      const target = document.querySelector(step.target);
-      if (target) {
-        const rect = target.getBoundingClientRect();
-        tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
-        tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
-        positionTooltip(rect);
-      }
-    });
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        const step = tourSteps[currentStep];
+        const target = document.querySelector(step.target);
+        if (target) {
+          const rect = target.getBoundingClientRect();
+          tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
+          tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
+          positionTooltip(rect);
+        }
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
   });
 
-  let resizeTimeout;
+  let resizeTicking = false;
   window.addEventListener('resize', () => {
     if (!isTourActive) return;
-    if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
-    resizeTimeout = requestAnimationFrame(() => {
-      const step = tourSteps[currentStep];
-      const target = document.querySelector(step.target);
-      if (target) positionTooltip(target.getBoundingClientRect());
-    });
+    if (!resizeTicking) {
+      window.requestAnimationFrame(() => {
+        const step = tourSteps[currentStep];
+        const target = document.querySelector(step.target);
+        if (target) positionTooltip(target.getBoundingClientRect());
+        resizeTicking = false;
+      });
+      resizeTicking = true;
+    }
   });
 
   // Show tour button if not completed yet
