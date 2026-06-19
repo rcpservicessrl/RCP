@@ -1,6 +1,6 @@
 // ─── WEBHOOK ENDPOINTS (GCP Cloud Function) ───
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-const RCP_LEAD_WEBHOOK_URL = 'https://6df1788f71972d.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://2ff9fb53752af4.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // Generates HMAC SHA-256 signature for webhook payload validation
 async function signPayload(payloadString, timestamp) {
@@ -2225,12 +2225,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const rect = target.getBoundingClientRect();
-
     // Scroll to target
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     setTimeout(() => {
+      const rect = target.getBoundingClientRect();
+      
       // Update highlight
       tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
       tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
