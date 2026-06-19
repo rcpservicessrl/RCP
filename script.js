@@ -1,6 +1,6 @@
 // ─── WEBHOOK ENDPOINTS (GCP Cloud Function) ───
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-const RCP_LEAD_WEBHOOK_URL = 'https://2f851781e90b21.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://6df1788f71972d.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // Generates HMAC SHA-256 signature for webhook payload validation
 async function signPayload(payloadString, timestamp) {
@@ -2296,23 +2296,31 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Update tooltip position on scroll/resize
+  let scrollTimeout;
   window.addEventListener('scroll', () => {
     if (!isTourActive) return;
-    const step = tourSteps[currentStep];
-    const target = document.querySelector(step.target);
-    if (target) {
-      const rect = target.getBoundingClientRect();
-      tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
-      tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
-      positionTooltip(rect);
-    }
+    if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+    scrollTimeout = requestAnimationFrame(() => {
+      const step = tourSteps[currentStep];
+      const target = document.querySelector(step.target);
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
+        tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
+        positionTooltip(rect);
+      }
+    });
   });
 
+  let resizeTimeout;
   window.addEventListener('resize', () => {
     if (!isTourActive) return;
-    const step = tourSteps[currentStep];
-    const target = document.querySelector(step.target);
-    if (target) positionTooltip(target.getBoundingClientRect());
+    if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
+    resizeTimeout = requestAnimationFrame(() => {
+      const step = tourSteps[currentStep];
+      const target = document.querySelector(step.target);
+      if (target) positionTooltip(target.getBoundingClientRect());
+    });
   });
 
   // Show tour button if not completed yet

@@ -1,0 +1,5 @@
+Contact: mailto:info@rcp.services
+Contact: tel:+1-829-806-8092
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: es, en
+Canonical: https://rcp.services/.well-known/security.txt

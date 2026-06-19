@@ -1537,7 +1537,7 @@ select option:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.625rem;
+  gap: 1.5rem; /* Increased for touch target spacing */
 }
 
 .chatbot-tooltip {
@@ -1574,6 +1574,7 @@ select option:hover {
   box-shadow: 0 0.25rem 1rem rgba(252, 181, 63, 0.25);
   transition: var(--transition);
   animation: pulse-btn 3s ease infinite;
+  margin: 16px; /* Increased for touch target spacing */
 }
 
 .chatbot-btn:hover {
