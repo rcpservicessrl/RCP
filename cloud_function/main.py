@@ -85,19 +85,20 @@ def rcpChat(request):
     allowed_origins = [
         'https://bubloy.github.io',
         'https://rcp.services',
-        'https://www.rcp.services'
+        'https://www.rcp.services',
+        'https://rcpservicessrl.github.io'
     ]
     if origin and (origin in allowed_origins or origin.startswith('http://localhost') or origin.startswith('http://127.0.0.1')):
         cors_origin = origin
     else:
-        cors_origin = 'https://rcp.services'
+        cors_origin = 'https://www.rcp.services'
 
     # Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
         headers = {
             'Access-Control-Allow-Origin': cors_origin,
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Token',
+            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp, X-RCP-Signature',
             'Access-Control-Max-Age': '3600'
         }
         return ('', 204, headers)
@@ -124,3 +125,68 @@ def rcpChat(request):
         return (jsonify({"response": answer}), 200, headers)
     except Exception as e:
         return (jsonify({"error": str(e)}), 500, headers)
+
+
+def rcpLead(request):
+    """
+    Stable Cloud Function endpoint for lead capture.
+    Receives form data from the website and forwards it to:
+    1. The n8n tunnel (if available) for CRM processing
+    2. Logs the lead as a fallback if n8n is unreachable
+    """
+    origin = request.headers.get('Origin')
+    allowed_origins = [
+        'https://bubloy.github.io',
+        'https://rcp.services',
+        'https://www.rcp.services',
+        'https://rcpservicessrl.github.io'
+    ]
+    if origin and (origin in allowed_origins or origin.startswith('http://localhost') or origin.startswith('http://127.0.0.1')):
+        cors_origin = origin
+    else:
+        cors_origin = 'https://www.rcp.services'
+
+    if request.method == 'OPTIONS':
+        headers = {
+            'Access-Control-Allow-Origin': cors_origin,
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp, X-RCP-Signature',
+            'Access-Control-Max-Age': '3600'
+        }
+        return ('', 204, headers)
+
+    headers = {'Access-Control-Allow-Origin': cors_origin}
+
+    body = request.get_json(silent=True) or {}
+    
+    if not body.get('user_name') and not body.get('user_email'):
+        return (jsonify({"error": "Missing required fields"}), 400, headers)
+
+    # Forward to n8n tunnel (best-effort, non-blocking)
+    n8n_tunnel_url = os.getenv('N8N_TUNNEL_URL', '')
+    n8n_success = False
+    
+    if n8n_tunnel_url:
+        try:
+            n8n_resp = requests.post(
+                f"{n8n_tunnel_url}/webhook/rcp_lead_capture/trigger/rcp-lead",
+                json=body,
+                headers={
+                    'Content-Type': 'application/json',
+                    'X-RCP-Timestamp': request.headers.get('X-RCP-Timestamp', ''),
+                    'X-RCP-Signature': request.headers.get('X-RCP-Signature', '')
+                },
+                timeout=10
+            )
+            n8n_success = n8n_resp.status_code < 400
+        except Exception as e:
+            print(f"[rcpLead] n8n tunnel unreachable: {e}")
+
+    # Log the lead (always, as fallback persistence)
+    print(f"[rcpLead] Lead captured: {body.get('user_name', 'N/A')} - {body.get('user_email', 'N/A')} - {body.get('user_company', 'N/A')} - Service: {body.get('user_service', 'N/A')} - n8n_forwarded: {n8n_success}")
+
+    return (jsonify({
+        "success": True, 
+        "message": "Lead captured successfully",
+        "n8n_forwarded": n8n_success
+    }), 200, headers)
