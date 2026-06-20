@@ -721,10 +721,7 @@
             try {
               // Real Supabase Query on `clientes` table
               const { data, error } = await supabase
-                .from('clientes')
-                .select('*')
-                .eq('email', emailInput)
-                .eq('password', passwordInput)
+                .rpc('login_cliente_seguro', { p_email: emailInput, p_password: passwordInput })
                 .maybeSingle();
 
               if (error) throw error;
@@ -804,9 +801,7 @@
             try {
               // 1. Fetch pre-existing client record created via Booking
               const { data: clientData, error: selectError } = await supabase
-                .from('clientes')
-                .select('*')
-                .eq('email', emailInput)
+                .rpc('verificar_existencia_cliente', { p_email: emailInput })
                 .maybeSingle();
 
               if (selectError) throw selectError;

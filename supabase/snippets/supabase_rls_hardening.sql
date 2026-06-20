@@ -52,13 +52,16 @@ CREATE POLICY "Clientes: acceso admin total" ON public.clientes
 -- sin exponer la tabla completa al cliente anónimo
 -- ═══════════════════════════════════════════════════════════════════════
 
+-- Eliminar función existente si tiene firma diferente
+DROP FUNCTION IF EXISTS public.verificar_existencia_cliente(TEXT);
+
 CREATE OR REPLACE FUNCTION public.verificar_existencia_cliente(p_email TEXT)
 RETURNS TABLE (
   id UUID,
   status TEXT
 )
 LANGUAGE plpgsql
-SECURITY DEFINER  -- Se ejecuta con permisos del creador (bypass RLS)
+SECURITY DEFINER
 SET search_path = public
 AS $$
 BEGIN

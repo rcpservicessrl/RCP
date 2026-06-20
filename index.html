@@ -136,16 +136,26 @@
     ]
   }
   </script>
-  <!-- GA4: Replace G-XXXXXXXXXX with your Measurement ID when ready -->
-  <!--
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- GA4 Analytics (carga condicional tras consentimiento de cookies) -->
   <script>
+    // GA4 se inicializa solo después del consentimiento del usuario
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    // Default: denegar todo hasta que el usuario acepte
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted'
+    });
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-1NX4MWJ0GD', {
+      'send_page_view': false  // Se envía manualmente tras consentimiento
+    });
   </script>
-  -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NX4MWJ0GD"></script>
 </head>
 
 <body>
@@ -835,6 +845,73 @@
       <div class="tour-tooltip-actions">
         <button class="tour-btn tour-btn-secondary" id="tourPrev" aria-label="Anterior">Anterior</button>
         <button class="tour-btn tour-btn-primary" id="tourNext" aria-label="Siguiente">Siguiente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COOKIE CONSENT BANNER ===== -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentimiento de cookies" aria-hidden="true">
+    <div class="cookie-banner-inner">
+      <div class="cookie-text">
+        <p data-i18n="cookie-text">
+          🍪 Usamos cookies analíticas para mejorar tu experiencia y medir el rendimiento del sitio. No compartimos tus datos con terceros. 
+          <a href="#" class="cookie-link" id="cookieMoreInfo" data-i18n="cookie-more">Más información</a>
+        </p>
+      </div>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-btn-reject" id="cookieReject" data-i18n="cookie-reject">Solo esenciales</button>
+        <button class="cookie-btn cookie-btn-accept" id="cookieAccept" data-i18n="cookie-accept">Aceptar todas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Details Panel (se muestra al hacer clic en "Más información") -->
+  <div class="cookie-details-panel" id="cookieDetails" aria-hidden="true">
+    <div class="cookie-details-inner">
+      <div class="cookie-details-header">
+        <h3 data-i18n="cookie-details-title">Configuración de Cookies</h3>
+        <button class="cookie-details-close" id="cookieDetailsClose" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="cookie-details-body">
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle">
+              <input type="checkbox" checked disabled />
+              <span class="cookie-toggle-slider"></span>
+            </label>
+            <div>
+              <strong data-i18n="cookie-cat-essential">Esenciales</strong>
+              <p data-i18n="cookie-cat-essential-desc">Necesarias para el funcionamiento del sitio. No se pueden desactivar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle">
+              <input type="checkbox" id="cookieAnalytics" checked />
+              <span class="cookie-toggle-slider"></span>
+            </label>
+            <div>
+              <strong data-i18n="cookie-cat-analytics">Analíticas (Google Analytics 4)</strong>
+              <p data-i18n="cookie-cat-analytics-desc">Nos ayudan a entender cómo usas el sitio para mejorarlo. Datos anónimos y agregados.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle">
+              <input type="checkbox" id="cookieMarketing" />
+              <span class="cookie-toggle-slider"></span>
+            </label>
+            <div>
+              <strong data-i18n="cookie-cat-marketing">Marketing</strong>
+              <p data-i18n="cookie-cat-marketing-desc">Permiten medir la efectividad de campañas publicitarias (Meta Ads, Google Ads).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cookie-details-footer">
+        <button class="cookie-btn cookie-btn-accept" id="cookieSavePrefs" data-i18n="cookie-save">Guardar preferencias</button>
       </div>
     </div>
   </div>
