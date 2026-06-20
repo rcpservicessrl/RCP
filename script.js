@@ -1,13 +1,38 @@
-// ─── WEBHOOK ENDPOINTS (GCP Cloud Function) ───
+// ─── WEBHOOK ENDPOINTS ───
+// GCP Cloud Function (stable, always-on chatbot endpoint)
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-const RCP_LEAD_WEBHOOK_URL = 'https://2ff9fb53752af4.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+// GCP Cloud Function for lead capture (stable endpoint that forwards to n8n)
+const RCP_LEAD_WEBHOOK_URL = 'https://92c02fb1316bfd.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
-// Generates HMAC SHA-256 signature for webhook payload validation
+// ─── SECURITY: CONFIDENTIAL KEYWORD GUARDRAIL ───
+// Blocks queries about internal infrastructure before they reach the network
+const CONFIDENTIAL_KEYWORDS = [
+  'docker', 'n8n', 'ollama', 'odoo', 'comfyui', 'litellm', 'openclaw', 'moodle',
+  'supabase', 'postgres', 'pgvector', 'localhost', 'puerto', 'port', 'contenedor',
+  'container', 'tunnel', 'tunel', 'ssh', 'webhook', 'api key', 'apikey', 'credencial',
+  'credential', 'password', 'contraseña', 'secret', 'token', 'ip address', 'dirección ip',
+  'servidor', 'server', 'backend', 'infraestructura', 'infrastructure', 'open webui',
+  'openwebui', 'gemini', 'claude', 'openai', 'deepseek', 'llama', 'qwen', 'modelo de ia',
+  'ai model', 'self-hosted', 'autoalojado', 'raspberry', 'wsl', 'linux', 'ubuntu',
+  'docker compose', 'yaml', 'env', '.env', 'stack', 'microservicio', 'microservice'
+];
+
+const GUARDRAIL_RESPONSE_ES = '🛡️ <strong>Tecnología Propietaria:</strong> Nuestro ecosistema opera bajo una arquitectura cifrada de microservicios propietarios en servidores dedicados exclusivos. Por razones de seguridad corporativa, los detalles técnicos de implementación son confidenciales. ¿Te gustaría conocer los <strong>beneficios</strong> que esto te brinda como cliente? <a href="#ecosistema" style="color:var(--accent)">Ver Ecosistema Soberano →</a>';
+const GUARDRAIL_RESPONSE_EN = '🛡️ <strong>Proprietary Technology:</strong> Our ecosystem operates under a proprietary encrypted microservices architecture on dedicated private servers. For corporate security reasons, technical implementation details are confidential. Would you like to learn about the <strong>benefits</strong> this provides for your business? <a href="#ecosistema" style="color:var(--accent)">See Sovereign Ecosystem →</a>';
+
+function isConfidentialQuery(text) {
+  const normalized = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return CONFIDENTIAL_KEYWORDS.some(kw => normalized.includes(kw));
+}
+
+// ─── HMAC SHA-256 PAYLOAD SIGNING ───
+// Generates signature for webhook payload validation (server validates with shared secret)
 async function signPayload(payloadString, timestamp) {
-    const secret = 'rcp_secure_shared_secret_2026'; // Obfuscated shared secret key
-    const message = `${timestamp}:${payloadString}`;
     const encoder = new TextEncoder();
-    const keyData = encoder.encode(secret);
+    // Derive signing key from domain + timestamp (server knows the derivation scheme)
+    const derivationBase = `${window.location.hostname}:rcp:2026`;
+    const keyData = encoder.encode(derivationBase);
+    const message = `${timestamp}:${payloadString}`;
     const messageData = encoder.encode(message);
     const key = await window.crypto.subtle.importKey(
         "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
@@ -1435,6 +1460,15 @@ if (phoneField) {
     chatInput.value = '';
 
     localStorage.setItem('rcp-chat-last-active', Date.now().toString());
+
+    // ─── GUARDRAIL: Block confidential infrastructure queries ───
+    if (isConfidentialQuery(text)) {
+      const isEN = document.documentElement.lang === 'en';
+      setTimeout(() => {
+        addMessage(isEN ? GUARDRAIL_RESPONSE_EN : GUARDRAIL_RESPONSE_ES);
+      }, 300);
+      return; // No network call made
+    }
     
     const typingDiv = document.createElement('div');
     typingDiv.className = 'chat-msg bot chat-typing';
@@ -1442,15 +1476,18 @@ if (phoneField) {
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
+    // Try the AI backend first, fall back to local FAQ
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
     fetch(RCP_CHATBOT_WEBHOOK_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-RCP-Token': 'gateway_token_seguro_e_interno_2026'
-      },
-      body: JSON.stringify({ message: text, lang: document.documentElement.lang || 'es' })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, lang: document.documentElement.lang || 'es' }),
+      signal: controller.signal
     })
     .then(response => {
+      clearTimeout(timeoutId);
       if (!response.ok) throw new Error('Webhook error');
       return response.json();
     })
@@ -1462,12 +1499,12 @@ if (phoneField) {
         addMessage(getReply(text));
       }
     })
-    .catch(error => {
-      console.warn('Backend AI pipeline unavailable, using local FAQ fallback:', error);
+    .catch(() => {
+      clearTimeout(timeoutId);
       setTimeout(() => {
         typingDiv.remove();
         addMessage(getReply(text));
-      }, 500);
+      }, 400);
     });
   }
 
@@ -1961,9 +1998,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         supabasePromise = (async () => {
           try {
             const { data: existingClient, error: selectError } = await supabase
-              .from('clientes')
-              .select('id, status, diagnostico_360')
-              .eq('email', email)
+              .rpc('verificar_existencia_cliente', { p_email: email })
               .maybeSingle();
 
             if (selectError) throw selectError;

@@ -1,10 +1,15 @@
+# RCP Services - robots.txt
+# https://www.rcp.services
+
 User-agent: *
 Allow: /
-
-# Sitemap
-Sitemap: https://rcp.services/sitemap.xml
-
-# Disable access to sensitive pages
 Disallow: /dashboard.html
 Disallow: /checkout.html
 Disallow: /onboarding.html
+Disallow: /portal.html
+
+# Sitemap
+Sitemap: https://www.rcp.services/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

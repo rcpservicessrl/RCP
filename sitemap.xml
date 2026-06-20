@@ -1,69 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://rcp.services/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://rcp.services/servicios.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/servicios.html</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rcp.services/nosotros.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/nosotros.html</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rcp.services/media.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/media.html</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rcp.services/carreras.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/carreras.html</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://rcp.services/portal.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/portal.html</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://rcp.services/onboarding.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rcp.services/dashboard.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://rcp.services/formulario-contacto.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rcp.services/checkout.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.rcp.services/onboarding.html</loc>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://rcp.services/404.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.1</priority>
+    <loc>https://www.rcp.services/dashboard.html</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
