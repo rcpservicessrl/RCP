@@ -280,199 +280,47 @@
     </div>
   </section>
 
-  <!-- ===== MODULAR CATALOGUE (BLOCK CARTS) ===== -->
+  <!-- ===== MODULAR CATALOGUE → REDIRECTS TO TIENDA ===== -->
   <section class="section problem" style="background-color: var(--black-2);">
     <div class="container">
       <div class="section-label animate-on-scroll" data-i18n="cat-custom-label">A la Carta</div>
       <h2 class="section-title animate-on-scroll" data-i18n="cat-custom-title">Arma tu Ecosistema <span class="accent">Personalizado</span></h2>
       <p class="section-sub animate-on-scroll" data-i18n="cat-custom-sub">Selecciona los bloques de servicios que tu negocio necesita en este momento. Añádelos a tu carrito para calcular el rango de inversión.</p>
 
-      <!-- BLOCKS INTERFACE -->
-      <div class="cart-container-layout animate-on-scroll">
-        <div class="blocks-explorer">
-          <!-- Categorías Tabs -->
-          <div class="blocks-tabs">
-            <button class="block-tab-btn active" data-cat="renovacion" data-i18n="tab-r">Renovación</button>
-            <button class="block-tab-btn" data-cat="consultoria" data-i18n="tab-c">Consultoría</button>
-            <button class="block-tab-btn" data-cat="publicidad" data-i18n="cat-tab-pub"><span class="tab-letter">P</span> Publicidad 360°</button>
-          </div>
+      <!-- Quick Preview Cards → Link to full Store -->
+      <div class="cards-grid four-col animate-on-scroll" style="margin-top:40px;margin-bottom:40px;">
+        <a href="tienda.html?cat=software_preconfigurado" class="card card-dark" style="text-decoration:none;">
+          <div class="card-icon">🖥️</div>
+          <h3>Software Empresarial</h3>
+          <p>POS, CRM, ERP, Facturación NCF, Reservas, Delivery y más.</p>
+        </a>
+        <a href="tienda.html?cat=software_custom" class="card card-dark" style="text-decoration:none;">
+          <div class="card-icon">⚙️</div>
+          <h3>Desarrollo a Medida</h3>
+          <p>Apps web, móviles, portales, integraciones API e IA corporativa.</p>
+        </a>
+        <a href="tienda.html?cat=imprenta" class="card card-dark" style="text-decoration:none;">
+          <div class="card-icon">🖨️</div>
+          <h3>Imprenta & Rotulación</h3>
+          <p>Tarjetas, letreros, vallas, empaques, formularios y más.</p>
+        </a>
+        <a href="tienda.html?cat=pop_merchandising" class="card card-dark" style="text-decoration:none;">
+          <div class="card-icon">🎁</div>
+          <h3>Artículos Corporativos</h3>
+          <p>Uniformes, gorras, tazas, kits de bienvenida y merchandising.</p>
+        </a>
+      </div>
 
-          <!-- Bloques Grid -->
-          <div class="blocks-grid active" id="cat-renovacion">
-            <!-- Item 1 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🎨</span>
-                <h4 class="block-title" data-i18n="block-r1-title">Identidad Visual Básica</h4>
-              </div>
-              <p class="block-description" data-i18n="block-r1-desc">Logotipo principal, paleta cromática corporativa, tipografías y manual básico de uso.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 15,000 - 30,000</span>
-                <button class="btn-add-cart" data-id="r1" data-name="Identidad Visual Básica" data-min="15000" data-max="30000">+</button>
-              </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🏆</span>
-                <h4 class="block-title" data-i18n="block-r2-title">Rebranding Corporativo Premium</h4>
-              </div>
-              <p class="block-description" data-i18n="block-r2-desc">Rediseño completo de marca, manual de identidad avanzado, papelería institucional y activos digitales optimizados.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 40,000 - 80,000</span>
-                <button class="btn-add-cart" data-id="r2" data-name="Rebranding Corporativo Premium" data-min="40000" data-max="80000">+</button>
-              </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">📊</span>
-                <h4 class="block-title" data-i18n="block-r3-title">Modelado de Procesos y SOPs</h4>
-              </div>
-              <p class="block-description" data-i18n="block-r3-desc">Estructuración y digitalización de flujos de trabajo clave de tu empresa en manuales operativos ágiles.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 30,000 - 60,000</span>
-                <button class="btn-add-cart" data-id="r3" data-name="Modelado de Procesos y SOPs" data-min="30000" data-max="60000">+</button>
-              </div>
-            </div>
-            <!-- Item 4 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🤖</span>
-                <h4 class="block-title" data-i18n="block-r4-title">Automatización Operativa IA</h4>
-              </div>
-              <p class="block-description" data-i18n="block-r4-desc">Implementación de agentes de IA locales para automatizar respuestas, clasificar correos y gestionar tareas operativas sin intervención humana.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 25,000 - 55,000</span>
-                <button class="btn-add-cart" data-id="r4" data-name="Automatización Operativa IA" data-min="25000" data-max="55000">+</button>
-              </div>
-            </div>
-            <!-- Item 5 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🤝</span>
-                <h4 class="block-title" data-i18n="block-r5-title">Cultura Organizacional</h4>
-              </div>
-              <p class="block-description" data-i18n="block-r5-desc">Definición de valores corporativos, manuales de convivencia, y capacitación en metodologías ágiles para equipos dinámicos.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 20,000 - 40,000</span>
-                <button class="btn-add-cart" data-id="r5" data-name="Cultura Organizacional" data-min="20000" data-max="40000">+</button>
-              </div>
-            </div>
-            <!-- Item 6 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🎯</span>
-                <h4 class="block-title" data-i18n="block-r6-title">Auditoría CX (Experiencia del Cliente)</h4>
-              </div>
-              <p class="block-description" data-i18n="block-r6-desc">Análisis profundo de los puntos de contacto del cliente con tu marca, identificando cuellos de botella y diseñando flujos de deleite.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 15,000 - 30,000</span>
-                <button class="btn-add-cart" data-id="r6" data-name="Auditoría CX (Experiencia del Cliente)" data-min="15000" data-max="30000">+</button>
-              </div>
-            </div>
-          </div>
+      <div class="text-center">
+        <a href="tienda.html" class="btn-cta btn-lg">🛒 Explorar Tienda Completa →</a>
+      </div>
+    </div>
+  </section>
 
-          <div class="blocks-grid" id="cat-consultoria">
-            <!-- Item 1 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🏢</span>
-                <h4 class="block-title" data-i18n="block-c1-title">Formalización Comercial Completa</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c1-desc">Constitución legal: Registro de Nombre en ONAPI, Registro Mercantil en Cámara de Comercio y Registro en DGII (RNC).</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 25,000 - 45,000</span>
-                <button class="btn-add-cart" data-id="c1" data-name="Formalización Comercial Completa" data-min="25000" data-max="45000">+</button>
-              </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🏷️</span>
-                <h4 class="block-title" data-i18n="block-c2-title">Registro de Marca en ONAPI</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c2-desc">Protección legal de tu marca comercial o logo en ONAPI, incluyendo tasas gubernamentales y gestión legal completa.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 15,000 - 25,000</span>
-                <button class="btn-add-cart" data-id="c2" data-name="Registro de Marca en ONAPI" data-min="15000" data-max="25000">+</button>
-              </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">⚖️</span>
-                <h4 class="block-title" data-i18n="block-c3-title">Auditoría y Planificación Fiscal</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c3-desc">Evaluación del estado financiero e impositivo y estructuración de un plan fiscal óptimo para reducir contingencias.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 20,000 - 40,000</span>
-                <button class="btn-add-cart" data-id="c3" data-name="Auditoría y Planificación Fiscal" data-min="20000" data-max="40000">+</button>
-              </div>
-            </div>
-            <!-- Item 4 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">🏦</span>
-                <h4 class="block-title" data-i18n="block-c4-title">Licitaciones Públicas (Ley 488-08)</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c4-desc">Obtención del RPE y certificación MIPYME mujer/general, más asesoría estratégica para postular a compras estatales.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 30,000 - 60,000</span>
-                <button class="btn-add-cart" data-id="c4" data-name="Licitaciones Públicas (Ley 488-08)" data-min="30000" data-max="60000">+</button>
-              </div>
-            </div>
-            <!-- Item 5 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">📝</span>
-                <h4 class="block-title" data-i18n="block-c5-title">Contratos & NDAs Comerciales</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c5-desc">Redacción y revisión legal de contratos con clientes, proveedores, acuerdos de confidencialidad y términos de servicio blindados.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 15,000 - 30,000</span>
-                <button class="btn-add-cart" data-id="c5" data-name="Contratos & NDAs Comerciales" data-min="15000" data-max="30000">+</button>
-              </div>
-            </div>
-            <!-- Item 6 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">📊</span>
-                <h4 class="block-title" data-i18n="block-c6-title">Iguala Mensual Contable</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c6-desc">Gestión mensual de contabilidad, conciliación bancaria, preparación de libros contables e informes de salud financiera.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 12,000 - 25,000<small>/mes</small></span>
-                <button class="btn-add-cart" data-id="c6" data-name="Iguala Mensual Contable" data-min="12000" data-max="25000" data-recurring="true">+</button>
-              </div>
-            </div>
-            <!-- Item 7 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">⚖️</span>
-                <h4 class="block-title" data-i18n="block-c7-title">Auditoría y Cumplimiento Laboral</h4>
-              </div>
-              <p class="block-description" data-i18n="block-c7-desc">Revisión técnica de contratos de trabajo, cumplimiento con el Ministerio de Trabajo (TSS) y mitigación de riesgos de demandas.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 20,000 - 45,000</span>
-                <button class="btn-add-cart" data-id="c7" data-name="Auditoría y Cumplimiento Laboral" data-min="20000" data-max="45000">+</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="blocks-grid" id="cat-publicidad">
-            <!-- Item 1 -->
-            <div class="block-card">
-              <div class="block-card-header">
-                <span class="block-icon">💻</span>
-                <h4 class="block-title" data-i18n="block-pd1-title">Landing Page de Conversión</h4>
-              </div>
-              <p class="block-description" data-i18n="block-pd1-desc">Página web de aterrizaje ultra-rápida, optimizada para captar prospectos, integrada con CRM y base de datos.</p>
-              <div class="block-footer">
-                <span class="block-price-range">RD$ 18,000 - 35,000</span>
-                <button class="btn-add-cart" data-id="pd1" data-name="Landing Page de Conversión" data-min="18000" data-max="35000">+</button>
-              </div>
-            </div>
+  <!-- ===== GOOGLE CALENDAR SCHEDULING INTERACTIVE WIDGET ===== -->
+  <section class="section" id="agendar-diagnostico">
+    <div class="container">
+      <div class="section-label animate-on-scroll" data-i18n="sched-label">Agendamiento</div>
             <!-- Item 2 -->
             <div class="block-card">
               <div class="block-card-header">

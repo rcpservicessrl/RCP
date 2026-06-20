@@ -27,13 +27,39 @@
       <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" width="160" height="58" />
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="servicios.html">Servicios</a></li>
-      <li><a href="tienda.html" class="active-link">Tienda</a></li>
-      <li><a href="nosotros.html">Nosotros</a></li>
-      <li><a href="index.html#contacto">Contacto</a></li>
+      <li class="nav-dropdown">
+        <a href="#" class="dropdown-trigger"><span data-i18n="nav-porque-rcp">¿Por qué RCP?</span> <span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="index.html#problema" data-i18n="nav-problema">El Problema de las MIPYMEs</a></li>
+          <li><a href="index.html#solucion" data-i18n="nav-solucion">Nuestra Solución</a></li>
+          <li><a href="index.html#ecosistema" data-i18n="nav-ecosistema">Ecosistema Soberano</a></li>
+        </ul>
+      </li>
+      <li><a href="servicios.html" data-i18n="nav-servicios">Servicios</a></li>
+      <li><a href="tienda.html" class="active-link" data-i18n="nav-tienda">Tienda</a></li>
+      <li><a href="index.html#paquetes" data-i18n="nav-paquetes">Planes</a></li>
+      <li class="nav-dropdown">
+        <a href="#" class="dropdown-trigger"><span data-i18n="nav-compania">Compañía</span> <span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="nosotros.html" data-i18n="nav-nosotros">Nosotros</a></li>
+          <li><a href="media.html" data-i18n="nav-media">Media / Podcast</a></li>
+          <li><a href="carreras.html" data-i18n="nav-carreras">Carreras</a></li>
+          <li><a href="index.html#contacto" data-i18n="nav-contacto">Contacto</a></li>
+        </ul>
+      </li>
+      <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
     </ul>
-    <a href="#cotizar" class="btn-cta nav-cta">Cotizar Ahora</a>
+    <a href="#cotizar" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+    <div class="nav-controls">
+      <select class="lang-select" id="langSelect" aria-label="Language" title="Idioma">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+      </select>
+      <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle light mode" title="Modo Día/Noche">
+        <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
     <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
   </div>
 </nav>
@@ -211,6 +237,59 @@
   </div>
 </footer>
 </main>
+
+<!-- ===== CHATBOT WIDGET ===== -->
+<div class="chatbot-widget" id="chatbotWidget" title="Asistente Virtual RCP">
+  <div class="chatbot-tooltip" data-i18n="chatbot-tooltip">¿Necesitas ayuda? <strong>Chatea con nosotros</strong></div>
+  <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir chat">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  </button>
+</div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-header-avatar">🐆</div>
+    <div class="chat-header-info">
+      <h4 data-i18n="chat-header-title">Pulso</h4>
+      <p data-i18n="chat-header-status">En línea · Respuesta inmediata</p>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off" />
+    <button class="chat-send" id="chatSend" aria-label="Enviar">➤</button>
+  </div>
+</div>
+
+<!-- ===== COOKIE CONSENT BANNER ===== -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentimiento de cookies" aria-hidden="true">
+  <div class="cookie-banner-inner">
+    <div class="cookie-text">
+      <p data-i18n="cookie-text">🍪 Usamos cookies analíticas para mejorar tu experiencia y medir el rendimiento del sitio. No compartimos tus datos con terceros. <a href="#" class="cookie-link" id="cookieMoreInfo" data-i18n="cookie-more">Más información</a></p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn cookie-btn-reject" id="cookieReject" data-i18n="cookie-reject">Solo esenciales</button>
+      <button class="cookie-btn cookie-btn-accept" id="cookieAccept" data-i18n="cookie-accept">Aceptar todas</button>
+    </div>
+  </div>
+</div>
+<div class="cookie-details-panel" id="cookieDetails" aria-hidden="true">
+  <div class="cookie-details-inner">
+    <div class="cookie-details-header">
+      <h3 data-i18n="cookie-details-title">Configuración de Cookies</h3>
+      <button class="cookie-details-close" id="cookieDetailsClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="cookie-details-body">
+      <div class="cookie-category"><div class="cookie-category-header"><label class="cookie-toggle"><input type="checkbox" checked disabled /><span class="cookie-toggle-slider"></span></label><div><strong data-i18n="cookie-cat-essential">Esenciales</strong><p data-i18n="cookie-cat-essential-desc">Necesarias para el funcionamiento del sitio.</p></div></div></div>
+      <div class="cookie-category"><div class="cookie-category-header"><label class="cookie-toggle"><input type="checkbox" id="cookieAnalytics" checked /><span class="cookie-toggle-slider"></span></label><div><strong data-i18n="cookie-cat-analytics">Analíticas</strong><p data-i18n="cookie-cat-analytics-desc">Datos anónimos para mejorar el sitio.</p></div></div></div>
+      <div class="cookie-category"><div class="cookie-category-header"><label class="cookie-toggle"><input type="checkbox" id="cookieMarketing" /><span class="cookie-toggle-slider"></span></label><div><strong data-i18n="cookie-cat-marketing">Marketing</strong><p data-i18n="cookie-cat-marketing-desc">Medir efectividad de campañas.</p></div></div></div>
+    </div>
+    <div class="cookie-details-footer"><button class="cookie-btn cookie-btn-accept" id="cookieSavePrefs" data-i18n="cookie-save">Guardar preferencias</button></div>
+  </div>
+</div>
+
+<!-- ===== BACK TO TOP ===== -->
+<a href="#inicio" class="back-top" id="backTop" aria-label="Volver arriba">↑</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.min.js"></script>

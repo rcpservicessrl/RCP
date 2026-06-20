@@ -2,7 +2,7 @@
 // GCP Cloud Function (stable, always-on chatbot endpoint)
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
 // GCP Cloud Function for lead capture (stable endpoint — forwards internally to n8n)
-const RCP_LEAD_WEBHOOK_URL = 'https://635ec8d1e20f47.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://2ca7f48e39a220.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // ─── SECURITY: CONFIDENTIAL KEYWORD GUARDRAIL ───
 // Blocks queries about internal infrastructure before they reach the network
@@ -199,11 +199,12 @@ const translations = {
     'nav-solucion': 'Nuestra Solución',
     'nav-ecosistema': 'Ecosistema Soberano',
     'nav-servicios': 'Servicios',
-    'nav-paquetes': 'Planes de Crecimiento',
+    'nav-paquetes': 'Planes',
     'nav-contacto': 'Contacto',
     'nav-cta': 'Diagnóstico 360°',
     'nav-compania': 'Compañía',
     'nav-portal': 'Portal',
+    'nav-tienda': 'Tienda',
     // Hero
     'hero-badge': 'Agencia 360° · República Dominicana',
     'hero-title': 'Reanimando el <span class="accent">corazón</span> de tu empresa<br />para un crecimiento <span class="accent">indetenible</span>.',
@@ -637,6 +638,7 @@ const translations = {
     'nav-cta': '360° Diagnosis',
     'nav-compania': 'Company',
     'nav-portal': 'Portal',
+    'nav-tienda': 'Store',
     'hero-badge': '360° Agency · Dominican Republic',
     'hero-title': 'Reviving the <span class="accent">heart</span> of your business<br />for <span class="accent">unstoppable</span> growth.',
     'hero-sub': 'We eradicate business arrhythmia. We are your External Board of Directors that centralizes your finances, legal affairs, and marketing under a single <strong>360°</strong> ecosystem.',
