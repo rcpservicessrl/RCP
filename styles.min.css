@@ -3771,28 +3771,30 @@ a:visited,
 /* Guided Tour Styles */
 .tour-button {
   position: fixed;
-  bottom: 24px;
+  bottom: 90px;
   right: 24px;
-  z-index: 9999;
+  z-index: 9990;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 20px;
+  padding: 12px 18px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   border: none;
   border-radius: 50px;
   color: var(--black);
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(252, 181, 63, 0.35);
+  box-shadow: 0 8px 24px rgba(252, 181, 63, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.9;
 }
 
 .tour-button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(252, 181, 63, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(252, 181, 63, 0.4);
+  opacity: 1;
 }
 
 .tour-overlay {
@@ -3815,8 +3817,11 @@ a:visited,
   border: 3px solid var(--accent);
   border-radius: var(--radius);
   box-shadow: 0 0 30px rgba(252, 181, 63, 0.5);
-  pointer-events: all;
+  pointer-events: none;
   z-index: 10001;
+  max-height: 60vh;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tour-tooltip {
@@ -3928,41 +3933,54 @@ a:visited,
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Next Section Button Styles */
+/* Next Section → replaced by .scroll-indicator */
 .next-section-btn {
-  position: fixed;
-  bottom: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--accent);
-  text-decoration: none;
-  font-family: var(--font);
-  font-weight: 600;
-  animation: bounce 2s infinite;
-  cursor: pointer;
+  display: none !important; /* Legacy — replaced by scroll-indicator */
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
-  }
+/* Smart Scroll Indicator */
+.scroll-indicator {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(252, 181, 63, 0.12);
+  border: 1px solid rgba(252, 181, 63, 0.3);
+  color: var(--accent);
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  backdrop-filter: blur(8px);
+}
+
+.scroll-indicator.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+  animation: scrollPulse 2.5s infinite ease-in-out;
+}
+
+.scroll-indicator:hover {
+  background: rgba(252, 181, 63, 0.25);
+  border-color: var(--accent);
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
 }
 
 .next-section-arrow {
   width: 32px;
   height: 32px;
-  animation: bounce 2s infinite;
 }
 
 [data-theme="light"] .tour-tooltip {

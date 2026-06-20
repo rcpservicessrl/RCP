@@ -2183,7 +2183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ═══════════════════════════════════════════════
-// GUIDED TOUR IMPLEMENTATION
+// GUIDED TOUR — SMART & NON-INTRUSIVE
 // ═══════════════════════════════════════════════
 (function () {
   const tourButton = document.getElementById('tourButton');
@@ -2199,152 +2199,202 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!tourButton || !tourOverlay) return;
 
-  // Tour steps configuration
-  const tourSteps = [
-    {
-      target: '#inicio',
-      title: '¡Bienvenido a RCP Services! 🐆',
-      content: 'Somos tu Junta Directiva Externa en la República Dominicana, listos para reanimar el corazón de tu empresa con finanzas, legalidad y marketing integrados.'
-    },
-    {
-      target: '#problema',
-      title: 'Conoce el problema que resolvemos',
-      content: '98.5% de las MIPYMEs dominicanas sufren de baja productividad, informalidad y ceguera digital. Aquí te mostramos cómo lo solucionamos.'
-    },
-    {
-      target: '#solucion',
-      title: 'Nuestra solución: El Ecosistema R·C·P',
-      content: 'Renovación, Consultoría y Publicidad 360°, todo bajo un solo techo con inteligencia artificial para acelerar tu crecimiento.'
-    },
-    {
-      target: '#paquetes',
-      title: 'Elije tu plan de crecimiento',
-      content: 'Tenemos paquetes para cada etapa: Básico (Reanimación Temprana), Avanzado (Estabilización y Crecimiento) y Premium (Vitalidad y Liderazgo).'
-    },
-    {
-      target: '#contacto',
-      title: '¡Programa tu diagnóstico 360° gratis!',
-      content: 'Completa el formulario y agenda una cita para analizar tu empresa y darte recomendaciones personalizadas.',
-      isLast: true
-    }
-  ];
+  const isEN = () => document.documentElement.lang === 'en';
+
+  // Tour steps — targeting SPECIFIC compact elements, not whole sections
+  const tourSteps = {
+    es: [
+      {
+        target: '.hero-title',
+        title: '¡Bienvenido a RCP Services! 🐆',
+        content: 'Somos tu Junta Directiva Externa. Centralizamos finanzas, legalidad y marketing en un solo ecosistema 360°.'
+      },
+      {
+        target: '.problema .cards-grid',
+        title: 'El problema que resolvemos',
+        content: 'El 98.5% de las MIPYMEs dominicanas sufren arritmia empresarial. Aquí identificamos los 3 síntomas principales.'
+      },
+      {
+        target: '.tabs .tab-buttons',
+        title: 'Nuestra solución: R·C·P',
+        content: 'Renovación, Consultoría y Publicidad 360°. Explora cada pilar haciendo clic en las pestañas.'
+      },
+      {
+        target: '.eco-compare',
+        title: 'El Ecosistema Soberano',
+        content: 'Tu empresa tendrá un núcleo digital privado con $0 en software de terceros. Compara el modelo tradicional vs. el nuestro.'
+      },
+      {
+        target: '.pricing-grid',
+        title: 'Elige tu plan',
+        content: 'Básico para empezar, Avanzado para crecer, Premium para liderar. Cada plan es una etapa de transformación.'
+      },
+      {
+        target: '#contactForm',
+        title: '¡Diagnóstico 360° Gratis!',
+        content: 'Completa el formulario y te contactamos en menos de 24 horas con un análisis personalizado de tu empresa.',
+        isLast: true
+      }
+    ],
+    en: [
+      {
+        target: '.hero-title',
+        title: 'Welcome to RCP Services! 🐆',
+        content: 'We are your External Board of Directors. We centralize finance, legal, and marketing into one 360° ecosystem.'
+      },
+      {
+        target: '.problema .cards-grid',
+        title: 'The problem we solve',
+        content: '98.5% of Dominican MSMEs suffer from business arrhythmia. Here we identify the 3 main symptoms.'
+      },
+      {
+        target: '.tabs .tab-buttons',
+        title: 'Our solution: R·C·P',
+        content: 'Revitalization, Consulting, and 360° Promotion. Explore each pillar by clicking the tabs.'
+      },
+      {
+        target: '.eco-compare',
+        title: 'The Sovereign Ecosystem',
+        content: 'Your business will have a private digital core with $0 in third-party software. Compare traditional vs. our model.'
+      },
+      {
+        target: '.pricing-grid',
+        title: 'Choose your plan',
+        content: 'Basic to start, Advanced to grow, Premium to lead. Each plan is a transformation stage.'
+      },
+      {
+        target: '#contactForm',
+        title: 'Free 360° Diagnosis!',
+        content: 'Fill out the form and we\'ll contact you within 24 hours with a personalized analysis of your business.',
+        isLast: true
+      }
+    ]
+  };
 
   let currentStep = 0;
   let isTourActive = false;
 
-  // Load saved progress
-  function loadTourProgress() {
-    const savedStep = localStorage.getItem('rcp-tour-step');
-    const tourCompleted = localStorage.getItem('rcp-tour-completed') === 'true';
-    return { savedStep: savedStep ? parseInt(savedStep) : 0, tourCompleted };
+  function getSteps() {
+    return isEN() ? tourSteps.en : tourSteps.es;
   }
 
-  // Save progress
-  function saveProgress() {
-    localStorage.setItem('rcp-tour-step', currentStep.toString());
-  }
-
-  // Render progress dots
   function renderProgress() {
-    tourProgress.innerHTML = tourSteps.map((_, index) => 
+    const steps = getSteps();
+    tourProgress.innerHTML = steps.map((_, index) => 
       `<div class="tour-progress-dot ${index === currentStep ? 'active' : ''}"></div>`
     ).join('');
   }
 
-  // Position tooltip
   function positionTooltip(targetRect) {
-    const tooltipRect = tourTooltip.getBoundingClientRect();
-    let top = targetRect.bottom + 16;
-    let left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+    // Reset position to measure accurately
+    tourTooltip.style.top = '0';
+    tourTooltip.style.left = '0';
+    
+    requestAnimationFrame(() => {
+      const tooltipRect = tourTooltip.getBoundingClientRect();
+      const viewportH = window.innerHeight;
+      const viewportW = window.innerWidth;
+      
+      // Prefer below the element
+      let top = targetRect.bottom + 16;
+      let left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
 
-    // Adjust if tooltip goes off screen
-    if (top + tooltipRect.height > window.innerHeight) {
-      top = targetRect.top - tooltipRect.height - 16;
-    }
-    if (left < 16) left = 16;
-    if (left + tooltipRect.width > window.innerWidth - 16) {
-      left = window.innerWidth - tooltipRect.width - 16;
-    }
+      // If below goes off-screen, place above
+      if (top + tooltipRect.height > viewportH - 20) {
+        top = targetRect.top - tooltipRect.height - 16;
+      }
+      // If still off-screen (element too tall), place at center
+      if (top < 20) {
+        top = Math.max(20, (viewportH - tooltipRect.height) / 2);
+      }
 
-    tourTooltip.style.top = `${top}px`;
-    tourTooltip.style.left = `${left}px`;
+      // Horizontal bounds
+      left = Math.max(16, Math.min(left, viewportW - tooltipRect.width - 16));
+
+      tourTooltip.style.top = `${top}px`;
+      tourTooltip.style.left = `${left}px`;
+    });
   }
 
-  // Show tour step
   function showStep() {
-    const step = tourSteps[currentStep];
+    const steps = getSteps();
+    const step = steps[currentStep];
     const target = document.querySelector(step.target);
 
     if (!target) {
-      // Skip if target not found
-      if (currentStep < tourSteps.length - 1) {
-        currentStep++;
-        showStep();
-      } else {
-        endTour();
-      }
+      if (currentStep < steps.length - 1) { currentStep++; showStep(); }
+      else endTour();
       return;
     }
 
-    // Scroll to target
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Scroll element into view with padding
+    const targetRect = target.getBoundingClientRect();
+    const scrollTop = window.scrollY + targetRect.top - (window.innerHeight * 0.3);
+    window.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
 
     setTimeout(() => {
       const rect = target.getBoundingClientRect();
       
-      // Update highlight
+      // Highlight — constrain to element, not the entire section
       tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
-      tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
+      tourHighlight.style.left = `${rect.left - 8}px`;
       tourHighlight.style.width = `${rect.width + 16}px`;
-      tourHighlight.style.height = `${rect.height + 16}px`;
+      tourHighlight.style.height = `${Math.min(rect.height + 16, window.innerHeight * 0.6)}px`;
 
-      // Update tooltip
+      // Tooltip content
       tourTitle.textContent = step.title;
       tourContent.textContent = step.content;
-      tourNext.textContent = step.isLast ? 'Finalizar' : 'Siguiente';
-      tourPrev.style.display = currentStep === 0 ? 'none' : 'block';
+      tourNext.textContent = step.isLast 
+        ? (isEN() ? 'Finish' : 'Finalizar') 
+        : (isEN() ? 'Next' : 'Siguiente');
+      tourPrev.textContent = isEN() ? 'Previous' : 'Anterior';
+      tourPrev.style.display = currentStep === 0 ? 'none' : '';
 
       renderProgress();
-
-      setTimeout(() => positionTooltip(rect), 100);
-    }, 500);
-
-    saveProgress();
+      setTimeout(() => positionTooltip(rect), 150);
+    }, 600);
   }
 
-  // Start tour
   function startTour() {
+    currentStep = 0;
     isTourActive = true;
     tourOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
     showStep();
   }
 
-  // End tour
   function endTour() {
     isTourActive = false;
     tourOverlay.classList.remove('active');
+    document.body.style.overflow = '';
     localStorage.setItem('rcp-tour-completed', 'true');
-    localStorage.removeItem('rcp-tour-step');
   }
 
   // Event listeners
   tourButton.addEventListener('click', startTour);
-
   tourClose.addEventListener('click', endTour);
 
   tourNext.addEventListener('click', () => {
-    if (currentStep < tourSteps.length - 1) {
+    const steps = getSteps();
+    if (currentStep < steps.length - 1) {
       currentStep++;
+      document.body.style.overflow = '';
       showStep();
+      setTimeout(() => { document.body.style.overflow = 'hidden'; }, 700);
     } else {
       endTour();
+      // Scroll to contact after tour ends
+      const contactSection = document.getElementById('contacto');
+      if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   });
 
   tourPrev.addEventListener('click', () => {
     if (currentStep > 0) {
       currentStep--;
+      document.body.style.overflow = '';
       showStep();
+      setTimeout(() => { document.body.style.overflow = 'hidden'; }, 700);
     }
   });
 
@@ -2356,72 +2406,136 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowLeft') tourPrev.click();
   });
 
-  // Update tooltip position on scroll/resize
-  let scrollTicking = false;
-  window.addEventListener('scroll', () => {
-    if (!isTourActive) return;
-    if (!scrollTicking) {
-      window.requestAnimationFrame(() => {
-        const step = tourSteps[currentStep];
-        const target = document.querySelector(step.target);
-        if (target) {
-          const rect = target.getBoundingClientRect();
-          tourHighlight.style.top = `${rect.top + window.scrollY - 8}px`;
-          tourHighlight.style.left = `${rect.left + window.scrollX - 8}px`;
-          positionTooltip(rect);
-        }
-        scrollTicking = false;
-      });
-      scrollTicking = true;
-    }
+  // Click overlay to close
+  tourOverlay.addEventListener('click', (e) => {
+    if (e.target === tourOverlay) endTour();
   });
 
-  let resizeTicking = false;
-  window.addEventListener('resize', () => {
-    if (!isTourActive) return;
-    if (!resizeTicking) {
-      window.requestAnimationFrame(() => {
-        const step = tourSteps[currentStep];
-        const target = document.querySelector(step.target);
-        if (target) positionTooltip(target.getBoundingClientRect());
-        resizeTicking = false;
-      });
-      resizeTicking = true;
+  // Update tour button text based on language and completion
+  function updateTourButton() {
+    const completed = localStorage.getItem('rcp-tour-completed') === 'true';
+    if (completed) {
+      tourButton.innerHTML = isEN() 
+        ? '<span>🔄</span><span>Tour again</span>' 
+        : '<span>🔄</span><span>Recorrer de nuevo</span>';
+    } else {
+      tourButton.innerHTML = isEN() 
+        ? '<span>🚀</span><span>Quick Tour</span>' 
+        : '<span>🚀</span><span>Tour Rápido</span>';
     }
-  });
+  }
+  updateTourButton();
 
-  // Show tour button if not completed yet
-  const { tourCompleted } = loadTourProgress();
-  if (tourCompleted) {
-    tourButton.innerHTML = '<span>🔄</span><span>Volver a recorrer</span>';
+  // Listen for language changes
+  const langSelect = document.getElementById('langSelect');
+  if (langSelect) {
+    langSelect.addEventListener('change', updateTourButton);
   }
 })();
 
 // ═══════════════════════════════════════════════
-// NEXT SECTION NAVIGATION BUTTONS
+// SMART SCROLL INDICATOR (replaces broken next-section buttons)
+// Single floating arrow that shows contextually and hides at bottom
 // ═══════════════════════════════════════════════
 (function () {
-  const sections = [
-    { id: 'inicio', next: 'problema' },
-    { id: 'problema', next: 'solucion' },
-    { id: 'solucion', next: 'paquetes' },
-    { id: 'paquetes', next: 'contacto' }
-  ];
+  // Define the page flow
+  const sectionFlow = ['inicio', 'problema', 'solucion', 'ecosistema', 'paquetes', 'trust', 'contacto'];
+  
+  // Create a single scroll indicator
+  const indicator = document.createElement('a');
+  indicator.className = 'scroll-indicator';
+  indicator.setAttribute('aria-label', 'Siguiente sección');
+  indicator.innerHTML = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 9l6 6 6-6"/>
+    </svg>
+  `;
+  document.body.appendChild(indicator);
 
-  sections.forEach(section => {
-    const target = document.getElementById(section.id);
-    if (!target) return;
+  let currentSectionIndex = 0;
+  let isVisible = false;
+  let hideTimeout = null;
 
-    const nextBtn = document.createElement('a');
-    nextBtn.href = `#${section.next}`;
-    nextBtn.className = 'next-section-btn';
-    nextBtn.innerHTML = `
-      <span>Siguiente sección</span>
-      <svg class="next-section-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14M5 12l7 7 7-7" />
-      </svg>
-    `;
-    target.appendChild(nextBtn);
+  function updateIndicator() {
+    const scrollY = window.scrollY;
+    const viewportH = window.innerHeight;
+    const docH = document.documentElement.scrollHeight;
+    
+    // Hide if near bottom (within 200px of the end)
+    if (scrollY + viewportH >= docH - 200) {
+      hideIndicator();
+      return;
+    }
+    
+    // Hide if user hasn't scrolled at all (let them explore hero first)
+    if (scrollY < 100) {
+      showIndicator();
+    }
+
+    // Find current section
+    let foundIndex = 0;
+    for (let i = sectionFlow.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionFlow[i]);
+      if (el && el.getBoundingClientRect().top <= viewportH * 0.5) {
+        foundIndex = i;
+        break;
+      }
+    }
+    currentSectionIndex = foundIndex;
+
+    // Point to next section
+    const nextIndex = Math.min(currentSectionIndex + 1, sectionFlow.length - 1);
+    if (nextIndex === currentSectionIndex) {
+      hideIndicator();
+      return;
+    }
+
+    indicator.href = `#${sectionFlow[nextIndex]}`;
+    showIndicator();
+  }
+
+  function showIndicator() {
+    if (isVisible) return;
+    isVisible = true;
+    indicator.classList.add('visible');
+    // Auto-hide after 4 seconds of inactivity
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(hideIndicator, 4000);
+  }
+
+  function hideIndicator() {
+    if (!isVisible) return;
+    isVisible = false;
+    indicator.classList.remove('visible');
+  }
+
+  // Throttled scroll handler
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        updateIndicator();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+    // Reset auto-hide timer on scroll
+    if (isVisible) {
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(hideIndicator, 4000);
+    }
+  });
+
+  // Show on initial load
+  setTimeout(updateIndicator, 2000);
+
+  // Smooth scroll on click
+  indicator.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(indicator.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 })();
 
