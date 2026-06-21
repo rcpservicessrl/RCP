@@ -185,8 +185,26 @@ def rcpLead(request):
     # Log the lead (always, as fallback persistence)
     print(f"[rcpLead] Lead captured: {body.get('user_name', 'N/A')} - {body.get('user_email', 'N/A')} - {body.get('user_company', 'N/A')} - Service: {body.get('user_service', 'N/A')} - n8n_forwarded: {n8n_success}")
 
+    # Sync to Odoo Online CRM (best-effort)
+    odoo_lead_id = None
+    try:
+        from odoo_sync import odoo_create_lead
+        odoo_lead_id = odoo_create_lead(
+            name=body.get('user_name', ''),
+            email=body.get('user_email', ''),
+            phone=body.get('user_phone', ''),
+            company=body.get('user_company', ''),
+            service=body.get('user_service', 'Diagnostico 360'),
+            message=body.get('user_message', '')
+        )
+        if odoo_lead_id:
+            print(f"[rcpLead] Odoo CRM lead created: ID {odoo_lead_id}")
+    except Exception as e:
+        print(f"[rcpLead] Odoo sync skipped: {e}")
+
     return (jsonify({
         "success": True, 
         "message": "Lead captured successfully",
-        "n8n_forwarded": n8n_success
+        "n8n_forwarded": n8n_success,
+        "odoo_lead_id": odoo_lead_id
     }), 200, headers)
