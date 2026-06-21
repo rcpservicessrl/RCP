@@ -1,105 +1,123 @@
 "use strict";
 (function(){
-var CATALOG = [];
-var icons = {sw:'SW',crm:'CRM',erp:'ERP',imp:'IMP',pop:'POP',srv:'SRV'};
-function a(sku,name,desc,cat,type,min,max,days,tags,quote){
-  CATALOG.push({sku:sku,name:name,desc:desc,cat:cat,type:type,min:min,max:max,days:days,tags:tags||[],quote:quote||false});
-}
-// SOFTWARE PRE-CONFIGURADO
-a('SW-PRE01','Sistema POS (Punto de Venta)','Gestion de caja, inventario en tiempo real, reportes de ventas, multiples sucursales y control de empleados.','software_preconfigurado','one_time',35000,65000,'7-14',['pos','ventas']);
-a('SW-PRE02','CRM Corporativo','Seguimiento de prospectos, embudo de ventas, automatizacion de seguimiento, integracion con WhatsApp y email.','software_preconfigurado','one_time',30000,55000,'7-14',['crm','leads']);
-a('SW-PRE03','ERP Basico (Ventas + Inventario)','Control centralizado de compras, ventas, inventario y facturacion con reportes y alertas.','software_preconfigurado','one_time',45000,80000,'14-21',['erp','inventario']);
-a('SW-PRE04','ERP Completo Multi-modulo','ERP empresarial con contabilidad, RRHH, proyectos, manufactura, e-commerce y BI.','software_preconfigurado','one_time',80000,150000,'21-45',['erp','enterprise']);
-a('SW-PRE05','Facturacion Electronica NCF','Emision de comprobantes fiscales NCF, reportes 606/607 y envio por email.','software_preconfigurado','one_time',25000,45000,'7-14',['facturacion','ncf']);
-a('SW-PRE06','Sistema de Reservas y Citas','Calendario online para salones y clinicas con WhatsApp y recordatorios.','software_preconfigurado','one_time',20000,40000,'5-10',['reservas','citas']);
-a('SW-PRE07','Plataforma de Delivery','App de pedidos con tracking, repartidores y notificaciones al cliente.','software_preconfigurado','one_time',50000,90000,'14-28',['delivery','pedidos']);
-a('SW-PRE08','Dashboard Directivo KPIs','Panel ejecutivo con metricas en tiempo real: CAC, LTV, ROI, ROAS.','software_preconfigurado','one_time',35000,60000,'7-14',['dashboard','kpi']);
-a('SW-PRE09','Sistema Gestion Escolar','Matriculas, calificaciones, asistencia, pagos y portal estudiantil.','software_preconfigurado','one_time',60000,120000,'21-45',['escuela','educacion']);
-a('SW-PRE10','Sistema Gestion de Clinica','Expedientes, citas, recetas, laboratorios y facturacion ARS.','software_preconfigurado','one_time',55000,100000,'14-30',['clinica','salud']);
-// SOFTWARE CUSTOM
-a('SW-CUS01','Aplicacion Web a Medida (PWA)','Desarrollo completo con UI/UX personalizado, backend robusto y deploy en la nube.','software_custom','one_time',80000,250000,'30-90',['webapp','pwa'],true);
-a('SW-CUS02','App Movil (iOS + Android)','Desarrollo nativo o cross-platform con publicacion en tiendas.','software_custom','one_time',120000,400000,'45-120',['app','movil'],true);
-a('SW-CUS03','Portal de Clientes','Plataforma donde tus clientes ven avances, aprueban artes y descargan facturas.','software_custom','one_time',60000,150000,'21-60',['portal','dashboard'],true);
-a('SW-CUS04','Integracion de APIs','Conectamos ERP, CRM, tienda online, WhatsApp y pasarelas de pago.','software_custom','one_time',30000,100000,'10-30',['api','integracion'],true);
-a('SW-CUS05','Marketplace Multi-vendor','Plataforma donde multiples vendedores ofrecen productos con comisiones.','software_custom','one_time',150000,500000,'60-120',['marketplace'],true);
-a('SW-CUS06','IA Corporativa Privada','Modelos de lenguaje entrenados con tus datos. Chatbots y automatizacion.','software_custom','one_time',100000,300000,'30-60',['ia','privada'],true);
-a('SW-CUS07','Sitio Web Corporativo','Sitio premium multi-pagina con SEO, animaciones y CMS.','software_custom','one_time',40000,100000,'14-30',['web','corporativo']);
-a('SW-CUS08','Mantenimiento Mensual','Actualizaciones, backups, monitoreo 24/7 y soporte prioritario.','software_custom','recurring',8000,25000,'Continuo',['soporte']);
-// IMPRENTA
-a('IMP-01','Tarjetas de Presentacion (500)','Impresion premium 350g. Mate, brillante o soft-touch. Diseno incluido.','imprenta','per_unit',3500,8000,'3-5',['tarjetas']);
-a('IMP-02','Hojas Timbradas y Sobres','Papeleria institucional con membrete y logo a todo color.','imprenta','per_unit',5000,12000,'5-7',['papeleria']);
-a('IMP-03','Carpetas Institucionales','Carpetas con bolsillo interior para propuestas comerciales.','imprenta','per_unit',8000,18000,'5-10',['carpeta']);
-a('IMP-04','Volantes / Flyers (1000)','Volantes a todo color en papel couche. Diseno incluido.','imprenta','per_unit',4000,10000,'3-5',['volantes']);
-a('IMP-05','Brochures y Catalogos','Folletos plegables o catalogos con encuadernacion profesional.','imprenta','per_unit',15000,45000,'7-14',['brochure']);
-a('IMP-06','Formularios Factura NCF','Blocks de facturas NCF en original y copia numerados.','imprenta','per_unit',3000,8000,'3-5',['factura','ncf']);
-a('IMP-07','Formularios Pre-impresos','Recibos, ordenes de compra, conduces personalizados.','imprenta','per_unit',4000,12000,'5-7',['formulario']);
-a('IMP-08','Banner / Roll-up','Banner retractil 85x200cm con estructura e impresion HD.','imprenta','per_unit',4500,9000,'3-5',['banner']);
-a('IMP-09','Valla / Bajante','Impresion en lona o vinil para exteriores, alta durabilidad.','imprenta','per_unit',15000,45000,'5-10',['valla']);
-a('IMP-10','Letrero Luminoso','Fabricacion e instalacion de letrero LED o acrilico.','imprenta','one_time',20000,60000,'7-14',['letrero']);
-a('IMP-11','Rotulacion de Fachada','Vinil adhesivo de alta calidad para vidrios y paredes.','imprenta','one_time',15000,40000,'5-10',['rotulacion']);
-a('IMP-12','Branding de Vehiculos','Rotulado parcial o total con vinil vehicular 3-5 anos.','imprenta','per_unit',15000,45000,'5-10',['vehiculo']);
-a('IMP-13','Etiquetas de Producto','Etiquetas adhesivas personalizadas, troquel especial.','imprenta','per_unit',5000,15000,'5-10',['etiqueta']);
-a('IMP-14','Empaque Personalizado','Cajas y bolsas con tu marca, desde pizza hasta lujo.','imprenta','per_unit',12000,40000,'10-21',['empaque']);
-// POP Y MERCHANDISING
-a('POP-01','Uniformes Bordados','Polos o camisas con logo bordado. Minimo 6 unidades.','pop_merchandising','per_unit',1200,3500,'7-14',['uniforme']);
-a('POP-02','Gorras Corporativas','Gorras con logo bordado. Minimo 12 unidades.','pop_merchandising','per_unit',600,1500,'7-14',['gorra']);
-a('POP-03','Tazas Sublimadas','Ceramica 11oz con impresion full-color. Minimo 12.','pop_merchandising','per_unit',400,900,'5-7',['taza']);
-a('POP-04','Termos Corporativos','Acero inoxidable con grabado laser o UV de tu logo.','pop_merchandising','per_unit',800,2000,'7-14',['termo']);
-a('POP-05','Boligrafos (100 uds)','Con logo impreso, desde economicos hasta premium.','pop_merchandising','per_unit',3000,8000,'5-10',['boligrafo']);
-a('POP-06','Libretas y Agendas','Agendas ejecutivas grabadas y libretas con logo.','pop_merchandising','per_unit',1500,4000,'7-14',['libreta']);
-a('POP-07','Lanyards y Porta-carnet','Cinta con logo + porta-carnet. Minimo 25.','pop_merchandising','per_unit',500,1200,'5-10',['lanyard']);
-a('POP-08','USB y Power Banks','Memorias o cargadores con grabado laser de tu marca.','pop_merchandising','per_unit',1000,3500,'10-14',['usb','tech']);
-a('POP-09','Bolsas Ecologicas','Tote bags con impresion serigrafica. Minimo 50.','pop_merchandising','per_unit',400,1000,'5-10',['bolsa']);
-a('POP-10','Kit de Bienvenida','Taza + libreta + boligrafo + bolsa con tu marca.','pop_merchandising','per_unit',3000,8000,'7-14',['kit']);
-a('POP-11','Sellos Corporativos','Sello humedo + sello seco con razon social y RNC.','pop_merchandising','per_unit',2500,5000,'5-7',['sello']);
-a('POP-12','Delantales Personalizados','Para chef o barista con bordado de tu logo.','pop_merchandising','per_unit',800,2000,'7-10',['delantal']);
-// SERVICIOS
-a('SRV-R01','Identidad Visual Basica','Logo, paleta, tipografias y manual basico de marca.','servicio_renovacion','one_time',15000,30000,'5-10',['branding']);
-a('SRV-R02','Rebranding Premium','Rediseno completo con manual extenso y activos digitales.','servicio_renovacion','one_time',40000,80000,'14-28',['rebranding']);
-a('SRV-R04','Automatizacion con IA','Agentes de IA para emails, leads, reportes y tareas.','servicio_renovacion','one_time',25000,55000,'10-21',['ia']);
-a('SRV-C01','Formalizacion Comercial','ONAPI + Camara de Comercio + RNC DGII completo.','servicio_consultoria','one_time',25000,45000,'14-30',['legal']);
-a('SRV-C03','Auditoria Fiscal','Evaluacion impositiva con plan de optimizacion DGII.','servicio_consultoria','one_time',20000,40000,'7-14',['fiscal']);
-a('SRV-C04','Licitaciones Ley 488-08','RPE, certificacion MIPYME y acompanamiento estatal.','servicio_consultoria','one_time',30000,60000,'21-45',['licitacion']);
-a('SRV-P02','Campanas Meta y Google Ads','Diseno, segmentacion y optimizacion mensual de ads.','servicio_publicidad','recurring',15000,30000,'3-7',['ads']);
-a('SRV-P04','SEO Local Dominicana','Google Maps y busqueda organica en tu zona.','servicio_publicidad','recurring',12000,25000,'14-30',['seo']);
-a('SRV-P09','Chatbot WhatsApp con IA','Bot 24/7 que atiende, califica leads y agenda citas.','servicio_publicidad','one_time',30000,60000,'10-21',['chatbot']);
+// ═══════════════════════════════════════════════
+// TIENDA RCP — Fixed Prices + Cart + WhatsApp Quote
+// ═══════════════════════════════════════════════
 
-// ─── RENDER LOGIC ───
+// Product structure: sku, name, includes (what's included), price (fixed DOP), 
+// days (delivery), cat, type, hasVariant (needs quote for customization)
+var P = [];
+function add(sku,name,includes,price,days,cat,type,hasVariant){
+  P.push({sku:sku,name:name,includes:includes,price:price,days:days,cat:cat,type:type||'one_time',v:hasVariant||false});
+}
+
+// ─── SOFTWARE PRE-CONFIGURADO (precio fijo, listo para usar) ───
+add('SW-01','Sistema POS (Punto de Venta)','Incluye: Modulo de caja, inventario basico (hasta 500 productos), reportes de ventas diarios, 1 sucursal, 3 usuarios, capacitacion remota 2h, soporte 30 dias.',45000,'7-10 dias','software_preconfigurado','one_time',true);
+add('SW-02','CRM Corporativo','Incluye: Embudo de ventas, hasta 1000 contactos, automatizacion de seguimiento por email, integracion WhatsApp, dashboard de metricas, 3 usuarios, soporte 30 dias.',35000,'7-10 dias','software_preconfigurado','one_time',true);
+add('SW-03','ERP Basico (Ventas + Inventario)','Incluye: Modulos de compras, ventas, inventario y facturacion. Hasta 1000 productos, 5 usuarios, reportes automaticos, capacitacion 3h.',60000,'14-21 dias','software_preconfigurado','one_time',true);
+add('SW-04','Facturacion Electronica NCF','Incluye: Emision de NCF (B01, B02, B14, B15), secuencias automaticas, reportes 606/607 para DGII, envio por email, 2 usuarios.',30000,'5-7 dias','software_preconfigurado','one_time',false);
+add('SW-05','Sistema de Reservas Online','Incluye: Calendario web, confirmacion por WhatsApp, recordatorios automaticos, pagos adelantados, hasta 3 profesionales.',25000,'5-7 dias','software_preconfigurado','one_time',true);
+add('SW-06','Dashboard Directivo','Incluye: Panel con KPIs en tiempo real (ventas, gastos, CAC, LTV, ROI), conexion a 1 fuente de datos, acceso movil, 2 usuarios.',40000,'7-10 dias','software_preconfigurado','one_time',false);
+
+// ─── SOFTWARE CUSTOM (requiere cotizacion por complejidad variable) ───
+add('SW-07','Sitio Web Corporativo (5 paginas)','Incluye: Diseno UI/UX, 5 paginas (inicio, servicios, nosotros, contacto, blog), responsive, SEO basico, formulario de contacto, dominio 1 ano.',55000,'14-21 dias','software_custom','one_time',false);
+add('SW-08','Aplicacion Web a Medida','Incluye: Analisis de requerimientos, diseno UI/UX, desarrollo frontend + backend, deploy en la nube. Precio base para app sencilla.',120000,'30-60 dias','software_custom','one_time',true);
+add('SW-09','App Movil (iOS + Android)','Incluye: Diseno UX, desarrollo cross-platform, publicacion en tiendas, 1 mes de soporte. Precio base para app de complejidad media.',180000,'45-90 dias','software_custom','one_time',true);
+add('SW-10','Integracion de APIs','Incluye: Conexion de 2 sistemas (ej: web+CRM, ERP+WhatsApp), documentacion tecnica, testing.',35000,'7-14 dias','software_custom','one_time',true);
+add('SW-11','IA Corporativa Privada','Incluye: Chatbot entrenado con tus documentos (hasta 50 PDFs), respuestas automaticas, panel de admin.',150000,'21-30 dias','software_custom','one_time',true);
+add('SW-12','Mantenimiento Mensual','Incluye: Actualizaciones de seguridad, backups semanales, monitoreo, hasta 4h de soporte tecnico/mes.',12000,'Mensual','software_custom','recurring',true);
+
+// ─── IMPRENTA (precios fijos por lote estandar) ───
+add('IMP-01','Tarjetas de Presentacion x500','Incluye: Diseno grafico, impresion full color ambos lados, cartulina 350g mate, entrega en Santo Domingo.',5500,'3-5 dias','imprenta','one_time',true);
+add('IMP-02','Hojas Timbradas x500 + Sobres x200','Incluye: Diseno de membrete, impresion en papel bond 90g, sobres carta con logo.',7500,'5-7 dias','imprenta','one_time',false);
+add('IMP-03','Volantes / Flyers x1000','Incluye: Diseno publicitario, impresion full color, papel couche 150g, tamano carta o media carta.',6000,'3-5 dias','imprenta','one_time',true);
+add('IMP-04','Brochure Triptico x500','Incluye: Diseno editorial 6 paneles, impresion full color, couche 200g, plegado.',12000,'7-10 dias','imprenta','one_time',true);
+add('IMP-05','Formularios Factura NCF x5 blocks','Incluye: Diseno con datos fiscales, original + copia, numeracion secuencial, 50 hojas/block.',4500,'3-5 dias','imprenta','one_time',false);
+add('IMP-06','Banner Roll-up 85x200cm','Incluye: Diseno grafico, impresion HD, estructura metalica retractil, bolso de transporte.',6500,'3-5 dias','imprenta','one_time',false);
+add('IMP-07','Letrero Acrilico Luminoso LED','Incluye: Diseno, fabricacion en acrilico 5mm, iluminacion LED, instalacion en Santo Domingo. Hasta 1m x 50cm.',35000,'10-14 dias','imprenta','one_time',true);
+add('IMP-08','Rotulacion de Fachada (hasta 3m2)','Incluye: Diseno adaptado, vinil adhesivo de alta calidad, instalacion profesional.',18000,'5-7 dias','imprenta','one_time',true);
+add('IMP-09','Branding Vehicular (parcial)','Incluye: Diseno adaptado al vehiculo, vinil vehicular 3 anos, aplicacion profesional. Puertas + capo.',22000,'5-7 dias','imprenta','one_time',true);
+add('IMP-10','Etiquetas de Producto x1000','Incluye: Diseno, troquel personalizado, impresion full color, acabado mate o brillante.',8000,'5-7 dias','imprenta','one_time',true);
+add('IMP-11','Empaque / Caja Personalizada x100','Incluye: Diseno estructural + grafico, carton corrugado o couche, armado. Tamano estandar.',15000,'10-14 dias','imprenta','one_time',true);
+
+// ─── ARTICULOS CORPORATIVOS / POP (precio por unidad, minimos indicados) ───
+add('POP-01','Polo Bordado Corporativo','Incluye: Polo algodón/poliester, bordado de logo en pecho (hasta 10cm), 1 color de tela. Precio por unidad, minimo 6.',1800,'7-14 dias','pop_merchandising','per_unit',true);
+add('POP-02','Gorra Bordada','Incluye: Gorra tipo baseball, bordado frontal de logo, cierre metalico. Precio por unidad, minimo 12.',950,'7-14 dias','pop_merchandising','per_unit',true);
+add('POP-03','Taza Sublimada 11oz','Incluye: Taza ceramica blanca, impresion full color por sublimacion, caja individual. Precio por unidad, minimo 12.',550,'5-7 dias','pop_merchandising','per_unit',true);
+add('POP-04','Termo Acero con Grabado Laser','Incluye: Botella termica 500ml acero inoxidable, grabado laser de logo. Precio por unidad, minimo 6.',1500,'7-10 dias','pop_merchandising','per_unit',true);
+add('POP-05','Boligrafos con Logo x100','Incluye: 100 boligrafos plasticos con impresion de logo a 1 color. Tinta azul o negra.',4500,'5-7 dias','pop_merchandising','one_time',false);
+add('POP-06','Agenda Ejecutiva Grabada','Incluye: Agenda A5 tapa dura cuero sintetico, grabado laser de logo en portada, separadores. Por unidad, minimo 6.',2500,'7-14 dias','pop_merchandising','per_unit',true);
+add('POP-07','Lanyard + Porta-carnet x25','Incluye: 25 cintas sublimadas full color + porta-carnet PVC transparente.',8500,'5-7 dias','pop_merchandising','one_time',true);
+add('POP-08','Kit Bienvenida Corporativo','Incluye: Taza + libreta + boligrafo + bolsa tote, todo con logo. Precio por kit, minimo 6.',5500,'10-14 dias','pop_merchandising','per_unit',true);
+add('POP-09','Sellos Corporativos (Humedo + Seco)','Incluye: 1 sello automatico humedo + 1 sello seco de escritorio con razon social y RNC.',3500,'5-7 dias','pop_merchandising','one_time',false);
+add('POP-10','Delantal Bordado','Incluye: Delantal largo chef/barista, bordado de logo, bolsillos frontales. Por unidad, minimo 6.',1400,'7-10 dias','pop_merchandising','per_unit',true);
+
+// ─── SERVICIOS PROFESIONALES (precio fijo por alcance definido) ───
+add('SRV-01','Identidad Visual Basica','Incluye: 3 propuestas de logotipo, paleta de 5 colores, 2 tipografias, manual basico de uso (PDF), archivos editables.',20000,'7-10 dias','servicio_renovacion','one_time',false);
+add('SRV-02','Rebranding Corporativo','Incluye: Rediseno completo de logo, manual de marca 20+ paginas, papeleria digital, kit redes sociales (10 templates), favicon.',50000,'14-21 dias','servicio_renovacion','one_time',false);
+add('SRV-03','Formalizacion Comercial ONAPI+DGII','Incluye: Busqueda de disponibilidad, solicitud ONAPI, Registro Mercantil Camara de Comercio, inscripcion RNC en DGII. Tasas gubernamentales incluidas.',32000,'21-30 dias','servicio_consultoria','one_time',false);
+add('SRV-04','Auditoria Fiscal + Plan Tributario','Incluye: Revision de ultimos 12 meses, identificacion de riesgos DGII, plan de optimizacion fiscal, informe ejecutivo.',25000,'7-14 dias','servicio_consultoria','one_time',false);
+add('SRV-05','Campana Meta Ads (1 mes)','Incluye: Estrategia, 4 creativos (imagenes), segmentacion, configuracion de pixel, optimizacion semanal, reporte final. No incluye presupuesto publicitario.',18000,'Mensual','servicio_publicidad','recurring',false);
+add('SRV-06','SEO Local (1 mes)','Incluye: Ficha Google Business optimizada, 4 publicaciones, keywords research, link building local, reporte de posiciones.',15000,'Mensual','servicio_publicidad','recurring',false);
+add('SRV-07','Chatbot WhatsApp con IA','Incluye: Bot que responde 24/7 con conocimiento de tu negocio (hasta 20 preguntas frecuentes), califica leads, envia a CRM.',40000,'10-14 dias','servicio_publicidad','one_time',true);
+add('SRV-08','Community Manager (1 mes)','Incluye: 12 posts para Instagram/Facebook, 8 stories, calendario editorial, respuesta a comentarios, reporte mensual.',20000,'Mensual','servicio_publicidad','recurring',false);
+
+// ═══════════════════════════════════════════════
+// RENDERING + CART LOGIC
+// ═══════════════════════════════════════════════
 var WA='18298068092';
 var grid=document.getElementById('storeGrid');
 var modal=document.getElementById('productModal');
 var catBtns=document.querySelectorAll('.store-cat-btn');
 var activeFilter='all';
 var selected=null;
-var catL={'software_preconfigurado':'Software Empresarial','software_custom':'Desarrollo a Medida','imprenta':'Imprenta','pop_merchandising':'Articulos Corporativos','servicio_renovacion':'Renovacion','servicio_consultoria':'Consultoria','servicio_publicidad':'Marketing Digital'};
-var typeL={'one_time':'Pago unico','recurring':'Mensual','per_unit':'Por unidad'};
-// Icons per SKU prefix
-var catIcons={'SW-PRE':'&#x1F4BB;','SW-CUS':'&#x2699;&#xFE0F;','IMP':'&#x1F5A8;&#xFE0F;','POP':'&#x1F381;','SRV-R':'&#x1F504;','SRV-C':'&#x2696;&#xFE0F;','SRV-P':'&#x1F4E2;'};
+var cart=[];
+
+var catL={'software_preconfigurado':'Software Empresarial','software_custom':'Desarrollo a Medida','imprenta':'Imprenta y Rotulacion','pop_merchandising':'Articulos Corporativos','servicio_renovacion':'Renovacion','servicio_consultoria':'Consultoria','servicio_publicidad':'Marketing Digital'};
+var typeL={'one_time':'Pago unico','recurring':'/mes','per_unit':'/unidad'};
+
 function getIcon(sku){
-  if(sku.indexOf('SW-PRE')===0)return'&#128187;';
-  if(sku.indexOf('SW-CUS')===0)return'&#9881;&#65039;';
+  if(sku.indexOf('SW-')===0)return'&#128187;';
   if(sku.indexOf('IMP')===0)return'&#128424;';
   if(sku.indexOf('POP')===0)return'&#127873;';
-  if(sku.indexOf('SRV-R')===0)return'&#128260;';
-  if(sku.indexOf('SRV-C')===0)return'&#9878;&#65039;';
-  if(sku.indexOf('SRV-P')===0)return'&#128226;';
+  if(sku.indexOf('SRV')===0)return'&#9881;&#65039;';
   return'&#128230;';
 }
 
-function fp(mn,mx){if(mn===0&&mx===0)return'GRATIS';var f=function(n){return'RD$ '+n.toLocaleString()};return mn===mx?f(mn):f(mn)+' - '+f(mx);}
+function fp(price){return'RD$ '+price.toLocaleString();}
 
 function render(filter){
   if(!grid)return;
-  var items=filter==='all'?CATALOG:CATALOG.filter(function(p){return p.cat===filter;});
+  var items=filter==='all'?P:P.filter(function(p){return p.cat===filter;});
   grid.innerHTML='';
-  if(items.length===0){grid.innerHTML='<p style="text-align:center;color:#8e8f94;padding:60px 20px;grid-column:1/-1;">No hay productos en esta categoria.</p>';return;}
+  if(items.length===0){grid.innerHTML='<p style="text-align:center;color:#8e8f94;padding:60px;grid-column:1/-1">No hay productos en esta categoria.</p>';return;}
   items.forEach(function(p){
+    var inCart=cart.some(function(c){return c.sku===p.sku;});
+    var priceLabel=p.type==='recurring'?fp(p.price)+'/mes':p.type==='per_unit'?fp(p.price)+'/ud':fp(p.price);
+    var btnText=p.v?'Solicitar Cotizacion':'Agregar al Carrito';
+    var btnClass=p.v?'store-card-btn quote-btn':'store-card-btn cart-btn'+(inCart?' added':'');
     var card=document.createElement('div');
-    card.className='store-card';
-    card.innerHTML='<div class="store-card-icon">'+getIcon(p.sku)+'</div><span class="store-card-cat">'+(catL[p.cat]||p.cat)+'</span><h3 class="store-card-title">'+p.name+'</h3><p class="store-card-desc">'+p.desc+'</p><div class="store-card-footer"><span class="store-card-price">'+fp(p.min,p.max)+'</span><button class="store-card-btn">'+(p.quote?'Cotizar':'Ver mas')+'</button></div>';
-    card.onclick=function(){openM(p);};
+    card.className='store-card'+(inCart?' in-cart':'');
+    card.innerHTML='<div class="store-card-icon">'+getIcon(p.sku)+'</div>'
+      +'<span class="store-card-cat">'+(catL[p.cat]||'')+'</span>'
+      +'<h3 class="store-card-title">'+p.name+'</h3>'
+      +'<p class="store-card-desc">'+p.includes.substring(0,90)+(p.includes.length>90?'...':'')+'</p>'
+      +'<div class="store-card-footer">'
+      +'<span class="store-card-price">'+priceLabel+'</span>'
+      +'<button class="'+btnClass+'" data-sku="'+p.sku+'">'+btnText+'</button>'
+      +'</div>';
+    // Click on card opens detail
+    card.querySelector('.store-card-title').onclick=function(){openM(p);};
+    card.querySelector('.store-card-icon').onclick=function(){openM(p);};
+    // Button action
+    card.querySelector('button').onclick=function(e){
+      e.stopPropagation();
+      if(p.v){quoteWhatsApp(p);}
+      else{toggleCart(p);}
+    };
     grid.appendChild(card);
   });
+  updateCartUI();
 }
 
 function openM(p){
@@ -107,60 +125,119 @@ function openM(p){
   document.getElementById('modalIcon').innerHTML=getIcon(p.sku);
   document.getElementById('modalCategory').textContent=catL[p.cat]||'';
   document.getElementById('modalTitle').textContent=p.name;
-  document.getElementById('modalDesc').textContent=p.desc;
-  document.getElementById('modalPrice').textContent=fp(p.min,p.max);
-  document.getElementById('modalDelivery').textContent=p.days+' dias';
-  document.getElementById('modalType').textContent=typeL[p.type]||p.type;
-  var tEl=document.getElementById('modalTags');
-  tEl.innerHTML=p.tags.map(function(t){return'<span class="modal-tag">'+t+'</span>';}).join('');
+  document.getElementById('modalDesc').textContent=p.includes;
+  var priceLabel=p.type==='recurring'?fp(p.price)+'/mes':p.type==='per_unit'?fp(p.price)+'/unidad':fp(p.price);
+  document.getElementById('modalPrice').textContent=priceLabel;
+  document.getElementById('modalDelivery').textContent=p.days;
+  document.getElementById('modalType').textContent=p.v?'Requiere cotizacion':'Precio fijo';
+  document.getElementById('modalTags').innerHTML=p.v?'<span class="modal-tag">Personalizable</span><span class="modal-tag">Cotizar variaciones</span>':'<span class="modal-tag">Precio fijo</span><span class="modal-tag">Agregar al carrito</span>';
+  // Update modal buttons
+  var addBtn=document.getElementById('btnPayStripe');
+  var waBtn=document.getElementById('btnPayWhatsapp');
+  if(p.v){addBtn.textContent='Solicitar Cotizacion';addBtn.onclick=function(){quoteWhatsApp(p);};}
+  else{var inC=cart.some(function(c){return c.sku===p.sku;});addBtn.textContent=inC?'Quitar del carrito':'Agregar al carrito';addBtn.onclick=function(){toggleCart(p);closeM();};}
+  waBtn.onclick=function(){quoteWhatsApp(p);};
   modal.classList.add('open');
   document.body.style.overflow='hidden';
 }
 
-function closeM(){
-  modal.classList.remove('open');
-  document.body.style.overflow='';
-  selected=null;
+function closeM(){modal.classList.remove('open');document.body.style.overflow='';selected=null;}
+
+// ═══════════════════════════════════════════════
+// CART SYSTEM
+// ═══════════════════════════════════════════════
+function toggleCart(p){
+  var idx=cart.findIndex(function(c){return c.sku===p.sku;});
+  if(idx>=0){cart.splice(idx,1);}else{cart.push(p);}
+  render(activeFilter);
 }
 
-// Category filters
-catBtns.forEach(function(btn){
-  btn.addEventListener('click',function(){
-    catBtns.forEach(function(b){b.classList.remove('active');});
-    btn.classList.add('active');
-    activeFilter=btn.getAttribute('data-filter');
-    render(activeFilter);
-  });
-});
+function updateCartUI(){
+  var fab=document.getElementById('cartFab');
+  var badge=document.getElementById('cartBadge');
+  if(!fab)return;
+  if(cart.length>0){fab.classList.add('visible');badge.textContent=cart.length;}
+  else{fab.classList.remove('visible');}
+}
 
-// Modal close
+function openCartPanel(){
+  var panel=document.getElementById('cartPanel');
+  if(!panel)return;
+  var list=document.getElementById('cartList');
+  var total=document.getElementById('cartTotal');
+  var sum=0;
+  list.innerHTML='';
+  if(cart.length===0){list.innerHTML='<p style="color:#8e8f94;text-align:center;padding:20px;">Tu carrito esta vacio</p>';total.textContent='RD$ 0';return;}
+  cart.forEach(function(p){
+    sum+=p.price;
+    var item=document.createElement('div');
+    item.className='cart-item';
+    item.innerHTML='<div class="cart-item-info"><strong>'+p.name+'</strong><span>'+fp(p.price)+(p.type==='recurring'?'/mes':'')+'</span></div><button class="cart-item-remove" data-sku="'+p.sku+'">&times;</button>';
+    item.querySelector('button').onclick=function(){toggleCart(p);openCartPanel();};
+    list.appendChild(item);
+  });
+  total.textContent=fp(sum);
+  panel.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeCartPanel(){
+  var panel=document.getElementById('cartPanel');
+  if(panel)panel.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function checkoutWhatsApp(){
+  if(cart.length===0)return;
+  var msg='Hola RCP! Quiero adquirir los siguientes productos/servicios:\n\n';
+  var sum=0;
+  cart.forEach(function(p){
+    msg+='\u2022 '+p.name+' - '+fp(p.price)+(p.type==='recurring'?'/mes':'')+'\n';
+    sum+=p.price;
+  });
+  msg+='\nTotal estimado: '+fp(sum)+'\n\nPor favor confirmar disponibilidad y metodo de pago.';
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+function quoteWhatsApp(p){
+  var msg='Hola RCP! Me interesa cotizar una variacion de:\n\n'
+    +'\u{1F4E6} *'+p.name+'*\n'
+    +'\u{1F4B0} Precio base: '+fp(p.price)+'\n'
+    +'\u{1F4CB} SKU: '+p.sku+'\n\n'
+    +'Necesito una variacion en: [cantidad/tamano/funcionalidades]\n\n'
+    +'Me pueden enviar propuesta personalizada?';
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ═══════════════════════════════════════════════
+// EVENT BINDINGS
+// ═══════════════════════════════════════════════
+catBtns.forEach(function(btn){btn.addEventListener('click',function(){catBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');activeFilter=btn.getAttribute('data-filter');render(activeFilter);});});
+
 document.getElementById('modalClose').addEventListener('click',closeM);
 document.getElementById('modalBackdrop').addEventListener('click',closeM);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeM();closeCartPanel();}});
 
-// Payment buttons
-document.getElementById('btnPayWhatsapp').addEventListener('click',function(){
-  if(!selected)return;
-  var msg=encodeURIComponent('Hola RCP! Me interesa cotizar:\n\n'+selected.name+'\nRango: '+fp(selected.min,selected.max)+'\nSKU: '+selected.sku+'\n\nMe pueden enviar propuesta?');
-  window.open('https://wa.me/'+WA+'?text='+msg,'_blank');
-});
-document.getElementById('btnPayStripe').addEventListener('click',function(){
-  if(!selected)return;
-  alert('Pago con tarjeta: La pasarela Stripe se activara proximamente.\n\nMientras tanto, usa WhatsApp o transferencia.');
-});
-document.getElementById('btnPayPaypal').addEventListener('click',function(){
-  if(!selected)return;
-  alert('PayPal se activara proximamente.\n\nUsa WhatsApp o transferencia por ahora.');
-});
-document.getElementById('btnPayTransfer').addEventListener('click',function(){
-  if(!selected)return;
-  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta: 9601234567\nTipo: Corriente\nNombre: RCP Services SRL\n\nConcepto: '+selected.sku+' - '+selected.name+'\n\nEnvia comprobante a info@rcp.services o WhatsApp 829-806-8092');
-});
+// Cart FAB
+var cartFab=document.getElementById('cartFab');
+if(cartFab)cartFab.addEventListener('click',openCartPanel);
+var cartCloseBtn=document.getElementById('cartPanelClose');
+if(cartCloseBtn)cartCloseBtn.addEventListener('click',closeCartPanel);
+var cartCheckoutBtn=document.getElementById('cartCheckoutBtn');
+if(cartCheckoutBtn)cartCheckoutBtn.addEventListener('click',checkoutWhatsApp);
 
-// URL param filter
+// Transfer button in modal
+var btnTransfer=document.getElementById('btnPayTransfer');
+if(btnTransfer)btnTransfer.addEventListener('click',function(){
+  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta Corriente: 9601234567\nNombre: RCP Services SRL\nRNC: En proceso\n\nEnvia comprobante a:\nWhatsApp: 829-806-8092\nEmail: info@rcp.services');
+});
+var btnPaypal=document.getElementById('btnPayPaypal');
+if(btnPaypal)btnPaypal.addEventListener('click',function(){alert('PayPal se activara proximamente. Usa WhatsApp o transferencia.');});
+
+// URL param
 var params=new URLSearchParams(window.location.search);
 var catP=params.get('cat');
 if(catP){activeFilter=catP;catBtns.forEach(function(b){if(b.getAttribute('data-filter')===catP)b.classList.add('active');else b.classList.remove('active');});}
 
-// INITIAL RENDER
 render(activeFilter);
 })();

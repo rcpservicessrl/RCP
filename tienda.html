@@ -156,19 +156,19 @@
       </div>
       <div class="product-modal-tags" id="modalTags"></div>
       <hr class="cart-hr" />
-      <h4 style="margin-bottom:12px;">Método de Pago / Cotización</h4>
+      <h4 style="margin-bottom:12px;">Opciones</h4>
       <div class="payment-methods">
-        <button class="payment-btn" data-method="stripe" id="btnPayStripe">
-          <span>💳</span> Pagar con Tarjeta
+        <button class="payment-btn" id="btnPayStripe">
+          <span>&#128722;</span> Agregar al carrito
         </button>
-        <button class="payment-btn" data-method="paypal" id="btnPayPaypal">
-          <span>🅿️</span> PayPal
+        <button class="payment-btn payment-btn-whatsapp" id="btnPayWhatsapp">
+          <span>&#128172;</span> Cotizar por WhatsApp
         </button>
-        <button class="payment-btn" data-method="transfer" id="btnPayTransfer">
-          <span>🏦</span> Transferencia
+        <button class="payment-btn" id="btnPayPaypal">
+          <span>&#127380;</span> PayPal
         </button>
-        <button class="payment-btn payment-btn-whatsapp" data-method="whatsapp" id="btnPayWhatsapp">
-          <span>💬</span> Cotizar por WhatsApp
+        <button class="payment-btn" id="btnPayTransferModal" onclick="document.getElementById('btnPayTransfer').click()">
+          <span>&#127974;</span> Transferencia
         </button>
       </div>
     </div>
@@ -241,6 +241,29 @@
   </div>
 </footer>
 </main>
+
+<!-- ===== CART FAB (Floating) ===== -->
+<div class="cart-fab" id="cartFab">
+  <span class="cart-fab-badge" id="cartBadge">0</span>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+</div>
+
+<!-- ===== CART PANEL (Slide-in) ===== -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-panel-header">
+    <h3>Tu Carrito</h3>
+    <button class="cart-panel-close" id="cartPanelClose">&times;</button>
+  </div>
+  <div class="cart-panel-list" id="cartList"></div>
+  <div class="cart-panel-footer">
+    <div class="cart-panel-total">
+      <span>Total:</span>
+      <strong id="cartTotal">RD$ 0</strong>
+    </div>
+    <button class="btn-cta btn-full" id="cartCheckoutBtn">Enviar Pedido por WhatsApp</button>
+    <button class="payment-btn" id="btnPayTransfer" style="width:100%;margin-top:8px;justify-content:center;">Pagar por Transferencia</button>
+  </div>
+</div>
 
 <!-- ===== CHATBOT WIDGET ===== -->
 <div class="chatbot-widget" id="chatbotWidget" title="Asistente Virtual RCP">
