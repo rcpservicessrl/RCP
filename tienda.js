@@ -94,8 +94,8 @@ function render(filter){
   items.forEach(function(p){
     var inCart=cart.some(function(c){return c.sku===p.sku;});
     var priceLabel=p.type==='recurring'?fp(p.price)+'/mes':p.type==='per_unit'?fp(p.price)+'/ud':fp(p.price);
-    var btnText=p.v?'Solicitar Cotizacion':'Agregar al Carrito';
-    var btnClass=p.v?'store-card-btn quote-btn':'store-card-btn cart-btn'+(inCart?' added':'');
+    var btnText=inCart?'En el carrito':'Agregar';
+    var btnClass='store-card-btn cart-btn'+(inCart?' added':'');
     var card=document.createElement('div');
     card.className='store-card'+(inCart?' in-cart':'');
     card.innerHTML='<div class="store-card-icon">'+getIcon(p.sku)+'</div>'
@@ -106,14 +106,11 @@ function render(filter){
       +'<span class="store-card-price">'+priceLabel+'</span>'
       +'<button class="'+btnClass+'" data-sku="'+p.sku+'">'+btnText+'</button>'
       +'</div>';
-    // Click on card opens detail
     card.querySelector('.store-card-title').onclick=function(){openM(p);};
     card.querySelector('.store-card-icon').onclick=function(){openM(p);};
-    // Button action
     card.querySelector('button').onclick=function(e){
       e.stopPropagation();
-      if(p.v){quoteWhatsApp(p);}
-      else{toggleCart(p);}
+      toggleCart(p);
     };
     grid.appendChild(card);
   });
@@ -129,14 +126,11 @@ function openM(p){
   var priceLabel=p.type==='recurring'?fp(p.price)+'/mes':p.type==='per_unit'?fp(p.price)+'/unidad':fp(p.price);
   document.getElementById('modalPrice').textContent=priceLabel;
   document.getElementById('modalDelivery').textContent=p.days;
-  document.getElementById('modalType').textContent=p.v?'Requiere cotizacion':'Precio fijo';
-  document.getElementById('modalTags').innerHTML=p.v?'<span class="modal-tag">Personalizable</span><span class="modal-tag">Cotizar variaciones</span>':'<span class="modal-tag">Precio fijo</span><span class="modal-tag">Agregar al carrito</span>';
-  // Update modal buttons
-  var addBtn=document.getElementById('btnPayStripe');
-  var waBtn=document.getElementById('btnPayWhatsapp');
-  if(p.v){addBtn.textContent='Solicitar Cotizacion';addBtn.onclick=function(){quoteWhatsApp(p);};}
-  else{var inC=cart.some(function(c){return c.sku===p.sku;});addBtn.textContent=inC?'Quitar del carrito':'Agregar al carrito';addBtn.onclick=function(){toggleCart(p);closeM();};}
-  waBtn.onclick=function(){quoteWhatsApp(p);};
+  document.getElementById('modalType').textContent=typeL[p.type]||'Pago unico';
+  var inC=cart.some(function(c){return c.sku===p.sku;});
+  document.getElementById('modalTags').innerHTML=(inC?'<span class="modal-tag" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e;">En tu carrito</span>':'')+'<span class="modal-tag">Precio fijo</span>';
+  // Update Add to Cart button text
+  document.getElementById('btnAddCart').innerHTML=(inC?'&#10003; En el carrito':'&#128722; Agregar al Carrito');
   modal.classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -218,6 +212,37 @@ document.getElementById('modalClose').addEventListener('click',closeM);
 document.getElementById('modalBackdrop').addEventListener('click',closeM);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeM();closeCartPanel();}});
 
+// Modal: Add to Cart
+document.getElementById('btnAddCart').addEventListener('click',function(){
+  if(!selected)return;
+  toggleCart(selected);
+  closeM();
+});
+
+// Modal: Pay with Card (Stripe placeholder)
+document.getElementById('btnPayCard').addEventListener('click',function(){
+  if(!selected)return;
+  alert('Pago con tarjeta (Stripe) se activara proximamente.\n\nPor ahora puedes agregar al carrito y enviar por WhatsApp, o pagar por transferencia.');
+});
+
+// Modal: PayPal
+document.getElementById('btnPayPaypal').addEventListener('click',function(){
+  if(!selected)return;
+  alert('PayPal se activara proximamente.\n\nUsa el carrito + WhatsApp o transferencia bancaria.');
+});
+
+// Modal: Transfer
+document.getElementById('btnPayTransferModal').addEventListener('click',function(){
+  if(!selected)return;
+  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta Corriente: 9601234567\nNombre: RCP Services SRL\n\nConcepto: '+selected.sku+' - '+selected.name+'\nMonto: '+fp(selected.price)+'\n\nEnvia comprobante a:\nWhatsApp: 829-806-8092\nEmail: info@rcp.services');
+});
+
+// Modal: Quote WhatsApp (for variations/customizations only)
+document.getElementById('btnQuoteWhatsapp').addEventListener('click',function(){
+  if(!selected)return;
+  quoteWhatsApp(selected);
+});
+
 // Cart FAB
 var cartFab=document.getElementById('cartFab');
 if(cartFab)cartFab.addEventListener('click',openCartPanel);
@@ -226,13 +251,11 @@ if(cartCloseBtn)cartCloseBtn.addEventListener('click',closeCartPanel);
 var cartCheckoutBtn=document.getElementById('cartCheckoutBtn');
 if(cartCheckoutBtn)cartCheckoutBtn.addEventListener('click',checkoutWhatsApp);
 
-// Transfer button in modal
+// Cart panel: Transfer
 var btnTransfer=document.getElementById('btnPayTransfer');
 if(btnTransfer)btnTransfer.addEventListener('click',function(){
-  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta Corriente: 9601234567\nNombre: RCP Services SRL\nRNC: En proceso\n\nEnvia comprobante a:\nWhatsApp: 829-806-8092\nEmail: info@rcp.services');
+  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta Corriente: 9601234567\nNombre: RCP Services SRL\n\nEnvia comprobante + lista de productos a:\nWhatsApp: 829-806-8092\nEmail: info@rcp.services');
 });
-var btnPaypal=document.getElementById('btnPayPaypal');
-if(btnPaypal)btnPaypal.addEventListener('click',function(){alert('PayPal se activara proximamente. Usa WhatsApp o transferencia.');});
 
 // URL param
 var params=new URLSearchParams(window.location.search);

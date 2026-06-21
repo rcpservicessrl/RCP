@@ -4847,3 +4847,32 @@ a:visited,
 .store-card-btn.added { background: var(--accent); color: #000; }
 .store-card-btn.quote-btn { border-color: #25d366; color: #25d366; }
 .store-card-btn.quote-btn:hover { background: #25d366; color: #fff; }
+
+/* Quote separator in modal */
+.quote-separator {
+  display: flex;
+  align-items: center;
+  margin: 16px 0 12px;
+  gap: 12px;
+}
+.quote-separator::before, .quote-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--card-border);
+}
+.quote-separator span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.payment-btn.full-width { width: 100%; justify-content: center; }
+.payment-btn.cart-btn-primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.payment-btn.cart-btn-primary:hover {
+  background: var(--accent-dark);
+}

@@ -156,21 +156,27 @@
       </div>
       <div class="product-modal-tags" id="modalTags"></div>
       <hr class="cart-hr" />
-      <h4 style="margin-bottom:12px;">Opciones</h4>
+      <h4 style="margin-bottom:12px;">Adquirir</h4>
       <div class="payment-methods">
-        <button class="payment-btn" id="btnPayStripe">
-          <span>&#128722;</span> Agregar al carrito
+        <button class="payment-btn cart-btn-primary" id="btnAddCart">
+          <span>&#128722;</span> Agregar al Carrito
         </button>
-        <button class="payment-btn payment-btn-whatsapp" id="btnPayWhatsapp">
-          <span>&#128172;</span> Cotizar por WhatsApp
+        <button class="payment-btn" id="btnPayCard">
+          <span>&#128179;</span> Pagar con Tarjeta
         </button>
         <button class="payment-btn" id="btnPayPaypal">
           <span>&#127380;</span> PayPal
         </button>
-        <button class="payment-btn" id="btnPayTransferModal" onclick="document.getElementById('btnPayTransfer').click()">
-          <span>&#127974;</span> Transferencia
+        <button class="payment-btn" id="btnPayTransferModal">
+          <span>&#127974;</span> Transferencia Bancaria
         </button>
       </div>
+      <div class="quote-separator">
+        <span>Necesitas una variacion?</span>
+      </div>
+      <button class="payment-btn payment-btn-whatsapp full-width" id="btnQuoteWhatsapp">
+        <span>&#128172;</span> Solicitar Cotizacion Personalizada
+      </button>
     </div>
   </div>
 </div>
