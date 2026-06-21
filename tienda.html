@@ -295,10 +295,9 @@
 <script src="script.min.js"></script>
 
 <script>
-// ═══════════════════════════════════════════════
-// TIENDA RCP — Product Catalog + Payment Integration
-// ═══════════════════════════════════════════════
-(function() {
+// Wait for DOM + script.min.js to finish, then initialize store
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
   // Full product catalog (static fallback — can be loaded from Supabase)
   const CATALOG = [
     // SOFTWARE PRE-CONFIGURADO
@@ -513,7 +512,8 @@
 
   // Initial render
   renderProducts(activeFilter);
-})();
+  }, 100); // small delay to ensure script.min.js is fully loaded
+});
 </script>
 </body>
 </html>
