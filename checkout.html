@@ -390,11 +390,19 @@
             <div class="payment-methods-grid">
               <div class="payment-method-card active" data-method="cardnet">
                 <span class="method-logo">💳</span>
-                <span class="method-name" data-i18n="chk-method-cardnet">CardNet (DOP / Local)</span>
+                <span class="method-name" data-i18n="chk-method-cardnet">Tarjeta (Stripe)</span>
               </div>
               <div class="payment-method-card" data-method="paypal">
                 <span class="method-logo">🌍</span>
-                <span class="method-name" data-i18n="chk-method-paypal">PayPal / Internacional</span>
+                <span class="method-name" data-i18n="chk-method-paypal">PayPal</span>
+              </div>
+              <div class="payment-method-card" data-method="transfer">
+                <span class="method-logo">🏦</span>
+                <span class="method-name">Transferencia</span>
+              </div>
+              <div class="payment-method-card" data-method="whatsapp">
+                <span class="method-logo">💬</span>
+                <span class="method-name">WhatsApp</span>
               </div>
             </div>
 
@@ -424,6 +432,29 @@
               <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5; max-width:400px; margin:0 auto;" data-i18n="chk-paypal-redirect-desc">
                 Serás redirigido a los servidores seguros de PayPal para finalizar tu pago de forma rápida con tu cuenta o tarjeta internacional.
               </p>
+            </div>
+
+            <!-- Transfer Info -->
+            <div class="card-fields-container" id="transferFields" style="display:none; padding:25px 20px;">
+              <span style="font-size:2.5rem; display:block; margin-bottom:12px;">🏦</span>
+              <h4 style="color:var(--text); margin-bottom:15px;">Datos para Transferencia Bancaria</h4>
+              <div style="background:var(--black-3);border:1px solid var(--card-border);border-radius:12px;padding:20px;text-align:left;font-size:0.85rem;line-height:1.8;">
+                <p><strong style="color:var(--accent);">Banco:</strong> Banreservas</p>
+                <p><strong style="color:var(--accent);">Cuenta Corriente:</strong> 9601234567</p>
+                <p><strong style="color:var(--accent);">Nombre:</strong> RCP Services SRL</p>
+                <p><strong style="color:var(--accent);">Concepto:</strong> <span id="transferConcept">Paquete RCP</span></p>
+                <p style="margin-top:12px;color:var(--text-muted);font-size:0.8rem;">Envía el comprobante a <strong>info@rcp.services</strong> o por WhatsApp al <strong>829-806-8092</strong> para activar tu servicio en 24h.</p>
+              </div>
+            </div>
+
+            <!-- WhatsApp Info -->
+            <div class="card-fields-container" id="whatsappFields" style="display:none; text-align:center; padding:30px 20px;">
+              <span style="font-size:3rem; display:block; margin-bottom:15px;">💬</span>
+              <h4 style="color:var(--text); margin-bottom:10px;">Confirmar por WhatsApp</h4>
+              <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5; max-width:400px; margin:0 auto 20px;">
+                Te enviaremos los detalles del paquete y coordinaremos el método de pago directamente por WhatsApp. Respuesta en menos de 2 horas.
+              </p>
+              <a href="https://wa.me/18298068092" target="_blank" class="btn-cta" id="whatsappCheckoutBtn" style="display:inline-block;text-decoration:none;">Abrir WhatsApp →</a>
             </div>
             
             <p style="font-size:0.75rem; color:var(--text-muted); margin-top:20px; line-height:1.4;" data-i18n="chk-disclaimer">
@@ -657,7 +688,11 @@
       const methodCards = document.querySelectorAll('.payment-method-card');
       const cardnetFields = document.getElementById('cardnetFields');
       const paypalFields = document.getElementById('paypalFields');
+      const transferFields = document.getElementById('transferFields');
+      const whatsappFields = document.getElementById('whatsappFields');
       let activeMethod = 'cardnet';
+
+      const allPanels = [cardnetFields, paypalFields, transferFields, whatsappFields];
 
       methodCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -665,13 +700,12 @@
           card.classList.add('active');
           activeMethod = card.dataset.method;
           
-          if (activeMethod === 'cardnet') {
-            cardnetFields.style.display = 'block';
-            paypalFields.style.display = 'none';
-          } else {
-            cardnetFields.style.display = 'none';
-            paypalFields.style.display = 'block';
-          }
+          allPanels.forEach(p => { if(p) p.style.display = 'none'; });
+          
+          if (activeMethod === 'cardnet' && cardnetFields) cardnetFields.style.display = 'block';
+          else if (activeMethod === 'paypal' && paypalFields) paypalFields.style.display = 'block';
+          else if (activeMethod === 'transfer' && transferFields) transferFields.style.display = 'block';
+          else if (activeMethod === 'whatsapp' && whatsappFields) whatsappFields.style.display = 'block';
         });
       });
 

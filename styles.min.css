@@ -4876,3 +4876,16 @@ a:visited,
 .payment-btn.cart-btn-primary:hover {
   background: var(--accent-dark);
 }
+
+/* Cart panel payment grid */
+.cart-payment-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+.cart-payment-options .payment-btn {
+  font-size: 0.78rem;
+  padding: 10px 12px;
+  justify-content: center;
+}
