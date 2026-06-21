@@ -73,6 +73,18 @@ var activeFilter='all';
 var selected=null;
 var catL={'software_preconfigurado':'Software Empresarial','software_custom':'Desarrollo a Medida','imprenta':'Imprenta','pop_merchandising':'Articulos Corporativos','servicio_renovacion':'Renovacion','servicio_consultoria':'Consultoria','servicio_publicidad':'Marketing Digital'};
 var typeL={'one_time':'Pago unico','recurring':'Mensual','per_unit':'Por unidad'};
+// Icons per SKU prefix
+var catIcons={'SW-PRE':'&#x1F4BB;','SW-CUS':'&#x2699;&#xFE0F;','IMP':'&#x1F5A8;&#xFE0F;','POP':'&#x1F381;','SRV-R':'&#x1F504;','SRV-C':'&#x2696;&#xFE0F;','SRV-P':'&#x1F4E2;'};
+function getIcon(sku){
+  if(sku.indexOf('SW-PRE')===0)return'&#128187;';
+  if(sku.indexOf('SW-CUS')===0)return'&#9881;&#65039;';
+  if(sku.indexOf('IMP')===0)return'&#128424;';
+  if(sku.indexOf('POP')===0)return'&#127873;';
+  if(sku.indexOf('SRV-R')===0)return'&#128260;';
+  if(sku.indexOf('SRV-C')===0)return'&#9878;&#65039;';
+  if(sku.indexOf('SRV-P')===0)return'&#128226;';
+  return'&#128230;';
+}
 
 function fp(mn,mx){if(mn===0&&mx===0)return'GRATIS';var f=function(n){return'RD$ '+n.toLocaleString()};return mn===mx?f(mn):f(mn)+' - '+f(mx);}
 
@@ -84,7 +96,7 @@ function render(filter){
   items.forEach(function(p){
     var card=document.createElement('div');
     card.className='store-card';
-    card.innerHTML='<span class="store-card-cat">'+(catL[p.cat]||p.cat)+'</span><h3 class="store-card-title">'+p.name+'</h3><p class="store-card-desc">'+p.desc+'</p><div class="store-card-footer"><span class="store-card-price">'+fp(p.min,p.max)+'</span><button class="store-card-btn">'+(p.quote?'Cotizar':'Ver mas')+'</button></div>';
+    card.innerHTML='<div class="store-card-icon">'+getIcon(p.sku)+'</div><span class="store-card-cat">'+(catL[p.cat]||p.cat)+'</span><h3 class="store-card-title">'+p.name+'</h3><p class="store-card-desc">'+p.desc+'</p><div class="store-card-footer"><span class="store-card-price">'+fp(p.min,p.max)+'</span><button class="store-card-btn">'+(p.quote?'Cotizar':'Ver mas')+'</button></div>';
     card.onclick=function(){openM(p);};
     grid.appendChild(card);
   });
@@ -92,6 +104,7 @@ function render(filter){
 
 function openM(p){
   selected=p;
+  document.getElementById('modalIcon').innerHTML=getIcon(p.sku);
   document.getElementById('modalCategory').textContent=catL[p.cat]||'';
   document.getElementById('modalTitle').textContent=p.name;
   document.getElementById('modalDesc').textContent=p.desc;
