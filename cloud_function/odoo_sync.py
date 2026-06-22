@@ -8,8 +8,8 @@ import os
 
 # ─── ODOO ONLINE CONFIG ───
 # Tu instancia gratuita de Odoo Online
-ODOO_URL = os.getenv('ODOO_URL', 'https://rcpservicessrl.odoo.com')
-ODOO_DB = os.getenv('ODOO_DB', 'rcpservicessrl')
+ODOO_URL = os.getenv('ODOO_URL', 'https://rcp-services.odoo.com')
+ODOO_DB = os.getenv('ODOO_DB', 'rcp-services')
 ODOO_USER = os.getenv('ODOO_USER', 'rcpservicessrl@gmail.com')
 ODOO_API_KEY = os.getenv('ODOO_API_KEY', '')  # Generar en Odoo > Perfil > API Keys
 
