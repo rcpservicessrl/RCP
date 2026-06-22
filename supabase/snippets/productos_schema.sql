@@ -2,15 +2,22 @@
 -- RCP Services - Catálogo de Productos y Órdenes
 -- Schema para Supabase (ejecutar en SQL Editor)
 -- IMPORTANTE: Ejecutar supabase_rls_hardening.sql ANTES de este archivo
+-- NOTA: Este script es DESTRUCTIVO - borra y recrea las tablas de productos
 -- ═══════════════════════════════════════════════════════════════════════
 
--- Limpiar tipos existentes si se re-ejecuta
+-- 1. Eliminar tablas dependientes primero (orden importa por FK)
+DROP TABLE IF EXISTS public.producto_avances CASCADE;
+DROP TABLE IF EXISTS public.orden_items CASCADE;
+DROP TABLE IF EXISTS public.ordenes CASCADE;
+DROP TABLE IF EXISTS public.productos CASCADE;
+
+-- 2. Eliminar tipos
 DROP TYPE IF EXISTS product_category CASCADE;
 DROP TYPE IF EXISTS product_type CASCADE;
 DROP TYPE IF EXISTS order_status CASCADE;
 DROP TYPE IF EXISTS payment_method CASCADE;
 
--- ENUMS
+-- 3. Crear tipos frescos
 CREATE TYPE product_category AS ENUM (
   'servicio_renovacion', 'servicio_consultoria', 'servicio_publicidad',
   'software_preconfigurado', 'software_custom',
@@ -29,7 +36,7 @@ CREATE TYPE payment_method AS ENUM (
 -- ═══════════════════════════════════════════════════════════════════════
 -- TABLA: productos (catálogo maestro)
 -- ═══════════════════════════════════════════════════════════════════════
-CREATE TABLE IF NOT EXISTS public.productos (
+CREATE TABLE public.productos (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   sku TEXT UNIQUE NOT NULL,
   name_es TEXT NOT NULL,
@@ -58,7 +65,7 @@ CREATE TABLE IF NOT EXISTS public.productos (
 -- ═══════════════════════════════════════════════════════════════════════
 -- TABLA: ordenes (pedidos/cotizaciones)
 -- ═══════════════════════════════════════════════════════════════════════
-CREATE TABLE IF NOT EXISTS public.ordenes (
+CREATE TABLE public.ordenes (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   cliente_id UUID REFERENCES public.clientes(id),
   order_number TEXT UNIQUE NOT NULL,
@@ -80,7 +87,7 @@ CREATE TABLE IF NOT EXISTS public.ordenes (
 -- ═══════════════════════════════════════════════════════════════════════
 -- TABLA: orden_items (líneas de cada orden)
 -- ═══════════════════════════════════════════════════════════════════════
-CREATE TABLE IF NOT EXISTS public.orden_items (
+CREATE TABLE public.orden_items (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   orden_id UUID REFERENCES public.ordenes(id) ON DELETE CASCADE,
   producto_id UUID REFERENCES public.productos(id),
@@ -96,7 +103,7 @@ CREATE TABLE IF NOT EXISTS public.orden_items (
 -- ═══════════════════════════════════════════════════════════════════════
 -- TABLA: producto_avances (tracking de progreso para dashboard cliente)
 -- ═══════════════════════════════════════════════════════════════════════
-CREATE TABLE IF NOT EXISTS public.producto_avances (
+CREATE TABLE public.producto_avances (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   orden_item_id UUID REFERENCES public.orden_items(id) ON DELETE CASCADE,
   cliente_id UUID REFERENCES public.clientes(id),
@@ -250,6 +257,8 @@ INSERT INTO public.productos (sku, name_es, name_en, category, subcategory, icon
 -- ═══════════════════════════════════════════════════════════════════════
 -- FUNCIÓN: generar número de orden secuencial
 -- ═══════════════════════════════════════════════════════════════════════
+DROP TRIGGER IF EXISTS set_order_number ON public.ordenes;
+
 CREATE OR REPLACE FUNCTION public.generate_order_number()
 RETURNS TRIGGER AS $$
 BEGIN
