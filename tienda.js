@@ -98,7 +98,10 @@ function render(filter){
     var btnClass='store-card-btn cart-btn'+(inCart?' added':'');
     var card=document.createElement('div');
     card.className='store-card'+(inCart?' in-cart':'');
-    card.innerHTML='<div class="store-card-icon">'+getIcon(p.sku)+'</div>'
+    card.innerHTML='<div class="store-card-icon">'
+      +'<img src="assets/products/'+p.sku+'.png" class="product-thumbnail" onload="this.style.display=\'block\'; this.nextElementSibling.style.display=\'none\';" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">'
+      +'<div class="store-card-icon-fallback" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">'+getIcon(p.sku)+'</div>'
+      +'</div>'
       +'<span class="store-card-cat">'+(catL[p.cat]||'')+'</span>'
       +'<h3 class="store-card-title">'+p.name+'</h3>'
       +'<p class="store-card-desc">'+p.includes.substring(0,90)+(p.includes.length>90?'...':'')+'</p>'
@@ -119,7 +122,8 @@ function render(filter){
 
 function openM(p){
   selected=p;
-  document.getElementById('modalIcon').innerHTML=getIcon(p.sku);
+  document.getElementById('modalIcon').innerHTML='<img src="assets/products/'+p.sku+'.png" class="product-thumbnail" onload="this.style.display=\'block\'; this.nextElementSibling.style.display=\'none\';" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">'
+    +'<div class="store-card-icon-fallback" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">'+getIcon(p.sku)+'</div>';
   document.getElementById('modalCategory').textContent=catL[p.cat]||'';
   document.getElementById('modalTitle').textContent=p.name;
   document.getElementById('modalDesc').textContent=p.includes;

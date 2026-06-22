@@ -1,7 +1,14 @@
 -- ═══════════════════════════════════════════════════════════════════════
 -- RCP Services - Catálogo de Productos y Órdenes
 -- Schema para Supabase (ejecutar en SQL Editor)
+-- IMPORTANTE: Ejecutar supabase_rls_hardening.sql ANTES de este archivo
 -- ═══════════════════════════════════════════════════════════════════════
+
+-- Limpiar tipos existentes si se re-ejecuta
+DROP TYPE IF EXISTS product_category CASCADE;
+DROP TYPE IF EXISTS product_type CASCADE;
+DROP TYPE IF EXISTS order_status CASCADE;
+DROP TYPE IF EXISTS payment_method CASCADE;
 
 -- ENUMS
 CREATE TYPE product_category AS ENUM (

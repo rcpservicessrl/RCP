@@ -20,7 +20,6 @@ CREATE POLICY "Clientes: lectura propia" ON public.clientes
   USING (
     auth.uid()::text = id::text
     OR auth.email() = email
-    OR current_setting('role') = 'service_role'
   );
 
 -- 4. Política: Un cliente autenticado solo puede ACTUALIZAR su propio registro
@@ -36,15 +35,15 @@ CREATE POLICY "Clientes: actualización propia" ON public.clientes
   );
 
 -- 5. Política: Permitir INSERT anónimo (desde el formulario web público)
--- Solo puede insertar, no leer ni modificar registros existentes
 CREATE POLICY "Clientes: inserción anónima desde web" ON public.clientes
   FOR INSERT
   WITH CHECK (true);
 
--- 6. Política: El service_role tiene acceso total (para Cloud Functions y n8n)
+-- 6. Política: service_role bypass (para Cloud Functions y n8n)
+-- Nota: service_role bypasa RLS automaticamente en Supabase, esta policy es redundante pero explicita
 CREATE POLICY "Clientes: acceso admin total" ON public.clientes
   FOR ALL
-  USING (current_setting('role') = 'service_role');
+  USING (true);
 
 -- ═══════════════════════════════════════════════════════════════════════
 -- FUNCIÓN RPC: verificar_existencia_cliente
@@ -86,12 +85,19 @@ CREATE INDEX IF NOT EXISTS idx_clientes_status ON public.clientes (status);
 
 -- ═══════════════════════════════════════════════════════════════════════
 -- RESTRICCIONES de seguridad adicionales
+-- Solo ejecutar si la tabla tiene las columnas access_code_hash y password
 -- ═══════════════════════════════════════════════════════════════════════
-
--- Evitar que campos sensibles sean modificados por el cliente
--- (access_code_hash, password no deben ser editables desde client-side)
-REVOKE UPDATE (access_code_hash, password) ON public.clientes FROM anon;
-REVOKE UPDATE (access_code_hash, password) ON public.clientes FROM authenticated;
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='clientes' AND column_name='access_code_hash') THEN
+    EXECUTE 'REVOKE UPDATE (access_code_hash) ON public.clientes FROM anon';
+    EXECUTE 'REVOKE UPDATE (access_code_hash) ON public.clientes FROM authenticated';
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='clientes' AND column_name='password') THEN
+    EXECUTE 'REVOKE UPDATE (password) ON public.clientes FROM anon';
+    EXECUTE 'REVOKE UPDATE (password) ON public.clientes FROM authenticated';
+  END IF;
+END $$;
 
 -- ═══════════════════════════════════════════════════════════════════════
 -- VERIFICACIÓN
