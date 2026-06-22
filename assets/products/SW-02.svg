@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- CRM Corporativo - Funnel + Contacts -->
+  <path d="M30 30 L90 30 L75 55 L75 85 L45 85 L45 55 Z" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.08)"/>
+  <line x1="35" y1="40" x2="85" y2="40" stroke="#FCB53F" stroke-width="1" opacity="0.4"/>
+  <line x1="40" y1="50" x2="80" y2="50" stroke="#FCB53F" stroke-width="1" opacity="0.4"/>
+  <!-- Contacts dots -->
+  <circle cx="50" cy="35" r="2.5" fill="#FCB53F" opacity="0.7"/>
+  <circle cx="60" cy="35" r="2.5" fill="#FCB53F" opacity="0.7"/>
+  <circle cx="70" cy="35" r="2.5" fill="#FCB53F" opacity="0.7"/>
+  <circle cx="55" cy="45" r="2.5" fill="#FCB53F" opacity="0.6"/>
+  <circle cx="65" cy="45" r="2.5" fill="#FCB53F" opacity="0.6"/>
+  <circle cx="60" cy="70" r="3" fill="#FCB53F" opacity="0.9"/>
+  <!-- Chart arrow -->
+  <polyline points="48,95 60,88 72,92 84,82" stroke="#FCB53F" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <polygon points="84,82 78,84 82,88" fill="#FCB53F"/>
+</svg>

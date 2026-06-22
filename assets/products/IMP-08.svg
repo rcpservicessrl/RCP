@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Rotulación de Fachada -->
+  <!-- Building facade -->
+  <rect x="15" y="25" width="90" height="80" rx="2" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.04)"/>
+  <!-- Door -->
+  <rect x="45" y="70" width="30" height="35" rx="3" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.06)"/>
+  <circle cx="70" cy="88" r="2" fill="#FCB53F" opacity="0.5"/>
+  <!-- Window -->
+  <rect x="20" y="35" width="25" height="25" rx="2" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.05)"/>
+  <rect x="75" y="35" width="25" height="25" rx="2" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.05)"/>
+  <!-- Vinyl signage -->
+  <rect x="22" y="65" width="18" height="8" rx="2" fill="rgba(252,181,63,0.2)" stroke="#FCB53F" stroke-width="1.5"/>
+  <rect x="80" y="65" width="18" height="8" rx="2" fill="rgba(252,181,63,0.2)" stroke="#FCB53F" stroke-width="1.5"/>
+  <!-- Top sign -->
+  <rect x="25" y="10" width="70" height="14" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="2"/>
+  <rect x="35" y="14" width="50" height="5" rx="1" fill="#FCB53F" opacity="0.4"/>
+</svg>

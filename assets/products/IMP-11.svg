@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Empaque / Caja Personalizada -->
+  <!-- Box 3D -->
+  <polygon points="30,45 60,30 90,45 60,60" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.1)"/>
+  <polygon points="30,45 30,80 60,95 60,60" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.06)"/>
+  <polygon points="90,45 90,80 60,95 60,60" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.08)"/>
+  <!-- Logo on front face -->
+  <circle cx="60" cy="75" r="8" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.12)"/>
+  <text x="57" y="78" font-size="7" fill="#FCB53F" font-weight="bold">R</text>
+  <!-- Brand line on top -->
+  <line x1="45" y1="42" x2="75" y2="42" stroke="#FCB53F" stroke-width="1.5" opacity="0.4"/>
+  <!-- Flap detail -->
+  <line x1="60" y1="30" x2="60" y2="20" stroke="#FCB53F" stroke-width="1.5" opacity="0.3"/>
+  <rect x="50" y="17" width="20" height="6" rx="2" stroke="#FCB53F" stroke-width="1" fill="rgba(252,181,63,0.05)"/>
+</svg>

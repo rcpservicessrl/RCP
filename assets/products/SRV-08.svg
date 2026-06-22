@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Community Manager -->
+  <!-- Instagram-like frame -->
+  <rect x="25" y="15" width="70" height="70" rx="12" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Photo grid -->
+  <rect x="32" y="35" width="20" height="20" rx="2" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="1"/>
+  <rect x="55" y="35" width="20" height="20" rx="2" fill="rgba(252,181,63,0.1)" stroke="#FCB53F" stroke-width="1"/>
+  <rect x="32" y="58" width="20" height="20" rx="2" fill="rgba(252,181,63,0.1)" stroke="#FCB53F" stroke-width="1"/>
+  <rect x="55" y="58" width="20" height="20" rx="2" fill="rgba(252,181,63,0.12)" stroke="#FCB53F" stroke-width="1"/>
+  <!-- Profile header -->
+  <circle cx="38" cy="24" r="5" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.1)"/>
+  <rect x="48" y="22" width="20" height="4" rx="2" fill="#FCB53F" opacity="0.3"/>
+  <!-- Heart engagement -->
+  <path d="M80 25 C80 22 83 20 85 20 C87 20 90 22 90 25 C90 30 85 33 85 33 C85 33 80 30 80 25Z" fill="#FCB53F" opacity="0.5"/>
+  <!-- Calendar -->
+  <rect x="30" y="90" width="60" height="18" rx="3" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.06)"/>
+  <rect x="34" y="95" width="7" height="7" rx="1" fill="#FCB53F" opacity="0.25"/>
+  <rect x="44" y="95" width="7" height="7" rx="1" fill="#FCB53F" opacity="0.35"/>
+  <rect x="54" y="95" width="7" height="7" rx="1" fill="#FCB53F" opacity="0.25"/>
+  <rect x="64" y="95" width="7" height="7" rx="1" fill="#FCB53F" opacity="0.3"/>
+  <rect x="74" y="95" width="7" height="7" rx="1" fill="#FCB53F" opacity="0.2"/>
+</svg>

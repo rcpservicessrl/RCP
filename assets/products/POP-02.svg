@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Gorra Bordada -->
+  <!-- Bill/visor -->
+  <ellipse cx="60" cy="70" rx="35" ry="8" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.1)"/>
+  <!-- Cap dome -->
+  <path d="M30 68 C30 45 42 30 60 30 C78 30 90 45 90 68" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Panel line -->
+  <line x1="60" y1="30" x2="60" y2="68" stroke="#FCB53F" stroke-width="1" opacity="0.3"/>
+  <line x1="45" y1="32" x2="42" y2="68" stroke="#FCB53F" stroke-width="0.8" opacity="0.2"/>
+  <line x1="75" y1="32" x2="78" y2="68" stroke="#FCB53F" stroke-width="0.8" opacity="0.2"/>
+  <!-- Button top -->
+  <circle cx="60" cy="28" r="3" fill="#FCB53F" opacity="0.5"/>
+  <!-- Embroidered logo -->
+  <rect x="48" y="45" width="24" height="14" rx="3" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.15)"/>
+  <text x="54" y="55" font-family="Montserrat" font-size="8" fill="#FCB53F" font-weight="700">RCP</text>
+  <!-- Closure -->
+  <path d="M30 68 L28 75 L32 78" stroke="#FCB53F" stroke-width="1.5" fill="none" opacity="0.4"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Taza Sublimada -->
+  <!-- Mug body -->
+  <ellipse cx="55" cy="85" rx="22" ry="6" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.05)"/>
+  <rect x="33" y="35" width="44" height="50" rx="4" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <ellipse cx="55" cy="35" rx="22" ry="6" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.08)"/>
+  <!-- Handle -->
+  <path d="M77 45 C90 45 92 55 92 60 C92 65 90 75 77 75" stroke="#FCB53F" stroke-width="2.5" fill="none"/>
+  <!-- Sublimation design area -->
+  <rect x="40" y="48" width="30" height="25" rx="2" fill="rgba(252,181,63,0.12)" stroke="#FCB53F" stroke-width="1"/>
+  <!-- Design: logo -->
+  <circle cx="55" cy="58" r="5" stroke="#FCB53F" stroke-width="1" fill="rgba(252,181,63,0.15)"/>
+  <text x="52" y="61" font-size="6" fill="#FCB53F" font-weight="bold">R</text>
+  <rect x="45" y="66" width="20" height="3" rx="1" fill="#FCB53F" opacity="0.3"/>
+  <!-- Steam -->
+  <path d="M45 28 C45 22 48 20 48 16" stroke="#FCB53F" stroke-width="1" opacity="0.3" fill="none"/>
+  <path d="M55 26 C55 20 58 18 58 14" stroke="#FCB53F" stroke-width="1" opacity="0.4" fill="none"/>
+  <path d="M65 28 C65 22 68 20 68 16" stroke="#FCB53F" stroke-width="1" opacity="0.3" fill="none"/>
+</svg>

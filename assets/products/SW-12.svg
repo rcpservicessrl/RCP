@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Mantenimiento Mensual - Wrench + Shield -->
+  <circle cx="60" cy="55" r="35" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.04)" stroke-dasharray="4 3"/>
+  <!-- Wrench -->
+  <path d="M42 45 L52 55 L48 59 L38 49 C35 52 35 57 38 60 C41 63 46 63 49 60 L59 70 L63 66 L53 56 C56 53 56 48 53 45 C50 42 45 42 42 45Z" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.1)"/>
+  <!-- Shield -->
+  <path d="M72 35 L72 55 C72 65 60 72 60 72 C60 72 72 65 82 55 L82 35 L77 33 L72 35Z" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.08)" transform="translate(8,5)"/>
+  <!-- Checkmark in shield -->
+  <polyline points="78,50 81,53 87,47" stroke="#FCB53F" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- Circular arrows (recurring) -->
+  <path d="M60 92 A20 20 0 0 1 40 85" stroke="#FCB53F" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M40 85 A20 20 0 0 1 60 78" stroke="#FCB53F" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <polygon points="60,92 56,88 56,96" fill="#FCB53F"/>
+  <!-- Calendar small -->
+  <rect x="20" y="80" width="16" height="14" rx="2" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.06)"/>
+  <line x1="20" y1="85" x2="36" y2="85" stroke="#FCB53F" stroke-width="0.8"/>
+  <text x="24" y="92" font-size="6" fill="#FCB53F" font-weight="bold">31</text>
+</svg>

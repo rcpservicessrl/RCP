@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Banner Roll-up -->
+  <rect x="35" y="10" width="50" height="85" rx="3" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Content area -->
+  <rect x="42" y="18" width="36" height="10" rx="2" fill="rgba(252,181,63,0.2)"/>
+  <rect x="45" y="32" width="30" height="3" rx="1" fill="#FCB53F" opacity="0.25"/>
+  <rect x="48" y="38" width="24" height="3" rx="1" fill="#FCB53F" opacity="0.15"/>
+  <!-- Image area -->
+  <rect x="44" y="46" width="32" height="25" rx="2" fill="rgba(252,181,63,0.1)" stroke="#FCB53F" stroke-width="0.8"/>
+  <!-- CTA -->
+  <rect x="47" y="76" width="26" height="7" rx="3.5" fill="rgba(252,181,63,0.25)" stroke="#FCB53F" stroke-width="1"/>
+  <!-- Base/stand -->
+  <ellipse cx="60" cy="100" rx="22" ry="6" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.08)"/>
+  <line x1="60" y1="95" x2="60" y2="100" stroke="#FCB53F" stroke-width="3"/>
+  <!-- Retractable line -->
+  <path d="M38 95 C38 98 60 102 60 100" stroke="#FCB53F" stroke-width="1" opacity="0.3" fill="none"/>
+</svg>

@@ -1386,6 +1386,83 @@
         pagos: []
       };
 
+      // FUNCTION TO LOAD REAL PRODUCTO AVANCES FROM SUPABASE
+      async function loadProductoAvances(clienteId) {
+        if (!supabase || !clienteId) return;
+        try {
+          const { data: avances, error } = await supabase
+            .from('producto_avances')
+            .select(`
+              *,
+              orden_items (
+                producto_id,
+                productos ( name_es, name_en, sku, icon, category )
+              )
+            `)
+            .eq('cliente_id', clienteId)
+            .order('created_at', { ascending: false });
+
+          if (error) throw error;
+          if (!avances || avances.length === 0) return;
+
+          // Build dynamic avances panel in the tramites section
+          const tramitesPanel = document.getElementById('view-tramites');
+          if (!tramitesPanel) return;
+
+          // Create or find the avances container
+          let avancesContainer = document.getElementById('avancesContainer');
+          if (!avancesContainer) {
+            avancesContainer = document.createElement('div');
+            avancesContainer.id = 'avancesContainer';
+            avancesContainer.className = 'card-workspace';
+            avancesContainer.style.marginTop = '30px';
+            tramitesPanel.appendChild(avancesContainer);
+          }
+
+          // Render avances
+          const title = isEN ? 'Service Progress Tracking' : 'Progreso de Servicios Contratados';
+          let html = `<div class="card-title-row" style="margin-bottom:20px;"><h3>${title}</h3></div>`;
+
+          avances.forEach(avance => {
+            const productName = avance.orden_items?.productos 
+              ? (isEN ? (avance.orden_items.productos.name_en || avance.orden_items.productos.name_es) : avance.orden_items.productos.name_es)
+              : avance.title;
+            const pct = avance.progress_percent || 0;
+            let badgeClass = 'review';
+            let badgeText = (isEN ? 'Pending' : 'Pendiente') + ` (${pct}%)`;
+            if (pct >= 100) { badgeClass = 'completed'; badgeText = isEN ? 'Completed' : 'Completado'; }
+            else if (pct >= 40) { badgeClass = 'process'; badgeText = (isEN ? 'In Progress' : 'En Progreso') + ` (${pct}%)`; }
+
+            html += `
+              <div class="tramite-progress-card">
+                <div class="tramite-header">
+                  <span class="tramite-name">${productName}</span>
+                  <span class="tramite-badge ${badgeClass}">${badgeText}</span>
+                </div>
+                <div class="progress-bar-track" style="margin-bottom:8px;">
+                  <div class="progress-bar-fill" style="width:${pct}%;"></div>
+                </div>
+                ${avance.description ? `<p style="font-size:0.8rem; color:var(--text-muted);">${avance.description}</p>` : ''}
+              </div>
+            `;
+          });
+
+          avancesContainer.innerHTML = html;
+
+          // Subscribe to realtime avances updates
+          supabase.channel('avances-channel')
+            .on(
+              'postgres_changes',
+              { event: '*', schema: 'public', table: 'producto_avances', filter: 'cliente_id=eq.' + clienteId },
+              () => { loadProductoAvances(clienteId); }
+            )
+            .subscribe();
+
+        } catch (err) {
+          console.error('Error loading producto_avances:', err);
+        }
+      }
+
       // FUNCTION TO RENDER ALL METRICS & GRAPHS FOR A CLIENT
       function renderClientDashboard(client) {
         // Render KPIs
@@ -1631,6 +1708,9 @@
                       }
                     )
                     .subscribe();
+
+                  // Load real producto_avances from Supabase
+                  loadProductoAvances(data.id);
                 }
               }
             } catch (err) {

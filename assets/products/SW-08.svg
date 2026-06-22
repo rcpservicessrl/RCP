@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Aplicación Web a Medida -->
+  <rect x="20" y="15" width="80" height="60" rx="5" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.05)"/>
+  <!-- Code brackets -->
+  <text x="30" y="52" font-family="monospace" font-size="22" fill="#FCB53F" opacity="0.7">&lt;/&gt;</text>
+  <!-- Gears -->
+  <circle cx="80" cy="45" r="10" stroke="#FCB53F" stroke-width="1.8" fill="rgba(252,181,63,0.08)"/>
+  <circle cx="80" cy="45" r="3" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="92" cy="55" r="7" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.08)"/>
+  <circle cx="92" cy="55" r="2.5" fill="#FCB53F" opacity="0.4"/>
+  <!-- Cloud deploy -->
+  <ellipse cx="60" cy="90" rx="22" ry="12" stroke="#FCB53F" stroke-width="1.8" fill="rgba(252,181,63,0.06)"/>
+  <ellipse cx="50" cy="88" rx="12" ry="8" stroke="#FCB53F" stroke-width="1" fill="rgba(252,181,63,0.04)"/>
+  <ellipse cx="72" cy="88" rx="10" ry="7" stroke="#FCB53F" stroke-width="1" fill="rgba(252,181,63,0.04)"/>
+  <!-- Upload arrow -->
+  <line x1="60" y1="95" x2="60" y2="105" stroke="#FCB53F" stroke-width="2" stroke-linecap="round"/>
+  <polyline points="55,100 60,95 65,100" stroke="#FCB53F" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

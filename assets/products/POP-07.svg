@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Lanyard + Porta-carnet -->
+  <!-- Lanyard strap -->
+  <path d="M40 10 L40 55 Q40 60 45 60 L75 60 Q80 60 80 55 L80 10" stroke="#FCB53F" stroke-width="3" fill="none"/>
+  <!-- Clip -->
+  <rect x="55" y="58" width="10" height="8" rx="1" fill="#FCB53F" opacity="0.5"/>
+  <!-- ID Card -->
+  <rect x="40" y="68" width="40" height="45" rx="4" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.08)"/>
+  <!-- Photo area -->
+  <rect x="46" y="74" width="16" height="16" rx="2" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="1"/>
+  <!-- Text lines -->
+  <rect x="66" y="76" width="10" height="3" rx="1" fill="#FCB53F" opacity="0.3"/>
+  <rect x="66" y="82" width="8" height="2" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="46" y="95" width="28" height="3" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="46" y="101" width="20" height="3" rx="1" fill="#FCB53F" opacity="0.15"/>
+  <!-- Sublimated branding on strap -->
+  <rect x="42" y="25" width="10" height="20" rx="1" fill="rgba(252,181,63,0.2)"/>
+  <rect x="68" y="25" width="10" height="20" rx="1" fill="rgba(252,181,63,0.2)"/>
+</svg>

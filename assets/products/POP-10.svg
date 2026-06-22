@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Delantal Bordado -->
+  <!-- Apron body -->
+  <path d="M35 30 L30 35 L30 100 L90 100 L90 35 L85 30 Z" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Neck strap -->
+  <path d="M35 30 C35 15 60 10 60 10 C60 10 85 15 85 30" stroke="#FCB53F" stroke-width="2" fill="none"/>
+  <!-- Waist ties -->
+  <line x1="30" y1="55" x2="18" y2="60" stroke="#FCB53F" stroke-width="2" stroke-linecap="round"/>
+  <line x1="90" y1="55" x2="102" y2="60" stroke="#FCB53F" stroke-width="2" stroke-linecap="round"/>
+  <!-- Pocket -->
+  <rect x="42" y="65" width="36" height="22" rx="3" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.08)"/>
+  <!-- Embroidered logo on chest -->
+  <rect x="50" y="38" width="20" height="14" rx="2" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.12)"/>
+  <text x="54" y="48" font-size="8" fill="#FCB53F" font-weight="bold">RCP</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- App Móvil iOS + Android -->
+  <rect x="35" y="10" width="50" height="100" rx="10" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Screen -->
+  <rect x="40" y="22" width="40" height="72" rx="2" fill="rgba(252,181,63,0.04)" stroke="#FCB53F" stroke-width="0.8"/>
+  <!-- Notch -->
+  <rect x="50" y="13" width="20" height="5" rx="2.5" fill="#FCB53F" opacity="0.2"/>
+  <!-- App UI elements -->
+  <rect x="44" y="28" width="32" height="6" rx="1" fill="#FCB53F" opacity="0.25"/>
+  <rect x="44" y="38" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
+  <rect x="62" y="38" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
+  <rect x="44" y="56" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
+  <rect x="62" y="56" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
+  <!-- Tab bar -->
+  <line x1="40" y1="82" x2="80" y2="82" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="50" cy="88" r="3" fill="#FCB53F" opacity="0.4"/>
+  <circle cx="60" cy="88" r="3" fill="#FCB53F" opacity="0.6"/>
+  <circle cx="70" cy="88" r="3" fill="#FCB53F" opacity="0.4"/>
+  <!-- Home button -->
+  <rect x="55" y="96" width="10" height="3" rx="1.5" fill="#FCB53F" opacity="0.3"/>
+</svg>

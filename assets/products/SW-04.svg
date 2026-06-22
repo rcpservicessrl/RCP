@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Facturación NCF -->
+  <rect x="25" y="15" width="70" height="90" rx="4" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Header -->
+  <rect x="32" y="22" width="56" height="12" rx="2" fill="rgba(252,181,63,0.15)"/>
+  <text x="42" y="31" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#FCB53F">NCF</text>
+  <!-- Lines -->
+  <line x1="32" y1="42" x2="88" y2="42" stroke="#FCB53F" stroke-width="1" opacity="0.3"/>
+  <rect x="32" y="46" width="40" height="4" rx="1" fill="#FCB53F" opacity="0.25"/>
+  <rect x="32" y="54" width="30" height="4" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="32" y="62" width="50" height="4" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="32" y="70" width="35" height="4" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <line x1="32" y1="80" x2="88" y2="80" stroke="#FCB53F" stroke-width="1" opacity="0.3"/>
+  <!-- Total -->
+  <rect x="55" y="84" width="30" height="8" rx="2" fill="rgba(252,181,63,0.2)"/>
+  <text x="61" y="91" font-family="Montserrat,sans-serif" font-size="6" font-weight="600" fill="#FCB53F">TOTAL</text>
+  <!-- Checkmark -->
+  <circle cx="85" y="25" r="8" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1.5" cx="85" cy="25"/>
+  <polyline points="81,25 84,28 89,22" stroke="#22c55e" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

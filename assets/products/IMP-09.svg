@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Branding Vehicular -->
+  <!-- Car body -->
+  <path d="M20 72 L25 55 L40 45 L80 45 L95 55 L100 72 Z" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.08)"/>
+  <path d="M15 72 L105 72 L105 82 Q105 87 100 87 L20 87 Q15 87 15 82 Z" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.06)"/>
+  <!-- Windows -->
+  <path d="M42 48 L42 60 L58 60 L58 48 Z" fill="rgba(252,181,63,0.1)" stroke="#FCB53F" stroke-width="1"/>
+  <path d="M62 48 L62 60 L82 60 L78 48 Z" fill="rgba(252,181,63,0.1)" stroke="#FCB53F" stroke-width="1"/>
+  <!-- Wheels -->
+  <circle cx="35" cy="87" r="10" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.05)"/>
+  <circle cx="35" cy="87" r="4" fill="#FCB53F" opacity="0.3"/>
+  <circle cx="85" cy="87" r="10" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.05)"/>
+  <circle cx="85" cy="87" r="4" fill="#FCB53F" opacity="0.3"/>
+  <!-- Vinyl branding on door -->
+  <rect x="44" y="65" width="32" height="10" rx="2" fill="rgba(252,181,63,0.2)" stroke="#FCB53F" stroke-width="1.2"/>
+  <rect x="48" y="68" width="24" height="4" rx="1" fill="#FCB53F" opacity="0.4"/>
+</svg>

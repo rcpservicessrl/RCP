@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Etiquetas de Producto -->
+  <!-- Label 1 -->
+  <rect x="25" y="25" width="45" height="30" rx="4" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.08)" transform="rotate(-3 47 40)"/>
+  <rect x="30" y="30" width="20" height="4" rx="1" fill="#FCB53F" opacity="0.35"/>
+  <rect x="30" y="37" width="35" height="3" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="30" y="43" width="15" height="3" rx="1" fill="#FCB53F" opacity="0.15"/>
+  <!-- Label 2 -->
+  <rect x="50" y="55" width="45" height="30" rx="4" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.08)" transform="rotate(2 72 70)"/>
+  <rect x="55" y="60" width="20" height="4" rx="1" fill="#FCB53F" opacity="0.35"/>
+  <rect x="55" y="67" width="30" height="3" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <!-- Barcode on label -->
+  <rect x="58" y="74" width="2" height="6" fill="#FCB53F" opacity="0.4"/>
+  <rect x="62" y="74" width="1" height="6" fill="#FCB53F" opacity="0.3"/>
+  <rect x="65" y="74" width="2" height="6" fill="#FCB53F" opacity="0.4"/>
+  <rect x="69" y="74" width="1" height="6" fill="#FCB53F" opacity="0.3"/>
+  <rect x="72" y="74" width="2" height="6" fill="#FCB53F" opacity="0.4"/>
+  <rect x="76" y="74" width="1.5" height="6" fill="#FCB53F" opacity="0.35"/>
+  <!-- Quantity -->
+  <text x="38" y="110" font-family="Montserrat,sans-serif" font-size="9" fill="#FCB53F" opacity="0.6">×1000</text>
+</svg>

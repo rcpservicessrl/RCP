@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Formularios Factura NCF -->
+  <rect x="22" y="18" width="60" height="80" rx="2" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.04)" transform="translate(4,4)"/>
+  <rect x="22" y="18" width="60" height="80" rx="2" stroke="#FCB53F" stroke-width="1.8" fill="rgba(252,181,63,0.06)" transform="translate(2,2)"/>
+  <rect x="22" y="18" width="60" height="80" rx="2" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.08)"/>
+  <!-- Header -->
+  <rect x="28" y="24" width="20" height="4" rx="1" fill="#FCB53F" opacity="0.4"/>
+  <text x="55" y="28" font-family="monospace" font-size="6" fill="#FCB53F" opacity="0.5">NCF-B01</text>
+  <line x1="28" y1="33" x2="76" y2="33" stroke="#FCB53F" stroke-width="1" opacity="0.4"/>
+  <!-- Lines -->
+  <rect x="28" y="38" width="30" height="3" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="28" y="45" width="44" height="3" rx="1" fill="#FCB53F" opacity="0.15"/>
+  <rect x="28" y="52" width="38" height="3" rx="1" fill="#FCB53F" opacity="0.15"/>
+  <rect x="28" y="59" width="44" height="3" rx="1" fill="#FCB53F" opacity="0.15"/>
+  <line x1="28" y1="68" x2="76" y2="68" stroke="#FCB53F" stroke-width="0.8" opacity="0.3"/>
+  <!-- Totals -->
+  <rect x="50" y="72" width="25" height="4" rx="1" fill="#FCB53F" opacity="0.25"/>
+  <rect x="50" y="80" width="25" height="5" rx="1" fill="rgba(252,181,63,0.2)"/>
+  <!-- Block count -->
+  <text x="40" y="112" font-family="Montserrat,sans-serif" font-size="9" fill="#FCB53F" opacity="0.6">×5 blocks</text>
+</svg>

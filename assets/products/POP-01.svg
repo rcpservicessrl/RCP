@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Polo Bordado Corporativo -->
+  <!-- Shirt outline -->
+  <path d="M40 30 L35 35 L25 45 L30 50 L38 42 L38 95 L82 95 L82 42 L90 50 L95 45 L85 35 L80 30 Z" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Collar -->
+  <path d="M40 30 L50 38 L60 30 L70 38 L80 30" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.1)"/>
+  <!-- Buttons -->
+  <circle cx="60" cy="42" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="60" cy="48" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="60" cy="54" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <!-- Embroidered logo on chest -->
+  <rect x="64" y="45" width="12" height="12" rx="2" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.12)"/>
+  <text x="67" y="54" font-size="7" fill="#FCB53F" font-weight="bold">R</text>
+  <!-- Stitch detail -->
+  <line x1="38" y1="60" x2="38" y2="65" stroke="#FCB53F" stroke-width="0.5" stroke-dasharray="2 1" opacity="0.4"/>
+  <line x1="82" y1="60" x2="82" y2="65" stroke="#FCB53F" stroke-width="0.5" stroke-dasharray="2 1" opacity="0.4"/>
+</svg>

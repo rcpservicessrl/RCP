@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Formalización Comercial ONAPI+DGII -->
+  <!-- Certificate/document -->
+  <rect x="25" y="15" width="70" height="90" rx="4" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
+  <!-- Official seal -->
+  <circle cx="60" cy="40" r="15" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.1)"/>
+  <circle cx="60" cy="40" r="10" stroke="#FCB53F" stroke-width="1" opacity="0.5"/>
+  <text x="52" y="43" font-size="8" fill="#FCB53F" font-weight="bold">RD</text>
+  <!-- Stars around seal -->
+  <circle cx="47" cy="30" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="73" cy="30" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="47" cy="50" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="73" cy="50" r="1.5" fill="#FCB53F" opacity="0.5"/>
+  <!-- Text lines -->
+  <rect x="35" y="62" width="50" height="4" rx="1" fill="#FCB53F" opacity="0.3"/>
+  <rect x="40" y="70" width="40" height="3" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <rect x="38" y="77" width="44" height="3" rx="1" fill="#FCB53F" opacity="0.2"/>
+  <!-- Signature line -->
+  <line x1="40" y1="92" x2="80" y2="92" stroke="#FCB53F" stroke-width="1" opacity="0.4"/>
+  <path d="M45 90 C50 88 55 91 60 89 C65 87 70 90 75 89" stroke="#FCB53F" stroke-width="1" opacity="0.5" fill="none"/>
+  <!-- Checkmark badge -->
+  <circle cx="85" cy="18" r="8" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1.5"/>
+  <polyline points="81,18 84,21 89,15" stroke="#22c55e" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>
