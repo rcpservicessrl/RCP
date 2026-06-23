@@ -87,7 +87,7 @@
                 </li>
                 <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
             </ul>
-            <a href="index.html#contacto" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+            <a href="diagnostico.html" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
             <div class="nav-controls">
         <div class="search-container">
           <input type="text" class="search-input" id="searchInput" placeholder="Preguntar a Pulso..." />
@@ -505,7 +505,7 @@
                 document.getElementById('successPostulacion').style.display = 'block';
                 // Send notification email via EmailJS
                 if (window.emailjs) {
-                  emailjs.init('YOUR_EMAILJS_USER_ID');
+                  emailjs.init('pYaPyXxVIzbydrMpZ');
                   const emailParams = {
                     nombre: nombre,
                     email: email,
@@ -514,7 +514,7 @@
                     portafolio: portafolio,
                     cv_url: publicUrl
                   };
-                  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
+                  emailjs.send('service_st6k7sm', 'template_ep1h8r4', emailParams)
                     .then(() => console.log('EmailJS notification sent'))
                     .catch(err => console.error('EmailJS error:', err));
                 }

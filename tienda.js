@@ -75,6 +75,7 @@ var grid=document.getElementById('storeGrid');
 var modal=document.getElementById('productModal');
 var catBtns=document.querySelectorAll('.store-cat-btn');
 var activeFilter='all';
+var priceFilter='all';
 var searchQuery='';
 var selected=null;
 var cart=[];
@@ -170,6 +171,13 @@ function fp(price){return'RD$ '+price.toLocaleString();}
 function render(filter){
   if(!grid)return;
   var items=filter==='all'?P:P.filter(function(p){return p.cat===filter;});
+  // Apply price filter
+  if(priceFilter!=='all'){
+    var maxP=parseInt(priceFilter);
+    if(maxP===10000)items=items.filter(function(p){return p.price<=10000;});
+    else if(maxP===50000)items=items.filter(function(p){return p.price>10000&&p.price<=50000;});
+    else items=items.filter(function(p){return p.price>50000;});
+  }
   // Apply search filter
   if(searchQuery){
     items=items.filter(function(p){
@@ -311,6 +319,10 @@ function quoteWhatsApp(p){
 // EVENT BINDINGS
 // ═══════════════════════════════════════════════
 catBtns.forEach(function(btn){btn.addEventListener('click',function(){catBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');activeFilter=btn.getAttribute('data-filter');render(activeFilter);});});
+
+// Price filter buttons
+var priceBtns=document.querySelectorAll('.store-price-btn');
+priceBtns.forEach(function(btn){btn.addEventListener('click',function(){priceBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');priceFilter=btn.getAttribute('data-price');render(activeFilter);});});
 
 document.getElementById('modalClose').addEventListener('click',closeM);
 document.getElementById('modalBackdrop').addEventListener('click',closeM);

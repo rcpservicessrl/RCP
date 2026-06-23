@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="icono-rcp.png"/>
   <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="styles.min.css"/>
   <style>
     :root{--black:#0c0c0d;--black-2:#151517;--accent:#FCB53F;--accent-dark:#e59e2b;--text:#eaeaea;--text-muted:#8e8f94;--card-bg:rgba(21,21,23,0.7);--card-border:rgba(252,181,63,0.15);--radius:16px;--font:'Montserrat',sans-serif}
     *{box-sizing:border-box;margin:0;padding:0}
@@ -52,7 +53,53 @@
   </style>
 </head>
 <body>
-  <div class="diag-container">
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo-img-link">
+        <img src="Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" width="160" height="58"/>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li class="nav-dropdown">
+          <a href="#" class="dropdown-trigger"><span data-i18n="nav-porque-rcp">¿Por qué RCP?</span> <span class="arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="index.html#problema">El Problema</a></li>
+            <li><a href="index.html#solucion">Nuestra Solución</a></li>
+            <li><a href="index.html#ecosistema">Ecosistema Soberano</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#" class="dropdown-trigger"><span data-i18n="nav-servicios">Servicios</span> <span class="arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="servicios.html">Planes de Crecimiento</a></li>
+            <li><a href="tienda.html">Tienda</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="#" class="dropdown-trigger"><span data-i18n="nav-compania">Compañía</span> <span class="arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="carreras.html">Carreras</a></li>
+            <li><a href="index.html#contacto">Contacto</a></li>
+          </ul>
+        </li>
+        <li><a href="portal.html">Portal</a></li>
+      </ul>
+      <a href="diagnostico.html" class="btn-cta nav-cta active-link">Diagnóstico 360°</a>
+      <div class="nav-controls">
+        <select class="lang-select" aria-label="Language"><option value="es">ES</option><option value="en">EN</option></select>
+        <button class="icon-btn theme-btn" id="themeBtn" aria-label="Modo Día/Noche">
+          <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line></svg>
+        </button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
+    </div>
+  </nav>
+
+  <main style="padding-top:100px;">
+  <div class="container" style="max-width:720px; margin:0 auto; padding:40px 20px;">
     <div class="diag-header">
       <h1>Diagnóstico <span>360°</span></h1>
       <p>Evalúa la salud de tu empresa en 2 minutos. Gratis y confidencial.</p>
@@ -60,18 +107,19 @@
     <div class="diag-progress" id="progressBar"></div>
     <div class="diag-card" id="questionCard"></div>
   </div>
+  </main>
 
   <script>
   (function(){
     var questions=[
-      {q:"¿Tu empresa está registrada formalmente?",opts:["Sí, tengo RNC, ONAPI y Registro Mercantil","Solo tengo RNC","No estoy registrado en ningún lugar"],scores:[0,3,7]},
-      {q:"¿Cómo llevas la contabilidad de tu negocio?",opts:["Con un contador y software","En Excel o cuaderno","No llevo contabilidad formal"],scores:[0,4,8]},
-      {q:"¿Cuántos clientes pierdes por mes por no dar seguimiento?",opts:["Ninguno, tengo CRM","Algunos, les escribo manual","No sé, no los registro"],scores:[0,4,8]},
-      {q:"¿Tienes presencia digital activa (web + redes)?",opts:["Sí, con estrategia y métricas","Tengo redes pero sin estrategia","No tengo web ni redes activas"],scores:[0,3,7]},
-      {q:"¿Cómo cobras a tus clientes?",opts:["Factura electrónica + múltiples métodos","Transferencia o efectivo sin factura","Solo efectivo, sin comprobantes"],scores:[0,4,7]},
-      {q:"¿Tienes procesos documentados (SOPs)?",opts:["Sí, todo está escrito","Algunos procesos clave","No, todo está en mi cabeza"],scores:[0,3,6]},
-      {q:"¿Cuánto facturas al mes aproximadamente?",opts:["Más de RD$500,000","Entre RD$100,000 y RD$500,000","Menos de RD$100,000"],scores:[0,2,5]},
-      {q:"¿Cuál es tu mayor dolor ahora mismo?",opts:["Necesito más clientes","Necesito ordenar mis finanzas","Necesito formalizar mi negocio","Todo lo anterior"],scores:[3,4,5,8]}
+      {q:"¿Tu empresa está registrada formalmente?",opts:["Sí, tengo ONAPI, Registro Mercantil y RNC","Solo tengo ONAPI o Registro Mercantil","No estoy registrado en ningún lugar"],scores:[0,3,7]},
+      {q:"¿Cómo llevas las cuentas de tu negocio?",opts:["Con un contador y software contable","En Excel, cuaderno o de memoria","No llevo control de ingresos ni gastos"],scores:[0,4,8]},
+      {q:"¿Registras a tus clientes y les das seguimiento?",opts:["Sí, tengo un sistema donde veo todo el historial","A veces, les escribo por WhatsApp manual","No, no sé cuántos me han comprado más de una vez"],scores:[0,4,8]},
+      {q:"¿Tienes presencia digital activa que te genera clientes?",opts:["Sí, web + redes con estrategia y métricas","Tengo redes pero no me generan ventas","No tengo web ni redes activas"],scores:[0,3,7]},
+      {q:"¿Cómo cobras a tus clientes?",opts:["Factura electrónica NCF + múltiples métodos","Transferencia o efectivo sin comprobante fiscal","Solo efectivo, sin factura ni registro"],scores:[0,4,7]},
+      {q:"Si mañana te enfermas, ¿tu negocio puede seguir operando sin ti?",opts:["Sí, tengo procesos escritos y mi equipo los sigue","Parcialmente, hay cosas que solo yo sé hacer","No, todo depende de mí al 100%"],scores:[0,3,6]},
+      {q:"¿Sabes exactamente cuánto te cuesta conseguir un cliente nuevo?",opts:["Sí, mido mi costo de adquisición (CAC)","Tengo una idea general pero no lo mido","No, nunca he calculado eso"],scores:[0,3,6]},
+      {q:"¿Cuál es tu mayor dolor ahora mismo?",opts:["Necesito más clientes y ventas","Necesito ordenar mis finanzas y formalizar","Necesito tecnología y automatización","Todo lo anterior"],scores:[3,4,5,8]}
     ];
     var current=0,answers=[];
     var card=document.getElementById('questionCard');
@@ -127,6 +175,11 @@
         +'<div class="money-lost"><p class="label">Estimación de pérdida mensual por ineficiencia:</p><p class="amount">~RD$ '+monthlyLoss.toLocaleString()+'</p></div>'
         +'<a href="https://wa.me/18298068092?text=Hola%20RCP!%20Obtuve%20un%20score%20de%20'+score+'/10%20en%20el%20Diagn%C3%B3stico%20360.%20Quiero%20agendar%20mi%20consultor%C3%ADa%20gratuita." class="btn-cta-diag">🐆 Agendar Diagnóstico Gratuito</a>'
         +'<p style="color:var(--text-muted);font-size:0.75rem;margin-top:16px;">Resultado confidencial. Un consultor te contactará en menos de 24h.</p>'
+        +'<div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">'
+        +'<a href="servicios.html" style="color:var(--accent);font-size:0.85rem;font-weight:600;text-decoration:none;">Ver Planes →</a>'
+        +'<a href="tienda.html" style="color:var(--accent);font-size:0.85rem;font-weight:600;text-decoration:none;">Tienda →</a>'
+        +'<a href="index.html#contacto" style="color:var(--accent);font-size:0.85rem;font-weight:600;text-decoration:none;">Contacto →</a>'
+        +'</div>'
         +'</div>';
       bar.innerHTML='';for(var i=0;i<questions.length;i++)bar.innerHTML+='<div class="step done"></div>';
 
@@ -142,5 +195,24 @@
     renderQuestion();
   })();
   </script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-img-link"><img src="Logo RCP  fondo negro.png" alt="RCP Services" class="footer-logo" width="200" height="72"/></a>
+        <p>Agencia 360° de Transformación Empresarial y Digital<br>para MIPYMEs en la República Dominicana.</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Contacto</h4>
+        <p>Santo Domingo, R.D.</p>
+        <p><a href="tel:8298068092">829-806-8092</a></p>
+        <p><a href="mailto:info@rcp.services">info@rcp.services</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container"><p>© 2026 RCP Services. Todos los derechos reservados.</p></div></div>
+  </footer>
+
+  <script src="script.min.js"></script>
 </body>
 </html>

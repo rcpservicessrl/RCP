@@ -16,7 +16,6 @@
   <link rel="icon" type="image/png" href="icono-rcp.png" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="styles.min.css" />
-  <script src="https://js.stripe.com/v3/"></script>
   
   <style>
     /* Checkout Specific Overrides */
@@ -274,7 +273,7 @@
         </li>
         <li><a href="portal.html" data-i18n="nav-portal">Portal</a></li>
       </ul>
-      <a href="servicios.html#agendar-diagnostico" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+      <a href="diagnostico.html" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
       <div class="nav-controls">
         <div class="search-container">
           <input type="text" class="search-input" id="searchInput" placeholder="Preguntar a Pulso..." />
@@ -390,7 +389,7 @@
             <div class="payment-methods-grid">
               <div class="payment-method-card active" data-method="cardnet">
                 <span class="method-logo">💳</span>
-                <span class="method-name" data-i18n="chk-method-cardnet">Tarjeta (Stripe)</span>
+                <span class="method-name" data-i18n="chk-method-cardnet">Tarjeta (CardNet)</span>
               </div>
               <div class="payment-method-card" data-method="paypal">
                 <span class="method-logo">🌍</span>
@@ -410,7 +409,7 @@
             <div class="card-fields-container" id="cardnetFields">
               <div class="card-fields-title" style="margin-bottom: 20px;">
                 <span data-i18n="chk-card-title">Datos de Tarjeta</span>
-                <span class="card-secure-badge">🔒 Stripe Secure Checkout Gateway Connection</span>
+                <span class="card-secure-badge">🔒 CardNet · Pago Seguro en DOP</span>
               </div>
               <div class="checkout-form-group">
                 <label for="cardName" data-i18n="chk-card-holder">Nombre en la Tarjeta</label>
