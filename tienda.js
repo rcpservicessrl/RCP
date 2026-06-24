@@ -73,7 +73,7 @@ add('SRV-08','Community Manager (1 mes)','Incluye: 12 posts para Instagram/Faceb
 var WA='18298068092';
 var grid=document.getElementById('storeGrid');
 var modal=document.getElementById('productModal');
-var catBtns=document.querySelectorAll('.store-cat-btn');
+var catBtns=document.querySelectorAll('.store-cat-btn:not(.store-price-btn)');
 var activeFilter='all';
 var priceFilter='all';
 var searchQuery='';
