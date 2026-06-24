@@ -1,10 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
-  <path d="M30 70 Q30 45 60 40 Q90 45 90 70" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="30" y1="70" x2="90" y2="70" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-  <rect x="28" y="66" width="64" height="8" rx="4" fill="#1a1a1c" stroke="#FCB53F" stroke-width="2.5"/>
-  <ellipse cx="60" cy="38" rx="6" ry="4" fill="#ffffff"/>
-  <circle cx="60" cy="55" r="8" fill="#FCB53F" opacity="0.9"/>
-  <text x="55" y="59" font-family="sans-serif" font-size="9" fill="#1a1a1c" font-weight="bold">R</text>
-  <line x1="28" y1="74" x2="92" y2="74" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Cap - Baseball cap front view with logo panel -->
+  <!-- Cap crown -->
+  <path d="M128 280 C128 180 180 120 256 120 C332 120 384 180 384 280" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Cap panels (seam lines) -->
+  <line x1="256" y1="120" x2="256" y2="280" stroke="#1A1B20" stroke-width="4"/>
+  <path d="M192 128 C188 180 186 230 192 280" fill="none" stroke="#1A1B20" stroke-width="4"/>
+  <path d="M320 128 C324 180 326 230 320 280" fill="none" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Logo panel (center front) -->
+  <rect x="216" y="168" width="80" height="72" rx="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Bill / visor -->
+  <path d="M112 280 L400 280 C408 280 412 288 408 296 L392 340 C372 360 320 372 256 372 C192 372 140 360 120 340 L104 296 C100 288 104 280 112 280 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Bill stitching -->
+  <path d="M140 304 C180 332 220 344 256 344 C292 344 332 332 372 304" fill="none" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Top button -->
+  <circle cx="256" cy="124" r="8" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
 </svg>

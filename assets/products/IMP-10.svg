@@ -1,19 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
-  <rect x="28" y="30" width="64" height="60" rx="5" fill="#1a1a1c" stroke="#FCB53F" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="48" cy="50" r="8" fill="#22c55e" opacity="0.8"/>
-  <line x1="62" y1="46" x2="82" y2="46" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="62" y1="54" x2="78" y2="54" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-  <rect x="36" y="66" width="2" height="18" fill="#ffffff"/>
-  <rect x="40" y="66" width="3" height="18" fill="#ffffff"/>
-  <rect x="45" y="66" width="1.5" height="18" fill="#ffffff"/>
-  <rect x="48" y="66" width="3" height="18" fill="#ffffff"/>
-  <rect x="53" y="66" width="2" height="18" fill="#ffffff"/>
-  <rect x="57" y="66" width="1.5" height="18" fill="#ffffff"/>
-  <rect x="60" y="66" width="3" height="18" fill="#ffffff"/>
-  <rect x="65" y="66" width="2" height="18" fill="#ffffff"/>
-  <rect x="69" y="66" width="3" height="18" fill="#ffffff"/>
-  <rect x="74" y="66" width="1.5" height="18" fill="#ffffff"/>
-  <rect x="77" y="66" width="2" height="18" fill="#ffffff"/>
-  <rect x="81" y="66" width="3" height="18" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Product Labels - Rounded rectangle with barcode lines at bottom -->
+  <!-- Label body -->
+  <rect x="96" y="96" width="320" height="320" rx="32" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Inner white area -->
+  <rect x="128" y="128" width="256" height="200" rx="16" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Logo area -->
+  <circle cx="256" cy="192" r="32" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Product name -->
+  <rect x="184" y="244" width="144" height="16" rx="8" fill="#1A1B20" stroke="none"/>
+  <!-- Description line -->
+  <rect x="168" y="276" width="176" height="12" rx="6" fill="#A87C66" stroke="none"/>
+  <rect x="180" y="300" width="152" height="12" rx="6" fill="#A87C66" stroke="none"/>
+  <!-- Barcode area -->
+  <rect x="168" y="352" width="176" height="44" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Barcode lines -->
+  <rect x="184" y="360" width="4" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="192" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="198" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="208" y="360" width="3" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="215" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="224" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="230" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="240" y="360" width="3" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="248" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="257" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="263" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="273" y="360" width="4" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="281" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="287" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="296" y="360" width="3" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="303" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="313" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="319" y="360" width="4" height="28" fill="#1A1B20" stroke="none"/>
+  <rect x="327" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
 </svg>

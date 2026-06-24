@@ -1,13 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- Mantenimiento Mensual -->
-  <circle cx="60" cy="55" r="35" fill="none" stroke="#FCB53F" stroke-width="2.5" stroke-dasharray="6 4"/>
-  <path d="M48 48 L55 55 L52 58 L45 51 C42 54 42 59 45 62 C48 65 53 65 56 62 L63 69 L67 65 L60 58 C63 55 63 50 60 47 C57 44 52 44 48 48Z" fill="#FCB53F"/>
-  <rect x="70" y="38" width="20" height="28" rx="5" fill="#1a1a1c" stroke="#22c55e" stroke-width="2.5"/>
-  <path d="M74 38 L74 33 C74 29 77 27 80 27 C83 27 86 29 86 33 L86 38" stroke="#22c55e" stroke-width="2.5" fill="none"/>
-  <circle cx="80" cy="52" r="3" fill="#22c55e"/>
-  <rect x="20" y="82" width="18" height="16" rx="3" fill="#1a1a1c" stroke="#f472b6" stroke-width="2"/>
-  <line x1="20" y1="88" x2="38" y2="88" stroke="#f472b6" stroke-width="1.5"/>
-  <text x="24" y="95" font-family="sans-serif" font-size="8" fill="#f472b6" font-weight="700">31</text>
-  <path d="M55 90 A15 15 0 0 1 75 90" stroke="#FCB53F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <polygon points="75,90 72,86 72,94" fill="#FCB53F"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Monthly Maintenance - Wrench + Shield with checkmark + Calendar "31" -->
+  <!-- Wrench -->
+  <path d="M80 380 L172 288 C164 260 172 228 196 204 C224 176 264 168 296 180 L260 216 L264 248 L296 252 L332 216 C344 248 336 288 308 316 C284 340 252 348 224 340 L132 432 C124 440 108 440 100 432 L80 412 C72 404 72 388 80 380 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Shield with checkmark -->
+  <path d="M360 80 L312 100 L312 168 C312 220 336 260 360 280 C384 260 408 220 408 168 L408 100 Z" fill="#79C143" stroke="#1A1B20" stroke-width="8"/>
+  <polyline points="336,172 352,192 384,152" fill="none" stroke="#FFFFFF" stroke-width="10"/>
+  <!-- Calendar -->
+  <rect x="340" y="320" width="120" height="120" rx="16" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Calendar header -->
+  <rect x="340" y="320" width="120" height="36" rx="16" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="340" y="344" width="120" height="12" rx="0" fill="#A87C66" stroke="none"/>
+  <!-- Calendar hooks -->
+  <line x1="372" y1="308" x2="372" y2="332" stroke="#1A1B20" stroke-width="8"/>
+  <line x1="428" y1="308" x2="428" y2="332" stroke="#1A1B20" stroke-width="8"/>
+  <!-- "31" text -->
+  <text x="400" y="412" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1A1B20" stroke="none" text-anchor="middle">31</text>
 </svg>

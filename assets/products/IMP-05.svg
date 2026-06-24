@@ -1,12 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
-  <rect x="28" y="25" width="64" height="78" rx="4" fill="#1a1a1c" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="36" y1="36" x2="64" y2="36" stroke="#FCB53F" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="36" y1="48" x2="84" y2="48" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
-  <line x1="36" y1="56" x2="84" y2="56" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
-  <line x1="36" y1="64" x2="84" y2="64" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
-  <text x="36" y="80" font-family="monospace" font-size="10" fill="#22c55e">NCF</text>
-  <text x="58" y="80" font-family="monospace" font-size="9" fill="#FCB53F">001</text>
-  <rect x="60" y="86" width="28" height="12" rx="3" fill="#22c55e" opacity="0.8"/>
-  <text x="64" y="95" font-family="monospace" font-size="8" fill="#1a1a1c" font-weight="bold">RD$</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Invoice Forms NCF - Form pad stacked, "NCF" header -->
+  <!-- Pad backing -->
+  <rect x="100" y="68" width="312" height="400" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Top page (slightly offset) -->
+  <rect x="108" y="56" width="296" height="388" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- NCF Header bar -->
+  <rect x="108" y="56" width="296" height="52" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="108" y="92" width="296" height="16" rx="0" fill="#FAB839" stroke="none"/>
+  <text x="256" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1B20" stroke="none" text-anchor="middle">NCF</text>
+  <!-- Form lines -->
+  <rect x="136" y="132" width="200" height="12" rx="6" fill="#A87C66" stroke="none"/>
+  <line x1="136" y1="172" x2="376" y2="172" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="136" y1="204" x2="376" y2="204" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="136" y1="236" x2="376" y2="236" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="136" y1="268" x2="376" y2="268" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Table area -->
+  <rect x="136" y="296" width="240" height="100" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <line x1="136" y1="324" x2="376" y2="324" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="136" y1="352" x2="376" y2="352" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="136" y1="380" x2="376" y2="380" stroke="#1A1B20" stroke-width="3"/>
+  <!-- Total box -->
+  <rect x="296" y="408" width="80" height="28" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
 </svg>

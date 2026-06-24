@@ -1,11 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
-  <rect x="42" y="20" width="36" height="72" rx="3" fill="#1a1a1c" stroke="#FCB53F" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="60" cy="42" r="8" fill="#FCB53F" opacity="0.8"/>
-  <line x1="48" y1="58" x2="72" y2="58" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-  <line x1="50" y1="65" x2="70" y2="65" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-  <line x1="52" y1="71" x2="68" y2="71" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
-  <rect x="52" y="92" width="16" height="4" rx="2" fill="#ffffff"/>
-  <line x1="60" y1="92" x2="60" y2="100" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="50" y1="100" x2="70" y2="100" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Roll-up Banner - Tall rectangle on triangular stand base -->
+  <!-- Banner body -->
+  <rect x="152" y="40" width="208" height="368" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Banner content -->
+  <circle cx="256" cy="120" r="36" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="196" y="180" width="120" height="14" rx="7" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="184" y="212" width="144" height="10" rx="5" fill="#1A1B20" stroke="none"/>
+  <rect x="192" y="234" width="128" height="10" rx="5" fill="#1A1B20" stroke="none"/>
+  <rect x="200" y="256" width="112" height="10" rx="5" fill="#1A1B20" stroke="none"/>
+  <rect x="196" y="296" width="120" height="40" rx="20" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Stand pole -->
+  <line x1="256" y1="408" x2="256" y2="468" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Triangular base -->
+  <path d="M192 468 L256 448 L320 468 L192 468 Z" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Base feet -->
+  <line x1="192" y1="468" x2="172" y2="488" stroke="#1A1B20" stroke-width="8"/>
+  <line x1="320" y1="468" x2="340" y2="488" stroke="#1A1B20" stroke-width="8"/>
 </svg>

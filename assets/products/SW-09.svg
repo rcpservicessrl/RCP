@@ -1,15 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- App Móvil -->
-  <rect x="36" y="10" width="48" height="100" rx="10" fill="#1a1a1c" stroke="#FCB53F" stroke-width="3"/>
-  <rect x="42" y="22" width="36" height="68" rx="3" fill="#2a2a2e"/>
-  <rect x="50" y="13" width="20" height="5" rx="2.5" fill="#2a2a2e"/>
-  <rect x="46" y="28" width="28" height="6" rx="2" fill="#FCB53F" opacity="0.4"/>
-  <rect x="46" y="38" width="14" height="14" rx="4" fill="#22c55e" opacity="0.6"/>
-  <rect x="63" y="38" width="14" height="14" rx="4" fill="#f472b6" opacity="0.6"/>
-  <rect x="46" y="55" width="14" height="14" rx="4" fill="#FCB53F" opacity="0.5"/>
-  <rect x="63" y="55" width="14" height="14" rx="4" fill="#fff" opacity="0.2"/>
-  <circle cx="50" cy="80" r="3.5" fill="#FCB53F" opacity="0.5"/>
-  <circle cx="60" cy="80" r="3.5" fill="#22c55e"/>
-  <circle cx="70" cy="80" r="3.5" fill="#f472b6" opacity="0.5"/>
-  <rect x="54" y="95" width="12" height="4" rx="2" fill="#fff" opacity="0.3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Mobile App - Phone frame with app grid icons -->
+  <!-- Phone body -->
+  <rect x="136" y="32" width="240" height="448" rx="36" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Screen area -->
+  <rect x="156" y="80" width="200" height="352" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Notch -->
+  <rect x="216" y="44" width="80" height="20" rx="10" fill="#1A1B20" stroke="none"/>
+  <!-- App grid icons - Row 1 -->
+  <rect x="176" y="104" width="48" height="48" rx="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="240" y="104" width="48" height="48" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="304" y="104" width="48" height="48" rx="12" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <!-- App grid icons - Row 2 -->
+  <rect x="176" y="172" width="48" height="48" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="240" y="172" width="48" height="48" rx="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="304" y="172" width="48" height="48" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- App grid icons - Row 3 -->
+  <rect x="176" y="240" width="48" height="48" rx="12" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="240" y="240" width="48" height="48" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="304" y="240" width="48" height="48" rx="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- App grid icons - Row 4 -->
+  <rect x="176" y="308" width="48" height="48" rx="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="240" y="308" width="48" height="48" rx="12" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="304" y="308" width="48" height="48" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Home indicator -->
+  <rect x="216" y="448" width="80" height="8" rx="4" fill="#1A1B20" stroke="none"/>
 </svg>

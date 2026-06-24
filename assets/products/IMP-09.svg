@@ -1,13 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
-  <path d="M20 72 Q20 62 30 62 L90 62 Q100 62 100 72 L100 82 Q100 86 96 86 L24 86 Q20 86 20 82 Z" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="30" cy="86" r="8" fill="#1a1a1c" stroke="#ffffff" stroke-width="2.5"/>
-  <circle cx="30" cy="86" r="3" fill="#FCB53F"/>
-  <circle cx="88" cy="86" r="8" fill="#1a1a1c" stroke="#ffffff" stroke-width="2.5"/>
-  <circle cx="88" cy="86" r="3" fill="#FCB53F"/>
-  <path d="M22 62 L28 52 L48 52 L52 62" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="40" y="66" width="36" height="12" rx="3" fill="#FCB53F" opacity="0.9"/>
-  <text x="44" y="76" font-family="sans-serif" font-size="8" fill="#1a1a1c" font-weight="bold">RCP</text>
-  <circle cx="60" cy="44" r="4" fill="#22c55e" opacity="0.6"/>
-  <circle cx="72" cy="40" r="3" fill="#f472b6" opacity="0.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Vehicle Branding - Car side profile with branded panel on door -->
+  <!-- Car body -->
+  <path d="M80 320 L80 280 L140 280 L180 220 L360 220 L400 260 L452 260 L460 280 L460 320 Z" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Car roof -->
+  <path d="M180 220 L200 172 L340 172 L380 220" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Windows -->
+  <path d="M200 184 L210 220 L268 220 L268 184 Z" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <path d="M276 184 L276 220 L360 220 L340 184 Z" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Branded panel on door -->
+  <rect x="160" y="248" width="160" height="56" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Logo on branded panel -->
+  <circle cx="208" cy="276" r="16" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="236" y="268" width="64" height="12" rx="6" fill="#1A1B20" stroke="none"/>
+  <!-- Wheels -->
+  <circle cx="152" cy="332" r="36" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
+  <circle cx="152" cy="332" r="18" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="380" cy="332" r="36" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
+  <circle cx="380" cy="332" r="18" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Ground line -->
+  <line x1="48" y1="368" x2="464" y2="368" stroke="#1A1B20" stroke-width="6"/>
 </svg>

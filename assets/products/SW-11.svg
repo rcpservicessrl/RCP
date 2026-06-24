@@ -1,17 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- IA Corporativa Privada - Brain + Lock -->
-  <path d="M60 18 C38 18 28 35 28 50 C28 62 35 72 42 76 C44 86 50 92 60 92 C70 92 76 86 78 76 C85 72 92 62 92 50 C92 35 82 18 60 18Z" fill="#1a1a1c" stroke="#FCB53F" stroke-width="3"/>
-  <circle cx="45" cy="42" r="4" fill="#f472b6"/>
-  <circle cx="60" cy="38" r="4" fill="#FCB53F"/>
-  <circle cx="75" cy="42" r="4" fill="#22c55e"/>
-  <circle cx="52" cy="56" r="3.5" fill="#fff" opacity="0.5"/>
-  <circle cx="68" cy="56" r="3.5" fill="#fff" opacity="0.5"/>
-  <circle cx="60" cy="68" r="5" fill="#FCB53F"/>
-  <line x1="45" y1="42" x2="60" y2="38" stroke="#FCB53F" stroke-width="1.5" opacity="0.5"/>
-  <line x1="60" y1="38" x2="75" y2="42" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
-  <line x1="52" y1="56" x2="60" y2="68" stroke="#fff" stroke-width="1" opacity="0.4"/>
-  <line x1="68" y1="56" x2="60" y2="68" stroke="#fff" stroke-width="1" opacity="0.4"/>
-  <rect x="80" y="82" width="22" height="18" rx="4" fill="#1a1a1c" stroke="#f472b6" stroke-width="2.5"/>
-  <path d="M84 82 L84 76 C84 72 87 69 91 69 C95 69 98 72 98 76 L98 82" stroke="#f472b6" stroke-width="2.5" fill="none"/>
-  <circle cx="91" cy="91" r="3" fill="#f472b6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Private Corporate AI - Brain with neural nodes + padlock -->
+  <!-- Brain shape (left hemisphere) -->
+  <path d="M256 120 C200 120 160 150 150 190 C140 230 155 260 170 280 C180 295 175 320 180 340 C190 370 220 380 256 380" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Brain shape (right hemisphere) -->
+  <path d="M256 120 C312 120 352 150 362 190 C372 230 357 260 342 280 C332 295 337 320 332 340 C322 370 292 380 256 380" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Brain center line -->
+  <line x1="256" y1="130" x2="256" y2="370" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Neural nodes -->
+  <circle cx="200" cy="180" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="312" cy="180" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="180" cy="240" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="332" cy="240" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="210" cy="310" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="302" cy="310" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="256" cy="250" r="14" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Neural connections -->
+  <line x1="200" y1="180" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="312" y1="180" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="180" y1="240" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="332" y1="240" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="210" y1="310" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="302" y1="310" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <!-- Padlock below -->
+  <rect x="224" y="416" width="64" height="52" rx="10" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M236 416 L236 400 C236 384 248 376 256 376 C264 376 276 384 276 400 L276 416" fill="none" stroke="#1A1B20" stroke-width="8"/>
+  <circle cx="256" cy="442" r="8" fill="#1A1B20" stroke="none"/>
 </svg>
