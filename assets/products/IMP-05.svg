@@ -1,24 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Invoice Forms NCF - Form pad stacked, "NCF" header -->
-  <!-- Pad backing -->
-  <rect x="100" y="68" width="312" height="400" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Top page (slightly offset) -->
-  <rect x="108" y="56" width="296" height="388" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
-  <!-- NCF Header bar -->
-  <rect x="108" y="56" width="296" height="52" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
-  <rect x="108" y="92" width="296" height="16" rx="0" fill="#FAB839" stroke="none"/>
-  <text x="256" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1B20" stroke="none" text-anchor="middle">NCF</text>
-  <!-- Form lines -->
-  <rect x="136" y="132" width="200" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <line x1="136" y1="172" x2="376" y2="172" stroke="#1A1B20" stroke-width="4"/>
-  <line x1="136" y1="204" x2="376" y2="204" stroke="#1A1B20" stroke-width="4"/>
-  <line x1="136" y1="236" x2="376" y2="236" stroke="#1A1B20" stroke-width="4"/>
-  <line x1="136" y1="268" x2="376" y2="268" stroke="#1A1B20" stroke-width="4"/>
-  <!-- Table area -->
-  <rect x="136" y="296" width="240" height="100" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
-  <line x1="136" y1="324" x2="376" y2="324" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="136" y1="352" x2="376" y2="352" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="136" y1="380" x2="376" y2="380" stroke="#1A1B20" stroke-width="3"/>
-  <!-- Total box -->
-  <rect x="296" y="408" width="80" height="28" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Brochure Trifold - tri-fold paper with fold lines -->
+  <!-- Full brochure body -->
+  <rect x="56" y="128" width="400" height="256" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Fold lines -->
+  <line x1="189" y1="128" x2="189" y2="384" stroke="#1A1B20" stroke-width="4" stroke-dasharray="12,8"/>
+  <line x1="323" y1="128" x2="323" y2="384" stroke="#1A1B20" stroke-width="4" stroke-dasharray="12,8"/>
+  <!-- Panel 1 content -->
+  <rect x="80" y="160" width="86" height="48" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="80" y="224" width="86" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <rect x="80" y="242" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <rect x="80" y="260" width="80" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <!-- Panel 2 content (center) -->
+  <circle cx="256" cy="200" r="28" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="220" y="248" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <rect x="224" y="266" width="64" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <rect x="220" y="284" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <!-- Panel 3 content -->
+  <rect x="346" y="160" width="86" height="48" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="346" y="224" width="86" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <rect x="346" y="242" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <rect x="346" y="260" width="80" height="8" rx="4" fill="#A87C66" stroke="none"/>
+  <!-- Fold arrows -->
+  <path d="M180 400 L180 416 L198 408 Z" fill="#1A1B20" stroke="none"/>
+  <path d="M332 400 L332 416 L314 408 Z" fill="#1A1B20" stroke="none"/>
 </svg>

@@ -1,15 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Custom Packaging - 3D box perspective, logo on front face -->
-  <!-- Box top face -->
-  <path d="M160 160 L256 112 L392 160 L296 208 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Box front face -->
-  <path d="M160 160 L160 360 L296 408 L296 208 Z" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Box right face -->
-  <path d="M296 208 L296 408 L392 360 L392 160 Z" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Logo on front face -->
-  <circle cx="228" cy="284" r="36" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <!-- Brand line on front -->
-  <rect x="188" y="336" width="80" height="12" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
-  <!-- Box tape/seal on top -->
-  <line x1="220" y1="140" x2="340" y2="140" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Facade Signage - Building outline with illuminated sign on top -->
+  <!-- Building body -->
+  <rect x="96" y="168" width="320" height="308" rx="4" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Building windows -->
+  <rect x="136" y="220" width="56" height="56" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="228" y="220" width="56" height="56" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="320" y="220" width="56" height="56" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="136" y="312" width="56" height="56" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="228" y="312" width="56" height="56" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="320" y="312" width="56" height="56" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Door -->
+  <rect x="220" y="400" width="72" height="76" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Facade sign on top -->
+  <rect x="128" y="80" width="256" height="72" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Sign text area -->
+  <rect x="168" y="100" width="176" height="32" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Sign supports -->
+  <rect x="160" y="152" width="12" height="16" rx="2" fill="#1A1B20" stroke="none"/>
+  <rect x="340" y="152" width="12" height="16" rx="2" fill="#1A1B20" stroke="none"/>
+  <!-- Light rays from sign -->
+  <line x1="160" y1="72" x2="148" y2="48" stroke="#FAB839" stroke-width="6"/>
+  <line x1="256" y1="72" x2="256" y2="44" stroke="#FAB839" stroke-width="6"/>
+  <line x1="352" y1="72" x2="364" y2="48" stroke="#FAB839" stroke-width="6"/>
 </svg>

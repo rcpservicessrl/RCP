@@ -1,36 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Product Labels - Rounded rectangle with barcode lines at bottom -->
-  <!-- Label body -->
-  <rect x="96" y="96" width="320" height="320" rx="32" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Inner white area -->
-  <rect x="128" y="128" width="256" height="200" rx="16" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
-  <!-- Logo area -->
-  <circle cx="256" cy="192" r="32" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <!-- Product name -->
-  <rect x="184" y="244" width="144" height="16" rx="8" fill="#1A1B20" stroke="none"/>
-  <!-- Description line -->
-  <rect x="168" y="276" width="176" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <rect x="180" y="300" width="152" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <!-- Barcode area -->
-  <rect x="168" y="352" width="176" height="44" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
-  <!-- Barcode lines -->
-  <rect x="184" y="360" width="4" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="192" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="198" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="208" y="360" width="3" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="215" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="224" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="230" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="240" y="360" width="3" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="248" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="257" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="263" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="273" y="360" width="4" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="281" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="287" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="296" y="360" width="3" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="303" y="360" width="6" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="313" y="360" width="2" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="319" y="360" width="4" height="28" fill="#1A1B20" stroke="none"/>
-  <rect x="327" y="360" width="5" height="28" fill="#1A1B20" stroke="none"/>
+  <!-- LED Sign - Rectangle with light rays, mounted on wall -->
+  <!-- Wall background -->
+  <rect x="40" y="120" width="432" height="280" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <!-- LED sign body -->
+  <rect x="120" y="180" width="272" height="120" rx="12" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
+  <!-- LED display screen -->
+  <rect x="136" y="196" width="240" height="88" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- LED text -->
+  <rect x="168" y="226" width="80" height="16" rx="4" fill="#FFFFFF" stroke="none"/>
+  <rect x="264" y="226" width="80" height="16" rx="4" fill="#FFFFFF" stroke="none"/>
+  <rect x="196" y="252" width="120" height="12" rx="4" fill="#79C143" stroke="none"/>
+  <!-- Light rays -->
+  <line x1="120" y1="168" x2="96" y2="140" stroke="#FAB839" stroke-width="6"/>
+  <line x1="200" y1="172" x2="192" y2="140" stroke="#FAB839" stroke-width="6"/>
+  <line x1="256" y1="172" x2="256" y2="136" stroke="#FAB839" stroke-width="6"/>
+  <line x1="312" y1="172" x2="320" y2="140" stroke="#FAB839" stroke-width="6"/>
+  <line x1="392" y1="168" x2="416" y2="140" stroke="#FAB839" stroke-width="6"/>
+  <!-- Mounting brackets -->
+  <rect x="180" y="300" width="20" height="28" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="312" y="300" width="20" height="28" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
 </svg>

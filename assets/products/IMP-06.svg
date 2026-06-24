@@ -1,19 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Roll-up Banner - Tall rectangle on triangular stand base -->
-  <!-- Banner body -->
-  <rect x="152" y="40" width="208" height="368" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Banner content -->
-  <circle cx="256" cy="120" r="36" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="196" y="180" width="120" height="14" rx="7" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
-  <rect x="184" y="212" width="144" height="10" rx="5" fill="#1A1B20" stroke="none"/>
-  <rect x="192" y="234" width="128" height="10" rx="5" fill="#1A1B20" stroke="none"/>
-  <rect x="200" y="256" width="112" height="10" rx="5" fill="#1A1B20" stroke="none"/>
-  <rect x="196" y="296" width="120" height="40" rx="20" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
-  <!-- Stand pole -->
-  <line x1="256" y1="408" x2="256" y2="468" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Triangular base -->
-  <path d="M192 468 L256 448 L320 468 L192 468 Z" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
-  <!-- Base feet -->
-  <line x1="192" y1="468" x2="172" y2="488" stroke="#1A1B20" stroke-width="8"/>
-  <line x1="320" y1="468" x2="340" y2="488" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Invoice Forms NCF - Form pad stacked, "NCF" header -->
+  <!-- Pad backing -->
+  <rect x="100" y="68" width="312" height="400" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Top page (slightly offset) -->
+  <rect x="108" y="56" width="296" height="388" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- NCF Header bar -->
+  <rect x="108" y="56" width="296" height="52" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="108" y="92" width="296" height="16" rx="0" fill="#FAB839" stroke="none"/>
+  <text x="256" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1B20" stroke="none" text-anchor="middle">NCF</text>
+  <!-- Form lines -->
+  <rect x="136" y="132" width="200" height="12" rx="6" fill="#A87C66" stroke="none"/>
+  <line x1="136" y1="172" x2="376" y2="172" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="136" y1="204" x2="376" y2="204" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="136" y1="236" x2="376" y2="236" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="136" y1="268" x2="376" y2="268" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Table area -->
+  <rect x="136" y="296" width="240" height="100" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <line x1="136" y1="324" x2="376" y2="324" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="136" y1="352" x2="376" y2="352" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="136" y1="380" x2="376" y2="380" stroke="#1A1B20" stroke-width="3"/>
+  <!-- Total box -->
+  <rect x="296" y="408" width="80" height="28" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
 </svg>
