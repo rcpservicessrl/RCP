@@ -1,20 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- Agenda Ejecutiva Grabada -->
-  <!-- Closed book -->
-  <rect x="30" y="15" width="60" height="85" rx="4" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
-  <!-- Spine -->
-  <rect x="28" y="15" width="6" height="85" rx="2" fill="rgba(252,181,63,0.12)" stroke="#FCB53F" stroke-width="1.5"/>
-  <!-- Leather texture lines -->
-  <line x1="36" y1="20" x2="86" y2="20" stroke="#FCB53F" stroke-width="0.5" opacity="0.15"/>
-  <line x1="36" y1="95" x2="86" y2="95" stroke="#FCB53F" stroke-width="0.5" opacity="0.15"/>
-  <!-- Laser engraved logo -->
-  <rect x="45" y="38" width="30" height="30" rx="4" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.08)" stroke-dasharray="3 2"/>
-  <circle cx="60" cy="50" r="8" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.1)"/>
-  <text x="56" y="54" font-size="9" fill="#FCB53F" font-weight="bold">R</text>
-  <rect x="50" y="62" width="20" height="3" rx="1" fill="#FCB53F" opacity="0.3"/>
-  <!-- Ribbon bookmark -->
-  <line x1="80" y1="15" x2="80" y2="105" stroke="#FCB53F" stroke-width="1.5" opacity="0.5"/>
-  <polygon points="77,105 80,110 83,105" fill="#FCB53F" opacity="0.5"/>
-  <!-- Elastic band -->
-  <line x1="88" y1="25" x2="88" y2="90" stroke="#FCB53F" stroke-width="1.8" opacity="0.3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
+  <rect x="32" y="28" width="56" height="72" rx="5" fill="#1a1a1c" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="32" y="28" width="56" height="18" rx="5" fill="#FCB53F" opacity="0.9"/>
+  <text x="42" y="41" font-family="sans-serif" font-size="9" fill="#1a1a1c" font-weight="bold">NOTES</text>
+  <line x1="40" y1="56" x2="78" y2="56" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <line x1="40" y1="64" x2="72" y2="64" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <line x1="40" y1="72" x2="76" y2="72" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <line x1="80" y1="28" x2="80" y2="100" stroke="#f472b6" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="80" cy="100" r="3" fill="#f472b6"/>
 </svg>

@@ -1,18 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- Mantenimiento Mensual - Wrench + Shield -->
-  <circle cx="60" cy="55" r="35" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.04)" stroke-dasharray="4 3"/>
-  <!-- Wrench -->
-  <path d="M42 45 L52 55 L48 59 L38 49 C35 52 35 57 38 60 C41 63 46 63 49 60 L59 70 L63 66 L53 56 C56 53 56 48 53 45 C50 42 45 42 42 45Z" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.1)"/>
-  <!-- Shield -->
-  <path d="M72 35 L72 55 C72 65 60 72 60 72 C60 72 72 65 82 55 L82 35 L77 33 L72 35Z" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.08)" transform="translate(8,5)"/>
-  <!-- Checkmark in shield -->
-  <polyline points="78,50 81,53 87,47" stroke="#FCB53F" stroke-width="2" stroke-linecap="round" fill="none"/>
-  <!-- Circular arrows (recurring) -->
-  <path d="M60 92 A20 20 0 0 1 40 85" stroke="#FCB53F" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <path d="M40 85 A20 20 0 0 1 60 78" stroke="#FCB53F" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.6"/>
-  <polygon points="60,92 56,88 56,96" fill="#FCB53F"/>
-  <!-- Calendar small -->
-  <rect x="20" y="80" width="16" height="14" rx="2" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.06)"/>
-  <line x1="20" y1="85" x2="36" y2="85" stroke="#FCB53F" stroke-width="0.8"/>
-  <text x="24" y="92" font-size="6" fill="#FCB53F" font-weight="bold">31</text>
+  <!-- Mantenimiento Mensual -->
+  <circle cx="60" cy="55" r="35" fill="none" stroke="#FCB53F" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <path d="M48 48 L55 55 L52 58 L45 51 C42 54 42 59 45 62 C48 65 53 65 56 62 L63 69 L67 65 L60 58 C63 55 63 50 60 47 C57 44 52 44 48 48Z" fill="#FCB53F"/>
+  <rect x="70" y="38" width="20" height="28" rx="5" fill="#1a1a1c" stroke="#22c55e" stroke-width="2.5"/>
+  <path d="M74 38 L74 33 C74 29 77 27 80 27 C83 27 86 29 86 33 L86 38" stroke="#22c55e" stroke-width="2.5" fill="none"/>
+  <circle cx="80" cy="52" r="3" fill="#22c55e"/>
+  <rect x="20" y="82" width="18" height="16" rx="3" fill="#1a1a1c" stroke="#f472b6" stroke-width="2"/>
+  <line x1="20" y1="88" x2="38" y2="88" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="24" y="95" font-family="sans-serif" font-size="8" fill="#f472b6" font-weight="700">31</text>
+  <path d="M55 90 A15 15 0 0 1 75 90" stroke="#FCB53F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <polygon points="75,90 72,86 72,94" fill="#FCB53F"/>
 </svg>

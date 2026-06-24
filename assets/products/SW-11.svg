@@ -1,22 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
   <!-- IA Corporativa Privada - Brain + Lock -->
-  <!-- Brain outline -->
-  <path d="M60 20 C40 20 28 35 28 50 C28 60 33 68 40 72 C40 80 45 88 55 90 C55 95 57 100 60 100 C63 100 65 95 65 90 C75 88 80 80 80 72 C87 68 92 60 92 50 C92 35 80 20 60 20Z" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
-  <!-- Neural connections -->
-  <circle cx="45" cy="42" r="3" fill="#FCB53F" opacity="0.5"/>
-  <circle cx="60" cy="38" r="3" fill="#FCB53F" opacity="0.6"/>
-  <circle cx="75" cy="42" r="3" fill="#FCB53F" opacity="0.5"/>
-  <circle cx="50" cy="55" r="3" fill="#FCB53F" opacity="0.4"/>
-  <circle cx="70" cy="55" r="3" fill="#FCB53F" opacity="0.4"/>
-  <circle cx="60" cy="65" r="3.5" fill="#FCB53F" opacity="0.7"/>
-  <line x1="45" y1="42" x2="60" y2="38" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <line x1="60" y1="38" x2="75" y2="42" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <line x1="45" y1="42" x2="50" y2="55" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <line x1="75" y1="42" x2="70" y2="55" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <line x1="50" y1="55" x2="60" y2="65" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <line x1="70" y1="55" x2="60" y2="65" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <!-- Lock -->
-  <rect x="80" y="82" width="20" height="16" rx="3" stroke="#FCB53F" stroke-width="1.8" fill="rgba(252,181,63,0.12)"/>
-  <path d="M84 82 L84 77 C84 73 87 70 90 70 C93 70 96 73 96 77 L96 82" stroke="#FCB53F" stroke-width="1.8" fill="none"/>
-  <circle cx="90" cy="90" r="2" fill="#FCB53F"/>
+  <path d="M60 18 C38 18 28 35 28 50 C28 62 35 72 42 76 C44 86 50 92 60 92 C70 92 76 86 78 76 C85 72 92 62 92 50 C92 35 82 18 60 18Z" fill="#1a1a1c" stroke="#FCB53F" stroke-width="3"/>
+  <circle cx="45" cy="42" r="4" fill="#f472b6"/>
+  <circle cx="60" cy="38" r="4" fill="#FCB53F"/>
+  <circle cx="75" cy="42" r="4" fill="#22c55e"/>
+  <circle cx="52" cy="56" r="3.5" fill="#fff" opacity="0.5"/>
+  <circle cx="68" cy="56" r="3.5" fill="#fff" opacity="0.5"/>
+  <circle cx="60" cy="68" r="5" fill="#FCB53F"/>
+  <line x1="45" y1="42" x2="60" y2="38" stroke="#FCB53F" stroke-width="1.5" opacity="0.5"/>
+  <line x1="60" y1="38" x2="75" y2="42" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+  <line x1="52" y1="56" x2="60" y2="68" stroke="#fff" stroke-width="1" opacity="0.4"/>
+  <line x1="68" y1="56" x2="60" y2="68" stroke="#fff" stroke-width="1" opacity="0.4"/>
+  <rect x="80" y="82" width="22" height="18" rx="4" fill="#1a1a1c" stroke="#f472b6" stroke-width="2.5"/>
+  <path d="M84 82 L84 76 C84 72 87 69 91 69 C95 69 98 72 98 76 L98 82" stroke="#f472b6" stroke-width="2.5" fill="none"/>
+  <circle cx="91" cy="91" r="3" fill="#f472b6"/>
 </svg>

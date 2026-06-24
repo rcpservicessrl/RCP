@@ -1,21 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- App Móvil iOS + Android -->
-  <rect x="35" y="10" width="50" height="100" rx="10" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
-  <!-- Screen -->
-  <rect x="40" y="22" width="40" height="72" rx="2" fill="rgba(252,181,63,0.04)" stroke="#FCB53F" stroke-width="0.8"/>
-  <!-- Notch -->
-  <rect x="50" y="13" width="20" height="5" rx="2.5" fill="#FCB53F" opacity="0.2"/>
-  <!-- App UI elements -->
-  <rect x="44" y="28" width="32" height="6" rx="1" fill="#FCB53F" opacity="0.25"/>
-  <rect x="44" y="38" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
-  <rect x="62" y="38" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
-  <rect x="44" y="56" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
-  <rect x="62" y="56" width="15" height="15" rx="3" fill="rgba(252,181,63,0.15)" stroke="#FCB53F" stroke-width="0.8"/>
-  <!-- Tab bar -->
-  <line x1="40" y1="82" x2="80" y2="82" stroke="#FCB53F" stroke-width="0.8" opacity="0.4"/>
-  <circle cx="50" cy="88" r="3" fill="#FCB53F" opacity="0.4"/>
-  <circle cx="60" cy="88" r="3" fill="#FCB53F" opacity="0.6"/>
-  <circle cx="70" cy="88" r="3" fill="#FCB53F" opacity="0.4"/>
-  <!-- Home button -->
-  <rect x="55" y="96" width="10" height="3" rx="1.5" fill="#FCB53F" opacity="0.3"/>
+  <!-- App Móvil -->
+  <rect x="36" y="10" width="48" height="100" rx="10" fill="#1a1a1c" stroke="#FCB53F" stroke-width="3"/>
+  <rect x="42" y="22" width="36" height="68" rx="3" fill="#2a2a2e"/>
+  <rect x="50" y="13" width="20" height="5" rx="2.5" fill="#2a2a2e"/>
+  <rect x="46" y="28" width="28" height="6" rx="2" fill="#FCB53F" opacity="0.4"/>
+  <rect x="46" y="38" width="14" height="14" rx="4" fill="#22c55e" opacity="0.6"/>
+  <rect x="63" y="38" width="14" height="14" rx="4" fill="#f472b6" opacity="0.6"/>
+  <rect x="46" y="55" width="14" height="14" rx="4" fill="#FCB53F" opacity="0.5"/>
+  <rect x="63" y="55" width="14" height="14" rx="4" fill="#fff" opacity="0.2"/>
+  <circle cx="50" cy="80" r="3.5" fill="#FCB53F" opacity="0.5"/>
+  <circle cx="60" cy="80" r="3.5" fill="#22c55e"/>
+  <circle cx="70" cy="80" r="3.5" fill="#f472b6" opacity="0.5"/>
+  <rect x="54" y="95" width="12" height="4" rx="2" fill="#fff" opacity="0.3"/>
 </svg>

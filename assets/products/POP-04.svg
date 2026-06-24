@@ -1,18 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- Termo/Botella Corporativa -->
-  <!-- Cap -->
-  <rect x="45" y="12" width="30" height="12" rx="4" stroke="#FCB53F" stroke-width="2" fill="rgba(252,181,63,0.15)"/>
-  <!-- Neck -->
-  <rect x="48" y="24" width="24" height="8" rx="2" stroke="#FCB53F" stroke-width="1.5" fill="rgba(252,181,63,0.06)"/>
-  <!-- Body -->
-  <rect x="40" y="32" width="40" height="70" rx="8" stroke="#FCB53F" stroke-width="2.5" fill="rgba(252,181,63,0.06)"/>
-  <!-- Laser engraving area -->
-  <rect x="48" y="50" width="24" height="30" rx="3" stroke="#FCB53F" stroke-width="1" stroke-dasharray="3 2" fill="rgba(252,181,63,0.08)"/>
-  <!-- Logo engraved -->
-  <circle cx="60" cy="60" r="6" stroke="#FCB53F" stroke-width="1.2" fill="rgba(252,181,63,0.1)"/>
-  <text x="57" y="63" font-size="6" fill="#FCB53F" font-weight="bold">R</text>
-  <rect x="52" y="70" width="16" height="3" rx="1" fill="#FCB53F" opacity="0.3"/>
-  <!-- Metallic shine lines -->
-  <line x1="43" y1="40" x2="43" y2="95" stroke="#FCB53F" stroke-width="0.5" opacity="0.2"/>
-  <line x1="77" y1="40" x2="77" y2="95" stroke="#FCB53F" stroke-width="0.5" opacity="0.2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="16" fill="#1a1a1c"/>
+  <rect x="44" y="22" width="32" height="76" rx="12" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="44" y="22" width="32" height="12" rx="6" fill="#FCB53F"/>
+  <ellipse cx="60" cy="22" rx="6" ry="3" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="10" fill="#22c55e" opacity="0.7"/>
+  <text x="54" y="64" font-family="sans-serif" font-size="10" fill="#1a1a1c" font-weight="bold">R</text>
+  <line x1="50" y1="80" x2="70" y2="80" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <circle cx="60" cy="92" r="2" fill="#FCB53F"/>
 </svg>
