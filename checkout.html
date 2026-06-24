@@ -405,7 +405,7 @@
               </div>
             </div>
 
-            <!-- Card Fields (CardNet/Stripe) -->
+            <!-- Card Fields (CardNet/CardNet) -->
             <div class="card-fields-container" id="cardnetFields">
               <div class="card-fields-title" style="margin-bottom: 20px;">
                 <span data-i18n="chk-card-title">Datos de Tarjeta</span>
@@ -417,7 +417,7 @@
               </div>
               <div class="checkout-form-group" style="margin-top: 15px;">
                 <label data-i18n="chk-card-element">Tarjeta de Crédito o Débito</label>
-                <!-- Contenedor donde Stripe Elements inyectará los inputs seguros -->
+                <!-- Contenedor donde CardNet Elements inyectará los inputs seguros -->
                 <div id="card-element" class="form-control" style="background: rgba(255,255,255,0.02); padding: 14px; border-radius: 10px;"></div>
                 <!-- Div para mostrar errores de validación de la tarjeta -->
                 <div id="card-errors" role="alert" style="color: #ef4444; font-size: 0.8rem; margin-top: 8px;"></div>
@@ -708,50 +708,23 @@
         });
       });
 
-      // Initialize Stripe Elements
-      const stripePublicKey = 'pk_test_51IqD4dC6kR1Wn8ZpM9k7d5x3C2m8d1f7o0X3r9v5t6h7u8w9e0r1t2y3u4i5o6p7a8s9d0f_dummy_2026';
-      let stripe = null;
+      // CardNet payment gateway (placeholder until merchant credentials are provided)
+      const CARDNET_ENABLED = false;
+      let CardNet = null;
       let elements = null;
       let cardElement = null;
 
       try {
-        if (window.Stripe) {
-          stripe = window.Stripe(stripePublicKey);
-          elements = stripe.elements();
-          
-          // Customize visual styling to match theme
-          const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-          const style = {
-            base: {
-              color: isDark ? '#e8e8ea' : '#1d1d1f',
-              fontFamily: '"Montserrat", sans-serif',
-              fontSmoothing: 'antialiased',
-              fontSize: '15px',
-              '::placeholder': {
-                color: isDark ? '#8a8a98' : '#8e8e93',
-              },
-            },
-            invalid: {
-              color: '#ef4444',
-              iconColor: '#ef4444',
-            },
-          };
-          
-          cardElement = elements.create('card', { style: style, hidePostalCode: true });
-          cardElement.mount('#card-element');
-          
-          // Listen for errors
-          cardElement.on('change', (event) => {
-            const displayError = document.getElementById('card-errors');
-            if (event.error) {
-              displayError.textContent = event.error.message;
-            } else {
-              displayError.textContent = '';
-            }
-          });
+        if (CARDNET_ENABLED) {
+          // CardNet integration will be initialized here when merchant credentials are provided
+          // For now, card fields show a message indicating upcoming availability
+          const cardEl = document.getElementById('card-element');
+          if (cardEl) {
+            cardEl.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:10px;">💳 Pago con tarjeta via CardNet se activará próximamente.<br>Usa transferencia o WhatsApp por ahora.</p>';
+          }
         }
       } catch (e) {
-        console.error("Error initializing Stripe Elements:", e);
+        console.error("Error initializing payment gateway:", e);
       }
 
       // Payment processing
@@ -779,51 +752,13 @@
           let transactionId = '';
 
           if (activeMethod === 'cardnet') {
-            const cardHolder = document.getElementById('cardName').value.trim();
-            if (!cardHolder) {
-              alert(isEN ? 'Please enter the cardholder name.' : 'Por favor ingresa el nombre del titular de la tarjeta.');
+            // CardNet not yet enabled — show friendly message
+            if (!CARDNET_ENABLED) {
+              processingOverlay.classList.remove('active');
+              alert('Pago con tarjeta (CardNet) se activará próximamente.\n\nPor favor utiliza Transferencia Bancaria o WhatsApp para completar tu compra.');
               return;
             }
-
-            // Trigger high-fidelity processing animation
-            processingOverlay.classList.add('active');
-            procTitle.textContent = isEN ? 'Validating card with Stripe...' : 'Validando tarjeta con Stripe...';
-            procSub.textContent = isEN ? 'Encrypting credit card token...' : 'Cifrando token de tarjeta de crédito...';
-
-            if (stripe && cardElement) {
-              try {
-                const { paymentMethod, error } = await stripe.createPaymentMethod({
-                  type: 'card',
-                  card: cardElement,
-                  billing_details: {
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    address: {
-                      line1: address
-                    }
-                  }
-                });
-
-                if (error) {
-                  processingOverlay.classList.remove('active');
-                  const errorElement = document.getElementById('card-errors');
-                  errorElement.textContent = error.message;
-                  alert(isEN ? 'Payment failed: ' + error.message : 'El pago falló: ' + error.message);
-                  return;
-                }
-
-                transactionId = paymentMethod.id;
-              } catch (stripeErr) {
-                console.error("Stripe error:", stripeErr);
-                processingOverlay.classList.remove('active');
-                alert(isEN ? 'Stripe Gateway Error' : 'Error en la pasarela de Stripe');
-                return;
-              }
-            } else {
-              // Local simulation fallback
-              transactionId = 'pm_sim_' + Math.random().toString(36).substring(2, 10);
-            }
+            transactionId = 'CARDNET-' + Math.floor(100000 + Math.random() * 900000);
           } else {
             // PayPal simulation
             processingOverlay.classList.add('active');
@@ -867,13 +802,13 @@
                 from_email: email,
                 from_phone: phone,
                 from_company: company,
-                message: `PAGO REAL STRIPE COMPLETADO.\nID Transacción / PaymentMethod: ${transactionId}\nMétodo: ${activeMethod}\nTotal pagado: ${txnData.amountPaid}\nServicios adquiridos: ${JSON.stringify(checkoutItems)}`,
+                message: `PAGO REAL CardNet COMPLETADO.\nID Transacción / PaymentMethod: ${transactionId}\nMétodo: ${activeMethod}\nTotal pagado: ${txnData.amountPaid}\nServicios adquiridos: ${JSON.stringify(checkoutItems)}`,
                 reply_to: email
               };
 
               emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
 
-              // n8n pipeline trigger (webhook call with safe tokenized Stripe data)
+              // n8n pipeline trigger (webhook call with safe tokenized CardNet data)
               fetch(RCP_LEAD_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -883,9 +818,9 @@
                   user_phone: phone,
                   user_company: company,
                   user_service: checkoutItems.map(item => item.name).join(', '),
-                  user_message: `Pago completado hoy. ID Stripe: ${transactionId}. RNC: ${rnc}. Dirección: ${address}. Monto pagado: ${txnData.amountPaid}. Método: ${activeMethod}.`,
-                  lead_source: 'Secured Stripe Elements Checkout',
-                  stripe_payment_method_id: transactionId,
+                  user_message: `Pago completado hoy. ID CardNet: ${transactionId}. RNC: ${rnc}. Dirección: ${address}. Monto pagado: ${txnData.amountPaid}. Método: ${activeMethod}.`,
+                  lead_source: 'Secured CardNet Elements Checkout',
+                  CardNet_payment_method_id: transactionId,
                   rnc: rnc,
                   address: address,
                   items: checkoutItems,
