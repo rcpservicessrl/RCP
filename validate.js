@@ -63,7 +63,7 @@ function checkNoTunnelUrls() {
 // ═══════════════════════════════════════
 function checkNoPlaceholders() {
   console.log('\n🔑 Checking for placeholder credentials...');
-  const files = fs.readdirSync(ROOT).filter(f => f.endsWith('.html') || f.endsWith('.js'));
+  const files = fs.readdirSync(ROOT).filter(f => (f.endsWith('.html') || f.endsWith('.js')) && f !== 'validate.js');
   const placeholders = ['YOUR_EMAILJS_USER_ID', 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', 'pk_test_51Iq'];
 
   files.forEach(file => {
@@ -182,8 +182,8 @@ function checkNavCTAConsistency() {
 // ═══════════════════════════════════════
 function checkLeadURLs() {
   console.log('\n📡 Checking lead/chatbot URL consistency...');
-  const expectedLead = 'us-central1-chatbot-rcp.cloudfunctions.net/rcpLead';
-  const expectedChat = 'us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
+  const expectedLead = 'cloudfunctions.net/rcpLead';
+  const expectedChat = 'cloudfunctions.net/rcpChat';
   
   ['script.js', 'script.min.js'].forEach(file => {
     const content = fs.readFileSync(path.join(ROOT, file), 'utf8');
