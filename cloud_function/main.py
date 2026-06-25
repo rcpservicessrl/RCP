@@ -1,4 +1,5 @@
-import os, requests, unicodedata, random
+import os, requests, unicodedata, random, time
+from collections import defaultdict
 from flask import jsonify
 
 GEMINI_API_KEYS = [
@@ -28,6 +29,42 @@ def is_confidential_query(text: str) -> bool:
     normalized = "".join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
     lower = normalized.lower()
     return any(kw in lower for kw in CONFIDENTIAL_KEYWORDS)
+
+# ─── RATE LIMITING (in-memory, per-instance) ──────────────────────────────
+# Simple sliding-window counter keyed by client IP. Designed for Cloud Functions
+# where each instance has a short lifetime. For production-grade limiting at
+# scale, consider a Redis-backed solution or Cloud Armor.
+RATE_LIMIT_WINDOW = 60        # seconds
+CHAT_RATE_LIMIT   = 30        # max requests per window per IP (chat is heavier, but generous)
+LEAD_RATE_LIMIT   = 10        # max requests per window per IP (lead capture is more sensitive)
+
+_rate_store = defaultdict(list)  # { "ip:endpoint": [timestamp, timestamp, ...] }
+
+def _client_ip(request):
+    """Extract client IP, respecting X-Forwarded-For when behind Cloud Run."""
+    xff = request.headers.get('X-Forwarded-For', '')
+    if xff:
+        return xff.split(',')[0].strip()
+    return request.remote_addr or 'unknown'
+
+def check_rate_limit(request, key_suffix, limit):
+    """Returns (allowed: bool, retry_after: int)."""
+    ip = _client_ip(request)
+    now = time.time()
+    bucket_key = f"{ip}:{key_suffix}"
+    cutoff = now - RATE_LIMIT_WINDOW
+
+    # Prune expired entries
+    _rate_store[bucket_key] = [t for t in _rate_store[bucket_key] if t > cutoff]
+
+    if len(_rate_store[bucket_key]) >= limit:
+        oldest = _rate_store[bucket_key][0]
+        retry_after = int(oldest + RATE_LIMIT_WINDOW - now) + 1
+        return False, max(retry_after, 1)
+
+    _rate_store[bucket_key].append(now)
+    return True, 0
+# ──────────────────────────────────────────────────────────────────────────
 
 def call_gemini(prompt: str) -> str:
     # Shuffle keys to load-balance
@@ -108,13 +145,24 @@ def rcpChat(request):
         'Access-Control-Allow-Origin': cors_origin
     }
 
+    # ─── RATE LIMIT (chat endpoint) ───
+    allowed, retry_after = check_rate_limit(request, 'chat', CHAT_RATE_LIMIT)
+    if not allowed:
+        h = {**headers, 'Retry-After': str(retry_after)}
+        return (jsonify({"error": "rate_limited", "retry_after": retry_after}), 429, h)
+
     body = request.get_json(silent=True) or {}
     message = body.get('message', '').strip()
     lang = body.get('lang', 'es').strip().lower()
 
+    # Length guard: prevent oversized payloads (DoS / cost)
     if not message:
         return (jsonify({"error": "No message provided"}), 400, headers)
-    
+    if len(message) > 2000:
+        return (jsonify({"error": "Message too long (max 2000 chars)"}), 400, headers)
+    if lang not in ('es', 'en'):
+        lang = 'es'
+
     # ─── SERVER-SIDE GUARDRAIL ───
     if is_confidential_query(message):
         response_text = SECURITY_RESPONSE_EN if lang == 'en' else SECURITY_RESPONSE_ES
@@ -157,10 +205,25 @@ def rcpLead(request):
 
     headers = {'Access-Control-Allow-Origin': cors_origin}
 
+    # ─── RATE LIMIT (lead endpoint) ───
+    allowed, retry_after = check_rate_limit(request, 'lead', LEAD_RATE_LIMIT)
+    if not allowed:
+        h = {**headers, 'Retry-After': str(retry_after)}
+        return (jsonify({"error": "rate_limited", "retry_after": retry_after}), 429, h)
+
     body = request.get_json(silent=True) or {}
-    
+
     if not body.get('user_name') and not body.get('user_email'):
         return (jsonify({"error": "Missing required fields"}), 400, headers)
+
+    # Input validation & sanitization (basic)
+    user_email = (body.get('user_email') or '').strip().lower()
+    if user_email and ('@' not in user_email or len(user_email) > 254):
+        return (jsonify({"error": "Invalid email"}), 400, headers)
+    for fld in ('user_name', 'user_company', 'user_service', 'user_message'):
+        v = body.get(fld)
+        if isinstance(v, str) and len(v) > 1000:
+            return (jsonify({"error": f"{fld} too long"}), 400, headers)
 
     # Forward to n8n tunnel (best-effort, non-blocking)
     n8n_tunnel_url = os.getenv('N8N_TUNNEL_URL', '')
