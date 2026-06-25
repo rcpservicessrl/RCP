@@ -2,7 +2,7 @@
 // GCP Cloud Function (stable, always-on chatbot endpoint)
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
 // GCP Cloud Function for lead capture (stable endpoint — forwards internally to n8n)
-const RCP_LEAD_WEBHOOK_URL = 'https://a110d5c0de32ee.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+const RCP_LEAD_WEBHOOK_URL = 'https://b95a30b32790a4.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // ─── SECURITY: CONFIDENTIAL KEYWORD GUARDRAIL ───
 // Blocks queries about internal infrastructure before they reach the network
