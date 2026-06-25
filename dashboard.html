@@ -753,7 +753,7 @@
         <div style="display:flex; align-items:center; gap:12px;">
           <label for="adminClientSelect" style="font-size:0.82rem; color:var(--text-muted);">Visualizar datos de:</label>
           <select class="lang-select" id="adminClientSelect" style="font-size:0.85rem; padding:6px 14px; min-width:220px; border-radius:6px; background:rgba(252,181,63,0.08);">
-            <option value="default">Vista Global (Simulación)</option>
+            <option value="default">Vista Global (Consolidado)</option>
           </select>
         </div>
       </div>
@@ -762,23 +762,23 @@
       <div class="kpi-row">
         <div class="kpi-card">
           <span class="kpi-title" data-i18n="dash-kpi-sales">Ventas del Mes</span>
-          <span class="kpi-value" id="kpiSales">RD$ 480,000</span>
-          <span class="kpi-change">▲ +12.4% <span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          <span class="kpi-value" id="kpiSales">—</span>
+          <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
         </div>
         <div class="kpi-card">
           <span class="kpi-title" data-i18n="dash-kpi-cac">Costo por Lead (CPL)</span>
-          <span class="kpi-value" id="kpiCac">RD$ 2,500</span>
-          <span class="kpi-change" style="color:#ef4444;">▼ -8.2% <span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          <span class="kpi-value" id="kpiCac">—</span>
+          <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
         </div>
         <div class="kpi-card">
           <span class="kpi-title" data-i18n="dash-kpi-roas">Retorno Ads (ROAS)</span>
-          <span class="kpi-value" id="kpiRoas">4.2x</span>
-          <span class="kpi-change">▲ +0.6x <span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          <span class="kpi-value" id="kpiRoas">—</span>
+          <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
         </div>
         <div class="kpi-card">
           <span class="kpi-title" data-i18n="dash-kpi-ltv">Valor de Cliente (LTV)</span>
-          <span class="kpi-value" id="kpiLtv">RD$ 35,000</span>
-          <span class="kpi-change">▲ +15% <span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          <span class="kpi-value" id="kpiLtv">—</span>
+          <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
         </div>
       </div>
 
@@ -886,7 +886,7 @@
           <div class="progress-bar-track" style="margin-bottom:12px;">
             <div class="progress-bar-fill" id="mainBarOnapi" style="width: 100%;"></div>
           </div>
-          <p style="font-size:0.8rem; color:var(--text-muted);" data-i18n="dash-desc-onapi">Certificado de nombre comercial expedido y registrado a favor de la entidad. Activos protegidos legalmente.</p>
+          <p id="descOnapi" style="font-size:0.8rem; color:var(--text-muted);">—</p>
         </div>
 
         <!-- Registro Mercantil -->
@@ -898,7 +898,7 @@
           <div class="progress-bar-track" style="margin-bottom:12px;">
             <div class="progress-bar-fill" id="mainBarCamara" style="width: 75%;"></div>
           </div>
-          <p style="font-size:0.8rem; color:var(--text-muted);" data-i18n="dash-desc-rm">Documentación revisada y depositada ante la Cámara de Comercio. En espera de emisión del Registro Mercantil final (3-5 días hábiles).</p>
+          <p id="descCamara" style="font-size:0.8rem; color:var(--text-muted);">—</p>
         </div>
 
         <!-- DGII -->
@@ -910,7 +910,7 @@
           <div class="progress-bar-track" style="margin-bottom:12px;">
             <div class="progress-bar-fill" id="mainBarDgii" style="width: 40%;"></div>
           </div>
-          <p style="font-size:0.8rem; color:var(--text-muted);" data-i18n="dash-desc-dgii">Formulario de registro nacional de contribuyente depositado vía Oficina Virtual de DGII. En proceso de verificación y generación de clave accesoria.</p>
+          <p id="descDgii" style="font-size:0.8rem; color:var(--text-muted);">—</p>
         </div>
       </div>
     </div>
@@ -923,57 +923,43 @@
         <div class="kpi-row" style="margin-bottom:0;">
           <div class="kpi-card">
             <span class="kpi-title">Inversión Ads</span>
-            <span class="kpi-value">RD$ 85,000</span>
-            <span class="kpi-change">▲ +15% <span style="color:var(--text-muted); margin-left:4px;">Inversión Activa</span></span>
+            <span class="kpi-value" id="kpiAdSpend">—</span>
+            <span class="kpi-change" id="kpiAdSpendTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
           </div>
           <div class="kpi-card">
             <span class="kpi-title">Impresiones Totales</span>
-            <span class="kpi-value">1.4M</span>
-            <span class="kpi-change">▲ +25.3% <span style="color:var(--text-muted); margin-left:4px;">Alcance Local</span></span>
+            <span class="kpi-value" id="kpiImpressions">—</span>
+            <span class="kpi-change" id="kpiImpressionsTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
           </div>
           <div class="kpi-card">
             <span class="kpi-title">Prospectos (Leads)</span>
-            <span class="kpi-value">340</span>
-            <span class="kpi-change">▲ +18.4% <span style="color:var(--text-muted); margin-left:4px;">Cualificados</span></span>
+            <span class="kpi-value" id="kpiLeads">—</span>
+            <span class="kpi-change" id="kpiLeadsTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
           </div>
           <div class="kpi-card">
             <span class="kpi-title">Conversión CRM</span>
-            <span class="kpi-value">6.8%</span>
-            <span class="kpi-change">▲ +1.2% <span style="color:var(--text-muted); margin-left:4px;">Fases de venta</span></span>
+            <span class="kpi-value" id="kpiConversion">—</span>
+            <span class="kpi-change" id="kpiConversionTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
           </div>
         </div>
       </div>
 
       <div class="analytics-grid">
+        <!-- TODO(Fase 4): el SVG de tendencia CPL requiere granularidad semanal
+             en marketing_metrics. Mientras, se muestra placeholder de "sin datos". -->
         <div class="card-workspace">
           <h3 style="margin-bottom:15px; font-weight:800; color:var(--text);" data-i18n="dash-cpl-trend">Tendencia Costo por Prospecto (CPL) en DOP</h3>
-          
-          <div class="chart-container">
-            <svg class="chart-svg" viewBox="0 0 600 250">
+          <div class="chart-container" id="cplChartContainer" style="display:flex; align-items:center; justify-content:center; min-height:200px;">
+            <p id="cplChartPlaceholder" style="font-size:0.85rem; color:var(--text-muted);">
+              Sin datos de campañas. Conecta Meta/Google Ads para visualizar la tendencia.
+            </p>
+            <svg class="chart-svg" viewBox="0 0 600 250" id="cplChartSvg" style="display:none;">
               <line x1="50" y1="50" x2="550" y2="50" class="chart-grid-line"></line>
               <line x1="50" y1="100" x2="550" y2="100" class="chart-grid-line"></line>
               <line x1="50" y1="150" x2="550" y2="150" class="chart-grid-line"></line>
               <line x1="50" y1="200" x2="550" y2="200" class="chart-grid-line"></line>
-              
-              <!-- chart decreasing CPL (good trend) -->
-              <path class="chart-area" d="M50 80 L133 110 L216 95 L300 130 L383 150 L466 180 L550 200 L550 200 Z" style="fill:rgba(34,197,94,0.06)"></path>
-              <path class="chart-path" d="M50 80 L133 110 L216 95 L300 130 L383 150 L466 180 L550 200" style="stroke:#22c55e"></path>
-              
-              <circle cx="50" cy="80" r="5" fill="#22c55e"></circle>
-              <circle cx="133" cy="110" r="5" fill="#22c55e"></circle>
-              <circle cx="216" cy="95" r="5" fill="#22c55e"></circle>
-              <circle cx="300" cy="130" r="5" fill="#22c55e"></circle>
-              <circle cx="383" cy="150" r="5" fill="#22c55e"></circle>
-              <circle cx="466" cy="180" r="5" fill="#22c55e"></circle>
-              <circle cx="550" cy="200" r="5" fill="#22c55e"></circle>
-              
-              <text x="50" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 1</text>
-              <text x="133" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 2</text>
-              <text x="216" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 3</text>
-              <text x="300" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 4</text>
-              <text x="383" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 5</text>
-              <text x="466" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 6</text>
-              <text x="550" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Sem 7</text>
+              <path class="chart-area" id="cplChartArea" d=""></path>
+              <path class="chart-path" id="cplChartPath" d="" style="stroke:#22c55e"></path>
             </svg>
           </div>
         </div>
@@ -981,8 +967,8 @@
         <div class="card-workspace" style="display:flex; flex-direction:column; justify-content:center; text-align:center; padding:30px;">
           <span style="font-size:3rem; display:block; margin-bottom:15px;">📣</span>
           <h4 style="font-weight:800; margin-bottom:10px;">Diagnóstico de Tráfico</h4>
-          <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
-            "Tus campañas digitales en Meta están atrayendo clientes en Santo Domingo con un CTR del 2.8% (excelente). Tu embudo está fuerte."
+          <p id="trafficInsight" style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
+            Sin diagnóstico disponible. Se generará automáticamente cuando existan datos de campañas conectadas.
           </p>
         </div>
       </div>
@@ -1238,7 +1224,10 @@
       const activeEmail = sessionStorage.getItem('active_user_email');
       const activeName = sessionStorage.getItem('active_user_name');
       const activeCompany = sessionStorage.getItem('active_user_company');
-      const activeRole = (activeEmail === 'director@miempresa.com') ? 'admin' : (sessionStorage.getItem('active_user_role') || 'client');
+      // Rol resuelto server-side vía RPC (effective_role). Se hydrata en
+      // initializeDashboard(). Mientras tanto, valor defensivo 'unknown'
+      // para que ninguna rama admin se ejecute antes de la verificación.
+      let activeRole = 'unknown';
 
       if (!activeEmail) {
         // Redirection to portal if no active session
@@ -1272,7 +1261,7 @@
           formEdit: "Editar Cliente Real",
           btnSave: "💾 Guardar Cliente",
           btnSaving: "Guardando...",
-          globalView: "Vista Global (Simulación)",
+          globalView: "Vista Global (Consolidado)",
           noClients: "No hay clientes registrados."
         },
         en: {
@@ -1526,9 +1515,16 @@
         });
 
         // Render Legal Progress Bars & Badges
-        const onapi = parseInt(client.tramite_onapi) || 0;
-        const camara = parseInt(client.tramite_camara) || 0;
-        const dgii = parseInt(client.tramite_dgii) || 0;
+        // Fase 3: los % provienen de client.tramites[] (RPC client_tramites),
+        // con fallback a columnas legacy clientes.tramite_* si el origen fuera
+        // una fila de clientes directa (CRUD admin).
+        const tramiteMap = {};
+        if (Array.isArray(client.tramites)) {
+          client.tramites.forEach(tr => { tramiteMap[tr.tipo] = parseInt(tr.progress_percent) || 0; });
+        }
+        const onapi  = tramiteMap.onapi  ?? (parseInt(client.tramite_onapi)  || 0);
+        const camara = tramiteMap.camara ?? (parseInt(client.tramite_camara) || 0);
+        const dgii   = tramiteMap.dgii   ?? (parseInt(client.tramite_dgii)   || 0);
 
         // Progress bar fills
         document.querySelectorAll('#overBarOnapi, #mainBarOnapi').forEach(el => el.style.width = onapi + '%');
@@ -1586,17 +1582,84 @@
             });
           }
         }
+        // ERP sync badge basado en estado real (Fase 3): si la última orden
+        // pagada tiene odoo_sale_order_id → sincronizado; si no, pendiente.
         if (erpSyncBadge) {
-          erpSyncBadge.className = 'sync-badge online';
-          erpSyncBadge.textContent = isEN ? '🟢 ERP Online (Connected)' : '🟢 ERP Online (Sincronizado)';
+          const erpOk = (client.erp_synced === true);
+          erpSyncBadge.className = 'sync-badge ' + (erpOk ? 'online' : 'offline');
+          erpSyncBadge.textContent = erpOk
+            ? (isEN ? '🟢 ERP Online (Connected)' : '🟢 ERP Online (Sincronizado)')
+            : (isEN ? '🟠 ERP Pending Sync' : '🟠 ERP Pendiente de sincronizar');
         }
+
+        // ─── Trámites: pintar también las DESCRIPCIONES dinámicas ───
+        // Antes solo se actualizaban barras y badges; los <p> eran hardcoded.
+        const tramitesMap = {};
+        if (Array.isArray(client.tramites)) {
+          client.tramites.forEach(tr => { tramitesMap[tr.tipo] = tr; });
+        }
+        const setTramiteDesc = (id, fallback) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = fallback;
+        };
+        if (tramitesMap.onapi)  setTramiteDesc('descOnapi',  tramitesMap.onapi.description  || 'Documentación ONAPI.');
+        if (tramitesMap.camara) setTramiteDesc('descCamara', tramitesMap.camara.description || 'Registro en Cámara.');
+        if (tramitesMap.dgii)   setTramiteDesc('descDgii',   tramitesMap.dgii.description   || 'Inscripción DGII.');
+      }
+
+      // ─── renderMarketing(m) — pinta el panel de marketing desde datos reales ───
+      // Si m es null (sin datos de campañas), muestra "—" / placeholders.
+      function renderMarketing(m) {
+        const fmtMoney = (v) => (typeof v === 'number' && v > 0) ? ('RD$ ' + v.toLocaleString()) : '—';
+        const fmtNum   = (v) => (typeof v === 'number' && v > 0) ? (v >= 1_000_000 ? (v/1_000_000).toFixed(1)+'M' : v.toLocaleString()) : '—';
+        const fmtPct   = (v) => (typeof v === 'number' && v > 0) ? (v.toFixed(1) + '%') : '—';
+
+        const adSpend = document.getElementById('kpiAdSpend');
+        const impr    = document.getElementById('kpiImpressions');
+        const leads   = document.getElementById('kpiLeads');
+        const conv    = document.getElementById('kpiConversion');
+
+        if (m && typeof m === 'object') {
+          // CPL, ROAS, conversión se calculan aquí (no se almacenan)
+          const cpl        = (m.leads > 0) ? m.ad_spend / m.leads : 0;
+          const conversion = (m.leads > 0) ? (m.conversions / m.leads) * 100 : 0;
+
+          if (adSpend) adSpend.textContent = fmtMoney(m.ad_spend);
+          if (impr)    impr.textContent    = fmtNum(m.impressions);
+          if (leads)   leads.textContent   = (m.leads > 0) ? m.leads.toLocaleString() : '—';
+          if (conv)    conv.textContent    = fmtPct(conversion);
+        } else {
+          // Sin datos de campañas: estado vacío honesto
+          if (adSpend) adSpend.textContent = '—';
+          if (impr)    impr.textContent    = '—';
+          if (leads)   leads.textContent   = '—';
+          if (conv)    conv.textContent    = '—';
+        }
+        // El SVG de tendencia CPL queda en placeholder (sin granularidad semanal).
       }
 
       // INITIAL DATABASE DATA FETCH FOR ROLE ACCESS
       let clientList = [];
 
       async function initializeDashboard() {
-        if (activeRole === 'admin') {
+        // ─── Resolver rol desde el servidor (RBAC) ───
+        // Antes: hardcoded por email. Ahora: RPC effective_role(p_email) que
+        // consulta la tabla user_roles en Supabase. Migrado en Fase 2.
+        try {
+          const { data, error } = await supabase
+            .rpc('get_user_role', { p_email: activeEmail });
+          if (error) throw error;
+          activeRole = (data || 'client').toLowerCase();
+        } catch (e) {
+          console.warn('[RBAC] No se pudo resolver el rol via RPC, asumiendo client:', e);
+          activeRole = 'client';
+        }
+        // Mapear rol del backend a clases que entiende la UI legada.
+        // 'admin' clásico del dashboard == super_admin | admin del RBAC.
+        const isAdminLike = (activeRole === 'super_admin' || activeRole === 'admin');
+        sessionStorage.setItem('active_user_role', activeRole);
+
+        if (isAdminLike) {
           // ADMIN FLOW
           const navClientesLink = document.getElementById('navClientesLink');
           const adminSelectorRow = document.getElementById('adminSelectorRow');
@@ -1609,24 +1672,47 @@
           if (profileName) profileName.textContent = 'Balmis Reynoso';
           if (profileCompany) profileCompany.textContent = 'RCP Services (Admin)';
 
-          // Load global view by default
-          renderClientDashboard(defaultMetrics);
-
+          // Load GLOBAL consolidated view via RPC (Fase 3) — reemplaza defaultMetrics
           if (supabase) {
+            try {
+              const { data: globalData } = await supabase
+                .rpc('dashboard_overview', { p_email: activeEmail, p_global: true });
+              renderClientDashboard(globalData || defaultMetrics);
+              renderMarketing(globalData ? globalData.marketing : null);
+            } catch (e) {
+              console.error('[RPC global] fallo, usando defaults:', e);
+              renderClientDashboard(defaultMetrics);
+              renderMarketing(null);
+            }
+
             // Load real clients from Supabase DB to populate selector & management CRUD
             await loadAdminClients();
+          } else {
+            renderClientDashboard(defaultMetrics);
+            renderMarketing(null);
           }
 
           // Listener for Admin client dropdown select view change
           if (adminClientSelect) {
-            adminClientSelect.addEventListener('change', () => {
+            adminClientSelect.addEventListener('change', async () => {
               const selectedVal = adminClientSelect.value;
               if (selectedVal === 'default') {
-                renderClientDashboard(defaultMetrics);
+                // Vista global consolidada
+                const { data: gd } = await supabase
+                  .rpc('dashboard_overview', { p_email: activeEmail, p_global: true });
+                renderClientDashboard(gd || defaultMetrics);
+                renderMarketing(gd ? gd.marketing : null);
               } else {
+                // Vista de un cliente específico vía RPC
                 const client = clientList.find(c => c.id === selectedVal);
-                if (client) {
+                if (client && client.email) {
+                  const { data: cd } = await supabase
+                    .rpc('dashboard_overview', { p_email: client.email, p_global: false });
+                  renderClientDashboard(cd || defaultMetrics);
+                  renderMarketing(cd ? cd.marketing : null);
+                } else if (client) {
                   renderClientDashboard(client);
+                  renderMarketing(null);
                 }
               }
             });
@@ -1645,25 +1731,26 @@
           let loaded = false;
           if (supabase) {
             try {
-              const { data, error } = await supabase
-                .from('clientes')
-                .select('*')
-                .eq('email', activeEmail)
-                .maybeSingle();
+              // ─── Cargar datos consolidados vía RPC (Fase 3) ───
+              // Reemplaza la lectura directa de clientes + simClient + defaultMetrics.
+              // dashboard_overview devuelve KPIs, chart_data (de ordenes paid),
+              // pagos reales, trámites y marketing en una sola llamada.
+              const { data: rpcData, error: rpcError } = await supabase
+                .rpc('dashboard_overview', { p_email: activeEmail, p_global: false });
+              if (rpcError) throw rpcError;
 
-              if (error) throw error;
+                const data = rpcData || {};
 
-              if (data) {
                 if (data.status === 'onboarding') {
                   window.location.href = 'onboarding.html';
                   return;
                 }
-                
+
                 if (data.status === 'pending_activation') {
                   window.location.href = 'portal.html';
                   return;
                 }
-                
+
                 if (data.status === 'review') {
                   document.getElementById('reviewOverlay').style.display = 'block';
                   document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');
@@ -1671,10 +1758,10 @@
                   if (sNav) sNav.style.display = 'none';
                   const wHeader = document.querySelector('.workspace-header');
                   if (wHeader) wHeader.style.display = 'none';
-                  
+
                   if (profileName) profileName.textContent = data.owner_name;
                   if (profileCompany) profileCompany.textContent = data.company_name;
-                  
+
                   const btnExitReview = document.getElementById('btnExitReview');
                   if (btnExitReview) {
                     btnExitReview.addEventListener('click', async (e) => {
@@ -1690,81 +1777,87 @@
                 }
 
                 renderClientDashboard(data);
-                if (profileName) profileName.textContent = data.owner_name;
-                if (profileCompany) profileCompany.textContent = data.company_name;
+                renderMarketing(data.marketing);
+                if (profileName) profileName.textContent = data.owner_name || '—';
+                if (profileCompany) profileCompany.textContent = data.company_name || '—';
                 loaded = true;
 
-                // Subscribe to real-time changes
+                // Subscribe to real-time changes (recarga el RPC al cambiar clientes/ordenes)
                 if (supabase) {
                   supabase.channel('custom-client-channel')
                     .on(
                       'postgres_changes',
                       { event: '*', schema: 'public', table: 'clientes', filter: 'email=eq.' + activeEmail },
-                      (payload) => {
-                        console.log('Realtime change received!', payload);
-                        if (payload.new) {
-                          renderClientDashboard(payload.new);
+                      async () => {
+                        const { data: fresh } = await supabase
+                          .rpc('dashboard_overview', { p_email: activeEmail, p_global: false });
+                        if (fresh) {
+                          renderClientDashboard(fresh);
+                          renderMarketing(fresh.marketing);
                         }
                       }
                     )
                     .subscribe();
 
-                  // Load real producto_avances from Supabase
-                  loadProductoAvances(data.id);
+                  // Necesitamos el cliente_id para los avances: lo obtenemos rápido.
+                  const { data: cRow } = await supabase
+                    .from('clientes').select('id').eq('email', activeEmail).maybeSingle();
+                  if (cRow && cRow.id) loadProductoAvances(cRow.id);
                 }
-              }
             } catch (err) {
-              console.error("Failed to load own database client metrics:", err);
+              console.error("Failed to load dashboard via RPC:", err);
             }
           }
 
-          // If supabase fails or client was offline registration, fetch from localStorage simulation buffer
+          // Si el RPC falla o el cliente no tiene fila, mostramos estado "sin datos"
+          // en lugar del simClient con chart_data inventado.
           if (!loaded) {
             const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
             const localData = localUsers.find(u => u.email === activeEmail);
-            if (localData) {
-              if (localData.status === 'onboarding') {
-                window.location.href = 'onboarding.html';
-                return;
-              }
-              if (localData.status === 'pending_activation') {
-                window.location.href = 'portal.html';
-                return;
-              }
-              if (localData.status === 'review') {
-                document.getElementById('reviewOverlay').style.display = 'block';
-                document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');
-                const sNav = document.querySelector('.sidebar-nav');
-                if (sNav) sNav.style.display = 'none';
-                const wHeader = document.querySelector('.workspace-header');
-                if (wHeader) wHeader.style.display = 'none';
-                
-                if (profileName) profileName.textContent = localData.name;
-                if (profileCompany) profileCompany.textContent = localData.company;
-                
-                const btnExitReview = document.getElementById('btnExitReview');
-                if (btnExitReview) {
-                  btnExitReview.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    sessionStorage.clear();
-                    window.location.href = 'portal.html';
-                  });
-                }
-                return;
-              }
+            // Solo usamos localStorage para identidad (nombre/empresa) y redirects de status;
+            // NUNCA para inventar métricas.
+            const identityName = (localData && (localData.name || localData.owner_name)) || activeEmail;
+            const identityCompany = (localData && (localData.company || localData.company_name)) || '—';
 
-              const simClient = Object.assign({}, defaultMetrics, {
-                company_name: localData.company,
-                owner_name: localData.name,
-                chart_data: [10000, 25000, 45000, 75000, 110000, 150000, 200000],
-                pagos: []
-              });
-              renderClientDashboard(simClient);
-              if (profileName) profileName.textContent = simClient.owner_name;
-              if (profileCompany) profileCompany.textContent = simClient.company_name;
-            } else {
-              renderClientDashboard(defaultMetrics);
+            if (localData && localData.status === 'onboarding') {
+              window.location.href = 'onboarding.html';
+              return;
             }
+            if (localData && localData.status === 'pending_activation') {
+              window.location.href = 'portal.html';
+              return;
+            }
+            if (localData && localData.status === 'review') {
+              document.getElementById('reviewOverlay').style.display = 'block';
+              document.querySelectorAll('.dashboard-panel').forEach(p => p.style.display = 'none');
+              const sNav = document.querySelector('.sidebar-nav');
+              if (sNav) sNav.style.display = 'none';
+              const wHeader = document.querySelector('.workspace-header');
+              if (wHeader) wHeader.style.display = 'none';
+
+              if (profileName) profileName.textContent = identityName;
+              if (profileCompany) profileCompany.textContent = identityCompany;
+
+              const btnExitReview = document.getElementById('btnExitReview');
+              if (btnExitReview) {
+                btnExitReview.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  sessionStorage.clear();
+                  window.location.href = 'portal.html';
+                });
+              }
+              return;
+            }
+
+            // Render estructural con ceros + identidad real. Sin simulación.
+            const emptyData = Object.assign({}, defaultMetrics, {
+              company_name: identityCompany,
+              owner_name: identityName
+            });
+            renderClientDashboard(emptyData);
+            renderMarketing(null);
+            if (profileName) profileName.textContent = identityName;
+            if (profileCompany) profileCompany.textContent = identityCompany;
           }
         }
       }
@@ -2055,16 +2148,33 @@
                 if (error) throw error;
               } else {
                 // INSERT NEW
-                payload.chart_data = [Math.round(ventas*0.3), Math.round(ventas*0.55), Math.round(ventas*0.45), Math.round(ventas*0.7), Math.round(ventas*0.6), Math.round(ventas*0.85), ventas];
-                payload.pagos = [
-                  { transactionId: 'TXN-' + Math.floor(100000 + Math.random()*900000), date: new Date().toLocaleDateString('es-DO'), items: isEN ? 'Advisory and Legal Constitution Setup' : 'Asesoría y Constitución Legal', amount: 'RD$ ' + Math.round(ventas*0.1).toLocaleString(), method: 'CardNet DOP', sync: 'sync' }
-                ];
-
+                // Fase 3: NO se generan chart_data ni pagos sintéticos.
+                // chart_data y pagos se derivan ahora de ordenes reales vía el
+                // RPC dashboard_overview. El cliente arranca con sus KPIs base.
                 const { error } = await supabase
                   .from('clientes')
                   .insert([payload]);
 
                 if (error) throw error;
+
+                // Crear filas de trámites en client_tramites a partir de los %
+                // ingresados (datos reales, no simulación). Idempotente.
+                if (supabase) {
+                  const { data: newClient } = await supabase
+                    .from('clientes').select('id').eq('email', email).maybeSingle();
+                  if (newClient && newClient.id) {
+                    const tramiteRows = [
+                      { cliente_id: newClient.id, tipo: 'onapi',  progress_percent: onapi,  description: 'Documentación ONAPI.' },
+                      { cliente_id: newClient.id, tipo: 'camara', progress_percent: camara, description: 'Registro en Cámara.' },
+                      { cliente_id: newClient.id, tipo: 'dgii',   progress_percent: dgii,   description: 'Inscripción DGII.' }
+                    ].filter(r => r.progress_percent > 0);
+                    if (tramiteRows.length) {
+                      await supabase.from('client_tramites').upsert(
+                        tramiteRows, { onConflict: 'cliente_id,tipo' }
+                      );
+                    }
+                  }
+                }
               }
 
               alert(t.saveSuccess);

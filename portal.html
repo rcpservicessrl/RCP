@@ -450,14 +450,28 @@
     </div>
   </div>
 
-  <!-- Firebase Auth SDK Mocks & Real Bindings -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <!-- Supabase Auth (passwords verified server-side via bcrypt — never in client code) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.min.js"></script>
   
   <script>
     (function() {
+      'use strict';
+
+      // ============================================================
+      //  RCP Services — Secure Auth Layer
+      //  All authentication handled by Supabase Auth (bcrypt, JWT).
+      //  NO hardcoded passwords. NO localStorage password storage.
+      //  Role detection: user_roles RPC (Phase 2) → email fallback.
+      // ============================================================
+
+      const lang = document.documentElement.lang || 'es';
+      const t = (es, en) => lang === 'en' ? en : es;
+
+      // Temporary admin allowlist (Phase 1 — email only, NOT a secret).
+      // Replaced by user_roles table query in Phase 2 (02_rbac_schema.sql).
+      const ADMIN_EMAILS = ['admin@rcp.services', 'rcpservicessrl@gmail.com'];
+
       // Initialize Supabase Client (auto-detect local vs cloud)
       const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
       const supabaseUrl = isLocal
@@ -475,197 +489,206 @@
         console.error("Error initializing Supabase client in portal.html:", e);
       }
 
+      // --- Helpers -----------------------------------------------------------
+
+      // Store UI session metadata for dashboard compatibility.
+      // NOTE: This is for UI convenience only. Real auth is the Supabase JWT
+      // which persists via localStorage (sb-*-auth-token). sessionStorage keys
+      // here do NOT grant access — dashboard.html verifies the Supabase session.
+      function setSessionUI(email, name, company, role) {
+        sessionStorage.setItem('active_user_email', email);
+        sessionStorage.setItem('active_user_name', name);
+        sessionStorage.setItem('active_user_company', company || '');
+        sessionStorage.setItem('active_user_role', role);
+      }
+
+      // Determine user role via user_roles RPC (Phase 2).
+      // Falls back to email allowlist if the RPC/table doesn't exist yet.
+      async function getUserRole(email) {
+        if (!supabase) return 'client';
+        try {
+          const { data, error } = await supabase
+            .rpc('get_user_role', { p_email: email });
+          if (!error && data) return data;
+        } catch (_) { /* RPC not deployed yet — use fallback */ }
+        return ADMIN_EMAILS.includes((email || '').toLowerCase()) ? 'super_admin' : 'client';
+      }
+
+      // Fetch the client profile row from `clientes` by email.
+      async function getClientProfile(email) {
+        if (!supabase) return null;
+        const { data } = await supabase
+          .from('clientes')
+          .select('*')
+          .eq('email', email)
+          .maybeSingle();
+        return data;
+      }
+
+      // Route the user after auth based on role + client status.
+      function routeAfterAuth(email, name, company, role, clientData) {
+        setSessionUI(email, name, company, role);
+
+        if (role === 'super_admin') {
+          window.location.href = 'dashboard.html';
+          return;
+        }
+        if (!clientData || clientData.status === 'onboarding') {
+          window.location.href = 'onboarding.html';
+          return;
+        }
+        if (clientData.status === 'pending_activation') {
+          showActivationScreen(email, clientData);
+          return;
+        }
+        if (clientData.status === 'inactive') {
+          alert(t('Tu cuenta se encuentra inactiva. Contacta a soporte.',
+                  'Your account is inactive. Please contact support.'));
+          return;
+        }
+        // active
+        window.location.href = 'dashboard.html';
+      }
+
+      // --- Google OAuth / session listener ----------------------------------
+
       if (supabase) {
-        // Listen for Google OAuth callback / active session
         supabase.auth.onAuthStateChange(async (event, session) => {
-          if (event === 'SIGNED_IN' && session) {
-            const email = session.user.email;
-            const name = session.user.user_metadata?.full_name || email.split('@')[0];
-            
-            if (email === 'director@miempresa.com' || email === 'rcpservicessrl@gmail.com') {
-              sessionStorage.setItem('active_user_email', email);
-              sessionStorage.setItem('active_user_name', name);
-              sessionStorage.setItem('active_user_company', 'RCP Services (Admin)');
-              sessionStorage.setItem('active_user_role', 'admin');
-              window.location.href = 'dashboard.html';
+          if (event !== 'SIGNED_IN' || !session) return;
+
+          const email = session.user.email;
+          const name = session.user.user_metadata?.full_name || email.split('@')[0];
+          const role = await getUserRole(email);
+
+          // Admin via Google OAuth — no password bypass, role from DB/allowlist
+          if (role === 'super_admin') {
+            setSessionUI(email, name, 'RCP Services', role);
+            window.location.href = 'dashboard.html';
+            return;
+          }
+
+          let clientData = await getClientProfile(email);
+
+          // Auto-create client record for first-time Google sign-in
+          // (NO password column — Google users authenticate via OAuth)
+          if (!clientData) {
+            const provAccessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+            const { error: insertError } = await supabase
+              .from('clientes')
+              .insert([{
+                email: email,
+                owner_name: name,
+                company_name: 'Nueva Empresa',
+                status: 'onboarding',
+                access_code: provAccessCode
+                // NOTE: password intentionally omitted — Google handles auth
+              }]);
+            if (insertError) {
+              console.error("Error al registrar cliente vía Google OAuth:", insertError);
+              alert(t('Error al inicializar tu cuenta con Google. Intenta de nuevo.',
+                      'Failed to initialize account with Google. Please try again.'));
+              await supabase.auth.signOut();
               return;
             }
-            
-            // Verify if regular client exists in DB
-            const { data, error } = await supabase.from('clientes').select('*').eq('email', email).maybeSingle();
-            if (data) {
-              if (data.status === 'pending_activation') {
-                showActivationScreen(email, data);
-              } else {
-                sessionStorage.setItem('active_user_email', email);
-                sessionStorage.setItem('active_user_name', data.owner_name || name);
-                sessionStorage.setItem('active_user_company', data.company_name);
-                sessionStorage.setItem('active_user_role', 'client');
-                window.location.href = data.status === 'onboarding' ? 'onboarding.html' : 'dashboard.html';
-              }
-            } else {
-              // AUTOLOGIN PARA NUEVO REGISTRO
-              // Si no existe, creamos un registro inicial en la tabla 'clientes' en estado 'onboarding'
-              try {
-                const provAccessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
-                const newClient = {
-                  email: email,
-                  owner_name: name,
-                  company_name: 'Nueva Empresa',
-                  status: 'onboarding',
-                  access_code: provAccessCode,
-                  password: 'client_google_auth' // Clave temporal para el login de simulación
-                };
-                
-                const { error: insertError } = await supabase
-                  .from('clientes')
-                  .insert([newClient]);
-                
-                if (insertError) throw insertError;
-                
-                sessionStorage.setItem('active_user_email', email);
-                sessionStorage.setItem('active_user_name', name);
-                sessionStorage.setItem('active_user_company', 'Nueva Empresa');
-                sessionStorage.setItem('active_user_role', 'client');
-                
-                window.location.href = 'onboarding.html';
-              } catch (insertErr) {
-                console.error("Error al registrar cliente automático tras Google OAuth:", insertErr);
-                alert(document.documentElement.lang === 'en'
-                  ? 'Failed to initialize account with Google. Please try again.'
-                  : 'Error al inicializar tu cuenta con Google. Por favor, intenta de nuevo.');
-                await supabase.auth.signOut();
-              }
-            }
+            clientData = await getClientProfile(email);
           }
+
+          routeAfterAuth(email, name, clientData?.company_name, role, clientData);
         });
       }
 
+      // --- Activation screen -------------------------------------------------
+
       function showActivationScreen(email, clientData) {
-        sessionStorage.setItem('active_user_email', email);
-        sessionStorage.setItem('active_user_name', clientData.owner_name || email.split('@')[0]);
-        sessionStorage.setItem('active_user_company', clientData.company_name);
-        sessionStorage.setItem('active_user_role', 'client');
+        setSessionUI(email, clientData.owner_name || email.split('@')[0],
+                     clientData.company_name, 'client');
 
         document.getElementById('loginView').style.display = 'none';
         document.getElementById('signupView').style.display = 'none';
         document.getElementById('forgotView').style.display = 'none';
-        
+
         const activationView = document.getElementById('activationView');
-        if (activationView) {
-          activationView.style.display = 'block';
-        }
-        
+        if (activationView) activationView.style.display = 'block';
+
         const activationForm = document.getElementById('activationForm');
         if (activationForm) {
           activationForm.onsubmit = async (e) => {
             e.preventDefault();
             const codeInput = document.getElementById('activationCode').value.trim().toUpperCase();
             const btnSubmit = activationForm.querySelector('button[type="submit"]');
-            
-            if (codeInput === (clientData.access_code || '').toUpperCase()) {
-              btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Activating...' : 'Activando...';
-              btnSubmit.disabled = true;
-              
-              if (supabase) {
-                try {
-                  const { error } = await supabase
-                    .from('clientes')
-                    .update({ status: 'active' }) // Change to 'active'!
-                    .eq('id', clientData.id);
-                    
-                  if (error) throw error;
-                } catch (updateErr) {
-                  console.error("Error activating account:", updateErr);
-                  alert("Error al activar la cuenta. Inténtalo de nuevo.");
-                  btnSubmit.textContent = 'Activar y Entrar';
-                  btnSubmit.disabled = false;
-                  return;
-                }
-              }
-              
-              // Local fallback sync
-              const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-              const idx = localUsers.findIndex(u => u.email === email);
-              if (idx !== -1) {
-                localUsers[idx].status = 'active';
-                localStorage.setItem('portal_users', JSON.stringify(localUsers));
-              }
-              
-              window.location.href = 'dashboard.html';
-            } else {
-              alert(document.documentElement.lang === 'en'
-                ? 'Invalid Access Code. Please enter the code given by your advisor.'
-                : 'Código de Acceso incorrecto. Por favor introduce el código que te dio tu asesor.');
+
+            if (codeInput !== (clientData.access_code || '').toUpperCase()) {
+              alert(t('Código de Acceso incorrecto. Introduce el código que te dio tu asesor.',
+                      'Invalid Access Code. Please enter the code given by your advisor.'));
+              return;
             }
+
+            btnSubmit.textContent = t('Activando...', 'Activating...');
+            btnSubmit.disabled = true;
+
+            if (supabase) {
+              try {
+                const { error } = await supabase
+                  .from('clientes')
+                  .update({ status: 'active' })
+                  .eq('id', clientData.id);
+                if (error) throw error;
+              } catch (updateErr) {
+                console.error("Error activating account:", updateErr);
+                alert(t('Error al activar la cuenta. Inténtalo de nuevo.',
+                        'Error activating account. Please try again.'));
+                btnSubmit.textContent = t('Activar y Entrar', 'Activate & Enter');
+                btnSubmit.disabled = false;
+                return;
+              }
+            }
+            window.location.href = 'dashboard.html';
           };
         }
 
         const btnCancel = document.getElementById('btnCancelActivation');
         if (btnCancel) {
           btnCancel.onclick = async () => {
-            if (supabase) {
-              await supabase.auth.signOut();
-            }
+            if (supabase) await supabase.auth.signOut();
             sessionStorage.clear();
             window.location.reload();
           };
         }
       }
 
-      // Session restore auto check on page load
+      // --- Session restore on page load -------------------------------------
+
       const restoreSession = async () => {
-        const activeEmail = sessionStorage.getItem('active_user_email');
-        if (activeEmail) {
-          if (activeEmail === 'director@miempresa.com' || activeEmail === 'rcpservicessrl@gmail.com') {
-            window.location.href = 'dashboard.html';
-            return;
-          }
-          if (supabase) {
-            try {
-              const { data, error } = await supabase
-                .from('clientes')
-                .select('*')
-                .eq('email', activeEmail)
-                .maybeSingle();
-              if (data) {
-                if (data.status === 'pending_activation') {
-                  showActivationScreen(activeEmail, data);
-                  return;
-                } else if (data.status === 'onboarding') {
-                  window.location.href = 'onboarding.html';
-                  return;
-                } else if (data.status === 'active') {
-                  window.location.href = 'dashboard.html';
-                  return;
-                }
-              }
-            } catch (err) {
-              console.error("Error verifying active session on load:", err);
-            }
-          }
-          // Local fallback check
-          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-          const found = localUsers.find(u => u.email === activeEmail);
-          if (found) {
-            if (found.status === 'pending_activation') {
-              showActivationScreen(activeEmail, found);
-            } else if (found.status === 'onboarding') {
-              window.location.href = 'onboarding.html';
-            } else if (found.status === 'active') {
-              window.location.href = 'dashboard.html';
-            }
-          }
+        if (!supabase) return;
+
+        // Check for an active Supabase session (persisted JWT)
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          // Legacy sessionStorage-only sessions are no longer trusted.
+          // User must re-authenticate via Supabase Auth.
+          sessionStorage.removeItem('active_user_email');
+          sessionStorage.removeItem('active_user_name');
+          sessionStorage.removeItem('active_user_company');
+          sessionStorage.removeItem('active_user_role');
+          return;
         }
+
+        const email = session.user.email;
+        const name = session.user.user_metadata?.full_name || email.split('@')[0];
+        const role = await getUserRole(email);
+        const clientData = await getClientProfile(email);
+
+        routeAfterAuth(email, name, clientData?.company_name, role, clientData);
       };
       restoreSession();
 
-      // Parse parameters (Prefill signup info if they just bought a package!)
+      // --- URL params (prefill signup after purchase) -----------------------
+
       const params = new URLSearchParams(window.location.search);
       const isSignup = params.get('signup') === 'true';
-      const email = params.get('email');
-      const name = params.get('name');
-      const company = params.get('company');
+      const emailParam = params.get('email');
+      const nameParam = params.get('name');
+      const companyParam = params.get('company');
 
       const loginView = document.getElementById('loginView');
       const signupView = document.getElementById('signupView');
@@ -674,10 +697,9 @@
       if (isSignup) {
         loginView.style.display = 'none';
         signupView.style.display = 'block';
-        
-        if (email) document.getElementById('signupEmail').value = decodeURIComponent(email);
-        if (name) document.getElementById('signupName').value = decodeURIComponent(name);
-        if (company) document.getElementById('signupCompany').value = decodeURIComponent(company);
+        if (emailParam) document.getElementById('signupEmail').value = decodeURIComponent(emailParam);
+        if (nameParam) document.getElementById('signupName').value = decodeURIComponent(nameParam);
+        if (companyParam) document.getElementById('signupCompany').value = decodeURIComponent(companyParam);
       }
 
       // View transitions
@@ -698,94 +720,62 @@
         loginView.style.display = 'block';
       });
 
-      // Interactive Auth submission (Real Supabase integration with LocalStorage Fallback)
+      // --- Login (Supabase Auth — bcrypt verified server-side) --------------
+
       const loginForm = document.getElementById('loginForm');
       if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
           e.preventDefault();
           const emailInput = document.getElementById('loginEmail').value.trim();
           const passwordInput = document.getElementById('loginPassword').value;
-          
+
           const btnSubmit = loginForm.querySelector('button[type="submit"]');
           const originalText = btnSubmit.textContent;
-          btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Verifying...' : 'Verificando...';
+          btnSubmit.textContent = t('Verificando...', 'Verifying...');
           btnSubmit.disabled = true;
 
-          // Check default admin
-          const isAdmin = (emailInput === 'director@miempresa.com' && passwordInput === 'admin_rcp_2026');
-          
-          if (isAdmin) {
-            sessionStorage.setItem('active_user_email', emailInput);
-            sessionStorage.setItem('active_user_name', 'Balmis Reynoso');
-            sessionStorage.setItem('active_user_company', 'RCP Services');
-            sessionStorage.setItem('active_user_role', 'admin');
-            window.location.href = 'dashboard.html';
+          if (!supabase) {
+            alert(t('Error de conexión con el servidor. Recarga la página.',
+                    'Connection error. Please reload the page.'));
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
             return;
           }
 
-          if (supabase) {
-            try {
-              // Real Supabase Query on `clientes` table
-              const { data, error } = await supabase
-                .rpc('login_cliente_seguro', { p_email: emailInput, p_password: passwordInput })
-                .maybeSingle();
+          try {
+            // Authenticate via Supabase Auth — password verified server-side
+            const { data: authData, error: authError } = await supabase.auth
+              .signInWithPassword({ email: emailInput, password: passwordInput });
 
-              if (error) throw error;
+            if (authError) throw authError;
 
-              if (data) {
-                if (data.status === 'inactive') {
-                  alert(document.documentElement.lang === 'en' 
-                    ? 'Your account is currently inactive. Please contact support.' 
-                    : 'Tu cuenta se encuentra inactiva. Por favor contacta a soporte.');
-                  btnSubmit.textContent = originalText;
-                  btnSubmit.disabled = false;
-                  return;
-                }
-                if (data.status === 'pending_activation') {
-                  showActivationScreen(data.email, data);
-                  return;
-                }
-                sessionStorage.setItem('active_user_email', data.email);
-                sessionStorage.setItem('active_user_name', data.owner_name);
-                sessionStorage.setItem('active_user_company', data.company_name);
-                sessionStorage.setItem('active_user_role', 'client');
-                window.location.href = data.status === 'onboarding' ? 'onboarding.html' : 'dashboard.html';
-                return;
-              }
-            } catch (err) {
-              console.warn('Supabase DB connection failed, falling back to local simulation buffer:', err);
-            }
-          }
+            const email = authData.user.email;
+            const role = await getUserRole(email);
+            const clientData = await getClientProfile(email);
+            const name = clientData?.owner_name
+              || authData.user.user_metadata?.full_name
+              || email.split('@')[0];
 
-          // LocalStorage fallback (Local Simulación Buffer)
-          const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-          const foundUser = localUsers.find(u => u.email === emailInput && u.password === passwordInput);
-          
-          if (foundUser) {
-            if (foundUser.status === 'inactive') {
-              alert('Tu cuenta se encuentra inactiva. Por favor contacta a soporte.');
+            if (clientData?.status === 'inactive') {
+              alert(t('Tu cuenta se encuentra inactiva. Contacta a soporte.',
+                      'Your account is inactive. Please contact support.'));
+              await supabase.auth.signOut();
               btnSubmit.textContent = originalText;
               btnSubmit.disabled = false;
               return;
             }
-            if (foundUser.status === 'pending_activation') {
-              showActivationScreen(emailInput, foundUser);
-              return;
-            }
-            sessionStorage.setItem('active_user_email', emailInput);
-            sessionStorage.setItem('active_user_name', foundUser.name);
-            sessionStorage.setItem('active_user_company', foundUser.company);
-            sessionStorage.setItem('active_user_role', 'client');
-            window.location.href = foundUser.status === 'onboarding' ? 'onboarding.html' : 'dashboard.html';
-          } else {
-            alert(document.documentElement.lang === 'en' 
-              ? 'Invalid email or password.' 
-              : 'Correo o contraseña incorrectos.');
+
+            routeAfterAuth(email, name, clientData?.company_name, role, clientData);
+          } catch (err) {
+            console.error('Login error:', err);
+            alert(t('Correo o contraseña incorrectos.', 'Invalid email or password.'));
             btnSubmit.textContent = originalText;
             btnSubmit.disabled = false;
           }
         });
       }
+
+      // --- Signup (Supabase Auth signUp + clientes profile, NO password) ----
 
       const signupForm = document.getElementById('signupForm');
       if (signupForm) {
@@ -795,158 +785,149 @@
           const nameInput = document.getElementById('signupName').value.trim();
           const companyInput = document.getElementById('signupCompany').value.trim();
           const passwordInput = document.getElementById('signupPassword').value;
-          
+
           const btnSubmit = signupForm.querySelector('button[type="submit"]');
           const originalText = btnSubmit.textContent;
-          btnSubmit.textContent = document.documentElement.lang === 'en' ? 'Verifying...' : 'Verificando...';
+          btnSubmit.textContent = t('Verificando...', 'Verifying...');
           btnSubmit.disabled = true;
 
-          const randomCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+          // Password strength validation
+          if (passwordInput.length < 8) {
+            alert(t('La contraseña debe tener al menos 8 caracteres.',
+                    'Password must be at least 8 characters long.'));
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+            return;
+          }
 
-          if (supabase) {
-            try {
-              // 1. Fetch pre-existing client record created via Booking
-              const { data: clientData, error: selectError } = await supabase
-                .rpc('verificar_existencia_cliente', { p_email: emailInput })
-                .maybeSingle();
+          if (!supabase) {
+            alert(t('Error de conexión con el servidor. Recarga la página.',
+                    'Connection error. Please reload the page.'));
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+            return;
+          }
 
-              if (selectError) throw selectError;
-
-              if (clientData) {
-                // Update client record with details and change status to 'onboarding'
-                const { error: updateError } = await supabase
-                  .from('clientes')
-                  .update({
-                    owner_name: nameInput,
-                    company_name: companyInput,
-                    password: passwordInput,
-                    status: 'onboarding'
-                  })
-                  .eq('id', clientData.id);
-
-                if (updateError) throw updateError;
-              } else {
-                // Insert a completely new client record
-                const { error: insertError } = await supabase
-                  .from('clientes')
-                  .insert([{
-                    email: emailInput,
-                    owner_name: nameInput,
-                    company_name: companyInput,
-                    password: passwordInput,
-                    status: 'onboarding',
-                    access_code: randomCode
-                  }]);
-
-                if (insertError) throw insertError;
+          try {
+            // 1. Create auth user — password stored securely by Supabase Auth
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+              email: emailInput,
+              password: passwordInput,
+              options: {
+                data: { full_name: nameInput, company: companyInput }
               }
+            });
 
-              // Success: Buffer in LocalStorage just in case
-              const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-              let localUser = localUsers.find(u => u.email === emailInput);
-              if (!localUser) {
-                localUser = { 
-                  email: emailInput, 
-                  name: nameInput, 
-                  company: companyInput, 
-                  password: passwordInput,
-                  status: 'onboarding',
-                  access_code: clientData ? clientData.access_code : randomCode
-                };
-                localUsers.push(localUser);
-              } else {
-                localUser.name = nameInput;
-                localUser.company = companyInput;
-                localUser.password = passwordInput;
-                localUser.status = 'onboarding';
-              }
-              localStorage.setItem('portal_users', JSON.stringify(localUsers));
+            if (authError) throw authError;
 
-              sessionStorage.setItem('active_user_email', emailInput);
-              sessionStorage.setItem('active_user_name', nameInput);
-              sessionStorage.setItem('active_user_company', companyInput);
-              sessionStorage.setItem('active_user_role', 'client');
-              
-              window.location.href = 'onboarding.html';
-              return;
+            // 2. Insert/update client profile (NO password column written)
+            const { data: existing } = await supabase
+              .rpc('verificar_existencia_cliente', { p_email: emailInput })
+              .maybeSingle();
 
-            } catch (err) {
-              console.error('Error during manual signup verification:', err);
-              alert(document.documentElement.lang === 'en' ? 'Registration failed: ' + err.message : 'Error al registrar la cuenta: ' + err.message);
-              btnSubmit.textContent = originalText;
-              btnSubmit.disabled = false;
-              return;
-            }
-          } else {
-            // Local fallback simulation buffer if Supabase is offline
-            const localUsers = JSON.parse(localStorage.getItem('portal_users') || '[]');
-            let localUser = localUsers.find(u => u.email === emailInput);
-            if (!localUser) {
-              localUser = { 
-                email: emailInput, 
-                name: nameInput, 
-                company: companyInput, 
-                password: passwordInput, 
-                status: 'onboarding', 
-                access_code: randomCode 
-              };
-              localUsers.push(localUser);
+            if (existing) {
+              const { error: updateError } = await supabase
+                .from('clientes')
+                .update({
+                  owner_name: nameInput,
+                  company_name: companyInput,
+                  status: 'onboarding'
+                  // NOTE: password intentionally omitted — handled by Supabase Auth
+                })
+                .eq('id', existing.id);
+              if (updateError) throw updateError;
             } else {
-              localUser.name = nameInput;
-              localUser.company = companyInput;
-              localUser.password = passwordInput;
-              localUser.status = 'onboarding';
+              const randomCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+              const { error: insertError } = await supabase
+                .from('clientes')
+                .insert([{
+                  email: emailInput,
+                  owner_name: nameInput,
+                  company_name: companyInput,
+                  status: 'onboarding',
+                  access_code: randomCode
+                  // NOTE: password intentionally omitted — handled by Supabase Auth
+                }]);
+              if (insertError) throw insertError;
             }
-            localStorage.setItem('portal_users', JSON.stringify(localUsers));
-            
-            sessionStorage.setItem('active_user_email', emailInput);
-            sessionStorage.setItem('active_user_name', nameInput);
-            sessionStorage.setItem('active_user_company', companyInput);
-            sessionStorage.setItem('active_user_role', 'client');
+
+            setSessionUI(emailInput, nameInput, companyInput, 'client');
             window.location.href = 'onboarding.html';
+          } catch (err) {
+            console.error('Signup error:', err);
+            alert(t('Error al registrar la cuenta: ' + err.message,
+                    'Registration failed: ' + err.message));
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
           }
         });
       }
 
+      // --- Forgot password (real Supabase email reset) ----------------------
+
       const forgotForm = document.getElementById('forgotForm');
       if (forgotForm) {
-        forgotForm.addEventListener('submit', (e) => {
+        forgotForm.addEventListener('submit', async (e) => {
           e.preventDefault();
-          alert(document.documentElement.lang === 'en' 
-            ? 'Password reset link sent to your email.' 
-            : 'Enlace de restablecimiento enviado a tu correo.');
-          forgotView.style.display = 'none';
-          loginView.style.display = 'block';
+          const emailInput = document.getElementById('forgotEmail').value.trim();
+          const btnSubmit = forgotForm.querySelector('button[type="submit"]');
+          const originalText = btnSubmit.textContent;
+          btnSubmit.textContent = t('Enviando...', 'Sending...');
+          btnSubmit.disabled = true;
+
+          if (!supabase) {
+            alert(t('Error de conexión.', 'Connection error.'));
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+            return;
+          }
+
+          try {
+            const { error } = await supabase.auth.resetPasswordForEmail(emailInput, {
+              redirectTo: window.location.origin + window.location.pathname
+            });
+            if (error) throw error;
+            alert(t('Enlace de restablecimiento enviado a tu correo.',
+                    'Password reset link sent to your email.'));
+            forgotView.style.display = 'none';
+            loginView.style.display = 'block';
+          } catch (err) {
+            console.error('Reset error:', err);
+            alert(t('Error: ' + err.message, 'Error: ' + err.message));
+          } finally {
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+          }
         });
       }
+
+      // --- Google OAuth login -----------------------------------------------
 
       const btnGoogleLogin = document.getElementById('btnGoogleLogin');
       if (btnGoogleLogin) {
         btnGoogleLogin.addEventListener('click', async () => {
-          if (supabase) {
-            const btnSpan = btnGoogleLogin.querySelector('span');
-            const originalText = btnSpan ? btnSpan.textContent : 'Google';
-            if (btnSpan) btnSpan.textContent = document.documentElement.lang === 'en' ? 'Connecting...' : 'Conectando...';
-            btnGoogleLogin.style.pointerEvents = 'none';
-            btnGoogleLogin.style.opacity = '0.7';
+          if (!supabase) {
+            alert(t('Error de conexión.', 'Connection error.'));
+            return;
+          }
+          const btnSpan = btnGoogleLogin.querySelector('span');
+          const originalText = btnSpan ? btnSpan.textContent : 'Google';
+          if (btnSpan) btnSpan.textContent = t('Conectando...', 'Connecting...');
+          btnGoogleLogin.style.pointerEvents = 'none';
+          btnGoogleLogin.style.opacity = '0.7';
 
-            try {
-              const { data, error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                  redirectTo: window.location.origin + window.location.pathname
-                }
-              });
-              if (error) throw error;
-            } catch (err) {
-              console.error("Error with Google Login:", err);
-              if (btnSpan) btnSpan.textContent = originalText;
-              btnGoogleLogin.style.pointerEvents = 'auto';
-              btnGoogleLogin.style.opacity = '1';
-              alert(document.documentElement.lang === 'en' ? 'Error connecting to Google.' : 'Error al conectar con Google.');
-            }
-          } else {
-            alert("Supabase client is not initialized.");
+          try {
+            const { error } = await supabase.auth.signInWithOAuth({
+              provider: 'google',
+              options: { redirectTo: window.location.origin + window.location.pathname }
+            });
+            if (error) throw error;
+          } catch (err) {
+            console.error("Error with Google Login:", err);
+            if (btnSpan) btnSpan.textContent = originalText;
+            btnGoogleLogin.style.pointerEvents = 'auto';
+            btnGoogleLogin.style.opacity = '1';
+            alert(t('Error al conectar con Google.', 'Error connecting to Google.'));
           }
         });
       }
