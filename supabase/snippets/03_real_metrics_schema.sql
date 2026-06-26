@@ -211,6 +211,7 @@ BEGIN
     ) s;
 
     -- Pagos globales: últimas 10 ordenes paid
+    -- (el LIMIT va en un subquery para que jsonb_agg no choque con GROUP BY)
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
       'id', o.order_number,
       'date', to_char(o.created_at, 'YYYY-MM-DD'),
@@ -224,10 +225,12 @@ BEGIN
       'sincronizado_odoo', o.odoo_sale_order_id IS NOT NULL
     ) ORDER BY o.created_at DESC), '[]'::jsonb)
     INTO v_pagos
-    FROM public.ordenes o
-    WHERE o.status = 'paid'
-    ORDER BY o.created_at DESC
-    LIMIT 10;
+    FROM (
+      SELECT * FROM public.ordenes
+      WHERE status = 'paid'
+      ORDER BY created_at DESC
+      LIMIT 10
+    ) o;
 
     v_tramites := '[]'::jsonb;   -- los trámites son por cliente, no globales
     v_mkt := NULL;
@@ -289,6 +292,7 @@ BEGIN
     ) s;
 
     -- Pagos del cliente: ordenes paid
+    -- (el LIMIT va en un subquery para que jsonb_agg no choque con GROUP BY)
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
       'id', o.order_number,
       'date', to_char(o.created_at, 'YYYY-MM-DD'),
@@ -302,10 +306,12 @@ BEGIN
       'sincronizado_odoo', o.odoo_sale_order_id IS NOT NULL
     ) ORDER BY o.created_at DESC), '[]'::jsonb)
     INTO v_pagos
-    FROM public.ordenes o
-    WHERE o.cliente_id = v_client.id AND o.status = 'paid'
-    ORDER BY o.created_at DESC
-    LIMIT 10;
+    FROM (
+      SELECT * FROM public.ordenes
+      WHERE cliente_id = v_client.id AND status = 'paid'
+      ORDER BY created_at DESC
+      LIMIT 10
+    ) o;
 
     -- Trámites del cliente (client_tramites, con fallback a columnas legacy)
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
