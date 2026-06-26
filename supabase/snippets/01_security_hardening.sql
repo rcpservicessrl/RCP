@@ -85,6 +85,7 @@ GRANT EXECUTE ON FUNCTION public.get_user_role(TEXT) TO authenticated;
 
 -- ───────────────────────────────────────────────────────────────────────
 -- 3. Eliminar TODAS las políticas existentes para recrear de forma limpia
+--    (incluye los nombres nuevos que crea este mismo script, para idempotencia)
 -- ───────────────────────────────────────────────────────────────────────
 DROP POLICY IF EXISTS "Clientes: lectura propia" ON public.clientes;
 DROP POLICY IF EXISTS "Clientes: actualización propia" ON public.clientes;
@@ -93,6 +94,11 @@ DROP POLICY IF EXISTS "Clientes: eliminación propia" ON public.clientes;
 DROP POLICY IF EXISTS "Clientes: acceso admin total" ON public.clientes;
 DROP POLICY IF EXISTS "Clientes: inserción admin" ON public.clientes;
 DROP POLICY IF EXISTS "Allow public insert for bookings" ON public.clientes;
+-- Nombres creados por este script (para re-ejecuciones seguras):
+DROP POLICY IF EXISTS "Clientes: lectura propia o admin" ON public.clientes;
+DROP POLICY IF EXISTS "Clientes: inserción validada" ON public.clientes;
+DROP POLICY IF EXISTS "Clientes: actualización propia o admin" ON public.clientes;
+DROP POLICY IF EXISTS "Clientes: eliminación propia o admin" ON public.clientes;
 
 -- ───────────────────────────────────────────────────────────────────────
 -- 4. Política SELECT: cliente ve SU registro; admin ve TODOS
