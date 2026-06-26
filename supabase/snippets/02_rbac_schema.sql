@@ -235,55 +235,8 @@ CREATE TRIGGER trg_audit_user_role
   FOR EACH ROW EXECUTE FUNCTION public.fn_audit_user_role();
 
 -- ───────────────────────────────────────────────────────────────────────
--- 7. RLS en las tablas RBAC
---    Solo super_admin (y quien tenga rbac.manage) puede escribir en RBAC.
---    Lectura: cualquier usuario autenticado puede ver su propio rol y los
---    permisos/roles del catálogo (para que la UI pueda decidir qué mostrar).
--- ───────────────────────────────────────────────────────────────────────
-ALTER TABLE public.roles             ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.permissions       ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.role_permissions  ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.user_roles        ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.rbac_audit_log    ENABLE ROW LEVEL SECURITY;
-
--- Catálogos: lectura pública para clientes anónimos del portal (get_user_role
--- los consulta), escritura solo desde service_role (migraciones).
-DROP POLICY IF EXISTS "Roles: lectura publica" ON public.roles;
-CREATE POLICY "Roles: lectura publica" ON public.roles
-  FOR SELECT USING (TRUE);
-
-DROP POLICY IF EXISTS "Permissions: lectura publica" ON public.permissions;
-CREATE POLICY "Permissions: lectura publica" ON public.permissions
-  FOR SELECT USING (TRUE);
-
-DROP POLICY IF EXISTS "Role_permissions: lectura publica" ON public.role_permissions;
-CREATE POLICY "Role_permissions: lectura publica" ON public.role_permissions
-  FOR SELECT USING (TRUE);
-
--- user_roles: lectura — el propio usuario ve SUS filas; quien tiene
--- dashboard.admin_view o rbac.manage ve todas.
-DROP POLICY IF EXISTS "User_roles: lectura propia o autorizada" ON public.user_roles;
-CREATE POLICY "User_roles: lectura propia o autorizada" ON public.user_roles
-  FOR SELECT USING (
-    email = auth.email()
-    OR public.has_permission(auth.email(), 'dashboard.admin_view')
-    OR public.has_permission(auth.email(), 'rbac.manage')
-  );
-
--- user_roles: escritura — solo quien tiene rbac.manage (super_admin).
-DROP POLICY IF EXISTS "User_roles: escritura rbac.manage" ON public.user_roles;
-CREATE POLICY "User_roles: escritura rbac.manage" ON public.user_roles
-  FOR ALL USING (public.has_permission(auth.email(), 'rbac.manage'))
-  WITH CHECK (public.has_permission(auth.email(), 'rbac.manage'));
-
--- audit_log: solo super_admin / rbac.manage puede leer; nadie escribe vía RLS
--- (las inserciones las hace el trigger SECURITY DEFINER).
-DROP POLICY IF EXISTS "Rbac_audit: lectura rbac.manage" ON public.rbac_audit_log;
-CREATE POLICY "Rbac_audit: lectura rbac.manage" ON public.rbac_audit_log
-  FOR SELECT USING (public.has_permission(auth.email(), 'rbac.manage'));
-
--- ───────────────────────────────────────────────────────────────────────
--- 8. FUNCIONES RBAC (SECURITY DEFINER para bypasear RLS de catálogos)
+-- 7-bis. FUNCIONES RBAC (deben existir ANTES de las políticas RLS que
+--        las referencian). SECURITY DEFINER para bypasear RLS de catálogos.
 -- ───────────────────────────────────────────────────────────────────────
 
 -- has_role(p_email, p_slug) → ¿el usuario tiene (al menos) este rol?
@@ -347,9 +300,59 @@ GRANT EXECUTE ON FUNCTION public.has_permission(TEXT, TEXT)  TO authenticated, a
 GRANT EXECUTE ON FUNCTION public.effective_role(TEXT)        TO authenticated, anon;
 
 -- ───────────────────────────────────────────────────────────────────────
--- 9. REFACTORIZAR is_rcp_admin() y get_user_role() de la Fase 1
+-- 7. RLS en las tablas RBAC
+--    Solo super_admin (y quien tenga rbac.manage) puede escribir en RBAC.
+--    Lectura: cualquier usuario autenticado puede ver su propio rol y los
+--    permisos/roles del catálogo (para que la UI pueda decidir qué mostrar).
+-- ───────────────────────────────────────────────────────────────────────
+ALTER TABLE public.roles             ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.permissions       ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.role_permissions  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_roles        ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.rbac_audit_log    ENABLE ROW LEVEL SECURITY;
+
+-- Catálogos: lectura pública para clientes anónimos del portal (get_user_role
+-- los consulta), escritura solo desde service_role (migraciones).
+DROP POLICY IF EXISTS "Roles: lectura publica" ON public.roles;
+CREATE POLICY "Roles: lectura publica" ON public.roles
+  FOR SELECT USING (TRUE);
+
+DROP POLICY IF EXISTS "Permissions: lectura publica" ON public.permissions;
+CREATE POLICY "Permissions: lectura publica" ON public.permissions
+  FOR SELECT USING (TRUE);
+
+DROP POLICY IF EXISTS "Role_permissions: lectura publica" ON public.role_permissions;
+CREATE POLICY "Role_permissions: lectura publica" ON public.role_permissions
+  FOR SELECT USING (TRUE);
+
+-- user_roles: lectura — el propio usuario ve SUS filas; quien tiene
+-- dashboard.admin_view o rbac.manage ve todas.
+DROP POLICY IF EXISTS "User_roles: lectura propia o autorizada" ON public.user_roles;
+CREATE POLICY "User_roles: lectura propia o autorizada" ON public.user_roles
+  FOR SELECT USING (
+    email = auth.email()
+    OR public.has_permission(auth.email(), 'dashboard.admin_view')
+    OR public.has_permission(auth.email(), 'rbac.manage')
+  );
+
+-- user_roles: escritura — solo quien tiene rbac.manage (super_admin).
+DROP POLICY IF EXISTS "User_roles: escritura rbac.manage" ON public.user_roles;
+CREATE POLICY "User_roles: escritura rbac.manage" ON public.user_roles
+  FOR ALL USING (public.has_permission(auth.email(), 'rbac.manage'))
+  WITH CHECK (public.has_permission(auth.email(), 'rbac.manage'));
+
+-- audit_log: solo super_admin / rbac.manage puede leer; nadie escribe vía RLS
+-- (las inserciones las hace el trigger SECURITY DEFINER).
+DROP POLICY IF EXISTS "Rbac_audit: lectura rbac.manage" ON public.rbac_audit_log;
+CREATE POLICY "Rbac_audit: lectura rbac.manage" ON public.rbac_audit_log
+  FOR SELECT USING (public.has_permission(auth.email(), 'rbac.manage'));
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 8. REFACTORIZAR is_rcp_admin() y get_user_role() de la Fase 1
 --    Ahora consultan RBAC en lugar de emails hardcoded. Conservan fallback
 --    defensivo por si la tabla user_roles estuviera vacía.
+--    (Las funciones has_role/has_permission/effective_role se definen en la
+--     sección 7-bis, ANTES de las políticas RLS que las referencian.)
 -- ───────────────────────────────────────────────────────────────────────
 CREATE OR REPLACE FUNCTION public.is_rcp_admin()
 RETURNS BOOLEAN
