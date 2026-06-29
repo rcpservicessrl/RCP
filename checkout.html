@@ -808,7 +808,7 @@
 
               emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
 
-              // n8n pipeline trigger (webhook call with safe tokenized CardNet data)
+              // Disparador del pipeline propietario (webhook con datos CardNet tokenizados)
               fetch(RCP_LEAD_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

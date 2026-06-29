@@ -3,7 +3,8 @@
 > Fuente de verdad para sesiones futuras. Actualizar al final de cada bloque de trabajo.
 
 ## Ubicación
-- **Repo local:** `C:\Users\balmi\Projects\rcp-services-web`
+- **Repo local:** `C:\RCP\RCP Services\Sitio-Web` (fuera de OneDrive desde 2026-06-29)
+- **Documentación/vault:** `C:\RCP\RCP Services\`
 - **Stack:** HTML/JS estático + Supabase (Postgres + RLS + RPC) + Cloud Functions (Python, Firebase) + Odoo Online (XML-RPC) + n8n.
 
 ## Arquitectura de archivos

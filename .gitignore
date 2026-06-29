@@ -18,3 +18,6 @@ desktop.ini
 # Installers and large archives
 *.exe
 *.zip
+
+# Supabase CLI cache (regenerable)
+supabase/.temp/

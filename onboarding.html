@@ -130,7 +130,7 @@
             <option value="+507" data-country="PA">🇵🇦 +507 (PA)</option>
             <option value="+506" data-country="CR">🇨🇷 +506 (CR)</option>
           </select>
-          <input type="tel" id="obPhone" class="form-control" placeholder="Ej. 829-000-0000" required />
+          <input type="tel" id="obPhone" class="form-control" placeholder="Ej. 829-806-8092" required />
         </div>
       </div>
       <div class="form-group">
@@ -311,7 +311,7 @@
         const digits = phone.replace(/\D/g, '');
         if (country === 'DO') {
           if (digits.length !== 10) {
-            alert('Por favor, ingresa un número de teléfono de 10 dígitos (ej. 829-000-0000).');
+            alert('Por favor, ingresa un número de teléfono de 10 dígitos (ej. 829-806-8092).');
             return;
           }
           const areaCode = digits.substring(0, 3);

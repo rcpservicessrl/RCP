@@ -1,7 +1,7 @@
 // ─── WEBHOOK ENDPOINTS ───
-// GCP Cloud Function (stable, always-on chatbot endpoint)
+// Endpoint propietario del chatbot (siempre activo)
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-// GCP Cloud Function for lead capture (stable endpoint — forwards internally to n8n)
+// Endpoint propietario de captura de leads
 const RCP_LEAD_WEBHOOK_URL = 'https://b95a30b32790a4.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
 
 // ─── SECURITY: CONFIDENTIAL KEYWORD GUARDRAIL ───
@@ -1347,9 +1347,9 @@ if (phoneField) {
       a_en: '💼 As your **External Board of Directors**, we provide integrated CFO, CMO, and Legal expertise under a single monthly retainer, giving your MSME elite-level strategic guidance without executive payroll.'
     },
     {
-      k: ['ia', 'inteligencia artificial', 'ai', 'chatbot', 'tecnología', 'tecnologia', 'app', 'plataforma', 'rcp 360', 'pwa', 'supabase', 'flutterflow'],
-      a: '🤖 **IA y Tecnología:** Usamos IA avanzada (Gemini) para contratos y diagnósticos ágiles, y desarrollamos la app **RCP 360 (PWA)** en FlutterFlow y Supabase para que gestiones tus aprobaciones y ventas en tiempo real.',
-      a_en: '🤖 **AI & Tech:** We use advanced AI (Gemini) for legal drafts and rapid audits, and we are building **RCP 360 (PWA)** on FlutterFlow & Supabase to let you approve visual assets and track sales in real time.'
+      k: ['ia', 'inteligencia artificial', 'ai', 'chatbot', 'tecnología', 'tecnologia', 'app', 'plataforma', 'rcp 360', 'pwa'],
+      a: '🤖 **IA y Tecnología:** Contamos con un **Estudio Creativo con IA** propia para contratos y diagnósticos ágiles, y desarrollamos la app **RCP 360 (PWA)** sobre nuestra plataforma propietaria para que gestiones tus aprobaciones y ventas en tiempo real.',
+      a_en: '🤖 **AI & Tech:** We run our own **in-house Creative AI Studio** for rapid legal drafts and audits, and we are building the **RCP 360 (PWA)** app on our proprietary platform so you can approve visual assets and track sales in real time.'
     },
     {
       k: ['hola', 'hello', 'hey', 'buenas', 'buenos', 'hi', 'saludos'],
@@ -1989,7 +1989,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       const bookingPayloadString = JSON.stringify(bookingPayload);
       const bookingSignature = await signPayload(bookingPayloadString, bookingTimestamp);
 
-      const n8nCall = fetch(RCP_LEAD_WEBHOOK_URL, {
+      const leadPipelineCall = fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -2090,7 +2090,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         })();
       }
 
-      Promise.allSettled([emailJSCall, n8nCall, supabasePromise])
+      Promise.allSettled([emailJSCall, leadPipelineCall, supabasePromise])
         .then(() => {
           document.getElementById('bookingStep2').style.display = 'none';
           const step3 = document.getElementById('bookingStep3');
