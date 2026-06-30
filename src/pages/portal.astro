@@ -135,8 +135,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     'use strict';
     const lang = document.documentElement.lang || 'es';
     const t = (es:string, en:string) => lang === 'en' ? en : es;
-    const ADMIN_EMAILS = ['admin@rcp.services', 'rcpservicessrl@gmail.com'];
-
     const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
     const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
@@ -157,7 +155,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const { data, error } = await supabase.rpc('get_user_role', { p_email: email });
         if (!error && data) return data;
       } catch (_) {}
-      return ADMIN_EMAILS.includes((email || '').toLowerCase()) ? 'super_admin' : 'client';
+      // Fallback seguro: si el RPC falla, siempre devolver 'client'.
+      // El rol se resuelve exclusivamente desde la tabla user_roles en Supabase.
+      return 'client';
     }
 
     async function getClientProfile(email:string) {

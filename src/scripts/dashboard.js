@@ -464,9 +464,9 @@
           if (navClientesLink) navClientesLink.style.display = 'flex';
           if (adminSelectorRow) adminSelectorRow.style.display = 'flex';
 
-          // Set sidebar admin profile visual
-          if (profileName) profileName.textContent = 'Balmis Reynoso';
-          if (profileCompany) profileCompany.textContent = 'RCP Services (Admin)';
+          // Set sidebar admin profile visual (resolved from session, not hardcoded)
+          if (profileName) profileName.textContent = activeName || 'Administrador';
+          if (profileCompany) profileCompany.textContent = (activeCompany || 'RCP Services') + ' (Admin)';
 
           // Load GLOBAL consolidated view via RPC (Fase 3) — reemplaza defaultMetrics
           if (supabase) {
