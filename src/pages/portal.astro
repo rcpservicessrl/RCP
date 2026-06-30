@@ -16,6 +16,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <main style="padding-top: 100px; min-height: calc(100vh - 350px); display: flex; align-items: center; justify-content: center; position: relative;">
     <div class="hero-bg-grid" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
 
+    <!-- Loading Overlay -->
+    <div id="portalOverlay" class="portal-overlay" style="display:none;">
+      <div class="portal-overlay-content">
+        <div class="portal-spinner"></div>
+        <p id="portalOverlayText">Verificando credenciales...</p>
+      </div>
+    </div>
+
     <div class="portal-box animate-on-scroll">
       <!-- VIEW 1: LOGIN -->
       <div id="loginView">
@@ -135,6 +143,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     'use strict';
     const lang = document.documentElement.lang || 'es';
     const t = (es:string, en:string) => lang === 'en' ? en : es;
+
+    // ─── Overlay helpers ───
+    const overlay = document.getElementById('portalOverlay') as HTMLElement;
+    const overlayText = document.getElementById('portalOverlayText') as HTMLElement;
+    function showOverlay(msg:string) { if(overlayText) overlayText.textContent = msg; if(overlay) overlay.style.display = 'flex'; }
+    function hideOverlay() { if(overlay) overlay.style.display = 'none'; }
+
     const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
     const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
@@ -263,19 +278,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const passwordInput = (document.getElementById('loginPassword') as HTMLInputElement).value;
         const btnSubmit = loginForm.querySelector('button[type="submit"]') as HTMLButtonElement;
         const originalText = btnSubmit.textContent;
-        btnSubmit.textContent = t('Verificando...', 'Verifying...');
         btnSubmit.disabled = true;
-        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+        showOverlay(t('Verificando credenciales...', 'Verifying credentials...'));
+        if (!supabase) { hideOverlay(); alert(t('Error de conexión.', 'Connection error.')); btnSubmit.disabled = false; return; }
         try {
           const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email: emailInput, password: passwordInput });
           if (authError) throw authError;
           const email = authData.user.email;
+          showOverlay(t('Cargando tu ecosistema...', 'Loading your ecosystem...'));
           const role = await getUserRole(email);
           const clientData = await getClientProfile(email);
           const name = clientData?.owner_name || authData.user.user_metadata?.full_name || email.split('@')[0];
-          if (clientData?.status === 'inactive') { alert(t('Tu cuenta se encuentra inactiva.', 'Your account is inactive.')); await supabase.auth.signOut(); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+          if (clientData?.status === 'inactive') { hideOverlay(); alert(t('Tu cuenta se encuentra inactiva.', 'Your account is inactive.')); await supabase.auth.signOut(); btnSubmit.disabled = false; return; }
           routeAfterAuth(email, name, clientData?.company_name, role, clientData);
-        } catch (err) { console.error('Login error:', err); alert(t('Correo o contraseña incorrectos.', 'Invalid email or password.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; }
+        } catch (err) { console.error('Login error:', err); hideOverlay(); alert(t('Correo o contraseña incorrectos.', 'Invalid email or password.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; }
       });
     }
 
@@ -288,14 +304,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const companyInput = (document.getElementById('signupCompany') as HTMLInputElement).value.trim();
         const passwordInput = (document.getElementById('signupPassword') as HTMLInputElement).value;
         const btnSubmit = signupForm.querySelector('button[type="submit"]') as HTMLButtonElement;
-        const originalText = btnSubmit.textContent;
-        btnSubmit.textContent = t('Verificando...', 'Verifying...');
         btnSubmit.disabled = true;
-        if (passwordInput.length < 8) { alert(t('La contraseña debe tener al menos 8 caracteres.', 'Password must be at least 8 characters.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
-        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+        if (passwordInput.length < 8) { alert(t('La contraseña debe tener al menos 8 caracteres.', 'Password must be at least 8 characters.')); btnSubmit.disabled = false; return; }
+        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); btnSubmit.disabled = false; return; }
+        showOverlay(t('Creando tu cuenta...', 'Creating your account...'));
         try {
           const { data: authData, error: authError } = await supabase.auth.signUp({ email: emailInput, password: passwordInput, options: { data: { full_name: nameInput, company: companyInput } } });
           if (authError) throw authError;
+          showOverlay(t('Configurando tu ecosistema...', 'Setting up your ecosystem...'));
           const { data: existing } = await supabase.rpc('verificar_existencia_cliente', { p_email: emailInput }).maybeSingle();
           if (existing) {
             const { error: updateError } = await supabase.from('clientes').update({ owner_name: nameInput, company_name: companyInput, status: 'onboarding' }).eq('id', existing.id);
@@ -307,7 +323,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           }
           setSessionUI(emailInput, nameInput, companyInput, 'client');
           window.location.href = '/onboarding';
-        } catch (err:any) { console.error('Signup error:', err); alert(t('Error al registrar: ' + err.message, 'Registration failed: ' + err.message)); btnSubmit.textContent = originalText; btnSubmit.disabled = false; }
+        } catch (err:any) { console.error('Signup error:', err); hideOverlay(); alert(t('Error al registrar: ' + err.message, 'Registration failed: ' + err.message)); btnSubmit.disabled = false; }
       });
     }
 
@@ -335,15 +351,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     if (btnGoogleLogin) {
       btnGoogleLogin.addEventListener('click', async () => {
         if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); return; }
-        const btnSpan = btnGoogleLogin.querySelector('span');
-        const originalText = btnSpan ? btnSpan.textContent : 'Google';
-        if (btnSpan) btnSpan.textContent = t('Conectando...', 'Connecting...');
+        showOverlay(t('Conectando con Google...', 'Connecting to Google...'));
         (btnGoogleLogin as HTMLElement).style.pointerEvents = 'none';
-        (btnGoogleLogin as HTMLElement).style.opacity = '0.7';
         try {
           const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + window.location.pathname } });
           if (error) throw error;
-        } catch (err) { console.error("Error with Google Login:", err); if (btnSpan) btnSpan.textContent = originalText; (btnGoogleLogin as HTMLElement).style.pointerEvents = 'auto'; (btnGoogleLogin as HTMLElement).style.opacity = '1'; alert(t('Error al conectar con Google.', 'Error connecting to Google.')); }
+        } catch (err) { console.error("Error with Google Login:", err); hideOverlay(); (btnGoogleLogin as HTMLElement).style.pointerEvents = 'auto'; alert(t('Error al conectar con Google.', 'Error connecting to Google.')); }
       });
     }
   })();

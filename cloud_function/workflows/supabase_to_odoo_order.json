@@ -1,0 +1,236 @@
+{
+  "name": "RCP — Supabase Payment → Odoo Sale Order",
+  "description": "When a payment is confirmed in Supabase (ordenes.status = 'paid'), creates a Sale Order in Odoo CRM with line items.",
+  "version": "1.0.0",
+  "trigger": {
+    "type": "webhook",
+    "path": "/webhook/rcp-order-paid",
+    "method": "POST",
+    "description": "Called by Supabase Database Webhook when ordenes.status changes to 'paid'"
+  },
+  "nodes": [
+    {
+      "id": "1-trigger",
+      "type": "webhook",
+      "name": "Order Paid Webhook",
+      "config": {
+        "path": "/webhook/rcp-order-paid",
+        "method": "POST",
+        "responseMode": "onReceived",
+        "responseCode": 200
+      },
+      "notes": "Supabase sends: { record: { id, cliente_id, order_number, total, payment_method, items: [...] } }"
+    },
+    {
+      "id": "2-validate",
+      "type": "if",
+      "name": "Validate Payload",
+      "config": {
+        "conditions": {
+          "all": [
+            { "field": "{{$json.record.order_number}}", "operator": "isNotEmpty" },
+            { "field": "{{$json.record.total}}", "operator": "greaterThan", "value": 0 }
+          ]
+        }
+      },
+      "connections": {
+        "true": "3-fetch-client",
+        "false": "error-log"
+      }
+    },
+    {
+      "id": "3-fetch-client",
+      "type": "http_request",
+      "name": "Fetch Client from Supabase",
+      "config": {
+        "method": "GET",
+        "url": "{{$env.SUPABASE_URL}}/rest/v1/clientes?id=eq.{{$json.record.cliente_id}}&select=email,owner_name,company_name,legal_id,phone",
+        "headers": {
+          "apikey": "{{$env.SUPABASE_SERVICE_KEY}}",
+          "Authorization": "Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+        }
+      },
+      "connections": { "next": "4-check-odoo-partner" }
+    },
+    {
+      "id": "4-check-odoo-partner",
+      "type": "http_request",
+      "name": "Search Odoo Partner",
+      "config": {
+        "method": "POST",
+        "url": "{{$env.ODOO_URL}}/jsonrpc",
+        "body": {
+          "jsonrpc": "2.0",
+          "method": "call",
+          "params": {
+            "service": "object",
+            "method": "execute_kw",
+            "args": [
+              "{{$env.ODOO_DB}}",
+              "{{$env.ODOO_UID}}",
+              "{{$env.ODOO_PASSWORD}}",
+              "res.partner",
+              "search_read",
+              [[["email", "=", "{{$node['3-fetch-client'].json[0].email}}"]]],
+              { "fields": ["id", "name"], "limit": 1 }
+            ]
+          }
+        }
+      },
+      "connections": { "next": "5-create-or-use-partner" }
+    },
+    {
+      "id": "5-create-or-use-partner",
+      "type": "if",
+      "name": "Partner Exists?",
+      "config": {
+        "conditions": {
+          "all": [
+            { "field": "{{$json.result.length}}", "operator": "greaterThan", "value": 0 }
+          ]
+        }
+      },
+      "connections": {
+        "true": "6-create-sale-order",
+        "false": "5b-create-partner"
+      },
+      "notes": "If partner exists, use their ID. Otherwise create new partner first."
+    },
+    {
+      "id": "5b-create-partner",
+      "type": "http_request",
+      "name": "Create Odoo Partner",
+      "config": {
+        "method": "POST",
+        "url": "{{$env.ODOO_URL}}/jsonrpc",
+        "body": {
+          "jsonrpc": "2.0",
+          "method": "call",
+          "params": {
+            "service": "object",
+            "method": "execute_kw",
+            "args": [
+              "{{$env.ODOO_DB}}",
+              "{{$env.ODOO_UID}}",
+              "{{$env.ODOO_PASSWORD}}",
+              "res.partner",
+              "create",
+              [{ 
+                "name": "{{$node['3-fetch-client'].json[0].company_name}}",
+                "email": "{{$node['3-fetch-client'].json[0].email}}",
+                "phone": "{{$node['3-fetch-client'].json[0].phone}}",
+                "vat": "{{$node['3-fetch-client'].json[0].legal_id}}",
+                "is_company": true,
+                "country_id": 62
+              }]
+            ]
+          }
+        }
+      },
+      "connections": { "next": "6-create-sale-order" }
+    },
+    {
+      "id": "6-create-sale-order",
+      "type": "http_request",
+      "name": "Create Odoo Sale Order",
+      "config": {
+        "method": "POST",
+        "url": "{{$env.ODOO_URL}}/jsonrpc",
+        "body": {
+          "jsonrpc": "2.0",
+          "method": "call",
+          "params": {
+            "service": "object",
+            "method": "execute_kw",
+            "args": [
+              "{{$env.ODOO_DB}}",
+              "{{$env.ODOO_UID}}",
+              "{{$env.ODOO_PASSWORD}}",
+              "sale.order",
+              "create",
+              [{
+                "partner_id": "{{PARTNER_ID}}",
+                "client_order_ref": "{{$json.record.order_number}}",
+                "note": "Auto-created from RCP web store payment.",
+                "order_line": "{{ORDER_LINES}}"
+              }]
+            ]
+          }
+        },
+        "notes": "PARTNER_ID and ORDER_LINES must be computed from previous nodes. See implementation notes below."
+      },
+      "connections": { "next": "7-update-supabase" }
+    },
+    {
+      "id": "7-update-supabase",
+      "type": "http_request",
+      "name": "Update Supabase Order (sale_order_id)",
+      "config": {
+        "method": "PATCH",
+        "url": "{{$env.SUPABASE_URL}}/rest/v1/ordenes?id=eq.{{$json.record.id}}",
+        "headers": {
+          "apikey": "{{$env.SUPABASE_SERVICE_KEY}}",
+          "Authorization": "Bearer {{$env.SUPABASE_SERVICE_KEY}}",
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        "body": {
+          "sale_order_id": "{{$node['6-create-sale-order'].json.result}}",
+          "status": "in_progress"
+        }
+      },
+      "connections": { "next": "8-notify" }
+    },
+    {
+      "id": "8-notify",
+      "type": "http_request",
+      "name": "Notify via WhatsApp (Evolution API)",
+      "config": {
+        "method": "POST",
+        "url": "{{$env.EVOLUTION_API_URL}}/message/sendText/rcp_whatsapp_2026",
+        "headers": {
+          "apikey": "{{$env.EVOLUTION_API_KEY}}"
+        },
+        "body": {
+          "number": "18298068092",
+          "text": "✅ *Nuevo Pedido Pagado*\n\n📦 {{$json.record.order_number}}\n💰 RD$ {{$json.record.total}}\n🏢 {{$node['3-fetch-client'].json[0].company_name}}\n📧 {{$node['3-fetch-client'].json[0].email}}\n\nOrden creada en Odoo: #{{$node['6-create-sale-order'].json.result}}"
+        }
+      }
+    },
+    {
+      "id": "error-log",
+      "type": "set",
+      "name": "Log Invalid Payload",
+      "config": {
+        "values": {
+          "error": "Invalid order payload received",
+          "payload": "{{JSON.stringify($json)}}"
+        }
+      }
+    }
+  ],
+  "environment_variables": {
+    "SUPABASE_URL": "https://wpfovxgbennpgydbellw.supabase.co",
+    "SUPABASE_SERVICE_KEY": "<service_role_key>",
+    "ODOO_URL": "https://rcp-services.odoo.com",
+    "ODOO_DB": "rcp-services",
+    "ODOO_UID": 2,
+    "ODOO_PASSWORD": "<odoo_api_key>",
+    "EVOLUTION_API_URL": "http://localhost:8080",
+    "EVOLUTION_API_KEY": "<evolution_key>"
+  },
+  "supabase_webhook_config": {
+    "description": "Create a Database Webhook in Supabase Dashboard:",
+    "table": "ordenes",
+    "events": ["UPDATE"],
+    "filter": "status=eq.paid",
+    "url": "https://<n8n-tunnel-domain>/webhook/rcp-order-paid",
+    "headers": { "Content-Type": "application/json" }
+  },
+  "edge_cases": [
+    "Duplicate prevention: Check if sale_order_id already exists before creating",
+    "Odoo timeout: Retry up to 3 times with exponential backoff",
+    "Missing products in Odoo: Create generic 'Servicio Web' product as fallback",
+    "Partial payment: Only trigger when total matches payment confirmation"
+  ]
+}
