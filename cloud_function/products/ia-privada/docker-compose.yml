@@ -1,0 +1,87 @@
+# ═══════════════════════════════════════════════════════════════
+# RCP Services — IA Corporativa Privada (Producto Vendible)
+# Stack: Ollama + LiteLLM + Open WebUI
+#
+# Uso:
+#   docker compose up -d
+#   docker compose logs -f
+#   docker compose down
+#
+# Requisitos:
+#   - Docker Desktop o Docker Engine 24+
+#   - Mínimo 8GB RAM libre (16GB recomendado)
+#   - 50GB almacenamiento
+# ═══════════════════════════════════════════════════════════════
+
+services:
+  # ─── Motor de IA Local ───
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rcp-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    # GPU support (uncomment if NVIDIA GPU available)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─── Proxy Multi-Modelo (API unificada OpenAI-compatible) ───
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: rcp-litellm
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm_config.yaml:/app/config.yaml
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-rcp-local-dev}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─── Interfaz de Chat (tipo ChatGPT) ───
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: rcp-webui
+    restart: unless-stopped
+    ports:
+      - "8188:8080"
+    volumes:
+      - webui_data:/app/backend/data
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OPENAI_API_BASE_URL=http://litellm:4000/v1
+      - OPENAI_API_KEY=${LITELLM_MASTER_KEY:-sk-rcp-local-dev}
+      - WEBUI_NAME=${CLIENT_NAME:-Mi Empresa} - IA Privada
+      - WEBUI_AUTH=true
+      - DEFAULT_MODELS=llama3.1:8b
+    depends_on:
+      ollama:
+        condition: service_healthy
+      litellm:
+        condition: service_healthy
+
+volumes:
+  ollama_data:
+  webui_data:
