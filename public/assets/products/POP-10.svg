@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Welcome Kit - Gift box with ribbon/bow on top -->
+  <!-- Box body -->
+  <rect x="96" y="240" width="320" height="220" rx="16" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Box lid -->
+  <rect x="80" y="192" width="352" height="56" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Vertical ribbon on box -->
+  <rect x="236" y="192" width="40" height="268" rx="0" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Horizontal ribbon on lid -->
+  <rect x="80" y="208" width="352" height="28" rx="0" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Bow center -->
+  <circle cx="256" cy="156" r="20" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Bow loops -->
+  <ellipse cx="208" cy="148" rx="36" ry="24" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <ellipse cx="304" cy="148" rx="36" ry="24" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Bow tails -->
+  <path d="M220 168 L196 200 L212 196" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <path d="M292 168 L316 200 L300 196" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Highlight on box -->
+  <rect x="120" y="280" width="8" height="160" rx="4" fill="#FFFFFF" stroke="none"/>
+</svg>

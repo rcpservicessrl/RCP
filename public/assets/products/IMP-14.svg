@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Custom Packaging - 3D box perspective, logo on front face -->
+  <!-- Box top face -->
+  <path d="M160 160 L256 112 L392 160 L296 208 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Box front face -->
+  <path d="M160 160 L160 360 L296 408 L296 208 Z" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Box right face -->
+  <path d="M296 208 L296 408 L392 360 L392 160 Z" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Logo on front face -->
+  <circle cx="228" cy="284" r="36" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Brand line on front -->
+  <rect x="188" y="336" width="80" height="12" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Box tape/seal on top -->
+  <line x1="220" y1="140" x2="340" y2="140" stroke="#1A1B20" stroke-width="6"/>
+</svg>

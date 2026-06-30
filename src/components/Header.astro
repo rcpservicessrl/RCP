@@ -1,0 +1,93 @@
+---
+/**
+ * Header.astro — Navegación principal compartida
+ * Se incluye una sola vez en BaseLayout. Antes se duplicaba en 13 HTMLs.
+ *
+ * Props:
+ *  - active: string (clave de página activa para resaltar nav)
+ */
+interface Props {
+  active?: string;
+}
+const { active = '' } = Astro.props;
+---
+
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo-img-link">
+      <img src="/Logo RCP  fondo negro.png" alt="RCP Services" class="nav-logo" width="160" height="58" fetchpriority="high" />
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-dropdown">
+        <a href="/" class="dropdown-trigger"><span data-i18n="nav-porque-rcp">¿Por qué RCP?</span> <span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/#problema" data-i18n="nav-problema">El Problema de las MIPYMEs</a></li>
+          <li><a href="/#solucion" data-i18n="nav-solucion">Nuestra Solución</a></li>
+          <li><a href="/#ecosistema" data-i18n="nav-ecosistema">Ecosistema Soberano</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="/servicios" class="dropdown-trigger"><span data-i18n="nav-servicios">Servicios</span> <span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/servicios" data-i18n="nav-planes">Planes de Crecimiento</a></li>
+          <li><a href="/tienda" data-i18n="nav-tienda">Tienda de Productos</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <a href="/nosotros" class="dropdown-trigger"><span data-i18n="nav-compania">Compañía</span> <span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/nosotros" data-i18n="nav-nosotros">Nosotros</a></li>
+          <li><a href="/media" data-i18n="nav-media">Media / Podcast</a></li>
+          <li><a href="/carreras" data-i18n="nav-carreras">Carreras</a></li>
+          <li><a href="/#contacto" data-i18n="nav-contacto">Contacto</a></li>
+        </ul>
+      </li>
+      <li><a href="/portal" data-i18n="nav-portal">Portal</a></li>
+    </ul>
+    <a href="/diagnostico" class="btn-cta nav-cta" data-i18n="nav-cta">Diagnóstico 360°</a>
+    <div class="nav-controls">
+      <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="Preguntar a Pulso..." />
+        <button class="icon-btn search-btn" id="searchBtn" aria-label="Buscar" title="Buscar / Preguntar a Pulso">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+      <select class="lang-select" id="langSelect" name="lang_select" aria-label="Language" title="Idioma">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+      </select>
+      <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle light mode" title="Modo Día/Noche">
+        <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <button class="icon-btn music-btn" id="musicBtn" aria-label="Toggle ambient music" title="Música ambiental">
+        <svg id="musicIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <svg id="musicIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+      </button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menú">&#9776;</button>
+  </div>
+</nav>

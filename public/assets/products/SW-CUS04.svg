@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- API Integration - Two blocks connected by thick line through central circle -->
+  <!-- Left block -->
+  <rect x="48" y="176" width="120" height="160" rx="20" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Left block lines -->
+  <rect x="72" y="208" width="72" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="72" y="236" width="56" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="72" y="264" width="64" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="72" y="292" width="48" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Connection line -->
+  <line x1="168" y1="256" x2="344" y2="256" stroke="#1A1B20" stroke-width="10"/>
+  <!-- Central API circle -->
+  <circle cx="256" cy="256" r="48" fill="#79C143" stroke="#1A1B20" stroke-width="8"/>
+  <text x="256" y="270" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF" stroke="none" text-anchor="middle">API</text>
+  <!-- Right block -->
+  <rect x="344" y="176" width="120" height="160" rx="20" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Right block lines -->
+  <rect x="368" y="208" width="72" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="368" y="236" width="56" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="368" y="264" width="64" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="368" y="292" width="48" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Data flow arrows -->
+  <polyline points="192,236 208,236 208,226 224,236 208,246 208,236" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <polyline points="320,276 304,276 304,266 288,276 304,286 304,276" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+</svg>
