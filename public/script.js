@@ -1145,17 +1145,9 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-// ─── CONTACT FORM (EmailJS) ───
-const EMAILJS_PUBLIC_KEY = 'pYaPyXxVIzbydrMpZ';
-const EMAILJS_SERVICE_ID = 'service_st6k7sm';
-const EMAILJS_TEMPLATE_ID = 'template_ep1h8r4';
-
+// ─── CONTACT FORM (Cloud Function lead capture — EmailJS removed) ───
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-  }
-
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('button[type="submit"]');
@@ -1184,49 +1176,35 @@ if (contactForm) {
     const payloadString = JSON.stringify(formData);
     const signature = await signPayload(payloadString, timestamp);
 
-    fetch(RCP_LEAD_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-RCP-Timestamp': timestamp,
-        'X-RCP-Signature': signature
-      },
-      body: payloadString
-    }).catch(err => console.warn('Lead webhook fallback (backend offline):', err));
+    try {
+      const resp = await fetch(RCP_LEAD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-RCP-Timestamp': timestamp,
+          'X-RCP-Signature': signature
+        },
+        body: payloadString
+      });
 
-    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-      emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
-        .then(() => {
-          btn.textContent = '✅ ¡Solicitud enviada! Te contactaremos pronto.';
-          btn.style.background = '#22c55e';
-          contactForm.reset();
-          setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = '';
-            btn.disabled = false;
-          }, 5000);
-        })
-        .catch(() => {
-          btn.textContent = '❌ Error al enviar. Intenta de nuevo.';
-          btn.style.background = '#ef4444';
-          setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = '';
-            btn.disabled = false;
-          }, 3000);
-        });
-    } else {
-      setTimeout(() => {
+      if (resp.ok) {
         btn.textContent = '✅ ¡Solicitud enviada! Te contactaremos pronto.';
         btn.style.background = '#22c55e';
         contactForm.reset();
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-          btn.disabled = false;
-        }, 4000);
-      }, 800);
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      console.warn('Lead capture error:', err);
+      btn.textContent = '❌ Error al enviar. Intenta de nuevo.';
+      btn.style.background = '#ef4444';
     }
+
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
   });
 }
 
@@ -1961,17 +1939,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       const randomId = Math.random().toString(36).substring(2, 5) + '-' + Math.random().toString(36).substring(2, 6) + '-' + Math.random().toString(36).substring(2, 5);
       const meetLink = `https://meet.google.com/${randomId}`;
 
-      const templateParams = {
-        from_name: name,
-        from_email: email,
-        from_phone: phone,
-        from_company: company,
-        message: `Cita Programada para Diagnóstico 360°.\nFecha: ${formattedDate}\nHora: ${selectedTimeSlot}\n\nEnlace de Meet: ${meetLink}\n\nDetalles adicionales:\n${message}`,
-        reply_to: email
-      };
-
-      const emailJSCall = emailjs.send('service_st6k7sm', 'template_ep1h8r4', templateParams);
-      
       const bookingPayload = {
         user_name: name,
         user_email: email,
@@ -2062,7 +2029,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
                 status: 'pending_activation',
                 access_code: randomCode,
                 access_code_hash: hashHex,
-                password: 'client_google_auth', // Temporal password for simulation login
                 diagnostico_360: diagnosticoObj,
                 ventas: 0,
                 ventas_trend: '▲ +0%',
@@ -2090,7 +2056,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         })();
       }
 
-      Promise.allSettled([emailJSCall, leadPipelineCall, supabasePromise])
+      Promise.allSettled([leadPipelineCall, supabasePromise])
         .then(() => {
           document.getElementById('bookingStep2').style.display = 'none';
           const step3 = document.getElementById('bookingStep3');

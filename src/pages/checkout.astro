@@ -357,13 +357,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             };
             localStorage.setItem('last_transaction', JSON.stringify(txnData));
 
-            const templateParams = {
-              from_name: name, from_email: email, from_phone: phone, from_company: company,
-              message: `PAGO COMPLETADO.\nID: ${transactionId}\nMétodo: ${activeMethod}\nTotal: ${txnData.amountPaid}\nServicios: ${JSON.stringify(checkoutItems)}`,
-              reply_to: email
-            };
-            try { (window as any).emailjs?.send('service_st6k7sm', 'template_ep1h8r4', templateParams); } catch(e){}
-
             try {
               fetch(RCP_LEAD_WEBHOOK_URL, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
