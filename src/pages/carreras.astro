@@ -1,0 +1,270 @@
+---
+/**
+ * carreras.astro — Reclutamiento de freelancers con form + Supabase (CV upload)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Carreras — RCP Services | Colabora con el futuro de las MIPYMEs"
+  description="Buscamos profesionales independientes apasionados por la transformación empresarial. Trabaja por proyecto, con autonomía total y desde cualquier lugar."
+  canonical="/carreras"
+  active="carreras"
+>
+  <section class="hero hero-short" id="inicio">
+    <div class="hero-bg-grid"></div>
+    <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span> <span data-i18n="careers-badge">Oportunidades Profesionales</span>
+        </div>
+        <h1 class="hero-title animate-fade-up delay-1" data-i18n="careers-title">
+          Colabora con el <span class="accent">futuro</span><br />de las MIPYMEs
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2" data-i18n="careers-sub">
+          Buscamos profesionales independientes apasionados por la transformación empresarial. Trabaja por proyecto, con autonomía total y desde cualquier lugar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section problema">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="careers-why-label">¿Por qué RCP?</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="careers-why-title">Un modelo de trabajo <span class="accent">diferente</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="careers-why-text">
+          Operamos bajo un modelo de economía colaborativa: no contratamos empleados fijos, ensamblamos equipos de especialistas por proyecto. Tú decides cuándo, dónde y cómo trabajar.
+        </p>
+        <div class="cards-grid three-col" style="margin-top:48px;">
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🕐</div>
+            <h3 data-i18n="careers-val1-title">Autonomía Total</h3>
+            <p data-i18n="careers-val1-text">Elige tus horarios y lugar de trabajo. Sin registro de jornada, sin exclusividad. Tú eres tu propio jefe.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">📋</div>
+            <h3 data-i18n="careers-val2-title">Contratos por Proyecto</h3>
+            <p data-i18n="careers-val2-text">Cada colaboración se define por entregables concretos. Sabes exactamente qué entregar y cuándo cobrar.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🚀</div>
+            <h3 data-i18n="careers-val3-title">Impacto Real</h3>
+            <p data-i18n="careers-val3-text">Transforma negocios reales. Cada proyecto impacta directamente la vida de emprendedores dominicanos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section solucion">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="careers-roles-label">Perfiles que Buscamos</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="careers-roles-title">Áreas de <span class="accent">colaboración</span></h2>
+        <div class="cards-grid" style="grid-template-columns: repeat(4, 1fr); margin-top:48px; gap:20px;">
+          <div class="card card-dark animate-on-scroll" style="border-top:3px solid #ef4444;">
+            <div class="card-icon" style="font-size:2rem;">⚖️</div>
+            <h3 data-i18n="careers-role1-title">Consultoría Legal</h3>
+            <p data-i18n="careers-role1-text">Abogados con experiencia en formalización empresarial, ONAPI, DGII, Ventanilla Única y licitaciones del Estado.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="border-top:3px solid #f97316;">
+            <div class="card-icon" style="font-size:2rem;">📊</div>
+            <h3 data-i18n="careers-role2-title">Consultoría Financiera</h3>
+            <p data-i18n="careers-role2-text">Contadores y analistas financieros expertos en auditorías, reestructuración y planificación fiscal para MIPYMEs.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="border-top:3px solid var(--accent);">
+            <div class="card-icon" style="font-size:2rem;">📱</div>
+            <h3 data-i18n="careers-role3-title">Marketing Digital</h3>
+            <p data-i18n="careers-role3-text">Especialistas en Meta Ads, Google Ads, SEO, CRM, automatización Martech y estrategia de contenidos.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="border-top:3px solid #22c55e;">
+            <div class="card-icon" style="font-size:2rem;">🤖</div>
+            <h3 data-i18n="careers-role4-title">Tecnología e IA</h3>
+            <p data-i18n="careers-role4-text">Desarrolladores web, ingenieros de IA, diseñadores UX/UI y especialistas en automatización con herramientas de inteligencia artificial.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section paquetes">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="careers-process-label">El Proceso</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="careers-process-title">¿Cómo <span class="accent">colaboramos</span>?</h2>
+        <div class="cards-grid three-col" style="margin-top:48px;">
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">1️⃣</div>
+            <h3 data-i18n="careers-step1-title">Postulación</h3>
+            <p data-i18n="careers-step1-text">Envíanos tu CV y portafolio a través del formulario. Cuéntanos tu especialidad y experiencia.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">2️⃣</div>
+            <h3 data-i18n="careers-step2-title">Evaluación</h3>
+            <p data-i18n="careers-step2-text">Revisamos tu perfil y, si hay match, te invitamos a una conversación breve para conocerte.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">3️⃣</div>
+            <h3 data-i18n="careers-step3-title">Colaboración</h3>
+            <p data-i18n="careers-step3-text">Te asignamos proyectos según tu especialidad. Firmas un acuerdo de colaboración y empiezas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section trust">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="careers-standards-label">Excelencia Operativa</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="careers-standards-title">Nuestros <span class="accent">estándares</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="careers-standards-text">
+          Garantizamos calidad a través de procesos estandarizados, documentación exhaustiva y auditorías de entregables con cero errores críticos.
+        </p>
+        <div class="cards-grid three-col" style="margin-top:48px;">
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">📖</div>
+            <h3 data-i18n="careers-std1-title">SOPs Documentados</h3>
+            <p data-i18n="careers-std1-text">Cada proceso tiene un procedimiento operativo estándar con instrucciones claras y replicables.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">✅</div>
+            <h3 data-i18n="careers-std2-title">Auditorías de Calidad</h3>
+            <p data-i18n="careers-std2-text">Sistema de checklists con política de cero errores críticos antes de cada entrega al cliente.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🔒</div>
+            <h3 data-i18n="careers-std3-title">Confidencialidad</h3>
+            <p data-i18n="careers-std3-text">Todos los colaboradores firman acuerdos de confidencialidad (NDA) para proteger la información de nuestros clientes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contacto-section" id="aplicar" style="text-align:center;">
+      <div class="container animate-on-scroll" style="max-width: 700px;">
+        <h2 class="section-title" data-i18n="careers-cta-title">¿Listo para <span class="accent">colaborar</span>?</h2>
+        <p class="section-sub" style="margin-bottom: 40px;" data-i18n="careers-cta-sub">Envíanos tu perfil y currículum. La IA procesará tu perfil y nos pondremos en contacto.</p>
+        <form id="postulacionForm" style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: var(--radius); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: left;">
+          <div class="form-row" style="margin-bottom: 20px;">
+            <div class="portal-form-group">
+              <label for="postNombre" data-i18n="careers-form-name">Nombre Completo</label>
+              <input type="text" id="postNombre" class="form-control" placeholder="Ej. Juan Pérez" required />
+            </div>
+            <div class="portal-form-group">
+              <label for="postEmail" data-i18n="careers-form-email">Correo Electrónico</label>
+              <input type="email" id="postEmail" class="form-control" placeholder="Ej. tu-correo@ejemplo.com" required />
+            </div>
+          </div>
+          <div class="form-row" style="margin-bottom: 20px;">
+            <div class="portal-form-group">
+              <label for="postTelefono" data-i18n="careers-form-phone">Teléfono / WhatsApp</label>
+              <input type="text" id="postTelefono" class="form-control" placeholder="Ej. 829-806-8092" required />
+            </div>
+            <div class="portal-form-group">
+              <label for="postEspecialidad" data-i18n="careers-form-specialty">Área de Especialidad</label>
+              <select id="postEspecialidad" class="form-control" required style="background: var(--card-bg); color: var(--text);">
+                <option value="Consultoría Financiera" data-i18n="careers-spec-fin">Consultoría Financiera & Fiscal</option>
+                <option value="Diseño y Rebranding" data-i18n="careers-spec-design">Diseño Creativo & Rebranding</option>
+                <option value="Marketing Digital" data-i18n="careers-spec-marketing">Marketing Digital & Ads</option>
+                <option value="Desarrollo Web y Ecosistemas" data-i18n="careers-spec-web">Desarrollo Web & Ecosistemas</option>
+                <option value="Asesoría Legal" data-i18n="careers-spec-legal">Asesoría Legal & Corporativa</option>
+              </select>
+            </div>
+          </div>
+          <div class="portal-form-group" style="margin-bottom: 20px;">
+            <label for="postPortafolio" data-i18n="careers-form-portfolio">LinkedIn o Portafolio Web (Opcional)</label>
+            <input type="url" id="postPortafolio" class="form-control" placeholder="https://linkedin.com/in/tu-perfil" />
+          </div>
+          <div class="portal-form-group" style="margin-bottom: 30px;">
+            <label class="custom-file-upload" for="postCv">
+              <span class="file-name" data-i18n="choose-file">Selecciona CV</span>
+              <input type="file" id="postCv" class="form-control" accept=".pdf" required style="display:none;" />
+            </label>
+          </div>
+          <button type="submit" id="btnSubmitPostulacion" class="btn-cta btn-full" style="padding: 14px; font-size: 1rem;" data-i18n="careers-form-btn">
+            Enviar Postulación & CV →
+          </button>
+        </form>
+        <div id="successPostulacion" style="display:none; background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: var(--radius); padding: 40px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <span style="font-size: 3.5rem; display: block; margin-bottom: 20px;">🎉</span>
+          <h3 style="font-size: 1.5rem; font-weight: 800; color: #22c55e; margin-bottom: 12px;" data-i18n="careers-success-title">¡Postulación Recibida!</h3>
+          <p style="font-size: 0.95rem; color: var(--text); line-height: 1.6;" data-i18n="careers-success-desc">
+            Hemos registrado tu perfil de manera exitosa y el archivo PDF se ha cargado de forma segura. Nuestro copiloto de selección evaluará tu perfil para proyectos futuros.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+      const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+      const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+      let supabase: any = null;
+      try {
+        if ((window as any).supabase) supabase = (window as any).supabase.createClient(supabaseUrl, supabaseKey);
+      } catch (e) {
+        console.error("Error initializing Supabase client in careers page:", e);
+      }
+
+      const form = document.getElementById('postulacionForm');
+      if (form) {
+        form.addEventListener('submit', async (e: Event) => {
+          e.preventDefault();
+          const btnSubmit = document.getElementById('btnSubmitPostulacion') as HTMLButtonElement;
+          if (!btnSubmit) return;
+          const isEN = document.documentElement.lang === 'en';
+          const originalText = btnSubmit.textContent;
+          btnSubmit.textContent = isEN ? 'Uploading CV...' : 'Subiendo CV...';
+          btnSubmit.disabled = true;
+
+          const nombre = (document.getElementById('postNombre') as HTMLInputElement).value.trim();
+          const email = (document.getElementById('postEmail') as HTMLInputElement).value.trim();
+          const telefono = (document.getElementById('postTelefono') as HTMLInputElement).value.trim();
+          const especialidad = (document.getElementById('postEspecialidad') as HTMLSelectElement).value;
+          const portafolio = (document.getElementById('postPortafolio') as HTMLInputElement).value.trim();
+          const fileInput = document.getElementById('postCv') as HTMLInputElement;
+          const file = fileInput.files?.[0];
+
+          if (!file) {
+            alert(isEN ? 'Please select a PDF file.' : 'Por favor, selecciona un archivo PDF.');
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+            return;
+          }
+          if (file.type !== 'application/pdf') {
+            alert(isEN ? 'Only PDF files are allowed.' : 'Solo se permiten archivos en formato PDF.');
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+            return;
+          }
+
+          if (supabase) {
+            try {
+              const fileExt = file.name.split('.').pop();
+              const fileName = `${Date.now()}_${nombre.replace(/\s+/g, '_')}.${fileExt}`;
+              const filePath = `cvs/${fileName}`;
+              const { error: uploadError } = await supabase.storage.from('candidatos-cv').upload(filePath, file);
+              if (uploadError) throw uploadError;
+              const { data: { publicUrl } } = supabase.storage.from('candidatos-cv').getPublicUrl(filePath);
+
+              const { error: insertError } = await supabase.from('candidatos').insert([{
+                nombre, email, telefono, especialidad, portafolio, cv_url: publicUrl
+              }]);
+              if (insertError) throw insertError;
+
+              form.style.display = 'none';
+              const success = document.getElementById('successPostulacion');
+              if (success) success.style.display = 'block';
+            } catch (err) {
+              console.error('Carreras form error', err);
+              btnSubmit.textContent = isEN ? 'Error. Try again' : 'Error. Intenta de nuevo';
+              btnSubmit.disabled = false;
+            }
+          } else {
+            form.style.display = 'none';
+            const success = document.getElementById('successPostulacion');
+            if (success) success.style.display = 'block';
+          }
+        });
+      }
+    })();
+  </script>
+</BaseLayout>
