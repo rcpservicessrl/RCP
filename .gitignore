@@ -21,3 +21,17 @@ desktop.ini
 
 # Supabase CLI cache (regenerable)
 supabase/.temp/
+
+# SDK / installers / large archives (regenerable from vendor sites)
+google-cloud-sdk/
+google-cloud-sdk.zip
+GoogleCloudSDKInstaller.exe
+nvm-setup.exe
+
+# Node (futura migracion Astro/Vite)
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
