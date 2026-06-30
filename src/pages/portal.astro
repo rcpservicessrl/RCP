@@ -1,0 +1,350 @@
+---
+/**
+ * portal.astro — Login / Signup / OAuth / Activación
+ * Auth vía Supabase Auth (bcrypt, JWT). NO passwords en cliente.
+ * 4 vistas: login, signup, forgot, activation.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Portal — RCP Services | Acceso Directivo"
+  description="Monitorea tus KPIs, estados de trámites y reportes fiscales del Ecosistema Soberano."
+  canonical="/portal"
+  active="portal"
+>
+  <main style="padding-top: 100px; min-height: calc(100vh - 350px); display: flex; align-items: center; justify-content: center; position: relative;">
+    <div class="hero-bg-grid" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
+
+    <div class="portal-box animate-on-scroll">
+      <!-- VIEW 1: LOGIN -->
+      <div id="loginView">
+        <div class="portal-header">
+          <img src="/Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo theme-logo" id="portalLogo" />
+          <h2 data-i18n="port-login-title">Acceso Directivo</h2>
+          <p data-i18n="port-login-sub">Monitorea tus KPIs, estados de trámites y reportes fiscales del Ecosistema Soberano.</p>
+        </div>
+        <form id="loginForm">
+          <div class="portal-form-group">
+            <label for="loginEmail" data-i18n="form-email">Correo Electrónico</label>
+            <input type="email" id="loginEmail" required placeholder="Ej. info@rcp.services" />
+          </div>
+          <div class="portal-form-group">
+            <label for="loginPassword" data-i18n="port-pass">Contraseña</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" />
+          </div>
+          <div class="portal-actions-row">
+            <label class="portal-checkbox-label">
+              <input type="checkbox" id="rememberMe" checked />
+              <span data-i18n="port-remember">Recordarme</span>
+            </label>
+            <a class="portal-link" id="btnForgotPass" data-i18n="port-forgot">¿Olvidaste tu contraseña?</a>
+          </div>
+          <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-login">Iniciar Sesión</button>
+        </form>
+        <div class="portal-divider" data-i18n="port-or">O CONTINÚA CON</div>
+        <button class="btn-google-login" id="btnGoogleLogin">
+          <svg class="google-icon" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+          </svg>
+          <span data-i18n="port-btn-google">Iniciar con Google</span>
+        </button>
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          ¿Aún no tienes cuenta? <a class="portal-link" id="btnGoToSignup" data-i18n="port-btn-register">Registrarme</a>
+        </p>
+      </div>
+
+      <!-- VIEW 2: SIGNUP -->
+      <div id="signupView" style="display:none">
+        <div class="portal-header">
+          <img src="/Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo theme-logo" id="portalLogoSignup" />
+          <h2 data-i18n="port-register-title">Crear Cuenta Directiva</h2>
+          <p data-i18n="port-register-sub">Registra tus credenciales para acceder a tu Ecosistema Soberano.</p>
+        </div>
+        <form id="signupForm">
+          <div class="portal-form-group">
+            <label for="signupName" data-i18n="form-name">Nombre Completo</label>
+            <input type="text" id="signupName" required placeholder="Ej. Balmis Reynoso" />
+          </div>
+          <div class="portal-form-group">
+            <label for="signupCompany" data-i18n="form-company">Empresa / Proyecto</label>
+            <input type="text" id="signupCompany" required placeholder="Ej. Mi Negocio SRL" />
+          </div>
+          <div class="portal-form-group">
+            <label for="signupEmail" data-i18n="form-email">Correo Electrónico</label>
+            <input type="email" id="signupEmail" required placeholder="Ej. info@rcp.services" />
+          </div>
+          <div class="portal-form-group">
+            <label for="signupPassword" data-i18n="port-pass">Contraseña</label>
+            <input type="password" id="signupPassword" required placeholder="••••••••" />
+          </div>
+          <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-create">Crear mi Cuenta</button>
+        </form>
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          ¿Ya tienes cuenta? <a class="portal-link" id="btnGoToLogin" data-i18n="port-btn-login-back">Iniciar Sesión</a>
+        </p>
+      </div>
+
+      <!-- VIEW 3: FORGOT -->
+      <div id="forgotView" style="display:none">
+        <div class="portal-header">
+          <img src="/Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo theme-logo" id="portalLogoForgot" />
+          <h2 data-i18n="port-forgot-title">Restablecer Contraseña</h2>
+          <p data-i18n="port-forgot-sub">Ingresa tu correo. Te enviaremos las instrucciones de restablecimiento.</p>
+        </div>
+        <form id="forgotForm">
+          <div class="portal-form-group">
+            <label for="forgotEmail" data-i18n="form-email">Correo Electrónico</label>
+            <input type="email" id="forgotEmail" required placeholder="Ej. info@rcp.services" />
+          </div>
+          <button type="submit" class="btn-cta btn-full" data-i18n="port-btn-send">Enviar Enlace</button>
+        </form>
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          <a class="portal-link" id="btnGoToLoginFromForgot" data-i18n="sched-back">Atrás</a>
+        </p>
+      </div>
+
+      <!-- VIEW 4: ACTIVACIÓN -->
+      <div id="activationView" style="display:none">
+        <div class="portal-header">
+          <img src="/Logo RCP  fondo negro.png" alt="RCP Services" class="portal-header-logo theme-logo" id="portalLogoActivation" />
+          <h2>Activar Cuenta de Portal</h2>
+          <p id="activationDesc">Introduce el Código de Acceso Secreto entregado durante tu reunión de Diagnóstico 360 para activar tu portal.</p>
+        </div>
+        <form id="activationForm">
+          <div class="portal-form-group" style="margin-bottom:20px;">
+            <label for="activationCode">Código de Acceso Secreto</label>
+            <input type="text" id="activationCode" required placeholder="Ej. RCP-8F32" style="font-family:monospace; text-align:center; font-size:1.2rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;" />
+          </div>
+          <button type="submit" class="btn-cta btn-full">Activar y Entrar</button>
+          <a class="portal-link" id="btnRecoverCode" href="https://wa.me/8298068092?text=Necesito%20mi%20c%C3%B3digo%20de%20acceso%20RCP" target="_blank">¿Perdiste el código? Escríbenos por WhatsApp</a>
+        </form>
+        <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:25px;">
+          <a class="portal-link" id="btnCancelActivation">Cancelar e Iniciar con otra cuenta</a>
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  (function() {
+    'use strict';
+    const lang = document.documentElement.lang || 'es';
+    const t = (es:string, en:string) => lang === 'en' ? en : es;
+    const ADMIN_EMAILS = ['admin@rcp.services', 'rcpservicessrl@gmail.com'];
+
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+    const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+    const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+    let supabase: any = null;
+    try { if ((window as any).supabase) supabase = (window as any).supabase.createClient(supabaseUrl, supabaseKey); }
+    catch (e) { console.error("Error initializing Supabase client in portal:", e); }
+
+    function setSessionUI(email:string, name:string, company:string, role:string) {
+      sessionStorage.setItem('active_user_email', email);
+      sessionStorage.setItem('active_user_name', name);
+      sessionStorage.setItem('active_user_company', company || '');
+      sessionStorage.setItem('active_user_role', role);
+    }
+
+    async function getUserRole(email:string): Promise<string> {
+      if (!supabase) return 'client';
+      try {
+        const { data, error } = await supabase.rpc('get_user_role', { p_email: email });
+        if (!error && data) return data;
+      } catch (_) {}
+      return ADMIN_EMAILS.includes((email || '').toLowerCase()) ? 'super_admin' : 'client';
+    }
+
+    async function getClientProfile(email:string) {
+      if (!supabase) return null;
+      const { data } = await supabase.from('clientes').select('*').eq('email', email).maybeSingle();
+      return data;
+    }
+
+    function routeAfterAuth(email:string, name:string, company:string, role:string, clientData:any) {
+      setSessionUI(email, name, company, role);
+      if (role === 'super_admin') { window.location.href = '/dashboard'; return; }
+      if (!clientData || clientData.status === 'onboarding') { window.location.href = '/onboarding'; return; }
+      if (clientData.status === 'pending_activation') { showActivationScreen(email, clientData); return; }
+      if (clientData.status === 'inactive') { alert(t('Tu cuenta se encuentra inactiva. Contacta a soporte.', 'Your account is inactive. Please contact support.')); return; }
+      window.location.href = '/dashboard';
+    }
+
+    if (supabase) {
+      supabase.auth.onAuthStateChange(async (event:string, session:any) => {
+        if (event !== 'SIGNED_IN' || !session) return;
+        const email = session.user.email;
+        const name = session.user.user_metadata?.full_name || email.split('@')[0];
+        const role = await getUserRole(email);
+        if (role === 'super_admin') { setSessionUI(email, name, 'RCP Services', role); window.location.href = '/dashboard'; return; }
+        let clientData = await getClientProfile(email);
+        if (!clientData) {
+          const provAccessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+          const { error: insertError } = await supabase.from('clientes').insert([{ email, owner_name: name, company_name: 'Nueva Empresa', status: 'onboarding', access_code: provAccessCode }]);
+          if (insertError) { console.error("Error al registrar cliente vía Google OAuth:", insertError); alert(t('Error al inicializar tu cuenta con Google.', 'Failed to initialize account with Google.')); await supabase.auth.signOut(); return; }
+          clientData = await getClientProfile(email);
+        }
+        routeAfterAuth(email, name, clientData?.company_name, role, clientData);
+      });
+    }
+
+    function showActivationScreen(email:string, clientData:any) {
+      setSessionUI(email, clientData.owner_name || email.split('@')[0], clientData.company_name, 'client');
+      (document.getElementById('loginView') as HTMLElement).style.display = 'none';
+      (document.getElementById('signupView') as HTMLElement).style.display = 'none';
+      (document.getElementById('forgotView') as HTMLElement).style.display = 'none';
+      const activationView = document.getElementById('activationView');
+      if (activationView) activationView.style.display = 'block';
+      const activationForm = document.getElementById('activationForm');
+      if (activationForm) {
+        activationForm.onsubmit = async (e: Event) => {
+          e.preventDefault();
+          const codeInput = (document.getElementById('activationCode') as HTMLInputElement).value.trim().toUpperCase();
+          const btnSubmit = activationForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+          if (codeInput !== (clientData.access_code || '').toUpperCase()) { alert(t('Código de Acceso incorrecto.', 'Invalid Access Code.')); return; }
+          btnSubmit.textContent = t('Activando...', 'Activating...');
+          btnSubmit.disabled = true;
+          if (supabase) {
+            try {
+              const { error } = await supabase.from('clientes').update({ status: 'active' }).eq('id', clientData.id);
+              if (error) throw error;
+            } catch (updateErr) { console.error("Error activating account:", updateErr); alert(t('Error al activar.', 'Error activating.')); btnSubmit.textContent = t('Activar y Entrar', 'Activate & Enter'); btnSubmit.disabled = false; return; }
+          }
+          window.location.href = '/dashboard';
+        };
+      }
+      const btnCancel = document.getElementById('btnCancelActivation');
+      if (btnCancel) btnCancel.onclick = async () => { if (supabase) await supabase.auth.signOut(); sessionStorage.clear(); window.location.reload(); };
+    }
+
+    const restoreSession = async () => {
+      if (!supabase) return;
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { sessionStorage.removeItem('active_user_email'); sessionStorage.removeItem('active_user_name'); sessionStorage.removeItem('active_user_company'); sessionStorage.removeItem('active_user_role'); return; }
+      const email = session.user.email;
+      const name = session.user.user_metadata?.full_name || email.split('@')[0];
+      const role = await getUserRole(email);
+      const clientData = await getClientProfile(email);
+      routeAfterAuth(email, name, clientData?.company_name, role, clientData);
+    };
+    restoreSession();
+
+    const params = new URLSearchParams(window.location.search);
+    const isSignup = params.get('signup') === 'true';
+    const emailParam = params.get('email');
+    const nameParam = params.get('name');
+    const companyParam = params.get('company');
+    const loginView = document.getElementById('loginView') as HTMLElement;
+    const signupView = document.getElementById('signupView') as HTMLElement;
+    const forgotView = document.getElementById('forgotView') as HTMLElement;
+
+    if (isSignup) {
+      loginView.style.display = 'none'; signupView.style.display = 'block';
+      if (emailParam) (document.getElementById('signupEmail') as HTMLInputElement).value = decodeURIComponent(emailParam);
+      if (nameParam) (document.getElementById('signupName') as HTMLInputElement).value = decodeURIComponent(nameParam);
+      if (companyParam) (document.getElementById('signupCompany') as HTMLInputElement).value = decodeURIComponent(companyParam);
+    }
+
+    document.getElementById('btnForgotPass')!.addEventListener('click', () => { loginView.style.display = 'none'; forgotView.style.display = 'block'; });
+    document.getElementById('btnGoToSignup')!.addEventListener('click', () => { loginView.style.display = 'none'; signupView.style.display = 'block'; });
+    document.getElementById('btnGoToLogin')!.addEventListener('click', () => { signupView.style.display = 'none'; loginView.style.display = 'block'; });
+    document.getElementById('btnGoToLoginFromForgot')!.addEventListener('click', () => { forgotView.style.display = 'none'; loginView.style.display = 'block'; });
+
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+      loginForm.addEventListener('submit', async (e: Event) => {
+        e.preventDefault();
+        const emailInput = (document.getElementById('loginEmail') as HTMLInputElement).value.trim();
+        const passwordInput = (document.getElementById('loginPassword') as HTMLInputElement).value;
+        const btnSubmit = loginForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalText = btnSubmit.textContent;
+        btnSubmit.textContent = t('Verificando...', 'Verifying...');
+        btnSubmit.disabled = true;
+        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+        try {
+          const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email: emailInput, password: passwordInput });
+          if (authError) throw authError;
+          const email = authData.user.email;
+          const role = await getUserRole(email);
+          const clientData = await getClientProfile(email);
+          const name = clientData?.owner_name || authData.user.user_metadata?.full_name || email.split('@')[0];
+          if (clientData?.status === 'inactive') { alert(t('Tu cuenta se encuentra inactiva.', 'Your account is inactive.')); await supabase.auth.signOut(); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+          routeAfterAuth(email, name, clientData?.company_name, role, clientData);
+        } catch (err) { console.error('Login error:', err); alert(t('Correo o contraseña incorrectos.', 'Invalid email or password.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; }
+      });
+    }
+
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+      signupForm.addEventListener('submit', async (e: Event) => {
+        e.preventDefault();
+        const emailInput = (document.getElementById('signupEmail') as HTMLInputElement).value.trim();
+        const nameInput = (document.getElementById('signupName') as HTMLInputElement).value.trim();
+        const companyInput = (document.getElementById('signupCompany') as HTMLInputElement).value.trim();
+        const passwordInput = (document.getElementById('signupPassword') as HTMLInputElement).value;
+        const btnSubmit = signupForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalText = btnSubmit.textContent;
+        btnSubmit.textContent = t('Verificando...', 'Verifying...');
+        btnSubmit.disabled = true;
+        if (passwordInput.length < 8) { alert(t('La contraseña debe tener al menos 8 caracteres.', 'Password must be at least 8 characters.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+        try {
+          const { data: authData, error: authError } = await supabase.auth.signUp({ email: emailInput, password: passwordInput, options: { data: { full_name: nameInput, company: companyInput } } });
+          if (authError) throw authError;
+          const { data: existing } = await supabase.rpc('verificar_existencia_cliente', { p_email: emailInput }).maybeSingle();
+          if (existing) {
+            const { error: updateError } = await supabase.from('clientes').update({ owner_name: nameInput, company_name: companyInput, status: 'onboarding' }).eq('id', existing.id);
+            if (updateError) throw updateError;
+          } else {
+            const randomCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+            const { error: insertError } = await supabase.from('clientes').insert([{ email: emailInput, owner_name: nameInput, company_name: companyInput, status: 'onboarding', access_code: randomCode }]);
+            if (insertError) throw insertError;
+          }
+          setSessionUI(emailInput, nameInput, companyInput, 'client');
+          window.location.href = '/onboarding';
+        } catch (err:any) { console.error('Signup error:', err); alert(t('Error al registrar: ' + err.message, 'Registration failed: ' + err.message)); btnSubmit.textContent = originalText; btnSubmit.disabled = false; }
+      });
+    }
+
+    const forgotForm = document.getElementById('forgotForm');
+    if (forgotForm) {
+      forgotForm.addEventListener('submit', async (e: Event) => {
+        e.preventDefault();
+        const emailInput = (document.getElementById('forgotEmail') as HTMLInputElement).value.trim();
+        const btnSubmit = forgotForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalText = btnSubmit.textContent;
+        btnSubmit.textContent = t('Enviando...', 'Sending...');
+        btnSubmit.disabled = true;
+        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); btnSubmit.textContent = originalText; btnSubmit.disabled = false; return; }
+        try {
+          const { error } = await supabase.auth.resetPasswordForEmail(emailInput, { redirectTo: window.location.origin + window.location.pathname });
+          if (error) throw error;
+          alert(t('Enlace enviado a tu correo.', 'Reset link sent to your email.'));
+          forgotView.style.display = 'none'; loginView.style.display = 'block';
+        } catch (err:any) { console.error('Reset error:', err); alert(t('Error: ' + err.message, 'Error: ' + err.message)); }
+        finally { btnSubmit.textContent = originalText; btnSubmit.disabled = false; }
+      });
+    }
+
+    const btnGoogleLogin = document.getElementById('btnGoogleLogin');
+    if (btnGoogleLogin) {
+      btnGoogleLogin.addEventListener('click', async () => {
+        if (!supabase) { alert(t('Error de conexión.', 'Connection error.')); return; }
+        const btnSpan = btnGoogleLogin.querySelector('span');
+        const originalText = btnSpan ? btnSpan.textContent : 'Google';
+        if (btnSpan) btnSpan.textContent = t('Conectando...', 'Connecting...');
+        (btnGoogleLogin as HTMLElement).style.pointerEvents = 'none';
+        (btnGoogleLogin as HTMLElement).style.opacity = '0.7';
+        try {
+          const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + window.location.pathname } });
+          if (error) throw error;
+        } catch (err) { console.error("Error with Google Login:", err); if (btnSpan) btnSpan.textContent = originalText; (btnGoogleLogin as HTMLElement).style.pointerEvents = 'auto'; (btnGoogleLogin as HTMLElement).style.opacity = '1'; alert(t('Error al conectar con Google.', 'Error connecting to Google.')); }
+      });
+    }
+  })();
+</script>
