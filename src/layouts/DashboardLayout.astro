@@ -1,0 +1,49 @@
+---
+/**
+ * DashboardLayout.astro — Shell para el dashboard (sidebar + workspace)
+ * NO incluye Header/Footer estándar (el dashboard tiene su propia navegación).
+ * Carga los mismos CSS/JS globales que BaseLayout.
+ */
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/dashboard.css';
+
+const SITE_CSS = '/styles.css';
+const SITE_JS = '/script.js';
+const I18N_JS = '/i18n-extra.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Dashboard — RCP Services | Junta Directiva Digital',
+  description = 'Monitorea tus KPIs, estados de trámites y reportes fiscales.',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icono-rcp.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#FCB53F" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <slot />
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <link rel="stylesheet" href={SITE_CSS} is:inline />
+  <script is:inline src="/scripts/dashboard.js"></script>
+  <script src={SITE_JS} is:inline defer></script>
+  <script src={I18N_JS} is:inline></script>
+</body>
+</html>

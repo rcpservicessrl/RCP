@@ -1,0 +1,561 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="Dashboard Directivo — RCP Services" description="Dashboard estratégico de cliente de RCP Services. Monitorea en tiempo real el crecimiento de tu empresa.">
+  <div class="dashboard-bg-grid"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-brand">
+        <img src="/Logo RCP  fondo negro.png" alt="RCP Services" class="sidebar-logo" id="sidebarLogo" />
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-item active" data-tab="overview">
+          <span>📊</span> <span data-i18n="dash-nav-overview">Overview</span>
+        </a>
+        <a class="nav-item" data-tab="tramites">
+          <span>📋</span> <span data-i18n="dash-nav-tramites">Trámites en Curso</span>
+        </a>
+        <a class="nav-item" data-tab="marketing">
+          <span>📈</span> <span data-i18n="dash-nav-marketing">Métricas de Ads</span>
+        </a>
+        <a class="nav-item" data-tab="pagos">
+          <span>💳</span> <span data-i18n="dash-nav-pagos">Historial de Pagos</span>
+        </a>
+        <a class="nav-item" data-tab="clientes" id="navClientesLink" style="display: none;">
+          <span>👥</span> <span data-i18n="dash-nav-clients">Gestión de Clientes</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-bottom">
+      <a class="nav-item" id="btnLogout" style="color:#ef4444; background:none; margin-bottom:15px;">
+        <span>🚪</span> <span data-i18n="dash-nav-logout">Cerrar Sesión</span>
+      </a>
+
+      <div class="user-profile-card">
+        <div class="user-avatar" id="profileAvatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="profileName">Director General</span>
+          <span class="user-company" id="profileCompany">Mi Empresa SRL</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN WORKSPACE ===== -->
+  <main class="main-workspace">
+    <div class="workspace-container">
+      <header class="workspace-header">
+        <div>
+          <button class="menu-toggle" id="menuToggle" aria-label="Menú">&#9776;</button>
+          <h1 class="workspace-title" data-i18n="dash-title">Junta Directiva Digital</h1>
+          <p class="workspace-subtitle" id="dashSubtitle" data-i18n="dash-subtitle">Monitoreando los latidos comerciales y financieros de tu negocio.</p>
+        </div>
+
+        <div class="header-actions">
+          <select class="lang-select" id="langSelectDashboard" aria-label="Language" title="Idioma">
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+          </select>
+          <button class="icon-btn theme-btn" id="themeBtnDashboard" aria-label="Toggle light mode" title="Modo Día/Noche">
+            <svg id="moonIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sunIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- OVERLAY PARA CLIENTES EN REVISIÓN / DIAGNÓSTICO -->
+      <div id="reviewOverlay" style="display:none; margin-top:20px;">
+        <div style="background: rgba(252, 181, 63, 0.05); border: 1px solid rgba(252, 181, 63, 0.15); border-radius: var(--radius); padding: 40px; text-align: center; backdrop-filter: blur(12px); max-width: 750px; margin: 40px auto; box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: fadeIn 0.5s ease;">
+          <span style="font-size: 3.5rem; display: block; margin-bottom: 20px; animation: pulse 2s infinite;">📋</span>
+          <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 12px;" data-i18n="dash-review-title">Diagnóstico 360° en Proceso</h2>
+          <p style="font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 30px;" data-i18n="dash-review-desc">
+            ¡Felicidades! Hemos capturado exitosamente los datos de tu empresa. Actualmente tu cuenta se encuentra en fase de <strong>Análisis y Constitución Inicial</strong>.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: left; margin-bottom: 35px;">
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 18px; border-radius: 10px;">
+              <div style="font-size: 1.2rem; margin-bottom: 8px;">1️⃣</div>
+              <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;" data-i18n="dash-step1-title">Datos Enviados</h4>
+              <p style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="dash-step1-desc">Tu perfil comercial e intereses han sido registrados en nuestro CRM Corporativo.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 18px; border-radius: 10px;">
+              <div style="font-size: 1.2rem; margin-bottom: 8px;">2️⃣</div>
+              <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;" data-i18n="dash-step2-title">Sesión Meet</h4>
+              <p style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="dash-step2-desc">Evaluaremos la arritmia de tu negocio y presentaremos las soluciones de las 11 capas.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 18px; border-radius: 10px;">
+              <div style="font-size: 1.2rem; margin-bottom: 8px;">3️⃣</div>
+              <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;" data-i18n="dash-step3-title">Desbloqueo</h4>
+              <p style="font-size: 0.72rem; color: var(--text-muted);" data-i18n="dash-step3-desc">Al terminar la sesión de consultoría se te dará tu <strong>Código de Acceso Secreto</strong>.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 15px; justify-content: center;">
+            <a href="https://wa.me/18298068092" target="_blank" class="btn-cta" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;" data-i18n="dash-btn-contact">
+              💬 Contactar a mi Asesor
+            </a>
+            <button class="btn-outline" id="btnExitReview" style="padding: 12px 24px;" data-i18n="dash-btn-logout-overlay">
+              🚪 Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 1: OVERVIEW -->
+      <div class="dashboard-panel active" id="view-overview">
+        <!-- Admin Selector Row -->
+        <div id="adminSelectorRow" style="display:none; background:rgba(252,181,63,0.05); border:1px solid rgba(252,181,63,0.15); padding:15px 20px; border-radius:10px; margin-bottom:25px; align-items:center; justify-content:space-between; gap:20px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.2rem;">👁️</span>
+            <span style="font-size:0.9rem; font-weight:700;">Vista de Administrador:</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <label for="adminClientSelect" style="font-size:0.82rem; color:var(--text-muted);">Visualizar datos de:</label>
+            <select class="lang-select" id="adminClientSelect" style="font-size:0.85rem; padding:6px 14px; min-width:220px; border-radius:6px; background:rgba(252,181,63,0.08);">
+              <option value="default">Vista Global (Consolidado)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- KPIs Row -->
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <span class="kpi-title" data-i18n="dash-kpi-sales">Ventas del Mes</span>
+            <span class="kpi-value" id="kpiSales">—</span>
+            <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title" data-i18n="dash-kpi-cac">Costo por Lead (CPL)</span>
+            <span class="kpi-value" id="kpiCac">—</span>
+            <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title" data-i18n="dash-kpi-roas">Retorno Ads (ROAS)</span>
+            <span class="kpi-value" id="kpiRoas">—</span>
+            <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title" data-i18n="dash-kpi-ltv">Valor de Cliente (LTV)</span>
+            <span class="kpi-value" id="kpiLtv">—</span>
+            <span class="kpi-change"><span style="color:var(--text-muted); margin-left:4px;" data-i18n="dash-kpi-trend">vs mes ant.</span></span>
+          </div>
+        </div>
+
+        <!-- Analytics Double Grid -->
+        <div class="analytics-grid">
+          <!-- Sales Trend Line Chart -->
+          <div class="card-workspace">
+            <div class="card-title-row">
+              <h3 data-i18n="dash-sales-trend">Proyección y Rendimiento de Ventas (DOP)</h3>
+              <button class="btn-action-sm" data-i18n="dash-download">Descargar PDF</button>
+            </div>
+
+            <div class="chart-container">
+              <svg class="chart-svg" viewBox="0 0 600 250">
+                <defs>
+                  <linearGradient id="chart-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.3"></stop>
+                    <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.0"></stop>
+                  </linearGradient>
+                </defs>
+                <line x1="50" y1="50" x2="550" y2="50" class="chart-grid-line"></line>
+                <line x1="50" y1="100" x2="550" y2="100" class="chart-grid-line"></line>
+                <line x1="50" y1="150" x2="550" y2="150" class="chart-grid-line"></line>
+                <line x1="50" y1="200" x2="550" y2="200" class="chart-grid-line"></line>
+                <path class="chart-area" d="M50 200 L133 160 L216 180 L300 120 L383 140 L466 80 L550 50 L550 200 Z"></path>
+                <path class="chart-path" d="M50 200 L133 160 L216 180 L300 120 L383 140 L466 80 L550 50"></path>
+                <circle cx="50" cy="200" r="5" fill="var(--accent)"></circle>
+                <circle cx="133" cy="160" r="5" fill="var(--accent)"></circle>
+                <circle cx="216" cy="180" r="5" fill="var(--accent)"></circle>
+                <circle cx="300" cy="120" r="5" fill="var(--accent)"></circle>
+                <circle cx="383" cy="140" r="5" fill="var(--accent)"></circle>
+                <circle cx="466" cy="80" r="5" fill="var(--accent)"></circle>
+                <circle cx="550" cy="50" r="5" fill="var(--accent)"></circle>
+                <text x="50" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Ene</text>
+                <text x="133" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Feb</text>
+                <text x="216" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Mar</text>
+                <text x="300" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Abr</text>
+                <text x="383" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">May</text>
+                <text x="466" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Jun</text>
+                <text x="550" y="225" fill="var(--text-muted)" font-size="10" text-anchor="middle">Jul</text>
+                <text x="40" y="204" fill="var(--text-muted)" font-size="10" text-anchor="end">RD$0</text>
+                <text x="40" y="154" fill="var(--text-muted)" font-size="10" text-anchor="end">200k</text>
+                <text x="40" y="104" fill="var(--text-muted)" font-size="10" text-anchor="end">400k</text>
+                <text x="40" y="54" fill="var(--text-muted)" font-size="10" text-anchor="end">600k</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Trámites Mini summary -->
+          <div class="card-workspace">
+            <div class="card-title-row">
+              <h3 data-i18n="dash-recent-tramites">Trámites Legales</h3>
+              <span class="portal-link" style="font-size:0.8rem;" data-tab-nav="tramites" data-i18n="dash-view-all">Ver todo</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+              <div>
+                <p style="font-size:0.85rem; font-weight:700; margin-bottom:6px;">Registro en ONAPI</p>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill" id="overBarOnapi" style="width: 100%;"></div>
+                </div>
+              </div>
+              <div>
+                <p style="font-size:0.85rem; font-weight:700; margin-bottom:6px;">Registro Mercantil (Cámara)</p>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill" id="overBarCamara" style="width: 75%;"></div>
+                </div>
+              </div>
+              <div>
+                <p style="font-size:0.85rem; font-weight:700; margin-bottom:6px;">RNC impositivo (DGII)</p>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill" id="overBarDgii" style="width: 40%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 2: TRAMITES EN CURSO -->
+      <div class="dashboard-panel" id="view-tramites">
+        <div class="card-workspace">
+          <div class="card-title-row" style="margin-bottom:30px;">
+            <h3 data-i18n="dash-title-legal">Monitoreo de Constitución & Trámites Legales</h3>
+            <button class="btn-action-sm" data-i18n="dash-refresh">Actualizar Estado</button>
+          </div>
+
+          <div class="tramite-progress-card">
+            <div class="tramite-header">
+              <span class="tramite-name">Registro de Nombre Comercial y Marca (ONAPI)</span>
+              <span class="tramite-badge completed" id="mainBadgeOnapi" data-i18n="dash-completed">Completado</span>
+            </div>
+            <div class="progress-bar-track" style="margin-bottom:12px;">
+              <div class="progress-bar-fill" id="mainBarOnapi" style="width: 100%;"></div>
+            </div>
+            <p id="descOnapi" style="font-size:0.8rem; color:var(--text-muted);">—</p>
+          </div>
+
+          <div class="tramite-progress-card">
+            <div class="tramite-header">
+              <span class="tramite-name">Registro Mercantil (Cámara de Comercio y Producción)</span>
+              <span class="tramite-badge process" id="mainBadgeCamara" data-i18n="dash-process">En Proceso (75%)</span>
+            </div>
+            <div class="progress-bar-track" style="margin-bottom:12px;">
+              <div class="progress-bar-fill" id="mainBarCamara" style="width: 75%;"></div>
+            </div>
+            <p id="descCamara" style="font-size:0.8rem; color:var(--text-muted);">—</p>
+          </div>
+
+          <div class="tramite-progress-card">
+            <div class="tramite-header">
+              <span class="tramite-name">Solicitud de RNC (Dirección General de Impuestos Internos)</span>
+              <span class="tramite-badge review" id="mainBadgeDgii" data-i18n="dash-review">En Verificación (40%)</span>
+            </div>
+            <div class="progress-bar-track" style="margin-bottom:12px;">
+              <div class="progress-bar-fill" id="mainBarDgii" style="width: 40%;"></div>
+            </div>
+            <p id="descDgii" style="font-size:0.8rem; color:var(--text-muted);">—</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 3: MARKETING / ADS -->
+      <div class="dashboard-panel" id="view-marketing">
+        <div class="card-workspace" style="margin-bottom:30px;">
+          <h3 style="margin-bottom:20px; font-weight:800; color:var(--text);" data-i18n="dash-marketing-title">Meta Ads & Google Ads - Métricas Consolidadas</h3>
+
+          <div class="kpi-row" style="margin-bottom:0;">
+            <div class="kpi-card">
+              <span class="kpi-title">Inversión Ads</span>
+              <span class="kpi-value" id="kpiAdSpend">—</span>
+              <span class="kpi-change" id="kpiAdSpendTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-title">Impresiones Totales</span>
+              <span class="kpi-value" id="kpiImpressions">—</span>
+              <span class="kpi-change" id="kpiImpressionsTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-title">Prospectos (Leads)</span>
+              <span class="kpi-value" id="kpiLeads">—</span>
+              <span class="kpi-change" id="kpiLeadsTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-title">Conversión CRM</span>
+              <span class="kpi-value" id="kpiConversion">—</span>
+              <span class="kpi-change" id="kpiConversionTrend"><span style="color:var(--text-muted); margin-left:4px;">—</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <div class="card-workspace">
+            <h3 style="margin-bottom:15px; font-weight:800; color:var(--text);" data-i18n="dash-cpl-trend">Tendencia Costo por Prospecto (CPL) en DOP</h3>
+            <div class="chart-container" id="cplChartContainer" style="display:flex; align-items:center; justify-content:center; min-height:200px;">
+              <p id="cplChartPlaceholder" style="font-size:0.85rem; color:var(--text-muted);">
+                Sin datos de campañas. Conecta Meta/Google Ads para visualizar la tendencia.
+              </p>
+              <svg class="chart-svg" viewBox="0 0 600 250" id="cplChartSvg" style="display:none;">
+                <line x1="50" y1="50" x2="550" y2="50" class="chart-grid-line"></line>
+                <line x1="50" y1="100" x2="550" y2="100" class="chart-grid-line"></line>
+                <line x1="50" y1="150" x2="550" y2="150" class="chart-grid-line"></line>
+                <line x1="50" y1="200" x2="550" y2="200" class="chart-grid-line"></line>
+                <path class="chart-area" id="cplChartArea" d=""></path>
+                <path class="chart-path" id="cplChartPath" d="" style="stroke:#22c55e"></path>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card-workspace" style="display:flex; flex-direction:column; justify-content:center; text-align:center; padding:30px;">
+            <span style="font-size:3rem; display:block; margin-bottom:15px;">📣</span>
+            <h4 style="font-weight:800; margin-bottom:10px;">Diagnóstico de Tráfico</h4>
+            <p id="trafficInsight" style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
+              Sin diagnóstico disponible. Se generará automáticamente cuando existan datos de campañas conectadas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 4: PAGOS / BUFFER -->
+      <div class="dashboard-panel" id="view-pagos">
+        <div class="card-workspace">
+          <div class="card-title-row" style="margin-bottom:20px;">
+            <h3 data-i18n="dash-title-billing">Historial de Transacciones y Sincronización ERP</h3>
+            <span class="sync-badge online" id="erpSyncBadge">🟢 ERP Online (Sincronizado)</span>
+          </div>
+
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:30px; line-height:1.5;" data-i18n="dash-billing-desc">
+            En RCP Services tus datos de transacciones se respaldan de forma blindada. Gracias a nuestro Buffer de Sincronización en la Nube, tus pagos y contrataciones se guardan temporalmente de forma privada si el servidor local del ERP se encuentra apagado, sincronizándose automáticamente tan pronto se enciende.
+          </p>
+
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th data-i18n="tbl-txn">ID Transacción</th>
+                <th data-i18n="tbl-date">Fecha</th>
+                <th data-i18n="tbl-items">Servicio / Detalle</th>
+                <th data-i18n="tbl-amount">Monto</th>
+                <th data-i18n="tbl-method">Método</th>
+                <th data-i18n="tbl-status">Sincronización ERP</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsTableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PANEL 5: GESTIÓN DE CLIENTES -->
+      <div class="dashboard-panel" id="view-clientes">
+        <div class="clientes-grid">
+          <!-- Left Side: Table of Clients -->
+          <div class="card-workspace">
+            <div class="card-title-row" style="margin-bottom:20px;">
+              <h3 data-i18n="dash-clients-title">Gestión de Clientes</h3>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <select class="lang-select" id="clientStatusFilter" style="font-size:0.8rem;">
+                  <option value="all" data-i18n="dash-clients-filter-all">Todos los Estados</option>
+                  <option value="active" data-i18n="dash-clients-filter-active">Activos</option>
+                  <option value="inactive" data-i18n="dash-clients-filter-inactive">Inactivos</option>
+                  <option value="pending_activation">Pendiente Activación</option>
+                  <option value="onboarding">En Onboarding</option>
+                  <option value="review">En Revisión</option>
+                </select>
+                <span class="sync-badge online" id="clientsSyncBadge">
+                  <span class="sync-dot"></span> <span data-i18n="dash-clients-badge-sync">Sincronizado</span>
+                </span>
+                <button class="btn-action-sm" id="btnRefreshClientes" data-i18n="dash-clients-btn-sync">Actualizar</button>
+              </div>
+            </div>
+
+            <p class="text-muted" style="margin-bottom:20px; font-size:0.9rem;" data-i18n="dash-clients-desc">
+              Administra tus clientes formalizados. Los datos están sincronizados en tiempo real con la base de datos segura.
+            </p>
+
+            <div style="overflow-x:auto;">
+              <table class="payments-table" style="min-width: 800px;">
+                <thead>
+                  <tr>
+                    <th data-i18n="dash-clients-th-company">Empresa</th>
+                    <th data-i18n="dash-clients-th-rnc">RNC</th>
+                    <th data-i18n="dash-clients-th-owner">Representante</th>
+                    <th data-i18n="dash-clients-th-contact">Contacto</th>
+                    <th data-i18n="dash-clients-th-code">Código</th>
+                    <th data-i18n="dash-clients-th-status">Estado</th>
+                    <th data-i18n="dash-clients-th-actions">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="clientesTableBody">
+                  <tr>
+                    <td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="dash-clients-loading">Consultando base de datos blindada...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right Side: Add / Edit Client Form -->
+          <div class="card-workspace" id="clientFormCard">
+            <div class="card-title-row" style="margin-bottom:20px;">
+              <h3 id="clientFormTitle" data-i18n="dash-clients-form-title-add">Registrar Cliente</h3>
+              <span class="sync-badge online" id="clientFormBadge" style="display:none;" data-i18n="dash-clients-badge-edit">Modo Edición</span>
+            </div>
+
+            <form id="clientForm">
+              <input type="hidden" id="clientIdInput" />
+
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label for="clientCompanyName" data-i18n="dash-clients-label-company">Nombre Comercial / Empresa *</label>
+                <input type="text" id="clientCompanyName" required placeholder="Ej. Comercializadora Dominicana SRL" class="form-control" />
+              </div>
+
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label for="clientLegalId" data-i18n="dash-clients-label-rnc">RNC (Registro Nacional de Contribuyentes) *</label>
+                <input type="text" id="clientLegalId" required placeholder="Ej. 1-31-12345-6" class="form-control" />
+              </div>
+
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label for="clientOwnerName" data-i18n="dash-clients-label-owner">Propietario / Representante Legal *</label>
+                <input type="text" id="clientOwnerName" required placeholder="Ej. Juan Pérez" class="form-control" />
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientEmail" data-i18n="form-email">Correo Electrónico *</label>
+                  <input type="email" id="clientEmail" required placeholder="info@rcp.services" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientPassword" data-i18n="port-pass">Contraseña de Acceso *</label>
+                  <input type="text" id="clientPassword" required placeholder="client123" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientPhone" data-i18n="form-phone">Teléfono / WhatsApp *</label>
+                  <input type="text" id="clientPhone" required placeholder="829-806-8092" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientAddress" data-i18n="dash-clients-label-address">Dirección Comercial</label>
+                  <input type="text" id="clientAddress" placeholder="Av. Winston Churchill #105, Santo Domingo" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientAccessCode">Código de Acceso Secreto</label>
+                  <input type="text" id="clientAccessCode" placeholder="Ej. RCP-8F32" class="form-control" />
+                </div>
+                <div class="portal-form-group" style="visibility:hidden">
+                  <label>Spacer</label>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+
+              <!-- Client Metrics Section -->
+              <h4 style="margin-top: 25px; margin-bottom: 15px; font-weight:800; color:var(--accent);">Métricas de Negocio</h4>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientVentas">Ventas del Mes (RD$) *</label>
+                  <input type="number" id="clientVentas" required placeholder="480000" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientVentasTrend">Tendencia Ventas (ej: ▲ +12.4%)</label>
+                  <input type="text" id="clientVentasTrend" placeholder="▲ +12.4%" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientCac">Costo por Lead / CPL (RD$) *</label>
+                  <input type="number" id="clientCac" required placeholder="2500" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientCacTrend">Tendencia CPL (ej: ▼ -8.2%)</label>
+                  <input type="text" id="clientCacTrend" placeholder="▼ -8.2%" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientRoas">Retorno Ads / ROAS (ej: 4.2) *</label>
+                  <input type="number" step="0.1" id="clientRoas" required placeholder="4.2" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientRoasTrend">Tendencia ROAS (ej: ▲ +0.6x)</label>
+                  <input type="text" id="clientRoasTrend" placeholder="▲ +0.6x" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientLtv">Valor del Cliente / LTV (RD$) *</label>
+                  <input type="number" id="clientLtv" required placeholder="35000" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientLtvTrend">Tendencia LTV (ej: ▲ +15%)</label>
+                  <input type="text" id="clientLtvTrend" placeholder="▲ +15%" class="form-control" />
+                </div>
+              </div>
+
+              <!-- Client Legal Progress Section -->
+              <h4 style="margin-top: 25px; margin-bottom: 15px; font-weight:800; color:var(--accent);">Estatus de Trámites (%)</h4>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="clientOnapi">ONAPI (%)</label>
+                  <input type="number" id="clientOnapi" min="0" max="100" placeholder="100" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientCamara">Registro Mercantil (%)</label>
+                  <input type="number" id="clientCamara" min="0" max="100" placeholder="80" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="clientDgii">DGII / RNC (%)</label>
+                  <input type="number" id="clientDgii" min="0" max="100" placeholder="20" class="form-control" />
+                </div>
+              </div>
+
+              <div class="portal-form-group" style="margin-bottom:20px;">
+                <label for="clientStatus" data-i18n="dash-clients-label-status">Estado de Cuenta</label>
+                <select class="lang-select" id="clientStatus" style="width:100%; font-size:0.88rem;">
+                  <option value="active" data-i18n="dash-clients-status-active">Activo</option>
+                  <option value="inactive" data-i18n="dash-clients-status-inactive">Inactivo</option>
+                  <option value="pending_activation">Pendiente Activación</option>
+                  <option value="onboarding">En Onboarding</option>
+                  <option value="review">En Revisión</option>
+                </select>
+              </div>
+
+              <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn-cta" id="btnSaveClient" style="flex:2; padding:12px; font-size:0.9rem;" data-i18n="dash-clients-btn-save">💾 Guardar Cliente</button>
+                <button type="button" class="btn-action-sm" id="btnCancelEdit" style="flex:1; display:none; padding:12px; border-color:var(--text-muted); color:var(--text);" data-i18n="dash-clients-btn-cancel">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- End of workspace-container -->
+  </main>
+</DashboardLayout>
