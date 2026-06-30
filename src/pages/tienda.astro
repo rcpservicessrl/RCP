@@ -1,0 +1,161 @@
+---
+/**
+ * tienda.astro — Catálogo de productos con filtros, carrito y pagos
+ * Depende de tienda.js (catálogo + lógica de carrito) servido desde /public.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Tienda RCP | Productos, Software y Servicios para MIPYMEs"
+  description="Catálogo completo de RCP Services: Software POS, CRM, ERP, desarrollo web/móvil, imprenta corporativa, uniformes, artículos promocionales y servicios de transformación empresarial."
+  canonical="/tienda"
+  active="tienda"
+>
+  <section class="hero hero-short" id="inicio">
+    <div class="hero-bg-grid"></div>
+    <div class="container" style="position:relative;padding-top:120px;">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span> Tienda RCP · Productos & Servicios
+        </div>
+        <h1 class="hero-title animate-fade-up delay-1">
+          Todo lo que tu empresa necesita en <span class="accent">un solo lugar</span>
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2">
+          Software empresarial, desarrollo a medida, imprenta profesional, artículos corporativos y servicios de transformación. Paga con tarjeta, PayPal, transferencia o solicita cotización por WhatsApp.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" style="padding-top:40px;padding-bottom:20px;">
+      <div class="container">
+        <div class="store-categories animate-on-scroll">
+          <button class="store-cat-btn active" data-filter="all"><span>🌐</span> Todo</button>
+          <button class="store-cat-btn" data-filter="software_preconfigurado"><span>🖥️</span> Software</button>
+          <button class="store-cat-btn" data-filter="software_custom"><span>⚙️</span> Desarrollo Custom</button>
+          <button class="store-cat-btn" data-filter="imprenta"><span>🖨️</span> Imprenta</button>
+          <button class="store-cat-btn" data-filter="pop_merchandising"><span>🎁</span> Artículos & POP</button>
+          <button class="store-cat-btn" data-filter="servicio_renovacion"><span>🔄</span> Renovación</button>
+          <button class="store-cat-btn" data-filter="servicio_consultoria"><span>⚖️</span> Consultoría</button>
+          <button class="store-cat-btn" data-filter="servicio_publicidad"><span>📢</span> Marketing</button>
+        </div>
+        <div class="store-categories" style="margin-top:12px;justify-content:center;" id="priceFilters">
+          <button class="store-cat-btn store-price-btn active" data-price="all"><span>💰</span> Todos los precios</button>
+          <button class="store-cat-btn store-price-btn" data-price="10000"><span>📍</span> Hasta RD$10K</button>
+          <button class="store-cat-btn store-price-btn" data-price="50000"><span>📊</span> RD$10K - 50K</button>
+          <button class="store-cat-btn store-price-btn" data-price="999999"><span>🚀</span> Más de RD$50K</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="store-grid" id="storeGrid">
+          <div class="store-loading">Cargando catálogo...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT MODAL -->
+    <div class="product-modal" id="productModal" aria-hidden="true">
+      <div class="product-modal-backdrop" id="modalBackdrop"></div>
+      <div class="product-modal-content">
+        <button class="product-modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+        <div class="product-modal-body">
+          <div class="product-modal-icon" id="modalIcon">📦</div>
+          <span class="product-modal-category" id="modalCategory">Categoría</span>
+          <h2 class="product-modal-title" id="modalTitle">Nombre del Producto</h2>
+          <p class="product-modal-desc" id="modalDesc">Descripción completa del producto o servicio.</p>
+          <div class="product-modal-meta">
+            <div class="modal-meta-item">
+              <span class="meta-label">Inversión</span>
+              <span class="meta-value accent" id="modalPrice">RD$ 0 - 0</span>
+            </div>
+            <div class="modal-meta-item">
+              <span class="meta-label">Entrega</span>
+              <span class="meta-value" id="modalDelivery">7-14 días</span>
+            </div>
+            <div class="modal-meta-item">
+              <span class="meta-label">Tipo</span>
+              <span class="meta-value" id="modalType">Pago único</span>
+            </div>
+          </div>
+          <div class="product-modal-tags" id="modalTags"></div>
+          <hr class="cart-hr" />
+          <h4 style="margin-bottom:12px;">Adquirir</h4>
+          <div class="payment-methods">
+            <button class="payment-btn cart-btn-primary" id="btnAddCart"><span>&#128722;</span> Agregar al Carrito</button>
+            <button class="payment-btn" id="btnPayCard"><span>&#128179;</span> Pagar con Tarjeta</button>
+            <button class="payment-btn" id="btnPayPaypal"><span>&#127380;</span> PayPal</button>
+            <button class="payment-btn" id="btnPayTransferModal"><span>&#127974;</span> Transferencia Bancaria</button>
+          </div>
+          <div class="quote-separator"><span>Necesitas una variación?</span></div>
+          <button class="payment-btn payment-btn-whatsapp full-width" id="btnQuoteWhatsapp"><span>&#128172;</span> Solicitar Cotización Personalizada</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT INFO -->
+    <section class="section" id="cotizar" style="background:var(--black-2);">
+      <div class="container">
+        <h2 class="section-title animate-on-scroll">Métodos de <span class="accent">Pago</span></h2>
+        <p class="section-sub animate-on-scroll">Flexibilidad total para que elijas la opción más cómoda para tu empresa.</p>
+        <div class="cards-grid four-col animate-on-scroll" style="margin-top:40px;">
+          <div class="card card-dark">
+            <div class="card-icon">💳</div>
+            <h3>Tarjeta de Crédito/Débito</h3>
+            <p>Visa, Mastercard, AMEX vía Stripe. Procesamiento instantáneo y seguro con cifrado SSL.</p>
+          </div>
+          <div class="card card-dark">
+            <div class="card-icon">🅿️</div>
+            <h3>PayPal</h3>
+            <p>Paga desde cualquier país con tu cuenta PayPal. Ideal para clientes internacionales.</p>
+          </div>
+          <div class="card card-dark">
+            <div class="card-icon">🏦</div>
+            <h3>Transferencia Bancaria</h3>
+            <p>Banreservas, Popular, BHD León. Envía el comprobante y activamos tu servicio en 24h.</p>
+          </div>
+          <div class="card card-dark">
+            <div class="card-icon">💬</div>
+            <h3>Cotización por WhatsApp</h3>
+            <p>Para proyectos grandes o personalizados. Te enviamos la propuesta detallada al instante.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CART FAB -->
+  <div class="cart-fab" id="cartFab">
+    <span class="cart-fab-badge" id="cartBadge">0</span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+  </div>
+
+  <!-- CART PANEL -->
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-panel-header">
+      <h3>Tu Carrito</h3>
+      <button class="cart-panel-close" id="cartPanelClose">&times;</button>
+    </div>
+    <div class="cart-panel-list" id="cartList"></div>
+    <div class="cart-panel-footer">
+      <div class="cart-panel-total">
+        <span>Total:</span>
+        <strong id="cartTotal">RD$ 0</strong>
+      </div>
+      <button class="btn-cta btn-full" id="cartCheckoutBtn">&#128722; Finalizar Compra</button>
+      <div class="cart-payment-options">
+        <button class="payment-btn" id="cartPayCard"><span>&#128179;</span> Tarjeta</button>
+        <button class="payment-btn" id="cartPayPaypal"><span>&#127380;</span> PayPal</button>
+        <button class="payment-btn" id="btnPayTransfer"><span>&#127974;</span> Transferencia</button>
+        <button class="payment-btn payment-btn-whatsapp" id="cartPayWhatsapp"><span>&#128172;</span> WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script src="/tienda.js" is:inline></script>
