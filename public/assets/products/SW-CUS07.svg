@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Browser Window - Corporate Website -->
+  <!-- Browser frame -->
+  <rect x="56" y="80" width="400" height="352" rx="24" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Title bar -->
+  <rect x="56" y="80" width="400" height="56" rx="24" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="56" y="112" width="400" height="24" rx="0" fill="#FAB839" stroke="none"/>
+  <!-- Nav dots -->
+  <circle cx="96" cy="108" r="10" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
+  <circle cx="126" cy="108" r="10" fill="#A87C66" stroke="#1A1B20" stroke-width="4"/>
+  <circle cx="156" cy="108" r="10" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Address bar -->
+  <rect x="190" y="95" width="230" height="26" rx="13" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Content blocks -->
+  <!-- Hero block -->
+  <rect x="96" y="168" width="320" height="60" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Text lines -->
+  <rect x="96" y="252" width="200" height="16" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="96" y="284" width="280" height="16" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="96" y="316" width="240" height="16" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="4"/>
+  <!-- Content cards -->
+  <rect x="96" y="356" width="140" height="48" rx="10" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="260" y="356" width="140" height="48" rx="10" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+</svg>

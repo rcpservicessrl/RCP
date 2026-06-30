@@ -1,0 +1,217 @@
+---
+/**
+ * nosotros.astro — Página "Nosotros"
+ * Misión, estrategia Océano Azul (ERAC), modelo de negocio, equipo, Ley 488-08.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "url": "https://rcp.services/nosotros",
+  "name": "Nosotros - RCP Services",
+  "description": "Conoce a RCP Services, la agencia 360° de transformación empresarial para MIPYMEs en RD."
+};
+---
+
+<BaseLayout
+  title="Nosotros — RCP Services | Agencia 360° de Transformación Empresarial"
+  description="Conoce a RCP Services: nuestra misión, estrategia de Océano Azul, modelo de negocio y el equipo que impulsa la transformación de MIPYMEs en República Dominicana."
+  canonical="/nosotros"
+  active="nosotros"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+
+  <!-- ===== HERO ABOUT ===== -->
+  <section class="hero hero-short" id="inicio">
+    <div class="hero-bg-grid"></div>
+    <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span> <span data-i18n="about-badge">Quiénes somos</span>
+        </div>
+        <h1 class="hero-title animate-fade-up delay-1" data-i18n="about-title">
+          Somos el <span class="accent">oxígeno estratégico</span><br />de tu empresa
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2" data-i18n="about-sub">
+          Una Agencia 360° que centraliza renovación, consultoría y publicidad bajo un ecosistema de inteligencia artificial para MIPYMEs dominicanas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- ===== MISIÓN & VISIÓN ===== -->
+    <section class="section problema">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="about-mision-label">Nuestra misión</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="about-mision-title">Erradicar la <span class="accent">arritmia empresarial</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="about-mision-text">
+          La arritmia empresarial es el conjunto de síntomas que impiden a una MIPYME crecer: baja productividad, informalidad y ceguera digital. RCP Services nació para erradicarla. Operamos como una <strong>Junta Directiva Externa</strong> que integra dirección financiera (CFO), estrategia legal y marketing (CMO) en un solo canal unificado, sin los costos de una nómina ejecutiva tradicional.
+        </p>
+        <div class="cards-grid three-col" style="margin-top:48px;">
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🎯</div>
+            <h3 data-i18n="about-val1-title">Job-To-Be-Done</h3>
+            <p data-i18n="about-val1-text">El cliente busca delegar el estrés del crecimiento y la burocracia para recuperar el control de su tiempo y negocio.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🩹</div>
+            <h3 data-i18n="about-val2-title">Aliviadores</h3>
+            <p data-i18n="about-val2-text">Centralización de trámites, gestión de crecimiento "llave en mano" y saneamiento financiero completo.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🚀</div>
+            <h3 data-i18n="about-val3-title">Creadores de Valor</h3>
+            <p data-i18n="about-val3-text">Coherencia de marca, habilitación para licitaciones estatales y tranquilidad operativa total.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ESTRATEGIA OCÉANO AZUL ===== -->
+    <section class="section solucion">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="about-ocean-label">Estrategia</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="about-ocean-title">Nuestro <span class="accent">Océano Azul</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="about-ocean-text">
+          Mediante la matriz ERAC, redefinimos la frontera de valor alejándonos de las agencias tradicionales.
+        </p>
+        <div class="erac-hub animate-on-scroll">
+          <div class="erac-center">
+            <span class="erac-center-label" data-i18n="erac-hub-label">E · R · A · C</span>
+            <span class="erac-center-sub" data-i18n="erac-hub-sub">Matriz Estratégica</span>
+          </div>
+          <div class="erac-card erac-eliminate">
+            <div class="erac-letter" style="color:#ef4444;">E</div>
+            <h3 data-i18n="erac-e">Eliminamos</h3>
+            <p data-i18n="erac-e-text">La fricción de contratar múltiples proveedores aislados.</p>
+            <div class="erac-icon">✂️</div>
+          </div>
+          <div class="erac-card erac-reduce">
+            <div class="erac-letter" style="color:#f97316;">R</div>
+            <h3 data-i18n="erac-r">Reducimos</h3>
+            <p data-i18n="erac-r-text">El tiempo en microgestión administrativa y burocracia legal.</p>
+            <div class="erac-icon">⏱️</div>
+          </div>
+          <div class="erac-card erac-raise">
+            <div class="erac-letter" style="color:var(--accent);" data-i18n="erac-a-letter">A</div>
+            <h3 data-i18n="erac-a">Aumentamos</h3>
+            <p data-i18n="erac-a-text">El enfoque en rentabilidad real (ROI) e integración tecnológica con IA.</p>
+            <div class="erac-icon">📈</div>
+          </div>
+          <div class="erac-card erac-create">
+            <div class="erac-letter" style="color:#22c55e;">C</div>
+            <h3 data-i18n="erac-c">Creamos</h3>
+            <p data-i18n="erac-c-text">Una Junta Directiva Externa integral en un solo canal unificado (Agencia 360°).</p>
+            <div class="erac-icon">🚀</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MODELO DE NEGOCIO ===== -->
+    <section class="section paquetes">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="about-model-label">Cómo Operamos</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="about-model-title">Arquitectura del <span class="accent">Modelo de Negocio</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="about-model-text">
+          Nuestro Business Model Canvas muestra cómo cada pieza del ecosistema funciona en sincronía.
+        </p>
+        <div class="cards-grid three-col" style="margin-top:48px;">
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🏢</div>
+            <h3 data-i18n="bmc-seg">Segmentos</h3>
+            <p data-i18n="bmc-seg-text">MIPYMEs dominicanas que requieren formalización, rentabilidad y digitalización agresiva.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">📡</div>
+            <h3 data-i18n="bmc-channels">Canales</h3>
+            <p data-i18n="bmc-channels-text">Entorno omnicanal: Web, redes sociales, CRM, reuniones presenciales.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🤝</div>
+            <h3 data-i18n="bmc-rel">Relación con Clientes</h3>
+            <p data-i18n="bmc-rel-text">Alianza colaborativa de largo plazo (LTV) como socios estratégicos.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">💰</div>
+            <h3 data-i18n="bmc-rev">Ingresos</h3>
+            <p data-i18n="bmc-rev-text">Pagos únicos (Setup), modelos híbridos e igualas recurrentes (Retainers).</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🧠</div>
+            <h3 data-i18n="bmc-resources">Recursos Clave</h3>
+            <p data-i18n="bmc-resources-text">Talento experto multidisciplinario e infraestructura de Inteligencia Artificial.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🏛️</div>
+            <h3 data-i18n="bmc-partners">Socios Clave</h3>
+            <p data-i18n="bmc-partners-text">MICM, Centros MIPYMES, Ventanilla Única, ONAPI, DGII, Cámara de Comercio, Promipyme.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EQUIPO ===== -->
+    <section class="section trust">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="about-team-label">Nuestro Equipo</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="about-team-title">Liderazgo y <span class="accent">Estructura</span></h2>
+        <div class="cards-grid" style="grid-template-columns: repeat(4, 1fr); margin-top:48px; gap:24px;">
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">👤</div>
+            <h3 data-i18n="team-sales">Gerente de Ventas</h3>
+            <p style="color:var(--accent); font-weight:700;">Balmis Reynoso</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">⚖️</div>
+            <h3 data-i18n="team-legal">Consultoría Legal y Financiera</h3>
+            <p data-i18n="team-legal-desc">Especialistas en cumplimiento y finanzas</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">🎨</div>
+            <h3 data-i18n="team-reno">Renovación y Procesos</h3>
+            <p data-i18n="team-reno-desc">Expertos en optimización e imagen</p>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="text-align:center;">
+            <div class="card-icon" style="font-size:2.5rem;">📈</div>
+            <h3 data-i18n="team-martech">Publicidad y Martech</h3>
+            <p data-i18n="team-martech-desc">Estrategas digitales y técnicos de IA</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LEY 488-08 ===== -->
+    <section class="section contacto-section">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="about-law-label">Ventaja Competitiva</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="about-law-title">Alineación con la <span class="accent">Ley 488-08</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="about-law-text">
+          RCP Services actúa como el puente técnico hacia la formalización, alineando a las MIPYMEs con el Estado para desbloquear beneficios de alto impacto.
+        </p>
+        <div class="cards-grid three-col" style="margin-top:48px;">
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🏛️</div>
+            <h3 data-i18n="law-1-title">20% Compras del Estado</h3>
+            <p data-i18n="law-1-text">Acceso a la reserva obligatoria de compras del gobierno según la Ley 488-08.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">💳</div>
+            <h3 data-i18n="law-2-title">Financiamiento Blando</h3>
+            <p data-i18n="law-2-text">Acceso a créditos preferenciales a través de Promipyme y la banca formal.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🔗</div>
+            <h3 data-i18n="law-3-title">Vinculación Estatal</h3>
+            <p data-i18n="law-3-text">Conexión directa con el MICM y Centros MIPYMES para captar fondos y programas de apoyo.</p>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:48px;" class="animate-on-scroll">
+          <a href="/#contacto" class="btn-cta btn-lg" data-i18n="about-cta">Agendar una reunión estratégica →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

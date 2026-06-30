@@ -1,0 +1,150 @@
+---
+/**
+ * diagnostico.astro — Quiz interactivo "Diagnóstico 360°"
+ * 8 preguntas → score de arritmia → CTA WhatsApp + lead GCP.
+ * Estilos scoped propios + script cliente autocontenido.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Diagnóstico 360° — RCP Services"
+  description="Evalúa la salud de tu empresa en 2 minutos. Score de arritmia empresarial gratuito."
+  canonical="/diagnostico"
+  active="diagnostico"
+>
+  <main style="padding-top:100px; min-height:80vh;">
+    <div class="container" style="max-width:720px; margin:0 auto; padding:40px 20px;">
+      <header style="text-align:center; margin-bottom:40px;">
+        <h1 style="font-size:2rem; font-weight:900; margin-bottom:8px;">Diagnóstico <span class="accent">360°</span></h1>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Evalúa la salud de tu empresa en 2 minutos. Gratis y confidencial.</p>
+      </header>
+      <div class="diag-progress" id="progressBar"></div>
+      <div class="diag-card" id="questionCard"></div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .diag-progress { display:flex; gap:4px; margin-bottom:30px; }
+  .diag-progress .step { flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,0.06); transition:all 0.4s ease; }
+  .diag-progress .step.done { background:var(--accent); }
+  .diag-progress .step.active { background:var(--accent); opacity:0.6; animation:pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+  .diag-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--radius); padding:40px; backdrop-filter:blur(12px); }
+  :global(.question-title) { font-size:1.1rem; font-weight:700; margin-bottom:20px; line-height:1.4; }
+  :global(.options) { display:flex; flex-direction:column; gap:12px; }
+  :global(.option-btn) { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px 20px; color:var(--text); font-family:var(--font); font-size:0.9rem; font-weight:500; cursor:pointer; transition:all 0.3s ease; text-align:left; }
+  :global(.option-btn:hover) { border-color:var(--accent); background:rgba(252,181,63,0.05); transform:translateX(4px); }
+  :global(.option-btn.selected) { border-color:var(--accent); background:rgba(252,181,63,0.1); box-shadow:0 0 0 2px rgba(252,181,63,0.2); }
+  :global(.diag-nav) { display:flex; justify-content:space-between; margin-top:24px; }
+  :global(.btn-back) { background:none; border:1px solid rgba(255,255,255,0.1); color:var(--text-muted); padding:10px 20px; border-radius:8px; font-family:var(--font); font-weight:600; cursor:pointer; font-size:0.85rem; transition:all 0.3s ease; }
+  :global(.btn-back:hover) { border-color:var(--text); color:var(--text); }
+  :global(.btn-next) { background:var(--accent); border:none; color:#000; padding:10px 24px; border-radius:8px; font-family:var(--font); font-weight:700; cursor:pointer; font-size:0.85rem; transition:all 0.3s ease; }
+  :global(.btn-next:hover) { background:var(--accent-dark); transform:translateY(-1px); }
+  :global(.btn-next:disabled) { opacity:0.4; cursor:not-allowed; transform:none; }
+  :global(.result-card) { text-align:center; padding:20px 0; }
+  :global(.score-circle) { width:140px; height:140px; border-radius:50%; border:6px solid var(--accent); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; position:relative; }
+  :global(.score-num) { font-size:2.5rem; font-weight:900; color:var(--accent); }
+  :global(.risk-level) { font-size:1.3rem; font-weight:800; margin-bottom:8px; }
+  :global(.risk-desc) { color:var(--text-muted); font-size:0.9rem; margin-bottom:24px; line-height:1.6; }
+  :global(.money-lost) { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); border-radius:12px; padding:16px; margin-bottom:24px; }
+  :global(.btn-cta-diag) { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#000; padding:14px 28px; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:all 0.3s ease; }
+  :global(.btn-cta-diag:hover) { background:var(--accent-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(252,181,63,0.2); }
+  @media(max-width:600px) { .diag-card { padding:24px; } }
+</style>
+
+<script>
+  (function(){
+    const questions = [
+      {q:"¿Tu empresa está registrada formalmente?",opts:["Sí, tengo ONAPI, Registro Mercantil y RNC","Solo tengo ONAPI o Registro Mercantil","No estoy registrado en ningún lugar"],scores:[0,3,7]},
+      {q:"¿Cómo llevas las cuentas de tu negocio?",opts:["Con un contador y software contable","En Excel, cuaderno o de memoria","No llevo control de ingresos ni gastos"],scores:[0,4,8]},
+      {q:"¿Registras a tus clientes y les das seguimiento?",opts:["Sí, tengo un sistema donde veo todo el historial","A veces, les escribo por WhatsApp manual","No, no sé cuántos me han comprado más de una vez"],scores:[0,4,8]},
+      {q:"¿Tienes presencia digital activa que te genera clientes?",opts:["Sí, web + redes con estrategia y métricas","Tengo redes pero no me generan ventas","No tengo web ni redes activas"],scores:[0,3,7]},
+      {q:"¿Cómo cobras a tus clientes?",opts:["Factura electrónica NCF + múltiples métodos","Transferencia o efectivo sin comprobante fiscal","Solo efectivo, sin factura ni registro"],scores:[0,4,7]},
+      {q:"Si mañana te enfermas, ¿tu negocio puede seguir operando sin ti?",opts:["Sí, tengo procesos escritos y mi equipo los sigue","Parcialmente, hay cosas que solo yo sé hacer","No, todo depende de mí al 100%"],scores:[0,3,6]},
+      {q:"¿Sabes exactamente cuánto te cuesta conseguir un cliente nuevo?",opts:["Sí, mido mi costo de adquisición (CAC)","Tengo una idea general pero no lo mido","No, nunca he calculado eso"],scores:[0,3,6]},
+      {q:"¿Cuál es tu mayor dolor ahora mismo?",opts:["Necesito más clientes y ventas","Necesito ordenar mis finanzas y formalizar","Necesito tecnología y automatización","Todo lo anterior"],scores:[3,4,5,8]}
+    ];
+    let current = 0;
+    const answers: number[] = [];
+    const card = document.getElementById('questionCard')!;
+    const bar = document.getElementById('progressBar')!;
+
+    function renderProgress(){
+      bar.innerHTML = '';
+      for(let i=0;i<questions.length;i++){
+        const cls = i<current ? 'step done' : i===current ? 'step active' : 'step';
+        bar.innerHTML += `<div class="${cls}"></div>`;
+      }
+    }
+
+    function renderQuestion(){
+      const q = questions[current];
+      let html = `<p class="question-title">${q.q}</p><div class="options">`;
+      q.opts.forEach((opt,i) => {
+        const sel = answers[current]===i ? ' selected' : '';
+        html += `<button class="option-btn${sel}" data-idx="${i}">${opt}</button>`;
+      });
+      html += '</div><div class="diag-nav">';
+      html += current>0 ? '<button class="btn-back" id="btnBack">← Anterior</button>' : '<div></div>';
+      html += `<button class="btn-next" id="btnNext"${answers[current]===undefined ? ' disabled' : ''}>Siguiente →</button>`;
+      html += '</div>';
+      card.innerHTML = html;
+      card.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[current] = parseInt(btn.getAttribute('data-idx')!);
+          renderQuestion();
+        });
+      });
+      const next = document.getElementById('btnNext');
+      if(next) next.addEventListener('click', () => {
+        if(answers[current]!==undefined){
+          current++;
+          if(current>=questions.length) showResult();
+          else { renderProgress(); renderQuestion(); }
+        }
+      });
+      const back = document.getElementById('btnBack');
+      if(back) back.addEventListener('click', () => { current--; renderProgress(); renderQuestion(); });
+      renderProgress();
+    }
+
+    function showResult(){
+      let total=0, max=0;
+      answers.forEach((a,i) => { total += questions[i].scores[a]; max += questions[i].scores[questions[i].scores.length-1]; });
+      const score = Math.round((total/max)*10);
+      let risk:string, desc:string, color:string;
+      if(score<=3){ risk='Bajo'; desc='Tu empresa tiene buenos cimientos. Con optimización estratégica puedes escalar al siguiente nivel.'; color='#22c55e'; }
+      else if(score<=6){ risk='Moderado'; desc='Hay señales de arritmia. Tienes oportunidades claras de mejora en formalización, tecnología o procesos.'; color='var(--accent)'; }
+      else{ risk='Crítico'; desc='Tu empresa está en arritmia severa. Cada mes que pasa sin actuar, estás perdiendo dinero y oportunidades reales.'; color='#ef4444'; }
+      const monthlyLoss = score*15000+Math.round(Math.random()*20000);
+
+      card.innerHTML = `<div class="result-card">
+        <div class="score-circle" style="border-color:${color}"><span class="score-num" style="color:${color}">${score}</span></div>
+        <p class="risk-level" style="color:${color}">Riesgo ${risk}</p>
+        <p class="risk-desc">${desc}</p>
+        <div class="money-lost"><p style="font-size:0.8rem;color:var(--text-muted)">Estimación de pérdida mensual por ineficiencia:</p><p style="font-size:1.5rem;font-weight:900;color:#ef4444">~RD$ ${monthlyLoss.toLocaleString()}</p></div>
+        <a href="https://wa.me/18298068092?text=Hola%20RCP!%20Obtuve%20un%20score%20de%20${score}/10%20en%20el%20Diagn%C3%B3stico%20360.%20Quiero%20agendar%20mi%20consultor%C3%ADa%20gratuita." class="btn-cta-diag">🐆 Agendar Diagnóstico Gratuito</a>
+        <p style="color:var(--text-muted);font-size:0.75rem;margin-top:16px;">Resultado confidencial. Un consultor te contactará en menos de 24h.</p>
+        <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="/servicios" style="color:var(--accent);font-size:0.85rem;font-weight:600;">Ver Planes →</a>
+          <a href="/tienda" style="color:var(--accent);font-size:0.85rem;font-weight:600;">Tienda →</a>
+          <a href="/#contacto" style="color:var(--accent);font-size:0.85rem;font-weight:600;">Contacto →</a>
+        </div>
+      </div>`;
+      bar.innerHTML = '';
+      for(let i=0;i<questions.length;i++) bar.innerHTML += '<div class="step done"></div>';
+
+      // Enviar score al backend
+      try {
+        fetch('https://us-central1-chatbot-rcp.cloudfunctions.net/rcpLead',{
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({user_name:'Diagnóstico Web',user_email:'diagnostico@rcp.services',user_service:'Diagnostico 360',user_message:`Score: ${score}/10 | Riesgo: ${risk} | Pérdida estimada: RD$${monthlyLoss}`})
+        });
+      } catch(e) {}
+    }
+
+    renderQuestion();
+  })();
+</script>

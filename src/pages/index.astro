@@ -1,0 +1,507 @@
+---
+/**
+ * index.astro — Landing principal de RCP Services
+ * Migración del index.html original al shell Astro (BaseLayout).
+ * Header/Footer/Widgets viven en BaseLayout; aquí solo el contenido propio.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// FAQ Schema específico del landing
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es RCP Services?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RCP Services es una Agencia 360° de Transformación Empresarial que actúa como Junta Directiva Externa para MIPYMEs dominicanas, integrando Renovación, Consultoría y Publicidad bajo un solo ecosistema soberano con inteligencia artificial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué significa el Ecosistema Operativo Soberano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es un núcleo digital privado que centraliza la dirección financiera, estrategia legal, automatización de flujos de trabajo, CRM, ERP y marketing unificado sin costos recurrentes de software de terceros. El cliente es dueño absoluto de sus datos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta el servicio de RCP Services?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RCP ofrece tres paquetes escalables: Plan Básico (pago único para formalización), Plan Avanzado (setup + iguala mensual para crecimiento) y Plan Premium (retainer mensual para liderazgo de mercado). Los precios se adaptan a la realidad financiera de cada MIPYME."
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="RCP Services | Agencia 360° de Transformación Empresarial y Digital"
+  description="RCP Services: Tu Junta Directiva Externa en la República Dominicana. Finanzas, legalidad y marketing bajo un solo ecosistema 360° para MIPYMEs."
+  canonical="/"
+  active="inicio"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot:head />
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg-grid"></div>
+    <div class="container" style="position: relative; width: 100%;">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="badge-dot"></span> <span data-i18n="hero-badge">Agencia 360° · República Dominicana</span>
+        </div>
+        <h1 class="hero-title animate-fade-up delay-1" data-i18n="hero-title">
+          Reanimando el <span class="accent">corazón</span> de tu empresa<br />
+          para un crecimiento <span class="accent">indetenible</span>.
+        </h1>
+        <p class="hero-sub animate-fade-up delay-2" data-i18n="hero-sub">
+          Erradicamos la arritmia empresarial. Somos tu Junta Directiva Externa que centraliza
+          tus finanzas, legalidad y marketing bajo un solo ecosistema <strong>360°</strong>.
+        </p>
+        <p class="hero-sub animate-fade-up delay-2" style="font-size:1rem;font-weight:600;color:var(--accent);margin-top:8px;" data-i18n="hero-oneliner">
+          Formalizamos tu empresa, ordenamos tus finanzas y te conseguimos clientes. Todo en uno.
+        </p>
+        <div class="hero-actions animate-fade-up delay-3">
+          <a href="/#contacto" class="btn-cta btn-lg" data-i18n="hero-cta">Solicita tu Diagnóstico 360° Hoy</a>
+          <a href="/#solucion" class="btn-ghost" data-i18n="hero-ghost">Conoce el Ecosistema →</a>
+        </div>
+        <div class="hero-stats animate-fade-up delay-4">
+          <div class="stat"><span class="stat-num">98.5<span class="accent">%</span></span><span class="stat-label" data-i18n="stat-label-1">MIPYMEs afectadas</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span class="stat-num">3<span class="accent">×</span></span><span class="stat-label" data-i18n="stat-label-2">Pilares integrados</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span class="stat-num">360<span class="accent">°</span></span><span class="stat-label" data-i18n="stat-label-3">Visión total</span></div>
+        </div>
+      </div>
+      <div class="hero-leopard" aria-hidden="true">
+        <img src="/leopardo-rcp.png" alt="" class="hero-leopard-img" aria-hidden="true" width="2364" height="2470" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- ===== PROBLEMA ===== -->
+    <section class="section problema" id="problema">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="section-label-problema">El Problema</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="section-title-problema">
+          El <span class="accent">98.5%</span> de las MIPYMEs dominicanas<br />
+          padecen la misma arritmia
+        </h2>
+        <p class="section-sub animate-on-scroll" data-i18n="section-sub-problema">Síntomas críticos que frenan cada latido de tu negocio:</p>
+        <div class="cards-grid three-col">
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">📉</div>
+            <h3 data-i18n="card-1-title">Baja Productividad</h3>
+            <p data-i18n="card-1-text">Procesos desarticulados, equipos sin dirección estratégica y recursos que se consumen sin retorno visible.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">⚠️</div>
+            <h3 data-i18n="card-2-title">Informalidad Empresarial</h3>
+            <p data-i18n="card-2-text">Operaciones fuera del marco legal que bloquean el acceso a créditos, licitaciones y mercados formales.</p>
+          </div>
+          <div class="card card-dark animate-on-scroll">
+            <div class="card-icon">🌐</div>
+            <h3 data-i18n="card-3-title">Ceguera Digital</h3>
+            <p data-i18n="card-3-text">Ausencia de presencia online efectiva y herramientas digitales que en el mercado actual son oxígeno, no lujo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOLUCIÓN R-C-P ===== -->
+    <section class="section solucion" id="solucion">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="section-label-solucion">La Solución</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="section-title-solucion">El Ecosistema <span class="accent">R·C·P</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="section-sub-solucion">Tres pilares. Una sola intervención. Resultados irreversibles.</p>
+
+        <div class="tabs animate-on-scroll">
+          <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="renovacion" data-i18n="tab-r">
+              <span class="tab-letter">R</span> Renovación
+            </button>
+            <button class="tab-btn" data-tab="consultoria" data-i18n="tab-c">
+              <span class="tab-letter">C</span> Consultoría
+            </button>
+            <button class="tab-btn" data-tab="publicidad" data-i18n="tab-p">
+              <span class="tab-letter">P</span> Publicidad 360°
+            </button>
+          </div>
+
+          <div class="tab-panels">
+            <div class="tab-panel active" id="renovacion">
+              <div class="panel-content">
+                <div class="panel-text">
+                  <h3 data-i18n="panel-r-title">Renovación <span class="accent">Estratégica</span></h3>
+                  <p data-i18n="panel-r-desc">Inyectamos nueva identidad y tecnología de vanguardia en el núcleo de tu empresa:</p>
+                  <ul class="feature-list">
+                    <li><span class="check">✦</span> Rebranding corporativo con identidad de marca sólida</li>
+                    <li><span class="check">✦</span> Implementación de Inteligencia Artificial en procesos internos</li>
+                    <li><span class="check">✦</span> Automatización de flujos operativos para eliminar cuellos de botella</li>
+                    <li><span class="check">✦</span> Diseño de cultura organizacional orientada a resultados</li>
+                  </ul>
+                </div>
+                <div class="panel-visual">
+                  <div class="visual-card">
+                    <div class="visual-icon">⚡</div>
+                    <span>+300%</span>
+                    <p>Eficiencia operativa</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="consultoria">
+              <div class="panel-content">
+                <div class="panel-text">
+                  <h3 data-i18n="panel-c-title">Consultoría <span class="accent">Integral</span></h3>
+                  <p data-i18n="panel-c-desc">Tu salud financiera y legalidad, blindadas para competir al más alto nivel:</p>
+                  <ul class="feature-list">
+                    <li><span class="check">✦</span> Auditoría y reestructuración financiera</li>
+                    <li><span class="check">✦</span> Formalización legal expedita (Ventanilla Única, ONAPI, DGII)</li>
+                    <li><span class="check">✦</span> Acceso a licitaciones del Estado Dominicano</li>
+                    <li><span class="check">✦</span> Modelado de negocio y planificación estratégica</li>
+                  </ul>
+                </div>
+                <div class="panel-visual">
+                  <div class="visual-card">
+                    <div class="visual-icon">🏛️</div>
+                    <span>100%</span>
+                    <p>Cumplimiento legal</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="publicidad">
+              <div class="panel-content">
+                <div class="panel-text">
+                  <h3 data-i18n="panel-p-title">Publicidad e Impresión <span class="accent">360°</span></h3>
+                  <p data-i18n="panel-p-desc">Ecosistemas de marketing omnicanal que combinan publicidad digital de alta conversión y producción física personalizada en talleres propios:</p>
+                  <ul class="feature-list">
+                    <li><span class="check">✦</span> Ecosistemas web y landing pages de alta conversión</li>
+                    <li><span class="check">✦</span> Campañas Meta Ads & Google Ads optimizadas por IA</li>
+                    <li><span class="check">✦</span> Imprenta comercial (tarjetas, flyers, catálogos) y rotulación</li>
+                    <li><span class="check">✦</span> Producción de material POP, merchandising y uniformes</li>
+                  </ul>
+                </div>
+                <div class="panel-visual">
+                  <div class="visual-card">
+                    <div class="visual-icon">📈</div>
+                    <span>5×</span>
+                    <p>Retorno en campañas</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ECOSISTEMA OPERATIVO SOBERANO ===== -->
+    <section class="section eco-section" id="ecosistema">
+      <div class="container">
+        <div class="text-center animate-on-scroll">
+          <div class="section-label" data-i18n="section-label-ecosistema">El Núcleo Digital</div>
+          <h2 class="section-title" data-i18n="section-title-ecosistema">Un Ecosistema Operativo <span class="accent">Soberano</span> para tu Empresa</h2>
+          <p class="section-sub" data-i18n="section-sub-ecosistema">
+            Dejamos atrás la era del software fragmentado. Instalamos un núcleo digital unificado y privado.
+          </p>
+        </div>
+
+        <div class="cards-grid three-col animate-on-scroll eco-cards-grid">
+          <div class="card card-dark eco-card">
+            <div class="card-icon">🛡️</div>
+            <h3 data-i18n="eco-card-1-title">Soberanía Digital</h3>
+            <p data-i18n="eco-card-1-desc">Infraestructura digital privada. Eres dueño absoluto de tus bases de datos.</p>
+          </div>
+          <div class="card card-dark eco-card">
+            <div class="card-icon">⚡</div>
+            <h3 data-i18n="eco-card-2-title">Automatización Total</h3>
+            <p data-i18n="eco-card-2-desc">Unimos tus ventas, inventario, facturación y CRM en un solo canal automático.</p>
+          </div>
+          <div class="card card-dark eco-card">
+            <div class="card-icon">🤖</div>
+            <h3 data-i18n="eco-card-3-title">IA Corporativa Privada</h3>
+            <p data-i18n="eco-card-3-desc">Asistentes de IA entrenados en tu local exclusivamente con tus manuales.</p>
+          </div>
+          <div class="card card-dark eco-card">
+            <div class="card-icon">🎨</div>
+            <h3 data-i18n="eco-card-4-title">Estudio Creativo</h3>
+            <p data-i18n="eco-card-4-desc">Generación automática de piezas publicitarias con IA privada.</p>
+          </div>
+          <div class="card card-dark eco-card">
+            <div class="card-icon">📡</div>
+            <h3 data-i18n="eco-card-5-title">Mensajería Inteligente</h3>
+            <p data-i18n="eco-card-5-desc">Bot de WhatsApp y Telegram conectado a tu CRM que responde 24/7.</p>
+          </div>
+          <div class="card card-dark eco-card">
+            <div class="card-icon">📊</div>
+            <h3 data-i18n="eco-card-6-title">Dashboard Directivo</h3>
+            <p data-i18n="eco-card-6-desc">Panel en tiempo real con métricas clave: CAC, LTV, ROI, ROAS.</p>
+          </div>
+        </div>
+
+        <div class="tabs animate-on-scroll eco-compare">
+          <div class="eco-compare-header">
+            <h3 class="accent" data-i18n="eco-comparativa-title" style="font-size: 1.4rem;">La Diferencia del Modelo Soberano</h3>
+          </div>
+          <div class="eco-compare-grid">
+            <div class="eco-compare-col eco-compare-trad">
+              <h4 data-i18n="eco-comp-tradicional-title">Modelo Tradicional</h4>
+              <ul class="feature-list">
+                <li data-i18n="comp-item-1-trad">❌ Múltiples suscripciones mensuales de software</li>
+                <li data-i18n="comp-item-2-trad">❌ Proveedores sueltos sin comunicación</li>
+                <li data-i18n="comp-item-3-trad">❌ Datos en servidores de terceros</li>
+                <li data-i18n="comp-item-4-trad">❌ IA genérica compartida con millones</li>
+                <li data-i18n="comp-item-5-trad">❌ Todo depende de intervención humana</li>
+              </ul>
+            </div>
+            <div class="eco-compare-col eco-compare-rcp">
+              <h4 class="accent" data-i18n="eco-comp-rcp-title">Modelo RCP 360 Core</h4>
+              <ul class="feature-list">
+                <li data-i18n="comp-item-1-rcp">✅ Costo de software reducido a $0</li>
+                <li data-i18n="comp-item-2-rcp">✅ Un solo equipo unificado</li>
+                <li data-i18n="comp-item-3-rcp">✅ Base de datos 100% privada</li>
+                <li data-i18n="comp-item-4-rcp">✅ IA privada con tus datos</li>
+                <li data-i18n="comp-item-5-rcp">✅ Automatización 24/7</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="eco-layers animate-on-scroll">
+          <h3 class="eco-layers-heading" data-i18n="eco-layers-title">11 Capas Integradas</h3>
+          <p class="eco-layers-sub" data-i18n="eco-layers-sub">Cada capa trabaja en sincronía perfecta para tu empresa:</p>
+          <div class="eco-layers-grid">
+            <div class="eco-layer-pill" data-i18n="eco-layer-1">🗄️ Base de Datos Blindada</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-2">🧠 Motor de IA Local</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-3">🔀 Enrutador Multi-IA</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-4">💬 Chat Interno RAG</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-5">⚡ Motor de Automatización</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-6">📡 Gateway de Mensajería</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-7">🔐 Túnel Cifrado</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-8">🏢 Base de Datos ERP</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-9">📊 ERP Central</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-10">🎨 Estudio Creativo IA</div>
+            <div class="eco-layer-pill" data-i18n="eco-layer-11">🎓 Plataforma de Capacitación</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAQUETES ===== -->
+    <section class="section paquetes" id="paquetes">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="section-label-paquetes">Paquetes de Crecimiento</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="section-title-paquetes">Elige tu nivel de <span class="accent">transformación</span></h2>
+        <p class="section-sub animate-on-scroll" data-i18n="section-sub-paquetes">Cada empresa tiene su propio ritmo cardíaco. Elegimos el tratamiento correcto.</p>
+
+        <div class="cards-grid three-col animate-on-scroll" style="margin-top:40px;">
+          <div class="card card-dark" style="text-align:center;padding:32px 24px;">
+            <div class="card-icon" style="font-size:2.5rem;">🌱</div>
+            <h3 data-i18n="tier-basico" style="margin:12px 0 4px;">Básico</h3>
+            <p style="color:var(--accent);font-weight:700;font-size:0.85rem;" data-i18n="name-basico">Reanimación Temprana</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">Formalización + Branding + Web</p>
+            <p style="font-weight:700;margin-top:12px;">RD$ 20K - 35K</p>
+          </div>
+          <div class="card card-dark" style="text-align:center;padding:32px 24px;border-color:var(--accent);">
+            <div style="background:var(--accent);color:#000;font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:8px;">RECOMENDADO</div>
+            <div class="card-icon" style="font-size:2.5rem;">📈</div>
+            <h3 data-i18n="tier-avanzado" style="margin:12px 0 4px;">Avanzado</h3>
+            <p style="color:var(--accent);font-weight:700;font-size:0.85rem;" data-i18n="name-avanzado">Estabilización y Crecimiento</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">ERP/CRM + Ads + Automatización</p>
+            <p style="font-weight:700;margin-top:12px;">RD$ 40K - 60K setup</p>
+          </div>
+          <div class="card card-dark" style="text-align:center;padding:32px 24px;">
+            <div class="card-icon" style="font-size:2.5rem;">🚀</div>
+            <h3 data-i18n="tier-premium" style="margin:12px 0 4px;">Premium</h3>
+            <p style="color:var(--accent);font-weight:700;font-size:0.85rem;" data-i18n="name-premium">Vitalidad y Liderazgo</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">IA Privada + Dashboard + Junta 24/7</p>
+            <p style="font-weight:700;margin-top:12px;">RD$ 75K - 120K setup</p>
+          </div>
+        </div>
+
+        <div class="text-center animate-on-scroll" style="margin-top:32px;">
+          <a href="/servicios" class="btn-cta btn-lg" data-i18n="hero-ghost">Ver planes detallados →</a>
+          <a href="/tienda" class="btn-ghost" style="margin-left:16px;">Tienda de productos →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRUST BUILDERS ===== -->
+    <section class="section trust" id="trust">
+      <div class="container">
+        <h2 class="section-title animate-on-scroll" data-i18n="trust-title">Nuestra <span class="accent">garantía</span> de triple valor</h2>
+        <div class="cards-grid three-col">
+          <div class="trust-card animate-on-scroll" data-tooltip="✨ ELIMINAMOS | Estrategia Océano Azul: Eliminamos la fricción de contratar múltiples proveedores aislados. Un solo canal, un punto de contacto, toda la intervención. Resultados visibles desde el día 30.">
+            <div class="trust-icon">⚡</div>
+            <h3 data-i18n="trust-rapidez">Rapidez</h3>
+            <p>Protocolos de implementación ágiles. Tu empresa empieza a ver resultados desde el primer mes de intervención.</p>
+            <div class="trust-tooltip"></div>
+          </div>
+          <div class="trust-card animate-on-scroll" data-tooltip="🔽 REDUCIMOS | Estrategia Océano Azul: Reducimos el tiempo que el dueño del negocio consume en microgesatión administrativa y burocracia legal, liberándo su enfoque hacia lo que genera rentabilidad real.">
+            <div class="trust-icon">🏅</div>
+            <h3 data-i18n="trust-calidad">Calidad</h3>
+            <p>Equipo multidisciplinario de expertos certificados. Cada entregable pasa por estándares corporativos de primer nivel.</p>
+            <div class="trust-tooltip"></div>
+          </div>
+          <div class="trust-card animate-on-scroll" data-tooltip="⬆️ AUMENTAMOS | Estrategia Océano Azul: Aumentamos el ROI diseñando paquetes escalables adaptados a la realidad financiera de tu MIPYME, dejando de lado contratos abusivos y enfocándonos en impacto real.">
+            <div class="trust-icon">💎</div>
+            <h3 data-i18n="trust-precio">Precio Justo</h3>
+            <p>Diseñamos paquetes escalables adaptados a la realidad financiera de las MIPYMEs dominicanas. Sin letra chica.</p>
+            <div class="trust-tooltip"></div>
+          </div>
+        </div>
+
+        <div class="junta-directiva animate-on-scroll">
+          <h3 class="junta-title" data-i18n="junta-title">CREAMOS: Tu Junta Directiva Externa</h3>
+          <p class="junta-text" data-i18n="junta-text">
+            Con la <strong class="accent">Agencia 360°</strong>, reconfiguramos la industria para volver irrelevante a la competencia. Integramos <strong>dirección financiera (CFO), estrategia legal y marketing (CMO)</strong> en un solo canal unificado. Tienes a un equipo directivo completo impulsando tu rentabilidad mes a mes, sin los costos de una nómina ejecutiva tradicional.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS ===== -->
+    <section class="section" style="background:var(--black-3);" id="testimonios">
+      <div class="container">
+        <div class="section-label animate-on-scroll">Resultados Reales</div>
+        <h2 class="section-title animate-on-scroll">Lo que dicen nuestros <span class="accent">clientes</span></h2>
+        <div class="cards-grid three-col" style="margin-top:40px;">
+          <div class="card card-dark animate-on-scroll" style="padding:28px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:1.1rem;">J</div>
+              <div><strong style="color:var(--text);font-size:0.9rem;">Juan M.</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">Ferretería El Clavo · Santo Domingo</span></div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text);line-height:1.6;font-style:italic;">"En 3 semanas tenía mi RNC, marca registrada y una landing que me genera leads diarios. Antes perdía clientes por no tener ni siquiera un WhatsApp Business."</p>
+            <div style="margin-top:12px;color:var(--accent);font-size:0.8rem;">⭐⭐⭐⭐⭐</div>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="padding:28px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:1.1rem;">M</div>
+              <div><strong style="color:var(--text);font-size:0.9rem;">María C.</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">Salón de Belleza Elegance · Santiago</span></div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text);line-height:1.6;font-style:italic;">"El sistema de reservas online me liberó 4 horas diarias. Mis clientes confirman por WhatsApp automáticamente y yo solo me enfoco en atenderlos."</p>
+            <div style="margin-top:12px;color:var(--accent);font-size:0.8rem;">⭐⭐⭐⭐⭐</div>
+          </div>
+          <div class="card card-dark animate-on-scroll" style="padding:28px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:1.1rem;">R</div>
+              <div><strong style="color:var(--text);font-size:0.9rem;">Roberto D.</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">Distribuidora del Caribe · DN</span></div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text);line-height:1.6;font-style:italic;">"Pasé de informal a licitar con el Estado en 2 meses. El ERP me mostró que perdía RD$80K/mes en inventario mal gestionado. Ahora todo está bajo control."</p>
+            <div style="margin-top:12px;color:var(--accent);font-size:0.8rem;">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section class="section contacto-section" id="contacto">
+      <div class="container">
+        <div class="section-label animate-on-scroll" data-i18n="section-label-contacto">Toma acción hoy</div>
+        <h2 class="section-title animate-on-scroll" data-i18n="section-title-contacto">¿Listo para la <span class="accent">Reanimación</span>?</h2>
+        <p class="section-sub animate-on-scroll" data-i18n="section-sub-contacto">Un diagnóstico gratuito puede ser el primer latido de una empresa completamente diferente.</p>
+        <div class="contact-grid animate-on-scroll">
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-row">
+              <input type="text" name="user_name" class="form-control" placeholder="Tu nombre completo" data-i18n-placeholder="ph-name" aria-label="Tu nombre completo" data-i18n-aria-label="ph-name" required autocomplete="name" minlength="2" />
+              <input type="text" name="user_company" class="form-control" placeholder="Empresa / Negocio" data-i18n-placeholder="ph-company" aria-label="Empresa / Negocio" data-i18n-aria-label="ph-company" required autocomplete="organization" />
+            </div>
+            <div class="form-row">
+              <input type="email" name="user_email" class="form-control" placeholder="Correo electrónico" data-i18n-placeholder="ph-email" aria-label="Correo electrónico" data-i18n-aria-label="ph-email" required autocomplete="email" />
+              <input type="tel" name="user_phone" class="form-control" placeholder="WhatsApp / Teléfono" data-i18n-placeholder="ph-phone" aria-label="WhatsApp / Teléfono" data-i18n-aria-label="ph-phone" autocomplete="tel" pattern="[0-9\-\+\s\(\)]{7,20}" />
+            </div>
+            <select name="user_service" class="form-control" aria-label="¿Qué servicio necesitas?" data-i18n-aria-label="opt-default" required>
+              <option value="" disabled selected data-i18n="opt-default">¿Qué servicio necesitas?</option>
+              <option data-i18n="opt-diag">Diagnóstico 360° gratuito</option>
+              <option data-i18n="opt-basic">Plan Básico – Reanimación Temprana</option>
+              <option data-i18n="opt-advanced">Plan Avanzado – Estabilización y Crecimiento</option>
+              <option data-i18n="opt-premium">Plan Premium – Vitalidad y Liderazgo</option>
+            </select>
+            <textarea name="user_message" class="form-control" rows="4" placeholder="Cuéntanos brevemente sobre tu empresa y el reto que enfrentas..." data-i18n-placeholder="ph-message" aria-label="Mensaje o reto principal" data-i18n-aria-label="ph-message"></textarea>
+            <button type="submit" class="btn-cta btn-full btn-lg" data-i18n="submit-btn">🚀 Solicitar mi Diagnóstico 360° Gratis</button>
+          </form>
+          <div class="contact-info">
+            <h3 class="contact-info-title" data-i18n="contact-heading">Conéctate con nosotros</h3>
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
+                </svg>
+              </span>
+              <div>
+                <strong data-i18n="info-office">Oficinas Centrales</strong>
+                <p>Santo Domingo, R.D.</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.27-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </span>
+              <div>
+                <strong data-i18n="info-phone">Líneas Directas</strong>
+                <p><a href="tel:8298068092">829-806-8092</a></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </span>
+              <div>
+                <strong data-i18n="info-email">Email Corporativo</strong>
+                <p><a href="mailto:info@rcp.services">info@rcp.services</a></p>
+              </div>
+            </div>
+            <div class="social-links">
+              <a href="https://wa.me/18298068092" class="social-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                WhatsApp
+              </a>
+              <a href="mailto:info@rcp.services" class="social-btn" aria-label="Email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+                Email
+              </a>
+              <a href="https://www.instagram.com/rcp.services_/" class="social-btn" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+                </svg>
+                Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="qr-full-block animate-on-scroll">
+          <div class="qr-full-inner">
+            <img src="/QR RCP.png" alt="Escanea el QR de RCP Services" class="qr-full-img" width="3250" height="3250" loading="lazy" />
+            <div class="qr-full-text">
+              <p class="qr-full-label" data-i18n="qr-label">Escanéanos y conecta</p>
+              <p class="qr-full-sub" data-i18n="qr-sub"><strong>al instante</strong></p>
+              <p class="qr-full-hint" data-i18n="qr-hint">Con tu cámara o app de QR</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

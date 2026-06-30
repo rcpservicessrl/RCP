@@ -1,0 +1,16 @@
+{
+  "name": "rcp-services-web",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "RCP Services — Agencia 360° de Transformación Empresarial y Digital para MIPYMEs dominicanas",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}

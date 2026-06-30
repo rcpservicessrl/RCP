@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Sublimated Mug - Mug with handle, design band around body -->
+  <!-- Mug body -->
+  <rect x="120" y="128" width="220" height="280" rx="24" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Design band -->
+  <rect x="120" y="220" width="220" height="100" rx="0" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <!-- Band design elements -->
+  <circle cx="180" cy="270" r="16" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="212" y="256" width="80" height="12" rx="6" fill="#FFFFFF" stroke="none"/>
+  <rect x="212" y="278" width="60" height="10" rx="5" fill="#FFFFFF" stroke="none"/>
+  <!-- Mug rim -->
+  <ellipse cx="230" cy="132" rx="110" ry="24" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Handle -->
+  <path d="M340 220 C400 220 420 280 400 320 C380 360 340 360 340 320" fill="none" stroke="#1A1B20" stroke-width="10"/>
+  <path d="M340 224 C392 224 408 276 392 312 C376 348 344 348 344 316" fill="#FFFFFF" stroke="none"/>
+  <path d="M340 220 C400 220 420 280 400 320 C380 360 340 360 340 320" fill="none" stroke="#1A1B20" stroke-width="8"/>
+  <!-- Mug bottom -->
+  <rect x="136" y="392" width="188" height="16" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+</svg>

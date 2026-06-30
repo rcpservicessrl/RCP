@@ -1,0 +1,124 @@
+---
+/**
+ * FloatingWidgets.astro — Chatbot, back-to-top, guided tour, cookie banner
+ * Widgets globales que aparecen en todas las páginas. Se incluyen una sola vez.
+ */
+---
+
+<!-- ===== CHATBOT WIDGET ===== -->
+<div class="chatbot-widget" id="chatbotWidget" title="Asistente Virtual RCP">
+  <div class="chatbot-tooltip" data-i18n="chatbot-tooltip">¿Necesitas ayuda? <strong>Chatea con nosotros</strong></div>
+  <button class="chatbot-btn" id="chatbotBtn" aria-label="Abrir chat">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+    </svg>
+  </button>
+</div>
+
+<!-- ===== CHAT PANEL ===== -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-header-avatar">🐆</div>
+    <div class="chat-header-info">
+      <h4 data-i18n="chat-header-title">Pulso</h4>
+      <p data-i18n="chat-header-status">En línea · Respuesta inmediata</p>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off" />
+    <button class="chat-send" id="chatSend" aria-label="Enviar">➤</button>
+  </div>
+</div>
+
+<!-- ===== BACK TO TOP ===== -->
+<a href="#inicio" class="back-top" id="backTop" aria-label="Volver arriba">↑</a>
+
+<!-- ===== GUIDED TOUR ===== -->
+<button class="tour-button" id="tourButton" aria-label="Comenzar recorrido">
+  <span>🚀</span>
+  <span>Comenzar Recorrido</span>
+</button>
+<div class="tour-overlay" id="tourOverlay">
+  <div class="tour-highlight" id="tourHighlight"></div>
+  <div class="tour-tooltip" id="tourTooltip">
+    <div class="tour-tooltip-header">
+      <span class="tour-tooltip-title" id="tourTitle"></span>
+      <button class="tour-tooltip-close" id="tourClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="tour-tooltip-progress" id="tourProgress"></div>
+    <div class="tour-tooltip-content" id="tourContent"></div>
+    <div class="tour-tooltip-actions">
+      <button class="tour-btn tour-btn-secondary" id="tourPrev" aria-label="Anterior">Anterior</button>
+      <button class="tour-btn tour-btn-primary" id="tourNext" aria-label="Siguiente">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COOKIE CONSENT BANNER ===== -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentimiento de cookies" aria-hidden="true">
+  <div class="cookie-banner-inner">
+    <div class="cookie-text">
+      <p data-i18n="cookie-text">
+        🍪 Usamos cookies analíticas para mejorar tu experiencia y medir el rendimiento del sitio. No compartimos tus datos con terceros.
+        <a href="#" class="cookie-link" id="cookieMoreInfo" data-i18n="cookie-more">Más información</a>
+      </p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn cookie-btn-reject" id="cookieReject" data-i18n="cookie-reject">Solo esenciales</button>
+      <button class="cookie-btn cookie-btn-accept" id="cookieAccept" data-i18n="cookie-accept">Aceptar todas</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Details Panel -->
+<div class="cookie-details-panel" id="cookieDetails" aria-hidden="true">
+  <div class="cookie-details-inner">
+    <div class="cookie-details-header">
+      <h3 data-i18n="cookie-details-title">Configuración de Cookies</h3>
+      <button class="cookie-details-close" id="cookieDetailsClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="cookie-details-body">
+      <div class="cookie-category">
+        <div class="cookie-category-header">
+          <label class="cookie-toggle">
+            <input type="checkbox" checked disabled />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+          <div>
+            <strong data-i18n="cookie-cat-essential">Esenciales</strong>
+            <p data-i18n="cookie-cat-essential-desc">Necesarias para el funcionamiento del sitio. No se pueden desactivar.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header">
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookieAnalytics" checked />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+          <div>
+            <strong data-i18n="cookie-cat-analytics">Analíticas (Google Analytics 4)</strong>
+            <p data-i18n="cookie-cat-analytics-desc">Nos ayudan a entender cómo usas el sitio para mejorarlo. Datos anónimos y agregados.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header">
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookieMarketing" />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+          <div>
+            <strong data-i18n="cookie-cat-marketing">Marketing</strong>
+            <p data-i18n="cookie-cat-marketing-desc">Permiten medir la efectividad de campañas publicitarias (Meta Ads, Google Ads).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cookie-details-footer">
+      <button class="cookie-btn cookie-btn-accept" id="cookieSavePrefs" data-i18n="cookie-save">Guardar preferencias</button>
+    </div>
+  </div>
+</div>
