@@ -1,8 +1,8 @@
 // ─── WEBHOOK ENDPOINTS ───
 // Endpoint propietario del chatbot (siempre activo)
 const RCP_CHATBOT_WEBHOOK_URL = 'https://us-central1-chatbot-rcp.cloudfunctions.net/rcpChat';
-// Endpoint propietario de captura de leads
-const RCP_LEAD_WEBHOOK_URL = 'https://b95a30b32790a4.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+// Endpoint propietario de captura de leads (GCP Cloud Function — stable, no tunnel-dependent)
+const RCP_LEAD_WEBHOOK_URL = 'https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpLead';
 
 // ─── SECURITY: CONFIDENTIAL KEYWORD GUARDRAIL ───
 // Blocks queries about internal infrastructure before they reach the network
