@@ -2778,11 +2778,51 @@ body.light-mode {
   font-size: 0.95rem;
 }
 
-.eco-layers-grid {
+.eco-groups-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+  text-align: left;
+}
+
+.eco-group-card {
+  background: var(--black-3);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: var(--transition);
+}
+
+.eco-group-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(252, 181, 63, 0.08);
+}
+
+.eco-group-header {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 12px;
+}
+
+.eco-group-header h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+}
+
+.eco-group-icon {
+  font-size: 1.3rem;
+}
+
+.eco-group-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .eco-layer-pill {
@@ -2807,23 +2847,43 @@ body.light-mode {
   box-shadow: 0 4px 16px rgba(252,181,63,0.1);
 }
 
-/* Staggered entrance animation for pills */
-.eco-layers-grid .eco-layer-pill {
+.eco-group-pills .eco-layer-pill {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
   opacity: 0;
   animation: pillFadeIn 0.4s ease forwards;
 }
 
-.eco-layers-grid .eco-layer-pill:nth-child(1)  { animation-delay: 0.05s; }
-.eco-layers-grid .eco-layer-pill:nth-child(2)  { animation-delay: 0.10s; }
-.eco-layers-grid .eco-layer-pill:nth-child(3)  { animation-delay: 0.15s; }
-.eco-layers-grid .eco-layer-pill:nth-child(4)  { animation-delay: 0.20s; }
-.eco-layers-grid .eco-layer-pill:nth-child(5)  { animation-delay: 0.25s; }
-.eco-layers-grid .eco-layer-pill:nth-child(6)  { animation-delay: 0.30s; }
-.eco-layers-grid .eco-layer-pill:nth-child(7)  { animation-delay: 0.35s; }
-.eco-layers-grid .eco-layer-pill:nth-child(8)  { animation-delay: 0.40s; }
-.eco-layers-grid .eco-layer-pill:nth-child(9)  { animation-delay: 0.45s; }
-.eco-layers-grid .eco-layer-pill:nth-child(10) { animation-delay: 0.50s; }
-.eco-layers-grid .eco-layer-pill:nth-child(11) { animation-delay: 0.55s; }
+/* Staggered entrance animation for pills within categories */
+.eco-group-card:nth-child(1) .eco-layer-pill:nth-child(1) { animation-delay: 0.05s; }
+.eco-group-card:nth-child(1) .eco-layer-pill:nth-child(2) { animation-delay: 0.10s; }
+.eco-group-card:nth-child(1) .eco-layer-pill:nth-child(3) { animation-delay: 0.15s; }
+
+.eco-group-card:nth-child(2) .eco-layer-pill:nth-child(1) { animation-delay: 0.20s; }
+.eco-group-card:nth-child(2) .eco-layer-pill:nth-child(2) { animation-delay: 0.25s; }
+.eco-group-card:nth-child(2) .eco-layer-pill:nth-child(3) { animation-delay: 0.30s; }
+.eco-group-card:nth-child(2) .eco-layer-pill:nth-child(4) { animation-delay: 0.35s; }
+
+.eco-group-card:nth-child(3) .eco-layer-pill:nth-child(1) { animation-delay: 0.40s; }
+.eco-group-card:nth-child(3) .eco-layer-pill:nth-child(2) { animation-delay: 0.45s; }
+.eco-group-card:nth-child(3) .eco-layer-pill:nth-child(3) { animation-delay: 0.50s; }
+.eco-group-card:nth-child(3) .eco-layer-pill:nth-child(4) { animation-delay: 0.55s; }
+
+/* Light Theme overrides for group cards */
+[data-theme="light"] .eco-group-card {
+  background: #fff;
+  border-color: #d5d0c8;
+}
+
+/* Responsive styles to ensure columns stack on mobile */
+@media (max-width: 992px) {
+  .eco-groups-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
 
 @keyframes pillFadeIn {
   from {
@@ -2873,7 +2933,7 @@ body.light-mode {
     padding: 24px 20px;
   }
 
-  .eco-layers-grid {
+  .eco-group-pills {
     gap: 8px;
   }
 

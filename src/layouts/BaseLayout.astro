@@ -135,6 +135,8 @@ const ogImageUrl = `${site}${ogImage}`;
     gtag('config', 'G-1NX4MWJ0GD', { 'send_page_view': false });
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NX4MWJ0GD"></script>
+  <!-- CSS completo del sitio -->
+  <link rel="stylesheet" href={SITE_CSS} is:inline />
 </head>
 
 <body>
@@ -149,8 +151,6 @@ const ogImageUrl = `${site}${ogImage}`;
 
   <!-- Supabase SDK -->
   <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <!-- CSS completo del sitio -->
-  <link rel="stylesheet" href={SITE_CSS} is:inline />
   <!-- Script global (chatbot, theme, i18n, animaciones, tour, SW) -->
   <script src={SITE_JS} is:inline defer></script>
   <script src={I18N_JS} is:inline></script>
