@@ -361,3 +361,150 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
   })();
 </script>
+
+<style>
+  .portal-box {
+    width: 100%;
+    max-width: 450px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    box-sizing: border-box;
+  }
+  .portal-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .portal-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .portal-header-logo {
+    width: 130px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  .portal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  .portal-header p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+  .portal-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .portal-form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .portal-form-group input {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  .portal-form-group input:focus {
+    border-color: var(--accent);
+    background: rgba(252,181,63,0.02);
+    outline: none;
+  }
+  .portal-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.8rem;
+  }
+  .portal-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .portal-checkbox-label input {
+    cursor: pointer;
+    accent-color: var(--accent);
+  }
+  .portal-link {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .portal-link:hover {
+    color: var(--accent-dark);
+    text-decoration: underline;
+  }
+  .portal-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin: 25px 0;
+  }
+  .portal-divider::before,
+  .portal-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .portal-divider:not(:empty)::before {
+    margin-right: .5em;
+  }
+  .portal-divider:not(:empty)::after {
+    margin-left: .5em;
+  }
+  .btn-google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font);
+    font-size: 0.88rem;
+    box-sizing: border-box;
+  }
+  .btn-google-login:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: var(--text-muted);
+  }
+  .google-icon {
+    width: 18px;
+    height: 18px;
+  }
+</style>
