@@ -163,14 +163,14 @@ function applyTheme(theme) {
     if (sunIcon) sunIcon.style.display = '';
     if (moonIcon) moonIcon.style.display = 'none';
     document.querySelectorAll('.nav-logo, .theme-logo').forEach(img => {
-      img.src = 'Logo RCP Services.png';
+      img.src = '/Logo RCP Services.png';
     });
   } else {
     document.documentElement.removeAttribute('data-theme');
     if (sunIcon) sunIcon.style.display = 'none';
     if (moonIcon) moonIcon.style.display = '';
     document.querySelectorAll('.nav-logo, .theme-logo').forEach(img => {
-      img.src = 'Logo RCP  fondo negro.png';
+      img.src = '/Logo RCP  fondo negro.png';
     });
   }
 }
