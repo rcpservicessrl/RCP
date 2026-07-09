@@ -24,6 +24,8 @@ import '../styles/base.css';
 const SITE_CSS = '/styles.css';
 const SITE_JS = '/script.js';
 const I18N_JS = '/scripts/i18n.js';
+const SUPABASE_SDK_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
+const SUPABASE_SDK_INTEGRITY = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug';
 
 interface Props {
   title?: string;
@@ -31,6 +33,7 @@ interface Props {
   canonical?: string;
   active?: string;
   ogImage?: string;
+  requiresSupabase?: boolean;
 }
 
 const {
@@ -39,6 +42,7 @@ const {
   canonical = '/',
   active = '',
   ogImage = '/Logo RCP Services.png',
+  requiresSupabase = false,
 } = Astro.props;
 
 const site = Astro.site?.toString().replace(/\/$/, '') || 'https://rcp.services';
@@ -150,8 +154,9 @@ const ogImageUrl = `${site}${ogImage}`;
   <Footer />
   <FloatingWidgets />
 
-  <!-- Supabase SDK -->
-  <script is:inline defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" integrity="sha384-VK7L9nU1Wb0jHnZ9gK9sPz/KqJp1mN3oN0hE5l2kF4o=" crossorigin="anonymous"></script>
+  {requiresSupabase && (
+    <script is:inline defer src={SUPABASE_SDK_URL} integrity={SUPABASE_SDK_INTEGRITY} crossorigin="anonymous"></script>
+  )}
   <!-- Script global (chatbot, theme, i18n, animaciones, tour, SW) -->
   <script src={SITE_JS} is:inline defer></script>
   <script src={I18N_JS} is:inline defer></script>

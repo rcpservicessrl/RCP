@@ -12,6 +12,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Completa tu información de facturación y selecciona tu método de pago preferido."
   canonical="/checkout"
   active="checkout"
+  requiresSupabase={true}
 >
   <main>
     <section class="hero hero-short" id="inicio">
@@ -209,20 +210,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   // Webhook endpoint (mismo que usa script.js global)
   const RCP_LEAD_WEBHOOK_URL = 'https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpLead';
 
-  // HMAC SHA-256 Payload signing (matching script.js)
-  async function signPayload(payloadString: string, timestamp: string) {
-    const encoder = new TextEncoder();
-    const derivationBase = 'rcp.services:rcp:2026';
-    const keyData = encoder.encode(derivationBase);
-    const message = `${timestamp}:${payloadString}`;
-    const messageData = encoder.encode(message);
-    const key = await window.crypto.subtle.importKey(
-        "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
-    );
-    const signature = await window.crypto.subtle.sign("HMAC", key, messageData);
-    return Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-
   (function() {
     const params = new URLSearchParams(window.location.search);
     const pkg = params.get('package');
@@ -397,14 +384,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 user_message: `Pedido registrado (${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
                 lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status
               });
-              const signature = await signPayload(payload, timestamp);
-
               fetch(RCP_LEAD_WEBHOOK_URL, {
                 method: 'POST', 
                 headers: { 
                   'Content-Type': 'application/json',
-                  'X-RCP-Timestamp': timestamp,
-                  'X-RCP-Signature': signature
+                  'X-RCP-Timestamp': timestamp
                 },
                 body: payload
               });

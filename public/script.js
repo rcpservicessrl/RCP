@@ -25,23 +25,6 @@ function isConfidentialQuery(text) {
   return CONFIDENTIAL_KEYWORDS.some(kw => normalized.includes(kw));
 }
 
-// ─── HMAC SHA-256 PAYLOAD SIGNING ───
-// Generates signature for webhook payload validation (server validates with shared secret)
-async function signPayload(payloadString, timestamp) {
-    const encoder = new TextEncoder();
-    // Derive signing key from domain + timestamp (server validates using rcp.services base)
-    const derivationBase = `rcp.services:rcp:2026`;
-    const keyData = encoder.encode(derivationBase);
-    const message = `${timestamp}:${payloadString}`;
-    const messageData = encoder.encode(message);
-    const key = await window.crypto.subtle.importKey(
-        "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
-    );
-    const signature = await window.crypto.subtle.sign("HMAC", key, messageData);
-    return Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, "0")).join("");
-}
-
-
 // ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -275,17 +258,15 @@ if (contactForm) {
       user_message: contactForm.querySelector('[name="user_message"]')?.value || ''
     };
 
-    const timestamp = Date.now().toString();
     const payloadString = JSON.stringify(formData);
-    const signature = await signPayload(payloadString, timestamp);
+    const timestamp = Date.now().toString();
 
     try {
       const resp = await fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-RCP-Timestamp': timestamp,
-          'X-RCP-Signature': signature
+          'X-RCP-Timestamp': timestamp
         },
         body: payloadString
       });
@@ -359,8 +340,8 @@ if (phoneField) {
     },
     {
       k: ['precio', 'costo', 'cuánto', 'cuanto cuesta', 'tarifa', 'cost', 'price', 'how much', 'pago', 'inversión', 'inversion', 'planes', 'plan', 'paquete'],
-      a: 'Tenemos 3 paquetes principales adaptados a ti: 📦 <strong>Básico</strong>, 📊 <strong>Avanzado</strong> y ⭐ <strong>Premium</strong>. ¿Quieres que te coticemos alguno o prefieres agendar tu <a href="#contacto" style="color:var(--accent)">diagnóstico gratuito</a>? 🎯',
-      a_en: 'We offer 3 main packages: 📦 <strong>Basic</strong>, 📊 <strong>Advanced</strong>, and ⭐ <strong>Premium</strong>. Would you like details on a specific plan or shall we book your <a href="#contacto" style="color:var(--accent)">free diagnosis</a>? 🎯'
+      a: 'Tenemos 3 paquetes principales adaptados a ti: 📦 <strong>Básico</strong>, 📊 <strong>Avanzado</strong> y ⭐ <strong>Premium</strong>. ¿Quieres que te coticemos alguno o prefieres hacer tu <a href="/diagnostico" style="color:var(--accent)">diagnóstico gratuito en 2 minutos</a>? 🎯',
+      a_en: 'We offer 3 main packages: 📦 <strong>Basic</strong>, 📊 <strong>Advanced</strong>, and ⭐ <strong>Premium</strong>. Would you like details on a specific plan or take the <a href="/diagnostico" style="color:var(--accent)">free 2-minute diagnosis</a>? 🎯'
     },
     {
       k: ['basico', 'reanimacion temprana', 'basic', 'early revival'],
@@ -379,8 +360,8 @@ if (phoneField) {
     },
     {
       k: ['diagnóstico', 'diagnostico', 'gratis', 'gratuito', 'free', 'diagnosis'],
-      a: '🎁 ¡Claro! Ofrecemos un <strong>Diagnóstico 360° 100% gratuito</strong>. Auditamos tu negocio en marca/procesos, legal/fiscal y marketing, y te entregamos tu score de arritmia empresarial sin compromisos. <a href="#contacto" style="color:var(--accent)">¡Solicítalo aquí! →</a>',
-      a_en: '🎁 Absolutely! We offer a **fully free 360° Business Diagnosis**. We audit your company across branding, legal/tax health, and digital marketing, showing your arrhythmia score risk-free. <a href="#contacto" style="color:var(--accent)">Request it here →</a>'
+      a: '🎁 ¡Claro! Ofrecemos un <strong>Diagnóstico 360° 100% gratuito</strong>. Auditamos tu negocio en marca/procesos, legal/fiscal y marketing, y te entregamos tu score de arritmia empresarial sin compromisos. <a href="/diagnostico" style="color:var(--accent)">Hacer diagnóstico gratis →</a>',
+      a_en: '🎁 Absolutely! We offer a **fully free 360° Business Diagnosis**. We audit your company across branding, legal/tax health, and digital marketing, showing your arrhythmia score risk-free. <a href="/diagnostico" style="color:var(--accent)">Take the free diagnosis →</a>'
     },
     {
       k: ['contact', 'teléfono', 'telefono', 'llamar', 'whatsapp', 'correo', 'email', 'phone', 'call', 'oficina', 'donde estan', 'bella vista'],
@@ -439,18 +420,18 @@ if (phoneField) {
     },
     {
       k: ['gracias', 'thanks', 'perfecto', 'genial', 'excelente', 'thank', 'ok', 'vale', 'bien'],
-      a: '¡Con muchísimo gusto! 🙌 Recuerda que puedes solicitar tu <a href="#contacto" style="color:var(--accent)">diagnóstico 360° gratuito</a> o escribirnos directo por <a href="https://wa.me/18298068092" style="color:var(--accent)">WhatsApp</a>. ¡Éxito! 🤝',
-      a_en: 'You are very welcome! 🙌 Remember you can apply for your <a href="#contacto" style="color:var(--accent)">free 360° diagnosis</a> or text us on <a href="https://wa.me/18298068092" style="color:var(--accent)">WhatsApp</a>. Great success! 🤝'
+      a: '¡Con muchísimo gusto! 🙌 Recuerda que puedes hacer tu <a href="/diagnostico" style="color:var(--accent)">diagnóstico 360° gratuito</a> o escribirnos directo por <a href="https://wa.me/18298068092" style="color:var(--accent)">WhatsApp</a>. ¡Éxito! 🤝',
+      a_en: 'You are very welcome! 🙌 Remember you can take your <a href="/diagnostico" style="color:var(--accent)">free 360° diagnosis</a> or text us on <a href="https://wa.me/18298068092" style="color:var(--accent)">WhatsApp</a>. Great success! 🤝'
     },
     {
       k: ['podcast', 'video', 'media', 'contenido'],
-      a: '🎬 ¡Contenido de alto valor listo! Mira nuestro video corporativo *"Crecimiento Imparable"* y el podcast *"Pretotipado"* en la <a href="media.html" style="color:var(--accent)">página de Media →</a>.',
-      a_en: '🎬 High-value content ready! Watch our video *"Unstoppable Growth"* or listen to the *"Pretotyping"* podcast on our <a href="media.html" style="color:var(--accent)">Media Page →</a>.'
+      a: '🎬 ¡Contenido de alto valor listo! Mira nuestro video corporativo *"Crecimiento Imparable"* y el podcast *"Pretotipado"* en la <a href="/media" style="color:var(--accent)">página de Media →</a>.',
+      a_en: '🎬 High-value content ready! Watch our video *"Unstoppable Growth"* or listen to the *"Pretotyping"* podcast on our <a href="/media" style="color:var(--accent)">Media Page →</a>.'
     },
     {
       k: ['nosotros', 'about', 'historia', 'quienes son', 'quienes somos'],
-      a: '🏢 Nacimos en Santo Domingo para estructurar, blindar y acelerar MIPYMEs dominicanas. Conoce nuestro Canvas de negocio y tesis en la <a href="nosotros.html" style="color:var(--accent)">página de Nosotros →</a>.',
-      a_en: '🏢 We were founded in Santo Domingo to structure, shield, and scale local MSMEs. Check out our Business Canvas on our <a href="nosotros.html" style="color:var(--accent)">About Us Page →</a>.'
+      a: '🏢 Nacimos en Santo Domingo para estructurar, blindar y acelerar MIPYMEs dominicanas. Conoce nuestro Canvas de negocio y tesis en la <a href="/nosotros" style="color:var(--accent)">página de Nosotros →</a>.',
+      a_en: '🏢 We were founded in Santo Domingo to structure, shield, and scale local MSMEs. Check out our Business Canvas on our <a href="/nosotros" style="color:var(--accent)">About Us Page →</a>.'
     },
     {
       k: ['horario', 'hora', 'tiempo', 'cuanto tarda', 'plazo', 'demora', 'timeline', 'how long'],
@@ -469,8 +450,8 @@ if (phoneField) {
     },
     {
       k: ['trabaj', 'carrera', 'career', 'empleo', 'vacante', 'job', 'colabor', 'contratar', 'reclutar'],
-      a: '🚀 ¡Buscamos talentos dominicanos independientes! Si dominas derecho corporativo, finanzas, marketing o IA, postúlate en la <a href="carreras.html" style="color:var(--accent)">página de Carreras →</a>.',
-      a_en: '🚀 We seek freelance Dominican talent! If you specialize in corporate law, finance, digital marketing, or IA, apply on our <a href="carreras.html" style="color:var(--accent)">Careers Page →</a>.'
+      a: '🚀 ¡Buscamos talentos dominicanos independientes! Si dominas derecho corporativo, finanzas, marketing o IA, postúlate en la <a href="/carreras" style="color:var(--accent)">página de Carreras →</a>.',
+      a_en: '🚀 We seek freelance Dominican talent! If you specialize in corporate law, finance, digital marketing, or IA, apply on our <a href="/carreras" style="color:var(--accent)">Careers Page →</a>.'
     },
     {
       k: ['sop', 'proceso', 'calidad', 'estándar', 'estandar', 'quality', 'standard'],
@@ -479,8 +460,8 @@ if (phoneField) {
     }
   ];
 
-  const defaultReplies_es = ['🤓 ¡Excelente pregunta! Para darte la respuesta exacta para tu caso, te recomiendo agendar un <a href="#contacto" style="color:var(--accent)">diagnóstico 360° gratuito</a> en menos de 30 minutos.'];
-  const defaultReplies_en = ['🤓 Great question! For the most accurate answer tailored to your case, I highly recommend booking a <a href="#contacto" style="color:var(--accent)">free 360° diagnosis</a>.'];
+  const defaultReplies_es = ['🤓 ¡Excelente pregunta! Para darte la respuesta exacta para tu caso, te recomiendo hacer el <a href="/diagnostico" style="color:var(--accent)">diagnóstico 360° gratuito</a> en 2 minutos.'];
+  const defaultReplies_en = ['🤓 Great question! For the most accurate answer tailored to your case, I highly recommend taking the <a href="/diagnostico" style="color:var(--accent)">free 360° diagnosis</a>.'];
 
   const quickButtons_es = ['¿Qué servicios ofrecen?', '¿Cuánto cuesta?', 'Diagnóstico gratis', 'Contacto'];
   const quickButtons_en = ['What services do you offer?', 'How much does it cost?', 'Free diagnosis', 'Contact'];
@@ -864,7 +845,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
   if (btnCartCheckout) {
     btnCartCheckout.addEventListener('click', () => {
-      window.location.href = 'onboarding.html';
+      window.location.href = '/onboarding';
     });
   }
 
@@ -1071,14 +1052,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
       const bookingTimestamp = Date.now().toString();
       const bookingPayloadString = JSON.stringify(bookingPayload);
-      const bookingSignature = await signPayload(bookingPayloadString, bookingTimestamp);
 
       const leadPipelineCall = fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-RCP-Timestamp': bookingTimestamp,
-          'X-RCP-Signature': bookingSignature
+          'X-RCP-Timestamp': bookingTimestamp
         },
         body: bookingPayloadString
       });

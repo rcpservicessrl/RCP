@@ -13,11 +13,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   canonical="/diagnostico"
   active="diagnostico"
 >
-  <main style="padding-top:100px; min-height:80vh;">
-    <div class="container" style="max-width:720px; margin:0 auto; padding:40px 20px;">
-      <header style="text-align:center; margin-bottom:40px;">
-        <h1 style="font-size:2rem; font-weight:900; margin-bottom:8px;">Diagnóstico <span class="accent">360°</span></h1>
-        <p style="color:var(--text-muted); font-size:0.9rem;">Evalúa la salud de tu empresa en 2 minutos. Gratis y confidencial.</p>
+  <main class="diag-main">
+    <div class="container diag-container">
+      <header class="diag-header">
+        <h1>Diagnóstico <span class="accent">360°</span></h1>
+        <p>Evalúa la salud de tu empresa en 2 minutos. Gratis y confidencial.</p>
       </header>
       <div class="diag-progress" id="progressBar"></div>
       <div class="diag-card" id="questionCard"></div>
@@ -27,6 +27,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .diag-progress { display:flex; gap:4px; margin-bottom:30px; }
+  .diag-main { padding-top:100px; min-height:80vh; }
+  .diag-container { max-width:720px; margin:0 auto; padding:40px 20px; }
+  .diag-header { text-align:center; margin-bottom:40px; }
+  .diag-header h1 { font-size:2rem; font-weight:900; margin-bottom:8px; }
+  .diag-header p { color:var(--text-muted); font-size:0.9rem; }
   .diag-progress .step { flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,0.06); transition:all 0.4s ease; }
   .diag-progress .step.done { background:var(--accent); }
   .diag-progress .step.active { background:var(--accent); opacity:0.6; animation:pulse 1.5s infinite; }
@@ -51,6 +56,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   :global(.money-lost) { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); border-radius:12px; padding:16px; margin-bottom:24px; }
   :global(.btn-cta-diag) { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#000; padding:14px 28px; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:all 0.3s ease; }
   :global(.btn-cta-diag:hover) { background:var(--accent-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(252,181,63,0.2); }
+  :global(.diag-lead-form) { display:flex; flex-direction:column; gap:15px; margin-top:20px; }
+  :global(.diag-field) { text-align:left; }
+  :global(.diag-field label) { display:block; margin-bottom:6px; font-weight:600; font-size:0.85rem; }
+  :global(.diag-field input) { width:100%; padding:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; }
+  :global(.diag-lead-actions) { display:flex; justify-content:space-between; margin-top:24px; }
+  :global(.result-note) { color:var(--text-muted);font-size:0.75rem;margin-top:16px; }
+  :global(.result-links) { margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
+  :global(.result-links a) { color:var(--accent);font-size:0.85rem;font-weight:600; }
+  :global(.money-lost-label) { font-size:0.8rem;color:var(--text-muted); }
+  :global(.money-lost-value) { font-size:1.5rem;font-weight:900;color:#ef4444; }
   @media(max-width:600px) { .diag-card { padding:24px; } }
 </style>
 
@@ -112,16 +127,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     function showLeadForm() {
       card.innerHTML = `<p class="question-title">Completa tus datos para recibir tu resultado personalizado y tu plan de acción:</p>
-      <form id="diagLeadForm" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
-        <div style="text-align:left;">
-          <label for="diagName" style="display:block; margin-bottom:6px; font-weight:600; font-size:0.85rem;">Nombre Completo</label>
-          <input type="text" id="diagName" required style="width:100%; padding:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;" placeholder="Ej. Juan Pérez" />
+      <form id="diagLeadForm" class="diag-lead-form">
+        <div class="diag-field">
+          <label for="diagName">Nombre Completo</label>
+          <input type="text" id="diagName" required placeholder="Ej. Juan Pérez" />
         </div>
-        <div style="text-align:left;">
-          <label for="diagEmail" style="display:block; margin-bottom:6px; font-weight:600; font-size:0.85rem;">Correo Electrónico</label>
-          <input type="email" id="diagEmail" required style="width:100%; padding:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;" placeholder="Ej. juan.perez@empresa.com" />
+        <div class="diag-field">
+          <label for="diagEmail">Correo Electrónico</label>
+          <input type="email" id="diagEmail" required placeholder="Ej. juan.perez@empresa.com" />
         </div>
-        <div style="display:flex; justify-content:space-between; margin-top:24px;">
+        <div class="diag-lead-actions">
           <button type="button" class="btn-back" id="btnBackLead">← Anterior</button>
           <button type="submit" class="btn-next" id="btnSubmitLead">Ver Mi Score →</button>
         </div>
@@ -161,13 +176,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="score-circle" style="border-color:${color}"><span class="score-num" style="color:${color}">${score}</span></div>
         <p class="risk-level" style="color:${color}">Riesgo ${risk}</p>
         <p class="risk-desc">${desc}</p>
-        <div class="money-lost"><p style="font-size:0.8rem;color:var(--text-muted)">Estimación de pérdida mensual por ineficiencia:</p><p style="font-size:1.5rem;font-weight:900;color:#ef4444">~RD$ ${monthlyLoss.toLocaleString()}</p></div>
+        <div class="money-lost"><p class="money-lost-label">Estimación de pérdida mensual por ineficiencia:</p><p class="money-lost-value">~RD$ ${monthlyLoss.toLocaleString()}</p></div>
         <a href="https://wa.me/18298068092?text=Hola%20RCP!%20Obtuve%20un%20score%20de%20${score}/10%20en%20el%20Diagn%C3%B3stico%20360.%20Quiero%20agendar%20mi%20consultor%C3%ADa%20gratuita." class="btn-cta-diag">🐆 Agendar Diagnóstico Gratuito</a>
-        <p style="color:var(--text-muted);font-size:0.75rem;margin-top:16px;">Resultado confidencial. Un consultor te contactará en menos de 24h.</p>
-        <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="/servicios" style="color:var(--accent);font-size:0.85rem;font-weight:600;">Ver Planes →</a>
-          <a href="/tienda" style="color:var(--accent);font-size:0.85rem;font-weight:600;">Tienda →</a>
-          <a href="/#contacto" style="color:var(--accent);font-size:0.85rem;font-weight:600;">Contacto →</a>
+        <p class="result-note">Resultado confidencial. Un consultor te contactará en menos de 24h.</p>
+        <div class="result-links">
+          <a href="/servicios">Ver Planes →</a>
+          <a href="/tienda">Tienda →</a>
+          <a href="/#contacto">Contacto →</a>
         </div>
       </div>`;
       bar.innerHTML = '';

@@ -135,7 +135,7 @@ def rcpChat(request):
         headers = {
             'Access-Control-Allow-Origin': cors_origin,
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp, X-RCP-Signature',
+            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp',
             'Access-Control-Max-Age': '3600'
         }
         return ('', 204, headers)
@@ -198,7 +198,7 @@ def rcpLead(request):
         headers = {
             'Access-Control-Allow-Origin': cors_origin,
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp, X-RCP-Signature',
+            'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp',
             'Access-Control-Max-Age': '3600'
         }
         return ('', 204, headers)
@@ -236,8 +236,7 @@ def rcpLead(request):
                 json=body,
                 headers={
                     'Content-Type': 'application/json',
-                    'X-RCP-Timestamp': request.headers.get('X-RCP-Timestamp', ''),
-                    'X-RCP-Signature': request.headers.get('X-RCP-Signature', '')
+                    'X-RCP-Timestamp': request.headers.get('X-RCP-Timestamp', '')
                 },
                 timeout=10
             )

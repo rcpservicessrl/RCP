@@ -4451,19 +4451,54 @@ a:visited,
 
 /* Responsive */
 @media (max-width: 600px) {
+  .cookie-banner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 12px;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    max-height: 34vh;
+    overflow-y: auto;
+  }
+
   .cookie-banner-inner {
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
-    gap: 16px;
+    gap: 10px;
   }
-  
+
+  .cookie-text {
+    min-width: 0;
+  }
+
+  .cookie-text p {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+
   .cookie-actions {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
   }
-  
+
   .cookie-btn {
     width: 100%;
+    min-height: 40px;
+    padding: 9px 10px;
+    font-size: 0.78rem;
     text-align: center;
+  }
+
+  .cookie-details-panel {
+    padding: 12px;
+  }
+
+  .cookie-details-inner {
+    max-height: 86vh;
+    border-radius: 12px;
   }
 }
 

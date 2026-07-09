@@ -1,14 +1,13 @@
-const CACHE_NAME = 'rcp-services-v23';
+const CACHE_NAME = 'rcp-services-v25';
 const ASSETS_TO_CACHE = [
   './',
-  './index.html',
-  './nosotros.html',
-  './media.html',
-  './carreras.html',
-  './servicios.html',
-  './checkout.html',
-  './portal.html',
-  './dashboard.html',
+  './nosotros/',
+  './media/',
+  './carreras/',
+  './servicios/',
+  './diagnostico/',
+  './checkout/',
+  './portal/',
   './styles.css',
   './script.js',
   './icono-rcp.png',
@@ -45,10 +44,23 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event (Cache-First strategy with Network Fallback)
+// Fetch Event: network-first for pages, stale-while-revalidate for static assets.
 self.addEventListener('fetch', (event) => {
   // Only handle HTTP/HTTPS protocols (avoid chrome-extension etc.)
   if (!event.request.url.startsWith(self.location.origin)) return;
+
+  if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+        }
+        return networkResponse;
+      }).catch(() => caches.match(event.request).then((cachedResponse) => cachedResponse || caches.match('./')))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
@@ -77,11 +89,6 @@ self.addEventListener('fetch', (event) => {
         });
 
         return networkResponse;
-      }).catch(() => {
-        // Offline Fallback for HTML pages
-        if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('./index.html');
-        }
       });
     })
   );

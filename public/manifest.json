@@ -2,7 +2,7 @@
   "name": "RCP Services | Agencia 360° de Transformación Empresarial",
   "short_name": "RCP Services",
   "description": "Tu Junta Directiva Externa. Renovación, Consultoría y Publicidad 360° para MIPYMEs en República Dominicana.",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "id": "/",
   "display": "standalone",
@@ -43,21 +43,21 @@
       "name": "Diagnóstico 360° Gratis",
       "short_name": "Diagnóstico",
       "description": "Solicita tu evaluación empresarial gratuita",
-      "url": "./index.html#contacto",
+      "url": "./diagnostico/",
       "icons": [{ "src": "icono-rcp.png", "sizes": "192x192" }]
     },
     {
       "name": "Catálogo de Servicios",
       "short_name": "Servicios",
       "description": "Explora nuestro catálogo interactivo 360°",
-      "url": "./servicios.html",
+      "url": "./servicios/",
       "icons": [{ "src": "icono-rcp.png", "sizes": "192x192" }]
     },
     {
       "name": "Portal de Clientes",
       "short_name": "Portal",
       "description": "Accede a tu dashboard directivo",
-      "url": "./portal.html",
+      "url": "./portal/",
       "icons": [{ "src": "icono-rcp.png", "sizes": "192x192" }]
     }
   ]
