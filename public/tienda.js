@@ -257,16 +257,19 @@ function closeCartPanel(){
   document.body.style.overflow='';
 }
 
-function checkoutWhatsApp(){
+function redirectToCheckout(method) {
   if(cart.length===0)return;
-  var msg='Hola RCP! Quiero adquirir los siguientes productos/servicios:\n\n';
-  var sum=0;
-  cart.forEach(function(p){
-    msg+='\u2022 '+p.name+' - '+fp(p.price)+(p.type==='recurring'?'/mes':'')+'\n';
-    sum+=p.price;
+  var items = cart.map(function(p){
+    return {
+      name: p.name,
+      min: p.price,
+      max: p.price,
+      recurring: p.type==='recurring'
+    };
   });
-  msg+='\nTotal estimado: '+fp(sum)+'\n\nPor favor confirmar disponibilidad y metodo de pago.';
-  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+  var url='/checkout?custom_items='+encodeURIComponent(JSON.stringify(items));
+  if(method) url+='&method='+method;
+  window.location.href=url;
 }
 
 function quoteWhatsApp(p){
@@ -302,19 +305,22 @@ document.getElementById('btnAddCart').addEventListener('click',function(){
 // Modal: Pay with Card (CardNet placeholder)
 document.getElementById('btnPayCard').addEventListener('click',function(){
   if(!selected)return;
-  alert('Pago con tarjeta (CardNet) se activara proximamente.\n\nPor ahora puedes agregar al carrito y enviar por WhatsApp, o pagar por transferencia.');
+  var items = [{ name: selected.name, min: selected.price, max: selected.price, recurring: selected.type==='recurring' }];
+  window.location.href = '/checkout?custom_items=' + encodeURIComponent(JSON.stringify(items)) + '&method=cardnet';
 });
 
 // Modal: PayPal
 document.getElementById('btnPayPaypal').addEventListener('click',function(){
   if(!selected)return;
-  alert('PayPal se activara proximamente.\n\nUsa el carrito + WhatsApp o transferencia bancaria.');
+  var items = [{ name: selected.name, min: selected.price, max: selected.price, recurring: selected.type==='recurring' }];
+  window.location.href = '/checkout?custom_items=' + encodeURIComponent(JSON.stringify(items)) + '&method=paypal';
 });
 
 // Modal: Transfer
 document.getElementById('btnPayTransferModal').addEventListener('click',function(){
   if(!selected)return;
-  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta Corriente: 9601234567\nNombre: RCP Services SRL\n\nConcepto: '+selected.sku+' - '+selected.name+'\nMonto: '+fp(selected.price)+'\n\nEnvia comprobante a:\nWhatsApp: 829-806-8092\nEmail: info@rcp.services');
+  var items = [{ name: selected.name, min: selected.price, max: selected.price, recurring: selected.type==='recurring' }];
+  window.location.href = '/checkout?custom_items=' + encodeURIComponent(JSON.stringify(items)) + '&method=transfer';
 });
 
 // Modal: Quote WhatsApp (for variations/customizations only)
@@ -331,25 +337,15 @@ if(cartCloseBtn)cartCloseBtn.addEventListener('click',closeCartPanel);
 
 // Cart panel payment buttons
 var cartCheckoutBtn=document.getElementById('cartCheckoutBtn');
-if(cartCheckoutBtn)cartCheckoutBtn.addEventListener('click',checkoutWhatsApp);
+if(cartCheckoutBtn)cartCheckoutBtn.addEventListener('click',function(){ redirectToCheckout(); });
 var cartPayWA=document.getElementById('cartPayWhatsapp');
-if(cartPayWA)cartPayWA.addEventListener('click',checkoutWhatsApp);
+if(cartPayWA)cartPayWA.addEventListener('click',function(){ redirectToCheckout('whatsapp'); });
 var cartPayCard=document.getElementById('cartPayCard');
-if(cartPayCard)cartPayCard.addEventListener('click',function(){
-  if(cart.length===0){alert('Tu carrito esta vacio.');return;}
-  alert('Pago con tarjeta (CardNet) se activara proximamente.\n\nTotal: '+fp(cart.reduce(function(s,p){return s+p.price;},0))+'\n\nPor ahora envia tu pedido por WhatsApp o paga por transferencia.');
-});
+if(cartPayCard)cartPayCard.addEventListener('click',function(){ redirectToCheckout('cardnet'); });
 var cartPayPP=document.getElementById('cartPayPaypal');
-if(cartPayPP)cartPayPP.addEventListener('click',function(){
-  if(cart.length===0){alert('Tu carrito esta vacio.');return;}
-  alert('PayPal se activara proximamente.\n\nUsa WhatsApp o transferencia bancaria.');
-});
+if(cartPayPP)cartPayPP.addEventListener('click',function(){ redirectToCheckout('paypal'); });
 var btnTransfer=document.getElementById('btnPayTransfer');
-if(btnTransfer)btnTransfer.addEventListener('click',function(){
-  if(cart.length===0){alert('Tu carrito esta vacio.');return;}
-  var total=cart.reduce(function(s,p){return s+p.price;},0);
-  alert('DATOS PARA TRANSFERENCIA\n\nBanco: Banreservas\nCuenta Corriente: 9601234567\nNombre: RCP Services SRL\n\nMonto: '+fp(total)+'\n\nEnvia comprobante + captura del carrito a:\nWhatsApp: 829-806-8092\nEmail: info@rcp.services');
-});
+if(btnTransfer)btnTransfer.addEventListener('click',function(){ redirectToCheckout('transfer'); });
 
 // URL param
 var params=new URLSearchParams(window.location.search);

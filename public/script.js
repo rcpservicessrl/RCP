@@ -29,8 +29,8 @@ function isConfidentialQuery(text) {
 // Generates signature for webhook payload validation (server validates with shared secret)
 async function signPayload(payloadString, timestamp) {
     const encoder = new TextEncoder();
-    // Derive signing key from domain + timestamp (server knows the derivation scheme)
-    const derivationBase = `${window.location.hostname}:rcp:2026`;
+    // Derive signing key from domain + timestamp (server validates using rcp.services base)
+    const derivationBase = `rcp.services:rcp:2026`;
     const keyData = encoder.encode(derivationBase);
     const message = `${timestamp}:${payloadString}`;
     const messageData = encoder.encode(message);
@@ -503,9 +503,23 @@ if (phoneField) {
     }
   }
 
+  function escapeHTML(str) {
+    if (!str) return '';
+    return str.toString()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function formatMarkdown(str) {
     if (!str) return '';
-    return str
+    if (str.includes('<br>') || str.includes('<strong>') || str.includes('<em>')) {
+      return str;
+    }
+    const escaped = escapeHTML(str);
+    return escaped
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/\n/g, '<br>');
@@ -520,7 +534,7 @@ if (phoneField) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     if (save) {
-      history.push({ text: formatted, type });
+      history.push({ text: text, type });
       saveHistory();
     }
   }

@@ -47,43 +47,43 @@ const faqSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot:head />
 
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="inicio">
-    <div class="hero-bg-grid"></div>
-    <div class="container" style="position: relative; width: 100%;">
-      <div class="hero-content">
-        <div class="hero-badge animate-fade-up">
-          <span class="badge-dot"></span> <span data-i18n="hero-badge">Agencia 360° · República Dominicana</span>
-        </div>
-        <h1 class="hero-title animate-fade-up delay-1" data-i18n="hero-title">
-          Reanimando el <span class="accent">corazón</span> de tu empresa<br />
-          para un crecimiento <span class="accent">indetenible</span>.
-        </h1>
-        <p class="hero-sub animate-fade-up delay-2" data-i18n="hero-sub">
-          Erradicamos la arritmia empresarial con una Junta Directiva Externa que centraliza finanzas, legalidad y marketing bajo un solo ecosistema <strong>360°</strong>.
-        </p>
-        <p class="hero-sub animate-fade-up delay-2" style="font-size:1rem;font-weight:600;color:var(--accent);margin-top:8px;" data-i18n="hero-oneliner">
-          Formalizamos tu empresa, ordenamos tus finanzas y te conseguimos clientes. Todo en uno.
-        </p>
-        <div class="hero-actions animate-fade-up delay-3">
-          <a href="/#contacto" class="btn-cta btn-lg" data-i18n="hero-cta">Solicita tu Diagnóstico 360° Hoy</a>
-          <a href="/#solucion" class="btn-ghost" data-i18n="hero-ghost">Conoce el Ecosistema →</a>
-        </div>
-        <div class="hero-stats animate-fade-up delay-4">
-          <div class="stat"><span class="stat-num">98.5<span class="accent">%</span></span><span class="stat-label" data-i18n="stat-label-1">MIPYMEs afectadas</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><span class="stat-num">3<span class="accent">×</span></span><span class="stat-label" data-i18n="stat-label-2">Pilares integrados</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><span class="stat-num">360<span class="accent">°</span></span><span class="stat-label" data-i18n="stat-label-3">Visión total</span></div>
-        </div>
-      </div>
-      <div class="hero-leopard" aria-hidden="true">
-        <img src="/leopardo-rcp.png" alt="" class="hero-leopard-img" aria-hidden="true" width="2364" height="2470" loading="lazy" />
-      </div>
-    </div>
-  </section>
-
   <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+      <div class="hero-bg-grid"></div>
+      <div class="container" style="position: relative; width: 100%;">
+        <div class="hero-content">
+          <div class="hero-badge animate-fade-up">
+            <span class="badge-dot"></span> <span data-i18n="hero-badge">Agencia 360° · República Dominicana</span>
+          </div>
+          <h1 class="hero-title animate-fade-up delay-1" data-i18n="hero-title">
+            Reanimando el <span class="accent">corazón</span> de tu empresa<br />
+            para un crecimiento <span class="accent">indetenible</span>.
+          </h1>
+          <p class="hero-sub animate-fade-up delay-2" data-i18n="hero-sub">
+            Erradicamos la arritmia empresarial con una Junta Directiva Externa que centraliza finanzas, legalidad y marketing bajo un solo ecosistema <strong>360°</strong>.
+          </p>
+          <p class="hero-sub animate-fade-up delay-2" style="font-size:1rem;font-weight:600;color:var(--accent);margin-top:8px;" data-i18n="hero-oneliner">
+            Formalizamos tu empresa, ordenamos tus finanzas y te conseguimos clientes. Todo en uno.
+          </p>
+          <div class="hero-actions animate-fade-up delay-3">
+            <a href="/#contacto" class="btn-cta btn-lg" data-i18n="hero-cta">Solicita tu Diagnóstico 360° Hoy</a>
+            <a href="/#solucion" class="btn-ghost" data-i18n="hero-ghost">Conoce el Ecosistema →</a>
+          </div>
+          <div class="hero-stats animate-fade-up delay-4">
+            <div class="stat"><span class="stat-num">98.5<span class="accent">%</span></span><span class="stat-label" data-i18n="stat-label-1">MIPYMEs afectadas</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">3<span class="accent">×</span></span><span class="stat-label" data-i18n="stat-label-2">Pilares integrados</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">360<span class="accent">°</span></span><span class="stat-label" data-i18n="stat-label-3">Visión total</span></div>
+          </div>
+        </div>
+        <div class="hero-leopard" aria-hidden="true">
+          <img src="/leopardo-rcp.png" alt="" class="hero-leopard-img" aria-hidden="true" width="2364" height="2470" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
     <!-- ===== PROBLEMA ===== -->
     <section class="section problema" id="problema">
       <div class="container">
@@ -332,28 +332,28 @@ const faqSchema = {
         <h2 class="section-title animate-on-scroll" data-i18n="section-title-paquetes">Elige tu nivel de <span class="accent">transformación</span></h2>
         <p class="section-sub animate-on-scroll" data-i18n="section-sub-paquetes">Cada empresa tiene su propio ritmo cardíaco. Elegimos el tratamiento correcto.</p>
 
-        <div class="cards-grid three-col animate-on-scroll" style="margin-top:40px;">
-          <div class="card card-dark" style="text-align:center;padding:32px 24px;">
-            <div class="card-icon" style="font-size:2.5rem;">🌱</div>
-            <h3 data-i18n="tier-basico" style="margin:12px 0 4px;">Básico</h3>
-            <p style="color:var(--accent);font-weight:700;font-size:0.85rem;" data-i18n="name-basico">Reanimación Temprana</p>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">Formalización + Branding + Web</p>
-            <p style="font-weight:700;margin-top:12px;">RD$ 20K - 35K</p>
+        <div class="cards-grid three-col animate-on-scroll pricing-grid">
+          <div class="card card-dark pricing-card">
+            <div class="card-icon pricing-icon">🌱</div>
+            <h3 data-i18n="tier-basico" class="pricing-title">Básico</h3>
+            <p class="pricing-sub" data-i18n="name-basico">Reanimación Temprana</p>
+            <p class="pricing-desc">Formalización + Branding + Web</p>
+            <p class="pricing-price">RD$ 20K - 35K</p>
           </div>
-          <div class="card card-dark" style="text-align:center;padding:32px 24px;border-color:var(--accent);">
-            <div style="background:var(--accent);color:#000;font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:8px;">RECOMENDADO</div>
-            <div class="card-icon" style="font-size:2.5rem;">📈</div>
-            <h3 data-i18n="tier-avanzado" style="margin:12px 0 4px;">Avanzado</h3>
-            <p style="color:var(--accent);font-weight:700;font-size:0.85rem;" data-i18n="name-avanzado">Estabilización y Crecimiento</p>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">ERP/CRM + Ads + Automatización</p>
-            <p style="font-weight:700;margin-top:12px;">RD$ 40K - 60K setup</p>
+          <div class="card card-dark pricing-card recommended-border">
+            <div class="badge-recommended">RECOMENDADO</div>
+            <div class="card-icon pricing-icon">📈</div>
+            <h3 data-i18n="tier-avanzado" class="pricing-title">Avanzado</h3>
+            <p class="pricing-sub" data-i18n="name-avanzado">Estabilización y Crecimiento</p>
+            <p class="pricing-desc">ERP/CRM + Ads + Automatización</p>
+            <p class="pricing-price">RD$ 40K - 60K setup</p>
           </div>
-          <div class="card card-dark" style="text-align:center;padding:32px 24px;">
-            <div class="card-icon" style="font-size:2.5rem;">🚀</div>
-            <h3 data-i18n="tier-premium" style="margin:12px 0 4px;">Premium</h3>
-            <p style="color:var(--accent);font-weight:700;font-size:0.85rem;" data-i18n="name-premium">Vitalidad y Liderazgo</p>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">IA Privada + Dashboard + Junta 24/7</p>
-            <p style="font-weight:700;margin-top:12px;">RD$ 75K - 120K setup</p>
+          <div class="card card-dark pricing-card">
+            <div class="card-icon pricing-icon">🚀</div>
+            <h3 data-i18n="tier-premium" class="pricing-title">Premium</h3>
+            <p class="pricing-sub" data-i18n="name-premium">Vitalidad y Liderazgo</p>
+            <p class="pricing-desc">IA Privada + Dashboard + Junta 24/7</p>
+            <p class="pricing-price">RD$ 75K - 120K setup</p>
           </div>
         </div>
 
@@ -532,4 +532,16 @@ const faqSchema = {
       </div>
     </section>
   </main>
+
+  <style>
+    .pricing-grid { margin-top: 40px; }
+    .pricing-card { text-align: center; padding: 32px 24px; }
+    .pricing-icon { font-size: 2.5rem; }
+    .pricing-title { margin: 12px 0 4px; }
+    .pricing-sub { color: var(--accent); font-weight: 700; font-size: 0.85rem; }
+    .pricing-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; }
+    .pricing-price { font-weight: 700; margin-top: 12px; }
+    .recommended-border { border-color: var(--accent) !important; }
+    .badge-recommended { background: var(--accent); color: #000; font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+  </style>
 </BaseLayout>

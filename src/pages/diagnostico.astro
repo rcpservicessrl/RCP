@@ -101,7 +101,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if(next) next.addEventListener('click', () => {
         if(answers[current]!==undefined){
           current++;
-          if(current>=questions.length) showResult();
+          if(current>=questions.length) showLeadForm();
           else { renderProgress(); renderQuestion(); }
         }
       });
@@ -110,7 +110,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       renderProgress();
     }
 
-    function showResult(){
+    function showLeadForm() {
+      card.innerHTML = `<p class="question-title">Completa tus datos para recibir tu resultado personalizado y tu plan de acción:</p>
+      <form id="diagLeadForm" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+        <div style="text-align:left;">
+          <label for="diagName" style="display:block; margin-bottom:6px; font-weight:600; font-size:0.85rem;">Nombre Completo</label>
+          <input type="text" id="diagName" required style="width:100%; padding:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;" placeholder="Ej. Juan Pérez" />
+        </div>
+        <div style="text-align:left;">
+          <label for="diagEmail" style="display:block; margin-bottom:6px; font-weight:600; font-size:0.85rem;">Correo Electrónico</label>
+          <input type="email" id="diagEmail" required style="width:100%; padding:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;" placeholder="Ej. juan.perez@empresa.com" />
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:24px;">
+          <button type="button" class="btn-back" id="btnBackLead">← Anterior</button>
+          <button type="submit" class="btn-next" id="btnSubmitLead">Ver Mi Score →</button>
+        </div>
+      </form>`;
+
+      const form = document.getElementById('diagLeadForm');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = (document.getElementById('diagName') as HTMLInputElement).value.trim();
+          const email = (document.getElementById('diagEmail') as HTMLInputElement).value.trim();
+          showResult(name, email);
+        });
+      }
+
+      const backBtn = document.getElementById('btnBackLead');
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          current--;
+          renderProgress();
+          renderQuestion();
+        });
+      }
+    }
+
+    function showResult(userName: string, userEmail: string){
       let total=0, max=0;
       answers.forEach((a,i) => { total += questions[i].scores[a]; max += questions[i].scores[questions[i].scores.length-1]; });
       const score = Math.round((total/max)*10);
@@ -136,11 +173,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       bar.innerHTML = '';
       for(let i=0;i<questions.length;i++) bar.innerHTML += '<div class="step done"></div>';
 
-      // Enviar score al backend
+      // Enviar score al backend de leads
       try {
-        fetch('https://us-central1-chatbot-rcp.cloudfunctions.net/rcpLead',{
+        fetch('https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpLead',{
           method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({user_name:'Diagnóstico Web',user_email:'diagnostico@rcp.services',user_service:'Diagnostico 360',user_message:`Score: ${score}/10 | Riesgo: ${risk} | Pérdida estimada: RD$${monthlyLoss}`})
+          body: JSON.stringify({
+            user_name: userName,
+            user_email: userEmail,
+            user_service: 'Diagnóstico 360',
+            user_message: `Score: ${score}/10 | Riesgo: ${risk} | Pérdida estimada: RD$${monthlyLoss}`
+          })
         });
       } catch(e) {}
     }

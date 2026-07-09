@@ -12,6 +12,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 — Página no encontrada | RCP Services</title>
+  <meta name="description" content="La página que buscas no existe o ha sido movida. Regresa al inicio para conocer el Ecosistema Soberano de RCP Services." />
   <link rel="icon" type="image/png" href="/icono-rcp.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
@@ -24,10 +25,13 @@
       font-family: 'Montserrat', sans-serif;
       background: #282829;
       color: #f0f0f5;
+    }
+    main {
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      width: 100%;
       text-align: center;
       padding: 24px;
     }
@@ -59,11 +63,13 @@
       box-shadow: 0 8px 24px rgba(252, 181, 63, 0.3);
     }
   </style>
-  <div class="err-container">
-    <div class="err-code">404</div>
-    <p class="err-msg">Esta página no existe o ha sido movida.<br>Volvamos al inicio para reanimarte.</p>
-    <a href="/" class="err-btn">← Volver al Inicio</a>
-  </div>
+  <main>
+    <div class="err-container">
+      <div class="err-code">404</div>
+      <p class="err-msg">Esta página no existe o ha sido movida.<br>Volvamos al inicio para reanimarte.</p>
+      <a href="/" class="err-btn">← Volver al Inicio</a>
+    </div>
+  </main>
 </body>
 
 </html>

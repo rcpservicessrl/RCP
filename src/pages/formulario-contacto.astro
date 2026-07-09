@@ -38,7 +38,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </form>
     <div id="successContact" style="display:none; margin-top:20px; background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: var(--radius); padding: 20px; text-align:center;">
       <span style="font-size:2rem;">✅</span>
-      <h3 data-i18n="contact-success-title" style="margin-top:10px;">¡Mensaje enviado!</h3>
+      <h2 data-i18n="contact-success-title" style="margin-top:10px; font-size: 1.5rem; color: #22c55e;">¡Mensaje enviado!</h2>
       <p data-i18n="contact-success-desc">Gracias por contactarnos. Revisaremos tu mensaje y nos pondremos en contacto pronto.</p>
     </div>
   </main>
@@ -81,8 +81,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             const mensaje = (document.getElementById('contactMensaje') as HTMLTextAreaElement).value.trim();
             const file = fileInput?.files?.[0];
 
+            if (file && file.type !== 'application/pdf') {
+              alert('Solo se permiten archivos en formato PDF.');
+              btn.textContent = 'Enviar Mensaje';
+              btn.disabled = false;
+              return;
+            }
+
+            if (!supabase) {
+              alert('Error de conexión con el servidor. Por favor, inténtalo de nuevo más tarde o contáctanos a info@rcp.services.');
+              btn.textContent = 'Enviar Mensaje';
+              btn.disabled = false;
+              return;
+            }
+
             let cvUrl: string | null = null;
-            if (file && supabase) {
+            if (file) {
               const ext = file.name.split('.').pop();
               const fileName = `${Date.now()}_${nombre.replace(/\s+/g,'_')}.${ext}`;
               const filePath = `contactos_cvs/${fileName}`;
@@ -92,12 +106,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               cvUrl = publicUrl;
             }
 
-            if (supabase) {
-              const { error: insertError } = await supabase.from('contactos').insert([
-                { nombre, email, mensaje, cv_url: cvUrl }
-              ]);
-              if (insertError) throw insertError;
-            }
+            const { error: insertError } = await supabase.from('contactos').insert([
+              { nombre, email, mensaje, cv_url: cvUrl }
+            ]);
+            if (insertError) throw insertError;
 
             form.style.display = 'none';
             const success = document.getElementById('successContact');

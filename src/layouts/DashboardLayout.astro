@@ -10,7 +10,7 @@ import '../styles/dashboard.css';
 
 const SITE_CSS = '/styles.css';
 const SITE_JS = '/script.js';
-const I18N_JS = '/i18n-extra.js';
+const I18N_JS = '/scripts/i18n.js';
 
 interface Props {
   title?: string;
@@ -36,14 +36,14 @@ const {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href={SITE_CSS} is:inline />
 </head>
 <body>
   <slot />
 
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <link rel="stylesheet" href={SITE_CSS} is:inline />
-  <script is:inline src="/scripts/dashboard.js"></script>
+  <script is:inline defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" integrity="sha384-VK7L9nU1Wb0jHnZ9gK9sPz/KqJp1mN3oN0hE5l2kF4o=" crossorigin="anonymous"></script>
+  <script is:inline defer src="/scripts/dashboard.js"></script>
   <script src={SITE_JS} is:inline defer></script>
-  <script src={I18N_JS} is:inline></script>
+  <script src={I18N_JS} is:inline defer></script>
 </body>
 </html>

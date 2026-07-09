@@ -11,24 +11,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   canonical="/carreras"
   active="carreras"
 >
-  <section class="hero hero-short" id="inicio">
-    <div class="hero-bg-grid"></div>
-    <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
-      <div class="hero-content">
-        <div class="hero-badge animate-fade-up">
-          <span class="badge-dot"></span> <span data-i18n="careers-badge">Oportunidades Profesionales</span>
-        </div>
-        <h1 class="hero-title animate-fade-up delay-1" data-i18n="careers-title">
-          Colabora con el <span class="accent">futuro</span><br />de las MIPYMEs
-        </h1>
-        <p class="hero-sub animate-fade-up delay-2" data-i18n="careers-sub">
-          Buscamos profesionales independientes apasionados por la transformación empresarial. Trabaja por proyecto, con autonomía total y desde cualquier lugar.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <main>
+    <section class="hero hero-short" id="inicio">
+      <div class="hero-bg-grid"></div>
+      <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+        <div class="hero-content">
+          <div class="hero-badge animate-fade-up">
+            <span class="badge-dot"></span> <span data-i18n="careers-badge">Oportunidades Profesionales</span>
+          </div>
+          <h1 class="hero-title animate-fade-up delay-1" data-i18n="careers-title">
+            Colabora con el <span class="accent">futuro</span><br />de las MIPYMEs
+          </h1>
+          <p class="hero-sub animate-fade-up delay-2" data-i18n="careers-sub">
+            Buscamos profesionales independientes apasionados por la transformación empresarial. Trabaja por proyecto, con autonomía total y desde cualquier lugar.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section class="section problema">
       <div class="container">
         <div class="section-label animate-on-scroll" data-i18n="careers-why-label">¿Por qué RCP?</div>
@@ -236,32 +236,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             return;
           }
 
-          if (supabase) {
-            try {
-              const fileExt = file.name.split('.').pop();
-              const fileName = `${Date.now()}_${nombre.replace(/\s+/g, '_')}.${fileExt}`;
-              const filePath = `cvs/${fileName}`;
-              const { error: uploadError } = await supabase.storage.from('candidatos-cv').upload(filePath, file);
-              if (uploadError) throw uploadError;
-              const { data: { publicUrl } } = supabase.storage.from('candidatos-cv').getPublicUrl(filePath);
+          if (!supabase) {
+            alert(isEN ? 'Server connection error. Please try again later or contact us at info@rcp.services.' : 'Error de conexión con el servidor. Por favor, inténtalo de nuevo más tarde o contáctanos a info@rcp.services.');
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+            return;
+          }
 
-              const { error: insertError } = await supabase.from('candidatos').insert([{
-                nombre, email, telefono, especialidad, portafolio, cv_url: publicUrl
-              }]);
-              if (insertError) throw insertError;
+          try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Date.now()}_${nombre.replace(/\s+/g, '_')}.${fileExt}`;
+            const filePath = `cvs/${fileName}`;
+            const { error: uploadError } = await supabase.storage.from('candidatos-cv').upload(filePath, file);
+            if (uploadError) throw uploadError;
+            const { data: { publicUrl } } = supabase.storage.from('candidatos-cv').getPublicUrl(filePath);
 
-              form.style.display = 'none';
-              const success = document.getElementById('successPostulacion');
-              if (success) success.style.display = 'block';
-            } catch (err) {
-              console.error('Carreras form error', err);
-              btnSubmit.textContent = isEN ? 'Error. Try again' : 'Error. Intenta de nuevo';
-              btnSubmit.disabled = false;
-            }
-          } else {
+            const { error: insertError } = await supabase.from('candidatos').insert([{
+              nombre, email, telefono, especialidad, portafolio, cv_url: publicUrl
+            }]);
+            if (insertError) throw insertError;
+
             form.style.display = 'none';
             const success = document.getElementById('successPostulacion');
             if (success) success.style.display = 'block';
+          } catch (err) {
+            console.error('Carreras form error', err);
+            btnSubmit.textContent = isEN ? 'Error. Try again' : 'Error. Intenta de nuevo';
+            btnSubmit.disabled = false;
           }
         });
       }

@@ -1,4 +1,15 @@
     (function() {
+      // Helper function to prevent XSS
+      function escapeHTML(str) {
+        if (str === null || str === undefined) return '';
+        return str.toString()
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
       // Initialize Supabase Client (auto-detect local vs cloud)
       const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
       const supabaseUrl = isLocal
@@ -363,14 +374,14 @@
               const tr = document.createElement('tr');
               const isSynced = txn.sync === 'sync' || txn.sincronizado_odoo === true || txn.sincronizado_odoo === 'true';
               tr.innerHTML = `
-                <td><strong>#${txn.id || txn.transactionId}</strong></td>
-                <td>${txn.date}</td>
-                <td>${txn.items}</td>
-                <td><strong style="color:var(--accent);">${txn.amount}</strong></td>
-                <td>${txn.method}</td>
+                <td><strong>#${escapeHTML(txn.id || txn.transactionId)}</strong></td>
+                <td>${escapeHTML(txn.date)}</td>
+                <td>${escapeHTML(txn.items)}</td>
+                <td><strong style="color:var(--accent);">${escapeHTML(txn.amount)}</strong></td>
+                <td>${escapeHTML(txn.method)}</td>
                 <td>
                   <span class="sync-badge ${isSynced ? 'online' : 'offline'}">
-                    ✓ ${isSynced ? t.txnSynced : t.txnPending}
+                    ✓ ${isSynced ? escapeHTML(t.txnSynced) : escapeHTML(t.txnPending)}
                   </span>
                 </td>
               `;
@@ -721,19 +732,19 @@
 
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td><strong>${c.company_name}</strong></td>
-            <td>${c.legal_id}</td>
-            <td>${c.owner_name}</td>
+            <td><strong>${escapeHTML(c.company_name)}</strong></td>
+            <td>${escapeHTML(c.legal_id)}</td>
+            <td>${escapeHTML(c.owner_name)}</td>
             <td>
-              <div style="font-size:0.75rem; color:var(--text-muted);">${c.email}</div>
-              <div style="font-size:0.75rem; color:var(--text-muted);">${c.phone}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHTML(c.email)}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHTML(c.phone)}</div>
             </td>
             <td>
               <div style="display:flex; align-items:center; gap:6px;">
-                <code style="background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; font-weight:700; color:var(--accent); font-family:monospace; font-size:0.9rem;">${codeDisplay}</code>
+                <code style="background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; font-weight:700; color:var(--accent); font-family:monospace; font-size:0.9rem;">${escapeHTML(codeDisplay)}</code>
                 ${c.access_code ? `
-                  <button class="btn-action-sm btn-copy-code" data-code="${c.access_code}" style="padding:4px 6px; font-size:0.75rem;" title="Copiar código">📋</button>
-                  <a href="${waLink}" target="_blank" class="btn-action-sm" style="padding:4px 6px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center;" title="Compartir por WhatsApp">💬</a>
+                  <button class="btn-action-sm btn-copy-code" data-code="${escapeHTML(c.access_code)}" style="padding:4px 6px; font-size:0.75rem;" title="Copiar código">📋</button>
+                  <a href="${escapeHTML(waLink)}" target="_blank" class="btn-action-sm" style="padding:4px 6px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center;" title="Compartir por WhatsApp">💬</a>
                 ` : ''}
               </div>
             </td>
@@ -1032,11 +1043,11 @@
           if (newTheme === 'light') {
             if (moonIcon) moonIcon.style.display = 'none';
             if (sunIcon) sunIcon.style.display = 'block';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = 'Logo RCP Services.png');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/Logo RCP Services.png');
           } else {
             if (moonIcon) moonIcon.style.display = 'block';
             if (sunIcon) sunIcon.style.display = 'none';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = 'Logo RCP  fondo negro.png');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/Logo RCP  fondo negro.png');
           }
         });
       }

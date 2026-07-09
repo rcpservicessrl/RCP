@@ -13,30 +13,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   canonical="/checkout"
   active="checkout"
 >
-  <section class="hero hero-short" id="inicio">
-    <div class="hero-bg-grid"></div>
-    <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
-      <div class="hero-content">
-        <div class="hero-badge animate-fade-up">
-          <span class="badge-dot"></span> <span data-i18n="chk-badge">Pago Seguro SSL</span>
-        </div>
-        <h1 class="hero-title animate-fade-up delay-1" data-i18n="chk-title">
-          Finalizar tu <span class="accent">adquisición</span>
-        </h1>
-        <p class="hero-sub animate-fade-up delay-2" data-i18n="chk-sub">
-          Completa tu información de facturación y selecciona tu método de pago preferido. Procesamiento cifrado y protegido.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <main>
+    <section class="hero hero-short" id="inicio">
+      <div class="hero-bg-grid"></div>
+      <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+        <div class="hero-content">
+          <div class="hero-badge animate-fade-up">
+            <span class="badge-dot"></span> <span data-i18n="chk-badge">Pago Seguro SSL</span>
+          </div>
+          <h1 class="hero-title animate-fade-up delay-1" data-i18n="chk-title">
+            Finalizar tu <span class="accent">adquisición</span>
+          </h1>
+          <p class="hero-sub animate-fade-up delay-2" data-i18n="chk-sub">
+            Completa tu información de facturación y selecciona tu método de pago preferido. Procesamiento cifrado y protegido.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="checkout-layout animate-on-scroll">
           <div class="checkout-fields">
             <div class="contacto-section-card" style="margin-bottom: 30px; padding: 30px;">
-              <h3 style="margin-bottom: 20px; font-weight:800; color:var(--text);" data-i18n="chk-billing-title">1. Datos de Facturación</h3>
+              <h2 style="margin-bottom: 20px; font-weight:800; color:var(--text); font-size: 1.4rem;" data-i18n="chk-billing-title">1. Datos de Facturación</h2>
               <form id="billingForm" class="contacto-form">
                 <div class="form-row">
                   <div class="form-group">
@@ -72,7 +72,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
 
             <div class="contacto-section-card" style="padding: 30px;">
-              <h3 style="margin-bottom: 20px; font-weight:800; color:var(--text);" data-i18n="chk-paymethod-title">2. Método de Pago</h3>
+              <h2 style="margin-bottom: 20px; font-weight:800; color:var(--text); font-size: 1.4rem;" data-i18n="chk-paymethod-title">2. Método de Pago</h2>
               <div class="payment-methods-grid">
                 <div class="payment-method-card active" data-method="cardnet">
                   <span class="method-logo">💳</span>
@@ -144,7 +144,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
 
           <div class="checkout-summary-card">
-            <h3 data-i18n="chk-summary-title">Resumen del Pedido</h3>
+            <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 15px;" data-i18n="chk-summary-title">Resumen del Pedido</h2>
             <div class="summary-items-list" id="summaryItemsList"></div>
             <div class="checkout-totals-box">
               <div class="checkout-total-row">
@@ -207,7 +207,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <script>
   // Webhook endpoint (mismo que usa script.js global)
-  const RCP_LEAD_WEBHOOK_URL = 'https://b95a30b32790a4.lhr.life/webhook/rcp_lead_capture/trigger/rcp-lead';
+  const RCP_LEAD_WEBHOOK_URL = 'https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpLead';
+
+  // HMAC SHA-256 Payload signing (matching script.js)
+  async function signPayload(payloadString: string, timestamp: string) {
+    const encoder = new TextEncoder();
+    const derivationBase = 'rcp.services:rcp:2026';
+    const keyData = encoder.encode(derivationBase);
+    const message = `${timestamp}:${payloadString}`;
+    const messageData = encoder.encode(message);
+    const key = await window.crypto.subtle.importKey(
+        "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+    );
+    const signature = await window.crypto.subtle.sign("HMAC", key, messageData);
+    return Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
 
   (function() {
     const params = new URLSearchParams(window.location.search);
@@ -291,6 +305,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       });
     });
 
+    const methodParam = params.get('method');
+    if (methodParam) {
+      const cardToActivate = document.querySelector(`.payment-method-card[data-method="${methodParam}"]`);
+      if (cardToActivate) {
+        (cardToActivate as HTMLElement).click();
+      }
+    }
+
     const CARDNET_ENABLED = false;
     try {
       if (CARDNET_ENABLED) {
@@ -327,15 +349,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             return;
           }
           transactionId = 'CARDNET-' + Math.floor(100000 + Math.random() * 900000);
-        } else {
+        } else if (activeMethod === 'paypal') {
           processingOverlay?.classList.add('active');
           transactionId = 'PAYPAL-' + Math.floor(100000 + Math.random() * 900000);
+        } else if (activeMethod === 'transfer') {
+          processingOverlay?.classList.add('active');
+          transactionId = 'TRANS-' + Math.floor(100000 + Math.random() * 900000);
+        } else if (activeMethod === 'whatsapp') {
+          processingOverlay?.classList.add('active');
+          transactionId = 'WA-' + Math.floor(100000 + Math.random() * 900000);
         }
 
         let progress = 30;
         (progressBarFill as HTMLElement).style.width = progress + '%';
 
-        const interval = setInterval(() => {
+        const interval = setInterval(async () => {
           progress += 10;
           (progressBarFill as HTMLElement).style.width = progress + '%';
           if (progress === 50) {
@@ -357,15 +385,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             };
             localStorage.setItem('last_transaction', JSON.stringify(txnData));
 
+            // Determine correct Supabase status
+            const status = activeMethod === 'whatsapp' ? 'quote_requested' : (activeMethod === 'cardnet' ? 'onboarding' : 'payment_pending');
+
+            // Sign payload and send webhook
             try {
+              const timestamp = Date.now().toString();
+              const payload = JSON.stringify({
+                user_name: name, user_email: email, user_phone: phone, user_company: company,
+                user_service: checkoutItems.map((item:any) => item.name).join(', '),
+                user_message: `Pedido registrado (${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
+                lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status
+              });
+              const signature = await signPayload(payload, timestamp);
+
               fetch(RCP_LEAD_WEBHOOK_URL, {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  user_name: name, user_email: email, user_phone: phone, user_company: company,
-                  user_service: checkoutItems.map((item:any) => item.name).join(', '),
-                  user_message: `Pago completado. ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}. Método: ${activeMethod}.`,
-                  lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout"
-                })
+                method: 'POST', 
+                headers: { 
+                  'Content-Type': 'application/json',
+                  'X-RCP-Timestamp': timestamp,
+                  'X-RCP-Signature': signature
+                },
+                body: payload
               });
             } catch(e) {}
 
@@ -389,13 +430,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     const existingPagos = Array.isArray(existingClient.pagos) ? existingClient.pagos : [];
                     existingPagos.push(newPago);
                     const updatePayload: any = { pagos: existingPagos, company_name: company, owner_name: name, phone, address, legal_id: rnc };
-                    if (!existingClient.status || existingClient.status === 'pending_activation') updatePayload.status = 'onboarding';
+                    if (!existingClient.status || existingClient.status === 'pending_activation') updatePayload.status = status;
                     const { error: updateError } = await supabaseClient.from('clientes').update(updatePayload).eq('id', existingClient.id);
                     if (updateError) throw updateError;
                   } else {
                     const newClient = {
                       company_name: company, legal_id: rnc, owner_name: name, email, phone, address,
-                      status: 'onboarding', access_code: accessCode, pagos: [newPago]
+                      status: status, access_code: accessCode, pagos: [newPago]
                     };
                     const { error: insertError } = await supabaseClient.from('clientes').insert([newClient]);
                     if (insertError) throw insertError;
@@ -404,12 +445,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               })();
             }
 
-            procTitle!.textContent = isEN ? 'Payment Successful!' : '¡Pago Procesado con Éxito!';
-            procSub!.textContent = isEN ? 'Syncing account and redirecting...' : 'Sincronizando cuenta y redirigiendo...';
             Promise.resolve(dbPromise).finally(() => {
-              setTimeout(() => {
-                window.location.href = `/portal?signup=true&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&company=${encodeURIComponent(company)}`;
-              }, 1500);
+              if (progressBarFill && progressBarFill.parentElement) {
+                progressBarFill.parentElement.style.display = 'none';
+              }
+              const spinner = document.querySelector('.spinner-leopard');
+              if (spinner) (spinner as HTMLElement).style.display = 'none';
+
+              if (activeMethod === 'transfer') {
+                procTitle!.innerHTML = isEN ? 'Order Registered (Pending Payment)' : 'Pedido Registrado (Pago Pendiente)';
+                procSub!.innerHTML = isEN 
+                  ? 'Please transfer to Banreservas (Checking Cta: 9601234567, RCP Services SRL) and send the receipt to info@rcp.services. Your account will be activated once verified.' 
+                  : 'Por favor realiza la transferencia a <strong>Banreservas</strong> (Cuenta Corriente: <strong>9601234567</strong> a nombre de <strong>RCP Services SRL</strong>) y envía el comprobante a <strong>info@rcp.services</strong> o por WhatsApp. Tu cuenta se activará tras la verificación de la transferencia.<br><br><a href="/" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Volver al Inicio</a>';
+              } else if (activeMethod === 'paypal') {
+                procTitle!.innerHTML = isEN ? 'Order Registered (Verification Pending)' : 'Pedido Registrado (Verificación Pendiente)';
+                procSub!.innerHTML = isEN 
+                  ? 'Your PayPal order is registered. We will notify you via email once payment verification is complete.' 
+                  : 'Tu pedido de PayPal ha sido registrado. Te enviaremos un correo de confirmación una vez validada la transacción por nuestro equipo.<br><br><a href="/" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Volver al Inicio</a>';
+              } else if (activeMethod === 'whatsapp') {
+                procTitle!.innerHTML = isEN ? 'Quote Request Registered' : 'Solicitud de Cotización Registrada';
+                const waMessage = encodeURIComponent(`Hola RCP Services, acabo de registrar mi pedido para ${company} (${checkoutItems.map(i => i.name).join(', ')}). RNC: ${rnc}.`);
+                const waLink = `https://wa.me/18298068092?text=${waMessage}`;
+                procSub!.innerHTML = isEN 
+                  ? `Redirecting to WhatsApp to complete your quote... <br><br><a href="${waLink}" target="_blank" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Open WhatsApp</a>` 
+                  : `Redirigiendo a WhatsApp para finalizar los detalles de tu cotización... <br><br><a href="${waLink}" target="_blank" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Abrir WhatsApp</a>`;
+                
+                setTimeout(() => {
+                  window.open(waLink, '_blank');
+                }, 2000);
+              } else {
+                // cardnet fallback or success
+                procTitle!.textContent = isEN ? 'Payment Successful!' : '¡Pago Procesado con Éxito!';
+                procSub!.textContent = isEN ? 'Syncing account and redirecting...' : 'Sincronizando cuenta y redirigiendo...';
+                setTimeout(() => {
+                  window.location.href = `/portal?signup=true&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&company=${encodeURIComponent(company)}`;
+                }, 1500);
+              }
             });
           }
         }, 300);
