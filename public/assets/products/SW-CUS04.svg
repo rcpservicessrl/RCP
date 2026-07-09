@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- API Integration - Two blocks connected by thick line through central circle -->
   <!-- Left block -->
-  <rect x="48" y="176" width="120" height="160" rx="20" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="48" y="176" width="120" height="160" rx="20" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Left block lines -->
   <rect x="72" y="208" width="72" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
   <rect x="72" y="236" width="56" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
@@ -13,7 +13,7 @@
   <circle cx="256" cy="256" r="48" fill="#79C143" stroke="#1A1B20" stroke-width="8"/>
   <text x="256" y="270" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF" stroke="none" text-anchor="middle">API</text>
   <!-- Right block -->
-  <rect x="344" y="176" width="120" height="160" rx="20" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="344" y="176" width="120" height="160" rx="20" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Right block lines -->
   <rect x="368" y="208" width="72" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
   <rect x="368" y="236" width="56" height="12" rx="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>

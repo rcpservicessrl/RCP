@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Polo Shirt - T-shirt shape with collar, logo square on chest -->
   <!-- Shirt body -->
-  <path d="M160 180 L160 440 L352 440 L352 180 L312 164 L296 200 C288 212 224 212 216 200 L200 164 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M160 180 L160 440 L352 440 L352 180 L312 164 L296 200 C288 212 224 212 216 200 L200 164 Z" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Sleeves -->
-  <path d="M160 180 L96 216 L96 280 L136 268 L160 260" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
-  <path d="M352 180 L416 216 L416 280 L376 268 L352 260" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M160 180 L96 216 L96 280 L136 268 L160 260" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M352 180 L416 216 L416 280 L376 268 L352 260" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Collar -->
   <path d="M200 164 L216 200 C224 212 240 216 256 216 C272 216 288 212 296 200 L312 164" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
   <!-- Collar V-neck line -->

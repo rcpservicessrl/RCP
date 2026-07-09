@@ -347,6 +347,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           transactionId = 'WA-' + Math.floor(100000 + Math.random() * 900000);
         }
 
+        if (!navigator.onLine) {
+          const accessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
+          const newPago = { id: transactionId, amount: document.getElementById('summaryTotalToday')!.textContent, date: new Date().toLocaleDateString(), items: checkoutItems };
+          const txnData = {
+            transactionId, name, email, phone, company, rnc, address,
+            items: checkoutItems, paymentMethod: activeMethod,
+            amountPaid: newPago.amount,
+            date: newPago.date
+          };
+          localStorage.setItem('last_transaction', JSON.stringify(txnData));
+
+          const status = activeMethod === 'whatsapp' ? 'quote_requested' : (activeMethod === 'cardnet' ? 'onboarding' : 'payment_pending');
+
+          const webhookPayload = {
+            user_name: name, user_email: email, user_phone: phone, user_company: company,
+            user_service: checkoutItems.map((item:any) => item.name).join(', '),
+            user_message: `Pedido registrado (OFFLINE - ${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
+            lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status
+          };
+
+          const supabaseData = {
+            email, company, name, phone, address, rnc, status, accessCode, newPago
+          };
+
+          const queue = JSON.parse(localStorage.getItem('rcp_offline_queue') || '[]');
+          queue.push({
+            type: 'checkout',
+            url: RCP_LEAD_WEBHOOK_URL,
+            payload: webhookPayload,
+            timestamp: Date.now().toString(),
+            supabaseData: supabaseData
+          });
+          localStorage.setItem('rcp_offline_queue', JSON.stringify(queue));
+
+          processingOverlay?.classList.add('active');
+          if (progressBarFill && progressBarFill.parentElement) {
+            progressBarFill.parentElement.style.display = 'none';
+          }
+          const spinner = document.querySelector('.spinner-leopard');
+          if (spinner) (spinner as HTMLElement).style.display = 'none';
+
+          procTitle!.innerHTML = isEN ? 'Order Enqueued (Offline)' : 'Pedido en Cola (Sin Conexión)';
+          procSub!.innerHTML = isEN
+            ? 'You are currently offline. Your purchase has been securely saved locally and will sync automatically when your connection is restored.'
+            : 'Actualmente no tienes conexión a internet. Tu pedido ha sido guardado localmente en tu navegador de forma segura y se sincronizará automáticamente tan pronto recuperes la conexión.<br><br><a href="/" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Volver al Inicio</a>';
+          return;
+        }
+
         let progress = 30;
         (progressBarFill as HTMLElement).style.width = progress + '%';
 

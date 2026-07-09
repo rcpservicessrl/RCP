@@ -261,6 +261,30 @@ if (contactForm) {
     const payloadString = JSON.stringify(formData);
     const timestamp = Date.now().toString();
 
+    if (!navigator.onLine) {
+      const queue = JSON.parse(localStorage.getItem('rcp_offline_queue') || '[]');
+      queue.push({
+        type: 'lead',
+        url: RCP_LEAD_WEBHOOK_URL,
+        payload: formData,
+        timestamp: timestamp
+      });
+      localStorage.setItem('rcp_offline_queue', JSON.stringify(queue));
+
+      btn.textContent = '💾 Sin conexión. Guardado para enviar al reconectar.';
+      btn.style.background = '#fcb53f';
+      btn.style.color = '#000';
+      contactForm.reset();
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 4000);
+      return;
+    }
+
     try {
       const resp = await fetch(RCP_LEAD_WEBHOOK_URL, {
         method: 'POST',
@@ -1883,5 +1907,116 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
+  }
+
+  // ─── OFFLINE OUTBOX QUEUE SYSTEM ───
+  function loadSupabaseScript() {
+    return new Promise((resolve, reject) => {
+      if (window.supabase) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
+      script.integrity = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug';
+      script.crossOrigin = 'anonymous';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Supabase SDK'));
+      document.body.appendChild(script);
+    });
+  }
+
+  async function syncOfflineQueue() {
+    const queue = JSON.parse(localStorage.getItem('rcp_offline_queue') || '[]');
+    if (queue.length === 0) return;
+
+    console.log('[Offline Sync] Syncing ' + queue.length + ' queued items...');
+    const remaining = [];
+
+    for (const item of queue) {
+      try {
+        // 1. Send the Webhook Lead / Checkout
+        if (item.url && item.payload) {
+          const timestamp = item.timestamp || Date.now().toString();
+          const resp = await fetch(item.url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-RCP-Timestamp': timestamp
+            },
+            body: JSON.stringify(item.payload)
+          });
+          if (!resp.ok) throw new Error('Webhook failed with status ' + resp.status);
+        }
+
+        // 2. Send the Supabase update (for checkouts)
+        if (item.supabaseData) {
+          await loadSupabaseScript();
+          const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+          const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+          const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+          const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+          const sd = item.supabaseData;
+          const { data: existingClient, error: selectError } = await supabaseClient
+            .from('clientes')
+            .select('id, status, pagos')
+            .eq('email', sd.email)
+            .maybeSingle();
+
+          if (selectError) throw selectError;
+
+          if (existingClient) {
+            const existingPagos = Array.isArray(existingClient.pagos) ? existingClient.pagos : [];
+            const alreadyPaid = existingPagos.some(p => p.id === sd.newPago.id);
+            if (!alreadyPaid) {
+              existingPagos.push(sd.newPago);
+            }
+            const updatePayload = {
+              pagos: existingPagos,
+              company_name: sd.company,
+              owner_name: sd.name,
+              phone: sd.phone,
+              address: sd.address,
+              legal_id: sd.rnc
+            };
+            if (!existingClient.status || existingClient.status === 'pending_activation') {
+              updatePayload.status = sd.status;
+            }
+            const { error: updateError } = await supabaseClient
+              .from('clientes')
+              .update(updatePayload)
+              .eq('id', existingClient.id);
+            if (updateError) throw updateError;
+          } else {
+            const newClient = {
+              company_name: sd.company,
+              legal_id: sd.rnc,
+              owner_name: sd.name,
+              email: sd.email,
+              phone: sd.phone,
+              address: sd.address,
+              status: sd.status,
+              access_code: sd.accessCode,
+              pagos: [sd.newPago]
+            };
+            const { error: insertError } = await supabaseClient
+              .from('clientes')
+              .insert([newClient]);
+            if (insertError) throw insertError;
+          }
+        }
+      } catch (err) {
+        console.error('[Offline Sync] Failed to sync item:', err);
+        remaining.push(item);
+      }
+    }
+
+    localStorage.setItem('rcp_offline_queue', JSON.stringify(remaining));
+  }
+
+  window.addEventListener('online', syncOfflineQueue);
+  if (navigator.onLine) {
+    syncOfflineQueue();
   }
 })();

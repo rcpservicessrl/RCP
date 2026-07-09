@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <!-- Dashboard Directivo -->
   <rect x="56" y="80" width="400" height="256" rx="28" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
-  <rect x="88" y="240" width="48" height="72" rx="10" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="152" y="216" width="48" height="96" rx="10" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="88" y="240" width="48" height="72" rx="10" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="152" y="216" width="48" height="96" rx="10" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <rect x="216" y="192" width="48" height="120" rx="10" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <rect x="280" y="204" width="48" height="108" rx="10" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <rect x="344" y="168" width="48" height="144" rx="10" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="56" y="368" width="120" height="64" rx="16" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="56" y="368" width="120" height="64" rx="16" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <rect x="196" y="368" width="120" height="64" rx="16" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <rect x="336" y="368" width="120" height="64" rx="16" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
   <text x="80" y="407" font-family="sans-serif" font-size="20" fill="#1A1B20" font-weight="900">CAC</text>

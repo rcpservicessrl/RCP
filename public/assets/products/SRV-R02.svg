@@ -8,7 +8,7 @@
   <line x1="220" y1="256" x2="312" y2="256" stroke="#1A1B20" stroke-width="10"/>
   <polyline points="288,232 316,256 288,280" fill="none" stroke="#1A1B20" stroke-width="10"/>
   <!-- New bold circle -->
-  <circle cx="392" cy="256" r="80" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <circle cx="392" cy="256" r="80" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Star inside new circle -->
   <polygon points="392,196 406,232 444,232 414,256 424,292 392,272 360,292 370,256 340,232 378,232" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <!-- Sparkle effects -->

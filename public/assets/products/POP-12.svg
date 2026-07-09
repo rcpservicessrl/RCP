@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Embroidered Apron - Apron shape with pocket and logo -->
   <!-- Apron body -->
-  <path d="M152 120 L360 120 L380 460 L132 460 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M152 120 L360 120 L380 460 L132 460 Z" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Neck strap -->
   <path d="M200 120 C200 72 256 56 256 56 C256 56 312 72 312 120" fill="none" stroke="#1A1B20" stroke-width="10"/>
   <!-- Waist ties -->

@@ -5,17 +5,17 @@
   <!-- LED sign body -->
   <rect x="120" y="180" width="272" height="120" rx="12" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
   <!-- LED display screen -->
-  <rect x="136" y="196" width="240" height="88" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="136" y="196" width="240" height="88" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <!-- LED text -->
   <rect x="168" y="226" width="80" height="16" rx="4" fill="#FFFFFF" stroke="none"/>
   <rect x="264" y="226" width="80" height="16" rx="4" fill="#FFFFFF" stroke="none"/>
   <rect x="196" y="252" width="120" height="12" rx="4" fill="#79C143" stroke="none"/>
   <!-- Light rays -->
-  <line x1="120" y1="168" x2="96" y2="140" stroke="#FAB839" stroke-width="6"/>
-  <line x1="200" y1="172" x2="192" y2="140" stroke="#FAB839" stroke-width="6"/>
-  <line x1="256" y1="172" x2="256" y2="136" stroke="#FAB839" stroke-width="6"/>
-  <line x1="312" y1="172" x2="320" y2="140" stroke="#FAB839" stroke-width="6"/>
-  <line x1="392" y1="168" x2="416" y2="140" stroke="#FAB839" stroke-width="6"/>
+  <line x1="120" y1="168" x2="96" y2="140" stroke="#FCB53F" stroke-width="6"/>
+  <line x1="200" y1="172" x2="192" y2="140" stroke="#FCB53F" stroke-width="6"/>
+  <line x1="256" y1="172" x2="256" y2="136" stroke="#FCB53F" stroke-width="6"/>
+  <line x1="312" y1="172" x2="320" y2="140" stroke="#FCB53F" stroke-width="6"/>
+  <line x1="392" y1="168" x2="416" y2="140" stroke="#FCB53F" stroke-width="6"/>
   <!-- Mounting brackets -->
   <rect x="180" y="300" width="20" height="28" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
   <rect x="312" y="300" width="20" height="28" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>

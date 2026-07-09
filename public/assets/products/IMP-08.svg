@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Roll-up Banner - Tall rectangle on triangular stand base -->
   <!-- Banner body -->
-  <rect x="152" y="40" width="208" height="368" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="152" y="40" width="208" height="368" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Banner content -->
   <circle cx="256" cy="120" r="36" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <rect x="196" y="180" width="120" height="14" rx="7" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>

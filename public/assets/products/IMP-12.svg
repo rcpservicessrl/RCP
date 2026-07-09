@@ -8,7 +8,7 @@
   <path d="M200 184 L210 220 L268 220 L268 184 Z" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <path d="M276 184 L276 220 L360 220 L340 184 Z" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <!-- Branded panel on door -->
-  <rect x="160" y="248" width="160" height="56" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="160" y="248" width="160" height="56" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <!-- Logo on branded panel -->
   <circle cx="208" cy="276" r="16" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
   <rect x="236" y="268" width="64" height="12" rx="6" fill="#1A1B20" stroke="none"/>

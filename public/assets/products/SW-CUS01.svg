@@ -6,7 +6,7 @@
   <rect x="64" y="72" width="384" height="40" rx="24" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
   <rect x="64" y="96" width="384" height="16" rx="0" fill="#1A1B20" stroke="none"/>
   <!-- Code brackets </> -->
-  <text x="256" y="260" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="#FAB839" stroke="#1A1B20" stroke-width="6" text-anchor="middle">&lt;/&gt;</text>
+  <text x="256" y="260" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="#FCB53F" stroke="#1A1B20" stroke-width="6" text-anchor="middle">&lt;/&gt;</text>
   <!-- Monitor stand -->
   <rect x="216" y="352" width="80" height="32" rx="4" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
   <rect x="176" y="380" width="160" height="16" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>

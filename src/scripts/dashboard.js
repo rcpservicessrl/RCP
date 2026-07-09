@@ -1,4 +1,15 @@
     (function() {
+      // Helper function to prevent XSS
+      function escapeHTML(str) {
+        if (str === null || str === undefined) return '';
+        return str.toString()
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
       // Initialize Supabase Client (auto-detect local vs cloud)
       const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
       const supabaseUrl = isLocal
@@ -458,10 +469,12 @@
         if (isAdminLike) {
           // ADMIN FLOW
           const navClientesLink = document.getElementById('navClientesLink');
+          const navProductosLink = document.getElementById('navProductosLink');
           const adminSelectorRow = document.getElementById('adminSelectorRow');
           const adminClientSelect = document.getElementById('adminClientSelect');
 
           if (navClientesLink) navClientesLink.style.display = 'flex';
+          if (navProductosLink) navProductosLink.style.display = 'flex';
           if (adminSelectorRow) adminSelectorRow.style.display = 'flex';
 
           // Set sidebar admin profile visual (resolved from session, not hardcoded)
@@ -483,6 +496,8 @@
 
             // Load real clients from Supabase DB to populate selector & management CRUD
             await loadAdminClients();
+            // Load real products from Supabase DB
+            await loadAdminProducts();
           } else {
             renderClientDashboard(defaultMetrics);
             renderMarketing(null);
@@ -516,12 +531,15 @@
 
           // Hook CRUD actions
           setupAdminCRUD();
+          setupProductCRUD();
 
         } else {
           // CLIENT FLOW (LOAD OWN METRICS)
           const navClientesLink = document.getElementById('navClientesLink');
+          const navProductosLink = document.getElementById('navProductosLink');
           const adminSelectorRow = document.getElementById('adminSelectorRow');
           if (navClientesLink) navClientesLink.style.display = 'none';
+          if (navProductosLink) navProductosLink.style.display = 'none';
           if (adminSelectorRow) adminSelectorRow.style.display = 'none';
 
           let loaded = false;
@@ -847,6 +865,225 @@
         document.getElementById('clientFormTitle').textContent = t.formAdd;
         document.getElementById('clientFormBadge').style.display = 'none';
         document.getElementById('btnCancelEdit').style.display = 'none';
+      }
+
+      // PRODUCT CRUD LOGIC
+      let productList = [];
+
+      async function loadAdminProducts() {
+        if (!supabase) return;
+        try {
+          const { data, error } = await supabase
+            .from('productos')
+            .select('*')
+            .order('sort_order', { ascending: true });
+
+          if (error) throw error;
+
+          productList = data || [];
+          renderProductsTable();
+        } catch (err) {
+          console.error("Error loading admin products:", err);
+        }
+      }
+
+      function renderProductsTable() {
+        const tbody = document.getElementById('productosTableBody');
+        const categoryFilter = document.getElementById('productCategoryFilter')?.value || 'all';
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        const filtered = productList.filter(p => {
+          if (categoryFilter === 'all') return true;
+          return p.category === categoryFilter;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">No hay productos registrados.</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><code>${escapeHTML(p.sku)}</code></td>
+            <td><strong>${escapeHTML(p.name_es)}</strong></td>
+            <td>${escapeHTML(p.name_en || '—')}</td>
+            <td>${escapeHTML(getCatLabel(p.category))}</td>
+            <td><strong style="color:var(--accent);">RD$ ${(p.price_min || 0).toLocaleString()}</strong></td>
+            <td>
+              <span class="sync-badge ${p.is_active ? 'online' : 'offline'}">
+                ${p.is_active ? (isEN ? 'Active' : 'Activo') : (isEN ? 'Inactive' : 'Inactivo')}
+              </span>
+            </td>
+            <td>
+              <button class="btn-action-sm btn-edit-product" data-id="${p.id}" style="margin-right:5px; padding:6px 10px;" title="Editar">✏️</button>
+              <button class="btn-action-sm btn-delete-product" data-id="${p.id}" style="padding:6px 10px; border-color:#ef4444; color:#ef4444;" title="Eliminar">🗑️</button>
+            </td>
+          `;
+
+          tr.querySelector('.btn-edit-product').addEventListener('click', () => startEditProduct(p));
+          tr.querySelector('.btn-delete-product').addEventListener('click', () => deleteProduct(p.id));
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      function getCatLabel(cat) {
+        const catL = {
+          'software_preconfigurado': isEN ? 'Business Software' : 'Software Empresarial',
+          'software_custom': isEN ? 'Custom Development' : 'Desarrollo a Medida',
+          'imprenta': isEN ? 'Print & Signage' : 'Imprenta y Rotulación',
+          'pop_merchandising': isEN ? 'Corporate Merchandise' : 'POP Merchandising',
+          'articulos_corporativos': isEN ? 'Corporate Articles' : 'Artículos Corporativos',
+          'servicio_renovacion': isEN ? 'Renovation' : 'Renovación',
+          'servicio_consultoria': isEN ? 'Consulting' : 'Consultoría',
+          'servicio_publicidad': isEN ? 'Digital Marketing' : 'Marketing Digital'
+        };
+        return catL[cat] || cat;
+      }
+
+      function startEditProduct(p) {
+        document.getElementById('productIdInput').value = p.id;
+        document.getElementById('prodSku').value = p.sku;
+        document.getElementById('prodCategory').value = p.category;
+        document.getElementById('prodNameEs').value = p.name_es;
+        document.getElementById('prodNameEn').value = p.name_en || '';
+        document.getElementById('prodDescEs').value = p.description_es || '';
+        document.getElementById('prodDescEn').value = p.description_en || '';
+        document.getElementById('prodPriceMin').value = p.price_min || 0;
+        document.getElementById('prodPriceType').value = p.price_type || 'one_time';
+        document.getElementById('prodDeliveryMin').value = p.delivery_days_min !== null ? p.delivery_days_min : '';
+        document.getElementById('prodDeliveryMax').value = p.delivery_days_max !== null ? p.delivery_days_max : '';
+        document.getElementById('prodSortOrder').value = p.sort_order !== null ? p.sort_order : 0;
+        document.getElementById('prodRequiresQuote').checked = !!p.requires_quote;
+        document.getElementById('prodIsActive').checked = !!p.is_active;
+
+        document.getElementById('productFormTitle').textContent = isEN ? "Edit Product" : "Editar Producto";
+        document.getElementById('productFormBadge').style.display = 'inline-block';
+        document.getElementById('btnCancelProductEdit').style.display = 'inline-block';
+
+        const formCard = document.getElementById('productFormCard');
+        if (formCard) formCard.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function resetProductForm() {
+        document.getElementById('productForm').reset();
+        document.getElementById('productIdInput').value = '';
+        document.getElementById('productFormTitle').textContent = isEN ? "Register Product" : "Registrar Producto";
+        document.getElementById('productFormBadge').style.display = 'none';
+        document.getElementById('btnCancelProductEdit').style.display = 'none';
+      }
+
+      async function deleteProduct(id) {
+        const confirmMsg = isEN ? "Are you sure you want to delete this product?" : "¿Estás seguro de que deseas eliminar este producto?";
+        if (confirm(confirmMsg)) {
+          try {
+            const { error } = await supabase
+              .from('productos')
+              .delete()
+              .eq('id', id);
+
+            if (error) throw error;
+
+            alert(isEN ? "Product deleted successfully." : "Producto eliminado correctamente.");
+            await loadAdminProducts();
+          } catch (err) {
+            console.error("Error deleting product:", err);
+            alert(isEN ? "Error deleting product: " + err.message : "Error al eliminar producto: " + err.message);
+          }
+        }
+      }
+
+      function setupProductCRUD() {
+        const categoryFilter = document.getElementById('productCategoryFilter');
+        if (categoryFilter) {
+          categoryFilter.addEventListener('change', renderProductsTable);
+        }
+
+        const btnRefresh = document.getElementById('btnRefreshProductos');
+        if (btnRefresh) {
+          btnRefresh.addEventListener('click', async () => {
+            const originalText = btnRefresh.textContent;
+            btnRefresh.textContent = isEN ? 'Syncing...' : 'Sincronizando...';
+            btnRefresh.disabled = true;
+            await loadAdminProducts();
+            btnRefresh.textContent = originalText;
+            btnRefresh.disabled = false;
+          });
+        }
+
+        const btnCancelEdit = document.getElementById('btnCancelProductEdit');
+        if (btnCancelEdit) {
+          btnCancelEdit.addEventListener('click', resetProductForm);
+        }
+
+        const productForm = document.getElementById('productForm');
+        if (productForm) {
+          productForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btnSave = document.getElementById('btnSaveProduct');
+            const originalText = btnSave.textContent;
+            btnSave.textContent = isEN ? "Saving..." : "Guardando...";
+            btnSave.disabled = true;
+
+            const productId = document.getElementById('productIdInput').value;
+            const sku = document.getElementById('prodSku').value.trim();
+            const category = document.getElementById('prodCategory').value;
+            const nameEs = document.getElementById('prodNameEs').value.trim();
+            const nameEn = document.getElementById('prodNameEn').value.trim();
+            const descEs = document.getElementById('prodDescEs').value.trim();
+            const descEn = document.getElementById('prodDescEn').value.trim();
+            const priceMin = parseInt(document.getElementById('prodPriceMin').value) || 0;
+            const priceType = document.getElementById('prodPriceType').value;
+            const deliveryMin = document.getElementById('prodDeliveryMin').value !== '' ? parseInt(document.getElementById('prodDeliveryMin').value) : null;
+            const deliveryMax = document.getElementById('prodDeliveryMax').value !== '' ? parseInt(document.getElementById('prodDeliveryMax').value) : null;
+            const sortOrder = document.getElementById('prodSortOrder').value !== '' ? parseInt(document.getElementById('prodSortOrder').value) : 0;
+            const requiresQuote = document.getElementById('prodRequiresQuote').checked;
+            const isActive = document.getElementById('prodIsActive').checked;
+
+            const payload = {
+              sku,
+              category,
+              name_es: nameEs,
+              name_en: nameEn || null,
+              description_es: descEs || null,
+              description_en: descEn || null,
+              price_min: priceMin,
+              price_type: priceType,
+              delivery_days_min: deliveryMin,
+              delivery_days_max: deliveryMax,
+              sort_order: sortOrder,
+              requires_quote: requiresQuote,
+              is_active: isActive
+            };
+
+            try {
+              if (productId) {
+                const { error } = await supabase
+                  .from('productos')
+                  .update(payload)
+                  .eq('id', productId);
+                if (error) throw error;
+              } else {
+                const { error } = await supabase
+                  .from('productos')
+                  .insert([payload]);
+                if (error) throw error;
+              }
+
+              alert(isEN ? "Product saved successfully." : "Producto guardado correctamente.");
+              resetProductForm();
+              await loadAdminProducts();
+            } catch (err) {
+              console.error("Error saving product:", err);
+              alert(isEN ? "Failed to save product: " + err.message : "Error al guardar producto: " + err.message);
+            } finally {
+              btnSave.textContent = originalText;
+              btnSave.disabled = false;
+            }
+          });
+        }
       }
 
       // CRUD ACTIONS ATTACHMENT

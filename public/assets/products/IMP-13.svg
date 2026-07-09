@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Product Labels - Rounded rectangle with barcode lines at bottom -->
   <!-- Label body -->
-  <rect x="96" y="96" width="320" height="320" rx="32" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="96" y="96" width="320" height="320" rx="32" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Inner white area -->
   <rect x="128" y="128" width="256" height="200" rx="16" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
   <!-- Logo area -->

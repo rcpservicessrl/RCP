@@ -6,20 +6,20 @@
   <rect x="136" y="220" width="56" height="56" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <rect x="228" y="220" width="56" height="56" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
   <rect x="320" y="220" width="56" height="56" rx="6" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="136" y="312" width="56" height="56" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="228" y="312" width="56" height="56" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="320" y="312" width="56" height="56" rx="6" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="136" y="312" width="56" height="56" rx="6" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="228" y="312" width="56" height="56" rx="6" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="320" y="312" width="56" height="56" rx="6" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <!-- Door -->
   <rect x="220" y="400" width="72" height="76" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
   <!-- Facade sign on top -->
-  <rect x="128" y="80" width="256" height="72" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="128" y="80" width="256" height="72" rx="12" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Sign text area -->
   <rect x="168" y="100" width="176" height="32" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
   <!-- Sign supports -->
   <rect x="160" y="152" width="12" height="16" rx="2" fill="#1A1B20" stroke="none"/>
   <rect x="340" y="152" width="12" height="16" rx="2" fill="#1A1B20" stroke="none"/>
   <!-- Light rays from sign -->
-  <line x1="160" y1="72" x2="148" y2="48" stroke="#FAB839" stroke-width="6"/>
-  <line x1="256" y1="72" x2="256" y2="44" stroke="#FAB839" stroke-width="6"/>
-  <line x1="352" y1="72" x2="364" y2="48" stroke="#FAB839" stroke-width="6"/>
+  <line x1="160" y1="72" x2="148" y2="48" stroke="#FCB53F" stroke-width="6"/>
+  <line x1="256" y1="72" x2="256" y2="44" stroke="#FCB53F" stroke-width="6"/>
+  <line x1="352" y1="72" x2="364" y2="48" stroke="#FCB53F" stroke-width="6"/>
 </svg>

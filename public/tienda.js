@@ -40,6 +40,106 @@ function isEN(){return getLang()==='en';}
 function getCatLabel(cat){return isEN()?(catL_en[cat]||cat):(catL[cat]||cat);}
 function getTypeLabel(type){return isEN()?(typeL_en[type]||'One-time'):(typeL[type]||'Pago unico');}
 
+// ─── STATIC CATALOG FALLBACK ───
+var STATIC_PRODUCT_CATALOG = [
+  { sku: 'SRV-R01', name_es: 'Identidad Visual Básica', name_en: 'Basic Visual Identity', category: 'servicio_renovacion', price_type: 'one_time', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'SRV-R02', name_es: 'Rebranding Corporativo Premium', name_en: 'Premium Corporate Rebranding', category: 'servicio_renovacion', price_type: 'one_time', price_min: 40000, delivery_days_min: 14, delivery_days_max: 28, requires_quote: false },
+  { sku: 'SRV-R03', name_es: 'Modelado de Procesos y SOPs', name_en: 'Process Modeling & SOPs', category: 'servicio_renovacion', price_type: 'one_time', price_min: 30000, delivery_days_min: 14, delivery_days_max: 21, requires_quote: false },
+  { sku: 'SRV-R04', name_es: 'Automatización Operativa con IA', name_en: 'AI Operational Automation', category: 'servicio_renovacion', price_type: 'one_time', price_min: 25000, delivery_days_min: 10, delivery_days_max: 21, requires_quote: false },
+  { sku: 'SRV-R05', name_es: 'Cultura Organizacional', name_en: 'Organizational Culture', category: 'servicio_renovacion', price_type: 'one_time', price_min: 20000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SRV-R06', name_es: 'Auditoría CX (Experiencia del Cliente)', name_en: 'CX Audit (Customer Experience)', category: 'servicio_renovacion', price_type: 'one_time', price_min: 15000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SRV-R07', name_es: 'Consultoría de Transformación Digital', name_en: 'Digital Transformation Consulting', category: 'servicio_renovacion', price_type: 'one_time', price_min: 35000, delivery_days_min: 14, delivery_days_max: 28, requires_quote: false },
+  { sku: 'SRV-R08', name_es: 'Capacitación Empresarial (Talleres)', name_en: 'Business Training (Workshops)', category: 'servicio_renovacion', price_type: 'one_time', price_min: 15000, delivery_days_min: 3, delivery_days_max: 7, requires_quote: false },
+  { sku: 'SRV-C01', name_es: 'Formalización Comercial Completa', name_en: 'Complete Business Formalization', category: 'servicio_consultoria', price_type: 'one_time', price_min: 25000, delivery_days_min: 14, delivery_days_max: 30, requires_quote: false },
+  { sku: 'SRV-C02', name_es: 'Registro de Marca en ONAPI', name_en: 'ONAPI Trademark Registration', category: 'servicio_consultoria', price_type: 'one_time', price_min: 15000, delivery_days_min: 30, delivery_days_max: 90, requires_quote: false },
+  { sku: 'SRV-C03', name_es: 'Auditoría y Planificación Fiscal', name_en: 'Tax Audit & Planning', category: 'servicio_consultoria', price_type: 'one_time', price_min: 20000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SRV-C04', name_es: 'Licitaciones Públicas (Ley 488-08)', name_en: 'Government Procurement (Law 488-08)', category: 'servicio_consultoria', price_type: 'one_time', price_min: 30000, delivery_days_min: 21, delivery_days_max: 45, requires_quote: false },
+  { sku: 'SRV-C05', name_es: 'Contratos y NDAs Comerciales', name_en: 'Commercial Contracts & NDAs', category: 'servicio_consultoria', price_type: 'one_time', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'SRV-C06', name_es: 'Iguala Mensual Contable', name_en: 'Monthly Accounting Retainer', category: 'servicio_consultoria', price_type: 'recurring', price_min: 12000, delivery_days_min: 1, delivery_days_max: 3, requires_quote: false },
+  { sku: 'SRV-C07', name_es: 'Cumplimiento Laboral y TSS', name_en: 'Labor Compliance & Social Security', category: 'servicio_consultoria', price_type: 'one_time', price_min: 20000, delivery_days_min: 7, delivery_days_max: 21, requires_quote: false },
+  { sku: 'SRV-C08', name_es: 'Diagnóstico 360° Empresarial', name_en: 'Business 360° Diagnosis', category: 'servicio_consultoria', price_type: 'one_time', price_min: 0, delivery_days_min: 1, delivery_days_max: 3, requires_quote: false },
+  { sku: 'SRV-C09', name_es: 'Plan de Negocio y Proyecciones', name_en: 'Business Plan & Projections', category: 'servicio_consultoria', price_type: 'one_time', price_min: 25000, delivery_days_min: 10, delivery_days_max: 21, requires_quote: false },
+  { sku: 'SRV-C10', name_es: 'Due Diligence para Inversión', name_en: 'Investment Due Diligence', category: 'servicio_consultoria', price_type: 'one_time', price_min: 40000, delivery_days_min: 14, delivery_days_max: 30, requires_quote: false },
+  { sku: 'SRV-P01', name_es: 'Landing Page de Conversión', name_en: 'Conversion Landing Page', category: 'servicio_publicidad', price_type: 'one_time', price_min: 18000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'SRV-P02', name_es: 'Campañas Meta & Google Ads', name_en: 'Meta & Google Ads Campaigns', category: 'servicio_publicidad', price_type: 'recurring', price_min: 15000, delivery_days_min: 3, delivery_days_max: 7, requires_quote: false },
+  { sku: 'SRV-P03', name_es: 'CRM Automatizado', name_en: 'Automated CRM', category: 'servicio_publicidad', price_type: 'one_time', price_min: 25000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SRV-P04', name_es: 'Posicionamiento SEO Local', name_en: 'Local SEO Positioning', category: 'servicio_publicidad', price_type: 'recurring', price_min: 12000, delivery_days_min: 14, delivery_days_max: 30, requires_quote: false },
+  { sku: 'SRV-P05', name_es: 'Community Manager (Redes Sociales)', name_en: 'Social Media Management', category: 'servicio_publicidad', price_type: 'recurring', price_min: 15000, delivery_days_min: 3, delivery_days_max: 7, requires_quote: false },
+  { sku: 'SRV-P06', name_es: 'E-commerce Completo', name_en: 'Complete E-commerce', category: 'servicio_publicidad', price_type: 'one_time', price_min: 45000, delivery_days_min: 21, delivery_days_max: 45, requires_quote: false },
+  { sku: 'SRV-P07', name_es: 'Edición Multimedia TikTok/Reels', name_en: 'TikTok/Reels Video Editing', category: 'servicio_publicidad', price_type: 'recurring', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'SRV-P08', name_es: 'Email Marketing Automatizado', name_en: 'Automated Email Marketing', category: 'servicio_publicidad', price_type: 'recurring', price_min: 8000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'SRV-P09', name_es: 'Chatbot WhatsApp con IA', name_en: 'AI WhatsApp Chatbot', category: 'servicio_publicidad', price_type: 'one_time', price_min: 30000, delivery_days_min: 10, delivery_days_max: 21, requires_quote: false },
+  { sku: 'SRV-P10', name_es: 'Fotografía de Producto Profesional', name_en: 'Professional Product Photography', category: 'servicio_publicidad', price_type: 'one_time', price_min: 10000, delivery_days_min: 3, delivery_days_max: 7, requires_quote: false },
+  { sku: 'SW-PRE01', name_es: 'Sistema POS (Punto de Venta)', name_en: 'POS System (Point of Sale)', category: 'software_preconfigurado', price_type: 'one_time', price_min: 35000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SW-PRE02', name_es: 'CRM Corporativo Pre-configurado', name_en: 'Pre-configured Corporate CRM', category: 'software_preconfigurado', price_type: 'one_time', price_min: 30000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SW-PRE03', name_es: 'ERP Básico (Ventas + Inventario)', name_en: 'Basic ERP (Sales + Inventory)', category: 'software_preconfigurado', price_type: 'one_time', price_min: 45000, delivery_days_min: 14, delivery_days_max: 21, requires_quote: false },
+  { sku: 'SW-PRE04', name_es: 'ERP Completo (Multi-módulo)', name_en: 'Complete ERP (Multi-module)', category: 'software_preconfigurado', price_type: 'one_time', price_min: 80000, delivery_days_min: 21, delivery_days_max: 45, requires_quote: false },
+  { sku: 'SW-PRE05', name_es: 'Sistema de Facturación Electrónica', name_en: 'Electronic Invoicing System', category: 'software_preconfigurado', price_type: 'one_time', price_min: 25000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SW-PRE06', name_es: 'Sistema de Reservas/Citas Online', name_en: 'Online Booking/Appointment System', category: 'software_preconfigurado', price_type: 'one_time', price_min: 20000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'SW-PRE07', name_es: 'Plataforma de Delivery/Pedidos', name_en: 'Delivery/Orders Platform', category: 'software_preconfigurado', price_type: 'one_time', price_min: 50000, delivery_days_min: 14, delivery_days_max: 28, requires_quote: false },
+  { sku: 'SW-PRE08', name_es: 'Dashboard Directivo (KPIs)', name_en: 'Executive Dashboard (KPIs)', category: 'software_preconfigurado', price_type: 'one_time', price_min: 35000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'SW-PRE09', name_es: 'Sistema de Gestión Escolar', name_en: 'School Management System', category: 'software_preconfigurado', price_type: 'one_time', price_min: 60000, delivery_days_min: 21, delivery_days_max: 45, requires_quote: false },
+  { sku: 'SW-PRE10', name_es: 'Sistema de Gestión de Clínica', name_en: 'Clinic Management System', category: 'software_preconfigurado', price_type: 'one_time', price_min: 55000, delivery_days_min: 14, delivery_days_max: 30, requires_quote: false },
+  { sku: 'SW-CUS01', name_es: 'Aplicación Web a Medida (PWA)', name_en: 'Custom Web Application (PWA)', category: 'software_custom', price_type: 'one_time', price_min: 80000, delivery_days_min: 30, delivery_days_max: 90, requires_quote: true },
+  { sku: 'SW-CUS02', name_es: 'Aplicación Móvil (iOS + Android)', name_en: 'Mobile App (iOS + Android)', category: 'software_custom', price_type: 'one_time', price_min: 120000, delivery_days_min: 45, delivery_days_max: 120, requires_quote: true },
+  { sku: 'SW-CUS03', name_es: 'Portal de Clientes Personalizado', name_en: 'Custom Client Portal', category: 'software_custom', price_type: 'one_time', price_min: 60000, delivery_days_min: 21, delivery_days_max: 60, requires_quote: true },
+  { sku: 'SW-CUS04', name_es: 'Integración de APIs y Sistemas', name_en: 'API & Systems Integration', category: 'software_custom', price_type: 'one_time', price_min: 30000, delivery_days_min: 10, delivery_days_max: 30, requires_quote: true },
+  { sku: 'SW-CUS05', name_es: 'Marketplace / Plataforma Multi-vendor', name_en: 'Marketplace / Multi-vendor Platform', category: 'software_custom', price_type: 'one_time', price_min: 150000, delivery_days_min: 60, delivery_days_max: 120, requires_quote: true },
+  { sku: 'SW-CUS06', name_es: 'Sistema de IA Corporativa Privada', name_en: 'Private Corporate AI System', category: 'software_custom', price_type: 'one_time', price_min: 100000, delivery_days_min: 30, delivery_days_max: 60, requires_quote: true },
+  { sku: 'SW-CUS07', name_es: 'Sitio Web Corporativo Multi-página', name_en: 'Multi-page Corporate Website', category: 'software_custom', price_type: 'one_time', price_min: 40000, delivery_days_min: 14, delivery_days_max: 30, requires_quote: false },
+  { sku: 'SW-CUS08', name_es: 'Mantenimiento y Soporte Mensual', name_en: 'Monthly Maintenance & Support', category: 'software_custom', price_type: 'recurring', price_min: 8000, delivery_days_min: 1, delivery_days_max: 3, requires_quote: false },
+  { sku: 'IMP-01', name_es: 'Tarjetas de Presentación (500 uds)', name_en: 'Business Cards (500 pcs)', category: 'imprenta', price_type: 'per_unit', price_min: 3500, delivery_days_min: 3, delivery_days_max: 5, requires_quote: false },
+  { sku: 'IMP-02', name_es: 'Hojas Timbradas y Sobres Corporativos', name_en: 'Letterhead & Corporate Envelopes', category: 'imprenta', price_type: 'per_unit', price_min: 5000, delivery_days_min: 5, delivery_days_max: 7, requires_quote: false },
+  { sku: 'IMP-03', name_es: 'Carpetas Institucionales', name_en: 'Institutional Folders', category: 'imprenta', price_type: 'per_unit', price_min: 8000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'IMP-04', name_es: 'Volantes / Flyers (1000 uds)', name_en: 'Flyers (1000 pcs)', category: 'imprenta', price_type: 'per_unit', price_min: 4000, delivery_days_min: 3, delivery_days_max: 5, requires_quote: false },
+  { sku: 'IMP-05', name_es: 'Brochures / Catálogos Impresos', name_en: 'Printed Brochures / Catalogs', category: 'imprenta', price_type: 'per_unit', price_min: 15000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'IMP-06', name_es: 'Formularios de Factura NCF (Blocks)', name_en: 'NCF Invoice Forms (Blocks)', category: 'imprenta', price_type: 'per_unit', price_min: 3000, delivery_days_min: 3, delivery_days_max: 5, requires_quote: false },
+  { sku: 'IMP-07', name_es: 'Formularios Pre-impresos Personalizados', name_en: 'Custom Pre-printed Forms', category: 'imprenta', price_type: 'per_unit', price_min: 4000, delivery_days_min: 5, delivery_days_max: 7, requires_quote: false },
+  { sku: 'IMP-08', name_es: 'Banner / Roll-up (85×200cm)', name_en: 'Banner / Roll-up (85×200cm)', category: 'imprenta', price_type: 'per_unit', price_min: 4500, delivery_days_min: 3, delivery_days_max: 5, requires_quote: false },
+  { sku: 'IMP-09', name_es: 'Valla Publicitaria / Bajante', name_en: 'Billboard / Drop Banner', category: 'imprenta', price_type: 'per_unit', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'IMP-10', name_es: 'Letrero Luminoso / Acrílico', name_en: 'Light Box / Acrylic Sign', category: 'imprenta', price_type: 'one_time', price_min: 20000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'IMP-11', name_es: 'Rotulación de Fachada (Vinil)', name_en: 'Facade Vinyl Signage', category: 'imprenta', price_type: 'one_time', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'IMP-12', name_es: 'Branding de Vehículos / Flota', name_en: 'Vehicle / Fleet Branding', category: 'imprenta', price_type: 'per_unit', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'IMP-13', name_es: 'Etiquetas de Producto Personalizadas', name_en: 'Custom Product Labels', category: 'imprenta', price_type: 'per_unit', price_min: 5000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'IMP-14', name_es: 'Empaque / Packaging Personalizado', name_en: 'Custom Packaging', category: 'imprenta', price_type: 'per_unit', price_min: 12000, delivery_days_min: 10, delivery_days_max: 21, requires_quote: false },
+  { sku: 'POP-01', name_es: 'Uniformes Bordados (Polo/Camisa)', name_en: 'Embroidered Uniforms (Polo/Shirt)', category: 'pop_merchandising', price_type: 'per_unit', price_min: 1200, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'POP-02', name_es: 'Gorras Corporativas Bordadas', name_en: 'Embroidered Corporate Caps', category: 'pop_merchandising', price_type: 'per_unit', price_min: 600, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'POP-03', name_es: 'Tazas Personalizadas (Sublimación)', name_en: 'Custom Mugs (Sublimation)', category: 'pop_merchandising', price_type: 'per_unit', price_min: 400, delivery_days_min: 5, delivery_days_max: 7, requires_quote: false },
+  { sku: 'POP-04', name_es: 'Termos / Botellas Corporativas', name_en: 'Corporate Bottles / Tumblers', category: 'pop_merchandising', price_type: 'per_unit', price_min: 800, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'POP-05', name_es: 'Bolígrafos Corporativos (100 uds)', name_en: 'Corporate Pens (100 pcs)', category: 'pop_merchandising', price_type: 'per_unit', price_min: 3000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'POP-06', name_es: 'Libretas / Agendas Personalizadas', name_en: 'Custom Notebooks / Planners', category: 'pop_merchandising', price_type: 'per_unit', price_min: 1500, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'POP-07', name_es: 'Lanyards / Porta-carnet Corporativo', name_en: 'Corporate Lanyards / ID Holders', category: 'pop_merchandising', price_type: 'per_unit', price_min: 500, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'POP-08', name_es: 'USB / Power Banks Personalizados', name_en: 'Custom USB / Power Banks', category: 'pop_merchandising', price_type: 'per_unit', price_min: 1000, delivery_days_min: 10, delivery_days_max: 14, requires_quote: false },
+  { sku: 'POP-09', name_es: 'Bolsas Ecológicas con Logo', name_en: 'Eco-bags with Logo', category: 'pop_merchandising', price_type: 'per_unit', price_min: 400, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
+  { sku: 'POP-10', name_es: 'Kit de Bienvenida Corporativo', name_en: 'Corporate Welcome Kit', category: 'pop_merchandising', price_type: 'per_unit', price_min: 3000, delivery_days_min: 7, delivery_days_max: 14, requires_quote: false },
+  { sku: 'POP-11', name_es: 'Sellos Corporativos (Húmedo + Seco)', name_en: 'Corporate Stamps (Wet + Dry)', category: 'pop_merchandising', price_type: 'per_unit', price_min: 2500, delivery_days_min: 5, delivery_days_max: 7, requires_quote: false },
+  { sku: 'POP-12', name_es: 'Delantales Personalizados', name_en: 'Custom Aprons', category: 'pop_merchandising', price_type: 'per_unit', price_min: 800, delivery_days_min: 7, delivery_days_max: 10, requires_quote: false }
+];
+
+// Helper to map and process product data
+function processProductData(data){
+  P=data.map(function(item){
+    var minVal = item.delivery_days_min !== undefined && item.delivery_days_min !== null ? item.delivery_days_min : 7;
+    var maxVal = item.delivery_days_max !== undefined && item.delivery_days_max !== null ? item.delivery_days_max : 21;
+    var days=minVal+'–'+maxVal+' dias';
+    if(item.price_type==='recurring')days=isEN()?'Monthly':'Mensual';
+    return{
+      sku:item.sku,
+      name:item.name_es,
+      name_en:item.name_en||item.name_es,
+      includes:item.description_es||'',
+      includes_en:item.description_en||item.description_es||'',
+      price:item.price_min,
+      days:days,
+      cat:item.category,
+      type:item.price_type,
+      v:item.requires_quote||false
+    };
+  });
+  supabaseLoaded=true;
+  render(activeFilter);
+}
+
 // ─── SUPABASE DYNAMIC LOADING (primary source) ───
 function loadFromSupabase(){
   if(typeof fetch==='undefined')return;
@@ -53,23 +153,28 @@ function loadFromSupabase(){
     return r.json();
   }).then(function(data){
     if(!data||!Array.isArray(data)||data.length===0){
-      if(grid) grid.innerHTML='<p style="text-align:center;color:#8e8f94;padding:60px;grid-column:1/-1">'+(isEN()?'No products available at this time.':'No hay productos disponibles en este momento.')+'</p>';
-      return;
+      throw new Error('Empty product data');
     }
-    P=data.map(function(item){
-      var days=item.delivery_days_min+'–'+item.delivery_days_max+' dias';
-      if(item.price_type==='recurring')days=isEN()?'Monthly':'Mensual';
-      return{sku:item.sku,name:item.name_es,name_en:item.name_en||item.name_es,includes:item.description_es||'',includes_en:item.description_en||item.description_es||'',price:item.price_min,days:days,cat:item.category,type:item.price_type,v:item.requires_quote||false};
-    });
-    supabaseLoaded=true;
-    render(activeFilter);
+    // Cache successfully fetched products
+    localStorage.setItem('rcp_cached_products', JSON.stringify(data));
+    processProductData(data);
   }).catch(function(e){
-    console.error('[Tienda] Error loading products from Supabase:', e);
-    if(grid) grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;">'
-      +'<p style="color:#ef4444;font-weight:600;font-size:1.1rem;">'+(isEN()?'Could not load products':'No se pudieron cargar los productos')+'</p>'
-      +'<p style="color:#8e8f94;margin-top:8px;">'+(isEN()?'Please try refreshing the page or contact us via WhatsApp.':'Intenta recargar la página o contáctanos por WhatsApp.')+'</p>'
-      +'<button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:600;">'+(isEN()?'Retry':'Reintentar')+'</button>'
-      +'</div>';
+    console.warn('[Tienda] Error loading products from Supabase, attempting cache/static fallback:', e);
+    var cached = localStorage.getItem('rcp_cached_products');
+    if(cached){
+      try {
+        var cachedData = JSON.parse(cached);
+        if(cachedData && Array.isArray(cachedData) && cachedData.length > 0){
+          console.log('[Tienda] Loaded from localStorage cache.');
+          processProductData(cachedData);
+          return;
+        }
+      } catch(err) {
+        console.error('[Tienda] Error parsing cached products:', err);
+      }
+    }
+    console.log('[Tienda] Loading from static catalog fallback...');
+    processProductData(STATIC_PRODUCT_CATALOG);
   });
 }
 

@@ -6,7 +6,7 @@
 -- Problemas resueltos:
 --   1. SECURITY DEFINER functions accesibles por `anon` sin necesidad
 --   2. search_path mutable en 2 funciones
---   3. postulaciones INSERT sin validación mínima
+--   3. candidatos INSERT sin validación mínima
 --   4. dashboard_overview invocable por usuarios no autenticados
 --
 -- NOTA: "Leaked password protection" se activa desde el Dashboard UI:
@@ -126,13 +126,13 @@ BEGIN
 END $$;
 
 -- ───────────────────────────────────────────────────────────────────────
--- 4. Endurecer postulaciones INSERT policy con validación mínima
+-- 4. Endurecer candidatos INSERT policy con validación mínima
 --    (reemplaza WITH CHECK (true) por validación de email + nombre)
 -- ───────────────────────────────────────────────────────────────────────
 
-DROP POLICY IF EXISTS "Allow public insert for applications" ON public.postulaciones;
+DROP POLICY IF EXISTS "Allow public insert for applications" ON public.candidatos;
 
-CREATE POLICY "Postulaciones: inserción pública validada" ON public.postulaciones
+CREATE POLICY "Candidatos: inserción pública validada" ON public.candidatos
   FOR INSERT
   WITH CHECK (
     -- Email presente y con formato válido
@@ -166,9 +166,9 @@ COMMIT;
 --    FROM pg_proc WHERE proname IN ('generate_order_number', 'fn_set_updated_at');
 --    -- Debe mostrar {search_path=public} en proconfig
 --
--- 4. Verificar policy de postulaciones:
+-- 4. Verificar policy de candidatos:
 --    SELECT policyname, cmd, with_check FROM pg_policies
---    WHERE tablename = 'postulaciones';
+--    WHERE tablename = 'candidatos';
 --    -- Debe mostrar la nueva policy con validación de email+nombre
 --
 -- 5. MANUAL: Activar leaked password protection en Dashboard:

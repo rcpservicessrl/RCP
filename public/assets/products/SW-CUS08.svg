@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Monthly Maintenance - Wrench + Shield with checkmark + Calendar "31" -->
   <!-- Wrench -->
-  <path d="M80 380 L172 288 C164 260 172 228 196 204 C224 176 264 168 296 180 L260 216 L264 248 L296 252 L332 216 C344 248 336 288 308 316 C284 340 252 348 224 340 L132 432 C124 440 108 440 100 432 L80 412 C72 404 72 388 80 380 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M80 380 L172 288 C164 260 172 228 196 204 C224 176 264 168 296 180 L260 216 L264 248 L296 252 L332 216 C344 248 336 288 308 316 C284 340 252 348 224 340 L132 432 C124 440 108 440 100 432 L80 412 C72 404 72 388 80 380 Z" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Shield with checkmark -->
   <path d="M360 80 L312 100 L312 168 C312 220 336 260 360 280 C384 260 408 220 408 168 L408 100 Z" fill="#79C143" stroke="#1A1B20" stroke-width="8"/>
   <polyline points="336,172 352,192 384,152" fill="none" stroke="#FFFFFF" stroke-width="10"/>

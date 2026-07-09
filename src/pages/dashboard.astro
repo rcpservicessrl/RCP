@@ -28,6 +28,9 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
         <a class="nav-item" data-tab="clientes" id="navClientesLink" style="display: none;">
           <span>👥</span> <span data-i18n="dash-nav-clients">Gestión de Clientes</span>
         </a>
+        <a class="nav-item" data-tab="productos" id="navProductosLink" style="display: none;">
+          <span>📦</span> <span data-i18n="dash-nav-products">Catálogo</span>
+        </a>
       </nav>
     </div>
 
@@ -550,6 +553,159 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
               <div style="display:flex; gap:10px;">
                 <button type="submit" class="btn-cta" id="btnSaveClient" style="flex:2; padding:12px; font-size:0.9rem;" data-i18n="dash-clients-btn-save">💾 Guardar Cliente</button>
                 <button type="button" class="btn-action-sm" id="btnCancelEdit" style="flex:1; display:none; padding:12px; border-color:var(--text-muted); color:var(--text);" data-i18n="dash-clients-btn-cancel">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 6: CRUD CATÁLOGO DE PRODUCTOS -->
+      <div class="dashboard-panel" id="view-productos">
+        <div class="clientes-grid">
+          <!-- Left Side: Table of Products -->
+          <div class="card-workspace">
+            <div class="card-title-row" style="margin-bottom:20px;">
+              <h3 data-i18n="dash-products-title">Catálogo de Productos</h3>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <select class="lang-select" id="productCategoryFilter" style="font-size:0.8rem;">
+                  <option value="all" data-i18n="dash-products-filter-all">Todas las Categorías</option>
+                  <option value="servicio_renovacion">Renovación</option>
+                  <option value="servicio_consultoria">Consultoría</option>
+                  <option value="servicio_publicidad">Marketing Digital</option>
+                  <option value="software_preconfigurado">Software Empresarial</option>
+                  <option value="software_custom">Desarrollo a Medida</option>
+                  <option value="imprenta">Imprenta y Rotulación</option>
+                  <option value="articulos_corporativos">Artículos Corporativos</option>
+                  <option value="pop_merchandising">POP Merchandising</option>
+                </select>
+                <span class="sync-badge online" id="productsSyncBadge">
+                  <span class="sync-dot"></span> <span data-i18n="dash-products-badge-sync">Sincronizado</span>
+                </span>
+                <button class="btn-action-sm" id="btnRefreshProductos">Actualizar</button>
+              </div>
+            </div>
+
+            <p class="text-muted" style="margin-bottom:20px; font-size:0.9rem;">
+              Administra el catálogo de productos y servicios ofrecidos en la tienda.
+            </p>
+
+            <div style="overflow-x:auto;">
+              <table class="payments-table" style="min-width: 800px;">
+                <thead>
+                  <tr>
+                    <th>SKU</th>
+                    <th>Nombre (ES)</th>
+                    <th>Nombre (EN)</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="productosTableBody">
+                  <tr>
+                    <td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">Consultando catálogo de productos...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right Side: Add / Edit Product Form -->
+          <div class="card-workspace" id="productFormCard">
+            <div class="card-title-row" style="margin-bottom:20px;">
+              <h3 id="productFormTitle">Registrar Producto</h3>
+              <span class="sync-badge online" id="productFormBadge" style="display:none;">Modo Edición</span>
+            </div>
+
+            <form id="productForm">
+              <input type="hidden" id="productIdInput" />
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodSku">SKU *</label>
+                  <input type="text" id="prodSku" required placeholder="Ej. SW-PRE11" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodCategory">Categoría *</label>
+                  <select class="lang-select" id="prodCategory" style="width:100%; font-size:0.88rem;" required>
+                    <option value="servicio_renovacion">Renovación</option>
+                    <option value="servicio_consultoria">Consultoría</option>
+                    <option value="servicio_publicidad">Marketing Digital</option>
+                    <option value="software_preconfigurado">Software Empresarial</option>
+                    <option value="software_custom">Desarrollo a Medida</option>
+                    <option value="imprenta">Imprenta y Rotulación</option>
+                    <option value="articulos_corporativos">Artículos Corporativos</option>
+                    <option value="pop_merchandising">POP Merchandising</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodNameEs">Nombre (ES) *</label>
+                  <input type="text" id="prodNameEs" required placeholder="Nombre en Español" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodNameEn">Nombre (EN)</label>
+                  <input type="text" id="prodNameEn" placeholder="Nombre en Inglés" class="form-control" />
+                </div>
+              </div>
+
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label for="prodDescEs">Descripción (ES)</label>
+                <textarea id="prodDescEs" placeholder="Descripción en Español" class="form-control" rows="2"></textarea>
+              </div>
+
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label for="prodDescEn">Descripción (EN)</label>
+                <textarea id="prodDescEn" placeholder="Descripción en Inglés" class="form-control" rows="2"></textarea>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodPriceMin">Precio Mínimo (RD$) *</label>
+                  <input type="number" id="prodPriceMin" required placeholder="Ej. 15000" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodPriceType">Tipo de Precio *</label>
+                  <select class="lang-select" id="prodPriceType" style="width:100%; font-size:0.88rem;" required>
+                    <option value="one_time">Pago Único (One-time)</option>
+                    <option value="recurring">Recurrente (Monthly)</option>
+                    <option value="per_unit">Por Unidad (Per Unit)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodDeliveryMin">Días de Entrega Mínimo</label>
+                  <input type="number" id="prodDeliveryMin" placeholder="Ej. 5" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodDeliveryMax">Días de Entrega Máximo</label>
+                  <input type="number" id="prodDeliveryMax" placeholder="Ej. 10" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodSortOrder">Orden de Clasificación (Sort Order)</label>
+                  <input type="number" id="prodSortOrder" placeholder="Ej. 10" class="form-control" />
+                </div>
+                <div class="portal-form-group" style="display: flex; align-items: center; gap: 20px; padding-top: 25px;">
+                  <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                    <input type="checkbox" id="prodRequiresQuote" /> Requiere Cotización
+                  </label>
+                  <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                    <input type="checkbox" id="prodIsActive" checked /> Activo
+                  </label>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px; margin-top: 20px;">
+                <button type="submit" class="btn-cta" id="btnSaveProduct" style="flex:2; padding:12px; font-size:0.9rem;">💾 Guardar Producto</button>
+                <button type="button" class="btn-action-sm" id="btnCancelProductEdit" style="flex:1; display:none; padding:12px; border-color:var(--text-muted); color:var(--text);">Cancelar</button>
               </div>
             </form>
           </div>

@@ -8,15 +8,15 @@
   <!-- Search text -->
   <rect x="176" y="76" width="180" height="14" rx="7" fill="#A87C66" stroke="none"/>
   <!-- Map pin -->
-  <path d="M256 148 C200 148 168 192 168 240 C168 300 256 392 256 392 C256 392 344 300 344 240 C344 192 312 148 256 148 Z" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M256 148 C200 148 168 192 168 240 C168 300 256 392 256 392 C256 392 344 300 344 240 C344 192 312 148 256 148 Z" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Pin center circle -->
   <circle cx="256" cy="236" r="36" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
   <!-- Location dot -->
   <circle cx="256" cy="236" r="14" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
   <!-- 5 stars below -->
-  <polygon points="136,440 142,456 160,456 146,466 152,484 136,474 120,484 126,466 112,456 130,456" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
-  <polygon points="196,440 202,456 220,456 206,466 212,484 196,474 180,484 186,466 172,456 190,456" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
-  <polygon points="256,440 262,456 280,456 266,466 272,484 256,474 240,484 246,466 232,456 250,456" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
-  <polygon points="316,440 322,456 340,456 326,466 332,484 316,474 300,484 306,466 292,456 310,456" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
-  <polygon points="376,440 382,456 400,456 386,466 392,484 376,474 360,484 366,466 352,456 370,456" fill="#FAB839" stroke="#1A1B20" stroke-width="4"/>
+  <polygon points="136,440 142,456 160,456 146,466 152,484 136,474 120,484 126,466 112,456 130,456" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <polygon points="196,440 202,456 220,456 206,466 212,484 196,474 180,484 186,466 172,456 190,456" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <polygon points="256,440 262,456 280,456 266,466 272,484 256,474 240,484 246,466 232,456 250,456" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <polygon points="316,440 322,456 340,456 326,466 332,484 316,474 300,484 306,466 292,456 310,456" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <polygon points="376,440 382,456 400,456 386,466 392,484 376,474 360,484 366,466 352,456 370,456" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
 </svg>

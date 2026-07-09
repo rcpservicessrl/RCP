@@ -47,7 +47,8 @@ self.addEventListener('activate', (event) => {
 // Fetch Event: network-first for pages, stale-while-revalidate for static assets.
 self.addEventListener('fetch', (event) => {
   // Only handle HTTP/HTTPS protocols (avoid chrome-extension etc.)
-  if (!event.request.url.startsWith(self.location.origin)) return;
+  const isSupabaseAsset = event.request.url.includes('supabase.co/storage/v1/object/public/');
+  if (!event.request.url.startsWith(self.location.origin) && !isSupabaseAsset) return;
 
   if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
@@ -79,7 +80,8 @@ self.addEventListener('fetch', (event) => {
 
       // Network Fallback
       return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+        const isAllowedType = networkResponse.type === 'basic' || networkResponse.type === 'cors';
+        if (!networkResponse || networkResponse.status !== 200 || !isAllowedType) {
           return networkResponse;
         }
 

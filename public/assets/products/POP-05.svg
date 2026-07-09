@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Pens x100 - Single pen diagonal, "x100" badge -->
   <!-- Pen body -->
-  <rect x="96" y="200" width="300" height="32" rx="16" fill="#FAB839" stroke="#1A1B20" stroke-width="8" transform="rotate(-25, 256, 256)"/>
+  <rect x="96" y="200" width="300" height="32" rx="16" fill="#FCB53F" stroke="#1A1B20" stroke-width="8" transform="rotate(-25, 256, 256)"/>
   <!-- Pen clip -->
   <rect x="346" y="164" width="60" height="10" rx="5" fill="#1A1B20" stroke="#1A1B20" stroke-width="4" transform="rotate(-25, 256, 256)"/>
   <!-- Pen tip -->

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Executive Notebook - Closed book with ribbon bookmark -->
   <!-- Book body -->
-  <rect x="120" y="56" width="272" height="380" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="120" y="56" width="272" height="380" rx="12" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Book spine -->
   <rect x="120" y="56" width="28" height="380" rx="12" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
   <rect x="134" y="56" width="14" height="380" rx="0" fill="#A87C66" stroke="none"/>

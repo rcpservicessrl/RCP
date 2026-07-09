@@ -7,7 +7,7 @@
   <!-- Paper 2 -->
   <rect x="100" y="72" width="280" height="360" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6" transform="rotate(-1, 256, 256)"/>
   <!-- Paper 1 (front) -->
-  <rect x="100" y="72" width="280" height="360" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="100" y="72" width="280" height="360" rx="12" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Flyer content -->
   <rect x="136" y="108" width="208" height="80" rx="10" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
   <rect x="136" y="212" width="160" height="14" rx="7" fill="#1A1B20" stroke="none"/>

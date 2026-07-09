@@ -10,7 +10,7 @@
   <!-- Stamp body -->
   <rect x="300" y="120" width="140" height="60" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
   <!-- Stamp grip -->
-  <rect x="340" y="84" width="60" height="44" rx="12" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="340" y="84" width="60" height="44" rx="12" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Stamp rubber bottom -->
   <rect x="300" y="172" width="140" height="20" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="6"/>
   <!-- Motion lines (stamping action) -->

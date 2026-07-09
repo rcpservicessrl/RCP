@@ -5,8 +5,8 @@
   <!-- Top page (slightly offset) -->
   <rect x="108" y="56" width="296" height="388" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
   <!-- NCF Header bar -->
-  <rect x="108" y="56" width="296" height="52" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
-  <rect x="108" y="92" width="296" height="16" rx="0" fill="#FAB839" stroke="none"/>
+  <rect x="108" y="56" width="296" height="52" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="108" y="92" width="296" height="16" rx="0" fill="#FCB53F" stroke="none"/>
   <text x="256" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1B20" stroke="none" text-anchor="middle">NCF</text>
   <!-- Form lines -->
   <rect x="136" y="132" width="200" height="12" rx="6" fill="#A87C66" stroke="none"/>

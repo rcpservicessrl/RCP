@@ -6,7 +6,7 @@
   <line x1="189" y1="128" x2="189" y2="384" stroke="#1A1B20" stroke-width="4" stroke-dasharray="12,8"/>
   <line x1="323" y1="128" x2="323" y2="384" stroke="#1A1B20" stroke-width="4" stroke-dasharray="12,8"/>
   <!-- Panel 1 content -->
-  <rect x="80" y="160" width="86" height="48" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="80" y="160" width="86" height="48" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <rect x="80" y="224" width="86" height="8" rx="4" fill="#A87C66" stroke="none"/>
   <rect x="80" y="242" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
   <rect x="80" y="260" width="80" height="8" rx="4" fill="#A87C66" stroke="none"/>
@@ -16,7 +16,7 @@
   <rect x="224" y="266" width="64" height="8" rx="4" fill="#A87C66" stroke="none"/>
   <rect x="220" y="284" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
   <!-- Panel 3 content -->
-  <rect x="346" y="160" width="86" height="48" rx="8" fill="#FAB839" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="346" y="160" width="86" height="48" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
   <rect x="346" y="224" width="86" height="8" rx="4" fill="#A87C66" stroke="none"/>
   <rect x="346" y="242" width="72" height="8" rx="4" fill="#A87C66" stroke="none"/>
   <rect x="346" y="260" width="80" height="8" rx="4" fill="#A87C66" stroke="none"/>

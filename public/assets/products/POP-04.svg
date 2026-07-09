@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Thermos Bottle - Tall bottle with cap, laser mark area -->
   <!-- Bottle body -->
-  <rect x="176" y="160" width="160" height="304" rx="32" fill="#FAB839" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="176" y="160" width="160" height="304" rx="32" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
   <!-- Bottle neck -->
   <rect x="216" y="100" width="80" height="68" rx="12" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
   <!-- Cap -->
