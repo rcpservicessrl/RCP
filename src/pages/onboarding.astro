@@ -114,7 +114,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const activeEmail = sessionStorage.getItem('active_user_email');
     const activeRole = sessionStorage.getItem('active_user_role');
     if (!activeEmail) { window.location.href = '/portal'; return; }
-    if (activeRole === 'super_admin' || activeRole === 'admin') { window.location.href = '/dashboard'; return; }
+    if (activeRole && activeRole !== 'client') { window.location.href = '/dashboard'; return; }
 
     const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';

@@ -185,7 +185,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     function routeAfterAuth(email:string, name:string, company:string, role:string, clientData:any) {
       setSessionUI(email, name, company, role);
-      if (role === 'super_admin') { window.location.href = '/dashboard'; return; }
+      if (role !== 'client') { window.location.href = '/dashboard'; return; }
       if (!clientData || clientData.status === 'onboarding') { window.location.href = '/onboarding'; return; }
       if (clientData.status === 'pending_activation') { showActivationScreen(email, clientData); return; }
       if (clientData.status === 'inactive') { alert(t('Tu cuenta se encuentra inactiva. Contacta a soporte.', 'Your account is inactive. Please contact support.')); return; }
@@ -198,7 +198,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const email = session.user.email;
         const name = session.user.user_metadata?.full_name || email.split('@')[0];
         const role = await getUserRole(email);
-        if (role === 'super_admin') { setSessionUI(email, name, 'RCP Services', role); window.location.href = '/dashboard'; return; }
+        if (role !== 'client') { setSessionUI(email, name, 'RCP Services', role); window.location.href = '/dashboard'; return; }
         let clientData = await getClientProfile(email);
         if (!clientData) {
           const provAccessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);

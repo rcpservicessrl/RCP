@@ -28,19 +28,13 @@
       }
 
       // Check Session & Access Control
-      const activeEmail = sessionStorage.getItem('active_user_email');
-      const activeName = sessionStorage.getItem('active_user_name');
-      const activeCompany = sessionStorage.getItem('active_user_company');
+      let activeEmail = sessionStorage.getItem('active_user_email');
+      let activeName = sessionStorage.getItem('active_user_name');
+      let activeCompany = sessionStorage.getItem('active_user_company');
       // Rol resuelto server-side vía RPC (effective_role). Se hydrata en
       // initializeDashboard(). Mientras tanto, valor defensivo 'unknown'
       // para que ninguna rama admin se ejecute antes de la verificación.
       let activeRole = 'unknown';
-
-      if (!activeEmail) {
-        // Redirection to portal if no active session
-        window.location.href = '/portal';
-        return;
-      }
 
       // Setup language dictionary & translation helper
       const isEN = document.documentElement.lang === 'en';
@@ -105,9 +99,9 @@
       const profileCompany = document.getElementById('profileCompany');
       const profileAvatar = document.getElementById('profileAvatar');
       
-      if (profileName) profileName.textContent = activeName;
-      if (profileCompany) profileCompany.textContent = activeCompany;
-      if (profileAvatar) profileAvatar.textContent = activeName.charAt(0).toUpperCase();
+      if (profileName && activeName) profileName.textContent = activeName;
+      if (profileCompany && activeCompany) profileCompany.textContent = activeCompany;
+      if (profileAvatar && activeName) profileAvatar.textContent = activeName.charAt(0).toUpperCase();
 
       // Sidebar Navigation Tab switching
       const navItems = document.querySelectorAll('.nav-item[data-tab]');
@@ -449,6 +443,36 @@
       let clientList = [];
 
       async function initializeDashboard() {
+        // Recover session from Supabase if empty (e.g. direct page entry or refresh)
+        if (!activeEmail && supabase) {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+              const email = session.user.email;
+              const name = session.user.user_metadata?.full_name || email.split('@')[0];
+              const company = session.user.user_metadata?.company || '';
+              sessionStorage.setItem('active_user_email', email);
+              sessionStorage.setItem('active_user_name', name);
+              sessionStorage.setItem('active_user_company', company);
+              activeEmail = email;
+              activeName = name;
+              activeCompany = company;
+            }
+          } catch (e) {
+            console.error("Error restoring session from Supabase:", e);
+          }
+        }
+
+        if (!activeEmail) {
+          window.location.href = '/portal';
+          return;
+        }
+
+        // Hydrate sidebar profile values
+        if (profileName) profileName.textContent = activeName;
+        if (profileCompany) profileCompany.textContent = activeCompany || '—';
+        if (profileAvatar) profileAvatar.textContent = activeName.charAt(0).toUpperCase();
+
         // ─── Resolver rol desde el servidor (RBAC) ───
         // Antes: hardcoded por email. Ahora: RPC effective_role(p_email) que
         // consulta la tabla user_roles en Supabase. Migrado en Fase 2.
