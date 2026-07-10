@@ -1,18 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Polo Shirt - T-shirt shape with collar, logo square on chest -->
   <!-- Shirt body -->
-  <path d="M160 180 L160 440 L352 440 L352 180 L312 164 L296 200 C288 212 224 212 216 200 L200 164 Z" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M160 180 L160 440 L352 440 L352 180 L312 164 L296 200 C288 212 224 212 216 200 L200 164 Z" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Sleeves -->
-  <path d="M160 180 L96 216 L96 280 L136 268 L160 260" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
-  <path d="M352 180 L416 216 L416 280 L376 268 L352 260" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M160 180 L96 216 L96 280 L136 268 L160 260" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
+  <path d="M352 180 L416 216 L416 280 L376 268 L352 260" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Collar -->
-  <path d="M200 164 L216 200 C224 212 240 216 256 216 C272 216 288 212 296 200 L312 164" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M200 164 L216 200 C224 212 240 216 256 216 C272 216 288 212 296 200 L312 164" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Collar V-neck line -->
-  <line x1="256" y1="164" x2="256" y2="216" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="256" y1="164" x2="256" y2="216" stroke="#000000" stroke-width="4"/>
   <!-- Logo square on chest -->
-  <rect x="268" y="240" width="44" height="44" rx="8" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="268" y="240" width="44" height="44" rx="8" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
   <!-- Button dots -->
-  <circle cx="256" cy="236" r="5" fill="#1A1B20" stroke="none"/>
-  <circle cx="256" cy="260" r="5" fill="#1A1B20" stroke="none"/>
-  <circle cx="256" cy="284" r="5" fill="#1A1B20" stroke="none"/>
-</svg>
+  <circle cx="256" cy="236" r="5" fill="#000000" stroke="none"/>
+  <circle cx="256" cy="260" r="5" fill="#000000" stroke="none"/>
+  <circle cx="256" cy="284" r="5" fill="#000000" stroke="none"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

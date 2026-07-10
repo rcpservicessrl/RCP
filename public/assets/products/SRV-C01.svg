@@ -1,24 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Business Formalization - Official document with seal and ribbon -->
   <!-- Document body -->
-  <rect x="112" y="48" width="288" height="380" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="112" y="48" width="288" height="380" rx="12" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Document header -->
-  <rect x="176" y="80" width="160" height="20" rx="10" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="176" y="80" width="160" height="20" rx="10" fill="#FCB53F" stroke="#000000" stroke-width="4"/>
   <!-- Document lines -->
-  <rect x="148" y="124" width="216" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <rect x="148" y="150" width="200" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <rect x="148" y="176" width="216" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <rect x="148" y="202" width="180" height="12" rx="6" fill="#A87C66" stroke="none"/>
-  <rect x="148" y="228" width="210" height="12" rx="6" fill="#A87C66" stroke="none"/>
+  <rect x="148" y="124" width="216" height="12" rx="6" fill="#C48D65" stroke="none"/>
+  <rect x="148" y="150" width="200" height="12" rx="6" fill="#C48D65" stroke="none"/>
+  <rect x="148" y="176" width="216" height="12" rx="6" fill="#C48D65" stroke="none"/>
+  <rect x="148" y="202" width="180" height="12" rx="6" fill="#C48D65" stroke="none"/>
+  <rect x="148" y="228" width="210" height="12" rx="6" fill="#C48D65" stroke="none"/>
   <!-- Signature line -->
-  <line x1="200" y1="312" x2="312" y2="312" stroke="#1A1B20" stroke-width="4"/>
-  <rect x="220" y="324" width="72" height="10" rx="5" fill="#A87C66" stroke="none"/>
+  <line x1="200" y1="312" x2="312" y2="312" stroke="#000000" stroke-width="4"/>
+  <rect x="220" y="324" width="72" height="10" rx="5" fill="#C48D65" stroke="none"/>
   <!-- Official seal circle -->
-  <circle cx="320" cy="380" r="40" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
-  <circle cx="320" cy="380" r="24" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <circle cx="320" cy="380" r="40" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
+  <circle cx="320" cy="380" r="24" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
   <!-- Star in seal -->
-  <polygon points="320,364 326,376 340,376 330,384 334,396 320,388 306,396 310,384 300,376 314,376" fill="#79C143" stroke="none"/>
+  <polygon points="320,364 326,376 340,376 330,384 334,396 320,388 306,396 310,384 300,376 314,376" fill="#A6CE39" stroke="none"/>
   <!-- Ribbon tails -->
-  <path d="M300 412 L288 468 L304 448 L320 468" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <path d="M340 412 L328 468 L344 448 L360 468" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-</svg>
+  <path d="M300 412 L288 468 L304 448 L320 468" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <path d="M340 412 L328 468 L344 448 L360 468" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

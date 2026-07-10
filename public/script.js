@@ -146,7 +146,7 @@ function applyTheme(theme) {
     if (sunIcon) sunIcon.style.display = '';
     if (moonIcon) moonIcon.style.display = 'none';
     document.querySelectorAll('.nav-logo, .theme-logo').forEach(img => {
-      img.src = '/Logo RCP Services.png';
+      img.src = '/logo-rcp-master.svg';
     });
   } else {
     document.documentElement.removeAttribute('data-theme');
@@ -348,8 +348,8 @@ if (phoneField) {
   let isOpen = false;
   let history = [];
 
-  const GREETING_ES = `¡Hola! Soy Pulso, el leopardo y asistente de RCP Services. ¿En qué te puedo ayudar hoy?`;
-  const GREETING_EN = `Hello! I'm Pulso, the leopard and assistant of RCP Services.<br>Would you like to start with your <strong>Free 360° Diagnosis</strong> to eradicate business arrhythmia? 🐆`;
+  const GREETING_ES = `¡Hola! Soy Pulso, el leopardo corporativo y asistente de RCP Services. ¿En qué te puedo ayudar hoy?`;
+  const GREETING_EN = `Hello! I'm Pulso, the corporate leopard and assistant of RCP Services.<br>Would you like to start with your <strong>Free 360° Diagnosis</strong> to eradicate business arrhythmia? 🐆`;
 
   const faq = [
     {
@@ -439,7 +439,7 @@ if (phoneField) {
     },
     {
       k: ['hola', 'hello', 'hey', 'buenas', 'buenos', 'hi', 'saludos'],
-      a: '¡Hola! 👋 ¡Qué bueno saludarte! Soy <strong>Pulso</strong>, el asistente virtual y leopardo de RCP Services. ¿De qué trata tu negocio? 😊',
+      a: '¡Hola! 👋 ¡Qué bueno saludarte! Soy <strong>Pulso</strong>, el asistente virtual y leopardo corporativo de RCP Services. ¿De qué trata tu negocio? 😊',
       a_en: 'Hello! 👋 Nice to meet you! I\'m <strong>Pulso</strong>, your RCP Services virtual assistant. What is your business about? 😊'
     },
     {

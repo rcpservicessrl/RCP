@@ -1693,7 +1693,7 @@
           if (newTheme === 'light') {
             if (moonIcon) moonIcon.style.display = 'none';
             if (sunIcon) sunIcon.style.display = 'block';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/Logo RCP Services.png');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/logo-rcp-master.svg');
           } else {
             if (moonIcon) moonIcon.style.display = 'block';
             if (sunIcon) sunIcon.style.display = 'none';

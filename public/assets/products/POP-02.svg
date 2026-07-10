@@ -1,17 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Cap - Baseball cap front view with logo panel -->
   <!-- Cap crown -->
-  <path d="M128 280 C128 180 180 120 256 120 C332 120 384 180 384 280" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M128 280 C128 180 180 120 256 120 C332 120 384 180 384 280" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Cap panels (seam lines) -->
-  <line x1="256" y1="120" x2="256" y2="280" stroke="#1A1B20" stroke-width="4"/>
-  <path d="M192 128 C188 180 186 230 192 280" fill="none" stroke="#1A1B20" stroke-width="4"/>
-  <path d="M320 128 C324 180 326 230 320 280" fill="none" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="256" y1="120" x2="256" y2="280" stroke="#000000" stroke-width="4"/>
+  <path d="M192 128 C188 180 186 230 192 280" fill="none" stroke="#000000" stroke-width="4"/>
+  <path d="M320 128 C324 180 326 230 320 280" fill="none" stroke="#000000" stroke-width="4"/>
   <!-- Logo panel (center front) -->
-  <rect x="216" y="168" width="80" height="72" rx="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="216" y="168" width="80" height="72" rx="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
   <!-- Bill / visor -->
-  <path d="M112 280 L400 280 C408 280 412 288 408 296 L392 340 C372 360 320 372 256 372 C192 372 140 360 120 340 L104 296 C100 288 104 280 112 280 Z" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M112 280 L400 280 C408 280 412 288 408 296 L392 340 C372 360 320 372 256 372 C192 372 140 360 120 340 L104 296 C100 288 104 280 112 280 Z" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Bill stitching -->
-  <path d="M140 304 C180 332 220 344 256 344 C292 344 332 332 372 304" fill="none" stroke="#1A1B20" stroke-width="4"/>
+  <path d="M140 304 C180 332 220 344 256 344 C292 344 332 332 372 304" fill="none" stroke="#000000" stroke-width="4"/>
   <!-- Top button -->
-  <circle cx="256" cy="124" r="8" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
-</svg>
+  <circle cx="256" cy="124" r="8" fill="#000000" stroke="#000000" stroke-width="4"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

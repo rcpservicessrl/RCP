@@ -1,34 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- WhatsApp Chatbot - Phone with chat bubbles + small brain/AI icon -->
   <!-- Phone body -->
-  <rect x="104" y="48" width="216" height="416" rx="28" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="104" y="48" width="216" height="416" rx="28" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Phone screen -->
-  <rect x="124" y="92" width="176" height="328" rx="8" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="124" y="92" width="176" height="328" rx="8" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
   <!-- Phone notch -->
-  <rect x="180" y="60" width="64" height="16" rx="8" fill="#1A1B20" stroke="none"/>
+  <rect x="180" y="60" width="64" height="16" rx="8" fill="#000000" stroke="none"/>
   <!-- Chat header bar -->
-  <rect x="124" y="92" width="176" height="40" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="124" y="92" width="176" height="40" rx="8" fill="#FCB53F" stroke="#000000" stroke-width="4"/>
   <rect x="124" y="120" width="176" height="12" rx="0" fill="#FCB53F" stroke="none"/>
   <!-- Chat bubbles - received -->
-  <rect x="140" y="148" width="100" height="36" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
-  <rect x="140" y="196" width="80" height="28" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="140" y="148" width="100" height="36" rx="12" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
+  <rect x="140" y="196" width="80" height="28" rx="12" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
   <!-- Chat bubbles - sent -->
-  <rect x="188" y="240" width="96" height="36" rx="12" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="188" y="240" width="96" height="36" rx="12" fill="#FCB53F" stroke="#000000" stroke-width="4"/>
   <!-- Chat bubbles - bot reply -->
-  <rect x="140" y="292" width="120" height="36" rx="12" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="140" y="292" width="120" height="36" rx="12" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
   <!-- Typing indicator dots -->
-  <circle cx="164" cy="352" r="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="3"/>
-  <circle cx="184" cy="352" r="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="3"/>
-  <circle cx="204" cy="352" r="6" fill="#FFFFFF" stroke="#1A1B20" stroke-width="3"/>
+  <circle cx="164" cy="352" r="6" fill="#FFFFFF" stroke="#000000" stroke-width="3"/>
+  <circle cx="184" cy="352" r="6" fill="#FFFFFF" stroke="#000000" stroke-width="3"/>
+  <circle cx="204" cy="352" r="6" fill="#FFFFFF" stroke="#000000" stroke-width="3"/>
   <!-- AI/Brain icon -->
-  <circle cx="400" cy="200" r="52" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <circle cx="400" cy="200" r="52" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Brain lines inside -->
-  <path d="M380 188 C380 176 392 172 400 172 C408 172 420 176 420 188" fill="none" stroke="#1A1B20" stroke-width="4"/>
-  <path d="M376 204 C376 196 388 192 400 192 C412 192 424 196 424 204" fill="none" stroke="#1A1B20" stroke-width="4"/>
-  <path d="M380 220 C380 212 392 208 400 208 C408 208 420 212 420 220" fill="none" stroke="#1A1B20" stroke-width="4"/>
+  <path d="M380 188 C380 176 392 172 400 172 C408 172 420 176 420 188" fill="none" stroke="#000000" stroke-width="4"/>
+  <path d="M376 204 C376 196 388 192 400 192 C412 192 424 196 424 204" fill="none" stroke="#000000" stroke-width="4"/>
+  <path d="M380 220 C380 212 392 208 400 208 C408 208 420 212 420 220" fill="none" stroke="#000000" stroke-width="4"/>
   <!-- Neural dots -->
-  <circle cx="384" cy="180" r="5" fill="#79C143" stroke="none"/>
-  <circle cx="416" cy="196" r="5" fill="#79C143" stroke="none"/>
-  <circle cx="388" cy="212" r="5" fill="#79C143" stroke="none"/>
-  <circle cx="412" cy="212" r="5" fill="#79C143" stroke="none"/>
-</svg>
+  <circle cx="384" cy="180" r="5" fill="#A6CE39" stroke="none"/>
+  <circle cx="416" cy="196" r="5" fill="#A6CE39" stroke="none"/>
+  <circle cx="388" cy="212" r="5" fill="#A6CE39" stroke="none"/>
+  <circle cx="412" cy="212" r="5" fill="#A6CE39" stroke="none"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

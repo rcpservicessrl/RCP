@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- LED Sign - Rectangle with light rays, mounted on wall -->
   <!-- Wall background -->
-  <rect x="40" y="120" width="432" height="280" rx="8" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="40" y="120" width="432" height="280" rx="8" fill="#C48D65" stroke="#000000" stroke-width="8"/>
   <!-- LED sign body -->
-  <rect x="120" y="180" width="272" height="120" rx="12" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="120" y="180" width="272" height="120" rx="12" fill="#000000" stroke="#000000" stroke-width="8"/>
   <!-- LED display screen -->
-  <rect x="136" y="196" width="240" height="88" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="136" y="196" width="240" height="88" rx="8" fill="#FCB53F" stroke="#000000" stroke-width="6"/>
   <!-- LED text -->
   <rect x="168" y="226" width="80" height="16" rx="4" fill="#FFFFFF" stroke="none"/>
   <rect x="264" y="226" width="80" height="16" rx="4" fill="#FFFFFF" stroke="none"/>
-  <rect x="196" y="252" width="120" height="12" rx="4" fill="#79C143" stroke="none"/>
+  <rect x="196" y="252" width="120" height="12" rx="4" fill="#A6CE39" stroke="none"/>
   <!-- Light rays -->
   <line x1="120" y1="168" x2="96" y2="140" stroke="#FCB53F" stroke-width="6"/>
   <line x1="200" y1="172" x2="192" y2="140" stroke="#FCB53F" stroke-width="6"/>
@@ -17,6 +17,10 @@
   <line x1="312" y1="172" x2="320" y2="140" stroke="#FCB53F" stroke-width="6"/>
   <line x1="392" y1="168" x2="416" y2="140" stroke="#FCB53F" stroke-width="6"/>
   <!-- Mounting brackets -->
-  <rect x="180" y="300" width="20" height="28" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
-  <rect x="312" y="300" width="20" height="28" rx="4" fill="#1A1B20" stroke="#1A1B20" stroke-width="4"/>
-</svg>
+  <rect x="180" y="300" width="20" height="28" rx="4" fill="#000000" stroke="#000000" stroke-width="4"/>
+  <rect x="312" y="300" width="20" height="28" rx="4" fill="#000000" stroke="#000000" stroke-width="4"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

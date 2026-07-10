@@ -35,7 +35,7 @@ img {
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: var(--transition);
+  transition: color var(--transition);
 }
 
 a:hover {
@@ -74,12 +74,12 @@ ul {
   top: -100px;
   left: 0;
   background: var(--accent);
-  color: #000;
+  color: var(--rcp-black);
   padding: 12px 24px;
   z-index: 9999;
   font-weight: 700;
   border-radius: 0 0 var(--radius-sm) 0;
-  transition: top 0.3s ease;
+  transition: top var(--transition);
 }
 
 .skip-to-content:focus {

@@ -1,22 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Vehicle Branding - Car side profile with branded panel on door -->
   <!-- Car body -->
-  <path d="M80 320 L80 280 L140 280 L180 220 L360 220 L400 260 L452 260 L460 280 L460 320 Z" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M80 320 L80 280 L140 280 L180 220 L360 220 L400 260 L452 260 L460 280 L460 320 Z" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Car roof -->
-  <path d="M180 220 L200 172 L340 172 L380 220" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M180 220 L200 172 L340 172 L380 220" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Windows -->
-  <path d="M200 184 L210 220 L268 220 L268 184 Z" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <path d="M276 184 L276 220 L360 220 L340 184 Z" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
+  <path d="M200 184 L210 220 L268 220 L268 184 Z" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <path d="M276 184 L276 220 L360 220 L340 184 Z" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
   <!-- Branded panel on door -->
-  <rect x="160" y="248" width="160" height="56" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="160" y="248" width="160" height="56" rx="8" fill="#FCB53F" stroke="#000000" stroke-width="6"/>
   <!-- Logo on branded panel -->
-  <circle cx="208" cy="276" r="16" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
-  <rect x="236" y="268" width="64" height="12" rx="6" fill="#1A1B20" stroke="none"/>
+  <circle cx="208" cy="276" r="16" fill="#A6CE39" stroke="#000000" stroke-width="4"/>
+  <rect x="236" y="268" width="64" height="12" rx="6" fill="#000000" stroke="none"/>
   <!-- Wheels -->
-  <circle cx="152" cy="332" r="36" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
-  <circle cx="152" cy="332" r="18" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="380" cy="332" r="36" fill="#1A1B20" stroke="#1A1B20" stroke-width="8"/>
-  <circle cx="380" cy="332" r="18" fill="#A87C66" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="152" cy="332" r="36" fill="#000000" stroke="#000000" stroke-width="8"/>
+  <circle cx="152" cy="332" r="18" fill="#C48D65" stroke="#000000" stroke-width="6"/>
+  <circle cx="380" cy="332" r="36" fill="#000000" stroke="#000000" stroke-width="8"/>
+  <circle cx="380" cy="332" r="18" fill="#C48D65" stroke="#000000" stroke-width="6"/>
   <!-- Ground line -->
-  <line x1="48" y1="368" x2="464" y2="368" stroke="#1A1B20" stroke-width="6"/>
-</svg>
+  <line x1="48" y1="368" x2="464" y2="368" stroke="#000000" stroke-width="6"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

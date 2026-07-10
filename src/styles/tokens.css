@@ -1,50 +1,88 @@
-/* =============================================
-   RCP Services — Design Tokens
-   Tipografía: Montserrat | Negro: #0c0c0d | Amarillo: #FCB53F
-   ============================================= */
+/* RCP Services — Brand System 2.0
+   Canonical visual tokens for marketing, product and corporate interfaces. */
 
 :root {
-  /* Colores base — tema oscuro (default) */
-  --black: #0c0c0d;
-  --black-2: #151517;
-  --black-3: #1a1a1c;
-  --white: #ffffff;
-  --accent: #FCB53F;
-  --accent-dark: #e59e2b;
-  --text: #eaeaea;
-  --text-muted: #8e8f94;
-  --card-bg: rgba(21, 21, 23, 0.7);
-  --card-border: rgba(252, 181, 63, 0.15);
+  color-scheme: dark;
 
-  /* Escala */
-  --radius: 16px;
+  /* Brand primitives */
+  --rcp-gold: #fcb53f;
+  --rcp-gold-hover: #e09e20;
+  --rcp-black: #000000;
+  --rcp-charcoal: #0a0a0a;
+  --rcp-surface: #111112;
+  --rcp-border: #252527;
+  --rcp-white: #ffffff;
+  --rcp-text: #e8e8ea;
+  --rcp-text-muted: #8a8a98;
+  --rcp-growth: #a6ce39;
+  --rcp-organic: #c48d65;
+  --rcp-danger: #ef4444;
+  --rcp-warning: #f97316;
+  --rcp-info: #3b82f6;
+
+  /* Semantic surfaces — dark-first */
+  --black: var(--rcp-black);
+  --black-2: var(--rcp-charcoal);
+  --black-3: var(--rcp-surface);
+  --white: var(--rcp-white);
+  --accent: var(--rcp-gold);
+  --accent-dark: var(--rcp-gold-hover);
+  --text: var(--rcp-text);
+  --text-muted: var(--rcp-text-muted);
+  --success: var(--rcp-growth);
+  --danger: var(--rcp-danger);
+  --warning: var(--rcp-warning);
+  --info: var(--rcp-info);
+  --card-bg: var(--rcp-surface);
+  --card-border: var(--rcp-border);
+  --surface-accent-subtle: rgba(252, 181, 63, 0.08);
+  --surface-success-subtle: rgba(166, 206, 57, 0.1);
+
+  /* Geometry */
+  --radius-xs: 6px;
   --radius-sm: 10px;
+  --radius: 16px;
   --radius-lg: 24px;
+  --stroke-icon: 2.5;
 
-  /* Sombras */
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+  /* Restrained depth */
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.32);
 
-  /* Movimiento */
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Motion */
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: var(--duration-base) var(--ease-standard);
 
-  /* Tipografía */
-  --font: 'Montserrat', sans-serif;
+  /* Typography */
+  --font: 'Montserrat', 'Bahnschrift', Arial, sans-serif;
+  --font-weight-body: 400;
+  --font-weight-label: 600;
+  --font-weight-heading: 800;
+  --font-weight-display: 900;
 
-  /* Navbar */
-  --navbar-scrolled: rgba(12, 12, 13, 0.95);
+  /* Shell */
+  --navbar-scrolled: rgba(10, 10, 10, 0.96);
 }
 
-/* Tema claro */
 [data-theme="light"] {
+  color-scheme: light;
   --black: #ffffff;
-  --black-2: #f7f7f8;
-  --black-3: #eceef2;
-  --text: #1a1a1c;
-  --text-muted: #6e6e73;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --card-border: rgba(252, 181, 63, 0.25);
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+  --black-2: #f5f3ef;
+  --black-3: #ece8e1;
+  --text: #1a1a1a;
+  --text-muted: #555555;
+  --card-bg: #ffffff;
+  --card-border: #d5d0c8;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.12);
   --navbar-scrolled: rgba(255, 255, 255, 0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
 }

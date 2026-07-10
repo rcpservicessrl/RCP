@@ -36,7 +36,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .diag-progress .step.done { background:var(--accent); }
   .diag-progress .step.active { background:var(--accent); opacity:0.6; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
-  .diag-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--radius); padding:40px; backdrop-filter:blur(12px); }
+  .diag-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--radius); padding:40px; }
   :global(.question-title) { font-size:1.1rem; font-weight:700; margin-bottom:20px; line-height:1.4; }
   :global(.options) { display:flex; flex-direction:column; gap:12px; }
   :global(.option-btn) { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px 20px; color:var(--text); font-family:var(--font); font-size:0.9rem; font-weight:500; cursor:pointer; transition:all 0.3s ease; text-align:left; }

@@ -1,19 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Roll-up Banner - Tall rectangle on triangular stand base -->
   <!-- Banner body -->
-  <rect x="152" y="40" width="208" height="368" rx="8" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="152" y="40" width="208" height="368" rx="8" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Banner content -->
-  <circle cx="256" cy="120" r="36" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <rect x="196" y="180" width="120" height="14" rx="7" fill="#FFFFFF" stroke="#1A1B20" stroke-width="4"/>
-  <rect x="184" y="212" width="144" height="10" rx="5" fill="#1A1B20" stroke="none"/>
-  <rect x="192" y="234" width="128" height="10" rx="5" fill="#1A1B20" stroke="none"/>
-  <rect x="200" y="256" width="112" height="10" rx="5" fill="#1A1B20" stroke="none"/>
-  <rect x="196" y="296" width="120" height="40" rx="20" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="256" cy="120" r="36" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <rect x="196" y="180" width="120" height="14" rx="7" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
+  <rect x="184" y="212" width="144" height="10" rx="5" fill="#000000" stroke="none"/>
+  <rect x="192" y="234" width="128" height="10" rx="5" fill="#000000" stroke="none"/>
+  <rect x="200" y="256" width="112" height="10" rx="5" fill="#000000" stroke="none"/>
+  <rect x="196" y="296" width="120" height="40" rx="20" fill="#FFFFFF" stroke="#000000" stroke-width="6"/>
   <!-- Stand pole -->
-  <line x1="256" y1="408" x2="256" y2="468" stroke="#1A1B20" stroke-width="8"/>
+  <line x1="256" y1="408" x2="256" y2="468" stroke="#000000" stroke-width="8"/>
   <!-- Triangular base -->
-  <path d="M192 468 L256 448 L320 468 L192 468 Z" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M192 468 L256 448 L320 468 L192 468 Z" fill="#C48D65" stroke="#000000" stroke-width="8"/>
   <!-- Base feet -->
-  <line x1="192" y1="468" x2="172" y2="488" stroke="#1A1B20" stroke-width="8"/>
-  <line x1="320" y1="468" x2="340" y2="488" stroke="#1A1B20" stroke-width="8"/>
-</svg>
+  <line x1="192" y1="468" x2="172" y2="488" stroke="#000000" stroke-width="8"/>
+  <line x1="320" y1="468" x2="340" y2="488" stroke="#000000" stroke-width="8"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

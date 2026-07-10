@@ -1,42 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Community Manager - Instagram-like frame with grid + calendar -->
   <!-- Instagram-style frame -->
-  <rect x="56" y="56" width="260" height="260" rx="40" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="56" y="56" width="260" height="260" rx="40" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Inner circle (camera lens) -->
-  <circle cx="186" cy="186" r="72" fill="none" stroke="#1A1B20" stroke-width="8"/>
+  <circle cx="186" cy="186" r="72" fill="none" stroke="#000000" stroke-width="8"/>
   <!-- Grid inside the circle -->
-  <line x1="186" y1="114" x2="186" y2="258" stroke="#1A1B20" stroke-width="4"/>
-  <line x1="114" y1="186" x2="258" y2="186" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="186" y1="114" x2="186" y2="258" stroke="#000000" stroke-width="4"/>
+  <line x1="114" y1="186" x2="258" y2="186" stroke="#000000" stroke-width="4"/>
   <!-- Grid squares (content) -->
-  <rect x="120" y="120" width="60" height="60" rx="4" fill="#FCB53F" stroke="#1A1B20" stroke-width="3"/>
-  <rect x="192" y="120" width="60" height="60" rx="4" fill="#79C143" stroke="#1A1B20" stroke-width="3"/>
-  <rect x="120" y="192" width="60" height="60" rx="4" fill="#A87C66" stroke="#1A1B20" stroke-width="3"/>
-  <rect x="192" y="192" width="60" height="60" rx="4" fill="#FCB53F" stroke="#1A1B20" stroke-width="3"/>
+  <rect x="120" y="120" width="60" height="60" rx="4" fill="#FCB53F" stroke="#000000" stroke-width="3"/>
+  <rect x="192" y="120" width="60" height="60" rx="4" fill="#A6CE39" stroke="#000000" stroke-width="3"/>
+  <rect x="120" y="192" width="60" height="60" rx="4" fill="#C48D65" stroke="#000000" stroke-width="3"/>
+  <rect x="192" y="192" width="60" height="60" rx="4" fill="#FCB53F" stroke="#000000" stroke-width="3"/>
   <!-- Small dot (flash) -->
-  <circle cx="268" cy="96" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <circle cx="268" cy="96" r="12" fill="#A6CE39" stroke="#000000" stroke-width="4"/>
   <!-- Calendar -->
-  <rect x="320" y="240" width="148" height="148" rx="16" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="320" y="240" width="148" height="148" rx="16" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Calendar header -->
-  <rect x="320" y="240" width="148" height="40" rx="16" fill="#FCB53F" stroke="#1A1B20" stroke-width="6"/>
+  <rect x="320" y="240" width="148" height="40" rx="16" fill="#FCB53F" stroke="#000000" stroke-width="6"/>
   <rect x="320" y="268" width="148" height="12" rx="0" fill="#FCB53F" stroke="none"/>
   <!-- Calendar hooks -->
-  <line x1="356" y1="228" x2="356" y2="256" stroke="#1A1B20" stroke-width="8"/>
-  <line x1="432" y1="228" x2="432" y2="256" stroke="#1A1B20" stroke-width="8"/>
+  <line x1="356" y1="228" x2="356" y2="256" stroke="#000000" stroke-width="8"/>
+  <line x1="432" y1="228" x2="432" y2="256" stroke="#000000" stroke-width="8"/>
   <!-- Calendar grid dots -->
-  <circle cx="348" cy="304" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="376" cy="304" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="404" cy="304" r="6" fill="#79C143" stroke="none"/>
-  <circle cx="432" cy="304" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="348" cy="332" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="376" cy="332" r="6" fill="#79C143" stroke="none"/>
-  <circle cx="404" cy="332" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="432" cy="332" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="348" cy="360" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="376" cy="360" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="404" cy="360" r="6" fill="#A87C66" stroke="none"/>
-  <circle cx="432" cy="360" r="6" fill="#79C143" stroke="none"/>
+  <circle cx="348" cy="304" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="376" cy="304" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="404" cy="304" r="6" fill="#A6CE39" stroke="none"/>
+  <circle cx="432" cy="304" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="348" cy="332" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="376" cy="332" r="6" fill="#A6CE39" stroke="none"/>
+  <circle cx="404" cy="332" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="432" cy="332" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="348" cy="360" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="376" cy="360" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="404" cy="360" r="6" fill="#C48D65" stroke="none"/>
+  <circle cx="432" cy="360" r="6" fill="#A6CE39" stroke="none"/>
   <!-- Heart/like indicator -->
-  <path d="M360 420 C352 408 336 408 336 420 C336 436 360 452 360 452 C360 452 384 436 384 420 C384 408 368 408 360 420 Z" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <path d="M360 420 C352 408 336 408 336 420 C336 436 360 452 360 452 C360 452 384 436 384 420 C384 408 368 408 360 420 Z" fill="#A6CE39" stroke="#000000" stroke-width="4"/>
   <!-- Post count -->
-  <rect x="400" y="432" width="56" height="20" rx="10" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
-</svg>
+  <rect x="400" y="432" width="56" height="20" rx="10" fill="#FCB53F" stroke="#000000" stroke-width="4"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

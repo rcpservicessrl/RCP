@@ -1,21 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Letterhead & Envelopes - Paper sheet + envelope with flap open -->
   <!-- Paper sheet -->
-  <rect x="56" y="56" width="220" height="300" rx="8" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="56" y="56" width="220" height="300" rx="8" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Letterhead header line -->
-  <rect x="80" y="80" width="80" height="12" rx="6" fill="#FCB53F" stroke="#1A1B20" stroke-width="4"/>
+  <rect x="80" y="80" width="80" height="12" rx="6" fill="#FCB53F" stroke="#000000" stroke-width="4"/>
   <!-- Content lines -->
-  <rect x="80" y="116" width="172" height="10" rx="5" fill="#A87C66" stroke="none"/>
-  <rect x="80" y="138" width="160" height="10" rx="5" fill="#A87C66" stroke="none"/>
-  <rect x="80" y="160" width="172" height="10" rx="5" fill="#A87C66" stroke="none"/>
-  <rect x="80" y="182" width="140" height="10" rx="5" fill="#A87C66" stroke="none"/>
-  <rect x="80" y="204" width="168" height="10" rx="5" fill="#A87C66" stroke="none"/>
+  <rect x="80" y="116" width="172" height="10" rx="5" fill="#C48D65" stroke="none"/>
+  <rect x="80" y="138" width="160" height="10" rx="5" fill="#C48D65" stroke="none"/>
+  <rect x="80" y="160" width="172" height="10" rx="5" fill="#C48D65" stroke="none"/>
+  <rect x="80" y="182" width="140" height="10" rx="5" fill="#C48D65" stroke="none"/>
+  <rect x="80" y="204" width="168" height="10" rx="5" fill="#C48D65" stroke="none"/>
   <!-- Logo mark on paper -->
-  <circle cx="232" cy="86" r="16" fill="#79C143" stroke="#1A1B20" stroke-width="4"/>
+  <circle cx="232" cy="86" r="16" fill="#A6CE39" stroke="#000000" stroke-width="4"/>
   <!-- Envelope body -->
-  <rect x="236" y="240" width="224" height="160" rx="12" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <rect x="236" y="240" width="224" height="160" rx="12" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Envelope flap (open) -->
-  <path d="M236 252 L348 172 L460 252" fill="#FFFFFF" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M236 252 L348 172 L460 252" fill="#FFFFFF" stroke="#000000" stroke-width="8"/>
   <!-- Envelope center seal -->
-  <circle cx="348" cy="332" r="20" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-</svg>
+  <circle cx="348" cy="332" r="20" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>

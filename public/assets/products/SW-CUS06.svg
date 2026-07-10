@@ -1,28 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="round" stroke-linejoin="round">
   <!-- Private Corporate AI - Brain with neural nodes + padlock -->
   <!-- Brain shape (left hemisphere) -->
-  <path d="M256 120 C200 120 160 150 150 190 C140 230 155 260 170 280 C180 295 175 320 180 340 C190 370 220 380 256 380" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M256 120 C200 120 160 150 150 190 C140 230 155 260 170 280 C180 295 175 320 180 340 C190 370 220 380 256 380" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Brain shape (right hemisphere) -->
-  <path d="M256 120 C312 120 352 150 362 190 C372 230 357 260 342 280 C332 295 337 320 332 340 C322 370 292 380 256 380" fill="#FCB53F" stroke="#1A1B20" stroke-width="8"/>
+  <path d="M256 120 C312 120 352 150 362 190 C372 230 357 260 342 280 C332 295 337 320 332 340 C322 370 292 380 256 380" fill="#FCB53F" stroke="#000000" stroke-width="8"/>
   <!-- Brain center line -->
-  <line x1="256" y1="130" x2="256" y2="370" stroke="#1A1B20" stroke-width="4"/>
+  <line x1="256" y1="130" x2="256" y2="370" stroke="#000000" stroke-width="4"/>
   <!-- Neural nodes -->
-  <circle cx="200" cy="180" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="312" cy="180" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="180" cy="240" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="332" cy="240" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="210" cy="310" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="302" cy="310" r="12" fill="#79C143" stroke="#1A1B20" stroke-width="6"/>
-  <circle cx="256" cy="250" r="14" fill="#FFFFFF" stroke="#1A1B20" stroke-width="6"/>
+  <circle cx="200" cy="180" r="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <circle cx="312" cy="180" r="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <circle cx="180" cy="240" r="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <circle cx="332" cy="240" r="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <circle cx="210" cy="310" r="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <circle cx="302" cy="310" r="12" fill="#A6CE39" stroke="#000000" stroke-width="6"/>
+  <circle cx="256" cy="250" r="14" fill="#FFFFFF" stroke="#000000" stroke-width="6"/>
   <!-- Neural connections -->
-  <line x1="200" y1="180" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="312" y1="180" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="180" y1="240" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="332" y1="240" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="210" y1="310" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
-  <line x1="302" y1="310" x2="256" y2="250" stroke="#1A1B20" stroke-width="3"/>
+  <line x1="200" y1="180" x2="256" y2="250" stroke="#000000" stroke-width="3"/>
+  <line x1="312" y1="180" x2="256" y2="250" stroke="#000000" stroke-width="3"/>
+  <line x1="180" y1="240" x2="256" y2="250" stroke="#000000" stroke-width="3"/>
+  <line x1="332" y1="240" x2="256" y2="250" stroke="#000000" stroke-width="3"/>
+  <line x1="210" y1="310" x2="256" y2="250" stroke="#000000" stroke-width="3"/>
+  <line x1="302" y1="310" x2="256" y2="250" stroke="#000000" stroke-width="3"/>
   <!-- Padlock below -->
-  <rect x="224" y="416" width="64" height="52" rx="10" fill="#A87C66" stroke="#1A1B20" stroke-width="8"/>
-  <path d="M236 416 L236 400 C236 384 248 376 256 376 C264 376 276 384 276 400 L276 416" fill="none" stroke="#1A1B20" stroke-width="8"/>
-  <circle cx="256" cy="442" r="8" fill="#1A1B20" stroke="none"/>
-</svg>
+  <rect x="224" y="416" width="64" height="52" rx="10" fill="#C48D65" stroke="#000000" stroke-width="8"/>
+  <path d="M236 416 L236 400 C236 384 248 376 256 376 C264 376 276 384 276 400 L276 416" fill="none" stroke="#000000" stroke-width="8"/>
+  <circle cx="256" cy="442" r="8" fill="#000000" stroke="none"/>
+  <!-- RCP signature: compact 2-by-3 gold dot matrix -->
+  <g class="rcp-dot-matrix" aria-hidden="true" fill="#FCB53F">
+    <circle cx="430" cy="46" r="6"/><circle cx="450" cy="46" r="6"/><circle cx="470" cy="46" r="6"/>
+    <circle cx="430" cy="66" r="6"/><circle cx="450" cy="66" r="6"/><circle cx="470" cy="66" r="6"/>
+  </g></svg>
