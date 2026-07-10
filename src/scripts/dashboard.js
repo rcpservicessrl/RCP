@@ -35,6 +35,7 @@
       // initializeDashboard(). Mientras tanto, valor defensivo 'unknown'
       // para que ninguna rama admin se ejecute antes de la verificación.
       let activeRole = 'unknown';
+      let skuManuallyEdited = false;
 
       // Setup language dictionary & translation helper
       const isEN = document.documentElement.lang === 'en';
@@ -368,14 +369,14 @@
               const tr = document.createElement('tr');
               const isSynced = txn.sync === 'sync' || txn.sincronizado_odoo === true || txn.sincronizado_odoo === 'true';
               tr.innerHTML = `
-                <td><strong>#${txn.id || txn.transactionId}</strong></td>
-                <td>${txn.date}</td>
-                <td>${txn.items}</td>
-                <td><strong style="color:var(--accent);">${txn.amount}</strong></td>
-                <td>${txn.method}</td>
+                <td><strong>#${escapeHTML(txn.id || txn.transactionId)}</strong></td>
+                <td>${escapeHTML(txn.date)}</td>
+                <td>${escapeHTML(txn.items)}</td>
+                <td><strong style="color:var(--accent);">${escapeHTML(txn.amount)}</strong></td>
+                <td>${escapeHTML(txn.method)}</td>
                 <td>
                   <span class="sync-badge ${isSynced ? 'online' : 'offline'}">
-                    ✓ ${isSynced ? t.txnSynced : t.txnPending}
+                    ✓ ${isSynced ? escapeHTML(t.txnSynced) : escapeHTML(t.txnPending)}
                   </span>
                 </td>
               `;
@@ -495,11 +496,13 @@
           // ADMIN FLOW
           const navClientesLink = document.getElementById('navClientesLink');
           const navProductosLink = document.getElementById('navProductosLink');
+          const navCuponesLink = document.getElementById('navCuponesLink');
           const adminSelectorRow = document.getElementById('adminSelectorRow');
           const adminClientSelect = document.getElementById('adminClientSelect');
 
           if (navClientesLink) navClientesLink.style.display = 'flex';
           if (navProductosLink) navProductosLink.style.display = 'flex';
+          if (navCuponesLink) navCuponesLink.style.display = 'flex';
           if (adminSelectorRow) adminSelectorRow.style.display = 'flex';
 
           // Set sidebar admin profile visual (resolved from session, not hardcoded)
@@ -524,6 +527,8 @@
             await loadAdminClients();
             // Load real products from Supabase DB
             await loadAdminProducts();
+            // Load real coupons
+            await loadAdminCoupons();
           } else {
             renderClientDashboard(defaultMetrics);
             renderMarketing(null);
@@ -537,7 +542,7 @@
               if (selectedVal === 'default') {
                 // Vista global consolidada
                 const { data: gd } = await supabase
-                  .rpc('dashboard_overview', { p_email: activeEmail, p_global: true });
+                   .rpc('dashboard_overview', { p_email: activeEmail, p_global: true });
                 renderClientDashboard(gd || defaultMetrics);
                 renderMarketing(gd ? gd.marketing : null);
               } else {
@@ -559,14 +564,17 @@
           // Hook CRUD actions
           setupAdminCRUD();
           setupProductCRUD();
+          setupCouponCRUD();
 
         } else {
           // CLIENT FLOW (LOAD OWN METRICS)
           const navClientesLink = document.getElementById('navClientesLink');
           const navProductosLink = document.getElementById('navProductosLink');
+          const navCuponesLink = document.getElementById('navCuponesLink');
           const adminSelectorRow = document.getElementById('adminSelectorRow');
           if (navClientesLink) navClientesLink.style.display = 'none';
           if (navProductosLink) navProductosLink.style.display = 'none';
+          if (navCuponesLink) navCuponesLink.style.display = 'none';
           if (adminSelectorRow) adminSelectorRow.style.display = 'none';
 
           loaded = false;
@@ -766,19 +774,19 @@
 
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td><strong>${c.company_name}</strong></td>
-            <td>${c.legal_id}</td>
-            <td>${c.owner_name}</td>
+            <td><strong>${escapeHTML(c.company_name)}</strong></td>
+            <td>${escapeHTML(c.legal_id)}</td>
+            <td>${escapeHTML(c.owner_name)}</td>
             <td>
-              <div style="font-size:0.75rem; color:var(--text-muted);">${c.email}</div>
-              <div style="font-size:0.75rem; color:var(--text-muted);">${c.phone}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHTML(c.email)}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHTML(c.phone)}</div>
             </td>
             <td>
               <div style="display:flex; align-items:center; gap:6px;">
-                <code style="background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; font-weight:700; color:var(--accent); font-family:monospace; font-size:0.9rem;">${codeDisplay}</code>
+                <code style="background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; font-weight:700; color:var(--accent); font-family:monospace; font-size:0.9rem;">${escapeHTML(codeDisplay)}</code>
                 ${c.access_code ? `
-                  <button class="btn-action-sm btn-copy-code" data-code="${c.access_code}" style="padding:4px 6px; font-size:0.75rem;" title="Copiar código">📋</button>
-                  <a href="${waLink}" target="_blank" class="btn-action-sm" style="padding:4px 6px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center;" title="Compartir por WhatsApp">💬</a>
+                  <button class="btn-action-sm btn-copy-code" data-code="${escapeHTML(c.access_code)}" style="padding:4px 6px; font-size:0.75rem;" title="Copiar código">📋</button>
+                  <a href="${escapeHTML(waLink)}" target="_blank" class="btn-action-sm" style="padding:4px 6px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center;" title="Compartir por WhatsApp">💬</a>
                 ` : ''}
               </div>
             </td>
@@ -970,7 +978,84 @@
         return catL[cat] || cat;
       }
 
+      function updateImagePreviews() {
+        const coverPreview = document.getElementById('prodCoverPreview');
+        const galleryPreviews = document.getElementById('prodGalleryPreviews');
+        const imgsInput = document.getElementById('prodImagenesInput');
+        if (!coverPreview || !galleryPreviews || !imgsInput) return;
+        
+        let urls = [];
+        try { urls = JSON.parse(imgsInput.value) || []; } catch(e) { urls = []; }
+
+        coverPreview.innerHTML = '';
+        galleryPreviews.innerHTML = '';
+
+        if (urls.length > 0) {
+          const coverUrl = urls[0];
+          coverPreview.innerHTML = `
+            <div style="position:relative; display:inline-block; margin-right:10px;">
+              <img src="${coverUrl}" style="width:80px; height:80px; object-fit:cover; border-radius:6px; border:2px solid var(--accent);" />
+              <button type="button" class="btn-delete-img" data-index="0" style="position:absolute; top:-5px; right:-5px; background:#ef4444; color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:10px; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+            </div>
+          `;
+          
+          for (let i = 1; i < urls.length; i++) {
+            const div = document.createElement('div');
+            div.style = 'position:relative; display:inline-block; margin-right:10px; margin-bottom:10px;';
+            div.innerHTML = `
+              <img src="${urls[i]}" style="width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--card-border);" />
+              <button type="button" class="btn-delete-img" data-index="${i}" style="position:absolute; top:-5px; right:-5px; background:#ef4444; color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:10px; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+            `;
+            galleryPreviews.appendChild(div);
+          }
+        }
+
+        document.querySelectorAll('.btn-delete-img').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            const idx = parseInt(btn.getAttribute('data-index'));
+            urls.splice(idx, 1);
+            imgsInput.value = JSON.stringify(urls);
+            updateImagePreviews();
+          };
+        });
+      }
+
+      async function uploadProductImage(file, sku) {
+        if (!supabase) throw new Error("Supabase client is not initialized.");
+        const fileExt = file.name.split('.').pop();
+        const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+        const fileName = `${sku}-${Date.now()}-${cleanName}`;
+        const { data, error } = await supabase.storage
+          .from('productos')
+          .upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: true
+          });
+        if (error) throw error;
+        const { data: publicUrlData } = supabase.storage
+          .from('productos')
+          .getPublicUrl(fileName);
+        return publicUrlData.publicUrl;
+      }
+
+      function addSpecRow(key = '', val = '') {
+        const container = document.getElementById('specsContainer');
+        if (!container) return;
+        const row = document.createElement('div');
+        row.className = 'spec-row';
+        row.style = 'display:flex; gap:10px; margin-bottom:8px;';
+        row.innerHTML = `
+          <input type="text" class="form-control spec-key" placeholder="Propiedad" value="${escapeHTML(key)}" style="flex:1;">
+          <input type="text" class="form-control spec-value" placeholder="Valor" value="${escapeHTML(val)}" style="flex:1;">
+          <button type="button" class="btn-action-sm btn-delete-spec" style="border-color:#ef4444; color:#ef4444; padding:6px 10px;">✕</button>
+        `;
+        row.querySelector('.btn-delete-spec').onclick = () => row.remove();
+        container.appendChild(row);
+      }
+
       function startEditProduct(p) {
+        skuManuallyEdited = false;
         document.getElementById('productIdInput').value = p.id;
         document.getElementById('prodSku').value = p.sku;
         document.getElementById('prodCategory').value = p.category;
@@ -980,11 +1065,31 @@
         document.getElementById('prodDescEn').value = p.description_en || '';
         document.getElementById('prodPriceMin').value = p.price_min || 0;
         document.getElementById('prodPriceType').value = p.price_type || 'one_time';
+        
+        // Compound Pricing
+        document.getElementById('prodPriceSetup').value = p.precio_inicial !== null && p.precio_inicial !== undefined ? p.precio_inicial : 0;
+        document.getElementById('prodPriceRecurring').value = p.precio_recurrente !== null && p.precio_recurrente !== undefined ? p.precio_recurrente : 0;
+        document.getElementById('prodRecurringFreq').value = p.frecuencia_recurrente || '';
+
         document.getElementById('prodDeliveryMin').value = p.delivery_days_min !== null ? p.delivery_days_min : '';
         document.getElementById('prodDeliveryMax').value = p.delivery_days_max !== null ? p.delivery_days_max : '';
         document.getElementById('prodSortOrder').value = p.sort_order !== null ? p.sort_order : 0;
         document.getElementById('prodRequiresQuote').checked = !!p.requires_quote;
         document.getElementById('prodIsActive').checked = !!p.is_active;
+
+        // Image Previews
+        document.getElementById('prodImagenesInput').value = JSON.stringify(p.imagenes || []);
+        updateImagePreviews();
+
+        // Technical Specs
+        const container = document.getElementById('specsContainer');
+        if (container) {
+          container.innerHTML = '';
+          const specs = p.especificaciones || {};
+          Object.entries(specs).forEach(([k, v]) => {
+            addSpecRow(k, String(v));
+          });
+        }
 
         document.getElementById('productFormTitle').textContent = isEN ? "Edit Product" : "Editar Producto";
         document.getElementById('productFormBadge').style.display = 'inline-block';
@@ -995,8 +1100,16 @@
       }
 
       function resetProductForm() {
+        skuManuallyEdited = false;
         document.getElementById('productForm').reset();
         document.getElementById('productIdInput').value = '';
+        document.getElementById('prodCoverFile').value = '';
+        document.getElementById('prodGalleryFiles').value = '';
+        document.getElementById('prodImagenesInput').value = '[]';
+        updateImagePreviews();
+        const container = document.getElementById('specsContainer');
+        if (container) container.innerHTML = '';
+
         document.getElementById('productFormTitle').textContent = isEN ? "Register Product" : "Registrar Producto";
         document.getElementById('productFormBadge').style.display = 'none';
         document.getElementById('btnCancelProductEdit').style.display = 'none';
@@ -1045,6 +1158,53 @@
           btnCancelEdit.addEventListener('click', resetProductForm);
         }
 
+        const prodNameEs = document.getElementById('prodNameEs');
+        const prodCategory = document.getElementById('prodCategory');
+        const prodSkuInput = document.getElementById('prodSku');
+        
+        if (prodSkuInput) {
+          prodSkuInput.addEventListener('input', () => {
+            skuManuallyEdited = true;
+          });
+        }
+
+        function generateSku() {
+          if (skuManuallyEdited) return;
+          if (document.getElementById('productIdInput').value) return; // Ignore if editing
+          const category = prodCategory.value;
+          const name = prodNameEs.value;
+          if (!category || !name) return;
+
+          const categoryPrefixes = {
+            servicio_renovacion: 'REN',
+            servicio_consultoria: 'CON',
+            servicio_publicidad: 'MKT',
+            software_preconfigurado: 'SFT',
+            software_custom: 'DEV',
+            imprenta: 'IMP',
+            articulos_corporativos: 'CORP',
+            pop_merchandising: 'POP'
+          };
+
+          const prefix = categoryPrefixes[category] || 'PROD';
+          const cleanName = name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9]/g, "").substring(0, 3).toUpperCase();
+          const count = productList.filter(p => p.category === category).length + 1;
+          const sequential = String(count).padStart(3, '0');
+
+          document.getElementById('prodSku').value = `${prefix}-${cleanName}-${sequential}`;
+        }
+
+        if (prodNameEs && prodCategory) {
+          prodNameEs.addEventListener('input', generateSku);
+          prodCategory.addEventListener('change', generateSku);
+        }
+
+        const btnAddSpec = document.getElementById('btnAddSpec');
+        if (btnAddSpec) {
+          btnAddSpec.onclick = () => addSpecRow();
+        }
+
         const productForm = document.getElementById('productForm');
         if (productForm) {
           productForm.addEventListener('submit', async (e) => {
@@ -1069,6 +1229,50 @@
             const requiresQuote = document.getElementById('prodRequiresQuote').checked;
             const isActive = document.getElementById('prodIsActive').checked;
 
+            const precioInicial = document.getElementById('prodPriceSetup').value !== '' ? parseFloat(document.getElementById('prodPriceSetup').value) : 0;
+            const precioRecurrente = document.getElementById('prodPriceRecurring').value !== '' ? parseFloat(document.getElementById('prodPriceRecurring').value) : 0;
+            const frecuenciaRecurrente = document.getElementById('prodRecurringFreq').value;
+
+            const specRows = document.querySelectorAll('#specsContainer .spec-row');
+            const specsObj = {};
+            specRows.forEach(row => {
+              const key = row.querySelector('.spec-key').value.trim();
+              const val = row.querySelector('.spec-value').value.trim();
+              if (key) {
+                specsObj[key] = val;
+              }
+            });
+
+            const coverFile = document.getElementById('prodCoverFile').files[0];
+            const galleryFiles = document.getElementById('prodGalleryFiles').files;
+            const imgsInput = document.getElementById('prodImagenesInput');
+            let currentImages = [];
+            try { currentImages = JSON.parse(imgsInput.value) || []; } catch(e) { currentImages = []; }
+
+            try {
+              if (coverFile) {
+                const coverUrl = await uploadProductImage(coverFile, sku);
+                if (currentImages.length > 0) {
+                  currentImages[0] = coverUrl;
+                } else {
+                  currentImages.push(coverUrl);
+                }
+              }
+
+              if (galleryFiles.length > 0) {
+                for (let i = 0; i < galleryFiles.length; i++) {
+                  const gUrl = await uploadProductImage(galleryFiles[i], sku);
+                  currentImages.push(gUrl);
+                }
+              }
+            } catch(uploadErr) {
+              console.error("Error uploading images:", uploadErr);
+              alert(isEN ? "Failed to upload images: " + uploadErr.message : "Error al subir imágenes: " + uploadErr.message);
+              btnSave.textContent = originalText;
+              btnSave.disabled = false;
+              return;
+            }
+
             const payload = {
               sku,
               category,
@@ -1082,7 +1286,12 @@
               delivery_days_max: deliveryMax,
               sort_order: sortOrder,
               requires_quote: requiresQuote,
-              is_active: isActive
+              is_active: isActive,
+              precio_inicial: precioInicial,
+              precio_recurrente: precioRecurrente,
+              frecuencia_recurrente: frecuenciaRecurrente || null,
+              especificaciones: specsObj,
+              imagenes: currentImages
             };
 
             try {
@@ -1105,6 +1314,194 @@
             } catch (err) {
               console.error("Error saving product:", err);
               alert(isEN ? "Failed to save product: " + err.message : "Error al guardar producto: " + err.message);
+            } finally {
+              btnSave.textContent = originalText;
+              btnSave.disabled = false;
+            }
+          });
+        }
+      }
+
+      let couponList = [];
+
+      async function loadAdminCoupons() {
+        if (!supabase) return;
+        try {
+          const { data, error } = await supabase
+            .from('cupones')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+          if (error) throw error;
+
+          couponList = data || [];
+          renderCouponsTable();
+        } catch (err) {
+          console.error("Error loading admin coupons:", err);
+        }
+      }
+
+      function renderCouponsTable() {
+        const tbody = document.getElementById('cuponesTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        if (couponList.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:var(--text-muted);">No hay cupones registrados.</td></tr>`;
+          return;
+        }
+
+        couponList.forEach(c => {
+          const tr = document.createElement('tr');
+          let discountStr = '—';
+          if (c.descuento_porcentaje) {
+            discountStr = `${c.descuento_porcentaje}%`;
+          } else if (c.descuento_monto) {
+            discountStr = `RD$ ${(c.descuento_monto).toLocaleString()}`;
+          }
+
+          let expiryStr = '—';
+          if (c.fecha_expiracion) {
+            expiryStr = new Date(c.fecha_expiracion).toLocaleString();
+          }
+
+          tr.innerHTML = `
+            <td><code>${escapeHTML(c.codigo)}</code></td>
+            <td><strong>${escapeHTML(discountStr)}</strong></td>
+            <td>${escapeHTML(expiryStr)}</td>
+            <td>
+              <span class="sync-badge ${c.activo ? 'online' : 'offline'}">
+                ${c.activo ? (isEN ? 'Active' : 'Activo') : (isEN ? 'Inactive' : 'Inactivo')}
+              </span>
+            </td>
+            <td>
+              <button class="btn-action-sm btn-edit-coupon" data-id="${c.id}" style="margin-right:5px; padding:6px 10px;" title="Editar">✏️</button>
+              <button class="btn-action-sm btn-delete-coupon" data-id="${c.id}" style="padding:6px 10px; border-color:#ef4444; color:#ef4444;" title="Eliminar">🗑️</button>
+            </td>
+          `;
+
+          tr.querySelector('.btn-edit-coupon').addEventListener('click', () => startEditCoupon(c));
+          tr.querySelector('.btn-delete-coupon').addEventListener('click', () => deleteCoupon(c.id));
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      function startEditCoupon(c) {
+        document.getElementById('couponIdInput').value = c.id;
+        document.getElementById('couponCode').value = c.codigo;
+        document.getElementById('couponPct').value = c.descuento_porcentaje || '';
+        document.getElementById('couponAmt').value = c.descuento_monto || '';
+        
+        if (c.fecha_expiracion) {
+          const d = new Date(c.fecha_expiracion);
+          const pad = (n) => String(n).padStart(2, '0');
+          const formatted = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+          document.getElementById('couponExpiry').value = formatted;
+        } else {
+          document.getElementById('couponExpiry').value = '';
+        }
+        
+        document.getElementById('couponIsActive').checked = !!c.activo;
+
+        document.getElementById('couponFormTitle').textContent = isEN ? "Edit Coupon" : "Editar Cupón";
+        document.getElementById('couponFormBadge').style.display = 'inline-block';
+        document.getElementById('btnCancelCouponEdit').style.display = 'inline-block';
+
+        const formCard = document.getElementById('couponFormCard');
+        if (formCard) formCard.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function resetCouponForm() {
+        document.getElementById('couponForm').reset();
+        document.getElementById('couponIdInput').value = '';
+        document.getElementById('couponFormTitle').textContent = isEN ? "Register Coupon" : "Registrar Cupón";
+        document.getElementById('couponFormBadge').style.display = 'none';
+        document.getElementById('btnCancelCouponEdit').style.display = 'none';
+      }
+
+      async function deleteCoupon(id) {
+        const confirmMsg = isEN ? "Are you sure you want to delete this coupon?" : "¿Estás seguro de que deseas eliminar este cupón?";
+        if (confirm(confirmMsg)) {
+          try {
+            const { error } = await supabase
+              .from('cupones')
+              .delete()
+              .eq('id', id);
+
+            if (error) throw error;
+
+            alert(isEN ? "Coupon deleted successfully." : "Cupón eliminado correctamente.");
+            await loadAdminCoupons();
+          } catch (err) {
+            console.error("Error deleting coupon:", err);
+            alert(isEN ? "Error deleting coupon: " + err.message : "Error al eliminar cupón: " + err.message);
+          }
+        }
+      }
+
+      function setupCouponCRUD() {
+        const btnRefresh = document.getElementById('btnRefreshCupones');
+        if (btnRefresh) {
+          btnRefresh.addEventListener('click', async () => {
+            const originalText = btnRefresh.textContent;
+            btnRefresh.textContent = isEN ? 'Syncing...' : 'Sincronizando...';
+            btnRefresh.disabled = true;
+            await loadAdminCoupons();
+            btnRefresh.textContent = originalText;
+            btnRefresh.disabled = false;
+          });
+        }
+
+        const btnCancelEdit = document.getElementById('btnCancelCouponEdit');
+        if (btnCancelEdit) {
+          btnCancelEdit.addEventListener('click', resetCouponForm);
+        }
+
+        const couponForm = document.getElementById('couponForm');
+        if (couponForm) {
+          couponForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btnSave = document.getElementById('btnSaveCoupon');
+            const originalText = btnSave.textContent;
+            btnSave.textContent = isEN ? "Saving..." : "Guardando...";
+            btnSave.disabled = true;
+
+            const couponId = document.getElementById('couponIdInput').value;
+            const codigo = document.getElementById('couponCode').value.trim().toUpperCase();
+            const pctVal = document.getElementById('couponPct').value;
+            const amtVal = document.getElementById('couponAmt').value;
+            const expiryVal = document.getElementById('couponExpiry').value;
+            const isActive = document.getElementById('couponIsActive').checked;
+
+            const payload = {
+              codigo,
+              descuento_porcentaje: pctVal ? parseFloat(pctVal) : null,
+              descuento_monto: amtVal ? parseFloat(amtVal) : null,
+              fecha_expiracion: expiryVal ? new Date(expiryVal).toISOString() : null,
+              activo: isActive
+            };
+
+            try {
+              if (couponId) {
+                const { error } = await supabase
+                  .from('cupones')
+                  .update(payload)
+                  .eq('id', couponId);
+                if (error) throw error;
+              } else {
+                const { error } = await supabase
+                  .from('cupones')
+                  .insert([payload]);
+                if (error) throw error;
+              }
+
+              alert(isEN ? "Coupon saved successfully." : "Cupón guardado correctamente.");
+              resetCouponForm();
+              await loadAdminCoupons();
+            } catch (err) {
+              console.error("Error saving coupon:", err);
+              alert(isEN ? "Failed to save coupon: " + err.message : "Error al guardar cupón: " + err.message);
             } finally {
               btnSave.textContent = originalText;
               btnSave.disabled = false;
@@ -1296,11 +1693,11 @@
           if (newTheme === 'light') {
             if (moonIcon) moonIcon.style.display = 'none';
             if (sunIcon) sunIcon.style.display = 'block';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = 'Logo RCP Services.png');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/Logo RCP Services.png');
           } else {
             if (moonIcon) moonIcon.style.display = 'block';
             if (sunIcon) sunIcon.style.display = 'none';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = 'Logo RCP  fondo negro.png');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/Logo RCP  fondo negro.png');
           }
         });
       }

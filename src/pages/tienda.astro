@@ -66,7 +66,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="product-modal-content">
         <button class="product-modal-close" id="modalClose" aria-label="Cerrar">✕</button>
         <div class="product-modal-body">
-          <div class="product-modal-icon" id="modalIcon">📦</div>
+          <div class="product-modal-carousel-container" id="modalIcon">
+            <div class="product-modal-carousel" id="modalCarousel">
+              <!-- Slides will be inserted dynamically here -->
+            </div>
+            <button class="carousel-nav-btn prev" id="carouselPrevBtn" aria-label="Anterior">‹</button>
+            <button class="carousel-nav-btn next" id="carouselNextBtn" aria-label="Siguiente">›</button>
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+          </div>
           <span class="product-modal-category" id="modalCategory">Categoría</span>
           <h2 class="product-modal-title" id="modalTitle">Nombre del Producto</h2>
           <p class="product-modal-desc" id="modalDesc">Descripción completa del producto o servicio.</p>
@@ -85,6 +92,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
           <div class="product-modal-tags" id="modalTags"></div>
+          <div class="product-modal-specs" id="modalSpecs" style="margin-top: 15px; font-size: 0.85rem;"></div>
           <hr class="cart-hr" />
           <h4 style="margin-bottom:12px;">Adquirir</h4>
           <div class="payment-methods">
@@ -160,3 +168,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script src="/tienda.js" is:inline></script>
+
+<style is:global>
+  .product-modal-carousel-container { position: relative; width: 100%; height: 260px; background: rgba(0,0,0,0.02); border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; }
+  .product-modal-carousel { width: 100%; height: 100%; display: flex; position: relative; }
+  .carousel-slide { display: none; width: 100%; height: 100%; justify-content: center; align-items: center; padding: 12px; }
+  .carousel-slide.active { display: flex; }
+  .carousel-slide img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+  .carousel-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: background 0.2s; z-index: 2; }
+  .carousel-nav-btn:hover { background: var(--accent); }
+  .carousel-nav-btn.prev { left: 10px; }
+  .carousel-nav-btn.next { right: 10px; }
+  .carousel-indicators { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2; }
+  .carousel-indicator-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); border: none; cursor: pointer; padding: 0; }
+  .carousel-indicator-dot.active { background: var(--accent); width: 16px; border-radius: 4px; }
+</style>

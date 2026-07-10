@@ -147,6 +147,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="checkout-summary-card">
             <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 15px;" data-i18n="chk-summary-title">Resumen del Pedido</h2>
             <div class="summary-items-list" id="summaryItemsList"></div>
+
+            <div class="coupon-box" style="margin-bottom: 20px; border-top: 1px solid var(--card-border); padding-top: 15px;">
+              <label for="checkoutCouponCode" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">¿Tienes un cupón de descuento?</label>
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="checkoutCouponCode" class="form-control" placeholder="Ej. PROMO10" style="text-transform: uppercase;" />
+                <button type="button" class="btn-cta" id="btnApplyCoupon" style="padding: 10px 16px; font-size: 0.85rem; min-width: 90px;">Aplicar</button>
+              </div>
+              <div id="couponFeedback" style="font-size: 0.8rem; margin-top: 6px; display: none;"></div>
+            </div>
+
             <div class="checkout-totals-box">
               <div class="checkout-total-row">
                 <span data-i18n="cart-total-setup">Inversión Única (Setup):</span>
@@ -155,6 +165,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <div class="checkout-total-row">
                 <span data-i18n="cart-total-monthly">Mensualidad (Retainer):</span>
                 <strong id="summaryMonthly">RD$ 0/mes</strong>
+              </div>
+              <div class="checkout-total-row" id="discountRow" style="display: none; color: #22c55e;">
+                <span>Descuento (<span id="appliedCouponLabel"></span>):</span>
+                <strong id="summaryDiscount">-RD$ 0</strong>
               </div>
               <div class="checkout-total-row grand-total">
                 <span data-i18n="chk-total-today">Total a Pagar Hoy:</span>
@@ -233,44 +247,176 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       catch (e) { console.error('Error parsing custom items:', e); }
     }
 
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+    const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
+    const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+    let supabaseClient: any = null;
+    try {
+      if ((window as any).supabase) {
+        supabaseClient = (window as any).supabase.createClient(supabaseUrl, supabaseKey);
+      }
+    } catch (e) {
+      console.error("Supabase init error:", e);
+    }
+
     const summaryItemsList = document.getElementById('summaryItemsList');
     const summarySetup = document.getElementById('summarySetup');
     const summaryMonthly = document.getElementById('summaryMonthly');
     const summaryTotalToday = document.getElementById('summaryTotalToday');
 
-    let setupMinTotal = 0, setupMaxTotal = 0, monthlyMinTotal = 0, monthlyMaxTotal = 0;
+    let appliedCoupon: any = null;
 
-    if (summaryItemsList) {
-      summaryItemsList.innerHTML = '';
-      if (checkoutItems.length === 0) {
-        summaryItemsList.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No hay servicios en el checkout.</p>`;
-      } else {
-        checkoutItems.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'summary-item';
-          const nameSpan = document.createElement('span');
-          nameSpan.className = 'summary-item-name';
-          nameSpan.textContent = item.name;
-          const priceSpan = document.createElement('span');
-          priceSpan.className = 'summary-item-price';
-          const minStr = item.min.toLocaleString();
-          const maxStr = item.max.toLocaleString();
-          if (item.recurring) {
-            priceSpan.textContent = `RD$ ${minStr} - ${maxStr}/m`;
-            monthlyMinTotal += item.min; monthlyMaxTotal += item.max;
-          } else {
-            priceSpan.textContent = `RD$ ${minStr} - ${maxStr}`;
-            setupMinTotal += item.min; setupMaxTotal += item.max;
+    function recalculateTotals() {
+      let setupMinTotal = 0, setupMaxTotal = 0, monthlyMinTotal = 0, monthlyMaxTotal = 0;
+
+      if (summaryItemsList) {
+        summaryItemsList.innerHTML = '';
+        if (checkoutItems.length === 0) {
+          summaryItemsList.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No hay servicios en el checkout.</p>`;
+        } else {
+          checkoutItems.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'summary-item';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'summary-item-name';
+            nameSpan.textContent = item.name;
+            const priceSpan = document.createElement('span');
+            priceSpan.className = 'summary-item-price';
+            
+            var hasCompound = (item.precio_inicial !== undefined && item.precio_inicial !== null && item.precio_inicial > 0) 
+                           || (item.precio_recurrente !== undefined && item.precio_recurrente !== null && item.precio_recurrente > 0);
+            
+            if (hasCompound) {
+              var initVal = item.precio_inicial || 0;
+              var recVal = item.precio_recurrente || 0;
+              var freq = item.frecuencia_recurrente || '';
+              var freqLabel = (freq === 'mensual' || freq === 'monthly') ? '/mes' : (freq === 'anual' ? '/año' : '/' + freq);
+              if (initVal > 0 && recVal > 0) {
+                priceSpan.textContent = `RD$ ${initVal.toLocaleString()} + RD$ ${recVal.toLocaleString()}${freqLabel}`;
+                setupMinTotal += initVal; setupMaxTotal += initVal;
+                monthlyMinTotal += recVal; monthlyMaxTotal += recVal;
+              } else if (recVal > 0) {
+                priceSpan.textContent = `RD$ ${recVal.toLocaleString()}${freqLabel}`;
+                monthlyMinTotal += recVal; monthlyMaxTotal += recVal;
+              } else {
+                priceSpan.textContent = `RD$ ${initVal.toLocaleString()}`;
+                setupMinTotal += initVal; setupMaxTotal += initVal;
+              }
+            } else {
+              const minStr = item.min.toLocaleString();
+              const maxStr = item.max.toLocaleString();
+              if (item.recurring) {
+                priceSpan.textContent = `RD$ ${minStr} - ${maxStr}/m`;
+                monthlyMinTotal += item.min; monthlyMaxTotal += item.max;
+              } else {
+                priceSpan.textContent = `RD$ ${minStr} - ${maxStr}`;
+                setupMinTotal += item.min; setupMaxTotal += item.max;
+              }
+            }
+            
+            div.appendChild(nameSpan); div.appendChild(priceSpan);
+            summaryItemsList.appendChild(div);
+          });
+        }
+        
+        if (summarySetup) summarySetup.textContent = `RD$ ${setupMinTotal.toLocaleString()} - ${setupMaxTotal.toLocaleString()}`;
+        if (summaryMonthly) summaryMonthly.textContent = `RD$ ${monthlyMinTotal.toLocaleString()} - ${monthlyMaxTotal.toLocaleString()} /mes`;
+        
+        const todayMinPayment = setupMinTotal > 0 ? setupMinTotal : monthlyMinTotal;
+        const todayMaxPayment = setupMaxTotal > 0 ? setupMaxTotal : monthlyMaxTotal;
+        const baseToday = (todayMinPayment + todayMaxPayment) / 2;
+
+        let discountAmount = 0;
+        const discountRow = document.getElementById('discountRow');
+        const summaryDiscount = document.getElementById('summaryDiscount');
+        const appliedCouponLabel = document.getElementById('appliedCouponLabel');
+
+        if (appliedCoupon) {
+          if (appliedCoupon.descuento_porcentaje) {
+            discountAmount = baseToday * (appliedCoupon.descuento_porcentaje / 100);
+            if (appliedCouponLabel) appliedCouponLabel.textContent = `${appliedCoupon.codigo} (${appliedCoupon.descuento_porcentaje}%)`;
+          } else if (appliedCoupon.descuento_monto) {
+            discountAmount = appliedCoupon.descuento_monto;
+            if (appliedCouponLabel) appliedCouponLabel.textContent = appliedCoupon.codigo;
           }
-          div.appendChild(nameSpan); div.appendChild(priceSpan);
-          summaryItemsList.appendChild(div);
-        });
+          
+          if (discountRow) discountRow.style.display = 'flex';
+          if (summaryDiscount) summaryDiscount.textContent = `-RD$ ${discountAmount.toLocaleString()}`;
+        } else {
+          if (discountRow) discountRow.style.display = 'none';
+        }
+
+        const finalTotalToday = Math.max(0, baseToday - discountAmount);
+        if (summaryTotalToday) summaryTotalToday.textContent = `RD$ ${finalTotalToday.toLocaleString()}`;
       }
-      summarySetup.textContent = `RD$ ${setupMinTotal.toLocaleString()} - ${setupMaxTotal.toLocaleString()}`;
-      summaryMonthly.textContent = `RD$ ${monthlyMinTotal.toLocaleString()} - ${monthlyMaxTotal.toLocaleString()} /mes`;
-      const todayMinPayment = setupMinTotal > 0 ? setupMinTotal : monthlyMinTotal;
-      const todayMaxPayment = setupMaxTotal > 0 ? setupMaxTotal : monthlyMaxTotal;
-      summaryTotalToday.textContent = `RD$ ${((todayMinPayment + todayMaxPayment)/2).toLocaleString()}`;
+    }
+
+    recalculateTotals();
+
+    const btnApplyCoupon = document.getElementById('btnApplyCoupon');
+    const checkoutCouponCode = document.getElementById('checkoutCouponCode') as HTMLInputElement;
+    const couponFeedback = document.getElementById('couponFeedback');
+
+    if (btnApplyCoupon && checkoutCouponCode && couponFeedback) {
+      btnApplyCoupon.addEventListener('click', async () => {
+        const code = checkoutCouponCode.value.trim().toUpperCase();
+        if (!code) {
+          couponFeedback.style.display = 'block';
+          couponFeedback.style.color = '#ef4444';
+          couponFeedback.textContent = isEN ? 'Please enter a coupon code.' : 'Por favor ingresa un código de cupón.';
+          return;
+        }
+
+        if (!supabaseClient) {
+          couponFeedback.style.display = 'block';
+          couponFeedback.style.color = '#ef4444';
+          couponFeedback.textContent = isEN ? 'Supabase client not loaded. Cannot validate coupon.' : 'El cliente de Supabase no está cargado. No se puede validar el cupón.';
+          return;
+        }
+
+        btnApplyCoupon.textContent = isEN ? 'Validating...' : 'Validando...';
+        (btnApplyCoupon as HTMLButtonElement).disabled = true;
+
+        try {
+          const { data, error } = await supabaseClient
+            .from('cupones')
+            .select('*')
+            .eq('codigo', code)
+            .eq('activo', true)
+            .maybeSingle();
+
+          if (error) throw error;
+
+          if (!data) {
+            appliedCoupon = null;
+            couponFeedback.style.display = 'block';
+            couponFeedback.style.color = '#ef4444';
+            couponFeedback.textContent = isEN ? 'Invalid or expired coupon.' : 'Cupón inválido o expirado.';
+          } else {
+            // Check expiry date
+            if (data.fecha_expiracion && new Date(data.fecha_expiracion) < new Date()) {
+              appliedCoupon = null;
+              couponFeedback.style.display = 'block';
+              couponFeedback.style.color = '#ef4444';
+              couponFeedback.textContent = isEN ? 'This coupon has expired.' : 'Este cupón ha expirado.';
+            } else {
+              appliedCoupon = data;
+              couponFeedback.style.display = 'block';
+              couponFeedback.style.color = '#22c55e';
+              couponFeedback.textContent = isEN ? 'Coupon applied successfully!' : '¡Cupón aplicado correctamente!';
+            }
+          }
+          recalculateTotals();
+        } catch (err: any) {
+          console.error("Error validating coupon:", err);
+          couponFeedback.style.display = 'block';
+          couponFeedback.style.color = '#ef4444';
+          couponFeedback.textContent = isEN ? 'Error validating coupon: ' + err.message : 'Error al validar cupón: ' + err.message;
+        } finally {
+          btnApplyCoupon.textContent = isEN ? 'Apply' : 'Aplicar';
+          (btnApplyCoupon as HTMLButtonElement).disabled = false;
+        }
+      });
     }
 
     const methodCards = document.querySelectorAll('.payment-method-card');
@@ -349,7 +495,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         if (!navigator.onLine) {
           const accessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
-          const newPago = { id: transactionId, amount: document.getElementById('summaryTotalToday')!.textContent, date: new Date().toLocaleDateString(), items: checkoutItems };
+          const newPago = { id: transactionId, amount: document.getElementById('summaryTotalToday')!.textContent, date: new Date().toLocaleDateString(), items: checkoutItems, coupon_code: appliedCoupon ? appliedCoupon.codigo : null };
           const txnData = {
             transactionId, name, email, phone, company, rnc, address,
             items: checkoutItems, paymentMethod: activeMethod,
@@ -364,7 +510,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             user_name: name, user_email: email, user_phone: phone, user_company: company,
             user_service: checkoutItems.map((item:any) => item.name).join(', '),
             user_message: `Pedido registrado (OFFLINE - ${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
-            lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status
+            lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status,
+            coupon_code: appliedCoupon ? appliedCoupon.codigo : null
           };
 
           const supabaseData = {
@@ -430,7 +577,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 user_name: name, user_email: email, user_phone: phone, user_company: company,
                 user_service: checkoutItems.map((item:any) => item.name).join(', '),
                 user_message: `Pedido registrado (${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
-                lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status
+                lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status,
+                coupon_code: appliedCoupon ? appliedCoupon.codigo : null
               });
               fetch(RCP_LEAD_WEBHOOK_URL, {
                 method: 'POST', 
@@ -442,15 +590,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               });
             } catch(e) {}
 
-            const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
-            const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
-            const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
-            let supabaseClient: any = null;
-            try { if ((window as any).supabase) supabaseClient = (window as any).supabase.createClient(supabaseUrl, supabaseKey); }
-            catch (e) { console.error("Supabase init error:", e); }
-
             const accessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
-            const newPago = { id: transactionId, amount: txnData.amountPaid, date: txnData.date, items: checkoutItems };
+            const newPago = { id: transactionId, amount: txnData.amountPaid, date: txnData.date, items: checkoutItems, coupon_code: appliedCoupon ? appliedCoupon.codigo : null };
 
             let dbPromise = Promise.resolve();
             if (supabaseClient) {

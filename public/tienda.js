@@ -40,6 +40,42 @@ function isEN(){return getLang()==='en';}
 function getCatLabel(cat){return isEN()?(catL_en[cat]||cat):(catL[cat]||cat);}
 function getTypeLabel(type){return isEN()?(typeL_en[type]||'One-time'):(typeL[type]||'Pago unico');}
 
+function escapeHTML(str) {
+  if (str === null || str === undefined) return '';
+  return str.toString()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getCompoundPriceLabel(p) {
+  var setup = p.precio_inicial || 0;
+  var rec = p.precio_recurrente || 0;
+  var freq = p.frecuencia_recurrente || '';
+  
+  var freqLabel = '';
+  if (freq === 'mensual' || freq === 'monthly') {
+    freqLabel = isEN() ? '/mo' : '/mes';
+  } else if (freq === 'anual' || freq === 'yearly') {
+    freqLabel = isEN() ? '/yr' : '/año';
+  } else if (freq) {
+    freqLabel = '/' + freq;
+  }
+
+  if (setup > 0 && rec > 0) {
+    var setupText = isEN() ? ' setup' : ' inicial';
+    return fp(setup) + setupText + ' + ' + fp(rec) + freqLabel;
+  } else if (rec > 0) {
+    return fp(rec) + freqLabel;
+  } else if (setup > 0) {
+    return fp(setup);
+  } else {
+    return p.type==='recurring'?fp(p.price)+(isEN()?'/mo':'/mes'):p.type==='per_unit'?fp(p.price)+(isEN()?'/unit':'/ud'):fp(p.price);
+  }
+}
+
 // ─── STATIC CATALOG FALLBACK ───
 var STATIC_PRODUCT_CATALOG = [
   { sku: 'SRV-R01', name_es: 'Identidad Visual Básica', name_en: 'Basic Visual Identity', category: 'servicio_renovacion', price_type: 'one_time', price_min: 15000, delivery_days_min: 5, delivery_days_max: 10, requires_quote: false },
@@ -130,6 +166,11 @@ function processProductData(data){
       includes:item.description_es||'',
       includes_en:item.description_en||item.description_es||'',
       price:item.price_min,
+      precio_inicial:item.precio_inicial || 0,
+      precio_recurrente:item.precio_recurrente || 0,
+      frecuencia_recurrente:item.frecuencia_recurrente || '',
+      imagenes:item.imagenes || [],
+      especificaciones:item.especificaciones || {},
       days:days,
       cat:item.category,
       type:item.price_type,
@@ -146,7 +187,7 @@ function loadFromSupabase(){
   // Show loading state
   if(grid) grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;"><div class="store-loading-spinner"></div><p style="color:#8e8f94;margin-top:16px;">'+(isEN()?'Loading products...':'Cargando productos...')+'</p></div>';
 
-  fetch(SUPABASE_URL+'/rest/v1/productos?is_active=eq.true&order=sort_order.asc&select=sku,name_es,name_en,description_es,description_en,price_min,delivery_days_min,delivery_days_max,category,price_type,requires_quote',{
+  fetch(SUPABASE_URL+'/rest/v1/productos?is_active=eq.true&order=sort_order.asc&select=sku,name_es,name_en,description_es,description_en,price_min,delivery_days_min,delivery_days_max,category,price_type,requires_quote,precio_inicial,precio_recurrente,frecuencia_recurrente,imagenes,especificaciones',{
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
   }).then(function(r){
     if(!r.ok) throw new Error('HTTP '+r.status);
@@ -265,7 +306,7 @@ function render(filter){
     var fav=isFav(p.sku);
     var pName=isEN()?(p.name_en||p.name):p.name;
     var pDesc=isEN()?(p.includes_en||p.includes):p.includes;
-    var priceLabel=p.type==='recurring'?fp(p.price)+(isEN()?'/mo':'/mes'):p.type==='per_unit'?fp(p.price)+(isEN()?'/unit':'/ud'):fp(p.price);
+    var priceLabel=getCompoundPriceLabel(p);
     var btnText=inCart?(isEN()?'In cart':'En el carrito'):(isEN()?'Add':'Agregar');
     var btnClass='store-card-btn cart-btn'+(inCart?' added':'');
     var card=document.createElement('div');
@@ -298,19 +339,99 @@ function openM(p){
   selected=p;
   var pName=isEN()?(p.name_en||p.name):p.name;
   var pDesc=isEN()?(p.includes_en||p.includes):p.includes;
-  document.getElementById('modalIcon').innerHTML='<img src="/assets/products/'+p.sku+'.svg" class="product-thumbnail" onload="this.style.display=\'block\'; this.nextElementSibling.style.display=\'none\';" onerror="this.src=\'/assets/products/'+p.sku+'.png\'; this.onerror=function(){this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';};" style="display:none; width:100%; height:100%; object-fit:contain; border-radius:8px; padding:12px;">'
-    +'<div class="store-card-icon-fallback" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">'+getIcon(p.sku)+'</div>';
+
+  var carousel = document.getElementById('modalCarousel');
+  var indicators = document.getElementById('carouselIndicators');
+  var prevBtn = document.getElementById('carouselPrevBtn');
+  var nextBtn = document.getElementById('carouselNextBtn');
+  
+  var imgs = p.imagenes && p.imagenes.length > 0 ? p.imagenes : [];
+  if (imgs.length === 0) {
+    imgs.push('/assets/products/' + p.sku + '.svg');
+  }
+
+  if (carousel && indicators && prevBtn && nextBtn) {
+    carousel.innerHTML = '';
+    indicators.innerHTML = '';
+
+    var currentSlideIdx = 0;
+    var totalSlides = imgs.length;
+
+    imgs.forEach(function(url, idx) {
+      var slide = document.createElement('div');
+      slide.className = 'carousel-slide' + (idx === 0 ? ' active' : '');
+      
+      var img = document.createElement('img');
+      img.src = url;
+      img.style = 'max-width:100%; max-height:100%; object-fit:contain; border-radius:8px;';
+      img.onerror = function() {
+        if (url.endsWith('.svg')) {
+          img.src = url.substring(0, url.length - 4) + '.png';
+        } else {
+          slide.innerHTML = '<div class="store-card-icon-fallback" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%; font-size:5rem;">' + getIcon(p.sku) + '</div>';
+        }
+      };
+      slide.appendChild(img);
+      carousel.appendChild(slide);
+
+      var dot = document.createElement('button');
+      dot.className = 'carousel-indicator-dot' + (idx === 0 ? ' active' : '');
+      dot.addEventListener('click', function() { goToSlide(idx); });
+      indicators.appendChild(dot);
+    });
+
+    if (totalSlides > 1) {
+      prevBtn.style.display = 'block';
+      nextBtn.style.display = 'block';
+      indicators.style.display = 'flex';
+    } else {
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+      indicators.style.display = 'none';
+    }
+
+    function goToSlide(idx) {
+      currentSlideIdx = (idx + totalSlides) % totalSlides;
+      var slides = carousel.querySelectorAll('.carousel-slide');
+      var dots = indicators.querySelectorAll('.carousel-indicator-dot');
+      slides.forEach(function(s, i) { s.classList.toggle('active', i === currentSlideIdx); });
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === currentSlideIdx); });
+    }
+
+    prevBtn.onclick = function() { goToSlide(currentSlideIdx - 1); };
+    nextBtn.onclick = function() { goToSlide(currentSlideIdx + 1); };
+  }
+
   document.getElementById('modalCategory').textContent=getCatLabel(p.cat);
   document.getElementById('modalTitle').textContent=pName;
   document.getElementById('modalDesc').textContent=pDesc;
-  var priceLabel=p.type==='recurring'?fp(p.price)+(isEN()?'/mo':'/mes'):p.type==='per_unit'?fp(p.price)+(isEN()?'/unit':'/unidad'):fp(p.price);
+  
+  var priceLabel=getCompoundPriceLabel(p);
   document.getElementById('modalPrice').textContent=priceLabel;
   document.getElementById('modalDelivery').textContent=p.days;
   document.getElementById('modalType').textContent=getTypeLabel(p.type);
+  
   var inC=cart.some(function(c){return c.sku===p.sku;});
   var cartTag=inC?'<span class="modal-tag" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e;">'+(isEN()?'In your cart':'En tu carrito')+'</span>':'';
   var fixedTag='<span class="modal-tag">'+(isEN()?'Fixed price':'Precio fijo')+'</span>';
   document.getElementById('modalTags').innerHTML=cartTag+fixedTag;
+
+  // Render Specifications
+  var specsContainer = document.getElementById('modalSpecs');
+  if (specsContainer) {
+    specsContainer.innerHTML = '';
+    var specs = p.especificaciones || {};
+    var specsKeys = Object.keys(specs);
+    if (specsKeys.length > 0) {
+      var html = '<h4 style="margin-bottom:8px;">' + (isEN() ? 'Technical Specifications' : 'Especificaciones Técnicas') + '</h4><ul style="padding-left: 20px; margin-bottom: 15px; line-height: 1.5; color: var(--text-muted);">';
+      specsKeys.forEach(function(k) {
+        html += '<li><strong>' + escapeHTML(k) + ':</strong> ' + escapeHTML(specs[k]) + '</li>';
+      });
+      html += '</ul>';
+      specsContainer.innerHTML = html;
+    }
+  }
+
   document.getElementById('btnAddCart').innerHTML=(inC?(isEN()?'&#10003; In cart':'&#10003; En el carrito'):(isEN()?'&#128722; Add to Cart':'&#128722; Agregar al Carrito'));
   modal.classList.add('open');
   document.body.style.overflow='hidden';
@@ -369,7 +490,11 @@ function redirectToCheckout(method) {
       name: p.name,
       min: p.price,
       max: p.price,
-      recurring: p.type==='recurring'
+      price: p.price,
+      precio_inicial: p.precio_inicial || 0,
+      precio_recurrente: p.precio_recurrente || 0,
+      frecuencia_recurrente: p.frecuencia_recurrente || '',
+      recurring: p.type==='recurring' || (p.precio_recurrente > 0)
     };
   });
   var url='/checkout?custom_items='+encodeURIComponent(JSON.stringify(items));
@@ -410,21 +535,48 @@ document.getElementById('btnAddCart').addEventListener('click',function(){
 // Modal: Pay with Card (CardNet placeholder)
 document.getElementById('btnPayCard').addEventListener('click',function(){
   if(!selected)return;
-  var items = [{ name: selected.name, min: selected.price, max: selected.price, recurring: selected.type==='recurring' }];
+  var items = [{
+    name: selected.name,
+    min: selected.price,
+    max: selected.price,
+    price: selected.price,
+    precio_inicial: selected.precio_inicial || 0,
+    precio_recurrente: selected.precio_recurrente || 0,
+    frecuencia_recurrente: selected.frecuencia_recurrente || '',
+    recurring: selected.type==='recurring' || (selected.precio_recurrente > 0)
+  }];
   window.location.href = '/checkout?custom_items=' + encodeURIComponent(JSON.stringify(items)) + '&method=cardnet';
 });
 
 // Modal: PayPal
 document.getElementById('btnPayPaypal').addEventListener('click',function(){
   if(!selected)return;
-  var items = [{ name: selected.name, min: selected.price, max: selected.price, recurring: selected.type==='recurring' }];
+  var items = [{
+    name: selected.name,
+    min: selected.price,
+    max: selected.price,
+    price: selected.price,
+    precio_inicial: selected.precio_inicial || 0,
+    precio_recurrente: selected.precio_recurrente || 0,
+    frecuencia_recurrente: selected.frecuencia_recurrente || '',
+    recurring: selected.type==='recurring' || (selected.precio_recurrente > 0)
+  }];
   window.location.href = '/checkout?custom_items=' + encodeURIComponent(JSON.stringify(items)) + '&method=paypal';
 });
 
 // Modal: Transfer
 document.getElementById('btnPayTransferModal').addEventListener('click',function(){
   if(!selected)return;
-  var items = [{ name: selected.name, min: selected.price, max: selected.price, recurring: selected.type==='recurring' }];
+  var items = [{
+    name: selected.name,
+    min: selected.price,
+    max: selected.price,
+    price: selected.price,
+    precio_inicial: selected.precio_inicial || 0,
+    precio_recurrente: selected.precio_recurrente || 0,
+    frecuencia_recurrente: selected.frecuencia_recurrente || '',
+    recurring: selected.type==='recurring' || (selected.precio_recurrente > 0)
+  }];
   window.location.href = '/checkout?custom_items=' + encodeURIComponent(JSON.stringify(items)) + '&method=transfer';
 });
 

@@ -31,6 +31,9 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
         <a class="nav-item" data-tab="productos" id="navProductosLink" style="display: none;">
           <span>📦</span> <span data-i18n="dash-nav-products">Catálogo</span>
         </a>
+        <a class="nav-item" data-tab="cupones" id="navCuponesLink" style="display: none;">
+          <span>🏷️</span> <span data-i18n="dash-nav-coupons">Cupones</span>
+        </a>
       </nav>
     </div>
 
@@ -677,6 +680,26 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
                 </div>
               </div>
 
+              <!-- Compound Pricing Inputs -->
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodPriceSetup">Precio Inicial (Setup)</label>
+                  <input type="number" id="prodPriceSetup" placeholder="0" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodPriceRecurring">Precio Recurrente</label>
+                  <input type="number" id="prodPriceRecurring" placeholder="0" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodRecurringFreq">Frecuencia Recurrente</label>
+                  <select class="lang-select" id="prodRecurringFreq" style="width:100%; font-size:0.88rem;">
+                    <option value="">Pago Único</option>
+                    <option value="mensual">Mensual</option>
+                    <option value="anual">Anual</option>
+                  </select>
+                </div>
+              </div>
+
               <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
                 <div class="portal-form-group">
                   <label for="prodDeliveryMin">Días de Entrega Mínimo</label>
@@ -686,6 +709,28 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
                   <label for="prodDeliveryMax">Días de Entrega Máximo</label>
                   <input type="number" id="prodDeliveryMax" placeholder="Ej. 10" class="form-control" />
                 </div>
+              </div>
+
+              <!-- File Uploads for Cover and Gallery -->
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="prodCoverFile">Imagen de Portada (Cover File)</label>
+                  <input type="file" id="prodCoverFile" accept="image/*" class="form-control" />
+                  <div id="prodCoverPreview" style="margin-top:10px;"></div>
+                </div>
+                <div class="portal-form-group">
+                  <label for="prodGalleryFiles">Imágenes de Galería (Multi-image)</label>
+                  <input type="file" id="prodGalleryFiles" accept="image/*" multiple class="form-control" />
+                  <div id="prodGalleryPreviews" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>
+                </div>
+              </div>
+              <input type="hidden" id="prodImagenesInput" value="[]" />
+
+              <!-- Technical Specifications JSONB Editor -->
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label>Especificaciones Técnicas</label>
+                <div id="specsContainer" style="display:flex; flex-direction:column; gap:8px;"></div>
+                <button type="button" id="btnAddSpec" class="btn-action-sm" style="margin-top:10px;">+ Añadir Fila</button>
               </div>
 
               <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
@@ -706,6 +751,92 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
               <div style="display:flex; gap:10px; margin-top: 20px;">
                 <button type="submit" class="btn-cta" id="btnSaveProduct" style="flex:2; padding:12px; font-size:0.9rem;">💾 Guardar Producto</button>
                 <button type="button" class="btn-action-sm" id="btnCancelProductEdit" style="flex:1; display:none; padding:12px; border-color:var(--text-muted); color:var(--text);">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 7: GESTIÓN DE CUPONES -->
+      <div class="dashboard-panel" id="view-cupones">
+        <div class="clientes-grid">
+          <!-- Left Side: Table of Coupons -->
+          <div class="card-workspace">
+            <div class="card-title-row" style="margin-bottom:20px;">
+              <h3 data-i18n="dash-coupons-title">Gestión de Cupones</h3>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span class="sync-badge online" id="couponsSyncBadge">
+                  <span class="sync-dot"></span> <span>Sincronizado</span>
+                </span>
+                <button class="btn-action-sm" id="btnRefreshCupones">Actualizar</button>
+              </div>
+            </div>
+
+            <p class="text-muted" style="margin-bottom:20px; font-size:0.9rem;">
+              Crea y administra códigos promocionales para la tienda y checkout.
+            </p>
+
+            <div style="overflow-x:auto;">
+              <table class="payments-table" style="min-width: 600px;">
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Descuento</th>
+                    <th>Expiración</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="cuponesTableBody">
+                  <tr>
+                    <td colspan="5" style="text-align:center; padding:30px; color:var(--text-muted);">Consultando cupones...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right Side: Add / Edit Coupon Form -->
+          <div class="card-workspace" id="couponFormCard">
+            <div class="card-title-row" style="margin-bottom:20px;">
+              <h3 id="couponFormTitle">Registrar Cupón</h3>
+              <span class="sync-badge online" id="couponFormBadge" style="display:none;">Modo Edición</span>
+            </div>
+
+            <form id="couponForm">
+              <input type="hidden" id="couponIdInput" />
+
+              <div class="portal-form-group" style="margin-bottom:15px;">
+                <label for="couponCode">Código del Cupón *</label>
+                <input type="text" id="couponCode" required placeholder="Ej. PROMO10" class="form-control" style="text-transform: uppercase;" />
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="couponPct">Descuento (%)</label>
+                  <input type="number" id="couponPct" min="0" max="100" placeholder="Ej. 10" class="form-control" />
+                </div>
+                <div class="portal-form-group">
+                  <label for="couponAmt">Descuento (Monto Fijo RD$)</label>
+                  <input type="number" id="couponAmt" min="0" placeholder="Ej. 500" class="form-control" />
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div class="portal-form-group">
+                  <label for="couponExpiry">Fecha de Expiración</label>
+                  <input type="datetime-local" id="couponExpiry" class="form-control" />
+                </div>
+                <div class="portal-form-group" style="display: flex; align-items: center; padding-top: 25px;">
+                  <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                    <input type="checkbox" id="couponIsActive" checked /> Activo
+                  </label>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px; margin-top: 20px;">
+                <button type="submit" class="btn-cta" id="btnSaveCoupon" style="flex:2; padding:12px; font-size:0.9rem;">💾 Guardar Cupón</button>
+                <button type="button" class="btn-action-sm" id="btnCancelCouponEdit" style="flex:1; display:none; padding:12px; border-color:var(--text-muted); color:var(--text);">Cancelar</button>
               </div>
             </form>
           </div>
