@@ -36,10 +36,13 @@
 <a href="#inicio" class="back-top" id="backTop" aria-label="Volver arriba">↑</a>
 
 <!-- ===== GUIDED TOUR ===== -->
-<button class="tour-button" id="tourButton" aria-label="Comenzar recorrido">
-  <span>🚀</span>
-  <span>Comenzar Recorrido</span>
-</button>
+<div class="tour-button-container" id="tourButtonContainer">
+  <button class="tour-button" id="tourButton" aria-label="Comenzar recorrido">
+    <span>🚀</span>
+    <span class="tour-btn-text">Comenzar Recorrido</span>
+  </button>
+  <button class="tour-dismiss-btn" id="tourDismissBtn" aria-label="Ocultar tour" title="Ocultar permanentemente">✕</button>
+</div>
 <div class="tour-overlay" id="tourOverlay">
   <div class="tour-highlight" id="tourHighlight"></div>
   <div class="tour-tooltip" id="tourTooltip">

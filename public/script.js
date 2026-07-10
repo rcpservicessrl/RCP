@@ -1288,10 +1288,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const tourNext = document.getElementById('tourNext');
   const tourPrev = document.getElementById('tourPrev');
   const tourClose = document.getElementById('tourClose');
+  const tourDismissBtn = document.getElementById('tourDismissBtn');
+  const tourContainer = document.getElementById('tourButtonContainer');
 
   if (!tourButton || !tourOverlay) return;
 
   const isEN = () => document.documentElement.lang === 'en';
+
+  const isHomepage = window.location.pathname === '/' || 
+                     window.location.pathname === '/index.html' || 
+                     window.location.pathname.endsWith('/') || 
+                     window.location.pathname.endsWith('/index.html') ||
+                     window.location.pathname.includes('/index');
+
+  const tourWrapper = tourContainer || tourButton;
+
+  if (!isHomepage) {
+    if (tourWrapper) tourWrapper.style.setProperty('display', 'none', 'important');
+    return;
+  }
+
+  if (localStorage.getItem('rcp-tour-dismissed') === 'true') {
+    if (tourWrapper) tourWrapper.style.setProperty('display', 'none', 'important');
+    return;
+  }
 
   // Tour steps — targeting SPECIFIC compact elements, not whole sections
   const tourSteps = {
@@ -1465,6 +1485,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listeners
   tourButton.addEventListener('click', startTour);
   tourClose.addEventListener('click', endTour);
+
+  if (tourDismissBtn) {
+    tourDismissBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Evita que se inicie el tour al hacer clic en descartar
+      localStorage.setItem('rcp-tour-dismissed', 'true');
+      if (tourWrapper) {
+        tourWrapper.classList.add('dismissed');
+        setTimeout(() => {
+          tourWrapper.style.setProperty('display', 'none', 'important');
+        }, 300);
+      }
+    });
+  }
 
   tourNext.addEventListener('click', () => {
     const steps = getSteps();
