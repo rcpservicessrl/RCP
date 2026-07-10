@@ -443,6 +443,7 @@
       let clientList = [];
 
       async function initializeDashboard() {
+        let loaded = false;
         // Recover session from Supabase if empty (e.g. direct page entry or refresh)
         if (!activeEmail && supabase) {
           try {
@@ -512,6 +513,7 @@
                 .rpc('dashboard_overview', { p_email: activeEmail, p_global: true });
               renderClientDashboard(globalData || defaultMetrics);
               renderMarketing(globalData ? globalData.marketing : null);
+              loaded = true;
             } catch (e) {
               console.error('[RPC global] fallo, usando defaults:', e);
               renderClientDashboard(defaultMetrics);
@@ -525,6 +527,7 @@
           } else {
             renderClientDashboard(defaultMetrics);
             renderMarketing(null);
+            loaded = true;
           }
 
           // Listener for Admin client dropdown select view change
@@ -566,7 +569,7 @@
           if (navProductosLink) navProductosLink.style.display = 'none';
           if (adminSelectorRow) adminSelectorRow.style.display = 'none';
 
-          let loaded = false;
+          loaded = false;
           if (supabase) {
             try {
               // ─── Cargar datos consolidados vía RPC (Fase 3) ───

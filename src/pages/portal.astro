@@ -356,7 +356,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         showOverlay(t('Conectando con Google...', 'Connecting to Google...'));
         (btnGoogleLogin as HTMLElement).style.pointerEvents = 'none';
         try {
-          const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + window.location.pathname } });
+          const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/portal' } });
           if (error) throw error;
         } catch (err) { console.error("Error with Google Login:", err); hideOverlay(); (btnGoogleLogin as HTMLElement).style.pointerEvents = 'auto'; alert(t('Error al conectar con Google.', 'Error connecting to Google.')); }
       });
