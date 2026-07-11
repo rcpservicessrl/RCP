@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v27-mascot';
+const CACHE_NAME = 'rcp-services-v28-mascot-fix';
 const ASSETS_TO_CACHE = [
   './',
   './nosotros/',
@@ -14,7 +14,8 @@ const ASSETS_TO_CACHE = [
   './Logo RCP  fondo negro.png',
   './Logo RCP Services.png',
   './logo-rcp-master.svg',
-  './assets/brand/mascot/rcp-mascot-presenter.png',
+  './leopardo-rcp.png',
+  './assets/brand/mascot/rcp-mascot-official-views.png',
   './QR RCP.png',
   './manifest.json'
 ];
