@@ -201,7 +201,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <tr class="total-row">
                   <td data-label="Concepto de Inversión">Total Requerido</td>
                   <td data-label="Monto" class="table-amount">RD$ 200,000</td>
-                  <td data-label="Uso y Retorno Técnico">CAPEX 100% Optimizado y Sin Sobrecostos</td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -706,7 +706,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent);
   }
 
-  /* Budget Layout - BEAUTIFUL COLUMN ALIGNMENT */
+  /* Budget Layout - OPTIMIZED COLUMN WIDTHS */
   .budget-layout {
     display: grid;
     grid-template-columns: 2.2fr 1fr;
@@ -745,7 +745,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     font-size: 0.9rem;
     line-height: 1.5;
-    vertical-align: top; /* ALIGNS TEXT TO THE TOP, SOLVING EMPTY SPACES */
+    vertical-align: top; /* ALIGNS TEXT TO THE TOP */
     box-sizing: border-box;
   }
 
@@ -758,17 +758,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding-bottom: 14px;
   }
 
-  /* Robust proportional column widths */
+  /* Robust column distribution: Col 1 reduced, Col 3 increased */
   .budget-table th:nth-child(1),
   .budget-table td:nth-child(1) {
-    width: 32%;
+    width: 25%; /* Reduced from 32% */
     font-weight: 700;
     color: var(--text);
   }
 
   .budget-table th:nth-child(2),
   .budget-table td:nth-child(2) {
-    width: 23%;
+    width: 20%; /* Reduced from 23% */
     font-weight: 700;
     color: var(--accent);
     white-space: nowrap;
@@ -776,7 +776,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .budget-table th:nth-child(3),
   .budget-table td:nth-child(3) {
-    width: 45%;
+    width: 55%; /* Increased from 45% */
     color: var(--text-muted);
   }
 
@@ -789,7 +789,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .total-row td:nth-child(3) {
-    color: var(--text) !important;
+    border: none;
   }
 
   .budget-insight-card {
