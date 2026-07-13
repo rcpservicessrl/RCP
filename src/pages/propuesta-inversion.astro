@@ -1,7 +1,7 @@
 ---
 /**
  * propuesta-inversion.astro — Presentación Web Interactiva para Socio Consultor e Inversor.
- * Incluye tesis de negocio, modelo híbrido (RCP Custom vs Odoo Plan B), presupuesto optimizado de RD$ 200k,
+ * Incluye tesis de negocio, tracción orgánica real, modelo híbrido, presupuesto optimizado de RD$ 200k,
  * y un Simulador Interactivo de Retorno bajo el modelo de Revenue Share.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -21,8 +21,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <h1>Inversión y <span class="accent">Mentoría Estratégica</span></h1>
         <p class="subtitle">Una oportunidad de financiamiento no dilutivo para liderar la homologación fiscal ante la DGII y la expansión del software soberano de RCP Services SRL.</p>
         <div class="hero-actions">
-          <a href="#simulador" class="btn-primary">Simular Retorno Financiero</a>
-          <a href="#presupuesto" class="btn-secondary">Plan de Inversión (CAPEX)</a>
+          <a href="#traccion" class="btn-primary">Ver Tracción Real</a>
+          <a href="#simulador" class="btn-secondary">Simular Retorno</a>
         </div>
       </div>
       <div class="hero-glow"></div>
@@ -57,8 +57,68 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </section>
 
+    <!-- TRACCIÓN Y VALIDACIÓN REAL (NUEVA SECCIÓN) -->
+    <section id="traccion" class="pitch-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">VALIDACIÓN DE MERCADO</span>
+          <h2>Tracción Orgánica y Clientes Activos</h2>
+          <p>La demanda de nuestra plataforma ha sido validada sin inversión en marketing ni campañas publicitarias. El interés orgánico en nuestras facilidades de pago y tecnología cerró los primeros contratos:</p>
+        </div>
+
+        <div class="traction-dashboard">
+          <div class="traction-stats">
+            <div class="stat-box">
+              <span class="stat-num">9</span>
+              <span class="stat-lbl">Proyectos Totales</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">100%</span>
+              <span class="stat-lbl">Setup Cobrado</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num">RD$ 0</span>
+              <span class="stat-lbl">Gasto en Publicidad</span>
+            </div>
+          </div>
+
+          <div class="projects-list-container">
+            <h3>Portafolio de Clientes Iniciales</h3>
+            <p class="section-desc">Negocios que ya pagaron la cuota de setup de RD$ 6,000 (tarifa de promoción para fundadores) y están activos en el plan de pago recurrente mensual:</p>
+            
+            <div class="projects-grid">
+              <div class="project-item done">
+                <span class="proj-badge">DESARROLLADO</span>
+                <h4>Tienda de Embutidos La Solución</h4>
+                <p>Soporte de inventario y facturación integrado.</p>
+              </div>
+              <div class="project-item done">
+                <span class="proj-badge">DESARROLLADO</span>
+                <h4>Liquor Store Fenómeno</h4>
+                <p>Punto de venta y control de caja.</p>
+              </div>
+              <div class="project-item progress">
+                <span class="proj-badge orange">EN DESARROLLO</span>
+                <h4>Imprenta Norcentral</h4>
+                <p>Gestión de órdenes y facturación.</p>
+              </div>
+              <div class="project-item progress">
+                <span class="proj-badge orange">EN DESARROLLO</span>
+                <h4>Telo'Corp Group</h4>
+                <p>Estructura operativa e inventario.</p>
+              </div>
+            </div>
+
+            <div class="pipeline-alert">
+              <span>🚀 <strong>5 Proyectos Adicionales en Carpeta:</strong> En proceso de diseño y desarrollo, con cuota de setup saldada y listos para sumarse al abono recurrente mensual.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- El Ecosistema Híbrido (Plan A vs Plan B) -->
-    <section class="pitch-section">
+    <section class="pitch-section section-dark">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">ESTRATEGIA DE MERCADO</span>
@@ -99,7 +159,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Presupuesto Optimizado (Plan CAPEX sin scroll) -->
-    <section id="presupuesto" class="pitch-section section-dark">
+    <section id="presupuesto" class="pitch-section">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">PLAN DE CAPEX</span>
@@ -156,7 +216,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Simulador de Retorno de Revenue Share -->
-    <section id="simulador" class="pitch-section">
+    <section id="simulador" class="pitch-section section-dark">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">SIMULADOR FINANCIERO</span>
@@ -232,7 +292,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Condiciones del Trato -->
-    <section class="pitch-section section-dark">
+    <section class="pitch-section">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">EL ACUERDO</span>
@@ -454,6 +514,115 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     line-height: 1.6;
   }
 
+  /* Tracción / Proyectos */
+  .traction-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .traction-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .stat-box {
+    background: #111113;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .stat-num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .stat-lbl {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .projects-list-container {
+    background: #0c0c0e;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    padding: 40px;
+  }
+
+  .projects-list-container h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .project-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .proj-badge {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .proj-badge.orange {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  .project-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .project-item p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .pipeline-alert {
+    background: rgba(252, 181, 63, 0.05);
+    border: 1px solid rgba(252, 181, 63, 0.15);
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
   /* Hybrid Strategy */
   .strategy-hybrid {
     display: grid;
@@ -564,7 +733,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    table-layout: fixed; /* Fuerza anchos fijos de columnas */
+    table-layout: fixed;
   }
 
   .budget-table th,
@@ -573,7 +742,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     font-size: 0.85rem;
     line-height: 1.4;
-    word-wrap: break-word; /* Envuelve texto largo para evitar desbordes */
+    word-wrap: break-word;
     box-sizing: border-box;
   }
 
@@ -582,7 +751,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent);
   }
 
-  /* Distribución exacta de columnas para evitar scrollbar */
   .budget-table th:nth-child(1),
   .budget-table td:nth-child(1) {
     width: 32%;
@@ -870,7 +1038,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     .budget-table {
-      table-layout: auto; /* Permite auto-ajuste si colapsa a una sola columna */
+      table-layout: auto;
+    }
+
+    .traction-stats {
+      grid-template-columns: 1fr;
     }
   }
 
