@@ -1,7 +1,7 @@
 ---
 /**
  * propuesta-inversion.astro — Presentación Web Interactiva para Inversor/Consultor.
- * Incluye tesis de negocio, modelo híbrido, presupuesto optimizado de RD$ 200k,
+ * Incluye tesis de negocio, modelo híbrido (RCP Custom vs Odoo Plan B), presupuesto optimizado de RD$ 200k,
  * y un Simulador Interactivo de Retorno bajo el modelo de Revenue Share.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -19,7 +19,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="container hero-container">
         <span class="confidential-badge">💼 DOCUMENTO DE NEGOCIOS CONFIDENCIAL</span>
         <h1>Propuesta de <span class="accent">Inversión Estratégica</span></h1>
-        <p class="subtitle">Financiamiento no dilutivo para la homologación fiscal ante la DGII y la expansión tecnológica de RCP Services SRL.</p>
+        <p class="subtitle">Financiamiento no dilutivo para la homologación fiscal ante la DGII y la expansión del desarrollo de software a medida de RCP Services SRL.</p>
         <div class="hero-actions">
           <a href="#simulador" class="btn-primary">Ir al Simulador de Retorno</a>
           <a href="#presupuesto" class="btn-secondary">Ver Destino de Fondos</a>
@@ -40,18 +40,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="opportunity-grid">
           <div class="opp-card">
             <div class="opp-icon">⚖️</div>
-            <h3>Barrera Legal Convencional</h3>
-            <p>Las MIPYMEs dominicanas sufren para digitalizarse. Carecen de proveedores locales integrados que les ofrezcan una contabilidad simple, facturación legal directa y soporte en español.</p>
+            <h3>Cumplimiento Obligatorio</h3>
+            <p>Las MIPYMEs dominicanas deben migrar a la facturación electrónica. RCP se convierte en el puente tecnológico y legal directo para cumplir con la DGII sin depender de proveedores costosos.</p>
           </div>
           <div class="opp-card highlighted">
             <div class="opp-icon">🐆</div>
-            <h3>El Enclave de RCP Services</h3>
-            <p>RCP se homologará ante la DGII como Proveedor Autorizado de Facturación Electrónica, integrando la firma digital y los flujos e-CF de manera nativa en su <strong>Ecosistema Operativo Soberano</strong>.</p>
+            <h3>Diferenciador 360° Único</h3>
+            <p>A diferencia de los contadores independientes o agencias de marketing aisladas, RCP Services acapara todas las necesidades bajo un mismo techo (marca, legal, fiscal, e-commerce e IA) con un equipo multidisciplinario dedicado.</p>
           </div>
           <div class="opp-card">
             <div class="opp-icon">💰</div>
-            <h3>Reducción del Churn</h3>
-            <p>Al convertirnos en el núcleo de cumplimiento fiscal obligatorio del cliente, nos posicionamos como su activo digital más indispensable, asegurando tasas de retención (LTV) excepcionales.</p>
+            <h3>Retención del Cliente</h3>
+            <p>Al integrar de forma nativa la facturación electrónica en los sistemas de nuestros clientes, eliminamos el churn comercial y aseguramos flujos de ingresos estables a largo plazo.</p>
           </div>
         </div>
       </div>
@@ -62,37 +62,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="container">
         <div class="section-header">
           <span class="section-tag">NUESTRA TECNOLOGÍA</span>
-          <h2>Estrategia de Negocio <span class="accent">Híbrida</span></h2>
-          <p>Maximizamos nuestro mercado objetivo atendiendo dos segmentos clave bajo una sola marca:</p>
+          <h2>Estrategia de Software: Híbrida y Soberana</h2>
+          <p>Priorizamos el desarrollo propietario para retener el 100% del margen de ganancia, manteniendo una alternativa oficial de terceros para máxima flexibilidad comercial:</p>
         </div>
 
         <div class="strategy-hybrid">
+          <!-- Producto Propietario RCP Custom -->
+          <div class="hybrid-card premium">
+            <div class="card-glow-gold"></div>
+            <div class="hybrid-badge gold">PLAN A: PRODUCTO ESTRELLA</div>
+            <h3>Sistemas a Medida RCP</h3>
+            <p class="hybrid-desc">Nuestro verdadero producto. Software a medida o basado en plantillas propietarias funcionales. Control absoluto del código y del margen.</p>
+            <ul class="hybrid-list">
+              <li>🧠 <strong>Ecosistema Soberano:</strong> Ejecución en servidores locales de GPU con asistentes de IA (Ollama) sin pagar APIs externas.</li>
+              <li>⚡ <strong>Facturación Integrada:</strong> Enlace nativo con los flujos de la DGII diseñado desde cero para el cliente.</li>
+              <li>🎨 <strong>Control de Marca:</strong> Coherencia total con los activos de marca de la agencia 360.</li>
+            </ul>
+            <div class="price-pill gold">Desde RD$ 25,000 setup / Abonos variables</div>
+          </div>
+
           <!-- Odoo Cloud / Partner -->
           <div class="hybrid-card">
             <div class="card-glow-blue"></div>
-            <div class="hybrid-badge">VOLUMEN (MIPYMES)</div>
+            <div class="hybrid-badge">PLAN B: SOFTWARE DE TERCEROS</div>
             <h3>Partner Oficial de Odoo</h3>
-            <p class="hybrid-desc">Para micro y pequeños negocios que buscan una solución estándar rápida.</p>
+            <p class="hybrid-desc">Para clientes que exigen una plataforma prediseñada o certificada mundialmente.</p>
             <ul class="hybrid-list">
-              <li>✨ <strong>Comisiones Directas:</strong> Ganancia recurrente por licenciamiento de Odoo.</li>
-              <li>⚡ <strong>Integración e-CF:</strong> Cobramos el setup y el enlace de facturación electrónica.</li>
-              <li>🤖 <strong>Asistencia Cloud:</strong> Acceso a chatbots integrados para automatizar su CRM/Ventas.</li>
+              <li>💼 <strong>Comisión de Licencias:</strong> Ganamos comisiones directas por venta de software oficial de Odoo.</li>
+              <li>🔧 <strong>Integración e-CF:</strong> Actuamos como el enlace técnico para integrar la factura electrónica.</li>
+              <li>🎓 <strong>Soporte e Igualas:</strong> Cobramos por asistencia técnica recurrente y capacitación en los módulos.</li>
             </ul>
             <div class="price-pill">Desde RD$ 1,500/mes</div>
-          </div>
-
-          <!-- Ecosistema Soberano local -->
-          <div class="hybrid-card premium">
-            <div class="card-glow-gold"></div>
-            <div class="hybrid-badge gold">VALOR SOBERANO (MEDIANAS)</div>
-            <h3>Ecosistema Operativo Soberano</h3>
-            <p class="hybrid-desc">Para empresas de mediana escala con servidores e infraestructura interna.</p>
-            <ul class="hybrid-list">
-              <li>🔒 <strong>100% Confidencial:</strong> Todo el procesamiento de datos corre en su servidor de GPU local.</li>
-              <li>🧠 <strong>IA Frontera Sin Costo:</strong> Modelos LLM ejecutados localmente sin cobros por token (cero APIs de terceros).</li>
-              <li>🎨 <strong>Estudio Creativo Local:</strong> Generación visual masiva usando ComfyUI en CPU/GPU propio.</li>
-            </ul>
-            <div class="price-pill gold">Desde RD$ 25,000 setup</div>
           </div>
         </div>
       </div>
@@ -148,8 +148,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
 
           <div class="budget-insight-card">
-            <h3>¿Por qué no hay local comercial?</h3>
-            <p>Hemos eliminado el costo fijo de un local comercial físico. Para las MIPYMEs medianas, la captación estratégica más efectiva se da mediante <strong>visita y consultoría presencial directa</strong> en sus oficinas. Cero capex inmobiliario = mayor rentabilidad neta.</p>
+            <h3>Eficiencia Operativa</h3>
+            <p>Hemos eliminado los costos fijos inmobiliarios. Para las MIPYMEs y medianas empresas de R.D., la captación y consultoría estratégica se realiza mediante <strong>visita y consultoría presencial directa</strong> en sus oficinas corporativas. Esto optimiza el CAPEX al 100%.</p>
           </div>
         </div>
       </div>
@@ -537,33 +537,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent);
   }
 
-  /* Budget Layout */
+  /* Budget Layout - FIX ENCAPSULATION */
   .budget-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 32px;
-    align-items: start;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .budget-table-container {
     background: #111113;
     border: 1px solid rgba(255, 255, 255, 0.03);
     border-radius: 20px;
-    padding: 30px;
+    padding: 24px;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
   }
 
   .budget-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    min-width: 500px; /* Evita que la tabla colapse de forma ilegible en pantallas chicas */
   }
 
   .budget-table th,
   .budget-table td {
     padding: 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    box-sizing: border-box;
   }
 
   .budget-table th {
@@ -581,7 +590,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .total-row td {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 800;
     border-bottom: none;
     color: var(--accent);
@@ -593,6 +602,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 20px;
     padding: 32px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .budget-insight-card h3 {
@@ -824,14 +837,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   /* Responsive styling */
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
+    .budget-layout {
+      grid-template-columns: 1fr;
+    }
+    
     .simulator-card {
       grid-template-columns: 1fr;
       padding: 30px;
-    }
-
-    .budget-layout {
-      grid-template-columns: 1fr;
     }
 
     .strategy-hybrid {
