@@ -34,6 +34,7 @@ interface Props {
   active?: string;
   ogImage?: string;
   requiresSupabase?: boolean;
+  robots?: string;
 }
 
 const {
@@ -43,6 +44,7 @@ const {
   active = '',
   ogImage = '/Logo RCP Services.png',
   requiresSupabase = false,
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 } = Astro.props;
 
 const site = Astro.site?.toString().replace(/\/$/, '') || 'https://rcp.services';
@@ -60,7 +62,7 @@ const ogImageUrl = `${site}${ogImage}`;
   <meta name="description" content={description} />
   <meta name="keywords" content="RCP Services, agencia 360, MIPYMEs, República Dominicana, transformación digital, consultoría empresarial, formalización, marketing digital, Santo Domingo" />
   <meta name="author" content="RCP Services SRL" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content={robots} />
   <link rel="canonical" href={canonicalUrl} />
 
   <!-- Open Graph -->
@@ -97,6 +99,7 @@ const ogImageUrl = `${site}${ogImage}`;
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": ["Organization", "LocalBusiness"],
+    "@id": `${site}/#organization`,
     "name": "RCP Services SRL",
     "alternateName": "RCP Services",
     "description": "Agencia 360° de Transformación Empresarial y Digital para MIPYMEs en República Dominicana. Renovación, Consultoría y Publicidad bajo un ecosistema soberano con IA.",
@@ -121,6 +124,17 @@ const ogImageUrl = `${site}${ogImage}`;
       "https://www.instagram.com/rcp.services_/",
       "https://wa.me/18298068092"
     ]
+  })} />
+
+  <!-- Entidad del sitio para buscadores y motores de respuesta -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site}/#website`,
+    "url": `${site}/`,
+    "name": "RCP Services",
+    "inLanguage": "es-DO",
+    "publisher": { "@id": `${site}/#organization` }
   })} />
 
   <!-- GA4 Analytics (carga condicional tras consentimiento de cookies) -->

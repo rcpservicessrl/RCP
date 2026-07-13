@@ -131,6 +131,7 @@ END $$;
 -- ───────────────────────────────────────────────────────────────────────
 
 DROP POLICY IF EXISTS "Allow public insert for applications" ON public.candidatos;
+DROP POLICY IF EXISTS "Candidatos: inserción pública validada" ON public.candidatos;
 
 CREATE POLICY "Candidatos: inserción pública validada" ON public.candidatos
   FOR INSERT

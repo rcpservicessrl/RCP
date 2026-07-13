@@ -490,7 +490,8 @@ body {
   right: -200px;
   width: 700px;
   height: 700px;
-  background: rgba(252, 181, 63, 0.04);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(252, 181, 63, 0.055) 0%, rgba(252, 181, 63, 0.02) 45%, transparent 72%);
   pointer-events: none;
 }
 
@@ -501,7 +502,8 @@ body {
   left: -200px;
   width: 600px;
   height: 600px;
-  background: rgba(252, 181, 63, 0.03);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(252, 181, 63, 0.04) 0%, rgba(252, 181, 63, 0.015) 45%, transparent 72%);
   pointer-events: none;
 }
 
@@ -2663,7 +2665,8 @@ body.light-mode {
   transform: translateX(-50%);
   width: 600px;
   height: 600px;
-  background: rgba(252, 181, 63, 0.03);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(252, 181, 63, 0.04) 0%, rgba(252, 181, 63, 0.015) 45%, transparent 72%);
   pointer-events: none;
   z-index: 0;
 }
