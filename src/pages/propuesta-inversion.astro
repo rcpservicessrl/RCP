@@ -179,29 +179,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </thead>
               <tbody>
                 <tr>
-                  <td data-label="Concepto de Inversión"><strong>Constitución Legal (SRL)</strong></td>
+                  <td data-label="Concepto de Inversión">Constitución Legal (SRL)</td>
                   <td data-label="Monto" class="table-amount">RD$ 50,000</td>
                   <td data-label="Uso y Retorno Técnico">ONAPI, Registro Mercantil, RNC y adecuación legal de socios.</td>
                 </tr>
                 <tr>
-                  <td data-label="Concepto de Inversión"><strong>Actualización de GPU Local</strong></td>
+                  <td data-label="Concepto de Inversión">Actualización de GPU Local</td>
                   <td data-label="Monto" class="table-amount">RD$ 80,000</td>
                   <td data-label="Uso y Retorno Técnico">Adquisición de GPU (RTX 4080 Super / 4090) para el servidor de desarrollo local e IA.</td>
                 </tr>
                 <tr>
-                  <td data-label="Concepto de Inversión"><strong>Certificación DGII & Seguridad</strong></td>
+                  <td data-label="Concepto de Inversión">Certificación DGII & Seguridad</td>
                   <td data-label="Monto" class="table-amount">RD$ 40,000</td>
                   <td data-label="Uso y Retorno Técnico">Firma digital (Avansi), pruebas técnicas del módulo e-CF y cumplimiento regulatorio.</td>
                 </tr>
                 <tr>
-                  <td data-label="Concepto de Inversión"><strong>Capital de Trabajo Inicial</strong></td>
+                  <td data-label="Concepto de Inversión">Capital de Trabajo Inicial</td>
                   <td data-label="Monto" class="table-amount">RD$ 30,000</td>
                   <td data-label="Uso y Retorno Técnico">Fondo de maniobra para el "Gig Hub" (freelancers) y marketing B2B.</td>
                 </tr>
                 <tr class="total-row">
-                  <td data-label="Concepto de Inversión"><strong>Total Requerido</strong></td>
+                  <td data-label="Concepto de Inversión">Total Requerido</td>
                   <td data-label="Monto" class="table-amount">RD$ 200,000</td>
-                  <td data-label="Uso y Retorno Técnico"><strong>CAPEX 100% Optimizado y Sin Sobrecostos</strong></td>
+                  <td data-label="Uso y Retorno Técnico">CAPEX 100% Optimizado y Sin Sobrecostos</td>
                 </tr>
               </tbody>
             </table>
@@ -706,10 +706,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent);
   }
 
-  /* Budget Layout */
+  /* Budget Layout - BEAUTIFUL COLUMN ALIGNMENT */
   .budget-layout {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2.2fr 1fr;
     gap: 32px;
     align-items: stretch;
     width: 100%;
@@ -741,32 +741,55 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .budget-table th,
   .budget-table td {
-    padding: 16px 12px;
+    padding: 18px 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     font-size: 0.9rem;
     line-height: 1.5;
+    vertical-align: top; /* ALIGNS TEXT TO THE TOP, SOLVING EMPTY SPACES */
     box-sizing: border-box;
   }
 
   .budget-table th {
     font-weight: 700;
     color: var(--accent);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding-bottom: 14px;
   }
 
-  .budget-table td strong {
+  /* Robust proportional column widths */
+  .budget-table th:nth-child(1),
+  .budget-table td:nth-child(1) {
+    width: 32%;
     font-weight: 700;
+    color: var(--text);
   }
 
-  .table-amount {
+  .budget-table th:nth-child(2),
+  .budget-table td:nth-child(2) {
+    width: 23%;
     font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .budget-table th:nth-child(3),
+  .budget-table td:nth-child(3) {
+    width: 45%;
+    color: var(--text-muted);
   }
 
   .total-row td {
-    font-size: 1rem;
-    font-weight: 800;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
     border-bottom: none;
-    color: var(--accent);
-    padding-top: 24px;
+    color: var(--accent) !important;
+    padding-top: 28px;
+  }
+
+  .total-row td:nth-child(3) {
+    color: var(--text) !important;
   }
 
   .budget-insight-card {
@@ -1072,6 +1095,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .strategy-hybrid {
       grid-template-columns: 1fr;
+    }
+
+    .budget-table {
+      table-layout: auto;
     }
 
     .traction-stats {
