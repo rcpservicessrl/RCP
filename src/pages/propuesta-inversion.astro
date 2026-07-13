@@ -1,7 +1,7 @@
 ---
 /**
  * propuesta-inversion.astro — Presentación Web Interactiva para Socio Consultor e Inversor.
- * Incluye tesis de negocio, tracción orgánica real, modelo híbrido, presupuesto optimizado de RD$ 200k,
+ * Incluye tesis de negocio, tracción orgánica real, modelo híbrido (RCP Custom vs Odoo Plan B), presupuesto optimizado de RD$ 200k,
  * y un Simulador Interactivo de Retorno bajo el modelo de Revenue Share.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -57,7 +57,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </section>
 
-    <!-- TRACCIÓN Y VALIDACIÓN REAL (NUEVA SECCIÓN) -->
+    <!-- TRACCIÓN Y VALIDACIÓN REAL -->
     <section id="traccion" class="pitch-section">
       <div class="container">
         <div class="section-header">
@@ -179,29 +179,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Constitución Legal (SRL)</strong></td>
-                  <td class="table-amount">RD$ 50,000</td>
-                  <td>ONAPI, Registro Mercantil, RNC y adecuación legal de socios.</td>
+                  <td data-label="Concepto de Inversión"><strong>Constitución Legal (SRL)</strong></td>
+                  <td data-label="Monto" class="table-amount">RD$ 50,000</td>
+                  <td data-label="Uso y Retorno Técnico">ONAPI, Registro Mercantil, RNC y adecuación legal de socios.</td>
                 </tr>
                 <tr>
-                  <td><strong>Actualización de GPU Local</strong></td>
-                  <td class="table-amount">RD$ 80,000</td>
-                  <td>Adquisición de GPU (RTX 4080 Super / 4090) para el servidor de desarrollo local e IA.</td>
+                  <td data-label="Concepto de Inversión"><strong>Actualización de GPU Local</strong></td>
+                  <td data-label="Monto" class="table-amount">RD$ 80,000</td>
+                  <td data-label="Uso y Retorno Técnico">Adquisición de GPU (RTX 4080 Super / 4090) para el servidor de desarrollo local e IA.</td>
                 </tr>
                 <tr>
-                  <td><strong>Certificación DGII & Seguridad</strong></td>
-                  <td class="table-amount">RD$ 40,000</td>
-                  <td>Firma digital (Avansi), pruebas técnicas del módulo e-CF y cumplimiento regulatorio.</td>
+                  <td data-label="Concepto de Inversión"><strong>Certificación DGII & Seguridad</strong></td>
+                  <td data-label="Monto" class="table-amount">RD$ 40,000</td>
+                  <td data-label="Uso y Retorno Técnico">Firma digital (Avansi), pruebas técnicas del módulo e-CF y cumplimiento regulatorio.</td>
                 </tr>
                 <tr>
-                  <td><strong>Capital de Trabajo Inicial</strong></td>
-                  <td class="table-amount">RD$ 30,000</td>
-                  <td>Fondo de maniobra para el "Gig Hub" (freelancers) y marketing B2B.</td>
+                  <td data-label="Concepto de Inversión"><strong>Capital de Trabajo Inicial</strong></td>
+                  <td data-label="Monto" class="table-amount">RD$ 30,000</td>
+                  <td data-label="Uso y Retorno Técnico">Fondo de maniobra para el "Gig Hub" (freelancers) y marketing B2B.</td>
                 </tr>
                 <tr class="total-row">
-                  <td><strong>Total Requerido</strong></td>
-                  <td class="table-amount">RD$ 200,000</td>
-                  <td><strong>CAPEX 100% Optimizado y Sin Sobrecostos</strong></td>
+                  <td data-label="Concepto de Inversión"><strong>Total Requerido</strong></td>
+                  <td data-label="Monto" class="table-amount">RD$ 200,000</td>
+                  <td data-label="Uso y Retorno Técnico"><strong>CAPEX 100% Optimizado y Sin Sobrecostos</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -706,7 +706,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent);
   }
 
-  /* Budget Layout - NO SCROLLBAR OPTIMIZATION */
+  /* Budget Layout */
   .budget-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -717,54 +717,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     box-sizing: border-box;
   }
 
+  @media (max-width: 1024px) {
+    .budget-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .budget-table-container {
     background: #111113;
     border: 1px solid rgba(255, 255, 255, 0.03);
     border-radius: 20px;
-    padding: 24px;
+    padding: 30px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    display: flex;
-    align-items: center;
   }
 
   .budget-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    table-layout: fixed;
   }
 
   .budget-table th,
   .budget-table td {
-    padding: 12px 10px;
+    padding: 16px 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    font-size: 0.85rem;
-    line-height: 1.4;
-    word-wrap: break-word;
+    font-size: 0.9rem;
+    line-height: 1.5;
     box-sizing: border-box;
   }
 
   .budget-table th {
     font-weight: 700;
     color: var(--accent);
-  }
-
-  .budget-table th:nth-child(1),
-  .budget-table td:nth-child(1) {
-    width: 32%;
-  }
-
-  .budget-table th:nth-child(2),
-  .budget-table td:nth-child(2) {
-    width: 23%;
-    white-space: nowrap;
-  }
-
-  .budget-table th:nth-child(3),
-  .budget-table td:nth-child(3) {
-    width: 45%;
   }
 
   .budget-table td strong {
@@ -776,11 +762,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .total-row td {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 800;
     border-bottom: none;
     color: var(--accent);
-    padding-top: 20px;
+    padding-top: 24px;
   }
 
   .budget-insight-card {
@@ -805,6 +791,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--text-muted);
     font-size: 0.85rem;
     line-height: 1.6;
+  }
+
+  /* Responsive Table Stack - PREVENTS SQUEEZING */
+  @media (max-width: 768px) {
+    .budget-table-container {
+      padding: 20px;
+    }
+
+    .budget-table, 
+    .budget-table thead, 
+    .budget-table tbody, 
+    .budget-table th, 
+    .budget-table td, 
+    .budget-table tr {
+      display: block;
+    }
+
+    .budget-table thead {
+      display: none;
+    }
+
+    .budget-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 16px 0;
+    }
+
+    .budget-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .budget-table td {
+      border-bottom: none;
+      padding: 6px 0;
+      width: 100% !important;
+      text-align: left;
+    }
+
+    .budget-table td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      font-size: 0.75rem;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .total-row td {
+      padding: 8px 0;
+    }
   }
 
   /* Simulator Card */
@@ -1035,10 +1072,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .strategy-hybrid {
       grid-template-columns: 1fr;
-    }
-
-    .budget-table {
-      table-layout: auto;
     }
 
     .traction-stats {
