@@ -1,0 +1,29 @@
+{
+  "graph_name": "Red Neuronal RCP Services & Contabilidad RD Bridge",
+  "version": "1.0.0",
+  "obsidian_compatible": true,
+  "nodes": [
+    {
+      "id": "NODO_GUIA_CONTABILIDAD_RD",
+      "label": "🌉 Guía Profesional Contabilidad RD (Bridge)",
+      "path": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "conversation_id": "7b1b6664-d929-49c5-9fcc-6f6d2c267919",
+      "tags": ["#capa-neuronal/bridge", "#graphify/contabilidad-rd"],
+      "weight": 1.0
+    },
+    {
+      "id": "000_MATRIZ_NEURONAL_CENTRAL_DOCS",
+      "label": "🧠 Matriz Neuronal RCP Documentos",
+      "path": "g:/Mi unidad/RCP Documentos/knowledge_graph/000_MATRIZ_NEURONAL_CENTRAL.md",
+      "tags": ["#capa-neuronal/core", "#obsidian/moc"],
+      "weight": 1.0
+    }
+  ],
+  "edges": [
+    {
+      "source": "NODO_GUIA_CONTABILIDAD_RD",
+      "target": "000_MATRIZ_NEURONAL_CENTRAL_DOCS",
+      "relation": "bridges_to_workspace"
+    }
+  ]
+}
