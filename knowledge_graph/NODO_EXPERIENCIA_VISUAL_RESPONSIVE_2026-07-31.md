@@ -44,5 +44,7 @@ horizontales, FAQ desplegable y jerarquía semántica.
 - Las rutas públicas compartidas contienen el logo oficial en header y footer.
 - Portal carga el logo oficial en sus cuatro estados.
 - Dashboard compila el logo oficial con ancho máximo de `210 px`.
+- El script global protege los controles de navegación opcionales para no fallar
+  en dashboard ni en otras vistas sin header público.
 - La portada conserva canonical, meta description, Open Graph y JSON-LD
   Organization, WebSite y FAQPage.

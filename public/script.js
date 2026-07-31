@@ -178,33 +178,36 @@ if (themeBtn) {
 // ─── HAMBURGER MENU ───
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  if (navLinks.classList.contains('open')) {
-    document.body.classList.add('menu-open');
-  } else {
-    document.body.classList.remove('menu-open');
-  }
-});
-navLinks.addEventListener('click', (e) => {
-  const link = e.target.closest('a');
-  if (link && !link.classList.contains('dropdown-trigger')) {
-    navLinks.classList.remove('open');
-    document.body.classList.remove('menu-open');
-    return;
-  }
-  
-  if (e.target === navLinks) {
-    const rect = navLinks.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const clickY = e.clientY - rect.top;
-    const isCloseBtnClick = (clickY < 80 && clickX > (rect.width - 80));
-    if (isCloseBtnClick) {
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    if (navLinks.classList.contains('open')) {
+      document.body.classList.add('menu-open');
+    } else {
       navLinks.classList.remove('open');
       document.body.classList.remove('menu-open');
     }
-  }
-});
+  });
+  navLinks.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && !link.classList.contains('dropdown-trigger')) {
+      navLinks.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      return;
+    }
+
+    if (e.target === navLinks) {
+      const rect = navLinks.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      const isCloseBtnClick = (clickY < 80 && clickX > (rect.width - 80));
+      if (isCloseBtnClick) {
+        navLinks.classList.remove('open');
+        document.body.classList.remove('menu-open');
+      }
+    }
+  });
+}
 
 // ─── TABS (R-C-P) ───
 const tabBtns = document.querySelectorAll('.tab-btn');
