@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v32-versioned-global-script';
+const CACHE_NAME = 'rcp-services-v33-pure-black-brand';
 const ASSETS_TO_CACHE = [
   './',
   './nosotros/',
@@ -8,14 +8,14 @@ const ASSETS_TO_CACHE = [
   './diagnostico/',
   './checkout/',
   './portal/',
-  './styles.css',
+  './styles.css?v=1.0.2-black',
   './script.js',
   './icono-rcp.png',
-  './logo_rcp_fondo_oscuro.svg',
-  './logo_rcp_fondo_claro.svg',
-  './logo_rcp_fondo_claro.png',
-  './logo_rcp_master_vectorial.svg',
-  './logo_rcp_simbolo.svg',
+  './logo_rcp_fondo_oscuro.svg?v=1.0.2-black',
+  './logo_rcp_fondo_claro.svg?v=1.0.2-black',
+  './logo_rcp_fondo_claro.png?v=1.0.2-black',
+  './logo_rcp_master_vectorial.svg?v=1.0.2-black',
+  './logo_rcp_simbolo.svg?v=1.0.2-black',
   './QR RCP.png',
   './manifest.json'
 ];

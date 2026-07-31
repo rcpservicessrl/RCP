@@ -14,15 +14,18 @@ No utilizar los PNG históricos `Logo RCP*.png` en código nuevo.
 ## Sistema
 
 - Ámbar Jaguar: `#FCB53F`.
-- Carbón RCP: `#201E1E`.
+- Negro Puro RCP: `#000000`.
 - Blanco Técnico: `#FEFEFE`.
 - Verde Resultado: `#A8CF45`.
-- Gris Profundo: `#373435`.
 - Marrón Orgánico: `#C58F6A`.
 - Tipografía: Montserrat, con Arial o Aptos de respaldo.
 
 La interfaz puede usar fondos claros u oscuros. Los recursos ilustrados deben
 seguir el cartoon corporativo premium 2.5D y nunca reconstruir el jaguar.
+
+Todo trazo o masa negra del logo y del jaguar usa exclusivamente `#000000`
+opaco. No se admiten `#201E1E`, `#373435`, grises oscuros ni `#0000`, ya que
+este último es negro transparente en CSS/SVG.
 
 ## Experiencia web responsive
 

@@ -21,7 +21,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 
 // Hoja de estilos completa del sitio (servida desde /public, inline para no bundlear)
-const SITE_CSS = '/styles.css';
+const SITE_CSS = '/styles.css?v=1.0.2-black';
 const SITE_JS = '/script.js?v=31-global-nav-guard';
 const I18N_JS = '/scripts/i18n.js';
 const SUPABASE_SDK_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
@@ -42,7 +42,7 @@ const {
   description = 'RCP Services: Tu Junta Directiva Externa en la República Dominicana. Finanzas, legalidad y marketing bajo un solo ecosistema 360° para MIPYMEs.',
   canonical = '/',
   active = '',
-  ogImage = '/logo_rcp_fondo_claro.png',
+  ogImage = '/logo_rcp_fondo_claro.png?v=1.0.2-black',
   requiresSupabase = false,
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 } = Astro.props;
@@ -90,7 +90,7 @@ const ogImageUrl = `${site}${ogImage}`;
   <!-- Favicon & PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/icono-rcp.png" />
   <link rel="apple-touch-icon" href="/icono-rcp.png" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="/manifest.json?v=1.0.2-black" />
   <meta name="theme-color" content="#FCB53F" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -104,8 +104,8 @@ const ogImageUrl = `${site}${ogImage}`;
     "alternateName": "RCP Services",
     "description": "Agencia 360° de Transformación Empresarial y Digital para MIPYMEs en República Dominicana. Renovación, Consultoría y Publicidad bajo un ecosistema soberano con IA.",
     "url": site,
-    "logo": `${site}/logo_rcp_fondo_claro.png`,
-    "image": `${site}/logo_rcp_fondo_claro.png`,
+    "logo": `${site}/logo_rcp_fondo_claro.png?v=1.0.2-black`,
+    "image": `${site}/logo_rcp_fondo_claro.png?v=1.0.2-black`,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Santo Domingo",

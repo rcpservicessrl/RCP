@@ -15,6 +15,7 @@ horizontales, FAQ desplegable y jerarquía semántica.
 - Logo oscuro: `public/logo_rcp_fondo_oscuro.svg`.
 - Logo claro: `public/logo_rcp_fondo_claro.svg`.
 - Símbolo: `public/logo_rcp_simbolo.svg`.
+- Negro canónico de todo trazo y masa oscura del logo: `#000000` opaco.
 
 ## Apariciones verificadas
 
@@ -32,6 +33,8 @@ horizontales, FAQ desplegable y jerarquía semántica.
 - Portal: `190–260 px`.
 - Dashboard: máximo `210 px`.
 - Nunca deformar la relación de aspecto.
+- No introducir `#201E1E`, `#373435`, `#0000` ni otro negro alternativo en el
+  maestro, el jaguar o sus derivados.
 - No usar nombres históricos en código activo.
 - No debe existir overflow horizontal en `1440×900`, `768×1024` o `390×844`.
 - El tour rápido se omite en móvil para reducir competencia visual.
@@ -48,5 +51,8 @@ horizontales, FAQ desplegable y jerarquía semántica.
   en dashboard ni en otras vistas sin header público.
 - Los layouts cargan una URL versionada del script global para evitar que un
   service worker anterior entregue código obsoleto en el primer acceso.
+- Los logos, la hoja de estilos y el manifiesto usan la versión de recurso
+  `1.0.2-black`, y el service worker `v33`, para retirar inmediatamente copias
+  grisáceas almacenadas en caché.
 - La portada conserva canonical, meta description, Open Graph y JSON-LD
   Organization, WebSite y FAQPage.

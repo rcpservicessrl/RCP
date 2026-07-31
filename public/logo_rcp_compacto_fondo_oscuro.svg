@@ -9,14 +9,14 @@
     .fil4 {fill:none;fill-rule:nonzero}
     .fil7 {fill:#FEFEFE;fill-rule:nonzero}
     .fil6 {fill:#FEFEFE;fill-rule:nonzero}
-    .fil9 {fill:#373435;fill-rule:nonzero}
+    .fil9 {fill:#000000;fill-rule:nonzero}
     .fil3 {fill:#FCB53F;fill-rule:nonzero}
     .fil5 {fill:#FCB53F;fill-rule:nonzero}
     .fil8 {fill:#C58F6A;fill-rule:nonzero}
     .fil2 {fill:#A8CF45;fill-rule:nonzero}
-    .fil10 {fill:#201E1E;fill-rule:nonzero}
+    .fil10 {fill:#000000;fill-rule:nonzero}
     .fil11 {fill:#FEFEFE;fill-rule:nonzero}
-    .fil1 {fill:#201E1E;fill-rule:nonzero}
+    .fil1 {fill:#000000;fill-rule:nonzero}
    ]]>
   </style>
  </defs>

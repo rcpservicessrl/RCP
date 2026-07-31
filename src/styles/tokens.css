@@ -1,4 +1,4 @@
-/* RCP Services — Sistema Visual Rector v1.0.1
+/* RCP Services — Sistema Visual Rector v1.0.2
    Canonical visual tokens for marketing, product and corporate interfaces. */
 
 :root {
@@ -8,9 +8,9 @@
   --rcp-amber: #fcb53f;
   --rcp-gold: var(--rcp-amber);
   --rcp-gold-hover: #e09e20;
-  --rcp-black: #201e1e;
-  --rcp-charcoal: #201e1e;
-  --rcp-surface: #373435;
+  --rcp-black: #000000;
+  --rcp-charcoal: var(--rcp-black);
+  --rcp-surface: var(--rcp-black);
   --rcp-border: #4b4849;
   --rcp-white: #fefefe;
   --rcp-text: #fefefe;
@@ -64,7 +64,7 @@
   --font-weight-display: 900;
 
   /* Shell */
-  --navbar-scrolled: rgba(32, 30, 30, 0.96);
+  --navbar-scrolled: rgba(0, 0, 0, 0.96);
 }
 
 [data-theme="light"] {

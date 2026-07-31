@@ -1693,11 +1693,11 @@
           if (newTheme === 'light') {
             if (moonIcon) moonIcon.style.display = 'none';
             if (sunIcon) sunIcon.style.display = 'block';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/logo_rcp_fondo_claro.svg');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/logo_rcp_fondo_claro.svg?v=1.0.2-black');
           } else {
             if (moonIcon) moonIcon.style.display = 'block';
             if (sunIcon) sunIcon.style.display = 'none';
-            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/logo_rcp_fondo_oscuro.svg');
+            document.querySelectorAll('#sidebarLogo').forEach(el => el.src = '/logo_rcp_fondo_oscuro.svg?v=1.0.2-black');
           }
         });
       }
