@@ -4,18 +4,18 @@
  <defs>
   <style type="text/css">
    <![CDATA[
-    .str0 {stroke:#FCB53F;stroke-width:15.37;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}
+    .str0 {stroke:#FEFEFE;stroke-width:15.37;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}
     .fil0 {fill:none}
     .fil4 {fill:none;fill-rule:nonzero}
     .fil7 {fill:#FEFEFE;fill-rule:nonzero}
     .fil6 {fill:#FEFEFE;fill-rule:nonzero}
-    .fil9 {fill:#373435;fill-rule:nonzero}
-    .fil3 {fill:#FCB53F;fill-rule:nonzero}
-    .fil5 {fill:#FCB53F;fill-rule:nonzero}
-    .fil8 {fill:#C58F6A;fill-rule:nonzero}
-    .fil2 {fill:#A8CF45;fill-rule:nonzero}
-    .fil10 {fill:#201E1E;fill-rule:nonzero}
-    .fil1 {fill:#201E1E;fill-rule:nonzero}
+    .fil9 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil3 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil5 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil8 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil2 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil10 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil1 {fill:#FEFEFE;fill-rule:nonzero}
    ]]>
   </style>
  </defs>

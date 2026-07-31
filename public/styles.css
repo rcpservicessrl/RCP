@@ -1,6 +1,6 @@
 /* =============================================
    RCP SERVICES – styles.css
-   Sistema visual unificado 2.0 | Montserrat | Oro RCP #FCB53F
+   Sistema Visual Rector v1.0.1 | Montserrat | Ámbar Jaguar #FCB53F
    ============================================= */
 
 /* Montserrat loaded via <link> in index.html */
@@ -15,22 +15,22 @@
 }
 
 :root {
-  --black: var(--rcp-black, #000000);
-  --black-2: var(--rcp-charcoal, #0a0a0a);
-  --black-3: var(--rcp-surface, #111112);
-  --white: var(--rcp-white, #ffffff);
-  --accent: var(--rcp-gold, #fcb53f);
+  --black: var(--rcp-black, #201e1e);
+  --black-2: var(--rcp-charcoal, #201e1e);
+  --black-3: var(--rcp-surface, #373435);
+  --white: var(--rcp-white, #fefefe);
+  --accent: var(--rcp-amber, #fcb53f);
   --accent-dark: var(--rcp-gold-hover, #e09e20);
-  --text: var(--rcp-text, #e8e8ea);
+  --text: var(--rcp-text, #fefefe);
   --text-muted: var(--rcp-text-muted, #8a8a98);
-  --card-bg: var(--rcp-surface, #111112);
-  --card-border: var(--rcp-border, #252527);
+  --card-bg: var(--rcp-surface, #373435);
+  --card-border: var(--rcp-border, #4b4849);
   --radius: 16px;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
   --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.32);
   --transition: all 240ms cubic-bezier(0.4, 0, 0.2, 1);
-  --font: 'Montserrat', 'Bahnschrift', Arial, sans-serif;
-  --navbar-scrolled: rgba(10, 10, 10, 0.96);
+  --font: 'Montserrat', Aptos, Arial, sans-serif;
+  --navbar-scrolled: rgba(32, 30, 30, 0.96);
 }
 
 [data-theme="light"] {
@@ -46,7 +46,7 @@
   --navbar-scrolled: rgba(255, 255, 255, 0.97);
 }
 
-[data-theme="light"] .hero-mascot-img {
+[data-theme="light"] .hero-symbol-img {
   filter: none;
 }
 
@@ -590,7 +590,7 @@ body {
   background: var(--card-border);
 }
 
-.hero-mascot {
+.hero-symbol {
   position: absolute;
   right: 3%;
   top: 50%;
@@ -600,7 +600,7 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
-.hero-mascot-img {
+.hero-symbol-img {
   width: 100%;
   height: auto;
   filter: none;
@@ -1747,7 +1747,7 @@ select option:hover {
     display: none;
   }
 
-  .hero-mascot {
+  .hero-symbol {
     width: clamp(160px, 18vw, 260px);
   }
 }
@@ -1942,7 +1942,7 @@ select option:hover {
     padding: 100px 0 60px;
   }
 
-  .hero-mascot {
+  .hero-symbol {
     display: none;
   }
 
@@ -2153,7 +2153,7 @@ select option:hover {
 }
 
 .erac-create::before {
-  background: var(--rcp-growth, #a6ce39);
+  background: var(--rcp-growth, #a8cf45);
 }
 
 .erac-letter {

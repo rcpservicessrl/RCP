@@ -4,246 +4,6 @@
   "graph": {},
   "nodes": [
     {
-      "label": "validate_landing_independent.py",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent",
-      "community": 15,
-      "norm_label": "validate_landing_independent.py"
-    },
-    {
-      "label": "clean_and_count_words()",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L13",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent_clean_and_count_words",
-      "community": 15,
-      "norm_label": "clean_and_count_words()"
-    },
-    {
-      "label": "extract_fallback_text()",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent_extract_fallback_text",
-      "community": 15,
-      "norm_label": "extract_fallback_text()"
-    },
-    {
-      "label": "verify_stylesheet_location()",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L35",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent_verify_stylesheet_location",
-      "community": 15,
-      "norm_label": "verify_stylesheet_location()"
-    },
-    {
-      "label": "verify_layers_grouping()",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L65",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent_verify_layers_grouping",
-      "community": 15,
-      "norm_label": "verify_layers_grouping()"
-    },
-    {
-      "label": "load_json_files()",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L98",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent_load_json_files",
-      "community": 15,
-      "norm_label": "load_json_files()"
-    },
-    {
-      "label": "run_validations()",
-      "file_type": "code",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L111",
-      "_origin": "ast",
-      "id": "agents_challenger_2_validate_landing_independent_run_validations",
-      "community": 15,
-      "norm_label": "run_validations()"
-    },
-    {
-      "label": "analyze_pages.py",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/analyze_pages.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_analyze_pages",
-      "community": 23,
-      "norm_label": "analyze_pages.py"
-    },
-    {
-      "label": "analyze_astro_file()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/analyze_pages.py",
-      "source_location": "L7",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_analyze_pages_analyze_astro_file",
-      "community": 23,
-      "norm_label": "analyze_astro_file()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/analyze_pages.py",
-      "source_location": "L106",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_analyze_pages_main",
-      "community": 23,
-      "norm_label": "main()"
-    },
-    {
-      "label": "check_alt_tags.py",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_alt_tags.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_alt_tags",
-      "community": 25,
-      "norm_label": "check_alt_tags.py"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_alt_tags.py",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_alt_tags_main",
-      "community": 25,
-      "norm_label": "main()"
-    },
-    {
-      "label": "check_i18n_keys.py",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_i18n_keys",
-      "community": 21,
-      "norm_label": "check_i18n_keys.py"
-    },
-    {
-      "label": "get_keys_from_json()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_i18n_keys_get_keys_from_json",
-      "community": 21,
-      "norm_label": "get_keys_from_json()"
-    },
-    {
-      "label": "scan_files_for_i18n_keys()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_i18n_keys_scan_files_for_i18n_keys",
-      "community": 21,
-      "norm_label": "scan_files_for_i18n_keys()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_i18n_keys_main",
-      "community": 21,
-      "norm_label": "main()"
-    },
-    {
-      "label": "check_slots.py",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_slots.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_slots",
-      "community": 26,
-      "norm_label": "check_slots.py"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": ".agents/explorer_audit_1_gen2/check_slots.py",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "agents_explorer_audit_1_gen2_check_slots_main",
-      "community": 26,
-      "norm_label": "main()"
-    },
-    {
-      "label": "verify_db.py",
-      "file_type": "code",
-      "source_file": ".agents/teamwork_preview_auditor_expansion_audit/verify_db.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_teamwork_preview_auditor_expansion_audit_verify_db",
-      "community": 27,
-      "norm_label": "verify_db.py"
-    },
-    {
-      "label": "check_db()",
-      "file_type": "code",
-      "source_file": ".agents/teamwork_preview_auditor_expansion_audit/verify_db.py",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "agents_teamwork_preview_auditor_expansion_audit_verify_db_check_db",
-      "community": 27,
-      "norm_label": "check_db()"
-    },
-    {
-      "label": "verify_db.py",
-      "file_type": "code",
-      "source_file": ".agents/teamwork_preview_auditor_shop_retry/verify_db.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_teamwork_preview_auditor_shop_retry_verify_db",
-      "community": 28,
-      "norm_label": "verify_db.py"
-    },
-    {
-      "label": "run_checks()",
-      "file_type": "code",
-      "source_file": ".agents/teamwork_preview_auditor_shop_retry/verify_db.py",
-      "source_location": "L4",
-      "_origin": "ast",
-      "id": "agents_teamwork_preview_auditor_shop_retry_verify_db_run_checks",
-      "community": 28,
-      "norm_label": "run_checks()"
-    },
-    {
-      "label": "prepare_db.py",
-      "file_type": "code",
-      "source_file": ".agents/teamwork_preview_worker_m3_database/prepare_db.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_teamwork_preview_worker_m3_database_prepare_db",
-      "community": 30,
-      "norm_label": "prepare_db.py"
-    },
-    {
-      "label": "run_migrations.py",
-      "file_type": "code",
-      "source_file": ".agents/teamwork_preview_worker_m3_database/run_migrations.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "agents_teamwork_preview_worker_m3_database_run_migrations",
-      "community": 31,
-      "norm_label": "run_migrations.py"
-    },
-    {
       "label": "bridge.py",
       "file_type": "code",
       "source_file": ".neural_bridge/bridge.py",
@@ -2664,44 +2424,48 @@
       "norm_label": "quotewhatsapp()"
     },
     {
-      "label": "FloatingWidgets.astro",
+      "label": "../components/FloatingWidgets.astro",
       "file_type": "code",
       "source_file": "src/components/FloatingWidgets.astro",
       "source_location": "L1",
       "_origin": "ast",
+      "confidence": "EXTRACTED",
       "id": "src_components_floatingwidgets",
       "community": 1,
-      "norm_label": "floatingwidgets.astro"
+      "norm_label": "../components/floatingwidgets.astro"
     },
     {
-      "label": "Footer.astro",
+      "label": "../components/Footer.astro",
       "file_type": "code",
       "source_file": "src/components/Footer.astro",
       "source_location": "L1",
       "_origin": "ast",
+      "confidence": "EXTRACTED",
       "id": "src_components_footer",
       "community": 1,
-      "norm_label": "footer.astro"
+      "norm_label": "../components/footer.astro"
     },
     {
-      "label": "Header.astro",
+      "label": "../components/Header.astro",
       "file_type": "code",
       "source_file": "src/components/Header.astro",
       "source_location": "L1",
       "_origin": "ast",
+      "confidence": "EXTRACTED",
       "id": "src_components_header",
       "community": 1,
-      "norm_label": "header.astro"
+      "norm_label": "../components/header.astro"
     },
     {
-      "label": "BaseLayout.astro",
+      "label": "../layouts/BaseLayout.astro",
       "file_type": "code",
       "source_file": "src/layouts/BaseLayout.astro",
       "source_location": "L1",
       "_origin": "ast",
+      "confidence": "EXTRACTED",
       "id": "src_layouts_baselayout",
       "community": 1,
-      "norm_label": "baselayout.astro"
+      "norm_label": "../layouts/baselayout.astro"
     },
     {
       "label": "../styles/tokens.css",
@@ -2724,14 +2488,15 @@
       "norm_label": "../styles/base.css"
     },
     {
-      "label": "DashboardLayout.astro",
+      "label": "../layouts/DashboardLayout.astro",
       "file_type": "code",
       "source_file": "src/layouts/DashboardLayout.astro",
       "source_location": "L1",
       "_origin": "ast",
+      "confidence": "EXTRACTED",
       "id": "src_layouts_dashboardlayout",
       "community": 1,
-      "norm_label": "dashboardlayout.astro"
+      "norm_label": "../layouts/dashboardlayout.astro"
     },
     {
       "label": "../styles/dashboard.css",
@@ -4122,247 +3887,1369 @@
       "id": "vercel_headers",
       "community": 20,
       "norm_label": "headers"
+    },
+    {
+      "label": "requirements.md",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements",
+      "community": 15,
+      "norm_label": "requirements.md"
+    },
+    {
+      "label": "Requirements Document",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirements_document",
+      "community": 15,
+      "norm_label": "requirements document"
+    },
+    {
+      "label": "Introduction",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_introduction",
+      "community": 15,
+      "norm_label": "introduction"
+    },
+    {
+      "label": "Glossary",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_glossary",
+      "community": 15,
+      "norm_label": "glossary"
+    },
+    {
+      "label": "Requirements",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirements",
+      "community": 15,
+      "norm_label": "requirements"
+    },
+    {
+      "label": "Requirement 1: Session 0 \u2014 Prerequisites and Credential Collection",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_1_session_0_prerequisites_and_credential_collection",
+      "community": 15,
+      "norm_label": "requirement 1: session 0 \u2014 prerequisites and credential collection"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 2: Session 1 \u2014 Cutover Verification and Legacy Cleanup",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_2_session_1_cutover_verification_and_legacy_cleanup",
+      "community": 15,
+      "norm_label": "requirement 2: session 1 \u2014 cutover verification and legacy cleanup"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_41",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 3: Session 2 \u2014 Security Emergency Part A (Frontend Credential Removal)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_3_session_2_security_emergency_part_a_frontend_credential_removal",
+      "community": 15,
+      "norm_label": "requirement 3: session 2 \u2014 security emergency part a (frontend credential removal)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L54",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_54",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 4: Session 3 \u2014 Security Emergency Part B (RLS and Auth Migration)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_4_session_3_security_emergency_part_b_rls_and_auth_migration",
+      "community": 15,
+      "norm_label": "requirement 4: session 3 \u2014 security emergency part b (rls and auth migration)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_68",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 5: Session 4 \u2014 Unify Lead System and Remove EmailJS",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_5_session_4_unify_lead_system_and_remove_emailjs",
+      "community": 15,
+      "norm_label": "requirement 5: session 4 \u2014 unify lead system and remove emailjs"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_81",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 6: Session 5 \u2014 RBAC Schema Creation (Supabase Tables)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L90",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_6_session_5_rbac_schema_creation_supabase_tables",
+      "community": 15,
+      "norm_label": "requirement 6: session 5 \u2014 rbac schema creation (supabase tables)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L94",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_94",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 7: Session 6 \u2014 RBAC Frontend Implementation",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L105",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_7_session_6_rbac_frontend_implementation",
+      "community": 15,
+      "norm_label": "requirement 7: session 6 \u2014 rbac frontend implementation"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L109",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_109",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 8: Session 7 \u2014 Real Store Connection (Supabase productos)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L118",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_8_session_7_real_store_connection_supabase_productos",
+      "community": 15,
+      "norm_label": "requirement 8: session 7 \u2014 real store connection (supabase productos)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L122",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_122",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 9: Session 8 \u2014 Payment Gateway Integration",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_9_session_8_payment_gateway_integration",
+      "community": 15,
+      "norm_label": "requirement 9: session 8 \u2014 payment gateway integration"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L135",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_135",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 10: Session 9 \u2014 Dashboard Real Data (KPIs, Charts, Payment History)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L144",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_10_session_9_dashboard_real_data_kpis_charts_payment_history",
+      "community": 15,
+      "norm_label": "requirement 10: session 9 \u2014 dashboard real data (kpis, charts, payment history)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L148",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_148",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 11: Session 10 \u2014 Internationalization Completion (i18n to 100%)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L157",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_11_session_10_internationalization_completion_i18n_to_100",
+      "community": 15,
+      "norm_label": "requirement 11: session 10 \u2014 internationalization completion (i18n to 100%)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L161",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_161",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 12: Session 11 \u2014 UX Polish (Images, Scripts, Flow, Footer)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L170",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_12_session_11_ux_polish_images_scripts_flow_footer",
+      "community": 15,
+      "norm_label": "requirement 12: session 11 \u2014 ux polish (images, scripts, flow, footer)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L174",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_174",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 13: Session 12 \u2014 Ecosystem Infrastructure (n8n Tunnel, Health Checks)",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L183",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_13_session_12_ecosystem_infrastructure_n8n_tunnel_health_checks",
+      "community": 15,
+      "norm_label": "requirement 13: session 12 \u2014 ecosystem infrastructure (n8n tunnel, health checks)"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L187",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_187",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 14: Session 13 \u2014 Supabase-to-Odoo Workflow and AI Packaging",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L195",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_14_session_13_supabase_to_odoo_workflow_and_ai_packaging",
+      "community": 15,
+      "norm_label": "requirement 14: session 13 \u2014 supabase-to-odoo workflow and ai packaging"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L199",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_199",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Requirement 15: Session Dependency Map",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L207",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_requirement_15_session_dependency_map",
+      "community": 15,
+      "norm_label": "requirement 15: session dependency map"
+    },
+    {
+      "label": "Acceptance Criteria",
+      "file_type": "document",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L211",
+      "_origin": "ast",
+      "id": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_211",
+      "community": 15,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": ".neural_state.md",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "neural_state",
+      "community": 21,
+      "norm_label": ".neural_state.md"
+    },
+    {
+      "label": ".neural_state.md \u2014 Estado de sesi\u00f3n RCP Services",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "community": 21,
+      "norm_label": ".neural_state.md \u2014 estado de sesion rcp services"
+    },
+    {
+      "label": "\ud83d\udea8 DIRECTIVA DE APRENDIZAJE CONTINUO (Obligatoria para toda IA)",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "neural_state_directiva_de_aprendizaje_continuo_obligatoria_para_toda_ia",
+      "community": 21,
+      "norm_label": "\ud83d\udea8 directiva de aprendizaje continuo (obligatoria para toda ia)"
+    },
+    {
+      "label": "\ud83d\udea8 UBICACI\u00d3N DEL PROYECTO",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "neural_state_ubicaci\u00f3n_del_proyecto",
+      "community": 21,
+      "norm_label": "\ud83d\udea8 ubicacion del proyecto"
+    },
+    {
+      "label": "\ud83c\udf09 CONEXI\u00d3N DE GRAFO NEURONAL",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "neural_state_conexi\u00f3n_de_grafo_neuronal",
+      "community": 21,
+      "norm_label": "\ud83c\udf09 conexion de grafo neuronal"
+    },
+    {
+      "label": "Arquitectura compartida RCP Services",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "neural_state_arquitectura_compartida_rcp_services",
+      "community": 21,
+      "norm_label": "arquitectura compartida rcp services"
+    },
+    {
+      "label": "Completado en sesiones previas",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "neural_state_completado_en_sesiones_previas",
+      "community": 21,
+      "norm_label": "completado en sesiones previas"
+    },
+    {
+      "label": "1. Migraci\u00f3n y conectividad a Supabase",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "neural_state_1_migraci\u00f3n_y_conectividad_a_supabase",
+      "community": 21,
+      "norm_label": "1. migracion y conectividad a supabase"
+    },
+    {
+      "label": "2. Panel administrativo CRUD expandido",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "neural_state_2_panel_administrativo_crud_expandido",
+      "community": 21,
+      "norm_label": "2. panel administrativo crud expandido"
+    },
+    {
+      "label": "3. Tienda p\u00fablica y checkout",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "neural_state_3_tienda_p\u00fablica_y_checkout",
+      "community": 21,
+      "norm_label": "3. tienda publica y checkout"
+    },
+    {
+      "label": "Lo que NO se debe modificar",
+      "file_type": "document",
+      "source_file": ".neural_state.md",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "neural_state_lo_que_no_se_debe_modificar",
+      "community": 21,
+      "norm_label": "lo que no se debe modificar"
+    },
+    {
+      "label": "AGENTS.md",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "agents",
+      "community": 41,
+      "norm_label": "agents.md"
+    },
+    {
+      "label": "RCP Services site rules",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "agents_rcp_services_site_rules",
+      "community": 41,
+      "norm_label": "rcp services site rules"
+    },
+    {
+      "label": "ARCHITECTURE.md",
+      "file_type": "document",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "architecture",
+      "community": 30,
+      "norm_label": "architecture.md"
+    },
+    {
+      "label": "Web architecture",
+      "file_type": "document",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "architecture_web_architecture",
+      "community": 30,
+      "norm_label": "web architecture"
+    },
+    {
+      "label": "Decision",
+      "file_type": "document",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "architecture_decision",
+      "community": 30,
+      "norm_label": "decision"
+    },
+    {
+      "label": "Rendering boundary",
+      "file_type": "document",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "architecture_rendering_boundary",
+      "community": 30,
+      "norm_label": "rendering boundary"
+    },
+    {
+      "label": "SEO and AEO safeguards",
+      "file_type": "document",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "architecture_seo_and_aeo_safeguards",
+      "community": 30,
+      "norm_label": "seo and aeo safeguards"
+    },
+    {
+      "label": "Functional roadmap",
+      "file_type": "document",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "architecture_functional_roadmap",
+      "community": 30,
+      "norm_label": "functional roadmap"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude",
+      "community": 25,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "RCP Services \u2014 Memoria del proyecto",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude_rcp_services_memoria_del_proyecto",
+      "community": 25,
+      "norm_label": "rcp services \u2014 memoria del proyecto"
+    },
+    {
+      "label": "Ubicaci\u00f3n",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "claude_ubicaci\u00f3n",
+      "community": 25,
+      "norm_label": "ubicacion"
+    },
+    {
+      "label": "Arquitectura de archivos",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "claude_arquitectura_de_archivos",
+      "community": 25,
+      "norm_label": "arquitectura de archivos"
+    },
+    {
+      "label": "Estado de seguridad (Fases 1\u20133 completadas)",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "claude_estado_de_seguridad_fases_1_3_completadas",
+      "community": 25,
+      "norm_label": "estado de seguridad (fases 1\u20133 completadas)"
+    },
+    {
+      "label": "Fase 1 \u2014 Endurecimiento cr\u00edtico",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "claude_fase_1_endurecimiento_cr\u00edtico",
+      "community": 25,
+      "norm_label": "fase 1 \u2014 endurecimiento critico"
+    },
+    {
+      "label": "Fase 2 \u2014 RBAC",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "claude_fase_2_rbac",
+      "community": 25,
+      "norm_label": "fase 2 \u2014 rbac"
+    },
+    {
+      "label": "Fase 3 \u2014 Datos reales (sin simulaciones)",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "claude_fase_3_datos_reales_sin_simulaciones",
+      "community": 25,
+      "norm_label": "fase 3 \u2014 datos reales (sin simulaciones)"
+    },
+    {
+      "label": "Pendiente / fuera de alcance",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "claude_pendiente_fuera_de_alcance",
+      "community": 25,
+      "norm_label": "pendiente / fuera de alcance"
+    },
+    {
+      "label": "Verificaci\u00f3n r\u00e1pida",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L55",
+      "_origin": "ast",
+      "id": "claude_verificaci\u00f3n_r\u00e1pida",
+      "community": 25,
+      "norm_label": "verificacion rapida"
+    },
+    {
+      "label": "Convenciones",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "claude_convenciones",
+      "community": 25,
+      "norm_label": "convenciones"
+    },
+    {
+      "label": "NEURAL_LAYER.md",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "neural_layer",
+      "community": 21,
+      "norm_label": "neural_layer.md"
+    },
+    {
+      "label": "Capa Neuronal v2 \u2014 RCP Services Sitio Web",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "community": 21,
+      "norm_label": "capa neuronal v2 \u2014 rcp services sitio web"
+    },
+    {
+      "label": "\ud83e\udde9 Componentes",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "neural_layer_componentes",
+      "community": 21,
+      "norm_label": "\ud83e\udde9 componentes"
+    },
+    {
+      "label": "Configuraci\u00f3n activa",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "neural_layer_configuraci\u00f3n_activa",
+      "community": 21,
+      "norm_label": "configuracion activa"
+    },
+    {
+      "label": "\ud83d\udcdc Scripts",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "neural_layer_scripts",
+      "community": 21,
+      "norm_label": "\ud83d\udcdc scripts"
+    },
+    {
+      "label": "\ud83d\ude80 Uso",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "neural_layer_uso",
+      "community": 21,
+      "norm_label": "\ud83d\ude80 uso"
+    },
+    {
+      "label": "\ud83c\udfaf Bondades",
+      "file_type": "document",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "neural_layer_bondades",
+      "community": 21,
+      "norm_label": "\ud83c\udfaf bondades"
+    },
+    {
+      "label": "PROJECT.md",
+      "file_type": "document",
+      "source_file": "PROJECT.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "project",
+      "community": 39,
+      "norm_label": "project.md"
+    },
+    {
+      "label": "Project: RCP Services Ecosystem Audit & Active Optimization",
+      "file_type": "document",
+      "source_file": "PROJECT.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "project_project_rcp_services_ecosystem_audit_active_optimization",
+      "community": 39,
+      "norm_label": "project: rcp services ecosystem audit & active optimization"
+    },
+    {
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": "PROJECT.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "project_architecture",
+      "community": 39,
+      "norm_label": "architecture"
+    },
+    {
+      "label": "Milestones",
+      "file_type": "document",
+      "source_file": "PROJECT.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "project_milestones",
+      "community": 39,
+      "norm_label": "milestones"
+    },
+    {
+      "label": "Interface & Safety Contracts",
+      "file_type": "document",
+      "source_file": "PROJECT.md",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "project_interface_safety_contracts",
+      "community": 39,
+      "norm_label": "interface & safety contracts"
+    },
+    {
+      "label": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "file_type": "document",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "rcp_services_shared_architecture",
+      "community": 21,
+      "norm_label": "rcp_services_shared_architecture.md"
+    },
+    {
+      "label": "Arquitectura compartida RCP Services",
+      "file_type": "document",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "rcp_services_shared_architecture_arquitectura_compartida_rcp_services",
+      "community": 21,
+      "norm_label": "arquitectura compartida rcp services"
+    },
+    {
+      "label": "Identidad de este producto",
+      "file_type": "document",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "rcp_services_shared_architecture_identidad_de_este_producto",
+      "community": 21,
+      "norm_label": "identidad de este producto"
+    },
+    {
+      "label": "Regla operativa",
+      "file_type": "document",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "rcp_services_shared_architecture_regla_operativa",
+      "community": 21,
+      "norm_label": "regla operativa"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme",
+      "community": 27,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "\ud83e\udec0 RCP Services \u2014 Website",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme_rcp_services_website",
+      "community": 27,
+      "norm_label": "\ud83e\udec0 rcp services \u2014 website"
+    },
+    {
+      "label": "\ud83c\udf10 Sobre el Proyecto",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "readme_sobre_el_proyecto",
+      "community": 27,
+      "norm_label": "\ud83c\udf10 sobre el proyecto"
+    },
+    {
+      "label": "\ud83d\udcc4 P\u00e1ginas",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "readme_p\u00e1ginas",
+      "community": 27,
+      "norm_label": "\ud83d\udcc4 paginas"
+    },
+    {
+      "label": "\u2728 Caracter\u00edsticas",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "readme_caracter\u00edsticas",
+      "community": 27,
+      "norm_label": "\u2728 caracteristicas"
+    },
+    {
+      "label": "\ud83d\udee0\ufe0f Tecnolog\u00edas",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "readme_tecnolog\u00edas",
+      "community": 27,
+      "norm_label": "\ud83d\udee0\ufe0f tecnologias"
+    },
+    {
+      "label": "\ud83d\ude80 Despliegue",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "readme_despliegue",
+      "community": 27,
+      "norm_label": "\ud83d\ude80 despliegue"
+    },
+    {
+      "label": "\ud83d\udcc1 Estructura",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "readme_estructura",
+      "community": 27,
+      "norm_label": "\ud83d\udcc1 estructura"
+    },
+    {
+      "label": "\ud83d\udcde Contacto",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L80",
+      "_origin": "ast",
+      "id": "readme_contacto",
+      "community": 27,
+      "norm_label": "\ud83d\udcde contacto"
+    },
+    {
+      "label": "STYLE_GUIDE.md",
+      "file_type": "document",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "style_guide",
+      "community": 40,
+      "norm_label": "style_guide.md"
+    },
+    {
+      "label": "Gu\u00eda visual del sitio RCP Services",
+      "file_type": "document",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "style_guide_gu\u00eda_visual_del_sitio_rcp_services",
+      "community": 40,
+      "norm_label": "guia visual del sitio rcp services"
+    },
+    {
+      "label": "Logo",
+      "file_type": "document",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "style_guide_logo",
+      "community": 40,
+      "norm_label": "logo"
+    },
+    {
+      "label": "Sistema",
+      "file_type": "document",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "style_guide_sistema",
+      "community": 40,
+      "norm_label": "sistema"
+    },
+    {
+      "label": "INFRASTRUCTURE.md",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure",
+      "community": 26,
+      "norm_label": "infrastructure.md"
+    },
+    {
+      "label": "Infraestructura RCP Services",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_infraestructura_rcp_services",
+      "community": 26,
+      "norm_label": "infraestructura rcp services"
+    },
+    {
+      "label": "Health Check",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_health_check",
+      "community": 26,
+      "norm_label": "health check"
+    },
+    {
+      "label": "Servicios monitoreados",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_servicios_monitoreados",
+      "community": 26,
+      "norm_label": "servicios monitoreados"
+    },
+    {
+      "label": "Variables de entorno",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_variables_de_entorno",
+      "community": 26,
+      "norm_label": "variables de entorno"
+    },
+    {
+      "label": "Cloudflare Tunnel para n8n",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_cloudflare_tunnel_para_n8n",
+      "community": 26,
+      "norm_label": "cloudflare tunnel para n8n"
+    },
+    {
+      "label": "Setup (una sola vez)",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_setup_una_sola_vez",
+      "community": 26,
+      "norm_label": "setup (una sola vez)"
+    },
+    {
+      "label": "Docker Compose (alternativa)",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L82",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_docker_compose_alternativa",
+      "community": 26,
+      "norm_label": "docker compose (alternativa)"
+    },
+    {
+      "label": "Stack Docker actual (~12GB RAM)",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L97",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_stack_docker_actual_12gb_ram",
+      "community": 26,
+      "norm_label": "stack docker actual (~12gb ram)"
+    },
+    {
+      "label": "Deployment",
+      "file_type": "document",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L109",
+      "_origin": "ast",
+      "id": "cloud_function_infrastructure_deployment",
+      "community": 26,
+      "norm_label": "deployment"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme",
+      "community": 23,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "IA Corporativa Privada \u2014 Producto Vendible RCP Services",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "community": 23,
+      "norm_label": "ia corporativa privada \u2014 producto vendible rcp services"
+    },
+    {
+      "label": "\u00bfQu\u00e9 es?",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_qu\u00e9_es",
+      "community": 23,
+      "norm_label": "\u00bfque es?"
+    },
+    {
+      "label": "Componentes",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_componentes",
+      "community": 23,
+      "norm_label": "componentes"
+    },
+    {
+      "label": "Paquetes y Precios",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_paquetes_y_precios",
+      "community": 23,
+      "norm_label": "paquetes y precios"
+    },
+    {
+      "label": "Requisitos del Cliente",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_requisitos_del_cliente",
+      "community": 23,
+      "norm_label": "requisitos del cliente"
+    },
+    {
+      "label": "Opci\u00f3n A: Hardware del cliente",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_opci\u00f3n_a_hardware_del_cliente",
+      "community": 23,
+      "norm_label": "opcion a: hardware del cliente"
+    },
+    {
+      "label": "Opci\u00f3n B: Servidor gestionado por RCP",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_opci\u00f3n_b_servidor_gestionado_por_rcp",
+      "community": 23,
+      "norm_label": "opcion b: servidor gestionado por rcp"
+    },
+    {
+      "label": "Instalaci\u00f3n",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_instalaci\u00f3n",
+      "community": 23,
+      "norm_label": "instalacion"
+    },
+    {
+      "label": "Docker Compose",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_docker_compose",
+      "community": 23,
+      "norm_label": "docker compose"
+    },
+    {
+      "label": "Casos de Uso",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_casos_de_uso",
+      "community": 23,
+      "norm_label": "casos de uso"
+    },
+    {
+      "label": "Seguridad",
+      "file_type": "document",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "id": "cloud_function_products_ia_privada_readme_seguridad",
+      "community": 23,
+      "norm_label": "seguridad"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme",
+      "community": 28,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Workflows n8n \u2014 RCP Services",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_workflows_n8n_rcp_services",
+      "community": 28,
+      "norm_label": "workflows n8n \u2014 rcp services"
+    },
+    {
+      "label": "Supabase \u2192 Odoo Sale Order (`supabase_to_odoo_order.json`)",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "community": 28,
+      "norm_label": "supabase \u2192 odoo sale order (`supabase_to_odoo_order.json`)"
+    },
+    {
+      "label": "Flujo",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_flujo",
+      "community": 28,
+      "norm_label": "flujo"
+    },
+    {
+      "label": "Requisitos para activar",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_requisitos_para_activar",
+      "community": 28,
+      "norm_label": "requisitos para activar"
+    },
+    {
+      "label": "C\u00f3mo importar en n8n",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_c\u00f3mo_importar_en_n8n",
+      "community": 28,
+      "norm_label": "como importar en n8n"
+    },
+    {
+      "label": "Variables de entorno necesarias",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_variables_de_entorno_necesarias",
+      "community": 28,
+      "norm_label": "variables de entorno necesarias"
+    },
+    {
+      "label": "Edge Cases manejados",
+      "file_type": "document",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "cloud_function_workflows_readme_edge_cases_manejados",
+      "community": 28,
+      "norm_label": "edge cases manejados"
+    },
+    {
+      "label": "home.md",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home",
+      "community": 21,
+      "norm_label": "home.md"
+    },
+    {
+      "label": "\ud83c\udfe1 RCP Services Sitio Web \u2014 Centro de Control",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_rcp_services_sitio_web_centro_de_control",
+      "community": 21,
+      "norm_label": "\ud83c\udfe1 rcp services sitio web \u2014 centro de control"
+    },
+    {
+      "label": "\ud83d\uddc2\ufe0f \u00cdndices de Conocimiento Activo",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "home_\u00edndices_de_conocimiento_activo",
+      "community": 21,
+      "norm_label": "\ud83d\uddc2\ufe0f indices de conocimiento activo"
+    },
+    {
+      "label": "\ud83d\udcdd Otras Notas Activas de Desarrollo",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "home_otras_notas_activas_de_desarrollo",
+      "community": 21,
+      "norm_label": "\ud83d\udcdd otras notas activas de desarrollo"
+    },
+    {
+      "label": "\u26a1 Atajos Operativos (Capa Neuronal v2)",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "home_atajos_operativos_capa_neuronal_v2",
+      "community": 21,
+      "norm_label": "\u26a1 atajos operativos (capa neuronal v2)"
+    },
+    {
+      "label": "\ud83d\udcca Dashboard de Tokens",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "home_dashboard_de_tokens",
+      "community": 21,
+      "norm_label": "\ud83d\udcca dashboard de tokens"
+    },
+    {
+      "label": "\ud83e\uddf9 Estado del Contexto",
+      "file_type": "document",
+      "source_file": "home.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "home_estado_del_contexto",
+      "community": 21,
+      "norm_label": "\ud83e\uddf9 estado del contexto"
+    },
+    {
+      "label": "NODO_GUIA_CONTABILIDAD_RD.md",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "knowledge_graph_nodo_guia_contabilidad_rd",
+      "community": 31,
+      "norm_label": "nodo_guia_contabilidad_rd.md"
+    },
+    {
+      "label": "\ud83c\udf09 Enlace Neuronal: Gu\u00eda Profesional Contabilidad RD \u2194 RCP Services",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "knowledge_graph_nodo_guia_contabilidad_rd_enlace_neuronal_gu\u00eda_profesional_contabilidad_rd_rcp_services",
+      "community": 31,
+      "norm_label": "\ud83c\udf09 enlace neuronal: guia profesional contabilidad rd \u2194 rcp services"
+    },
+    {
+      "label": "\ud83d\uddfa\ufe0f Mapa del Grafo de Conocimiento Interconectado",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "knowledge_graph_nodo_guia_contabilidad_rd_mapa_del_grafo_de_conocimiento_interconectado",
+      "community": 31,
+      "norm_label": "\ud83d\uddfa\ufe0f mapa del grafo de conocimiento interconectado"
+    },
+    {
+      "label": "\ud83d\udccd Ubicaci\u00f3n e \u00cdndice del Conocimiento",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "knowledge_graph_nodo_guia_contabilidad_rd_ubicaci\u00f3n_e_\u00edndice_del_conocimiento",
+      "community": 31,
+      "norm_label": "\ud83d\udccd ubicacion e indice del conocimiento"
+    },
+    {
+      "label": "\ud83c\udff7\ufe0f Grafo de Etiquetas Compartidas",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "knowledge_graph_nodo_guia_contabilidad_rd_grafo_de_etiquetas_compartidas",
+      "community": 31,
+      "norm_label": "\ud83c\udff7\ufe0f grafo de etiquetas compartidas"
     }
   ],
   "links": [
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L13",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent",
-      "target": "agents_challenger_2_validate_landing_independent_clean_and_count_words",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L27",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent",
-      "target": "agents_challenger_2_validate_landing_independent_extract_fallback_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L98",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent",
-      "target": "agents_challenger_2_validate_landing_independent_load_json_files",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L111",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent",
-      "target": "agents_challenger_2_validate_landing_independent_run_validations",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent",
-      "target": "agents_challenger_2_validate_landing_independent_verify_layers_grouping",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L35",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent",
-      "target": "agents_challenger_2_validate_landing_independent_verify_stylesheet_location",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L155",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent_run_validations",
-      "target": "agents_challenger_2_validate_landing_independent_clean_and_count_words",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L150",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent_run_validations",
-      "target": "agents_challenger_2_validate_landing_independent_extract_fallback_text",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L120",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent_run_validations",
-      "target": "agents_challenger_2_validate_landing_independent_verify_stylesheet_location",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L127",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent_run_validations",
-      "target": "agents_challenger_2_validate_landing_independent_verify_layers_grouping",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/challenger_2/validate_landing_independent.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "source": "agents_challenger_2_validate_landing_independent_run_validations",
-      "target": "agents_challenger_2_validate_landing_independent_load_json_files",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/analyze_pages.py",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_analyze_pages",
-      "target": "agents_explorer_audit_1_gen2_analyze_pages_analyze_astro_file",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/analyze_pages.py",
-      "source_location": "L106",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_analyze_pages",
-      "target": "agents_explorer_audit_1_gen2_analyze_pages_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/analyze_pages.py",
-      "source_location": "L112",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_analyze_pages_main",
-      "target": "agents_explorer_audit_1_gen2_analyze_pages_analyze_astro_file",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_alt_tags.py",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_alt_tags",
-      "target": "agents_explorer_audit_1_gen2_check_alt_tags_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L11",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_i18n_keys",
-      "target": "agents_explorer_audit_1_gen2_check_i18n_keys_get_keys_from_json",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_i18n_keys",
-      "target": "agents_explorer_audit_1_gen2_check_i18n_keys_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_i18n_keys",
-      "target": "agents_explorer_audit_1_gen2_check_i18n_keys_scan_files_for_i18n_keys",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L54",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_i18n_keys_main",
-      "target": "agents_explorer_audit_1_gen2_check_i18n_keys_get_keys_from_json",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_i18n_keys.py",
-      "source_location": "L52",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_i18n_keys_main",
-      "target": "agents_explorer_audit_1_gen2_check_i18n_keys_scan_files_for_i18n_keys",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/explorer_audit_1_gen2/check_slots.py",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "agents_explorer_audit_1_gen2_check_slots",
-      "target": "agents_explorer_audit_1_gen2_check_slots_main",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/teamwork_preview_auditor_expansion_audit/verify_db.py",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "agents_teamwork_preview_auditor_expansion_audit_verify_db",
-      "target": "agents_teamwork_preview_auditor_expansion_audit_verify_db_check_db",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".agents/teamwork_preview_auditor_shop_retry/verify_db.py",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "agents_teamwork_preview_auditor_shop_retry_verify_db",
-      "target": "agents_teamwork_preview_auditor_shop_retry_verify_db_run_checks",
-      "confidence_score": 1.0
-    },
     {
       "relation": "imports",
       "context": "import",
@@ -10302,7 +11189,1248 @@
       "source": "vercel",
       "target": "vercel_trailingslash",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirements_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements_document",
+      "target": "kiro_specs_session_execution_plan_requirements_glossary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements_document",
+      "target": "kiro_specs_session_execution_plan_requirements_introduction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements_document",
+      "target": "kiro_specs_session_execution_plan_requirements_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_10_session_9_dashboard_real_data_kpis_charts_payment_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_11_session_10_internationalization_completion_i18n_to_100",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L170",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_12_session_11_ux_polish_images_scripts_flow_footer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L183",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_13_session_12_ecosystem_infrastructure_n8n_tunnel_health_checks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L195",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_14_session_13_supabase_to_odoo_workflow_and_ai_packaging",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_15_session_dependency_map",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_1_session_0_prerequisites_and_credential_collection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_2_session_1_cutover_verification_and_legacy_cleanup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_3_session_2_security_emergency_part_a_frontend_credential_removal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_4_session_3_security_emergency_part_b_rls_and_auth_migration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_5_session_4_unify_lead_system_and_remove_emailjs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_6_session_5_rbac_schema_creation_supabase_tables",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_7_session_6_rbac_frontend_implementation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_8_session_7_real_store_connection_supabase_productos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirements",
+      "target": "kiro_specs_session_execution_plan_requirements_requirement_9_session_8_payment_gateway_integration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_1_session_0_prerequisites_and_credential_collection",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_2_session_1_cutover_verification_and_legacy_cleanup",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_41",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_3_session_2_security_emergency_part_a_frontend_credential_removal",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_54",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_4_session_3_security_emergency_part_b_rls_and_auth_migration",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_68",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_5_session_4_unify_lead_system_and_remove_emailjs",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_81",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_6_session_5_rbac_schema_creation_supabase_tables",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_94",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L109",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_7_session_6_rbac_frontend_implementation",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_109",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_8_session_7_real_store_connection_supabase_productos",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_122",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_9_session_8_payment_gateway_integration",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_135",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_10_session_9_dashboard_real_data_kpis_charts_payment_history",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_148",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L161",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_11_session_10_internationalization_completion_i18n_to_100",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_161",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L174",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_12_session_11_ux_polish_images_scripts_flow_footer",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_174",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L187",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_13_session_12_ecosystem_infrastructure_n8n_tunnel_health_checks",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_187",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L199",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_14_session_13_supabase_to_odoo_workflow_and_ai_packaging",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_199",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".kiro/specs/session-execution-plan/requirements.md",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "kiro_specs_session_execution_plan_requirements_requirement_15_session_dependency_map",
+      "target": "kiro_specs_session_execution_plan_requirements_acceptance_criteria_211",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "home",
+      "target": "neural_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "neural_state",
+      "target": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "target": "neural_state_arquitectura_compartida_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "target": "neural_state_completado_en_sesiones_previas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "target": "neural_state_conexi\u00f3n_de_grafo_neuronal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "target": "neural_state_directiva_de_aprendizaje_continuo_obligatoria_para_toda_ia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "target": "neural_state_lo_que_no_se_debe_modificar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
+      "target": "neural_state_ubicaci\u00f3n_del_proyecto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "neural_state_completado_en_sesiones_previas",
+      "target": "neural_state_1_migraci\u00f3n_y_conectividad_a_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "neural_state_completado_en_sesiones_previas",
+      "target": "neural_state_2_panel_administrativo_crud_expandido",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".neural_state.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "neural_state_completado_en_sesiones_previas",
+      "target": "neural_state_3_tienda_p\u00fablica_y_checkout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "agents",
+      "target": "agents_rcp_services_site_rules",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "architecture",
+      "target": "architecture_web_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "architecture_web_architecture",
+      "target": "architecture_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "architecture_web_architecture",
+      "target": "architecture_functional_roadmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "architecture_web_architecture",
+      "target": "architecture_rendering_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ARCHITECTURE.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "architecture_web_architecture",
+      "target": "architecture_seo_and_aeo_safeguards",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "claude",
+      "target": "claude_rcp_services_memoria_del_proyecto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "claude_rcp_services_memoria_del_proyecto",
+      "target": "claude_arquitectura_de_archivos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "claude_rcp_services_memoria_del_proyecto",
+      "target": "claude_convenciones",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "claude_rcp_services_memoria_del_proyecto",
+      "target": "claude_estado_de_seguridad_fases_1_3_completadas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "claude_rcp_services_memoria_del_proyecto",
+      "target": "claude_pendiente_fuera_de_alcance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "claude_rcp_services_memoria_del_proyecto",
+      "target": "claude_ubicaci\u00f3n",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "claude_rcp_services_memoria_del_proyecto",
+      "target": "claude_verificaci\u00f3n_r\u00e1pida",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "claude_estado_de_seguridad_fases_1_3_completadas",
+      "target": "claude_fase_1_endurecimiento_cr\u00edtico",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "claude_estado_de_seguridad_fases_1_3_completadas",
+      "target": "claude_fase_2_rbac",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "claude_estado_de_seguridad_fases_1_3_completadas",
+      "target": "claude_fase_3_datos_reales_sin_simulaciones",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "home",
+      "target": "neural_layer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "neural_layer",
+      "target": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "target": "neural_layer_bondades",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "target": "neural_layer_componentes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "target": "neural_layer_configuraci\u00f3n_activa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "target": "neural_layer_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NEURAL_LAYER.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "target": "neural_layer_uso",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PROJECT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "project",
+      "target": "project_project_rcp_services_ecosystem_audit_active_optimization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PROJECT.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "project_project_rcp_services_ecosystem_audit_active_optimization",
+      "target": "project_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PROJECT.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "project_project_rcp_services_ecosystem_audit_active_optimization",
+      "target": "project_interface_safety_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "PROJECT.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "project_project_rcp_services_ecosystem_audit_active_optimization",
+      "target": "project_milestones",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "home",
+      "target": "rcp_services_shared_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "rcp_services_shared_architecture",
+      "target": "rcp_services_shared_architecture_arquitectura_compartida_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "rcp_services_shared_architecture_arquitectura_compartida_rcp_services",
+      "target": "rcp_services_shared_architecture_identidad_de_este_producto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "RCP_SERVICES_SHARED_ARCHITECTURE.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "rcp_services_shared_architecture_arquitectura_compartida_rcp_services",
+      "target": "rcp_services_shared_architecture_regla_operativa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "readme_rcp_services_website",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_caracter\u00edsticas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_contacto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_despliegue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_estructura",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_p\u00e1ginas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_sobre_el_proyecto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "readme_rcp_services_website",
+      "target": "readme_tecnolog\u00edas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "style_guide",
+      "target": "style_guide_gu\u00eda_visual_del_sitio_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "style_guide_gu\u00eda_visual_del_sitio_rcp_services",
+      "target": "style_guide_logo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "STYLE_GUIDE.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "style_guide_gu\u00eda_visual_del_sitio_rcp_services",
+      "target": "style_guide_sistema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure",
+      "target": "cloud_function_infrastructure_infraestructura_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_infraestructura_rcp_services",
+      "target": "cloud_function_infrastructure_cloudflare_tunnel_para_n8n",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L109",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_infraestructura_rcp_services",
+      "target": "cloud_function_infrastructure_deployment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_infraestructura_rcp_services",
+      "target": "cloud_function_infrastructure_health_check",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_infraestructura_rcp_services",
+      "target": "cloud_function_infrastructure_stack_docker_actual_12gb_ram",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_health_check",
+      "target": "cloud_function_infrastructure_servicios_monitoreados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_health_check",
+      "target": "cloud_function_infrastructure_variables_de_entorno",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_cloudflare_tunnel_para_n8n",
+      "target": "cloud_function_infrastructure_docker_compose_alternativa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/INFRASTRUCTURE.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "cloud_function_infrastructure_cloudflare_tunnel_para_n8n",
+      "target": "cloud_function_infrastructure_setup_una_sola_vez",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme",
+      "target": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_casos_de_uso",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_componentes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_docker_compose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_instalaci\u00f3n",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_paquetes_y_precios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_qu\u00e9_es",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_requisitos_del_cliente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_ia_corporativa_privada_producto_vendible_rcp_services",
+      "target": "cloud_function_products_ia_privada_readme_seguridad",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_requisitos_del_cliente",
+      "target": "cloud_function_products_ia_privada_readme_opci\u00f3n_a_hardware_del_cliente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/products/ia-privada/README.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "cloud_function_products_ia_privada_readme_requisitos_del_cliente",
+      "target": "cloud_function_products_ia_privada_readme_opci\u00f3n_b_servidor_gestionado_por_rcp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme",
+      "target": "cloud_function_workflows_readme_workflows_n8n_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme_workflows_n8n_rcp_services",
+      "target": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "target": "cloud_function_workflows_readme_c\u00f3mo_importar_en_n8n",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "target": "cloud_function_workflows_readme_edge_cases_manejados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "target": "cloud_function_workflows_readme_flujo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "target": "cloud_function_workflows_readme_requisitos_para_activar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cloud_function/workflows/README.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "cloud_function_workflows_readme_supabase_odoo_sale_order_supabase_to_odoo_order_json",
+      "target": "cloud_function_workflows_readme_variables_de_entorno_necesarias",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "home",
+      "target": "home_rcp_services_sitio_web_centro_de_control",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "home_rcp_services_sitio_web_centro_de_control",
+      "target": "home_atajos_operativos_capa_neuronal_v2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "home_rcp_services_sitio_web_centro_de_control",
+      "target": "home_dashboard_de_tokens",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "home_rcp_services_sitio_web_centro_de_control",
+      "target": "home_estado_del_contexto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "home_rcp_services_sitio_web_centro_de_control",
+      "target": "home_\u00edndices_de_conocimiento_activo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "home.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "home_\u00edndices_de_conocimiento_activo",
+      "target": "home_otras_notas_activas_de_desarrollo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_guia_contabilidad_rd",
+      "target": "knowledge_graph_nodo_guia_contabilidad_rd_enlace_neuronal_gu\u00eda_profesional_contabilidad_rd_rcp_services",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_guia_contabilidad_rd_enlace_neuronal_gu\u00eda_profesional_contabilidad_rd_rcp_services",
+      "target": "knowledge_graph_nodo_guia_contabilidad_rd_grafo_de_etiquetas_compartidas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_guia_contabilidad_rd_enlace_neuronal_gu\u00eda_profesional_contabilidad_rd_rcp_services",
+      "target": "knowledge_graph_nodo_guia_contabilidad_rd_mapa_del_grafo_de_conocimiento_interconectado",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_GUIA_CONTABILIDAD_RD.md",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_guia_contabilidad_rd_enlace_neuronal_gu\u00eda_profesional_contabilidad_rd_rcp_services",
+      "target": "knowledge_graph_nodo_guia_contabilidad_rd_ubicaci\u00f3n_e_\u00edndice_del_conocimiento",
+      "confidence_score": 1.0
     }
   ],
-  "hyperedges": []
+  "hyperedges": [],
+  "built_at_commit": "982378ac0f1ad2151c0d48d860085fa22cc91c14"
 }
