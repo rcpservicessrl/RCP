@@ -1,0 +1,27 @@
+{
+  "campaign": "Diagnóstico 360° - Lead Generation Meta/Instagram",
+  "brand_rules": [
+    "Modo oscuro principal",
+    "Oro RCP #FCB53F",
+    "Montserrat/fallback bold geometric",
+    "Logo oficial",
+    "CTA a rcp.services/diagnostico"
+  ],
+  "posts": [
+    {
+      "asset": "C:\\RCP\\RCP Services\\Sitio-Web\\marketing\\meta-campaign-2026-07-09\\rcp-meta-feed-diagnostico-4x5.jpg",
+      "caption": "Tu empresa no necesita seguir improvisando.\n\nCon el Diagnóstico 360° de RCP Services identificamos los puntos que están frenando tu formalización, tus finanzas, tus procesos y tus ventas.\n\nHazlo gratis en 2 minutos y recibe una ruta clara para crecer.\n\n👉 rcp.services/diagnostico\n\n#RCPServices #MIPYMESRD #EmprendedoresRD #NegociosRD #MarketingDigitalRD #ConsultoriaEmpresarial #FormalizacionEmpresarial #SantoDomingo #RepublicaDominicana",
+      "objective": "Lead magnet principal"
+    },
+    {
+      "asset": "C:\\RCP\\RCP Services\\Sitio-Web\\marketing\\meta-campaign-2026-07-09\\rcp-meta-square-formaliza-1x1.jpg",
+      "caption": "Formalizar, organizar y vender más no son tareas separadas. Son parte del mismo sistema.\n\nRCP Services integra Renovación, Consultoría y Publicidad para que tu empresa deje de operar a ciegas y empiece a crecer con dirección.\n\nAgenda tu Diagnóstico 360° gratis.\n\n👉 rcp.services/diagnostico\n\n#RCPServices #MIPYMES #EmpresasDominicanas #CrecimientoEmpresarial #PublicidadRD #ConsultoriaRD #CRM #ERP #TransformacionDigital",
+      "objective": "Confianza y posicionamiento"
+    },
+    {
+      "asset": "C:\\RCP\\RCP Services\\Sitio-Web\\marketing\\meta-campaign-2026-07-09\\rcp-meta-story-crecimiento-9x16.jpg",
+      "caption": "Si todo depende de ti, tu negocio no está escalando: está sobreviviendo.\n\nHaz el Diagnóstico 360° y descubre qué necesita tu empresa para formalizarse, automatizar procesos y vender mejor.\n\nGratis. Rápido. Directo.\n\n👉 rcp.services/diagnostico\n\n#Diagnostico360 #RCPServices #NegociosDominicanos #MIPYMESRD #Ventas #Automatizacion #Formalizacion #EmprendedoresDominicanos",
+      "objective": "Story/Reel con CTA directo"
+    }
+  ]
+}

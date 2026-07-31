@@ -35,3 +35,20 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Local execution and audit artifacts
+build-output.log
+dev-server*.log
+static-server*.log
+diff.txt
+.agents/**/.venv/
+
+# Ephemeral multi-agent execution records
+.agents/
+agents/
+
+# Regenerable neural caches
+.neural_bridge/__pycache__/
+.neural_bridge/cache*.json
+.neural_bridge/tokens.json
+graphify-out/cache/

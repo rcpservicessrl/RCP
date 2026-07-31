@@ -1,0 +1,74 @@
+---
+/**
+ * electromuebles.astro — Caso de Éxito / Solución PWA: Electromuebles El Moreno Venezolano
+ * Integrado al Ecosistema RCP Services
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const caseSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Electromuebles El Moreno Venezolano PWA",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "provider": { "@type": "Organization", "name": "RCP Services", "url": "https://rcp.services" },
+  "description": "Aplicación web progresiva (PWA) e instalable con catálogo interactivo de electrodomésticos, buscador en tiempo real y checkout automatizado vía WhatsApp."
+};
+---
+
+<BaseLayout
+  title="Electromuebles El Moreno Venezolano PWA | Casos de Éxito RCP Services"
+  description="Solución PWA desarrollada por RCP Services: Catálogo interactivo de inventario real, carrito de compras e integración directa con WhatsApp."
+  canonical="/casos/electromuebles"
+  active="casos"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(caseSchema)} slot="head" />
+
+  <main>
+    <section class="hero hero-short" id="inicio">
+      <div class="hero-bg-grid"></div>
+      <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+        <div class="hero-content">
+          <div class="hero-badge animate-fade-up">
+            <span class="badge-dot"></span> <span>Caso de Éxito · Ecosistema RCP 360</span>
+          </div>
+          <h1 class="hero-title animate-fade-up delay-1">
+            Electromuebles <span class="accent">El Moreno Venezolano</span> PWA
+          </h1>
+          <p class="hero-sub animate-fade-up delay-2">
+            Transformación digital comercial con tienda virtual progresiva (PWA), catálogo categorizado de inventario real y sistema de checkout directo a WhatsApp (+1 829-440-0596).
+          </p>
+          <div class="hero-actions animate-fade-up delay-3" style="margin-top: 25px;">
+            <a href="/tienda" class="btn-cta btn-lg">Ver en la Tienda RCP</a>
+            <a href="https://wa.me/18294400596" target="_blank" class="btn-ghost">Contactar Tienda →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-label animate-on-scroll">Solución a Medida</div>
+        <h2 class="section-title animate-on-scroll">Características de la <span class="accent">Plataforma</span></h2>
+        
+        <div class="cards-grid three-col animate-on-scroll" style="margin-top: 40px;">
+          <div class="card card-dark">
+            <div class="card-icon">📱</div>
+            <h3>PWA Instalable</h3>
+            <p>Soporte offline básico, manifest optimizado y experiencia fluida nativa para dispositivos móviles y de escritorio.</p>
+          </div>
+          <div class="card card-dark">
+            <div class="card-icon">⚡</div>
+            <h3>Catálogo de Inventario</h3>
+            <p>Buscador inteligente por categorías y rangos de precio con fichas detalladas de electrodomésticos.</p>
+          </div>
+          <div class="card card-dark">
+            <div class="card-icon">💬</div>
+            <h3>Checkout por WhatsApp</h3>
+            <p>Armado de pedidos interactivo enviado directamente al WhatsApp oficial con el desglose de productos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

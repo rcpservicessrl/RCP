@@ -1,0 +1,24 @@
+{
+  "campaign": "RCP Services readable Meta campaign - mobile-first lead generation",
+  "quality_notes": [
+    "Headline and CTA sized for phone reading",
+    "Body copy reduced to one short message",
+    "High contrast white on dark and black on gold",
+    "Low visual noise and restrained gold accents",
+    "No synthetic people or busy generated backgrounds"
+  ],
+  "posts": [
+    {
+      "asset": "C:\\RCP\\RCP Services\\Sitio-Web\\marketing\\meta-campaign-2026-07-09\\rcp-meta-readable-feed-4x5.jpg",
+      "caption": "Antes de escalar, tu empresa necesita ver con claridad.\n\nEl Diagnóstico 360° de RCP Services identifica qué está frenando tus ventas, procesos y formalización.\n\nGratis. En 2 minutos.\n\n👉 rcp.services/diagnostico\n\n#RCPServices #MIPYMESRD #EmpresasDominicanas #NegociosRD #ConsultoriaEmpresarial #FormalizacionEmpresarial #MarketingDigitalRD #SantoDomingo"
+    },
+    {
+      "asset": "C:\\RCP\\RCP Services\\Sitio-Web\\marketing\\meta-campaign-2026-07-09\\rcp-meta-readable-square-1x1.jpg",
+      "caption": "Marketing sin dirección no escala.\n\nRCP Services integra orden interno, marca fuerte y captación de clientes bajo un solo sistema.\n\nEmpezá con tu Diagnóstico 360° gratis.\n\n👉 rcp.services/diagnostico\n\n#RCPServices #CrecimientoEmpresarial #MIPYMES #EmprendedoresRD #ConsultoriaRD #PublicidadRD #TransformacionDigital"
+    },
+    {
+      "asset": "C:\\RCP\\RCP Services\\Sitio-Web\\marketing\\meta-campaign-2026-07-09\\rcp-meta-readable-story-9x16.jpg",
+      "caption": "¿Tu empresa crece o solo resiste?\n\nEscaneá el QR o entrá a rcp.services/diagnostico y descubrilo en 2 minutos.\n\n#Diagnostico360 #RCPServices #MIPYMESRD #NegociosDominicanos #Formalizacion #Ventas #Automatizacion"
+    }
+  ]
+}
