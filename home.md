@@ -12,6 +12,8 @@ neuronal local** (`.neural_bridge/`) para optimizar contexto y ahorrar tokens.
 - [[NEURAL_LAYER]] — arquitectura de la capa neuronal v2.
 - [[RCP_SERVICES_SHARED_ARCHITECTURE]] — pertenencia al pool corporativo.
 - [[.neural_state]] — autoridad compacta del sitio oficial.
+- [[knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31]] — reglas
+  verificadas de logo, jerarquía visual, responsive y SEO.
 
 ---
 

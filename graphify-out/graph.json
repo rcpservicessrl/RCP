@@ -5247,6 +5247,72 @@
       "id": "knowledge_graph_nodo_guia_contabilidad_rd_grafo_de_etiquetas_compartidas",
       "community": 31,
       "norm_label": "\ud83c\udff7\ufe0f grafo de etiquetas compartidas"
+    },
+    {
+      "label": "Experiencia visual responsive RCP Services",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L1",
+      "_origin": "agent",
+      "confidence": "EXTRACTED",
+      "id": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31",
+      "community": 40,
+      "norm_label": "experiencia visual responsive rcp services"
+    },
+    {
+      "label": "Decisión de experiencia visual",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L3",
+      "_origin": "agent",
+      "confidence": "EXTRACTED",
+      "id": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_decision",
+      "community": 40,
+      "norm_label": "decision de experiencia visual"
+    },
+    {
+      "label": "Autoridad visual",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L10",
+      "_origin": "agent",
+      "confidence": "EXTRACTED",
+      "id": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_autoridad",
+      "community": 40,
+      "norm_label": "autoridad visual"
+    },
+    {
+      "label": "Apariciones de logo verificadas",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L19",
+      "_origin": "agent",
+      "confidence": "EXTRACTED",
+      "id": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_apariciones",
+      "community": 40,
+      "norm_label": "apariciones de logo verificadas"
+    },
+    {
+      "label": "Reglas técnicas responsive",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L27",
+      "_origin": "agent",
+      "confidence": "EXTRACTED",
+      "id": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_reglas",
+      "community": 40,
+      "norm_label": "reglas tecnicas responsive"
+    },
+    {
+      "label": "Evidencia de validación responsive",
+      "file_type": "document",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L41",
+      "_origin": "agent",
+      "confidence": "EXTRACTED",
+      "id": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_evidencia",
+      "community": 40,
+      "norm_label": "evidencia de validacion responsive"
     }
   ],
   "links": [
@@ -12428,6 +12494,106 @@
       "weight": 1.0,
       "source": "knowledge_graph_nodo_guia_contabilidad_rd_enlace_neuronal_gu\u00eda_profesional_contabilidad_rd_rcp_services",
       "target": "knowledge_graph_nodo_guia_contabilidad_rd_ubicaci\u00f3n_e_\u00edndice_del_conocimiento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31",
+      "target": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31",
+      "target": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_autoridad",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31",
+      "target": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_apariciones",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31",
+      "target": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_reglas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31",
+      "target": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_evidencia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_autoridad",
+      "target": "style_guide",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_apariciones",
+      "target": "src_layouts_baselayout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_apariciones",
+      "target": "src_pages_portal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_apariciones",
+      "target": "src_pages_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "knowledge_graph/NODO_EXPERIENCIA_VISUAL_RESPONSIVE_2026-07-31.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "knowledge_graph_nodo_experiencia_visual_responsive_2026_07_31_apariciones",
+      "target": "src_pages_index",
       "confidence_score": 1.0
     }
   ],

@@ -55,7 +55,10 @@
       margin-bottom: 40px;
     }
     .sidebar-logo {
-      height: 40px;
+      width: 100%;
+      max-width: 210px;
+      height: auto;
+      display: block;
     }
 
     .sidebar-nav {

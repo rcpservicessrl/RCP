@@ -57,7 +57,7 @@ const faqSchema = {
             <span class="badge-dot"></span> <span data-i18n="hero-badge">Agencia 360° · República Dominicana</span>
           </div>
           <h1 class="hero-title animate-fade-up delay-1" data-i18n="hero-title">
-            Reanimando el <span class="accent">corazón</span> de tu empresa<br />
+            Reanimando el <span class="accent">corazón</span> de tu empresa<span class="hero-break"> </span>
             para un crecimiento <span class="accent">indetenible</span>.
           </h1>
           <p class="hero-sub animate-fade-up delay-2" data-i18n="hero-sub">
@@ -84,12 +84,22 @@ const faqSchema = {
       </div>
     </section>
 
+    <nav class="explore-rail" aria-label="Explora RCP Services">
+      <div class="container explore-rail-inner">
+        <a href="#problema"><span>01</span>Diagnóstico</a>
+        <a href="#solucion"><span>02</span>Solución R·C·P</a>
+        <a href="#ecosistema"><span>03</span>Ecosistema</a>
+        <a href="#paquetes"><span>04</span>Planes</a>
+        <a href="#contacto"><span>05</span>Contacto</a>
+      </div>
+    </nav>
+
     <!-- ===== PROBLEMA ===== -->
     <section class="section problema" id="problema">
       <div class="container">
         <div class="section-label animate-on-scroll" data-i18n="section-label-problema">El Problema</div>
         <h2 class="section-title animate-on-scroll" data-i18n="section-title-problema">
-          El <span class="accent">98.5%</span> de las MIPYMEs dominicanas<br />
+          El <span class="accent">98.5%</span> de las MIPYMEs dominicanas<span class="section-break"> </span>
           padecen la misma arritmia
         </h2>
         <p class="section-sub animate-on-scroll" data-i18n="section-sub-problema">Síntomas críticos que frenan cada latido de tu negocio:</p>
@@ -438,18 +448,18 @@ const faqSchema = {
         <div class="section-label animate-on-scroll">Preguntas frecuentes</div>
         <h2 class="section-title animate-on-scroll">Lo que una MIPYME necesita saber antes de dar el paso</h2>
         <div class="faq-grid animate-on-scroll">
-          <article class="card card-dark faq-card">
-            <h3>¿Qué es RCP Services?</h3>
+          <details class="card card-dark faq-card" open>
+            <summary><h3>¿Qué es RCP Services?</h3></summary>
             <p>RCP Services es una Agencia 360° de Transformación Empresarial para MIPYMEs dominicanas. Integra formalización, finanzas, procesos, marketing y tecnología en una sola ruta de crecimiento.</p>
-          </article>
-          <article class="card card-dark faq-card">
-            <h3>¿Qué significa el Ecosistema Operativo Soberano?</h3>
+          </details>
+          <details class="card card-dark faq-card">
+            <summary><h3>¿Qué significa el Ecosistema Operativo Soberano?</h3></summary>
             <p>Es un núcleo digital privado que organiza CRM, ERP, automatización, mensajería y reportes para que el negocio controle sus datos, ventas y operaciones sin depender de proveedores desconectados.</p>
-          </article>
-          <article class="card card-dark faq-card">
-            <h3>¿Cuánto cuesta trabajar con RCP Services?</h3>
+          </details>
+          <details class="card card-dark faq-card">
+            <summary><h3>¿Cuánto cuesta trabajar con RCP Services?</h3></summary>
             <p>Los planes parten de una inversión básica para formalización y presencia digital, y escalan hacia automatización, publicidad, IA privada y acompañamiento directivo según la etapa del negocio.</p>
-          </article>
+          </details>
         </div>
       </div>
     </section>

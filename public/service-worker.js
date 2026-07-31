@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v29-brand-system';
+const CACHE_NAME = 'rcp-services-v30-experience-refresh';
 const ASSETS_TO_CACHE = [
   './',
   './nosotros/',
