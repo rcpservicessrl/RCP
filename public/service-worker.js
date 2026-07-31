@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v31-global-nav-guard';
+const CACHE_NAME = 'rcp-services-v32-versioned-global-script';
 const ASSETS_TO_CACHE = [
   './',
   './nosotros/',

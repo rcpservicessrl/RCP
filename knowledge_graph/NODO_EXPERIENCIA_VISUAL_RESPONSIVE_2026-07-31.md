@@ -46,5 +46,7 @@ horizontales, FAQ desplegable y jerarquía semántica.
 - Dashboard compila el logo oficial con ancho máximo de `210 px`.
 - El script global protege los controles de navegación opcionales para no fallar
   en dashboard ni en otras vistas sin header público.
+- Los layouts cargan una URL versionada del script global para evitar que un
+  service worker anterior entregue código obsoleto en el primer acceso.
 - La portada conserva canonical, meta description, Open Graph y JSON-LD
   Organization, WebSite y FAQPage.
