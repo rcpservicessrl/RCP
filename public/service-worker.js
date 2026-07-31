@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rcp-services-v33-pure-black-brand';
+const CACHE_NAME = 'rcp-services-v34-pure-black-scripts';
 const ASSETS_TO_CACHE = [
   './',
   './nosotros/',
@@ -9,7 +9,7 @@ const ASSETS_TO_CACHE = [
   './checkout/',
   './portal/',
   './styles.css?v=1.0.2-black',
-  './script.js',
+  './script.js?v=34-pure-black-brand',
   './icono-rcp.png',
   './logo_rcp_fondo_oscuro.svg?v=1.0.2-black',
   './logo_rcp_fondo_claro.svg?v=1.0.2-black',

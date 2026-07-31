@@ -9,7 +9,7 @@ import '../styles/base.css';
 import '../styles/dashboard.css';
 
 const SITE_CSS = '/styles.css?v=1.0.2-black';
-const SITE_JS = '/script.js?v=31-global-nav-guard';
+const SITE_JS = '/script.js?v=34-pure-black-brand';
 const I18N_JS = '/scripts/i18n.js';
 const SUPABASE_SDK_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
 const SUPABASE_SDK_INTEGRITY = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug';
@@ -44,7 +44,7 @@ const {
   <slot />
 
   <script is:inline defer src={SUPABASE_SDK_URL} integrity={SUPABASE_SDK_INTEGRITY} crossorigin="anonymous"></script>
-  <script is:inline defer src="/scripts/dashboard.js"></script>
+  <script is:inline defer src="/scripts/dashboard.js?v=34-pure-black-brand"></script>
   <script src={SITE_JS} is:inline defer></script>
   <script src={I18N_JS} is:inline defer></script>
 </body>

@@ -52,7 +52,8 @@ horizontales, FAQ desplegable y jerarquía semántica.
 - Los layouts cargan una URL versionada del script global para evitar que un
   service worker anterior entregue código obsoleto en el primer acceso.
 - Los logos, la hoja de estilos y el manifiesto usan la versión de recurso
-  `1.0.2-black`, y el service worker `v33`, para retirar inmediatamente copias
-  grisáceas almacenadas en caché.
+  `1.0.2-black`; los scripts que alternan variantes usan
+  `34-pure-black-brand`, y el service worker `v34`, para retirar inmediatamente
+  copias grisáceas almacenadas en caché.
 - La portada conserva canonical, meta description, Open Graph y JSON-LD
   Organization, WebSite y FAQPage.
