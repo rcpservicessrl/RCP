@@ -4332,7 +4332,7 @@
       "label": "5. Validaci\u00f3n pendiente",
       "file_type": "document",
       "source_file": ".neural_state.md",
-      "source_location": "L69",
+      "source_location": "L70",
       "_origin": "ast",
       "id": "neural_state_5_validaci\u00f3n_pendiente",
       "community": 21,
@@ -4342,7 +4342,7 @@
       "label": "Lo que NO se debe modificar",
       "file_type": "document",
       "source_file": ".neural_state.md",
-      "source_location": "L74",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "neural_state_lo_que_no_se_debe_modificar",
       "community": 21,
@@ -5202,7 +5202,7 @@
       "label": "Permisos m\u00ednimos pendientes",
       "file_type": "document",
       "source_file": "docs/ACCESS_MATRIX.md",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "docs_access_matrix_permisos_m\u00ednimos_pendientes",
       "community": 59,
@@ -6037,6 +6037,76 @@
       "id": "docs_seo_migration_plan_plan_de_migraci\u00f3n_seo",
       "community": 64,
       "norm_label": "plan de migracion seo"
+    },
+    {
+      "label": "STAGING_RUNBOOK.md",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_staging_runbook",
+      "community": 69,
+      "norm_label": "staging_runbook.md"
+    },
+    {
+      "label": "Runbook de staging",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_staging_runbook_runbook_de_staging",
+      "community": 69,
+      "norm_label": "runbook de staging"
+    },
+    {
+      "label": "Prop\u00f3sito",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "docs_staging_runbook_prop\u00f3sito",
+      "community": 69,
+      "norm_label": "proposito"
+    },
+    {
+      "label": "Entorno actual",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "docs_staging_runbook_entorno_actual",
+      "community": 69,
+      "norm_label": "entorno actual"
+    },
+    {
+      "label": "Flujo de trabajo",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "docs_staging_runbook_flujo_de_trabajo",
+      "community": 69,
+      "norm_label": "flujo de trabajo"
+    },
+    {
+      "label": "L\u00edmites de seguridad",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "docs_staging_runbook_l\u00edmites_de_seguridad",
+      "community": 69,
+      "norm_label": "limites de seguridad"
+    },
+    {
+      "label": "Rollback",
+      "file_type": "document",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "docs_staging_runbook_rollback",
+      "community": 69,
+      "norm_label": "rollback"
     },
     {
       "label": "THREAT_MODEL.md",
@@ -12753,7 +12823,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".neural_state.md",
-      "source_location": "L74",
+      "source_location": "L76",
       "weight": 1.0,
       "source": "neural_state_neural_state_md_estado_de_sesi\u00f3n_rcp_services",
       "target": "neural_state_lo_que_no_se_debe_modificar",
@@ -12823,7 +12893,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".neural_state.md",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 1.0,
       "source": "neural_state_completado_en_sesiones_previas",
       "target": "neural_state_5_validaci\u00f3n_pendiente",
@@ -13583,7 +13653,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ACCESS_MATRIX.md",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "source": "docs_access_matrix_matriz_de_accesos",
       "target": "docs_access_matrix_permisos_m\u00ednimos_pendientes",
@@ -14252,6 +14322,66 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_staging_runbook",
+      "target": "docs_staging_runbook_runbook_de_staging",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "docs_staging_runbook_runbook_de_staging",
+      "target": "docs_staging_runbook_entorno_actual",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "docs_staging_runbook_runbook_de_staging",
+      "target": "docs_staging_runbook_flujo_de_trabajo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "docs_staging_runbook_runbook_de_staging",
+      "target": "docs_staging_runbook_l\u00edmites_de_seguridad",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "docs_staging_runbook_runbook_de_staging",
+      "target": "docs_staging_runbook_prop\u00f3sito",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/STAGING_RUNBOOK.md",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "docs_staging_runbook_runbook_de_staging",
+      "target": "docs_staging_runbook_rollback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/THREAT_MODEL.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -14561,5 +14691,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8abcd8a5565c8c3b52578aae139a75725737e75d"
+  "built_at_commit": "5b23647782f6a413dd1f3d9b94d8d6254713bf83"
 }

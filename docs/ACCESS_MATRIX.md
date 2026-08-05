@@ -7,6 +7,7 @@ Fecha: 2026-08-05. Los valores de credenciales no se registran.
 | Sistema local | `C:\RCP\RCP Services\Sitio-Web` | Sí | Lectura/escritura | Lectura/escritura | Disponible |
 | GitHub | `rcpservicessrl/RCP` | Sí | Admin; scopes repo/workflow | Push de rama y PR | Disponible |
 | GitHub Pages | entorno `github-pages` | Sí, metadatos | Admin de repositorio | Despliegue por workflow | Disponible; producción solo tras gates |
+| Vercel staging | `rcp-services-staging` | Sí | Proyecto aislado, sin dominio personalizado | Preview/UAT | Disponible; nunca promocionar desde Vercel a producción |
 | Supabase | proyecto corporativo | Sí | CLI enlazada; migración controlada y respaldo | Staging + migraciones versionadas | Hotfix RLS verificado; staging no demostrado |
 | Supabase Auth | usuarios/roles corporativos | Parcial | Código y esquema; no se inspeccionaron usuarios | Administración controlada | Requiere plan de pruebas sin usuarios reales |
 | DNS | `rcp.services` | No verificado | Desconocido | Lectura; escritura solo si cambia dominio | No bloquea estabilización; bloquea cambios DNS |
