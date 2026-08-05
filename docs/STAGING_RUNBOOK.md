@@ -23,7 +23,7 @@ Staging permite validar cambios sin modificar `rcp.services`, DNS ni GitHub Page
 ## Límites de seguridad
 
 - No conectar el dominio `rcp.services` a Vercel.
-- No usar `vercel --prod` como mecanismo de producción del sitio.
+- `vercel --prod` solo puede usarse dentro del proyecto aislado `rcp-services-staging` para actualizar su alias estable; nunca publica `rcp.services`.
 - No guardar tokens, credenciales de Zoho, GA4 o Supabase en el repositorio.
 - Mantener datos de prueba sintéticos; la cotización no persiste datos en el sitio.
 
