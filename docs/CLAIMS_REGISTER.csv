@@ -1,0 +1,8 @@
+id,route,claim,status,required_evidence,owner
+CLM-001,/,"98.5% de MIPYMEs afectadas",removed,"Fuente primaria y definición de muestra",Marketing
+CLM-002,/,"+300% eficiencia operativa",removed,"Caso medido con línea base y periodo",Operaciones
+CLM-003,/,"Testimonios y resultados nominales",removed,"Autorización del cliente y respaldo",Comercial
+CLM-004,/,"Precios cerrados de paquetes",replaced,"Aprobación comercial y alcance contractual",Comercial
+CLM-005,/diagnostico,"Pérdida mensual aleatoria",removed,"Metodología aprobada y datos reales",Dirección
+CLM-006,/tienda,"CardNet PayPal Stripe operativos",removed,"Contrato sandbox producción y E2E",Finanzas
+CLM-007,site,"Marca oficial jaguar",verified,"Decisión de identidad 2026-07-31",Marca

@@ -1,0 +1,10 @@
+source,target,status,reason
+/index.html,/,301,Legacy homepage
+/servicios.html,/servicios,301,Legacy extension
+/tienda.html,/tienda,301,Legacy extension
+/nosotros.html,/nosotros,301,Legacy extension
+/media.html,/media,301,Legacy extension
+/carreras.html,/carreras,301,Legacy extension
+/portal.html,/portal,301,Legacy extension
+/dashboard.html,/dashboard,301,Legacy extension
+/checkout.html,/checkout,301,Legacy extension

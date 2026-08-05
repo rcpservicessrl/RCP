@@ -1,0 +1,21 @@
+route,source,visibility,robots,canonical,purpose,status,action,owner
+/,src/pages/index.astro,public,index follow,https://rcp.services/,corporate landing,stabilized,approve remaining claims,Marketing
+/servicios,src/pages/servicios.astro,public,index follow,https://rcp.services/servicios,service catalog,active,centralize content,Commercial
+/tienda,src/pages/tienda.astro,public,index follow,https://rcp.services/tienda,catalog and quote selection,stabilized,approve catalog governance,Commercial
+/checkout,src/pages/checkout.astro,quote,noindex nofollow noarchive,https://rcp.services/checkout,SKU quote request,stabilized,add server order only with payment sandbox,Finance
+/diagnostico,src/pages/diagnostico.astro,public,index follow,https://rcp.services/diagnostico,local self-assessment,stabilized,approve methodology,Consulting
+/portal,src/pages/portal.astro,private,noindex nofollow noarchive,https://rcp.services/portal,authentication,active,authenticated E2E,Support
+/dashboard,src/pages/dashboard.astro,private,noindex nofollow noarchive,https://rcp.services/dashboard,client admin dashboard,partial,authenticated RBAC tests,Operations
+/onboarding,src/pages/onboarding.astro,private,noindex nofollow noarchive,https://rcp.services/onboarding,client onboarding,partial,privacy and recovery tests,Support
+/formulario-contacto,src/pages/formulario-contacto.astro,private form,noindex nofollow noarchive,https://rcp.services/formulario-contacto,lead form,partial,rate limit and logs,Commercial
+/nosotros,src/pages/nosotros.astro,public,index follow,https://rcp.services/nosotros,company profile,active,verify legal claims,Marketing
+/media,src/pages/media.astro,public,index follow,https://rcp.services/media,resource hub,partial,individual resource pages,Content
+/carreras,src/pages/carreras.astro,public,index follow,https://rcp.services/carreras,recruitment,partial,privacy retention and consent,HR
+/casos/electromuebles,src/pages/casos/electromuebles.astro,public,index follow,https://rcp.services/casos/electromuebles,case study,needs evidence,verify consent and results,Marketing
+/propuesta-inversion,src/pages/propuesta-inversion.astro,restricted,noindex nofollow noarchive,https://rcp.services/propuesta-inversion,investor proposal,risk,add authentication if confidential,Direction
+/privacidad,src/pages/privacidad.astro,public,index follow,https://rcp.services/privacidad,privacy policy,draft,legal approval,Legal
+/terminos,src/pages/terminos.astro,public,index follow,https://rcp.services/terminos,terms,draft,legal approval,Legal
+/cookies,src/pages/cookies.astro,public,index follow,https://rcp.services/cookies,cookie policy,draft,legal approval,Legal
+/reembolsos,src/pages/reembolsos.astro,public,index follow,https://rcp.services/reembolsos,cancellation and refunds,draft,legal approval,Legal
+/accesibilidad,src/pages/accesibilidad.astro,public,index follow,https://rcp.services/accesibilidad,accessibility statement,active,complete WCAG audit,Engineering
+/404.html,src/pages/404.astro,public,,,not found,active,monitor 404,Engineering
