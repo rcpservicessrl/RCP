@@ -17,7 +17,7 @@
 
 ## Gate 3 — operación
 
-- [ ] Staging separado y aprobado, o excepción de riesgo aprobada por el responsable antes de usar GitHub Pages como único entorno.
+- [x] Staging aislado creado en Vercel; pendiente UAT y aprobación funcional.
 - [ ] Backup de commit, datos, configuración y DNS exportado.
 - [ ] Propietarios de GitHub, DNS, Supabase, Google Analytics y Zoho Mail confirmados.
 - [ ] Prueba controlada: una cotización llega a `info@rcp.services` y se responde desde Zoho Mail.

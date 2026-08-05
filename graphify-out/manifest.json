@@ -200,8 +200,8 @@
     "semantic_hash": ""
   },
   "src/layouts/BaseLayout.astro": {
-    "mtime": 1785917639.7418926,
-    "ast_hash": "361a7f8d6f4edcdb6c24ac491c5cc247",
+    "mtime": 1785918706.0943308,
+    "ast_hash": "5a91abe306196506bfda9e39ef3ffca2",
     "semantic_hash": ""
   },
   "src/layouts/DashboardLayout.astro": {
@@ -360,8 +360,8 @@
     "semantic_hash": ""
   },
   ".neural_state.md": {
-    "mtime": 1785912019.831839,
-    "ast_hash": "7a63a941513d40fbca1b3987adedb726",
+    "mtime": 1785918841.5034454,
+    "ast_hash": "652864bf5c4a2e86d435b30526461965",
     "semantic_hash": ""
   },
   ".well-known/security.txt": {
@@ -1130,8 +1130,8 @@
     "semantic_hash": ""
   },
   "tests/site-policy.test.mjs": {
-    "mtime": 1785917305.959249,
-    "ast_hash": "bde8110118d2c152e425b6de04ec7621",
+    "mtime": 1785918706.1012945,
+    "ast_hash": "3bf206a520f2f80abca2f15335d8265c",
     "semantic_hash": ""
   },
   ".github/workflows/pull-request.yml": {
@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "docs/ACCESS_MATRIX.md": {
-    "mtime": 1785917265.0388074,
-    "ast_hash": "390e0504a01e67064188abdf53cbe8a5",
+    "mtime": 1785918841.483134,
+    "ast_hash": "e86aca792da9869b2c4169fe96edc4a3",
     "semantic_hash": ""
   },
   "docs/BRAND_IMPLEMENTATION.md": {
@@ -1175,8 +1175,8 @@
     "semantic_hash": ""
   },
   "docs/LAUNCH_CHECKLIST.md": {
-    "mtime": 1785917265.047305,
-    "ast_hash": "f776545bae09e7c81cd58fe44c9f3123",
+    "mtime": 1785918841.4851356,
+    "ast_hash": "abfe2330239e0960c082fff745775a99",
     "semantic_hash": ""
   },
   "docs/LEGAL_REVIEW_NOTES.md": {
@@ -1247,6 +1247,11 @@
   "src/pages/reembolsos.astro": {
     "mtime": 1785917231.1119843,
     "ast_hash": "295f38663aa89124b745287ee1301a36",
+    "semantic_hash": ""
+  },
+  "docs/STAGING_RUNBOOK.md": {
+    "mtime": 1785918841.489675,
+    "ast_hash": "6d7cd2894a5668a22c3390b7d2054704",
     "semantic_hash": ""
   }
 }

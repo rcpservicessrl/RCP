@@ -32,6 +32,13 @@ test('private and transactional routes are noindex', async () => {
   }
 });
 
+test('staging builds are explicitly excluded from indexing', async () => {
+  const layout = await read('src/layouts/BaseLayout.astro');
+  assert.match(layout, /PUBLIC_DEPLOYMENT_ENV === 'staging'/);
+  assert.match(layout, /noindex, nofollow, noarchive/);
+  assert.match(layout, /Entorno de staging/);
+});
+
 test('high-risk unsupported homepage claims are absent', async () => {
   const sources = await Promise.all([
     read('src/pages/index.astro'), read('src/data/i18n/es.json'), read('public/scripts/es.json'), read('public/script.js')

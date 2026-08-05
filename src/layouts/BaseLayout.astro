@@ -50,6 +50,8 @@ const {
 const site = Astro.site?.toString().replace(/\/$/, '') || 'https://rcp.services';
 const canonicalUrl = `${site}${canonical}`;
 const ogImageUrl = `${site}${ogImage}`;
+const isStaging = import.meta.env.PUBLIC_DEPLOYMENT_ENV === 'staging';
+const effectiveRobots = isStaging ? 'noindex, nofollow, noarchive' : robots;
 ---
 
 <!DOCTYPE html>
@@ -62,7 +64,7 @@ const ogImageUrl = `${site}${ogImage}`;
   <meta name="description" content={description} />
   <meta name="keywords" content="RCP Services, agencia 360, MIPYMEs, República Dominicana, transformación digital, consultoría empresarial, formalización, marketing digital, Santo Domingo" />
   <meta name="author" content="RCP Services SRL" />
-  <meta name="robots" content={robots} />
+  <meta name="robots" content={effectiveRobots} />
   <link rel="canonical" href={canonicalUrl} />
 
   <!-- Open Graph -->
@@ -159,6 +161,7 @@ const ogImageUrl = `${site}${ogImage}`;
 </head>
 
 <body>
+  {isStaging && <div class="staging-banner" role="status">Entorno de staging — no usar para solicitudes de clientes.</div>}
   <a href="#inicio" class="skip-to-content">Saltar al contenido principal</a>
 
   <Header active={active} />
@@ -177,3 +180,7 @@ const ogImageUrl = `${site}${ogImage}`;
 </body>
 
 </html>
+
+<style is:global>
+  .staging-banner { position:sticky; top:0; z-index:10000; padding:8px 16px; background:#7a1f1f; color:#fff; text-align:center; font:700 .78rem/1.3 Montserrat, sans-serif; letter-spacing:.02em; }
+</style>

@@ -52,3 +52,5 @@ agents/
 .neural_bridge/cache*.json
 .neural_bridge/tokens.json
 graphify-out/cache/
+
+.vercel
