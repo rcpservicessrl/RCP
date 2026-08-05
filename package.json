@@ -2,15 +2,21 @@
   "name": "rcp-services-web",
   "type": "module",
   "version": "2.0.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "description": "RCP Services — Agencia 360° de Transformación Empresarial y Digital para MIPYMEs dominicanas",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "test": "node --test tests/site-policy.test.mjs",
+    "test:dist": "node --test tests/dist.test.mjs",
+    "check": "npm test && npm run build && npm run test:dist",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.0.0"
+    "astro": "^7.1.6"
   }
 }

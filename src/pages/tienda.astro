@@ -1,6 +1,6 @@
 ---
 /**
- * tienda.astro — Catálogo de productos con filtros, carrito y pagos
+ * tienda.astro — Catálogo de productos con filtros y solicitud de cotización
  * Depende de tienda.js (catálogo + lógica de carrito) servido desde /public.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -25,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             Todo lo que tu empresa necesita en <span class="accent">un solo lugar</span>
           </h1>
           <p class="hero-sub animate-fade-up delay-2">
-            Software empresarial, desarrollo a medida, imprenta profesional, artículos corporativos y servicios de transformación. Paga con tarjeta, PayPal, transferencia o solicita cotización por WhatsApp.
+            Software empresarial, desarrollo a medida, imprenta profesional, artículos corporativos y servicios de transformación. Selecciona lo que necesitas y solicita una cotización formal.
           </p>
         </div>
       </div>
@@ -94,44 +94,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="product-modal-tags" id="modalTags"></div>
           <div class="product-modal-specs" id="modalSpecs" style="margin-top: 15px; font-size: 0.85rem;"></div>
           <hr class="cart-hr" />
-          <h4 style="margin-bottom:12px;">Adquirir</h4>
+          <h4 style="margin-bottom:12px;">Seleccionar</h4>
           <div class="payment-methods">
-            <button class="payment-btn cart-btn-primary" id="btnAddCart"><span>&#128722;</span> Agregar al Carrito</button>
-            <button class="payment-btn" id="btnPayCard"><span>&#128179;</span> Pagar con Tarjeta</button>
-            <button class="payment-btn" id="btnPayPaypal"><span>&#127380;</span> PayPal</button>
-            <button class="payment-btn" id="btnPayTransferModal"><span>&#127974;</span> Transferencia Bancaria</button>
+            <button class="payment-btn cart-btn-primary" id="btnAddCart"><span>&#128203;</span> Agregar a la solicitud</button>
           </div>
-          <div class="quote-separator"><span>Necesitas una variación?</span></div>
+          <div class="quote-separator"><span>¿Necesitas una variación?</span></div>
           <button class="payment-btn payment-btn-whatsapp full-width" id="btnQuoteWhatsapp"><span>&#128172;</span> Solicitar Cotización Personalizada</button>
         </div>
       </div>
     </div>
 
-    <!-- PAYMENT INFO -->
+    <!-- QUOTE PROCESS -->
     <section class="section" id="cotizar" style="background:var(--black-2);">
       <div class="container">
-        <h2 class="section-title animate-on-scroll">Métodos de <span class="accent">Pago</span></h2>
-        <p class="section-sub animate-on-scroll">Flexibilidad total para que elijas la opción más cómoda para tu empresa.</p>
-        <div class="cards-grid four-col animate-on-scroll" style="margin-top:40px;">
+        <h2 class="section-title animate-on-scroll">Proceso de <span class="accent">Cotización</span></h2>
+        <p class="section-sub animate-on-scroll">Confirmamos alcance y condiciones antes de solicitar cualquier pago.</p>
+        <div class="cards-grid three-col animate-on-scroll" style="margin-top:40px;">
           <div class="card card-dark">
-            <div class="card-icon">💳</div>
-            <h3>Tarjeta de Crédito/Débito</h3>
-            <p>Visa, Mastercard, AMEX vía Stripe. Procesamiento instantáneo y seguro con cifrado SSL.</p>
+            <div class="card-icon">1</div>
+            <h3>Selecciona</h3>
+            <p>Agrega al listado los productos y servicios que necesitas.</p>
           </div>
           <div class="card card-dark">
-            <div class="card-icon">🅿️</div>
-            <h3>PayPal</h3>
-            <p>Paga desde cualquier país con tu cuenta PayPal. Ideal para clientes internacionales.</p>
+            <div class="card-icon">2</div>
+            <h3>Describe el alcance</h3>
+            <p>Comparte cantidades, fechas y requisitos para preparar una propuesta precisa.</p>
           </div>
           <div class="card card-dark">
-            <div class="card-icon">🏦</div>
-            <h3>Transferencia Bancaria</h3>
-            <p>Banreservas, Popular, BHD León. Envía el comprobante y activamos tu servicio en 24h.</p>
-          </div>
-          <div class="card card-dark">
-            <div class="card-icon">💬</div>
-            <h3>Cotización por WhatsApp</h3>
-            <p>Para proyectos grandes o personalizados. Te enviamos la propuesta detallada al instante.</p>
+            <div class="card-icon">3</div>
+            <h3>Recibe confirmación</h3>
+            <p>RCP Services valida disponibilidad, impuestos, precio final y condiciones por escrito.</p>
           </div>
         </div>
       </div>
@@ -139,16 +131,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </main>
 
   <!-- CART FAB -->
-  <div class="cart-fab" id="cartFab">
+  <button type="button" class="cart-fab" id="cartFab" aria-label="Abrir solicitud de cotización">
     <span class="cart-fab-badge" id="cartBadge">0</span>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-  </div>
+  </button>
 
   <!-- CART PANEL -->
-  <div class="cart-panel" id="cartPanel">
+  <div class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartPanelTitle">
     <div class="cart-panel-header">
-      <h3>Tu Carrito</h3>
-      <button class="cart-panel-close" id="cartPanelClose">&times;</button>
+      <h3 id="cartPanelTitle">Tu Solicitud</h3>
+      <button type="button" class="cart-panel-close" id="cartPanelClose" aria-label="Cerrar solicitud">&times;</button>
     </div>
     <div class="cart-panel-list" id="cartList"></div>
     <div class="cart-panel-footer">
@@ -156,13 +148,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span>Total:</span>
         <strong id="cartTotal">RD$ 0</strong>
       </div>
-      <button class="btn-cta btn-full" id="cartCheckoutBtn">&#128722; Finalizar Compra</button>
-      <div class="cart-payment-options">
-        <button class="payment-btn" id="cartPayCard"><span>&#128179;</span> Tarjeta</button>
-        <button class="payment-btn" id="cartPayPaypal"><span>&#127380;</span> PayPal</button>
-        <button class="payment-btn" id="btnPayTransfer"><span>&#127974;</span> Transferencia</button>
-        <button class="payment-btn payment-btn-whatsapp" id="cartPayWhatsapp"><span>&#128172;</span> WhatsApp</button>
-      </div>
+      <button class="btn-cta btn-full" id="cartCheckoutBtn">&#128203; Solicitar Cotización</button>
     </div>
   </div>
 </BaseLayout>

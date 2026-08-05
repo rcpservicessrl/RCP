@@ -1,15 +1,17 @@
 ---
 /**
- * checkout.astro — Página de checkout con billing + 4 métodos de pago
- * CardNet (placeholder), PayPal, Transferencia, WhatsApp.
- * Crea/actualiza cliente en Supabase al procesar pago.
+ * checkout.astro — Solicitud de cotización segura.
+ *
+ * Este flujo no procesa pagos. Solo acepta SKU públicos, vuelve a consultar el
+ * catálogo canónico y prepara una solicitud por WhatsApp. Los cobros se
+ * habilitarán cuando exista un proveedor transaccional validado en servidor.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Checkout — RCP Services | Pago Seguro SSL"
-  description="Completa tu información de facturación y selecciona tu método de pago preferido."
+  title="Solicitar cotización — RCP Services"
+  description="Revisa los servicios seleccionados y solicita una cotización formal de RCP Services."
   canonical="/checkout"
   active="checkout"
   requiresSupabase={true}
@@ -18,647 +20,183 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <main>
     <section class="hero hero-short" id="inicio">
       <div class="hero-bg-grid"></div>
-      <div class="container" style="position: relative; width: 100%; padding-top: 120px;">
+      <div class="container quote-hero">
         <div class="hero-content">
-          <div class="hero-badge animate-fade-up">
-            <span class="badge-dot"></span> <span data-i18n="chk-badge">Pago Seguro SSL</span>
-          </div>
-          <h1 class="hero-title animate-fade-up delay-1" data-i18n="chk-title">
-            Finalizar tu <span class="accent">adquisición</span>
-          </h1>
-          <p class="hero-sub animate-fade-up delay-2" data-i18n="chk-sub">
-            Completa tu información de facturación y selecciona tu método de pago preferido. Procesamiento cifrado y protegido.
+          <div class="hero-badge animate-fade-up"><span class="badge-dot"></span> Solicitud protegida</div>
+          <h1 class="hero-title animate-fade-up delay-1">Solicita tu <span class="accent">cotización formal</span></h1>
+          <p class="hero-sub animate-fade-up delay-2">
+            Confirmaremos alcance, disponibilidad, precio e impuestos antes de emitir una orden o solicitar cualquier pago.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="checkout-layout animate-on-scroll">
-          <div class="checkout-fields">
-            <div class="contacto-section-card" style="margin-bottom: 30px; padding: 30px;">
-              <h2 style="margin-bottom: 20px; font-weight:800; color:var(--text); font-size: 1.4rem;" data-i18n="chk-billing-title">1. Datos de Facturación</h2>
-              <form id="billingForm" class="contacto-form">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="billName" data-i18n="form-name">Nombre Completo</label>
-                    <input type="text" id="billName" class="form-control" required placeholder="Ej. Balmis Reynoso" />
-                  </div>
-                  <div class="form-group">
-                    <label for="billEmail" data-i18n="form-email">Correo Electrónico</label>
-                    <input type="email" id="billEmail" class="form-control" required placeholder="Ej. info@rcp.services" />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="billPhone" data-i18n="form-phone">Teléfono</label>
-                    <input type="tel" id="billPhone" class="form-control" required placeholder="Ej. 829-806-8092" />
-                  </div>
-                  <div class="form-group">
-                    <label for="billCompany" data-i18n="form-company">Empresa / Razón Social</label>
-                    <input type="text" id="billCompany" class="form-control" required placeholder="Ej. Mi Negocio SRL" />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="billRnc" data-i18n="chk-rnc-label">RNC / Cédula</label>
-                    <input type="text" id="billRnc" class="form-control" required placeholder="Ej. 1-32-12345-6" />
-                  </div>
-                  <div class="form-group">
-                    <label for="billAddress" data-i18n="chk-address-label">Dirección de Facturación</label>
-                    <input type="text" id="billAddress" class="form-control" required placeholder="Ej. Av. Rómulo Betancourt 1302" />
-                  </div>
-                </div>
-              </form>
+    <section class="section quote-section">
+      <div class="container quote-layout">
+        <form id="quoteForm" class="contacto-section-card quote-form">
+          <h2>Datos de contacto</h2>
+          <p class="quote-note">Estos datos se usan únicamente para preparar tu solicitud en WhatsApp; no se guardan en este sitio.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="quoteName">Nombre completo</label>
+              <input id="quoteName" class="form-control" required maxlength="120" autocomplete="name" />
             </div>
-
-            <div class="contacto-section-card" style="padding: 30px;">
-              <h2 style="margin-bottom: 20px; font-weight:800; color:var(--text); font-size: 1.4rem;" data-i18n="chk-paymethod-title">2. Método de Pago</h2>
-              <div class="payment-methods-grid">
-                <div class="payment-method-card active" data-method="cardnet">
-                  <span class="method-logo">💳</span>
-                  <span class="method-name" data-i18n="chk-method-cardnet">Tarjeta (CardNet)</span>
-                </div>
-                <div class="payment-method-card" data-method="paypal">
-                  <span class="method-logo">🌍</span>
-                  <span class="method-name" data-i18n="chk-method-paypal">PayPal</span>
-                </div>
-                <div class="payment-method-card" data-method="transfer">
-                  <span class="method-logo">🏦</span>
-                  <span class="method-name">Transferencia</span>
-                </div>
-                <div class="payment-method-card" data-method="whatsapp">
-                  <span class="method-logo">💬</span>
-                  <span class="method-name">WhatsApp</span>
-                </div>
-              </div>
-
-              <div class="card-fields-container" id="cardnetFields">
-                <div class="card-fields-title" style="margin-bottom: 20px;">
-                  <span data-i18n="chk-card-title">Datos de Tarjeta</span>
-                  <span class="card-secure-badge">🔒 Pago Seguro en DOP</span>
-                </div>
-                <div class="checkout-form-group">
-                  <label for="cardName" data-i18n="chk-card-holder">Nombre en la Tarjeta</label>
-                  <input type="text" id="cardName" class="form-control" placeholder="Como aparece en la tarjeta" />
-                </div>
-                <div class="checkout-form-group" style="margin-top: 15px;">
-                  <label data-i18n="chk-card-element">Tarjeta de Crédito o Débito</label>
-                  <div id="card-element" class="form-control" style="background: rgba(255,255,255,0.02); padding: 14px; border-radius: 10px;"></div>
-                  <div id="card-errors" role="alert" style="color: #ef4444; font-size: 0.8rem; margin-top: 8px;"></div>
-                </div>
-              </div>
-
-              <div class="card-fields-container" id="paypalFields" style="display:none; text-align:center; padding:30px 20px;">
-                <span style="font-size:3rem; display:block; margin-bottom:15px;">🌐</span>
-                <h4 style="color:var(--text); margin-bottom:10px;" data-i18n="chk-paypal-redirect-title">Redirección a PayPal</h4>
-                <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5; max-width:400px; margin:0 auto;" data-i18n="chk-paypal-redirect-desc">
-                  Serás redirigido a los servidores seguros de PayPal para finalizar tu pago de forma rápida con tu cuenta o tarjeta internacional.
-                </p>
-              </div>
-
-              <div class="card-fields-container" id="transferFields" style="display:none; padding:25px 20px;">
-                <span style="font-size:2.5rem; display:block; margin-bottom:12px;">🏦</span>
-                <h4 style="color:var(--text); margin-bottom:15px;">Datos para Transferencia Bancaria</h4>
-                <div style="background:var(--black-3);border:1px solid var(--card-border);border-radius:12px;padding:20px;text-align:left;font-size:0.85rem;line-height:1.8;">
-                  <p><strong style="color:var(--accent);">Banco:</strong> Banreservas</p>
-                  <p><strong style="color:var(--accent);">Cuenta Corriente:</strong> 9601234567</p>
-                  <p><strong style="color:var(--accent);">Nombre:</strong> RCP Services SRL</p>
-                  <p><strong style="color:var(--accent);">Concepto:</strong> <span id="transferConcept">Paquete RCP</span></p>
-                  <p style="margin-top:12px;color:var(--text-muted);font-size:0.8rem;">Envía el comprobante a <strong>info@rcp.services</strong> o por WhatsApp al <strong>829-806-8092</strong> para activar tu servicio en 24h.</p>
-                </div>
-              </div>
-
-              <div class="card-fields-container" id="whatsappFields" style="display:none; text-align:center; padding:30px 20px;">
-                <span style="font-size:3rem; display:block; margin-bottom:15px;">💬</span>
-                <h4 style="color:var(--text); margin-bottom:10px;">Confirmar por WhatsApp</h4>
-                <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5; max-width:400px; margin:0 auto 20px;">
-                  Te enviaremos los detalles del paquete y coordinaremos el método de pago directamente por WhatsApp. Respuesta en menos de 2 horas.
-                </p>
-                <a href="https://wa.me/18298068092" target="_blank" class="btn-cta" id="whatsappCheckoutBtn" style="display:inline-block;text-decoration:none;">Abrir WhatsApp →</a>
-              </div>
-
-              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:20px; line-height:1.4;" data-i18n="chk-disclaimer">
-                Al hacer clic en "Procesar Pago Seguro", aceptas nuestros Términos de Servicio y Políticas de Reembolso. Los pagos con tarjeta local se procesan en DOP (pesos dominicanos), evitando tarifas de conversión.
-              </p>
+            <div class="form-group">
+              <label for="quoteCompany">Empresa</label>
+              <input id="quoteCompany" class="form-control" required maxlength="160" autocomplete="organization" />
             </div>
           </div>
-
-          <div class="checkout-summary-card">
-            <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 15px;" data-i18n="chk-summary-title">Resumen del Pedido</h2>
-            <div class="summary-items-list" id="summaryItemsList"></div>
-
-            <div class="coupon-box" style="margin-bottom: 20px; border-top: 1px solid var(--card-border); padding-top: 15px;">
-              <label for="checkoutCouponCode" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">¿Tienes un cupón de descuento?</label>
-              <div style="display: flex; gap: 10px;">
-                <input type="text" id="checkoutCouponCode" class="form-control" placeholder="Ej. PROMO10" style="text-transform: uppercase;" />
-                <button type="button" class="btn-cta" id="btnApplyCoupon" style="padding: 10px 16px; font-size: 0.85rem; min-width: 90px;">Aplicar</button>
-              </div>
-              <div id="couponFeedback" style="font-size: 0.8rem; margin-top: 6px; display: none;"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="quoteEmail">Correo electrónico</label>
+              <input id="quoteEmail" type="email" class="form-control" required maxlength="180" autocomplete="email" />
             </div>
-
-            <div class="checkout-totals-box">
-              <div class="checkout-total-row">
-                <span data-i18n="cart-total-setup">Inversión Única (Setup):</span>
-                <strong id="summarySetup">RD$ 0</strong>
-              </div>
-              <div class="checkout-total-row">
-                <span data-i18n="cart-total-monthly">Mensualidad (Retainer):</span>
-                <strong id="summaryMonthly">RD$ 0/mes</strong>
-              </div>
-              <div class="checkout-total-row" id="discountRow" style="display: none; color: #22c55e;">
-                <span>Descuento (<span id="appliedCouponLabel"></span>):</span>
-                <strong id="summaryDiscount">-RD$ 0</strong>
-              </div>
-              <div class="checkout-total-row grand-total">
-                <span data-i18n="chk-total-today">Total a Pagar Hoy:</span>
-                <strong id="summaryTotalToday">RD$ 0</strong>
-              </div>
+            <div class="form-group">
+              <label for="quotePhone">Teléfono</label>
+              <input id="quotePhone" type="tel" class="form-control" required maxlength="40" autocomplete="tel" />
             </div>
-            <button class="btn-cta btn-full btn-lg" id="btnProcessPayment" data-i18n="chk-btn-process">Procesar Pago Seguro</button>
           </div>
-        </div>
+          <div class="form-group">
+            <label for="quoteDetails">Necesidad o alcance</label>
+            <textarea id="quoteDetails" class="form-control" rows="5" maxlength="1200" placeholder="Cantidad, fecha objetivo, funcionalidades o especificaciones necesarias"></textarea>
+          </div>
+          <label class="consent-row">
+            <input id="quoteConsent" type="checkbox" required />
+            <span>Acepto iniciar esta conversación por WhatsApp y que RCP Services use estos datos para responder mi solicitud.</span>
+          </label>
+          <button id="quoteSubmit" class="btn-cta btn-full btn-lg" type="submit" disabled>Continuar por WhatsApp</button>
+          <p id="quoteStatus" class="quote-status" role="status" aria-live="polite">Validando selección con el catálogo oficial…</p>
+        </form>
+
+        <aside class="checkout-summary-card">
+          <h2>Servicios seleccionados</h2>
+          <div id="quoteItems" class="summary-items-list"></div>
+          <div class="quote-total">
+            <span>Referencia estimada</span>
+            <strong id="quoteTotal">Pendiente</strong>
+          </div>
+          <p class="quote-disclaimer">
+            Los importes mostrados son referencias del catálogo vigente, no constituyen una oferta final ni un cargo. RCP Services confirmará el total por escrito.
+          </p>
+          <a class="btn-ghost btn-full" href="/tienda">Volver al catálogo</a>
+        </aside>
       </div>
     </section>
   </main>
-
-  <div class="processing-overlay" id="processingOverlay">
-    <div class="spinner-leopard">🐆</div>
-    <div class="processing-title" id="procTitle" data-i18n="proc-verifying">Verificando Transacción...</div>
-    <div class="processing-sub" id="procSub" data-i18n="proc-secure">Conectando con la cámara de compensación...</div>
-    <div class="progress-bar-container">
-      <div class="progress-bar-fill" id="progressBarFill"></div>
-    </div>
-  </div>
 </BaseLayout>
 
-<style is:global>
-  .checkout-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
-  @media (max-width: 900px) { .checkout-layout { grid-template-columns: 1fr; } }
-  .contacto-section-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); }
-  .checkout-form-group { margin-bottom: 15px; }
-  .checkout-form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
-  .payment-methods-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
-  @media (max-width: 600px) { .payment-methods-grid { grid-template-columns: repeat(2, 1fr); } }
-  :global(.payment-method-card) { background: rgba(255,255,255,0.02); border: 2px solid var(--card-border); border-radius: 12px; padding: 16px 8px; text-align: center; cursor: pointer; transition: var(--transition); }
-  :global(.payment-method-card.active) { border-color: var(--accent); background: rgba(252,181,63,0.08); }
-  :global(.method-logo) { font-size: 1.8rem; display: block; margin-bottom: 6px; }
-  :global(.method-name) { font-size: 0.78rem; font-weight: 600; color: var(--text); }
-  .checkout-summary-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 30px 24px; position: sticky; top: 100px; }
-  .summary-items-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-  :global(.summary-item) { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text); }
-  :global(.summary-item-price) { font-weight: 700; color: var(--accent); }
-  .checkout-totals-box { border-top: 1px solid var(--card-border); padding-top: 15px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 8px; }
-  .checkout-total-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
-  .checkout-total-row.grand-total { font-size: 1.1rem; color: var(--text); font-weight: 800; border-top: 1px dashed var(--card-border); padding-top: 8px; margin-top: 4px; }
-  .checkout-total-row.grand-total strong { color: var(--accent); }
-  .processing-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-  .processing-overlay.active { opacity: 1; pointer-events: auto; }
-  .spinner-leopard { font-size: 4rem; animation: float 2s infinite ease-in-out; margin-bottom: 20px; }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
-  .progress-bar-container { width: 280px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-top: 20px; }
-  :global(.progress-bar-fill) { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
+<style>
+  .quote-hero { position:relative; width:100%; padding-top:120px; }
+  .quote-section { padding-top:48px; }
+  .quote-layout { display:grid; grid-template-columns:1.45fr 1fr; gap:30px; align-items:start; }
+  .quote-form { padding:30px; }
+  .quote-form h2, .checkout-summary-card h2 { margin-bottom:12px; font-size:1.35rem; font-weight:800; }
+  .quote-note, .quote-disclaimer, .quote-status { color:var(--text-muted); font-size:.82rem; line-height:1.55; }
+  .quote-note { margin-bottom:22px; }
+  .consent-row { display:flex; gap:10px; align-items:flex-start; margin:20px 0; color:var(--text-muted); font-size:.82rem; line-height:1.5; }
+  .consent-row input { margin-top:3px; }
+  .quote-status { margin-top:12px; text-align:center; }
+  .checkout-summary-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--radius); padding:30px 24px; position:sticky; top:100px; }
+  :global(.summary-item) { display:flex; justify-content:space-between; gap:18px; padding:13px 0; border-bottom:1px solid var(--card-border); font-size:.86rem; }
+  :global(.summary-item-name) { color:var(--text); }
+  :global(.summary-item-price) { color:var(--accent); font-weight:700; white-space:nowrap; }
+  .quote-total { display:flex; justify-content:space-between; gap:12px; margin:20px 0 12px; font-size:.95rem; }
+  .quote-total strong { color:var(--accent); }
+  .quote-disclaimer { margin-bottom:18px; }
+  .btn-full { width:100%; justify-content:center; text-align:center; }
+  @media (max-width:900px) { .quote-layout { grid-template-columns:1fr; } .checkout-summary-card { position:static; } }
+  @media (max-width:600px) {
+    :global(.chatbot-widget),
+    :global(.chat-panel) { display:none !important; }
+  }
 </style>
 
 <script>
-  // Webhook endpoint (mismo que usa script.js global)
-  const RCP_LEAD_WEBHOOK_URL = 'https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpLead';
-
-  (function() {
-    const params = new URLSearchParams(window.location.search);
-    const pkg = params.get('package');
-    const customItemsStr = params.get('custom_items');
-
-    let checkoutItems: any[] = [];
-    const isEN = document.documentElement.lang === 'en';
-
-    if (pkg) {
-      if (pkg === 'basico') {
-        checkoutItems.push({ name: isEN ? 'Basic Package - Reanimación Temprana' : 'Paquete Básico - Reanimación Temprana', min: 20000, max: 35000, recurring: false });
-      } else if (pkg === 'avanzado') {
-        checkoutItems.push({ name: isEN ? 'Advanced Package - Estabilización y Crecimiento' : 'Paquete Avanzado - Estabilización y Crecimiento', min: 50000, max: 50000, recurring: false, setup: true });
-        checkoutItems.push({ name: isEN ? 'Advanced Package (Monthly)' : 'Paquete Avanzado (Iguala Mensual)', min: 20000, max: 20000, recurring: true });
-      } else if (pkg === 'premium') {
-        checkoutItems.push({ name: isEN ? 'Premium Package - Vitalidad y Liderazgo' : 'Paquete Premium - Vitalidad y Liderazgo', min: 95000, max: 95000, recurring: false, setup: true });
-        checkoutItems.push({ name: isEN ? 'Premium Package (Monthly)' : 'Paquete Premium (Retainer Mensual)', min: 40000, max: 40000, recurring: true });
-      }
-    } else if (customItemsStr) {
-      try { checkoutItems = JSON.parse(decodeURIComponent(customItemsStr)); }
-      catch (e) { console.error('Error parsing custom items:', e); }
-    }
-
-    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+  (function () {
+    const WA_NUMBER = '18298068092';
+    const isLocal = new URLSearchParams(window.location.search).get('local_db') === '1';
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
     const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
-    let supabaseClient: any = null;
-    try {
-      if ((window as any).supabase) {
-        supabaseClient = (window as any).supabase.createClient(supabaseUrl, supabaseKey);
-      }
-    } catch (e) {
-      console.error("Supabase init error:", e);
+    const allowedSku = /^[A-Z0-9-]{2,40}$/;
+    const requestedSkus = [...new Set((new URLSearchParams(location.search).get('items') || '')
+      .split(',').map((sku) => sku.trim().toUpperCase()).filter((sku) => allowedSku.test(sku)))].slice(0, 20);
+
+    const form = document.getElementById('quoteForm') as HTMLFormElement;
+    const submit = document.getElementById('quoteSubmit') as HTMLButtonElement;
+    const status = document.getElementById('quoteStatus')!;
+    const list = document.getElementById('quoteItems')!;
+    const total = document.getElementById('quoteTotal')!;
+    let verifiedItems: any[] = [];
+
+    const formatPrice = (item: any) => {
+      if (item.requires_quote || Number(item.price_min) <= 0) return 'Cotizar';
+      const setup = Number(item.precio_inicial || item.price_min || 0);
+      const recurring = Number(item.precio_recurrente || 0);
+      if (setup > 0 && recurring > 0) return `RD$ ${setup.toLocaleString()} + RD$ ${recurring.toLocaleString()}/mes`;
+      if (recurring > 0) return `RD$ ${recurring.toLocaleString()}/mes`;
+      return `Desde RD$ ${setup.toLocaleString()}`;
+    };
+
+    function renderItems() {
+      list.innerHTML = '';
+      verifiedItems.forEach((item) => {
+        const row = document.createElement('div');
+        row.className = 'summary-item';
+        const name = document.createElement('span');
+        name.className = 'summary-item-name';
+        name.textContent = item.name_es;
+        const price = document.createElement('span');
+        price.className = 'summary-item-price';
+        price.textContent = formatPrice(item);
+        row.append(name, price);
+        list.appendChild(row);
+      });
+      const fixed = verifiedItems.filter((item) => !item.requires_quote && Number(item.price_min) > 0);
+      const minimum = fixed.reduce((sum, item) => sum + Number(item.precio_inicial || item.price_min || 0), 0);
+      total.textContent = minimum > 0 ? `Desde RD$ ${minimum.toLocaleString()}` : 'A cotizar';
     }
 
-    const summaryItemsList = document.getElementById('summaryItemsList');
-    const summarySetup = document.getElementById('summarySetup');
-    const summaryMonthly = document.getElementById('summaryMonthly');
-    const summaryTotalToday = document.getElementById('summaryTotalToday');
-
-    let appliedCoupon: any = null;
-
-    function recalculateTotals() {
-      let setupMinTotal = 0, setupMaxTotal = 0, monthlyMinTotal = 0, monthlyMaxTotal = 0;
-
-      if (summaryItemsList) {
-        summaryItemsList.innerHTML = '';
-        if (checkoutItems.length === 0) {
-          summaryItemsList.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No hay servicios en el checkout.</p>`;
-        } else {
-          checkoutItems.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'summary-item';
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'summary-item-name';
-            nameSpan.textContent = item.name;
-            const priceSpan = document.createElement('span');
-            priceSpan.className = 'summary-item-price';
-            
-            var hasCompound = (item.precio_inicial !== undefined && item.precio_inicial !== null && item.precio_inicial > 0) 
-                           || (item.precio_recurrente !== undefined && item.precio_recurrente !== null && item.precio_recurrente > 0);
-            
-            if (hasCompound) {
-              var initVal = item.precio_inicial || 0;
-              var recVal = item.precio_recurrente || 0;
-              var freq = item.frecuencia_recurrente || '';
-              var freqLabel = (freq === 'mensual' || freq === 'monthly') ? '/mes' : (freq === 'anual' ? '/año' : '/' + freq);
-              if (initVal > 0 && recVal > 0) {
-                priceSpan.textContent = `RD$ ${initVal.toLocaleString()} + RD$ ${recVal.toLocaleString()}${freqLabel}`;
-                setupMinTotal += initVal; setupMaxTotal += initVal;
-                monthlyMinTotal += recVal; monthlyMaxTotal += recVal;
-              } else if (recVal > 0) {
-                priceSpan.textContent = `RD$ ${recVal.toLocaleString()}${freqLabel}`;
-                monthlyMinTotal += recVal; monthlyMaxTotal += recVal;
-              } else {
-                priceSpan.textContent = `RD$ ${initVal.toLocaleString()}`;
-                setupMinTotal += initVal; setupMaxTotal += initVal;
-              }
-            } else {
-              const minStr = item.min.toLocaleString();
-              const maxStr = item.max.toLocaleString();
-              if (item.recurring) {
-                priceSpan.textContent = `RD$ ${minStr} - ${maxStr}/m`;
-                monthlyMinTotal += item.min; monthlyMaxTotal += item.max;
-              } else {
-                priceSpan.textContent = `RD$ ${minStr} - ${maxStr}`;
-                setupMinTotal += item.min; setupMaxTotal += item.max;
-              }
-            }
-            
-            div.appendChild(nameSpan); div.appendChild(priceSpan);
-            summaryItemsList.appendChild(div);
-          });
-        }
-        
-        if (summarySetup) summarySetup.textContent = `RD$ ${setupMinTotal.toLocaleString()} - ${setupMaxTotal.toLocaleString()}`;
-        if (summaryMonthly) summaryMonthly.textContent = `RD$ ${monthlyMinTotal.toLocaleString()} - ${monthlyMaxTotal.toLocaleString()} /mes`;
-        
-        const todayMinPayment = setupMinTotal > 0 ? setupMinTotal : monthlyMinTotal;
-        const todayMaxPayment = setupMaxTotal > 0 ? setupMaxTotal : monthlyMaxTotal;
-        const baseToday = (todayMinPayment + todayMaxPayment) / 2;
-
-        let discountAmount = 0;
-        const discountRow = document.getElementById('discountRow');
-        const summaryDiscount = document.getElementById('summaryDiscount');
-        const appliedCouponLabel = document.getElementById('appliedCouponLabel');
-
-        if (appliedCoupon) {
-          if (appliedCoupon.descuento_porcentaje) {
-            discountAmount = baseToday * (appliedCoupon.descuento_porcentaje / 100);
-            if (appliedCouponLabel) appliedCouponLabel.textContent = `${appliedCoupon.codigo} (${appliedCoupon.descuento_porcentaje}%)`;
-          } else if (appliedCoupon.descuento_monto) {
-            discountAmount = appliedCoupon.descuento_monto;
-            if (appliedCouponLabel) appliedCouponLabel.textContent = appliedCoupon.codigo;
-          }
-          
-          if (discountRow) discountRow.style.display = 'flex';
-          if (summaryDiscount) summaryDiscount.textContent = `-RD$ ${discountAmount.toLocaleString()}`;
-        } else {
-          if (discountRow) discountRow.style.display = 'none';
-        }
-
-        const finalTotalToday = Math.max(0, baseToday - discountAmount);
-        if (summaryTotalToday) summaryTotalToday.textContent = `RD$ ${finalTotalToday.toLocaleString()}`;
+    async function loadSelection() {
+      if (!requestedSkus.length) {
+        list.innerHTML = '<p class="quote-note">No hay servicios seleccionados.</p>';
+        status.textContent = 'Selecciona al menos un servicio desde el catálogo.';
+        return;
+      }
+      try {
+        const filter = encodeURIComponent(`(${requestedSkus.join(',')})`);
+        const url = `${supabaseUrl}/rest/v1/productos?sku=in.${filter}&is_active=eq.true&select=sku,name_es,price_min,requires_quote,precio_inicial,precio_recurrente`;
+        const response = await fetch(url, { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const products = await response.json();
+        verifiedItems = requestedSkus.map((sku) => products.find((item: any) => item.sku === sku)).filter(Boolean);
+        if (!verifiedItems.length) throw new Error('No verified products');
+        renderItems();
+        submit.disabled = false;
+        status.textContent = verifiedItems.length === requestedSkus.length
+          ? 'Selección validada con el catálogo oficial.'
+          : 'Se omitieron referencias inexistentes o inactivas.';
+      } catch (error) {
+        console.error('[Quote] Catalog validation failed:', error);
+        list.innerHTML = '<p class="quote-note">No pudimos validar el catálogo en este momento.</p>';
+        status.textContent = 'La solicitud permanece deshabilitada para evitar precios incorrectos. Intenta nuevamente.';
       }
     }
 
-    recalculateTotals();
-
-    const btnApplyCoupon = document.getElementById('btnApplyCoupon');
-    const checkoutCouponCode = document.getElementById('checkoutCouponCode') as HTMLInputElement;
-    const couponFeedback = document.getElementById('couponFeedback');
-
-    if (btnApplyCoupon && checkoutCouponCode && couponFeedback) {
-      btnApplyCoupon.addEventListener('click', async () => {
-        const code = checkoutCouponCode.value.trim().toUpperCase();
-        if (!code) {
-          couponFeedback.style.display = 'block';
-          couponFeedback.style.color = '#ef4444';
-          couponFeedback.textContent = isEN ? 'Please enter a coupon code.' : 'Por favor ingresa un código de cupón.';
-          return;
-        }
-
-        if (!supabaseClient) {
-          couponFeedback.style.display = 'block';
-          couponFeedback.style.color = '#ef4444';
-          couponFeedback.textContent = isEN ? 'Supabase client not loaded. Cannot validate coupon.' : 'El cliente de Supabase no está cargado. No se puede validar el cupón.';
-          return;
-        }
-
-        btnApplyCoupon.textContent = isEN ? 'Validating...' : 'Validando...';
-        (btnApplyCoupon as HTMLButtonElement).disabled = true;
-
-        try {
-          const { data, error } = await supabaseClient
-            .from('cupones')
-            .select('*')
-            .eq('codigo', code)
-            .eq('activo', true)
-            .maybeSingle();
-
-          if (error) throw error;
-
-          if (!data) {
-            appliedCoupon = null;
-            couponFeedback.style.display = 'block';
-            couponFeedback.style.color = '#ef4444';
-            couponFeedback.textContent = isEN ? 'Invalid or expired coupon.' : 'Cupón inválido o expirado.';
-          } else {
-            // Check expiry date
-            if (data.fecha_expiracion && new Date(data.fecha_expiracion) < new Date()) {
-              appliedCoupon = null;
-              couponFeedback.style.display = 'block';
-              couponFeedback.style.color = '#ef4444';
-              couponFeedback.textContent = isEN ? 'This coupon has expired.' : 'Este cupón ha expirado.';
-            } else {
-              appliedCoupon = data;
-              couponFeedback.style.display = 'block';
-              couponFeedback.style.color = '#22c55e';
-              couponFeedback.textContent = isEN ? 'Coupon applied successfully!' : '¡Cupón aplicado correctamente!';
-            }
-          }
-          recalculateTotals();
-        } catch (err: any) {
-          console.error("Error validating coupon:", err);
-          couponFeedback.style.display = 'block';
-          couponFeedback.style.color = '#ef4444';
-          couponFeedback.textContent = isEN ? 'Error validating coupon: ' + err.message : 'Error al validar cupón: ' + err.message;
-        } finally {
-          btnApplyCoupon.textContent = isEN ? 'Apply' : 'Aplicar';
-          (btnApplyCoupon as HTMLButtonElement).disabled = false;
-        }
-      });
-    }
-
-    const methodCards = document.querySelectorAll('.payment-method-card');
-    const cardnetFields = document.getElementById('cardnetFields');
-    const paypalFields = document.getElementById('paypalFields');
-    const transferFields = document.getElementById('transferFields');
-    const whatsappFields = document.getElementById('whatsappFields');
-    let activeMethod = 'cardnet';
-    const allPanels = [cardnetFields, paypalFields, transferFields, whatsappFields];
-
-    methodCards.forEach(card => {
-      card.addEventListener('click', () => {
-        methodCards.forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        activeMethod = (card as HTMLElement).dataset.method!;
-        allPanels.forEach(p => { if(p) p.style.display = 'none'; });
-        const map: Record<string,HTMLElement|null> = { cardnet: cardnetFields, paypal: paypalFields, transfer: transferFields, whatsapp: whatsappFields };
-        if (map[activeMethod]) map[activeMethod]!.style.display = 'block';
-      });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.reportValidity() || !verifiedItems.length) return;
+      const value = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement).value.trim();
+      const itemLines = verifiedItems.map((item) => `- ${item.name_es} (${item.sku})`).join('\n');
+      const message = [
+        'Hola RCP Services. Solicito una cotización formal.', '',
+        `Nombre: ${value('quoteName')}`, `Empresa: ${value('quoteCompany')}`,
+        `Correo: ${value('quoteEmail')}`, `Teléfono: ${value('quotePhone')}`, '',
+        'Servicios:', itemLines, '', `Alcance: ${value('quoteDetails') || 'Por definir'}`
+      ].join('\n');
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+      status.textContent = 'WhatsApp se abrió con tu solicitud preparada. Verifica el contenido antes de enviarlo.';
     });
 
-    const methodParam = params.get('method');
-    if (methodParam) {
-      const cardToActivate = document.querySelector(`.payment-method-card[data-method="${methodParam}"]`);
-      if (cardToActivate) {
-        (cardToActivate as HTMLElement).click();
-      }
-    }
-
-    const CARDNET_ENABLED = false;
-    try {
-      if (CARDNET_ENABLED) {
-        const cardEl = document.getElementById('card-element');
-        if (cardEl) cardEl.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:10px;">💳 Pago con tarjeta se activará próximamente.<br>Usa transferencia o WhatsApp por ahora.</p>';
-      }
-    } catch (e) { console.error("Error initializing payment gateway:", e); }
-
-    const btnProcessPayment = document.getElementById('btnProcessPayment');
-    const processingOverlay = document.getElementById('processingOverlay');
-    const progressBarFill = document.getElementById('progressBarFill');
-    const procTitle = document.getElementById('procTitle');
-    const procSub = document.getElementById('procSub');
-
-    if (btnProcessPayment) {
-      btnProcessPayment.addEventListener('click', async () => {
-        const name = (document.getElementById('billName') as HTMLInputElement).value.trim();
-        const email = (document.getElementById('billEmail') as HTMLInputElement).value.trim();
-        const phone = (document.getElementById('billPhone') as HTMLInputElement).value.trim();
-        const company = (document.getElementById('billCompany') as HTMLInputElement).value.trim();
-        const rnc = (document.getElementById('billRnc') as HTMLInputElement).value.trim();
-        const address = (document.getElementById('billAddress') as HTMLInputElement).value.trim();
-
-        if (!name || !email || !phone || !company || !rnc || !address) {
-          alert(isEN ? 'Please complete all billing fields.' : 'Por favor completa todos los campos de facturación.');
-          return;
-        }
-
-        let transactionId = '';
-        if (activeMethod === 'cardnet') {
-          if (!CARDNET_ENABLED) {
-            processingOverlay?.classList.remove('active');
-            alert('Pago con tarjeta se activará próximamente.\n\nPor favor utiliza Transferencia Bancaria o WhatsApp para completar tu compra.');
-            return;
-          }
-          transactionId = 'CARDNET-' + Math.floor(100000 + Math.random() * 900000);
-        } else if (activeMethod === 'paypal') {
-          processingOverlay?.classList.add('active');
-          transactionId = 'PAYPAL-' + Math.floor(100000 + Math.random() * 900000);
-        } else if (activeMethod === 'transfer') {
-          processingOverlay?.classList.add('active');
-          transactionId = 'TRANS-' + Math.floor(100000 + Math.random() * 900000);
-        } else if (activeMethod === 'whatsapp') {
-          processingOverlay?.classList.add('active');
-          transactionId = 'WA-' + Math.floor(100000 + Math.random() * 900000);
-        }
-
-        if (!navigator.onLine) {
-          const accessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
-          const newPago = { id: transactionId, amount: document.getElementById('summaryTotalToday')!.textContent, date: new Date().toLocaleDateString(), items: checkoutItems, coupon_code: appliedCoupon ? appliedCoupon.codigo : null };
-          const txnData = {
-            transactionId, name, email, phone, company, rnc, address,
-            items: checkoutItems, paymentMethod: activeMethod,
-            amountPaid: newPago.amount,
-            date: newPago.date
-          };
-          localStorage.setItem('last_transaction', JSON.stringify(txnData));
-
-          const status = activeMethod === 'whatsapp' ? 'quote_requested' : (activeMethod === 'cardnet' ? 'onboarding' : 'payment_pending');
-
-          const webhookPayload = {
-            user_name: name, user_email: email, user_phone: phone, user_company: company,
-            user_service: checkoutItems.map((item:any) => item.name).join(', '),
-            user_message: `Pedido registrado (OFFLINE - ${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
-            lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status,
-            coupon_code: appliedCoupon ? appliedCoupon.codigo : null
-          };
-
-          const supabaseData = {
-            email, company, name, phone, address, rnc, status, accessCode, newPago
-          };
-
-          const queue = JSON.parse(localStorage.getItem('rcp_offline_queue') || '[]');
-          queue.push({
-            type: 'checkout',
-            url: RCP_LEAD_WEBHOOK_URL,
-            payload: webhookPayload,
-            timestamp: Date.now().toString(),
-            supabaseData: supabaseData
-          });
-          localStorage.setItem('rcp_offline_queue', JSON.stringify(queue));
-
-          processingOverlay?.classList.add('active');
-          if (progressBarFill && progressBarFill.parentElement) {
-            progressBarFill.parentElement.style.display = 'none';
-          }
-          const spinner = document.querySelector('.spinner-leopard');
-          if (spinner) (spinner as HTMLElement).style.display = 'none';
-
-          procTitle!.innerHTML = isEN ? 'Order Enqueued (Offline)' : 'Pedido en Cola (Sin Conexión)';
-          procSub!.innerHTML = isEN
-            ? 'You are currently offline. Your purchase has been securely saved locally and will sync automatically when your connection is restored.'
-            : 'Actualmente no tienes conexión a internet. Tu pedido ha sido guardado localmente en tu navegador de forma segura y se sincronizará automáticamente tan pronto recuperes la conexión.<br><br><a href="/" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Volver al Inicio</a>';
-          return;
-        }
-
-        let progress = 30;
-        (progressBarFill as HTMLElement).style.width = progress + '%';
-
-        const interval = setInterval(async () => {
-          progress += 10;
-          (progressBarFill as HTMLElement).style.width = progress + '%';
-          if (progress === 50) {
-            procTitle!.textContent = isEN ? 'Authorizing DOP funds...' : 'Autorizando fondos en DOP...';
-            procSub!.textContent = isEN ? 'Securing tokenized payment intent...' : 'Asegurando intento de pago tokenizado...';
-          } else if (progress === 70) {
-            procTitle!.textContent = isEN ? 'Registering with Cloud Buffer...' : 'Registrando en el Buffer de la Nube...';
-            procSub!.textContent = isEN ? 'Storing transaction in safe queue...' : 'Almacenando transacción en cola segura...';
-          } else if (progress === 90) {
-            procTitle!.textContent = isEN ? 'Syncing with Corporate ERP...' : 'Sincronizando con el ERP Corporativo...';
-            procSub!.textContent = isEN ? 'Creating customer profile and invoice record...' : 'Creando perfil de cliente y factura...';
-          } else if (progress === 100) {
-            clearInterval(interval);
-            const txnData = {
-              transactionId, name, email, phone, company, rnc, address,
-              items: checkoutItems, paymentMethod: activeMethod,
-              amountPaid: document.getElementById('summaryTotalToday')!.textContent,
-              date: new Date().toLocaleDateString()
-            };
-            localStorage.setItem('last_transaction', JSON.stringify(txnData));
-
-            // Determine correct Supabase status
-            const status = activeMethod === 'whatsapp' ? 'quote_requested' : (activeMethod === 'cardnet' ? 'onboarding' : 'payment_pending');
-
-            // Sign payload and send webhook
-            try {
-              const timestamp = Date.now().toString();
-              const payload = JSON.stringify({
-                user_name: name, user_email: email, user_phone: phone, user_company: company,
-                user_service: checkoutItems.map((item:any) => item.name).join(', '),
-                user_message: `Pedido registrado (${activeMethod}). ID: ${transactionId}. RNC: ${rnc}. Monto: ${txnData.amountPaid}.`,
-                lead_source: 'Checkout', rnc, address, items: checkoutItems, amount: txnData.amountPaid, action: "checkout", status,
-                coupon_code: appliedCoupon ? appliedCoupon.codigo : null
-              });
-              fetch(RCP_LEAD_WEBHOOK_URL, {
-                method: 'POST', 
-                headers: { 
-                  'Content-Type': 'application/json',
-                  'X-RCP-Timestamp': timestamp
-                },
-                body: payload
-              });
-            } catch(e) {}
-
-            const accessCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
-            const newPago = { id: transactionId, amount: txnData.amountPaid, date: txnData.date, items: checkoutItems, coupon_code: appliedCoupon ? appliedCoupon.codigo : null };
-
-            let dbPromise = Promise.resolve();
-            if (supabaseClient) {
-              dbPromise = (async () => {
-                try {
-                  const { data: existingClient, error: selectError } = await supabaseClient.from('clientes').select('id, status, pagos').eq('email', email).maybeSingle();
-                  if (selectError) throw selectError;
-                  if (existingClient) {
-                    const existingPagos = Array.isArray(existingClient.pagos) ? existingClient.pagos : [];
-                    existingPagos.push(newPago);
-                    const updatePayload: any = { pagos: existingPagos, company_name: company, owner_name: name, phone, address, legal_id: rnc };
-                    if (!existingClient.status || existingClient.status === 'pending_activation') updatePayload.status = status;
-                    const { error: updateError } = await supabaseClient.from('clientes').update(updatePayload).eq('id', existingClient.id);
-                    if (updateError) throw updateError;
-                  } else {
-                    const newClient = {
-                      company_name: company, legal_id: rnc, owner_name: name, email, phone, address,
-                      status: status, access_code: accessCode, pagos: [newPago]
-                    };
-                    const { error: insertError } = await supabaseClient.from('clientes').insert([newClient]);
-                    if (insertError) throw insertError;
-                  }
-                } catch (dbErr) { console.error("Error saving purchase data in Supabase:", dbErr); }
-              })();
-            }
-
-            Promise.resolve(dbPromise).finally(() => {
-              if (progressBarFill && progressBarFill.parentElement) {
-                progressBarFill.parentElement.style.display = 'none';
-              }
-              const spinner = document.querySelector('.spinner-leopard');
-              if (spinner) (spinner as HTMLElement).style.display = 'none';
-
-              if (activeMethod === 'transfer') {
-                procTitle!.innerHTML = isEN ? 'Order Registered (Pending Payment)' : 'Pedido Registrado (Pago Pendiente)';
-                procSub!.innerHTML = isEN 
-                  ? 'Please transfer to Banreservas (Checking Cta: 9601234567, RCP Services SRL) and send the receipt to info@rcp.services. Your account will be activated once verified.' 
-                  : 'Por favor realiza la transferencia a <strong>Banreservas</strong> (Cuenta Corriente: <strong>9601234567</strong> a nombre de <strong>RCP Services SRL</strong>) y envía el comprobante a <strong>info@rcp.services</strong> o por WhatsApp. Tu cuenta se activará tras la verificación de la transferencia.<br><br><a href="/" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Volver al Inicio</a>';
-              } else if (activeMethod === 'paypal') {
-                procTitle!.innerHTML = isEN ? 'Order Registered (Verification Pending)' : 'Pedido Registrado (Verificación Pendiente)';
-                procSub!.innerHTML = isEN 
-                  ? 'Your PayPal order is registered. We will notify you via email once payment verification is complete.' 
-                  : 'Tu pedido de PayPal ha sido registrado. Te enviaremos un correo de confirmación una vez validada la transacción por nuestro equipo.<br><br><a href="/" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Volver al Inicio</a>';
-              } else if (activeMethod === 'whatsapp') {
-                procTitle!.innerHTML = isEN ? 'Quote Request Registered' : 'Solicitud de Cotización Registrada';
-                const waMessage = encodeURIComponent(`Hola RCP Services, acabo de registrar mi pedido para ${company} (${checkoutItems.map(i => i.name).join(', ')}). RNC: ${rnc}.`);
-                const waLink = `https://wa.me/18298068092?text=${waMessage}`;
-                procSub!.innerHTML = isEN 
-                  ? `Redirecting to WhatsApp to complete your quote... <br><br><a href="${waLink}" target="_blank" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Open WhatsApp</a>` 
-                  : `Redirigiendo a WhatsApp para finalizar los detalles de tu cotización... <br><br><a href="${waLink}" target="_blank" class="btn-cta" style="margin-top:20px;text-decoration:none;display:inline-block;">Abrir WhatsApp</a>`;
-                
-                setTimeout(() => {
-                  window.open(waLink, '_blank');
-                }, 2000);
-              } else {
-                // cardnet fallback or success
-                procTitle!.textContent = isEN ? 'Payment Successful!' : '¡Pago Procesado con Éxito!';
-                procSub!.textContent = isEN ? 'Syncing account and redirecting...' : 'Sincronizando cuenta y redirigiendo...';
-                setTimeout(() => {
-                  window.location.href = `/portal?signup=true&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&company=${encodeURIComponent(company)}`;
-                }, 1500);
-              }
-            });
-          }
-        }, 300);
-      });
-    }
+    loadSelection();
   })();
 </script>
