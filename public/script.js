@@ -1682,7 +1682,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnDetailsClose = document.getElementById('cookieDetailsClose');
   const btnSavePrefs = document.getElementById('cookieSavePrefs');
   const chkAnalytics = document.getElementById('cookieAnalytics');
-  const chkMarketing = document.getElementById('cookieMarketing');
 
   if (!banner) return;
 
@@ -1726,9 +1725,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     gtag('consent', 'update', {
       'analytics_storage': consent.analytics ? 'granted' : 'denied',
-      'ad_storage': consent.marketing ? 'granted' : 'denied',
-      'ad_user_data': consent.marketing ? 'granted' : 'denied',
-      'ad_personalization': consent.marketing ? 'granted' : 'denied'
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
     });
 
     // Enviar page_view si analytics está habilitado
@@ -1743,7 +1742,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── EVENT HANDLERS ───
   function handleAcceptAll() {
-    const consent = { analytics: true, marketing: true, essential: true };
+    const consent = { analytics: true, marketing: false, essential: true };
     saveConsent(consent);
     applyConsent(consent);
     hideBanner();
@@ -1760,11 +1759,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleSavePreferences() {
-    const consent = {
-      analytics: chkAnalytics ? chkAnalytics.checked : false,
-      marketing: chkMarketing ? chkMarketing.checked : false,
-      essential: true
-    };
+    const consent = { analytics: chkAnalytics ? chkAnalytics.checked : false, marketing: false, essential: true };
     saveConsent(consent);
     applyConsent(consent);
     hideBanner();

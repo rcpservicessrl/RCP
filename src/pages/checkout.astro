@@ -3,8 +3,8 @@
  * checkout.astro — Solicitud de cotización segura.
  *
  * Este flujo no procesa pagos. Solo acepta SKU públicos, vuelve a consultar el
- * catálogo canónico y prepara una solicitud por WhatsApp. Los cobros se
- * habilitarán cuando exista un proveedor transaccional validado en servidor.
+ * catálogo canónico y prepara una solicitud por WhatsApp o correo. No almacena
+ * información del solicitante ni procesa cobros.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
@@ -35,7 +35,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="container quote-layout">
         <form id="quoteForm" class="contacto-section-card quote-form">
           <h2>Datos de contacto</h2>
-          <p class="quote-note">Estos datos se usan únicamente para preparar tu solicitud en WhatsApp; no se guardan en este sitio.</p>
+          <p class="quote-note">Estos datos se usan únicamente para preparar tu solicitud por WhatsApp o correo; no se guardan en este sitio.</p>
           <div class="form-row">
             <div class="form-group">
               <label for="quoteName">Nombre completo</label>
@@ -53,7 +53,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
             <div class="form-group">
               <label for="quotePhone">Teléfono</label>
-              <input id="quotePhone" type="tel" class="form-control" required maxlength="40" autocomplete="tel" />
+              <input id="quotePhone" type="tel" class="form-control" maxlength="40" autocomplete="tel" />
             </div>
           </div>
           <div class="form-group">
@@ -62,9 +62,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           <label class="consent-row">
             <input id="quoteConsent" type="checkbox" required />
-            <span>Acepto iniciar esta conversación por WhatsApp y que RCP Services use estos datos para responder mi solicitud.</span>
+            <span>Acepto iniciar esta conversación por WhatsApp o correo y que RCP Services use estos datos para responder mi solicitud.</span>
           </label>
-          <button id="quoteSubmit" class="btn-cta btn-full btn-lg" type="submit" disabled>Continuar por WhatsApp</button>
+          <div class="quote-actions">
+            <button id="quoteSubmit" class="btn-cta btn-lg" type="submit" disabled>Continuar por WhatsApp</button>
+            <button id="quoteEmailSubmit" class="btn-ghost btn-lg" type="button" disabled>Continuar por correo</button>
+          </div>
           <p id="quoteStatus" class="quote-status" role="status" aria-live="polite">Validando selección con el catálogo oficial…</p>
         </form>
 
@@ -95,6 +98,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .quote-note { margin-bottom:22px; }
   .consent-row { display:flex; gap:10px; align-items:flex-start; margin:20px 0; color:var(--text-muted); font-size:.82rem; line-height:1.5; }
   .consent-row input { margin-top:3px; }
+  .quote-actions { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .quote-status { margin-top:12px; text-align:center; }
   .checkout-summary-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--radius); padding:30px 24px; position:sticky; top:100px; }
   :global(.summary-item) { display:flex; justify-content:space-between; gap:18px; padding:13px 0; border-bottom:1px solid var(--card-border); font-size:.86rem; }
@@ -105,6 +109,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .quote-disclaimer { margin-bottom:18px; }
   .btn-full { width:100%; justify-content:center; text-align:center; }
   @media (max-width:900px) { .quote-layout { grid-template-columns:1fr; } .checkout-summary-card { position:static; } }
+  @media (max-width:480px) { .quote-actions { grid-template-columns:1fr; } }
   @media (max-width:600px) {
     :global(.chatbot-widget),
     :global(.chat-panel) { display:none !important; }
@@ -114,6 +119,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script>
   (function () {
     const WA_NUMBER = '18298068092';
+    const QUOTE_EMAIL = 'info@rcp.services';
     const isLocal = new URLSearchParams(window.location.search).get('local_db') === '1';
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
     const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
@@ -123,6 +129,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     const form = document.getElementById('quoteForm') as HTMLFormElement;
     const submit = document.getElementById('quoteSubmit') as HTMLButtonElement;
+    const emailSubmit = document.getElementById('quoteEmailSubmit') as HTMLButtonElement;
     const status = document.getElementById('quoteStatus')!;
     const list = document.getElementById('quoteItems')!;
     const total = document.getElementById('quoteTotal')!;
@@ -172,6 +179,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         if (!verifiedItems.length) throw new Error('No verified products');
         renderItems();
         submit.disabled = false;
+        emailSubmit.disabled = false;
         status.textContent = verifiedItems.length === requestedSkus.length
           ? 'Selección validada con el catálogo oficial.'
           : 'Se omitieron referencias inexistentes o inactivas.';
@@ -182,19 +190,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     }
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+    function buildMessage() {
       if (!form.reportValidity() || !verifiedItems.length) return;
       const value = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement).value.trim();
       const itemLines = verifiedItems.map((item) => `- ${item.name_es} (${item.sku})`).join('\n');
-      const message = [
+      return [
         'Hola RCP Services. Solicito una cotización formal.', '',
         `Nombre: ${value('quoteName')}`, `Empresa: ${value('quoteCompany')}`,
         `Correo: ${value('quoteEmail')}`, `Teléfono: ${value('quotePhone')}`, '',
         'Servicios:', itemLines, '', `Alcance: ${value('quoteDetails') || 'Por definir'}`
       ].join('\n');
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = buildMessage();
+      if (!message) return;
       window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
       status.textContent = 'WhatsApp se abrió con tu solicitud preparada. Verifica el contenido antes de enviarlo.';
+    });
+
+    emailSubmit.addEventListener('click', () => {
+      const message = buildMessage();
+      if (!message) return;
+      location.href = `mailto:${QUOTE_EMAIL}?subject=${encodeURIComponent('Solicitud de cotización — RCP Services')}&body=${encodeURIComponent(message)}`;
+      status.textContent = 'Tu aplicación de correo se abrió con la solicitud preparada. Verifica el contenido antes de enviarlo.';
     });
 
     loadSelection();

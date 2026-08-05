@@ -8,6 +8,8 @@ test('checkout is quote-only and accepts SKU references, not client prices', asy
   const source = await read('src/pages/checkout.astro');
   assert.match(source, /get\('items'\)/);
   assert.match(source, /is_active=eq\.true/);
+  assert.match(source, /QUOTE_EMAIL = 'info@rcp\.services'/);
+  assert.match(source, /Continuar por correo/);
   assert.doesNotMatch(source, /custom_items|Math\.random|CARDNET-|PAYPAL-|Procesar Pago Seguro/);
 });
 
@@ -38,8 +40,19 @@ test('high-risk unsupported homepage claims are absent', async () => {
   assert.doesNotMatch(content, /98\.5%|\+300%|Ferretería El Clavo|Salón de Belleza Elegance|RD\$80K\/mes/);
 });
 
-test('privacy, terms and cookie policies exist', async () => {
+test('legal policies identify the business and keep analytics non-advertising', async () => {
   for (const path of ['src/pages/privacidad.astro', 'src/pages/terminos.astro', 'src/pages/cookies.astro', 'src/pages/reembolsos.astro', 'src/pages/accesibilidad.astro']) {
     assert.ok((await read(path)).length > 500, path);
   }
+  const [privacy, cookies, widgets, script, i18n, layout] = await Promise.all([
+    read('src/pages/privacidad.astro'), read('src/pages/cookies.astro'), read('src/components/FloatingWidgets.astro'), read('public/script.js'), read('public/scripts/i18n.js'), read('src/layouts/BaseLayout.astro')
+  ]);
+  assert.match(privacy, /RNC 132-147103/);
+  assert.match(privacy, /Av\. Rómulo Betancourt 1302/);
+  assert.match(privacy, /Zoho Mail/);
+  assert.match(cookies, /personalización y datos de usuario para anuncios permanecen desactivadas/);
+  assert.doesNotMatch(widgets, /cookieMarketing/);
+  assert.match(script, /'ad_storage': 'denied'/);
+  assert.match(i18n, /cache: 'no-store'/);
+  assert.match(layout, /taxID.*132-147103/);
 });

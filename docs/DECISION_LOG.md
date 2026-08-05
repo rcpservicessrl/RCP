@@ -44,3 +44,7 @@ Fecha: 2026-08-05. La política `productos_public_read` ejecutaba `is_rcp_admin(
 ## ADR-007 - Dependencias y runtime
 
 Astro 5.18.2 acumulaba avisos de seguridad. Se actualizó a Astro 7.1.6, se fijó Node 22 en CI y se regeneró el lockfile con Node compatible. Resultado: auditoría de producción sin vulnerabilidades y build de 18 rutas aprobado.
+
+## ADR-008 - Operación comercial y consentimiento
+
+Fecha: 2026-08-05. Decisión: el lanzamiento comercial usa solo cotización por WhatsApp o correo `info@rcp.services` gestionado en Zoho Mail. Odoo y las pasarelas de pago quedan fuera de alcance. Google Analytics 4 se mantiene con analítica denegada hasta consentimiento explícito; publicidad, personalización y datos publicitarios permanecen denegados. La identidad pública aprobada es RCP Services SRL, RNC 132-147103, Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, República Dominicana.
