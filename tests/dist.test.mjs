@@ -22,4 +22,5 @@ test('built checkout never presents a payment action', async () => {
   const html = await read('checkout/index.html');
   assert.doesNotMatch(html, /Procesar Pago Seguro|CardNet|PayPal|Número de tarjeta/);
   assert.match(html, /Continuar por WhatsApp/);
+  assert.match(html, /Continuar por correo/);
 });

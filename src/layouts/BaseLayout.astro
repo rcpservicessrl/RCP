@@ -23,7 +23,7 @@ import '../styles/base.css';
 // Hoja de estilos completa del sitio (servida desde /public, inline para no bundlear)
 const SITE_CSS = '/styles.css?v=1.0.2-black';
 const SITE_JS = '/script.js?v=34-pure-black-brand';
-const I18N_JS = '/scripts/i18n.js';
+const I18N_JS = '/scripts/i18n.js?v=35-consent-analytics';
 const SUPABASE_SDK_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
 const SUPABASE_SDK_INTEGRITY = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug';
 
@@ -103,15 +103,15 @@ const ogImageUrl = `${site}${ogImage}`;
     "name": "RCP Services SRL",
     "alternateName": "RCP Services",
     "description": "Agencia 360° de Transformación Empresarial y Digital para MIPYMEs en República Dominicana. Renovación, Consultoría y Publicidad bajo un ecosistema soberano con IA.",
+    "taxID": "132-147103",
     "url": site,
     "logo": `${site}/logo_rcp_fondo_claro.png?v=1.0.2-black`,
     "image": `${site}/logo_rcp_fondo_claro.png?v=1.0.2-black`,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Santo Domingo",
+      "streetAddress": "Av. Rómulo Betancourt 1302, Bella Vista",
       "addressLocality": "Santo Domingo",
       "addressRegion": "Distrito Nacional",
-      "postalCode": "10100",
       "addressCountry": "DO"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": "18.4861", "longitude": "-69.9312" },
@@ -137,7 +137,7 @@ const ogImageUrl = `${site}${ogImage}`;
     "publisher": { "@id": `${site}/#organization` }
   })} />
 
-  <!-- GA4 Analytics (carga condicional tras consentimiento de cookies) -->
+  <!-- GA4 Consent Mode: storage and advertising remain denied until explicit analytics consent -->
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}

@@ -41,7 +41,7 @@
   async function loadAndApply(lang) {
     document.documentElement.lang = lang;
     try {
-      const resp = await fetch('/scripts/' + lang + '.json');
+      const resp = await fetch('/scripts/' + lang + '.json', { cache: 'no-store' });
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
       translations = await resp.json();
       applyTranslations(translations);

@@ -3,7 +3,8 @@
 ## Gate 1 — evidencia
 
 - [ ] Claims públicos con fuente/propietario/aprobación.
-- [ ] Textos legales revisados por responsable autorizado.
+- [x] Datos operativos incorporados: RNC, dirección, Zoho Mail, cotización sin pagos/Odoo y política de reembolsos.
+- [ ] Revisión legal externa de plazos de retención y contratos futuros, si aplica.
 - [ ] Precios y catálogo aprobados por negocio.
 
 ## Gate 2 — ingeniería
@@ -16,9 +17,10 @@
 
 ## Gate 3 — operación
 
-- [ ] Staging separado y aprobado.
+- [ ] Staging separado y aprobado, o excepción de riesgo aprobada por el responsable antes de usar GitHub Pages como único entorno.
 - [ ] Backup de commit, datos, configuración y DNS exportado.
-- [ ] Propietarios de GitHub, DNS, Supabase, analítica y soporte presentes.
+- [ ] Propietarios de GitHub, DNS, Supabase, Google Analytics y Zoho Mail confirmados.
+- [ ] Prueba controlada: una cotización llega a `info@rcp.services` y se responde desde Zoho Mail.
 - [ ] Monitoreo y rollback ensayados.
 
 ## Gate 4 — producción
@@ -27,4 +29,4 @@
 - [ ] Despliegue, smoke test y observación de 60 minutos.
 - [ ] Registro de versión, hora, operador y resultado.
 
-Pagos permanecen fuera de alcance hasta integrar proveedor real en sandbox y servidor.
+Pagos en línea y Odoo están fuera de alcance. El lanzamiento usa exclusivamente cotización por WhatsApp o correo; cualquier cambio requiere una nueva evaluación de seguridad, legal y operación.

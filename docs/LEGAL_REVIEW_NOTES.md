@@ -15,8 +15,10 @@ Fecha de consulta: 2026-08-05. Este documento no es un dictamen jurídico.
 - No publicar precios finales sin alcance, impuestos y aprobación comercial.
 - Informar finalidades, proveedores externos y canal de derechos sobre datos.
 - Mantener analítica denegada por defecto y no transmitir PII a GA4.
-- Exigir revisión de asesor legal dominicano antes de aprobar políticas, contratos de adhesión, reembolsos y pagos.
+- La empresa aprobó como datos publicables: RCP Services SRL, RNC 132-147103, Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, República Dominicana, e info@rcp.services administrado mediante Zoho Mail.
+- El alcance comercial actual es cotización por WhatsApp o correo; no hay pasarela de pago ni Odoo en alcance.
+- Mantener una revisión de asesor legal dominicano antes de usar contratos de adhesión, incorporar pagos en línea o cambiar los compromisos de reembolso.
 
 ## Pendientes para asesoría
 
-Identidad legal completa del responsable, domicilio/RNC publicable, base jurídica y plazos de retención por flujo, transferencias internacionales, tratamiento de menores, procedimiento de derechos, registro de contratos de adhesión y condiciones de facturación/reembolso.
+Confirmación independiente de los plazos de retención, transferencias internacionales, procedimiento de derechos, registro de contratos de adhesión si llegara a aplicar y condiciones de facturación futuras. Los textos actuales aplican una retención operativa de 24 meses para consultas no contratadas y no sustituyen asesoría legal.

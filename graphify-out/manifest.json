@@ -140,8 +140,8 @@
     "semantic_hash": ""
   },
   "public/script.js": {
-    "mtime": 1785909586.3245478,
-    "ast_hash": "d1e98272f0395c0717c220b3ad92a715",
+    "mtime": 1785917173.1018434,
+    "ast_hash": "30802b8592cb086d8502a65ab6f4cf6e",
     "semantic_hash": ""
   },
   "public/scripts/dashboard.js": {
@@ -150,19 +150,19 @@
     "semantic_hash": ""
   },
   "public/scripts/en.json": {
-    "mtime": 1785909586.3189778,
-    "ast_hash": "8eb487b305705afd3566707d6cc53706",
+    "mtime": 1785917173.1392953,
+    "ast_hash": "2444f685b116ec6a5f309d91bd127f98",
     "semantic_hash": ""
   },
   "public/scripts/es.json": {
-    "mtime": 1785909586.3143053,
-    "ast_hash": "69415c9e1e35b93bc7bd137b9c7ba53d",
+    "mtime": 1785917173.1247551,
+    "ast_hash": "9ceee83be49b2ddac56020b9eea568d9",
     "semantic_hash": ""
   },
   "public/scripts/i18n.js": {
-    "mtime": 1782858732.5417254,
-    "ast_hash": "28897204d13b282e51cfe6b979b2dee3",
-    "semantic_hash": "28897204d13b282e51cfe6b979b2dee3"
+    "mtime": 1785917639.6422927,
+    "ast_hash": "253d5a3b1347b92679ec12e7eb607970",
+    "semantic_hash": ""
   },
   "public/service-worker.js": {
     "mtime": 1785494391.4645746,
@@ -175,8 +175,8 @@
     "semantic_hash": ""
   },
   "src/components/FloatingWidgets.astro": {
-    "mtime": 1785909792.6531312,
-    "ast_hash": "0784fbbd03a7b9a91886b8e9f9695c02",
+    "mtime": 1785917173.0942943,
+    "ast_hash": "3eea7e1956eedfe679c532dcf56d85b6",
     "semantic_hash": ""
   },
   "src/components/Footer.astro": {
@@ -190,18 +190,18 @@
     "semantic_hash": ""
   },
   "src/data/i18n/en.json": {
-    "mtime": 1785909586.3093202,
-    "ast_hash": "8eb487b305705afd3566707d6cc53706",
+    "mtime": 1785917173.1342978,
+    "ast_hash": "2444f685b116ec6a5f309d91bd127f98",
     "semantic_hash": ""
   },
   "src/data/i18n/es.json": {
-    "mtime": 1785909586.3015878,
-    "ast_hash": "69415c9e1e35b93bc7bd137b9c7ba53d",
+    "mtime": 1785917173.120221,
+    "ast_hash": "9ceee83be49b2ddac56020b9eea568d9",
     "semantic_hash": ""
   },
   "src/layouts/BaseLayout.astro": {
-    "mtime": 1785494391.451852,
-    "ast_hash": "c45cc35b267cbbf250065db03032a150",
+    "mtime": 1785917639.7418926,
+    "ast_hash": "361a7f8d6f4edcdb6c24ac491c5cc247",
     "semantic_hash": ""
   },
   "src/layouts/DashboardLayout.astro": {
@@ -225,8 +225,8 @@
     "semantic_hash": "4cd1f7f9f872eace161d0879ec8829b6"
   },
   "src/pages/checkout.astro": {
-    "mtime": 1785914038.7827213,
-    "ast_hash": "918186a90c8243e777d5e36b806efef5",
+    "mtime": 1785917173.0892916,
+    "ast_hash": "ece4af5e966ff7f6829ff7b6e4130639",
     "semantic_hash": ""
   },
   "src/pages/dashboard.astro": {
@@ -350,8 +350,8 @@
     "semantic_hash": "0fd1df103c39aec593101c12456b1cc1"
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1785910226.5172603,
-    "ast_hash": "3bb8da5b70e7ae58bcb96845ba17b912",
+    "mtime": 1785914390.9781864,
+    "ast_hash": "59d9f088bdfd2a6889b3d04ec5c89830",
     "semantic_hash": ""
   },
   ".kiro/specs/session-execution-plan/requirements.md": {
@@ -1105,18 +1105,18 @@
     "semantic_hash": ""
   },
   "src/pages/cookies.astro": {
-    "mtime": 1785909667.8445795,
-    "ast_hash": "4bd14872a7ebf61061c95ccae1201e24",
+    "mtime": 1785917231.1315353,
+    "ast_hash": "a0a6d5483d413771600f8483206fd932",
     "semantic_hash": ""
   },
   "src/pages/privacidad.astro": {
-    "mtime": 1785911971.2927918,
-    "ast_hash": "9bdf278138a12a58e897f7744686d3f9",
+    "mtime": 1785917231.0564957,
+    "ast_hash": "4ca5b0610d062b8b118095ed3f13d4a9",
     "semantic_hash": ""
   },
   "src/pages/terminos.astro": {
-    "mtime": 1785911971.2959752,
-    "ast_hash": "347f00b73d4385396bfb01d09c2b0855",
+    "mtime": 1785917231.099726,
+    "ast_hash": "f38cd1aaca33e35406921679ae6f9438",
     "semantic_hash": ""
   },
   "supabase/migrations/20260805023000_fix_public_product_read_policy.sql": {
@@ -1125,28 +1125,28 @@
     "semantic_hash": ""
   },
   "tests/dist.test.mjs": {
-    "mtime": 1785912771.9765773,
-    "ast_hash": "01829a166fde0bbbba0dc9d588d7c74f",
+    "mtime": 1785917305.9620306,
+    "ast_hash": "91881dd4ea9b9d147f47740d60d0a310",
     "semantic_hash": ""
   },
   "tests/site-policy.test.mjs": {
-    "mtime": 1785912771.9246614,
-    "ast_hash": "26e846d8f98f80f3a5ac372016d3667c",
+    "mtime": 1785917305.959249,
+    "ast_hash": "bde8110118d2c152e425b6de04ec7621",
     "semantic_hash": ""
   },
   ".github/workflows/pull-request.yml": {
-    "mtime": 1785910226.5248752,
-    "ast_hash": "6a235334fd74ba5cfc1bd8e18091917c",
+    "mtime": 1785914390.9827168,
+    "ast_hash": "1b022b34dee08a3302e4ac2f56bb3be9",
     "semantic_hash": ""
   },
   "docs/ACCESS_MATRIX.md": {
-    "mtime": 1785912811.0409517,
-    "ast_hash": "c8ce4b94f796b2712095a2e073a65ee8",
+    "mtime": 1785917265.0388074,
+    "ast_hash": "390e0504a01e67064188abdf53cbe8a5",
     "semantic_hash": ""
   },
   "docs/BRAND_IMPLEMENTATION.md": {
-    "mtime": 1785909792.5942938,
-    "ast_hash": "2d6d1a8d16b7cf1b220fa392b0135be1",
+    "mtime": 1785917530.6851132,
+    "ast_hash": "e206170fe3c46a2155281620aa19ce0b",
     "semantic_hash": ""
   },
   "docs/CONTENT_INVENTORY.md": {
@@ -1165,8 +1165,8 @@
     "semantic_hash": ""
   },
   "docs/DECISION_LOG.md": {
-    "mtime": 1785912019.8263073,
-    "ast_hash": "7c315fb80d956a40bdfebfa66921cd64",
+    "mtime": 1785917291.6249201,
+    "ast_hash": "be6cf56146c7b6fe19345d6b1085df3e",
     "semantic_hash": ""
   },
   "docs/DESIGN_SYSTEM.md": {
@@ -1175,13 +1175,13 @@
     "semantic_hash": ""
   },
   "docs/LAUNCH_CHECKLIST.md": {
-    "mtime": 1785910226.5278397,
-    "ast_hash": "335a2b6129f3413f2cda6683f8cd122e",
+    "mtime": 1785917265.047305,
+    "ast_hash": "f776545bae09e7c81cd58fe44c9f3123",
     "semantic_hash": ""
   },
   "docs/LEGAL_REVIEW_NOTES.md": {
-    "mtime": 1785911971.2748008,
-    "ast_hash": "c3839f50213f627b8e1052ad9e10cd3d",
+    "mtime": 1785917265.0337477,
+    "ast_hash": "45a46f5161c2ce517cf9522138158d48",
     "semantic_hash": ""
   },
   "docs/MEASUREMENT_PLAN.md": {
@@ -1190,13 +1190,13 @@
     "semantic_hash": ""
   },
   "docs/POST_LAUNCH_MONITORING.md": {
-    "mtime": 1785909792.636201,
-    "ast_hash": "0fed1b3dabb48600ec41df68057a470b",
+    "mtime": 1785917265.0513098,
+    "ast_hash": "b55aec57ad258186c1816795f8eeb3e5",
     "semantic_hash": ""
   },
   "docs/PRIVACY_DATA_MAP.md": {
-    "mtime": 1785909792.6489303,
-    "ast_hash": "2256fe6377af8b15da22413d7b90f007",
+    "mtime": 1785917265.042743,
+    "ast_hash": "3c0c6cd61d8d24c68e0de50fb570dae9",
     "semantic_hash": ""
   },
   "docs/REPOSITORY_MAP.md": {
@@ -1245,8 +1245,8 @@
     "semantic_hash": ""
   },
   "src/pages/reembolsos.astro": {
-    "mtime": 1785912771.4933138,
-    "ast_hash": "95c0cec8dc07139b5a171e685b2e5502",
+    "mtime": 1785917231.1119843,
+    "ast_hash": "295f38663aa89124b745287ee1301a36",
     "semantic_hash": ""
   }
 }
