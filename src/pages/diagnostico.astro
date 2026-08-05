@@ -1,7 +1,7 @@
 ---
 /**
  * diagnostico.astro — Quiz interactivo "Diagnóstico 360°"
- * 8 preguntas → score de arritmia → CTA WhatsApp + lead GCP.
+ * 8 preguntas → autoevaluación orientativa → CTA WhatsApp opcional.
  * Estilos scoped propios + script cliente autocontenido.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -9,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Diagnóstico 360° — RCP Services"
-  description="Evalúa la salud de tu empresa en 2 minutos. Score de arritmia empresarial gratuito."
+  description="Completa una autoevaluación empresarial orientativa en 2 minutos."
   canonical="/diagnostico"
   active="diagnostico"
 >
@@ -17,7 +17,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container diag-container">
       <header class="diag-header">
         <h1>Diagnóstico <span class="accent">360°</span></h1>
-        <p>Evalúa la salud de tu empresa en 2 minutos. Gratis y confidencial.</p>
+        <p>Autoevaluación orientativa de 2 minutos. No enviamos tus respuestas ni solicitamos datos personales.</p>
       </header>
       <div class="diag-progress" id="progressBar"></div>
       <div class="diag-card" id="questionCard"></div>
@@ -53,19 +53,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   :global(.score-num) { font-size:2.5rem; font-weight:900; color:var(--accent); }
   :global(.risk-level) { font-size:1.3rem; font-weight:800; margin-bottom:8px; }
   :global(.risk-desc) { color:var(--text-muted); font-size:0.9rem; margin-bottom:24px; line-height:1.6; }
-  :global(.money-lost) { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); border-radius:12px; padding:16px; margin-bottom:24px; }
   :global(.btn-cta-diag) { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#000; padding:14px 28px; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:all 0.3s ease; }
   :global(.btn-cta-diag:hover) { background:var(--accent-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(252,181,63,0.2); }
-  :global(.diag-lead-form) { display:flex; flex-direction:column; gap:15px; margin-top:20px; }
-  :global(.diag-field) { text-align:left; }
-  :global(.diag-field label) { display:block; margin-bottom:6px; font-weight:600; font-size:0.85rem; }
-  :global(.diag-field input) { width:100%; padding:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; }
-  :global(.diag-lead-actions) { display:flex; justify-content:space-between; margin-top:24px; }
   :global(.result-note) { color:var(--text-muted);font-size:0.75rem;margin-top:16px; }
   :global(.result-links) { margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
   :global(.result-links a) { color:var(--accent);font-size:0.85rem;font-weight:600; }
-  :global(.money-lost-label) { font-size:0.8rem;color:var(--text-muted); }
-  :global(.money-lost-value) { font-size:1.5rem;font-weight:900;color:#ef4444; }
   @media(max-width:600px) { .diag-card { padding:24px; } }
 </style>
 
@@ -116,7 +108,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if(next) next.addEventListener('click', () => {
         if(answers[current]!==undefined){
           current++;
-          if(current>=questions.length) showLeadForm();
+          if(current>=questions.length) showResult();
           else { renderProgress(); renderQuestion(); }
         }
       });
@@ -125,60 +117,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       renderProgress();
     }
 
-    function showLeadForm() {
-      card.innerHTML = `<p class="question-title">Completa tus datos para recibir tu resultado personalizado y tu plan de acción:</p>
-      <form id="diagLeadForm" class="diag-lead-form">
-        <div class="diag-field">
-          <label for="diagName">Nombre Completo</label>
-          <input type="text" id="diagName" required placeholder="Ej. Juan Pérez" />
-        </div>
-        <div class="diag-field">
-          <label for="diagEmail">Correo Electrónico</label>
-          <input type="email" id="diagEmail" required placeholder="Ej. juan.perez@empresa.com" />
-        </div>
-        <div class="diag-lead-actions">
-          <button type="button" class="btn-back" id="btnBackLead">← Anterior</button>
-          <button type="submit" class="btn-next" id="btnSubmitLead">Ver Mi Score →</button>
-        </div>
-      </form>`;
-
-      const form = document.getElementById('diagLeadForm');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const name = (document.getElementById('diagName') as HTMLInputElement).value.trim();
-          const email = (document.getElementById('diagEmail') as HTMLInputElement).value.trim();
-          showResult(name, email);
-        });
-      }
-
-      const backBtn = document.getElementById('btnBackLead');
-      if (backBtn) {
-        backBtn.addEventListener('click', () => {
-          current--;
-          renderProgress();
-          renderQuestion();
-        });
-      }
-    }
-
-    function showResult(userName: string, userEmail: string){
+    function showResult(){
       let total=0, max=0;
       answers.forEach((a,i) => { total += questions[i].scores[a]; max += questions[i].scores[questions[i].scores.length-1]; });
       const score = Math.round((total/max)*10);
       let risk:string, desc:string, color:string;
       if(score<=3){ risk='Bajo'; desc='Tu empresa tiene buenos cimientos. Con optimización estratégica puedes escalar al siguiente nivel.'; color='#22c55e'; }
       else if(score<=6){ risk='Moderado'; desc='Hay señales de arritmia. Tienes oportunidades claras de mejora en formalización, tecnología o procesos.'; color='var(--accent)'; }
-      else{ risk='Crítico'; desc='Tu empresa está en arritmia severa. Cada mes que pasa sin actuar, estás perdiendo dinero y oportunidades reales.'; color='#ef4444'; }
-      const monthlyLoss = score*15000+Math.round(Math.random()*20000);
+      else{ risk='Alto'; desc='Tus respuestas sugieren varias áreas que conviene revisar con prioridad y evidencia operativa.'; color='#ef4444'; }
 
       card.innerHTML = `<div class="result-card">
         <div class="score-circle" style="border-color:${color}"><span class="score-num" style="color:${color}">${score}</span></div>
-        <p class="risk-level" style="color:${color}">Riesgo ${risk}</p>
+        <p class="risk-level" style="color:${color}">Prioridad ${risk}</p>
         <p class="risk-desc">${desc}</p>
-        <div class="money-lost"><p class="money-lost-label">Estimación de pérdida mensual por ineficiencia:</p><p class="money-lost-value">~RD$ ${monthlyLoss.toLocaleString()}</p></div>
-        <a href="https://wa.me/18298068092?text=Hola%20RCP!%20Obtuve%20un%20score%20de%20${score}/10%20en%20el%20Diagn%C3%B3stico%20360.%20Quiero%20agendar%20mi%20consultor%C3%ADa%20gratuita." class="btn-cta-diag">🐆 Agendar Diagnóstico Gratuito</a>
-        <p class="result-note">Resultado confidencial. Un consultor te contactará en menos de 24h.</p>
+        <a href="https://wa.me/18298068092?text=Hola%20RCP%20Services.%20Complet%C3%A9%20la%20autoevaluaci%C3%B3n%20empresarial%20y%20quiero%20conversar%20sobre%20mis%20prioridades." class="btn-cta-diag">Solicitar orientación</a>
+        <p class="result-note">Resultado orientativo calculado solo en tu navegador. No es una auditoría, diagnóstico profesional ni estimación financiera.</p>
         <div class="result-links">
           <a href="/servicios">Ver Planes →</a>
           <a href="/tienda">Tienda →</a>
@@ -187,19 +140,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>`;
       bar.innerHTML = '';
       for(let i=0;i<questions.length;i++) bar.innerHTML += '<div class="step done"></div>';
-
-      // Enviar score al backend de leads
-      try {
-        fetch('https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpLead',{
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({
-            user_name: userName,
-            user_email: userEmail,
-            user_service: 'Diagnóstico 360',
-            user_message: `Score: ${score}/10 | Riesgo: ${risk} | Pérdida estimada: RD$${monthlyLoss}`
-          })
-        });
-      } catch(e) {}
     }
 
     renderQuestion();

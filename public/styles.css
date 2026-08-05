@@ -2028,6 +2028,14 @@ select option:hover {
     right: 20px;
   }
 
+  .chatbot-btn {
+    margin: 0;
+  }
+
+  .chatbot-tooltip {
+    display: none;
+  }
+
   .back-top {
     bottom: 20px;
     left: 20px;

@@ -1327,7 +1327,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         target: '.problema .cards-grid',
         title: 'El problema que resolvemos',
-        content: 'El 98.5% de las MIPYMEs dominicanas sufren arritmia empresarial. Aquí identificamos los 3 síntomas principales.'
+        content: 'Cuando las áreas clave no trabajan juntas, el crecimiento pierde ritmo. Aquí revisamos tres señales frecuentes.'
       },
       {
         target: '.tabs .tab-buttons',
@@ -1360,7 +1360,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         target: '.problema .cards-grid',
         title: 'The problem we solve',
-        content: '98.5% of Dominican MSMEs suffer from business arrhythmia. Here we identify the 3 main symptoms.'
+        content: 'When key business areas do not work together, growth loses momentum. Here we review three common signals.'
       },
       {
         target: '.tabs .tab-buttons',
