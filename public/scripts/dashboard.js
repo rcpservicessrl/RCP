@@ -21,7 +21,11 @@
       let supabase = null;
       try {
         if (window.supabase) {
-          supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+          supabase = window.supabase.createClient(
+            supabaseUrl,
+            supabaseKey,
+            { db: { schema: 'rcp_services' } }
+          );
         }
       } catch (e) {
         console.error("Error initializing Supabase client in dashboard:", e);
@@ -215,7 +219,7 @@
           let html = `<div class="card-title-row" style="margin-bottom:20px;"><h3>${title}</h3></div>`;
 
           avances.forEach(avance => {
-            const productName = avance.orden_items?.productos 
+            const productName = avance.orden_items?.productos
               ? (isEN ? (avance.orden_items.productos.name_en || avance.orden_items.productos.name_es) : avance.orden_items.productos.name_es)
               : avance.title;
             const pct = avance.progress_percent || 0;
@@ -227,13 +231,13 @@
             html += `
               <div class="tramite-progress-card">
                 <div class="tramite-header">
-                  <span class="tramite-name">${productName}</span>
+                  <span class="tramite-name">${escapeHTML(productName)}</span>
                   <span class="tramite-badge ${badgeClass}">${badgeText}</span>
                 </div>
                 <div class="progress-bar-track" style="margin-bottom:8px;">
                   <div class="progress-bar-fill" style="width:${pct}%;"></div>
                 </div>
-                ${avance.description ? `<p style="font-size:0.8rem; color:var(--text-muted);">${avance.description}</p>` : ''}
+                ${avance.description ? `<p style="font-size:0.8rem; color:var(--text-muted);">${escapeHTML(avance.description)}</p>` : ''}
               </div>
             `;
           });
@@ -244,7 +248,7 @@
           supabase.channel('avances-channel')
             .on(
               'postgres_changes',
-              { event: '*', schema: 'public', table: 'producto_avances', filter: 'cliente_id=eq.' + clienteId },
+              { event: '*', schema: 'rcp_services', table: 'producto_avances', filter: 'cliente_id=eq.' + clienteId },
               () => { loadProductoAvances(clienteId); }
             )
             .subscribe();
@@ -596,7 +600,7 @@
                 }
 
                 if (data.status === 'pending_activation') {
-                  window.location.href = '/portal';
+                  window.location.href = '/onboarding';
                   return;
                 }
 
@@ -636,7 +640,7 @@
                   supabase.channel('custom-client-channel')
                     .on(
                       'postgres_changes',
-                      { event: '*', schema: 'public', table: 'clientes', filter: 'email=eq.' + activeEmail },
+                      { event: '*', schema: 'rcp_services', table: 'clientes', filter: 'email=eq.' + activeEmail },
                       async () => {
                         const { data: fresh } = await supabase
                           .rpc('dashboard_overview', { p_email: activeEmail, p_global: false });
@@ -673,7 +677,7 @@
               return;
             }
             if (localData && localData.status === 'pending_activation') {
-              window.location.href = '/portal';
+              window.location.href = '/onboarding';
               return;
             }
             if (localData && localData.status === 'review') {
@@ -757,21 +761,11 @@
         });
 
         if (filtered.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">${t.noClients}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">${t.noClients}</td></tr>`;
           return;
         }
 
         filtered.forEach(c => {
-          const waPhone = c.phone ? c.phone.replace(/[^0-9]/g, '') : '';
-          let waPrefilled = waPhone;
-          if (waPhone.length === 10 && (waPhone.startsWith('809') || waPhone.startsWith('829') || waPhone.startsWith('849'))) {
-            waPrefilled = '1' + waPhone;
-          }
-          const portalUrl = window.location.origin + '/portal';
-          const waMsg = encodeURIComponent(`Hola ${c.owner_name}, tu código de acceso secreto para activar tu portal de RCP Services es: ${c.access_code || 'N/A'}\n\nIngresa aquí para activar tu cuenta: ${portalUrl}`);
-          const waLink = `https://wa.me/${waPrefilled}?text=${waMsg}`;
-          const codeDisplay = c.access_code || 'N/A';
-
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td><strong>${escapeHTML(c.company_name)}</strong></td>
@@ -780,15 +774,6 @@
             <td>
               <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHTML(c.email)}</div>
               <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHTML(c.phone)}</div>
-            </td>
-            <td>
-              <div style="display:flex; align-items:center; gap:6px;">
-                <code style="background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; font-weight:700; color:var(--accent); font-family:monospace; font-size:0.9rem;">${escapeHTML(codeDisplay)}</code>
-                ${c.access_code ? `
-                  <button class="btn-action-sm btn-copy-code" data-code="${escapeHTML(c.access_code)}" style="padding:4px 6px; font-size:0.75rem;" title="Copiar código">📋</button>
-                  <a href="${escapeHTML(waLink)}" target="_blank" class="btn-action-sm" style="padding:4px 6px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center;" title="Compartir por WhatsApp">💬</a>
-                ` : ''}
-              </div>
             </td>
             <td>
               <span class="sync-badge ${c.status === 'active' ? 'online' : (c.status === 'review' ? 'online' : (c.status === 'pending_activation' ? 'pending' : 'offline'))}">
@@ -805,23 +790,6 @@
         });
 
         // Add event listeners on action buttons
-        tbody.querySelectorAll('.btn-copy-code').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const code = btn.dataset.code;
-            navigator.clipboard.writeText(code).then(() => {
-              const originalText = btn.textContent;
-              btn.textContent = 'Copied!';
-              btn.style.color = '#22c55e';
-              setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.color = '';
-              }, 1200);
-            }).catch(err => {
-              console.error('Could not copy text: ', err);
-            });
-          });
-        });
-
         tbody.querySelectorAll('.btn-view-diag').forEach(btn => {
           btn.addEventListener('click', () => {
             const client = clientList.find(c => c.id === btn.dataset.id);
@@ -852,10 +820,8 @@
         document.getElementById('clientLegalId').value = c.legal_id;
         document.getElementById('clientOwnerName').value = c.owner_name;
         document.getElementById('clientEmail').value = c.email;
-        document.getElementById('clientPassword').value = c.password || '';
         document.getElementById('clientPhone').value = c.phone;
         document.getElementById('clientAddress').value = c.address || '';
-        document.getElementById('clientAccessCode').value = c.access_code || '';
         
         // Business Metrics
         document.getElementById('clientVentas').value = c.ventas || 0;
@@ -1551,10 +1517,8 @@
             const legalId = document.getElementById('clientLegalId').value.trim();
             const ownerName = document.getElementById('clientOwnerName').value.trim();
             const email = document.getElementById('clientEmail').value.trim();
-            const password = document.getElementById('clientPassword').value;
             const phone = document.getElementById('clientPhone').value.trim();
             const address = document.getElementById('clientAddress').value.trim();
-            const accessCode = document.getElementById('clientAccessCode').value.trim();
 
             const ventas = parseInt(document.getElementById('clientVentas').value) || 0;
             const ventasTrend = document.getElementById('clientVentasTrend').value.trim();
@@ -1576,10 +1540,8 @@
               legal_id: legalId,
               owner_name: ownerName,
               email: email,
-              password: password,
               phone: phone,
               address: address,
-              access_code: accessCode,
               ventas: ventas,
               ventas_trend: ventasTrend,
               cpl: cpl,

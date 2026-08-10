@@ -51,7 +51,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
       const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
       let supabase = null;
-      try { if (window.supabase) supabase = window.supabase.createClient(supabaseUrl, supabaseKey); }
+      try {
+        if (window.supabase) {
+          supabase = window.supabase.createClient(
+            supabaseUrl,
+            supabaseKey,
+            { db: { schema: 'rcp_services' } }
+          );
+        }
+      }
       catch(e){ console.error('Supabase init error', e); }
 
       const form = document.getElementById('contactForm');
@@ -99,13 +107,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             let cvUrl: string | null = null;
             if (file) {
-              const ext = file.name.split('.').pop();
-              const fileName = `${Date.now()}_${nombre.replace(/\s+/g,'_')}.${ext}`;
+              const ext = file.name.split('.').pop()?.toLowerCase() || 'pdf';
+              const fileName = `${crypto.randomUUID()}.${ext}`;
               const filePath = `contactos_cvs/${fileName}`;
               const { error: uploadError } = await supabase.storage.from('candidatos-cv').upload(filePath, file);
               if (uploadError) throw uploadError;
-              const { data: { publicUrl } } = supabase.storage.from('candidatos-cv').getPublicUrl(filePath);
-              cvUrl = publicUrl;
+              cvUrl = filePath;
             }
 
             const { error: insertError } = await supabase.from('contactos').insert([

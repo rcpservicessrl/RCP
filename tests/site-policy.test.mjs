@@ -63,3 +63,51 @@ test('legal policies identify the business and keep analytics non-advertising', 
   assert.match(i18n, /cache: 'no-store'/);
   assert.match(layout, /taxID.*132-147103/);
 });
+
+test('corporate browser clients are pinned to the rcp_services schema', async () => {
+  const schemaClients = await Promise.all([
+    read('src/pages/portal.astro'),
+    read('src/pages/onboarding.astro'),
+    read('src/pages/carreras.astro'),
+    read('src/pages/formulario-contacto.astro'),
+    read('public/scripts/dashboard.js')
+  ]);
+
+  for (const source of schemaClients) {
+    assert.match(source, /db:\s*\{\s*schema:\s*'rcp_services'\s*\}/);
+    assert.doesNotMatch(source, /schema:\s*'public'/);
+  }
+
+  assert.match(await read('public/tienda.js'), /'Accept-Profile':'rcp_services'/);
+  assert.match(await read('src/pages/checkout.astro'), /'Accept-Profile': 'rcp_services'/);
+});
+
+test('public flows cannot create client identities or use reusable access codes', async () => {
+  const [portal, dashboard, booking, dashboardPage] = await Promise.all([
+    read('src/pages/portal.astro'),
+    read('public/scripts/dashboard.js'),
+    read('public/script.js'),
+    read('src/pages/dashboard.astro')
+  ]);
+  const content = [portal, dashboard, booking, dashboardPage].join('\n');
+
+  assert.doesNotMatch(content, /verificar_existencia_cliente|access_code|access_code_hash|clientPassword|clientAccessCode|supabaseData/);
+  assert.doesNotMatch(booking, /\.from\('clientes'\)|\.rpc\(/);
+  assert.doesNotMatch(dashboard, /password:\s*password/);
+  assert.match(portal, /rpc\('ensure_client_profile'\)/);
+  assert.match(await read('src/pages/onboarding.astro'), /status:\s*'review'/);
+});
+
+test('public forms use isolated intake tables and private object paths', async () => {
+  const [careers, contact] = await Promise.all([
+    read('src/pages/carreras.astro'),
+    read('src/pages/formulario-contacto.astro')
+  ]);
+
+  assert.match(careers, /\.from\('postulaciones'\)/);
+  assert.doesNotMatch(careers, /\.from\('candidatos'\)|getPublicUrl\(filePath\)/);
+  assert.match(contact, /\.from\('contactos'\)/);
+  assert.doesNotMatch(contact, /getPublicUrl\(filePath\)/);
+  assert.match(careers, /crypto\.randomUUID\(\)/);
+  assert.match(contact, /crypto\.randomUUID\(\)/);
+});
