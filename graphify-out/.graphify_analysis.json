@@ -168,6 +168,27 @@
       "package_version"
     ],
     "5": [
+      "home",
+      "home_atajos_operativos_capa_neuronal_v2",
+      "home_dashboard_de_tokens",
+      "home_estado_del_contexto",
+      "home_otras_notas_activas_de_desarrollo",
+      "home_rcp_services_sitio_web_centro_de_control",
+      "home_índices_de_conocimiento_activo",
+      "neural_layer",
+      "neural_layer_bondades",
+      "neural_layer_capa_neuronal_v2_rcp_services_sitio_web",
+      "neural_layer_componentes",
+      "neural_layer_configuración_activa",
+      "neural_layer_scripts",
+      "neural_layer_uso",
+      "neural_state",
+      "rcp_services_shared_architecture",
+      "rcp_services_shared_architecture_arquitectura_compartida_rcp_services",
+      "rcp_services_shared_architecture_identidad_de_este_producto",
+      "rcp_services_shared_architecture_regla_operativa"
+    ],
+    "6": [
       "public_manifest",
       "public_manifest_background_color",
       "public_manifest_categories",
@@ -187,7 +208,7 @@
       "ref_business",
       "ref_productivity"
     ],
-    "6": [
+    "7": [
       "src_pages_portal",
       "src_pages_portal_btngooglelogin",
       "src_pages_portal_companyparam",
@@ -206,7 +227,23 @@
       "src_pages_portal_signupform",
       "src_pages_portal_signupview"
     ],
-    "7": [
+    "8": [
+      "neural_state_0_identidad_visual_y_experiencia_responsive_2026_07_31",
+      "neural_state_1_migración_y_conectividad_a_supabase",
+      "neural_state_2_panel_administrativo_crud_expandido",
+      "neural_state_3_tienda_pública_y_checkout",
+      "neural_state_4_seguridad_privacidad_y_evidencia_2026_08_05",
+      "neural_state_5_validación_pendiente",
+      "neural_state_6_hardening_y_corte_productivo_del_sitio_corporativo_2026_08_10",
+      "neural_state_arquitectura_compartida_rcp_services",
+      "neural_state_completado_en_sesiones_previas",
+      "neural_state_conexión_de_grafo_neuronal",
+      "neural_state_directiva_de_aprendizaje_continuo_obligatoria_para_toda_ia",
+      "neural_state_lo_que_no_se_debe_modificar",
+      "neural_state_neural_state_md_estado_de_sesión_rcp_services",
+      "neural_state_ubicación_del_proyecto"
+    ],
+    "9": [
       "src_pages_onboarding",
       "src_pages_onboarding_activeemail",
       "src_pages_onboarding_activerole",
@@ -221,7 +258,42 @@
       "src_pages_onboarding_stepdesc",
       "src_pages_onboarding_steptitle"
     ],
-    "8": [
+    "10": [
+      "claude",
+      "claude_arquitectura_de_archivos",
+      "claude_convenciones",
+      "claude_estado_de_seguridad_fases_1_3_completadas",
+      "claude_fase_1_endurecimiento_crítico",
+      "claude_fase_2_rbac",
+      "claude_fase_3_datos_reales_sin_simulaciones",
+      "claude_pendiente_fuera_de_alcance",
+      "claude_rcp_services_memoria_del_proyecto",
+      "claude_ubicación",
+      "claude_verificación_rápida"
+    ],
+    "11": [
+      "readme",
+      "readme_características",
+      "readme_contacto",
+      "readme_despliegue",
+      "readme_estructura",
+      "readme_páginas",
+      "readme_rcp_services_website",
+      "readme_sobre_el_proyecto",
+      "readme_tecnologías"
+    ],
+    "12": [
+      "style_guide",
+      "style_guide_breakpoints_verificados",
+      "style_guide_escala_mínima_del_logo",
+      "style_guide_experiencia_web_responsive",
+      "style_guide_guía_visual_del_sitio_rcp_services",
+      "style_guide_jerarquía_y_densidad",
+      "style_guide_logo",
+      "style_guide_seo_y_accesibilidad",
+      "style_guide_sistema"
+    ],
+    "13": [
       "ref",
       "ref_astro_tsconfigs_strict",
       "ref_astro_types_d_ts",
@@ -231,39 +303,58 @@
       "tsconfig_extends",
       "tsconfig_include"
     ],
-    "9": [
+    "14": [
+      "architecture",
+      "architecture_decision",
+      "architecture_functional_roadmap",
+      "architecture_rendering_boundary",
+      "architecture_seo_and_aeo_safeguards",
+      "architecture_web_architecture"
+    ],
+    "15": [
+      "project",
+      "project_architecture",
+      "project_interface_safety_contracts",
+      "project_milestones",
+      "project_project_rcp_services_ecosystem_audit_active_optimization"
+    ],
+    "16": [
       "vercel",
       "vercel_cleanurls",
       "vercel_headers",
       "vercel_schema",
       "vercel_trailingslash"
     ],
-    "10": [
+    "17": [
       "public_scripts_i18n",
       "public_scripts_i18n_applytranslations",
       "public_scripts_i18n_init",
       "public_scripts_i18n_loadandapply"
     ],
-    "11": [
+    "18": [
+      "agents",
+      "agents_rcp_services_site_rules"
+    ],
+    "19": [
       "public_service_worker",
       "public_service_worker_assets_to_cache"
     ],
-    "12": [
+    "20": [
       "src_layouts_dashboardlayout",
       "src_pages_dashboard"
     ],
-    "13": [
+    "21": [
       "tests_dist_test",
       "tests_dist_test_read"
     ],
-    "14": [
+    "22": [
       "tests_site_policy_test",
       "tests_site_policy_test_read"
     ],
-    "15": [
+    "23": [
       "astro_config"
     ],
-    "16": [
+    "24": [
       "src_pages_404"
     ]
   },
@@ -273,18 +364,26 @@
     "2": 0.07142857142857142,
     "3": 0.20948616600790515,
     "4": 0.10526315789473684,
-    "5": 0.1111111111111111,
-    "6": 0.1323529411764706,
-    "7": 0.15384615384615385,
-    "8": 0.25,
-    "9": 0.4,
-    "10": 0.8333333333333334,
-    "11": 1.0,
-    "12": 1.0,
-    "13": 1.0,
-    "14": 1.0,
-    "15": 1.0,
-    "16": 1.0
+    "5": 0.10526315789473684,
+    "6": 0.1111111111111111,
+    "7": 0.1323529411764706,
+    "8": 0.14285714285714285,
+    "9": 0.15384615384615385,
+    "10": 0.18181818181818182,
+    "11": 0.2222222222222222,
+    "12": 0.2222222222222222,
+    "13": 0.25,
+    "14": 0.3333333333333333,
+    "15": 0.4,
+    "16": 0.4,
+    "17": 0.8333333333333334,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0
   },
   "gods": [
     {
@@ -313,6 +412,16 @@
       "degree": 8
     },
     {
+      "id": "neural_state_completado_en_sesiones_previas",
+      "label": "Completado en sesiones previas",
+      "degree": 8
+    },
+    {
+      "id": "readme_rcp_services_website",
+      "label": "🫀 RCP Services — Website",
+      "degree": 8
+    },
+    {
       "id": "public_scripts_dashboard_escapehtml",
       "label": "escapeHTML()",
       "degree": 7
@@ -326,21 +435,44 @@
       "id": "public_scripts_dashboard_setupproductcrud",
       "label": "setupProductCRUD()",
       "degree": 7
-    },
-    {
-      "id": "public_script_showstep",
-      "label": "showStep()",
-      "degree": 6
-    },
-    {
-      "id": "public_script_handleacceptall",
-      "label": "handleAcceptAll()",
-      "degree": 6
     }
   ],
   "surprises": [],
-  "tokens": {
-    "input": 0,
-    "output": 0
-  }
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `.neural_state.md — Estado de sesión RCP Services` connect `Community 8` to `Community 5`?",
+      "why": "High betweenness centrality (0.006) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `name`, `type`, `version` to the rest of the system?",
+      "why": "131 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.06015037593984962 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.07142857142857142 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 4` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 5` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 6` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected."
+    }
+  ]
 }

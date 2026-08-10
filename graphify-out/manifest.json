@@ -15,14 +15,14 @@
     "semantic_hash": "f4640373592535d87dac4f233524238f"
   },
   "public/script.js": {
-    "mtime": 1786369217.8712313,
-    "ast_hash": "3d0073b4be22d3393eb0209c34aab619",
-    "semantic_hash": "3d0073b4be22d3393eb0209c34aab619"
+    "mtime": 1786371937.552421,
+    "ast_hash": "6abeddc1c4fea479e7c14496a310cc84",
+    "semantic_hash": ""
   },
   "public/scripts/dashboard.js": {
-    "mtime": 1786369162.2771451,
-    "ast_hash": "6795130f6d8b126d1ee830d262bb41a0",
-    "semantic_hash": "6795130f6d8b126d1ee830d262bb41a0"
+    "mtime": 1786371937.554424,
+    "ast_hash": "0a58c2aaebcbe9237b1727bd5f46722f",
+    "semantic_hash": ""
   },
   "public/scripts/i18n.js": {
     "mtime": 1786368422.8301294,
@@ -35,9 +35,9 @@
     "semantic_hash": "293ce7a9e18811ea591693ba881e9573"
   },
   "public/tienda.js": {
-    "mtime": 1786369071.7455845,
-    "ast_hash": "87fd3f0f6da2617a779176c6d1ab4194",
-    "semantic_hash": "87fd3f0f6da2617a779176c6d1ab4194"
+    "mtime": 1786371937.556441,
+    "ast_hash": "be44d5754d83a51f16bcd88eb2776110",
+    "semantic_hash": ""
   },
   "src/components/FloatingWidgets.astro": {
     "mtime": 1786367745.5860353,
@@ -75,9 +75,9 @@
     "semantic_hash": "3c17cc65d973ee9f8bdd2075aa6ce26f"
   },
   "src/pages/carreras.astro": {
-    "mtime": 1786369071.7305562,
-    "ast_hash": "b83132cd01180112e3058baca55b5ef0",
-    "semantic_hash": "b83132cd01180112e3058baca55b5ef0"
+    "mtime": 1786371937.5574238,
+    "ast_hash": "b8f1d42da70d6be41f938dca795f1a03",
+    "semantic_hash": ""
   },
   "src/pages/casos/electromuebles.astro": {
     "mtime": 1786367745.6492207,
@@ -85,9 +85,9 @@
     "semantic_hash": "de6e342cb248e620584dab8e5800630c"
   },
   "src/pages/checkout.astro": {
-    "mtime": 1786369071.7405827,
-    "ast_hash": "2e0acf577cac8531cc65d5133b8e46e4",
-    "semantic_hash": "2e0acf577cac8531cc65d5133b8e46e4"
+    "mtime": 1786371937.558424,
+    "ast_hash": "c8618f7506836dbfb555fb478a1f5f18",
+    "semantic_hash": ""
   },
   "src/pages/cookies.astro": {
     "mtime": 1786367745.6542213,
@@ -95,9 +95,9 @@
     "semantic_hash": "5dceded86321e53ef21076b5b886bcef"
   },
   "src/pages/dashboard.astro": {
-    "mtime": 1786369162.272138,
-    "ast_hash": "9dd586f5bbfc79bf9e788a82d68a1fd7",
-    "semantic_hash": "9dd586f5bbfc79bf9e788a82d68a1fd7"
+    "mtime": 1786371937.5608225,
+    "ast_hash": "fb88fc0d73c57bf64c659a18c64d1c30",
+    "semantic_hash": ""
   },
   "src/pages/diagnostico.astro": {
     "mtime": 1786367745.660491,
@@ -105,9 +105,9 @@
     "semantic_hash": "9e9118e3f90c56df5ccffdcd391585f3"
   },
   "src/pages/formulario-contacto.astro": {
-    "mtime": 1786369071.7355573,
-    "ast_hash": "32392c1834bd4eb7e6b2cc2ff185da3b",
-    "semantic_hash": "32392c1834bd4eb7e6b2cc2ff185da3b"
+    "mtime": 1786371937.5628233,
+    "ast_hash": "a2d59b410f0dde15938d29ae28323144",
+    "semantic_hash": ""
   },
   "src/pages/index.astro": {
     "mtime": 1786367745.6685188,
@@ -125,14 +125,14 @@
     "semantic_hash": "494b7b3f40615ce8cc252dcad1d9c6ed"
   },
   "src/pages/onboarding.astro": {
-    "mtime": 1786370484.2817345,
-    "ast_hash": "24989f1143a061e844ca5c5df672ff39",
-    "semantic_hash": "24989f1143a061e844ca5c5df672ff39"
+    "mtime": 1786371937.5648222,
+    "ast_hash": "fb60f4e4daea59fce97c8afad42b674b",
+    "semantic_hash": ""
   },
   "src/pages/portal.astro": {
-    "mtime": 1786370484.2772205,
-    "ast_hash": "145d039879ae660f2bba7f308b63151c",
-    "semantic_hash": "145d039879ae660f2bba7f308b63151c"
+    "mtime": 1786371937.5658238,
+    "ast_hash": "073fae2cf4523d91d27fbb53598a41b5",
+    "semantic_hash": ""
   },
   "src/pages/privacidad.astro": {
     "mtime": 1786367745.712061,
@@ -170,9 +170,9 @@
     "semantic_hash": "2680d69006158a550c6c855fba9aaab5"
   },
   "tests/site-policy.test.mjs": {
-    "mtime": 1786370484.2857606,
-    "ast_hash": "a7834d75f07fcd56bb414f7d0ff5a80f",
-    "semantic_hash": "a7834d75f07fcd56bb414f7d0ff5a80f"
+    "mtime": 1786373100.6462777,
+    "ast_hash": "a77a4143a9539d6c3f8ea6ab40a2ae7d",
+    "semantic_hash": ""
   },
   "tsconfig.json": {
     "mtime": 1786367742.6331336,
@@ -188,5 +188,610 @@
     "mtime": 1786368421.8531961,
     "ast_hash": "0fd1df103c39aec593101c12456b1cc1",
     "semantic_hash": "0fd1df103c39aec593101c12456b1cc1"
+  },
+  ".github/workflows/deploy.yml": {
+    "mtime": 1786367745.577949,
+    "ast_hash": "6ea2e54a28ef69d559c3d58edc728938",
+    "semantic_hash": ""
+  },
+  ".github/workflows/pull-request.yml": {
+    "mtime": 1786367745.5809507,
+    "ast_hash": "fb7c84691edaea8d28140da4f4ee6534",
+    "semantic_hash": ""
+  },
+  ".neural_state.md": {
+    "mtime": 1786373148.4695666,
+    "ast_hash": "1c8713973890d05252c79dd0d76c32f3",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1786367742.5665607,
+    "ast_hash": "d85cf1b36550862e96edde6ed187fccc",
+    "semantic_hash": ""
+  },
+  "ARCHITECTURE.md": {
+    "mtime": 1786367742.5706313,
+    "ast_hash": "fe10b9a9c819a6d6094afccda2087871",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1786367742.5736554,
+    "ast_hash": "7e68608b16777fe424f60f5bdaf0e4a6",
+    "semantic_hash": ""
+  },
+  "NEURAL_LAYER.md": {
+    "mtime": 1786367742.5796561,
+    "ast_hash": "b6c0f30005ec8b15a7e1728a792b66fa",
+    "semantic_hash": ""
+  },
+  "PROJECT.md": {
+    "mtime": 1786367742.5821767,
+    "ast_hash": "597c4b451dbd435ed80135e12858b65f",
+    "semantic_hash": ""
+  },
+  "RCP_SERVICES_SHARED_ARCHITECTURE.md": {
+    "mtime": 1786367742.5852036,
+    "ast_hash": "3876bd47abf5e6bfa5f28bccb41d6f98",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1786367742.5872042,
+    "ast_hash": "3090acd21ed6ad810fe6ee336a62911b",
+    "semantic_hash": ""
+  },
+  "STYLE_GUIDE.md": {
+    "mtime": 1786367742.5913012,
+    "ast_hash": "900e38e1031dff274b320e69e0fa78fc",
+    "semantic_hash": ""
+  },
+  "home.md": {
+    "mtime": 1786367742.5962996,
+    "ast_hash": "e3f253d0a71085bde6a12aba85830288",
+    "semantic_hash": ""
+  },
+  "public/llms.txt": {
+    "mtime": 1786368422.5369344,
+    "ast_hash": "5e47c030e58605dd8b3f44499817cfa1",
+    "semantic_hash": ""
+  },
+  "public/robots.txt": {
+    "mtime": 1786368422.7863874,
+    "ast_hash": "98908e97bde9fc93eedf2b94aab2e04e",
+    "semantic_hash": ""
+  },
+  "public/Logo RCP  fondo negro.png": {
+    "mtime": 1786368421.8671598,
+    "ast_hash": "33a7b97a95be86918ab60d178cdd3c85",
+    "semantic_hash": ""
+  },
+  "public/Logo RCP Services.png": {
+    "mtime": 1786368421.878149,
+    "ast_hash": "8ea156341c718a9572c049d23be0ce6e",
+    "semantic_hash": ""
+  },
+  "public/QR RCP.png": {
+    "mtime": 1786368421.8901496,
+    "ast_hash": "3413839bfbc4c7abeeba3b2ebf88490f",
+    "semantic_hash": ""
+  },
+  "public/assets/brand/mascot/rcp-mascot-angles.png": {
+    "mtime": 1786368421.9167027,
+    "ast_hash": "567bede2dc2a6f60e8d181c9f7892090",
+    "semantic_hash": ""
+  },
+  "public/assets/brand/mascot/rcp-mascot-official-views.png": {
+    "mtime": 1786368421.935773,
+    "ast_hash": "52a36b5502b957bb20095b3b82bcccbc",
+    "semantic_hash": ""
+  },
+  "public/assets/brand/rcp-visual-language-services.png": {
+    "mtime": 1786368421.9903393,
+    "ast_hash": "ddad52f5389d8139b28bc36b535a9935",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-01.png": {
+    "mtime": 1786368421.9933395,
+    "ast_hash": "02800cd05134bd1c6238662e53ed2f79",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-01.svg": {
+    "mtime": 1786368421.996339,
+    "ast_hash": "330f38b2b0f2e7839985a2afe8e2f45a",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-02.png": {
+    "mtime": 1786368422.035909,
+    "ast_hash": "8d37e5f248bfb24b074952b39ea29214",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-02.svg": {
+    "mtime": 1786368422.0709102,
+    "ast_hash": "9de6f530521113ec4a1d21a21ef842b8",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-04.png": {
+    "mtime": 1786368422.07791,
+    "ast_hash": "bf1ab10b273d9a81b6af8dc871a32d49",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-04.svg": {
+    "mtime": 1786368422.0829077,
+    "ast_hash": "415561be71c09a5377c502b23e588a46",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-05.png": {
+    "mtime": 1786368422.1099448,
+    "ast_hash": "56dbf6b6f0f97b94c21c5d5ffc89b0b3",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-05.svg": {
+    "mtime": 1786368422.112947,
+    "ast_hash": "b42f74456e2c07ef45c1e2605f0491c4",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-06.png": {
+    "mtime": 1786368422.1179538,
+    "ast_hash": "932a007929e4ba1b579fc369c2e751cf",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-06.svg": {
+    "mtime": 1786368422.1199858,
+    "ast_hash": "dc24cc8e6cb58298c221aea618946ae9",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-08.png": {
+    "mtime": 1786368422.1245358,
+    "ast_hash": "387f293b99642b018defbf6867baad6c",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-08.svg": {
+    "mtime": 1786368422.1275349,
+    "ast_hash": "4f30a633824cbf4ddc12fb7eec7baca8",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-10.png": {
+    "mtime": 1786368422.1305358,
+    "ast_hash": "324bdd57072f53267cb9d281f3be638e",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-10.svg": {
+    "mtime": 1786368422.1335354,
+    "ast_hash": "2cf49b6d8f57ad547eecbdf7727828c4",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-11.png": {
+    "mtime": 1786368422.1375327,
+    "ast_hash": "6a3f4cd9bef988e065bc13bf1ab1698a",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-11.svg": {
+    "mtime": 1786368422.140535,
+    "ast_hash": "310d6824be614a412bb01faa677bfca6",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-12.png": {
+    "mtime": 1786368422.1525352,
+    "ast_hash": "153e1e9c554d49134568f06d555d5d1f",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-12.svg": {
+    "mtime": 1786368422.1565342,
+    "ast_hash": "1414b255cd8096717b22469efceabf58",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-13.png": {
+    "mtime": 1786368422.160539,
+    "ast_hash": "f38d9de7bf416b3389c92bf46b9286e4",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-13.svg": {
+    "mtime": 1786368422.163535,
+    "ast_hash": "0977fa110d76da0d17ea4598e06b9424",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-14.png": {
+    "mtime": 1786368422.1655364,
+    "ast_hash": "7dc6764b73d7e721a78abcb389fb6c4b",
+    "semantic_hash": ""
+  },
+  "public/assets/products/IMP-14.svg": {
+    "mtime": 1786368422.1825476,
+    "ast_hash": "1a3fdea5347c1f7525c37229f8ae3c56",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-01.png": {
+    "mtime": 1786368422.2015376,
+    "ast_hash": "a3e999467063489480dec9775da0dc84",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-01.svg": {
+    "mtime": 1786368422.2035327,
+    "ast_hash": "42c86376e9c1f36ab641d7a3b2784cf4",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-02.png": {
+    "mtime": 1786368422.2075615,
+    "ast_hash": "2448fcbf59628f3360ac4350ce7886a9",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-02.svg": {
+    "mtime": 1786368422.20956,
+    "ast_hash": "2414f392c4f3e3e982083c8815bf902c",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-03.png": {
+    "mtime": 1786368422.2185645,
+    "ast_hash": "df8c9a5bb36049386bc92ab1d42edba3",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-03.svg": {
+    "mtime": 1786368422.2221167,
+    "ast_hash": "7a011580bc15ce2fd4870a9b0936c166",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-04.png": {
+    "mtime": 1786368422.225139,
+    "ast_hash": "be730ef02af6a9bb939c636baef3fb95",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-04.svg": {
+    "mtime": 1786368422.2271366,
+    "ast_hash": "b29231ae804591ee4fb15f0f4df68c0c",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-05.png": {
+    "mtime": 1786368422.232131,
+    "ast_hash": "14f2b474183ad1ecdf4b2eb0992a3940",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-05.svg": {
+    "mtime": 1786368422.234139,
+    "ast_hash": "f5019f042cf96c6b7dabce6cdcd0c0ec",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-06.png": {
+    "mtime": 1786368422.2371476,
+    "ast_hash": "3fbb512bda0cf12062d45de6ad156ec0",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-06.svg": {
+    "mtime": 1786368422.2436912,
+    "ast_hash": "598edb32fad6a3425689051f906b4fe6",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-07.png": {
+    "mtime": 1786368422.2466846,
+    "ast_hash": "b1cb7044376fc2a2a85a394c7aa1c837",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-07.svg": {
+    "mtime": 1786368422.2486868,
+    "ast_hash": "371bd6ad85e14f4f12845ee38c63b59f",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-10.png": {
+    "mtime": 1786368422.2516892,
+    "ast_hash": "9ea201c6f4817abe3bbc76fe54deea94",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-10.svg": {
+    "mtime": 1786368422.2536852,
+    "ast_hash": "99c38d014e4a9d81129b5c3546713bbc",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-11.png": {
+    "mtime": 1786368422.277258,
+    "ast_hash": "50317acde2c4b98adb614247b551bc88",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-11.svg": {
+    "mtime": 1786368422.2822568,
+    "ast_hash": "b9e3978a3d2cf18b42eeb6a1ad24ba1e",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-12.png": {
+    "mtime": 1786368422.2862637,
+    "ast_hash": "addb01ffbfb7abfd97bcace83ed48cce",
+    "semantic_hash": ""
+  },
+  "public/assets/products/POP-12.svg": {
+    "mtime": 1786368422.2882533,
+    "ast_hash": "efe19113fbabd6059ba81e43c1310d0c",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-C01.png": {
+    "mtime": 1786368422.2922518,
+    "ast_hash": "e3414bd0302dec05315e05ebebe09eb5",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-C01.svg": {
+    "mtime": 1786368422.3002508,
+    "ast_hash": "bc487fbd84334bd448022381fd015506",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-C03.png": {
+    "mtime": 1786368422.3042526,
+    "ast_hash": "4ffa7d5271f47e769591bf33a4e3321e",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-C03.svg": {
+    "mtime": 1786368422.3072805,
+    "ast_hash": "f099743dc7f32638e70388ec2487a657",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P02.png": {
+    "mtime": 1786368422.3208036,
+    "ast_hash": "07f54ccfb295cda0c42f9960c85771e6",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P02.svg": {
+    "mtime": 1786368422.3238268,
+    "ast_hash": "3f1418193f89873878db48dda39774aa",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P04.png": {
+    "mtime": 1786368422.3318222,
+    "ast_hash": "270273d646f2e2a5a5ed17035f5448d3",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P04.svg": {
+    "mtime": 1786368422.3348272,
+    "ast_hash": "b026b1cdfc5230c56af199bd478ce7c5",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P05.png": {
+    "mtime": 1786368422.337826,
+    "ast_hash": "fdce724df34bd02ad25048fd2de83030",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P05.svg": {
+    "mtime": 1786368422.341827,
+    "ast_hash": "f7b01f09b3c5842654f24c0c4f143a7f",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P09.png": {
+    "mtime": 1786368422.3458264,
+    "ast_hash": "3960e55419db6512093202c679bb4f72",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-P09.svg": {
+    "mtime": 1786368422.3498266,
+    "ast_hash": "7c663cba424dc494499aa96c75b569dd",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-R01.png": {
+    "mtime": 1786368422.361825,
+    "ast_hash": "a84708dc2f47997be6c63fa07a9cdd6b",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-R01.svg": {
+    "mtime": 1786368422.3678467,
+    "ast_hash": "f62d8c469bbc0d12b0bd9ef88490b9b4",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-R02.png": {
+    "mtime": 1786368422.3748245,
+    "ast_hash": "1a6ce02ff5ac45b86b448d6b7442993b",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SRV-R02.svg": {
+    "mtime": 1786368422.3768244,
+    "ast_hash": "e89ac0ad83af829532e3d3952a83cbef",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS01.png": {
+    "mtime": 1786368422.3848245,
+    "ast_hash": "836ad6cb90944e093e3c3dd6b4310ca1",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS01.svg": {
+    "mtime": 1786368422.386822,
+    "ast_hash": "c1963ca25815e1246ce40179aa4dc050",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS02.png": {
+    "mtime": 1786368422.3908226,
+    "ast_hash": "868b01e1ea580638b09a824058120aaf",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS02.svg": {
+    "mtime": 1786368422.3928268,
+    "ast_hash": "a7c901cedd792eeed478807b880d1aa5",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS04.png": {
+    "mtime": 1786368422.3958259,
+    "ast_hash": "9b22a155443f06aef8cfae602b93b0bf",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS04.svg": {
+    "mtime": 1786368422.40183,
+    "ast_hash": "1e2a19691a9bc76fadaa77df91048931",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS06.png": {
+    "mtime": 1786368422.4178462,
+    "ast_hash": "4c28bef19269863f289372ad032f2d08",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS06.svg": {
+    "mtime": 1786368422.4188476,
+    "ast_hash": "ebed6286727f284c04dda50f88989ce1",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS07.png": {
+    "mtime": 1786368422.4253843,
+    "ast_hash": "1fabffb8d998b176af29e19f6dc6faa9",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS07.svg": {
+    "mtime": 1786368422.4354,
+    "ast_hash": "099bab857b35b2d8f467e1d55fc19dd1",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS08.png": {
+    "mtime": 1786368422.4473906,
+    "ast_hash": "8fef47aacda24a4eabd3294d93a178b8",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-CUS08.svg": {
+    "mtime": 1786368422.4493861,
+    "ast_hash": "ea77139533b00a458d090dabff7d3369",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE01.png": {
+    "mtime": 1786368422.4523826,
+    "ast_hash": "1690bc44879dc4ce4c28d63f0a8bc4fa",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE01.svg": {
+    "mtime": 1786368422.454385,
+    "ast_hash": "ba2b8ac1dc98ac27ebff7d7edc21028e",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE02.png": {
+    "mtime": 1786368422.4573836,
+    "ast_hash": "c2ea05cecb86c5c9fbadce2297d8febe",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE02.svg": {
+    "mtime": 1786368422.4593863,
+    "ast_hash": "ea4f28413fced9114853833bae65eb33",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE03.png": {
+    "mtime": 1786368422.4633842,
+    "ast_hash": "0460635d59351ae3d252c25e1b9bd422",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE03.svg": {
+    "mtime": 1786368422.4643874,
+    "ast_hash": "86e022a1ce8044681193e581246dc205",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE05.png": {
+    "mtime": 1786368422.4913821,
+    "ast_hash": "c79e522ac70123b1fecd7667b8cb5e2d",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE05.svg": {
+    "mtime": 1786368422.512404,
+    "ast_hash": "9de16025f84276d9ded7848c03673544",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE06.png": {
+    "mtime": 1786368422.5164022,
+    "ast_hash": "13ce730b2ddb961d723027ec22cc7e5e",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE06.svg": {
+    "mtime": 1786368422.519402,
+    "ast_hash": "658d8e061fdd9d13276093d5eaba5da7",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE08.png": {
+    "mtime": 1786368422.5229354,
+    "ast_hash": "aed1dcff69d1af1fd683f6a545ce999a",
+    "semantic_hash": ""
+  },
+  "public/assets/products/SW-PRE08.svg": {
+    "mtime": 1786368422.5259335,
+    "ast_hash": "5407b756ad30c98af5baebb8e181880c",
+    "semantic_hash": ""
+  },
+  "public/icono-rcp.png": {
+    "mtime": 1786368422.5309367,
+    "ast_hash": "915abe2659436ea7ca2c87ee76a8f6a4",
+    "semantic_hash": ""
+  },
+  "public/leopardo-rcp.png": {
+    "mtime": 1786368422.5349312,
+    "ast_hash": "5dd9ae904d4a72f06bdabcbd5ebc39c6",
+    "semantic_hash": ""
+  },
+  "public/logo-rcp-master.svg": {
+    "mtime": 1786368422.546934,
+    "ast_hash": "67f76f188f000fb3e7cdda7a01c8ccb6",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_compacto_fondo_claro.png": {
+    "mtime": 1786368422.5759342,
+    "ast_hash": "20cb7680624adda46eb4738c367b441e",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_compacto_fondo_claro.svg": {
+    "mtime": 1786368422.5929353,
+    "ast_hash": "1287385070d1120ad075ef5f562ca78b",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_compacto_fondo_oscuro.png": {
+    "mtime": 1786368422.5969381,
+    "ast_hash": "d48d9e797686067c7adda460ddf650a5",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_compacto_fondo_oscuro.svg": {
+    "mtime": 1786368422.5989351,
+    "ast_hash": "1292cdca70bae5c5db135fd695e8839e",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_fondo_claro.png": {
+    "mtime": 1786368422.604936,
+    "ast_hash": "8ea156341c718a9572c049d23be0ce6e",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_fondo_claro.svg": {
+    "mtime": 1786368422.6089616,
+    "ast_hash": "67f76f188f000fb3e7cdda7a01c8ccb6",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_fondo_oscuro.png": {
+    "mtime": 1786368422.613966,
+    "ast_hash": "33a7b97a95be86918ab60d178cdd3c85",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_fondo_oscuro.svg": {
+    "mtime": 1786368422.6324942,
+    "ast_hash": "db6a4b9d13ae595fc514f8e96cd566d1",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_master_vectorial.png": {
+    "mtime": 1786368422.6773534,
+    "ast_hash": "8ea156341c718a9572c049d23be0ce6e",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_master_vectorial.svg": {
+    "mtime": 1786368422.690355,
+    "ast_hash": "67f76f188f000fb3e7cdda7a01c8ccb6",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_monocromo_blanco.png": {
+    "mtime": 1786368422.73691,
+    "ast_hash": "a2c2f29d485c8c16936c506d3a5a86e1",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_monocromo_blanco.svg": {
+    "mtime": 1786368422.743325,
+    "ast_hash": "4f6362983ec5d4fad5404209a42f20c2",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_monocromo_carbon.png": {
+    "mtime": 1786368422.7514637,
+    "ast_hash": "215b0f1071b606d2d61f6c55382542d3",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_monocromo_carbon.svg": {
+    "mtime": 1786368422.7644827,
+    "ast_hash": "32b0cd9ea4a9b39e61e8043e9de0bd3f",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_simbolo.png": {
+    "mtime": 1786368422.778072,
+    "ast_hash": "5dd9ae904d4a72f06bdabcbd5ebc39c6",
+    "semantic_hash": ""
+  },
+  "public/logo_rcp_simbolo.svg": {
+    "mtime": 1786368422.7819607,
+    "ast_hash": "ba7458ccc95771950b8bee3161115cfc",
+    "semantic_hash": ""
   }
 }
