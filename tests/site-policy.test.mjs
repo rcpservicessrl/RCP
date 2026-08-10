@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
@@ -110,4 +110,19 @@ test('public forms use isolated intake tables and private object paths', async (
   assert.doesNotMatch(contact, /getPublicUrl\(filePath\)/);
   assert.match(careers, /crypto\.randomUUID\(\)/);
   assert.match(contact, /crypto\.randomUUID\(\)/);
+});
+
+test('legacy SQL snippets fail closed before historical public-schema DDL', async () => {
+  const snippetsDirectory = new URL('../supabase/snippets/', import.meta.url);
+  const entries = await readdir(snippetsDirectory, { withFileTypes: true });
+  const sqlFiles = entries.filter((entry) => entry.isFile() && entry.name.endsWith('.sql'));
+
+  assert.ok(sqlFiles.length > 0);
+  for (const entry of sqlFiles) {
+    const content = await readFile(new URL(entry.name, snippetsDirectory), 'utf8');
+    const guard = content.slice(0, 500);
+    assert.match(guard, /ARCHIVED SNAPSHOT — DO NOT EXECUTE/i, entry.name);
+    assert.match(guard, /RAISE EXCEPTION 'Archived RCP Services SQL/i, entry.name);
+    assert.match(guard, /20260810160000/, entry.name);
+  }
 });
