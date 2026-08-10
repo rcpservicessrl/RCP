@@ -200,7 +200,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
       let supabase: any = null;
       try {
-        if ((window as any).supabase) supabase = (window as any).supabase.createClient(supabaseUrl, supabaseKey);
+        if ((window as any).supabase) {
+          supabase = (window as any).supabase.createClient(
+            supabaseUrl,
+            supabaseKey,
+            { db: { schema: 'rcp_services' } }
+          );
+        }
       } catch (e) {
         console.error("Error initializing Supabase client in careers page:", e);
       }
@@ -245,15 +251,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           }
 
           try {
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${Date.now()}_${nombre.replace(/\s+/g, '_')}.${fileExt}`;
+            const fileExt = file.name.split('.').pop()?.toLowerCase() || 'pdf';
+            const fileName = `${crypto.randomUUID()}.${fileExt}`;
             const filePath = `cvs/${fileName}`;
             const { error: uploadError } = await supabase.storage.from('candidatos-cv').upload(filePath, file);
             if (uploadError) throw uploadError;
-            const { data: { publicUrl } } = supabase.storage.from('candidatos-cv').getPublicUrl(filePath);
 
-            const { error: insertError } = await supabase.from('candidatos').insert([{
-              nombre, email, telefono, especialidad, portafolio, cv_url: publicUrl
+            const { error: insertError } = await supabase.from('postulaciones').insert([{
+              nombre, email, telefono, especialidad, portafolio, cv_url: filePath
             }]);
             if (insertError) throw insertError;
 

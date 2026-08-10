@@ -1089,97 +1089,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         body: bookingPayloadString
       });
 
-      const randomCode = 'RCP-' + Math.floor(1000 + Math.random() * 9000);
-      const encoder = new TextEncoder();
-      const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(randomCode));
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-      const diagnosticoObj = {
-        appointment_date: selectedDateString,
-        appointment_time: selectedTimeSlot,
-        meet_link: meetLink,
-        challenges: message,
-        created_at: new Date().toISOString()
-      };
-
-      const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
-      const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
-      const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
-      let supabase = null;
-      try {
-        if (window.supabase) {
-          supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-        }
-      } catch (e) {
-        console.error("Error initializing Supabase client:", e);
-      }
-
-      let supabasePromise = Promise.resolve();
-      if (supabase) {
-        supabasePromise = (async () => {
-          try {
-            const { data: existingClient, error: selectError } = await supabase
-              .rpc('verificar_existencia_cliente', { p_email: email })
-              .maybeSingle();
-
-            if (selectError) throw selectError;
-
-            if (existingClient) {
-              const updatePayload = {
-                diagnostico_360: diagnosticoObj
-              };
-              if (existingClient.status === 'pending_activation') {
-                updatePayload.access_code = randomCode;
-                updatePayload.access_code_hash = hashHex;
-                updatePayload.company_name = company;
-                updatePayload.owner_name = name;
-                updatePayload.phone = phone;
-              }
-              const { error: updateError } = await supabase
-                .from('clientes')
-                .update(updatePayload)
-                .eq('id', existingClient.id);
-
-              if (updateError) throw updateError;
-            } else {
-            const newClient = {
-                email: email,
-                owner_name: name,
-                company_name: company,
-                legal_id: 'RNC-Pendiente',
-                address: 'Pendiente',
-                status: 'pending_activation',
-                access_code: randomCode,
-                access_code_hash: hashHex,
-                diagnostico_360: diagnosticoObj,
-                ventas: 0,
-                ventas_trend: '▲ +0%',
-                cpl: 0,
-                cpl_trend: '▼ -0%',
-                roas: 0.0,
-                roas_trend: '▲ +0x',
-                ltv: 0,
-                ltv_trend: '▲ +0%',
-                tramite_onapi: 0,
-                tramite_camara: 0,
-                tramite_dgii: 0,
-                chart_data: [0, 0, 0, 0, 0, 0, 0],
-                pagos: []
-            };
-              const { error: insertError } = await supabase
-                .from('clientes')
-                .insert([newClient]);
-
-              if (insertError) throw insertError;
-            }
-          } catch (dbErr) {
-            console.error("Error saving client booking in Supabase:", dbErr);
-          }
-        })();
-      }
-
-      Promise.allSettled([leadPipelineCall, supabasePromise])
+      Promise.allSettled([leadPipelineCall])
         .then(() => {
           document.getElementById('bookingStep2').style.display = 'none';
           const step3 = document.getElementById('bookingStep3');
@@ -1941,22 +1851,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ─── OFFLINE OUTBOX QUEUE SYSTEM ───
-  function loadSupabaseScript() {
-    return new Promise((resolve, reject) => {
-      if (window.supabase) {
-        resolve();
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';
-      script.integrity = 'sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug';
-      script.crossOrigin = 'anonymous';
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error('Failed to load Supabase SDK'));
-      document.body.appendChild(script);
-    });
-  }
-
   async function syncOfflineQueue() {
     const queue = JSON.parse(localStorage.getItem('rcp_offline_queue') || '[]');
     if (queue.length === 0) return;
@@ -1980,63 +1874,6 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!resp.ok) throw new Error('Webhook failed with status ' + resp.status);
         }
 
-        // 2. Send the Supabase update (for checkouts)
-        if (item.supabaseData) {
-          await loadSupabaseScript();
-          const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
-          const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
-          const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
-          const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-          const sd = item.supabaseData;
-          const { data: existingClient, error: selectError } = await supabaseClient
-            .from('clientes')
-            .select('id, status, pagos')
-            .eq('email', sd.email)
-            .maybeSingle();
-
-          if (selectError) throw selectError;
-
-          if (existingClient) {
-            const existingPagos = Array.isArray(existingClient.pagos) ? existingClient.pagos : [];
-            const alreadyPaid = existingPagos.some(p => p.id === sd.newPago.id);
-            if (!alreadyPaid) {
-              existingPagos.push(sd.newPago);
-            }
-            const updatePayload = {
-              pagos: existingPagos,
-              company_name: sd.company,
-              owner_name: sd.name,
-              phone: sd.phone,
-              address: sd.address,
-              legal_id: sd.rnc
-            };
-            if (!existingClient.status || existingClient.status === 'pending_activation') {
-              updatePayload.status = sd.status;
-            }
-            const { error: updateError } = await supabaseClient
-              .from('clientes')
-              .update(updatePayload)
-              .eq('id', existingClient.id);
-            if (updateError) throw updateError;
-          } else {
-            const newClient = {
-              company_name: sd.company,
-              legal_id: sd.rnc,
-              owner_name: sd.name,
-              email: sd.email,
-              phone: sd.phone,
-              address: sd.address,
-              status: sd.status,
-              access_code: sd.accessCode,
-              pagos: [sd.newPago]
-            };
-            const { error: insertError } = await supabaseClient
-              .from('clientes')
-              .insert([newClient]);
-            if (insertError) throw insertError;
-          }
-        }
       } catch (err) {
         console.error('[Offline Sync] Failed to sync item:', err);
         remaining.push(item);

@@ -121,7 +121,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
     const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
     let supabase: any = null;
-    try { if ((window as any).supabase) supabase = (window as any).supabase.createClient(supabaseUrl, supabaseKey); }
+    try {
+      if ((window as any).supabase) {
+        supabase = (window as any).supabase.createClient(
+          supabaseUrl,
+          supabaseKey,
+          { db: { schema: 'rcp_services' } }
+        );
+      }
+    }
     catch (e) { console.error(e); }
 
     const step1 = document.getElementById('step1')!;
@@ -215,7 +223,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         phone: prefixSelect.value + ' ' + (document.getElementById('obPhone') as HTMLInputElement).value.trim(),
         address: (document.getElementById('obAddress') as HTMLInputElement).value.trim(),
         legal_id: (document.getElementById('obRnc') as HTMLInputElement).value.trim(),
-        status: 'pending_activation',
+        status: 'review',
         diagnostico_360: { q1_etapa: q1Final, q2_desafios: q2Final, q3_intereses: q3Final }
       };
 

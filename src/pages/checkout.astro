@@ -172,7 +172,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       try {
         const filter = encodeURIComponent(`(${requestedSkus.join(',')})`);
         const url = `${supabaseUrl}/rest/v1/productos?sku=in.${filter}&is_active=eq.true&select=sku,name_es,price_min,requires_quote,precio_inicial,precio_recurrente`;
-        const response = await fetch(url, { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } });
+        const response = await fetch(url, {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+            'Accept-Profile': 'rcp_services'
+          }
+        });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const products = await response.json();
         verifiedItems = requestedSkus.map((sku) => products.find((item: any) => item.sku === sku)).filter(Boolean);

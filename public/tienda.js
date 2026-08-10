@@ -115,7 +115,7 @@ function loadFromSupabase(){
   if(grid) grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;"><div class="store-loading-spinner"></div><p style="color:#8e8f94;margin-top:16px;">'+(isEN()?'Loading products...':'Cargando productos...')+'</p></div>';
 
   fetch(SUPABASE_URL+'/rest/v1/productos?is_active=eq.true&order=sort_order.asc&select=sku,name_es,name_en,description_es,description_en,price_min,delivery_days_min,delivery_days_max,category,price_type,requires_quote,precio_inicial,precio_recurrente,frecuencia_recurrente,imagenes,especificaciones',{
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Accept-Profile':'rcp_services'}
   }).then(function(r){
     if(!r.ok) throw new Error('HTTP '+r.status);
     return r.json();
