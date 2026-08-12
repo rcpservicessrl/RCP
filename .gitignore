@@ -62,6 +62,7 @@ graphify-out/GRAPH_REPORT.md
 graphify-out/graph.html
 graphify-out/memory/
 graphify-out/reflections/
+graphify-out/20*/
 
 # Ephemeral multi-agent execution records
 .agents/
