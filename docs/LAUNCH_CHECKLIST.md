@@ -1,32 +1,57 @@
-# Checklist de lanzamiento
+# Checklist de lanzamiento RCP Services 6.0-RC2
 
-## Gate 1 — evidencia
+## 1. Negocio, marca y contenido
 
-- [ ] Claims públicos con fuente/propietario/aprobación.
-- [x] Datos operativos incorporados: RNC, dirección, Zoho Mail, cotización sin pagos/Odoo y política de reembolsos.
-- [ ] Revisión legal externa de plazos de retención y contratos futuros, si aplica.
-- [ ] Precios y catálogo aprobados por negocio.
+- [x] D-01 a D-11 consolidadas en RC2.
+- [x] Tres pilares, Publicidad 360 como descriptor y tecnología transversal.
+- [x] Evaluación gratuita separada del diagnóstico pagado.
+- [x] Estados comerciales/técnicos filtran toda superficie pública.
+- [x] Pulso y tres posturas aprobadas protegidos por hash.
+- [ ] Aprobación visual/comercial del SHA exacto en staging.
+- [ ] Revisión humana de políticas, privacidad y contratos aplicables.
 
-## Gate 2 — ingeniería
+## 2. Ingeniería local
 
-- [ ] `npm ci`, `npm test` y `npm run build` en Node 22.12 o superior.
-- [ ] Auditoría de dependencias sin hallazgos críticos no aceptados.
-- [ ] Pruebas teclado, contraste, móvil 390 px y escritorio.
-- [ ] Enlaces, formularios, robots, canonical, sitemap y 404 validados.
-- [ ] RLS por rol y fallos de red probados.
+- [x] TypeScript aprobado.
+- [x] 42/42 pruebas aprobadas.
+- [x] Build Next 16 con Node 24 aprobado.
+- [x] Auditoría productiva sin vulnerabilidades conocidas.
+- [x] 390×844, 768×1024, 1280×720 y 1440×900 revisados; sin overflow ni imágenes rotas.
+- [x] ES/EN, claro/oscuro, música, búsqueda, menú, rutas, catálogo y cuatro pasos de evaluación funcionales.
+- [x] Redirect 308, sitemap, robots de staging y headers comprobados.
+- [ ] Auditoría automatizada de accesibilidad sin hallazgos críticos/serios.
+- [ ] Checks CI Linux del commit candidato.
 
-## Gate 3 — operación
+## 3. Staging e integraciones
 
-- [x] Staging aislado creado en Vercel; pendiente UAT y aprobación funcional.
-- [ ] Backup de commit, datos, configuración y DNS exportado.
-- [ ] Propietarios de GitHub, DNS, Supabase, Google Analytics y Zoho Mail confirmados.
-- [ ] Prueba controlada: una cotización llega a `info@rcp.services` y se responde desde Zoho Mail.
-- [ ] Monitoreo y rollback ensayados.
+- [ ] Proyecto/equipo Vercel Pro confirmado.
+- [ ] Deployment `staging.rcp.services` con `noindex` y SHA registrado.
+- [ ] Resend/subdominio con SPF/DKIM y entrega única hacia Zoho.
+- [ ] Turnstile y protección distribuida/rate limit comprobados.
+- [ ] Sentry, PostHog y UptimeRobot configurados o diferidos formalmente.
+- [ ] UAT visual, funcional, SEO/AEO y formulario aprobado.
 
-## Gate 4 — producción
+## 4. CRM
 
-- [ ] Aprobación humana explícita del commit exacto.
-- [ ] Despliegue, smoke test y observación de 60 minutos.
-- [ ] Registro de versión, hora, operador y resultado.
+- [ ] Vulnerabilidades de autorización, SSRF, replay, medios y middleware cerradas.
+- [ ] 593 pruebas baseline más escenarios de seguridad aprobados.
+- [ ] 31 migraciones reconciliadas mediante restore aislado y forward-only.
+- [ ] Secretos rotados y configuración re-cifrada.
+- [ ] Backup/restauración, outbox, cron y contratos de intake comprobados.
+- [ ] Vercel estable siete días antes de retirar Netlify.
 
-Pagos en línea y Odoo están fuera de alcance. El lanzamiento usa exclusivamente cotización por WhatsApp o correo; cualquier cambio requiere una nueva evaluación de seguridad, legal y operación.
+## 5. Hub
+
+- [ ] Aplicación separada y esquema local implementados.
+- [ ] Flujo sintético completo y aislamiento entre dos organizaciones aprobados.
+- [ ] Ningún usuario externo durante piloto local.
+- [ ] Para apertura: Supabase Pro separado, contrato, backup, MFA y RLS aprobados.
+
+## 6. Corte web
+
+- [ ] `main` protegida, PR aprobado y SHA/deployment registrados.
+- [ ] Export Route 53 y rollback Astro comprobados.
+- [ ] Cambiar solo apex/`www` y observar 60 min, 24 h, 7 días y 30 días.
+- [ ] Mantener GitHub Pages 30 días.
+
+No se marca la meta como completa mientras los gates externos sigan abiertos.

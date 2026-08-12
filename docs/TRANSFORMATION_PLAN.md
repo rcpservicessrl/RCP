@@ -1,5 +1,7 @@
 # Plan de transformación
 
+> Plan histórico previo a Blueprint 5. El alcance implementado y los gates vigentes están en `BLUEPRINT_5_IMPLEMENTATION.md` y `LAUNCH_CHECKLIST.md`.
+
 ## Entrega 1 - Estabilización
 
 - Bloquear checkout vacío y payloads manipulados.

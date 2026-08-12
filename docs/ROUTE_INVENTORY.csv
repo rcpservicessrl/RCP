@@ -1,21 +1,59 @@
-route,source,visibility,robots,canonical,purpose,status,action,owner
-/,src/pages/index.astro,public,index follow,https://rcp.services/,corporate landing,stabilized,approve remaining claims,Marketing
-/servicios,src/pages/servicios.astro,public,index follow,https://rcp.services/servicios,service catalog,active,centralize content,Commercial
-/tienda,src/pages/tienda.astro,public,index follow,https://rcp.services/tienda,catalog and quote selection,stabilized,approve catalog governance,Commercial
-/checkout,src/pages/checkout.astro,quote,noindex nofollow noarchive,https://rcp.services/checkout,SKU quote request,stabilized,add server order only with payment sandbox,Finance
-/diagnostico,src/pages/diagnostico.astro,public,index follow,https://rcp.services/diagnostico,local self-assessment,stabilized,approve methodology,Consulting
-/portal,src/pages/portal.astro,private,noindex nofollow noarchive,https://rcp.services/portal,authentication,active,authenticated E2E,Support
-/dashboard,src/pages/dashboard.astro,private,noindex nofollow noarchive,https://rcp.services/dashboard,client admin dashboard,partial,authenticated RBAC tests,Operations
-/onboarding,src/pages/onboarding.astro,private,noindex nofollow noarchive,https://rcp.services/onboarding,client onboarding,partial,privacy and recovery tests,Support
-/formulario-contacto,src/pages/formulario-contacto.astro,private form,noindex nofollow noarchive,https://rcp.services/formulario-contacto,lead form,partial,rate limit and logs,Commercial
-/nosotros,src/pages/nosotros.astro,public,index follow,https://rcp.services/nosotros,company profile,active,verify legal claims,Marketing
-/media,src/pages/media.astro,public,index follow,https://rcp.services/media,resource hub,partial,individual resource pages,Content
-/carreras,src/pages/carreras.astro,public,index follow,https://rcp.services/carreras,recruitment,partial,privacy retention and consent,HR
-/casos/electromuebles,src/pages/casos/electromuebles.astro,public,index follow,https://rcp.services/casos/electromuebles,case study,needs evidence,verify consent and results,Marketing
-/propuesta-inversion,src/pages/propuesta-inversion.astro,restricted,noindex nofollow noarchive,https://rcp.services/propuesta-inversion,investor proposal,risk,add authentication if confidential,Direction
-/privacidad,src/pages/privacidad.astro,public,index follow,https://rcp.services/privacidad,privacy policy,draft,legal approval,Legal
-/terminos,src/pages/terminos.astro,public,index follow,https://rcp.services/terminos,terms,draft,legal approval,Legal
-/cookies,src/pages/cookies.astro,public,index follow,https://rcp.services/cookies,cookie policy,draft,legal approval,Legal
-/reembolsos,src/pages/reembolsos.astro,public,index follow,https://rcp.services/reembolsos,cancellation and refunds,draft,legal approval,Legal
-/accesibilidad,src/pages/accesibilidad.astro,public,index follow,https://rcp.services/accesibilidad,accessibility statement,active,complete WCAG audit,Engineering
-/404.html,src/pages/404.astro,public,,,not found,active,monitor 404,Engineering
+route,source,visibility,robots,canonical,purpose,status,owner
+/,app/page.tsx,public,index follow,https://rcp.services/,corporate entry,implemented,Marketing
+/servicios,app/servicios/page.tsx,public,index follow,https://rcp.services/servicios,three-pillar directory,implemented,Commercial
+/servicios/renovacion,app/servicios/renovacion/page.tsx,public,index follow,https://rcp.services/servicios/renovacion,Renewal pillar detail,implemented,Commercial
+/servicios/consultoria,app/servicios/consultoria/page.tsx,public,index follow,https://rcp.services/servicios/consultoria,Consulting pillar detail,implemented,Commercial
+/servicios/publicidad,app/servicios/publicidad/page.tsx,public,index follow,https://rcp.services/servicios/publicidad,Advertising pillar detail with Publicidad 360 scope,implemented,Commercial
+/catalogo,app/catalogo/page.tsx,public,index follow,https://rcp.services/catalogo,service and product catalog,implemented,Commercial
+/soluciones-tecnologicas,app/soluciones-tecnologicas/page.tsx,public,index follow,https://rcp.services/soluciones-tecnologicas,technology capability directory,implemented,Technology
+/software-a-la-medida,app/software-a-la-medida/page.tsx,public,index follow,https://rcp.services/software-a-la-medida,custom software offer,implemented,Technology
+/facturacion-electronica,app/facturacion-electronica/page.tsx,public,index follow,https://rcp.services/facturacion-electronica,electronic invoicing boundary and offer,implemented,Technology
+/como-trabajamos,app/como-trabajamos/page.tsx,public,index follow,https://rcp.services/como-trabajamos,RCP delivery method,implemented,Operations
+/sectores,app/sectores/page.tsx,public,index follow,https://rcp.services/sectores,common business routes by sector,implemented,Commercial
+/diagnostico,app/diagnostico/page.tsx,public,index follow,https://rcp.services/diagnostico,qualification entry,implemented,Commercial
+/contacto,app/contacto/page.tsx,public,index follow,https://rcp.services/contacto,contact channels and expectations,implemented,Commercial
+/recursos,app/recursos/page.tsx,public,index follow,https://rcp.services/recursos,public resource directory,implemented,Content
+/nosotros,app/nosotros/page.tsx,public,index follow,https://rcp.services/nosotros,business model and company,implemented,Direction
+/media,app/media/page.tsx,public,index follow,https://rcp.services/media,approved resource library,implemented,Content
+/especialistas,app/especialistas/page.tsx,public,index follow,https://rcp.services/especialistas,specialist network,implemented,Operations
+/especialistas/postular,app/especialistas/postular/page.tsx,public,index follow,https://rcp.services/especialistas/postular,specialist application,implemented with CRM gate,Operations
+/carreras,next.config.ts,redirect,not indexed,,legacy specialist route,308 to /especialistas,Operations
+/privacidad,app/privacidad/page.tsx,public,index follow,https://rcp.services/privacidad,privacy policy,legal review pending,Legal
+/terminos,app/terminos/page.tsx,public,index follow,https://rcp.services/terminos,terms of use,legal review pending,Legal
+/cookies,app/cookies/page.tsx,public,index follow,https://rcp.services/cookies,cookie policy,legal review pending,Legal
+/accesibilidad,app/accesibilidad/page.tsx,public,index follow,https://rcp.services/accesibilidad,accessibility statement,implemented,Engineering
+/en,app/en/page.tsx,public,index follow,https://rcp.services/en,English corporate entry,implemented,Marketing
+/en/services,app/en/services/page.tsx,public,index follow,https://rcp.services/en/services,English pillar directory,implemented,Commercial
+/en/services/renewal,app/en/services/renewal/page.tsx,public,index follow,https://rcp.services/en/services/renewal,English Renewal detail,implemented,Commercial
+/en/services/consulting,app/en/services/consulting/page.tsx,public,index follow,https://rcp.services/en/services/consulting,English Consulting detail,implemented,Commercial
+/en/services/advertising,app/en/services/advertising/page.tsx,public,index follow,https://rcp.services/en/services/advertising,English Advertising detail,implemented,Commercial
+/en/catalog,app/en/catalog/page.tsx,public,index follow,https://rcp.services/en/catalog,English catalog,implemented,Commercial
+/en/technology-solutions,app/en/technology-solutions/page.tsx,public,index follow,https://rcp.services/en/technology-solutions,English technology directory,implemented,Technology
+/en/custom-software,app/en/custom-software/page.tsx,public,index follow,https://rcp.services/en/custom-software,English custom software offer,implemented,Technology
+/en/electronic-invoicing,app/en/electronic-invoicing/page.tsx,public,index follow,https://rcp.services/en/electronic-invoicing,English electronic invoicing offer,implemented,Technology
+/en/how-we-work,app/en/how-we-work/page.tsx,public,index follow,https://rcp.services/en/how-we-work,English RCP delivery method,implemented,Operations
+/en/sectors,app/en/sectors/page.tsx,public,index follow,https://rcp.services/en/sectors,English business routes by sector,implemented,Commercial
+/en/diagnosis,app/en/diagnosis/page.tsx,public,index follow,https://rcp.services/en/diagnosis,English qualification entry,implemented,Commercial
+/en/contact,app/en/contact/page.tsx,public,index follow,https://rcp.services/en/contact,English contact page,implemented,Commercial
+/en/resources,app/en/resources/page.tsx,public,index follow,https://rcp.services/en/resources,English public resource directory,implemented,Content
+/en/about,app/en/about/page.tsx,public,index follow,https://rcp.services/en/about,English company page,implemented,Direction
+/en/media,app/en/media/page.tsx,public,index follow,https://rcp.services/en/media,English resource library,implemented,Content
+/en/specialists,app/en/specialists/page.tsx,public,index follow,https://rcp.services/en/specialists,English specialist network,implemented,Operations
+/en/specialists/apply,app/en/specialists/apply/page.tsx,public,index follow,https://rcp.services/en/specialists/apply,English specialist application,implemented with CRM gate,Operations
+/en/careers,next.config.ts,redirect,not indexed,,legacy English specialist route,308 to /en/specialists,Operations
+/en/privacy,app/en/privacy/page.tsx,public,index follow,https://rcp.services/en/privacy,English privacy policy,legal review pending,Legal
+/en/terms,app/en/terms/page.tsx,public,index follow,https://rcp.services/en/terms,English terms,legal review pending,Legal
+/en/cookies,app/en/cookies/page.tsx,public,index follow,https://rcp.services/en/cookies,English cookie policy,legal review pending,Legal
+/en/accessibility,app/en/accessibility/page.tsx,public,index follow,https://rcp.services/en/accessibility,English accessibility statement,implemented,Engineering
+/portal,app/portal/page.tsx,controlled,noindex nofollow,,Portal boundary,placeholder pending product,Operations
+/en/portal,app/en/portal/page.tsx,controlled,noindex nofollow,,English Portal boundary,placeholder pending product,Operations
+/checkout,app/checkout/page.tsx,compatibility,noindex nofollow,,legacy reference review,implemented,Commercial
+/en/request,app/en/request/page.tsx,compatibility,noindex nofollow,,English reference review,implemented,Commercial
+/api/health,app/api/health/route.ts,operational,disallow,,availability probe,implemented,Engineering
+/api/inquiries,app/api/inquiries/route.ts,server endpoint,disallow,,validated qualification request,implemented integrations optional,Engineering
+/api/specialist-applications,app/api/specialist-applications/route.ts,server endpoint,disallow,,validated specialist application,implemented with explicit CRM confirmation,Engineering
+/catalog-index.json,app/catalog-index.json/route.ts,public,indexable asset,,search and agent index,implemented,Content
+/llms.txt,app/llms.txt/route.ts,public,indexable asset,,AEO boundary summary,implemented,Content
+/sitemap.xml,app/sitemap.ts,public,indexable asset,,public route discovery,implemented,Engineering
+/robots.txt,app/robots.ts,public,indexable asset,,crawler policy,implemented,Engineering
+/manifest.webmanifest,app/manifest.ts,public,indexable asset,,web manifest,implemented,Engineering

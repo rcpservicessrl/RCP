@@ -1,26 +1,22 @@
-# Modelo de amenazas
+# Modelo de amenazas web RCP Services 6.0-RC2
 
-## Activos
+## Activos y límites
 
-Identidad corporativa, catálogo/precios, solicitudes y PII, cuentas del portal, documentos de clientes, cupones, órdenes, analítica, configuración de despliegue y credenciales de integraciones.
+Activos: marca/Pulso, contenido aprobado, solicitudes y consentimiento, secretos de proveedor, DNS y deployments.
 
-## Límites de confianza
+Límites: `navegador -> Vercel/Next -> Resend o CRM`; `repositorio -> CI protegida -> Vercel`; `Hub y CRM -> Supabase separado por esquema/proyecto`. El navegador no decide precio, rol, aceptación ni estado operativo.
 
-Navegador público → GitHub Pages → Supabase público; navegador → Google Cloud lead endpoint; usuario autenticado → Supabase Auth/RLS; repositorio → GitHub Actions → Pages. El navegador nunca es autoridad de precio, descuento, pago, rol o estado de orden.
-
-## Riesgos prioritarios
-
-| Amenaza | Control actual/cambio | Pendiente |
+| Amenaza | Control implementado | Gate pendiente |
 |---|---|---|
-| Manipulación de precio por URL | Checkout transaccional retirado; solo acepta SKU y reconsulta catálogo | Crear orden/cotización autoritativa en servidor |
-| Pago falso o doble | Simulación CardNet/PayPal retirada | Integrar proveedor sandbox con idempotencia y webhook firmado |
-| XSS en catálogo | Escape de campos en puntos críticos | Centralizar render seguro y CSP viable |
-| Abuso de formularios | Validación y consentimiento explícito en cotización | Rate limit/CAPTCHA accesible en backend |
-| Acceso indebido a datos | Supabase RLS confirmado | Pruebas automatizadas de cada rol |
-| Fuga de secretos | `.env` no versionado; clave pública separada | Rotación coordinada solo con inventario y rollback |
-| Cadena de suministro | Lockfile y CI | Resolver 5 avisos de dependencias con upgrade probado |
-| Contenido privado indexado | `noindex` en propuesta | Autenticación real si debe seguir accesible |
+| spam/payload abusivo | 24 KB, validación, honeypot, Turnstile opcional, bucket local | rate limit distribuido/WAF en staging |
+| duplicado/replay | `Idempotency-Key`, timestamp y HMAC hacia CRM | restricción y prueba remota concurrente |
+| fuga de PII | formulario mínimo, `no-store`, PostHog/Sentry sin texto libre | configuración y prueba de redacción |
+| robo de secretos | server-only, `.env` ignorado, CSP | secretos Vercel por entorno y rotación |
+| XSS/clickjacking | React escaping, CSP, `frame-ancestors`, `nosniff` | verificar headers en staging |
+| contenido no aprobado | estados comerciales y filtros comunes | revisión del SHA exacto |
+| SEO contaminado | legado fuera de `public`, alias 308 fuera de sitemap | Search Console tras corte |
+| marca alterada | hashes, allowlist y `object-fit: contain` | aprobación explícita para nuevas poses |
+| Portal prematuro | fuera de navegación y `noindex` | Hub Pro, invitación, MFA y RLS |
+| despliegue accidental | workflow manual y ambientes separados | protección `main`, revisores y Pro confirmados |
 
-## Casos obligatorios antes de pagos
-
-Idempotencia, repetición de webhook, firma inválida, importe alterado, SKU inactivo, cupón vencido, timeout, pago exitoso sin persistencia, persistencia sin pago, reembolso y conciliación.
+No se usa el rate limit en memoria como único control de producción distribuida.

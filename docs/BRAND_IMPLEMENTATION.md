@@ -1,24 +1,32 @@
-# Implementación de marca RCP Services
+# Implementación de marca RCP Services — Blueprint 5
 
-Fecha de control: 2026-08-05
+Fecha de control: 2026-08-11.
 
 ## Autoridad
 
-La autoridad vigente es `DECISION_IDENTIDAD_VIGENTE_2026-07-31.md` y el sistema visual v1.0 de `01 - Identidad y Estrategia/Marca/00_Contexto_Neuronal`. El símbolo es un **jaguar**, no leopardo ni mascota genérica. El activo maestro es `logo_rcp_master_vectorial.svg`; no se redibuja ni se genera con IA.
+Hasta emitir 6.0.0, la identidad vigente combina las decisiones 5.0 no sustituidas, los complementos no contradictorios aceptados de la 6.0-RC1 y las aprobaciones explícitas posteriores registradas en los ADR. El símbolo es un jaguar. Pulso es el nombre oficial de la Mascota Jaguar RCP y puede acompañar la experiencia con moderación profesional. Las tres posturas aprobadas el 2026-08-12 son posteriores a la RC1 y deben incorporarse a RC2 sin eliminarse ni degradarse.
 
-## Reglas implementables
+## Aplicación
 
-- Logotipo: usar las variantes oficiales con contraste apropiado.
-- Paleta: `#FCB53F`, `#000000`, `#FEFEFE`, `#A8CF45`, `#C58F6A`.
-- Tipografía: Montserrat.
-- Escritura: “RCP Services” y “Consultoría” con tilde.
-- Recursos: priorizar fotografía real y el sistema corporativo 2.5D. Los emoji existentes son deuda de migración, no autoridad visual.
-- Prohibido: recrear el jaguar, sustituirlo por leopardo, deformar el logo o mezclar archivos legacy de mascota con el sistema vigente.
+- Promesa principal: “Le damos nuevo impulso a tu negocio.”
+- Narrativa secundaria: “corazón”, “pulso”, “ritmo” y “reanimación” pueden explicar el concepto RCP de forma contextual, pero no sustituyen la promesa principal ni implican resultados garantizados.
+- Línea institucional vigente: “Estrategia que transforma. Tecnología que impulsa.”
+- Logotipos oficiales para fondo claro y oscuro, sin redibujo.
+- Paleta `#FCB53F`, `#000000`, `#FEFEFE`, `#A8CF45`, `#C58F6A`.
+- Montserrat como tipografía principal.
+- Claro/oscuro, espaciado editorial, bordes suaves, alto contraste y acento ámbar.
+- Pulso en cinco escenas deterministas: `idle`, `progress`, `present`, `analyze`, `consider`, resueltas con tres derivados completos y transparentes en vez de recortes de una lámina.
+- Movimiento aplicado al contenedor, nunca a la anatomía o proporción del personaje.
+- Búsqueda, guía contextual y tours convergen en Pulso sin convertirlo en chatbot profesional.
 
-## Estado del sitio
+## Derivados oficiales de Pulso
 
-Los logotipos públicos principales corresponden a la familia oficial. Persisten emoji y un archivo legacy de mascota que no debe usarse como autoridad. La sustitución visual se hará únicamente con activos aprobados y con sus fuentes editables.
+Los archivos `pulso-presenta-v1.png`, `pulso-orienta-v1.png` y `pulso-avanza-v1.png` se generaron offline a partir de los dos maestros oficiales, con bloqueo de especie, rostro, ojos verdes, pelaje, rosetas, vestuario y proporciones. Se eliminó el fondo cromático con transparencia alfa y se verificó el cuerpo completo a resolución original. Los maestros `rcp-mascot-official-views.png` y `rcp-mascot-angles.png` no fueron modificados.
 
-## QA de marca
+RCP Services aprobó explícitamente las tres variantes el 2026-08-12. Desde esta fecha forman parte del conjunto oficial autorizado para la experiencia web, con sus nombres de versión y hashes inmutables. Cualquier modificación visual requiere una nueva versión y otra aprobación; nunca se sobrescriben estos archivos.
 
-En cada entrega: comprobar contraste, proporción, zona de seguridad, ortografía, coherencia de iconos, versión móvil y ausencia de recursos legacy visibles.
+## Prohibiciones
+
+No sustituir el jaguar por leopardo, generar logos, deformar personajes, mezclar estilos no aprobados, usar Pulso como asesor legal/fiscal/financiero o publicar una pose IA sin comparación, aprobación, versión, hash y allowlist.
+
+Las pruebas automatizadas verifican las huellas de los dos maestros web, las tres variantes versionadas, el encuadre sin sprite y el fallback de movimiento reducido.

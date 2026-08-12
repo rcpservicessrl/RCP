@@ -1,35 +1,28 @@
-# Mapa del repositorio
+# Mapa del repositorio web RCP Services 6.0-RC2
 
 ## Autoridad
 
-- Checkout canónico: `C:\RCP\RCP Services\Sitio-Web`.
+- Checkout Astro preservado: `C:\RCP\RCP Services\Sitio-Web`.
+- Worktree candidato: `C:\RCP\.worktrees\rcp-next-blueprint5`.
+- Rama: `codex/rcp-next-blueprint-5`.
 - Remoto: `rcpservicessrl/RCP`.
-- Producción: GitHub Pages en `https://rcp.services`.
-- Base corporativa: Supabase `wpfovxgbennpgydbellw.public`.
-- Autoridad transversal: `C:\RCP\RCP Services\RCP-Matrix`.
-- Autoridad visual: `C:\RCP\RCP Services\01 - Identidad y Estrategia\Marca`.
-
-## Estructura
+- Producción previa al corte: Astro/GitHub Pages en `https://rcp.services`.
+- Objetivo RC2: Next.js en Vercel Pro; Route 53 autoritativo.
+- Fuente de negocio: `FUENTE_DE_VERDAD_6_RC2.md`.
 
 | Ruta | Responsabilidad | Estado |
 |---|---|---|
-| `src/pages` | 15 rutas Astro | Activa |
-| `src/components` | cabecera, pie y widgets globales | Activa |
-| `src/layouts/BaseLayout.astro` | metadatos, scripts y layout global | Crítica |
-| `src/styles` | tokens, base y dashboard | Activa |
-| `src/data/i18n` | traducciones ES/EN | Duplicada con `public/scripts` |
-| `public/tienda.js` | catálogo, filtros, carrito y redirección a checkout | Crítica; deuda alta |
-| `public/scripts/dashboard.js` | portal/admin CRUD | Crítica; monolito |
-| `public/script.js` | widgets, formularios, chat e integraciones | Crítica; monolito |
-| `supabase/snippets` | SQL histórico y migraciones manuales | Debe convertirse en migraciones versionadas |
-| `cloud_function` | lead webhook, Odoo y health checks | Externo al hosting estático |
-| `.github/workflows/deploy.yml` | build y despliegue a Pages | Producción |
-| `knowledge_graph`, `graphify-out`, `.neural_bridge` | contexto neuronal | Activo |
-| `marketing` | campañas históricas | No normativo para la marca vigente |
-| `dist`, `node_modules`, `tmp` | artefactos generados/locales | No editar como fuente |
+| `app/` | rutas, metadata, SEO y APIs | autoridad ejecutable |
+| `components/` | UI, Pulso, búsqueda, catálogo y formularios | activa |
+| `lib/content.ts` | contenido y estados filtrados | autoridad pública estructurada |
+| `lib/server/` | entrega server-side y controles antiabuso | activa; proveedor real pendiente |
+| `public/assets/brand/` | logos y Pulso aprobados | inmutable por hash |
+| `tests-next/` | contratos de negocio, arquitectura y seguridad | 42 pruebas |
+| `.github/workflows/` | CI y despliegue Vercel manual | candidata |
+| `legacy/` | Astro y metadata preservados | archivo/rollback, no compilado |
+| `graphify-out/graph.json` | grafo estructural | regenerado tras cambios |
+| `.next/`, `.open-next/`, `node_modules/` | artefactos locales | no versionar |
 
-## Flujo actual crítico
+Flujo piloto: `contenido filtrado -> selección validada -> API Next -> Resend -> Zoho -> referencia`.
 
-`Supabase productos -> public/tienda.js -> query string custom_items -> checkout.astro -> cálculo cliente -> Cloud Function/Supabase clientes`.
-
-El contrato está roto porque el navegador transporta nombre, importe y descuentos como autoridad. La arquitectura objetivo debe transportar identificadores y cantidades; el servidor/RPC debe resolver versión, vigencia, moneda e importe.
+Flujo futuro: `API Next -> HMAC/idempotencia -> CRM -> evento aprobado -> Hub`. Solo uno es fuente de verdad a la vez.

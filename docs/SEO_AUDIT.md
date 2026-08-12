@@ -1,25 +1,22 @@
-# Auditoría SEO técnica
+# Auditoría SEO/AEO Blueprint 5
 
-Fecha: 2026-08-05
+Fecha: 2026-08-11.
 
-## Confirmado
+## Verificado localmente
 
-- `BaseLayout.astro` genera `title`, descripción, canonical, robots, Open Graph, Twitter Card y datos estructurados.
-- `robots.txt` y `sitemap.xml` existen.
-- Las rutas de portal y cotización son `noindex`.
-- La propuesta de inversión estaba indexable; se corrigió a `noindex, nofollow, noarchive`.
+- Metadata global y por ruta, canonicales y alternates ES/EN.
+- `lang` dinámico correcto: `es-DO` y `en-US`.
+- JSON-LD Organization/ProfessionalService, WebSite e ItemList donde aplica.
+- Sitemap generado con 24 rutas públicas; todas respondieron HTTP 200.
+- Robots excluye APIs, Portal, checkout y rutas internas.
+- `llms.txt` y `catalog-index.json` reflejan Blueprint 5.
+- `/tienda` redirige a `/catalogo`; dashboard/onboarding a Portal.
+- Metadata estática Astro archivada fuera de `public/` para evitar colisiones.
+- Contenido esencial renderizado en HTML y embeds externos solo por acción.
 
-## Brechas
+## Pendientes del entorno
 
-- Sitemap manual desactualizado y sin páginas legales.
-- No hay Search Console verificable desde el repositorio.
-- Algunas afirmaciones comerciales carecían de fuente; las de mayor riesgo se retiraron de inicio.
-- No existe flujo editorial con estados borrador/revisión/aprobado/publicado.
-- Canonical de páginas privadas debe mantenerse fuera de señales de indexación mediante `noindex` y exclusión del sitemap.
-
-## Prioridad
-
-1. Generar sitemap desde rutas públicas aprobadas.
-2. Probar canonical/robots/JSON-LD en CI.
-3. Registrar propietario, fuente y fecha de revisión de cada claim.
-4. Verificar Search Console y monitorear cobertura después del lanzamiento.
+- Search Console, cobertura, Core Web Vitals y datos reales después del corte.
+- Imagen social 1.91:1 dedicada si Marca aprueba una composición adicional; mientras tanto se usa el logo oficial con dimensiones reales.
+- URLs individuales para recursos editoriales futuros cuando exista contenido y propietario.
+- Revisión periódica de claims, `lastModified`, enlaces y 404.

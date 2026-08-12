@@ -1,16 +1,28 @@
-# Plan de medición
+# Plan de medición Blueprint 5
 
 ## Objetivos
 
-1. Solicitudes calificadas: apertura de WhatsApp desde cotización validada.
-2. Descubrimiento: uso de filtros, búsqueda y selección de SKU.
-3. Diagnóstico: inicio y finalización, sin enviar respuestas ni PII.
-4. Operación: disponibilidad de catálogo y errores de rutas críticas.
+1. Entender qué necesidades llevan a una solicitud calificada.
+2. Detectar fricción en búsqueda, catálogo, idioma y diagnóstico.
+3. Vigilar disponibilidad y errores sin convertir la analítica en un repositorio de datos personales.
 
-## Eventos propuestos
+## Eventos permitidos
 
-`catalog_view`, `catalog_search`, `item_select`, `quote_start`, `quote_whatsapp_open`, `diagnostic_start`, `diagnostic_complete`, `contact_submit_error`. No enviar nombre, correo, teléfono, texto libre, RNC, dirección ni SKU confidencial a GA4.
+| Evento | Parámetros permitidos |
+|---|---|
+| `catalog_view` | idioma, pilar o filtro |
+| `catalog_search` | solo longitud y cantidad de resultados; nunca el texto |
+| `item_select` | ID público del catálogo y posición |
+| `diagnosis_start` | idioma y cantidad de referencias |
+| `diagnosis_complete` | idioma, canal elegido y estado técnico; sin referencia |
+| `search_open` | idioma y contexto de ruta |
+| `pulso_guide_open` | idioma y contexto de ruta |
+| `contact_submit_error` | código técnico normalizado, nunca texto libre |
+
+## Prohibido
+
+Nombre, empresa, correo, teléfono, WhatsApp, RNC, cédula, dirección, texto del problema, resultado esperado, referencia, contratos, documentos o identificadores internos.
 
 ## Gobernanza
 
-Analítica denegada por defecto; propietario Marketing, revisión Privacidad. Cada evento requiere propósito, parámetros permitidos, retención y prueba de consentimiento antes de activarse.
+La analítica permanece denegada por defecto. PostHog solo puede cargarse tras consentimiento analítico y aprobación del mapa de datos. Los mismos límites aplican a cualquier sustituto. Sentry es observabilidad técnica, pero debe aplicar redacción equivalente y no capturar cuerpos de `/api/inquiries`.

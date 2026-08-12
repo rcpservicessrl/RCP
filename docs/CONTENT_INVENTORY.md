@@ -1,34 +1,26 @@
-# Inventario de contenido y afirmaciones
+# Inventario editorial Blueprint 5
 
-## Fuentes de autoridad
+## Publicable
 
-1. Marca: `DECISION_IDENTIDAD_VIGENTE_2026-07-31.md` y `RCP_Services_Sistema_Visual_Agente_v1.0.md`.
-2. Logos: `logo_rcp_master_vectorial.svg` y catálogo oficial.
-3. Estrategia: `Propuesta de Valor RCP Services.docx` y `Operatividad RCP Services.docx`, sujetos a verificación.
-4. Sitio publicado: fuente secundaria, no autoridad automática.
+- RCP Services como empresa de transformación para pequeños negocios.
+- Renovación, Consultoría y Publicidad bajo una dirección responsable; “Publicidad 360” describe el alcance integral del tercer pilar, no un pilar adicional.
+- Tecnología transversal y software a la medida según diagnóstico.
+- Método RCP, catálogo sin precios rígidos, red coordinada de especialistas y límites visibles.
+- Identidad oficial, logos, Montserrat y Pulso — Mascota Jaguar RCP.
+- Datos institucionales ratificados en la Fuente de Verdad.
 
-## Clasificación inicial
+## Condicionado
 
-| Contenido | Clasificación | Estado | Acción |
-|---|---|---|---|
-| Renovación, Consultoría y Publicidad | Verificada por marca | Publicable | Conservar |
-| Jaguar oficial y sistema cromático | Verificada | Publicable | Conservar sin redibujar |
-| Contacto institucional | Respaldado internamente | Revisar | Confirmar propietario y vigencia |
-| “98.5% de las MIPYMEs padecen...” | Pendiente de fuente y formulación | No publicable como hecho actual | Retirar o citar fuente/metodología |
-| “+300% eficiencia” | Sin fuente | No publicable | Retirar |
-| “expertos certificados” | Sin evidencia localizada | Pendiente | Retirar o documentar certificaciones |
-| Testimonios con iniciales | Sin consentimiento/evidencia localizada | No publicable | Retirar |
-| Resultados en 3 semanas/2 meses/RD$80K | Sin evidencia localizada | No publicable | Retirar |
-| Garantía triple valor/cero errores | Promesa comercial | Requiere términos | Reformular |
-| Precios y rangos | Contradictorios | Requiere aprobación comercial | Fuente única |
-| “Pagos por Stripe/CardNet/PayPal” | Contradice implementación | No publicable | Mostrar solo métodos reales |
-| “Costo de software cero” / “dueño absoluto” | Promesa no universal | No publicable como absoluto | Reformular con condiciones |
-| Ley 488-08 y financiamiento | Pendiente de revisión legal/fuente vigente | Citar y revisar | No asesoría legal definitiva |
-| Propuesta de inversión | Interna/confidencial probable | Publicada e indexable | Decisión urgente de acceso |
+- Casos, testimonios, resultados y métricas: requieren evidencia y permiso de publicación.
+- Certificaciones, licencias, cobertura regulatoria o e-CF: requieren alcance y profesional autorizado.
+- Precios, plazos, garantías y reembolsos: requieren propuesta/contrato aplicable.
+- Nuevas poses o animaciones de Pulso: requieren QA, aprobación, hash y allowlist.
 
-## Vacíos
+## No publicable como propuesta vigente
 
-- Privacidad, términos, cookies, reembolsos y accesibilidad no tienen rutas públicas completas.
-- No existe registro de consentimiento para testimonios.
-- Media no ofrece autoría, fechas, fuentes o URL individual por recurso.
-- El diagnóstico no publica metodología aprobada.
+- “Agencia 360”, “junta directiva externa”, suite universal o plataforma soberana de once capas.
+- Precios heredados, planes rígidos, pagos simulados o software gratuito como promesa universal.
+- Resultados garantizados de ventas, SEO/AEO, impuestos, aceptación regulatoria o eficiencia.
+- Contenido de inversión, documentos o datos de clientes sin control de acceso.
+
+`lib/content.ts`, `lib/legal-content.ts` y las rutas editoriales constituyen la implementación pública; el archivo Astro solo sirve de referencia histórica.
