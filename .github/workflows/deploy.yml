@@ -1,63 +1,51 @@
-name: Deploy Astro to GitHub Pages
+name: Deploy approved Next.js release to Vercel
 
 on:
-  # Ejecutar en push a master (sitio en producción)
-  push:
-    branches: [master]
-  # Permitir ejecución manual
   workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Type DEPLOY_RCP_SERVICES after the exact commit and rollback have been approved
+        required: true
+        type: string
 
-# Permisos necesarios para GitHub Pages
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Un solo deploy a la vez
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: rcp-services-production
+  cancel-in-progress: false
 
 jobs:
-  build:
+  verify-and-deploy:
+    if: ${{ inputs.confirmation == 'DEPLOY_RCP_SERVICES' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: rcp-services-production
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node
-        uses: actions/setup-node@v7
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run policy tests
-        run: npm test
-
-      - name: Build with Astro
-        run: npm run build
-
-      - name: Verify built site
-        run: npm run test:dist
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+          version: 11.16.0
+          run_install: false
+      - uses: actions/setup-node@v7
         with:
-          path: ./dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+        env:
+          NEXT_PUBLIC_SITE_URL: https://rcp.services
+          RCP_DEPLOYMENT_ENV: production
+      - name: Pull Vercel production settings
+        run: pnpm dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build the approved production artifact
+        run: pnpm dlx vercel@latest build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          NEXT_PUBLIC_SITE_URL: https://rcp.services
+          RCP_DEPLOYMENT_ENV: production
+      - name: Deploy the prebuilt artifact
+        run: pnpm dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
