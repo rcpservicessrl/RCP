@@ -75,3 +75,6 @@ agents/
 graphify-out/cache/
 
 .vercel
+.env*
+!.env.example
+!**/.env.example
