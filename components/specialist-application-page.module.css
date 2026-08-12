@@ -1,0 +1,360 @@
+.page {
+  background: var(--bg);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--header-height) + 84px) 0 92px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 80% 35%, rgb(252 181 63 / 14%), transparent 24rem),
+    linear-gradient(180deg, var(--surface), var(--bg));
+}
+
+.hero::before {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgb(0 0 0 / 75%), transparent 94%);
+  content: "";
+  opacity: .32;
+  pointer-events: none;
+}
+
+.heroGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(250px, .45fr);
+  gap: clamp(40px, 8vw, 110px);
+  align-items: center;
+}
+
+.eyebrow {
+  color: var(--amber);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 16ch;
+  margin-top: 20px;
+  font-size: clamp(3rem, 6vw, 6.6rem);
+  line-height: .96;
+  letter-spacing: -.05em;
+}
+
+.heroLead {
+  max-width: 68ch;
+  margin-top: 28px;
+  color: var(--text-soft);
+  font-size: clamp(.95rem, 1.4vw, 1.1rem);
+  line-height: 1.8;
+}
+
+.heroFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.heroFacts li {
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text-soft);
+  font-size: .9rem;
+}
+
+.heroVisual {
+  display: grid;
+  justify-items: center;
+}
+
+.section {
+  padding: 108px 0 128px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1fr);
+  gap: clamp(44px, 8vw, 110px);
+  align-items: start;
+}
+
+.intro {
+  position: sticky;
+  top: calc(var(--header-height) + 36px);
+}
+
+.intro h2 {
+  max-width: 17ch;
+  margin-top: 14px;
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  line-height: 1;
+}
+
+.intro > p:not(.eyebrow) {
+  max-width: 62ch;
+  margin-top: 22px;
+  color: var(--text-soft);
+  font-size: .92rem;
+  line-height: 1.75;
+}
+
+.boundaryCard {
+  margin-top: 34px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.boundaryCard > strong {
+  color: var(--amber);
+  font-size: .9rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.boundaryCard ul {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.boundaryCard li {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-soft);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.boundaryCard li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.backLink,
+.emailLink,
+.errorCard a {
+  display: inline-flex;
+  margin-top: 24px;
+  color: var(--amber);
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.formCard {
+  min-width: 0;
+  padding: clamp(26px, 4vw, 46px);
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: 0 28px 90px rgb(0 0 0 / 18%);
+}
+
+.form {
+  position: relative;
+  display: grid;
+  gap: 22px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+}
+
+.field > span {
+  color: var(--text);
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: .9rem;
+}
+
+.field textarea {
+  min-height: 142px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--amber);
+  outline: 2px solid rgb(252 181 63 / 28%);
+  outline-offset: 2px;
+}
+
+.safetyNote {
+  padding: 20px;
+  border-left: 3px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  background: var(--bg);
+}
+
+.safetyNote strong {
+  font-size: .9rem;
+}
+
+.safetyNote p {
+  margin-top: 7px;
+  color: var(--text-soft);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 11px;
+  align-items: start;
+  color: var(--text-soft);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.consent input {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  accent-color: var(--amber);
+}
+
+.consent a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.emailLink {
+  margin-top: 0;
+}
+
+.errorCard,
+.resultCard {
+  padding: 22px;
+  border: 1px solid rgb(211 91 91 / 48%);
+  border-radius: 14px;
+  background: rgb(211 91 91 / 8%);
+}
+
+.errorCard strong,
+.resultCard strong {
+  display: block;
+  font-size: .9rem;
+}
+
+.errorCard p,
+.resultCard > p:not(.eyebrow) {
+  margin-top: 8px;
+  color: var(--text-soft);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.errorCard a {
+  margin-top: 14px;
+}
+
+.resultCard {
+  display: grid;
+  gap: 18px;
+}
+
+.resultCard > strong {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--amber);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.successCard {
+  border-color: rgb(76 175 80 / 45%);
+  background: rgb(76 175 80 / 8%);
+}
+
+@media (max-width: 920px) {
+  .heroGrid,
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroVisual {
+    display: none;
+  }
+
+  .intro {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    padding-top: calc(var(--header-height) + 58px);
+  }
+
+  .section {
+    padding: 80px 0 92px;
+  }
+
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: 24px 18px;
+  }
+
+  .formActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    position: static;
+  }
+}
