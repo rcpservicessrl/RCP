@@ -1,10 +1,12 @@
-# Monitoreo posterior al lanzamiento
+# Monitoreo posterior al lanzamiento web
 
-| Ventana | Control | Umbral/acción |
+| Ventana | Control | Acción |
 |---|---|---|
-| 0–60 min | HTTP, build, consola, catálogo, formularios | Error crítico: rollback |
-| 24 h | 404, errores JS, Supabase, leads, consentimiento | Investigar cualquier caída o PII inesperada |
-| 7 días | Search Console, CWV, conversiones, abandono | Abrir correcciones priorizadas |
-| 30 días | SEO, rendimiento, claims, dependencias | Revisión ejecutiva y plan siguiente |
+| 0–60 min | Vercel 5xx, health, consola, rutas, formulario y correo | rollback ante pérdida de solicitudes, PII o error crítico |
+| 24 h | 404, duplicados, Resend/Zoho, consentimiento, DNS/TLS | investigar toda pérdida o entrega doble |
+| 7 días | Search Console, Core Web Vitals, búsquedas y conversión | corrección priorizada con propietario |
+| 30 días | SEO/AEO, accesibilidad, claims, dependencias, costos y rollback Astro | revisión ejecutiva y retiro controlado de GitHub Pages |
 
-Propietarios requeridos: ingeniería (sitio/CI), operaciones (catálogo), comercial (cotizaciones/precios), privacidad/legal (políticas/consentimiento), marketing (SEO/GA4) y soporte (Zoho Mail). Los accesos de DNS, Search Console y alertas aún no están verificados. Odoo y pagos en línea no forman parte del alcance actual.
+Monitores mínimos: UptimeRobot para `/api/health`, `/`, `/catalogo` y `/diagnostico`; Vercel para runtime/5xx; Sentry sin PII; PostHog solo tras consentimiento; conciliación diaria de referencias Resend/Zoho durante la primera semana.
+
+Cada alerta requiere severidad, canal, horario, propietario y suplente.

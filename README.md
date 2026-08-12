@@ -1,91 +1,70 @@
-# 🫀 RCP Services — Website
+# RCP Services — Web 6.0-RC2
 
-**Agencia 360° de Transformación Empresarial y Digital para MIPYMEs en República Dominicana**
+Sitio comercial de RCP Services SRL para pequeños negocios de República Dominicana.
 
-[![Website](https://img.shields.io/badge/Website-RCP%20Services-FCB53F?style=for-the-badge&logo=google-chrome&logoColor=white)](https://bubloy.github.io/RCP-Services-Website/)
+**Le damos nuevo impulso a tu negocio.**
 
----
+La propuesta une tres pilares oficiales —Renovación, Consultoría y Publicidad— con tecnología transversal. Publicidad 360 es el descriptor de la oferta publicitaria, no un cuarto pilar. El sitio explica, orienta y capta solicitudes; el CRM y el Delivery Hub son productos internos separados.
 
-## 🌐 Sobre el Proyecto
+## Estado comprobado
 
-RCP Services es una agencia 360° que centraliza **Renovación**, **Consultoría** y **Publicidad** bajo un solo ecosistema impulsado por Inteligencia Artificial, diseñado para reanimar MIPYMEs dominicanas.
+- Next.js 16.3, React 19 y TypeScript.
+- 42 pruebas automatizadas, TypeScript y build de producción aprobados.
+- Rutas ES/EN, claro/oscuro, búsqueda, música, Pulso, catálogo y evaluación guiada verificados localmente.
+- Destino de la web: Vercel Pro. Route 53 conserva la autoridad DNS.
+- `rcp.services` continúa en Astro/GitHub Pages hasta superar UAT, entrega real del formulario y autorización de corte.
+- Cloudflare/OpenNext queda como alternativa técnica validada, fuera del lanzamiento RC2.
 
-Este repositorio contiene el sitio web corporativo completo con 5 páginas, chatbot integrado, sistema bilingüe (ES/EN) y formulario de contacto funcional.
+## Límites públicos
 
-## 📄 Páginas
+- La Evaluación Inicial RCP 360° dura 45 minutos, no tiene costo y está sujeta a confirmación.
+- El Diagnóstico RCP 360 es una etapa posterior pagada, cuando haga falta, con alcance e inversión acordados.
+- CRM, ERP y POS para clientes se presentan como software a la medida; el CRM interno de RCP no se vende.
+- Los servicios legales profesionales permanecen ocultos hasta acreditar responsable y revisión.
+- e-CF es contenido educativo en desarrollo, sin CTA de contratación.
+- `/portal` permanece `noindex` y fuera de navegación hasta abrir el Hub.
 
-| Página | Descripción |
-|--------|-------------|
-| `index.html` | Landing page principal con hero, servicios R·C·P, paquetes, FAQ y contacto |
-| `nosotros.html` | Historia, estrategia de Océano Azul (ERAC), modelo de negocio Canvas y equipo |
-| `media.html` | Videos corporativos (YouTube) y podcast (Spotify) |
-| `carreras.html` | Reclutamiento de profesionales independientes |
-| `404.html` | Página de error personalizada |
+## Desarrollo
 
-## ✨ Características
-
-- 🌗 **Modo Día/Noche** con logos adaptativos
-- 🌐 **Bilingüe ES/EN** con persistencia en localStorage
-- 🤖 **Chatbot FAQ** con scoring inteligente y 25+ respuestas
-- 📧 **Formulario de contacto** integrado con EmailJS
-- 🎵 **Música ambiental** con control de volumen
-- 📱 **100% Responsive** — Desktop, tablet y móvil
-- ♿ **Accesible** — Landmarks, aria-labels, reduced-motion
-- 🔍 **SEO optimizado** — OG tags, JSON-LD, sitemap, robots.txt
-- 📦 **PWA-ready** — manifest.json incluido
-
-## 🛠️ Tecnologías
-
-- HTML5 + CSS3 (Vanilla)
-- JavaScript (ES6+)
-- [Montserrat](https://fonts.google.com/specimen/Montserrat) (Google Fonts)
-- [EmailJS](https://www.emailjs.com/) — Formulario de contacto
-- YouTube & Spotify embeds — Contenido multimedia
-
-## 🚀 Despliegue
-
-El sitio es estático (sin framework ni build). Para ejecutarlo localmente:
+Requiere Node.js 24 y pnpm 11.
 
 ```bash
-# Clona el repositorio
-git clone https://github.com/Bubloy/RCP-Services-Website.git
-
-# Abre index.html en tu navegador
-start index.html
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-Para despliegue en producción, funciona en cualquier hosting estático:
-- GitHub Pages
-- Netlify
-- Vercel
-- Hosting tradicional (cPanel, etc.)
+Verificación:
 
-## 📁 Estructura
-
-```
-├── index.html          # Página principal
-├── nosotros.html       # Sobre nosotros
-├── media.html          # Videos y podcast
-├── carreras.html       # Reclutamiento
-├── 404.html            # Página de error
-├── styles.css          # Estilos globales
-├── script.js           # Lógica, chatbot, traducciones
-├── manifest.json       # PWA manifest
-├── robots.txt          # Reglas de crawlers
-├── sitemap.xml         # Mapa del sitio
-├── .gitignore          # Archivos ignorados
-└── assets/             # Logos, íconos, música
+```bash
+pnpm run typecheck
+pnpm test
+pnpm run build
+pnpm audit --prod --audit-level high
 ```
 
-## 📞 Contacto
+## Variables
 
-- 📍 Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, R.D.
-- 💬 WhatsApp: [829-806-8092](https://wa.me/18298068092)
-- 📧 Email: rcpservicessrl@gmail.com
+Copiar `.env.example` a `.env.local`. Ningún secreto puede usar el prefijo `NEXT_PUBLIC_`.
 
----
+- `RCP_DEPLOYMENT_ENV`: `development`, `preview` o `production`.
+- `RCP_INTAKE_DELIVERY_MODE`: `email` durante el piloto; `crm` solo tras cerrar el hold del CRM.
+- `RESEND_API_KEY`, `RCP_INQUIRY_EMAIL_FROM`, `RCP_INQUIRY_EMAIL_TO`, `RCP_SPECIALIST_EMAIL_TO`: entrega server-side por Resend hacia Zoho.
+- `RCP_CRM_INGEST_*` y `RCP_CRM_SPECIALIST_INGEST_*`: contratos server-to-server con token limitado, HMAC e idempotencia.
+- `RCP_REQUIRE_TURNSTILE`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`: protección antiabuso.
 
-<p align="center">
-  Hecho con ❤️ en Santo Domingo, República Dominicana<br>
-  © 2026 RCP Services. Todos los derechos reservados.
-</p>
+La API solo confirma éxito cuando el proveedor seleccionado acepta la entrega y devuelve una referencia.
+
+## Documentación
+
+La autoridad comienza en `docs/FUENTE_DE_VERDAD_6_RC2.md`. El índice completo, contratos, runbooks y gates están en `docs/README.md`.
+
+## Marca
+
+Pulso es la Mascota Jaguar RCP. Solo se usan sus tres posturas aprobadas y protegidas por hash. El encabezado usa el logo compacto según tema; el lockup R·C·P es secundario.
+
+## Contacto institucional
+
+- `info@rcp.services`
+- +1 829 806 8092
+- Santo Domingo, República Dominicana
+- RNC 132-147103

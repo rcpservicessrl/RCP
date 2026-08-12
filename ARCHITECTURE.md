@@ -1,27 +1,62 @@
-# Web architecture
+# Arquitectura web RCP Services 6.0-RC2
 
-## Decision
+## Decisión
 
-The public website remains on Astro. Commercial pages are prerendered as static HTML for fast delivery, crawlability, resilience, and low hosting cost. Interactive features run as progressively enhanced client-side modules and use Supabase or dedicated webhooks.
+La web pública usa Next.js 16 App Router, TypeScript y Vercel Pro. Route 53 continúa como DNS autoritativo. Cloudflare/OpenNext se conserva como alternativa probada, pero no participa en el corte RC2.
 
-Next.js is not required merely because the project is deployed on Vercel. Reconsider a framework migration only if the product needs a predominantly authenticated server-rendered application, extensive React-only UI, or a backend-for-frontend whose surface outgrows Astro endpoints.
+Astro/GitHub Pages continúa como producción y rollback hasta completar staging, UAT, entrega real del formulario y autorización de corte.
 
-## Rendering boundary
+## Frontera del producto
 
-- Indexable: home, services, diagnostics, store catalog, about, media, and careers.
-- Non-indexable: portal, onboarding, dashboard, checkout, contact submission, and error pages.
-- Public content must remain available in the initial HTML without requiring JavaScript.
-- Authentication, authorization, prices, payments, access codes, and privileged writes must be validated by a trusted backend. Client-generated values are never authoritative.
+La web comercial explica, orienta, permite buscar contenido y capta solicitudes. No es CRM, Delivery Hub, checkout, marketplace, sistema contable ni emisor e-CF.
 
-## SEO and AEO safeguards
+- Web pública: contenido, catálogo filtrado, búsqueda, evaluación inicial y postulación manual.
+- CRM: contactos, empresas, bandeja, embudo, responsables y traspaso al Hub.
+- Delivery Hub: diagnósticos, proyectos, especialistas, entregables, QA, aceptación, soporte y auditoría.
+- Matrix: evidencia técnica y releases aprobados.
 
-- Stable canonical URLs and descriptive page metadata.
-- Organization, LocalBusiness, WebSite, and FAQ structured data.
-- Sitemap contains only canonical, indexable pages.
-- `robots.txt` links to the sitemap; private routes also carry `noindex` metadata.
-- `llms.txt` provides a concise discovery map, without replacing normal crawlable HTML or structured data.
-- Vercel headers enforce baseline browser security and immutable caching for versioned assets.
+Ningún sistema escribe directamente en el esquema de otro.
 
-## Functional roadmap
+## Renderizado y contenido
 
-Before enabling real card or PayPal payments, move order creation, price calculation, payment confirmation, and activation-code issuance to server-side endpoints with idempotency and webhook signature verification. Supabase RLS remains mandatory for every browser-accessible table and storage bucket.
+- Server Components y HTML estático por defecto.
+- Client Components solo para preferencias, búsqueda, música, Pulso, exploradores y formularios.
+- El contenido público se deriva de `CommercialState` y nunca de listas sin filtrar.
+- `TechnicalMaturity`, `regulated` y `requiresProfessionalReview` no conceden disponibilidad comercial.
+- Canonicales, `hreflang`, sitemap, JSON-LD, `llms.txt` e índice descargable comparten la misma política pública.
+
+## Seguridad y captación
+
+El navegador nunca recibe claves de Resend, tokens CRM, HMAC ni `service_role`.
+
+Flujo piloto:
+
+`navegador -> Turnstile/honeypot/rate limit -> API Next -> Resend -> Zoho`
+
+Flujo posterior:
+
+`navegador -> API Next -> contrato HMAC/idempotente -> CRM`
+
+La respuesta estable es `recorded`, `reference`, `duplicate`, `contactId`, `opportunityId` y `stage`. No se hace doble escritura entre correo y CRM.
+
+## Datos y observabilidad
+
+- PostHog solo en la web pública, con consentimiento y sin PII ni texto libre.
+- Sentry sin campos del formulario y con ambientes separados.
+- `/api/health` es el objetivo de UptimeRobot.
+- El Hub requiere un proyecto Supabase Pro separado antes de usuarios externos.
+- Las aplicaciones cliente y la información corporativa permanecen aisladas.
+
+## Pulso y marca
+
+Pulso usa únicamente tres imágenes transparentes aprobadas y protegidas por hash. No se recorta, deforma ni genera en runtime. Las animaciones afectan al contenedor y respetan `prefers-reduced-motion`.
+
+## Entrega
+
+- PR obligatorio y checks con Node 24.
+- Preview y Production separados en Vercel.
+- Staging lleva `noindex` mediante `RCP_DEPLOYMENT_ENV`/`VERCEL_ENV`.
+- El corte cambia únicamente apex y `www`; MX, TXT, Zoho y otros subdominios quedan intactos.
+- GitHub Pages permanece como rollback durante 30 días.
+
+Los criterios y procedimientos completos viven en `docs/RC2_OPERATIONS_AND_GOVERNANCE.md`, `docs/STAGING_RUNBOOK.md`, `docs/DEPLOYMENT_RUNBOOK.md` y `docs/ROLLBACK_PLAN.md`.

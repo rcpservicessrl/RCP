@@ -1,11 +1,9 @@
-# Plan de migración SEO
+# Plan de migración SEO/AEO
 
-1. Congelar inventario de URL, metadatos, canonicals y tráfico disponible.
-2. Clasificar cada ruta: conservar, redirigir, `noindex` o retirar.
-3. Mantener URLs públicas actuales durante la estabilización incremental.
-4. Excluir `/portal`, `/dashboard`, `/checkout` y `/propuesta-inversion` del sitemap.
-5. Publicar páginas legales y actualizar `lastmod` al despliegue aprobado.
-6. Validar build, enlaces, canonical, robots, JSON-LD y códigos HTTP.
-7. Tras producción: inspección de URL, cobertura, 404, Core Web Vitals y conversiones durante 30 días.
-
-No se migrará dominio ni estructura de rutas en esta fase; preserva autoridad y reduce riesgo.
+1. Congelar SHA, sitemap y métricas disponibles de la producción Astro.
+2. Aplicar `REDIRECT_MAP.csv` en el Worker y verificar 307/308.
+3. Conservar `/`, `/servicios`, `/diagnostico`, `/nosotros`, `/media`, `/carreras` y legales.
+4. Sustituir `/tienda` por `/catalogo`; retirar dashboard, onboarding y propuesta de inversión del sitio público.
+5. Publicar canonicales, hreflang, JSON-LD, sitemap, robots y `llms.txt` del mismo build.
+6. Después del corte, inspeccionar rutas críticas, 404, cobertura, Core Web Vitals y solicitudes durante 30 días.
+7. Si una ruta pierde señal crítica o devuelve errores, usar el rollback del Worker/DNS; no improvisar redirecciones múltiples.

@@ -1,5 +1,7 @@
 # Auditoría del estado actual
 
+> Archivo histórico del sitio Astro al 2026-08-05. Para el candidato Blueprint 5 consulta `docs/README.md` y `VERIFICATION_REPORT_2026-08-11.md`.
+
 Fecha: 2026-08-05  
 Rama auditada: `codex/rcp-platform-transformation` desde `06dd37c`  
 Producción: `https://rcp.services`  

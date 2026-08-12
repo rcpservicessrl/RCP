@@ -1,24 +1,28 @@
-# Revisión de seguridad
+# Revisión de seguridad web RCP Services 6.0-RC2
 
-Fecha: 2026-08-05
+Fecha: 2026-08-12.
 
-## Verificado
+## Verificado localmente
 
-- Repositorio GitHub con permiso administrativo y Pages activo.
-- `.env` local no está rastreado; no se registran valores de credenciales en este documento.
-- Proyecto corporativo Supabase activo y enlazado; se generó respaldo de esquema y datos antes del hotfix.
-- RLS activo en catálogo, clientes, órdenes e ítems. El hotfix `20260805023000` separó lectura `anon` y `authenticated`: usuario anónimo obtiene productos activos y cero inactivos.
-- Checkout anterior aceptaba precios del cliente y simulaba IDs de pago. Fue desactivado y reemplazado por solicitud de cotización.
-- Diagnóstico enviaba PII sin consentimiento y calculaba una pérdida aleatoria. Se eliminó ese envío y la estimación.
+- APIs con límite de 24 KB, tipo JSON, validación, allowlists, honeypot, consentimiento y `no-store`.
+- Resend/CRM únicamente del lado servidor; sin tokens privilegiados en `NEXT_PUBLIC_*`.
+- Éxito solo después de confirmación y referencia del proveedor.
+- HMAC SHA-256, timestamp e `Idempotency-Key` en modo CRM.
+- CSP, HSTS, `nosniff`, referrer, permisos, COOP y bloqueo de frames.
+- Portal y rutas operativas fuera de sitemap; staging bloqueado por robots/noindex.
+- Catálogo público filtrado; sin precios, pagos ni autoridad económica del navegador.
+- Pulso y logos aprobados, completos y protegidos por hash.
+- 42/42 pruebas, TypeScript, build Next/Node 24 y auditoría productiva sin vulnerabilidades conocidas.
+- Rutas clave verificadas sin overflow, imágenes rotas ni errores de consola.
 
 ## Pendientes bloqueantes
 
-- GitHub Pages no permite configurar todos los headers HTTP requeridos desde este repositorio. Migrar a un edge/CDN controlable o configurar DNS/proxy antes de declarar CSP/HSTS completos.
-- Astro se actualizó de 5.18.2 a 7.1.6 con Node 22 en CI. `npm audit --omit=dev` reporta 0 vulnerabilidades y la regresión de build pasó con Node 24 local.
-- No existe staging operativo ni sandbox de pagos.
-- Falta revisión legal de políticas y trazabilidad de consentimiento.
-- La propuesta de inversión sigue públicamente accesible aunque no indexable; requiere autenticación si es confidencial.
+- Rate limit distribuido/WAF y Turnstile real.
+- Entrega Resend→Zoho e idempotencia real.
+- Cierre del `SECURITY-HOLD` del CRM antes del modo `crm`.
+- Sentry/PostHog configurados y probados sin PII.
+- CI del commit final, staging, accesibilidad automatizada y revisión legal.
 
 ## Dictamen
 
-El sitio puede operar como presencia corporativa y captación/cotización. No está autorizado para procesar pagos ni crear órdenes financieras hasta integrar proveedor real, servidor autoritativo, sandbox y conciliación.
+Apto para preview local y preparación de staging con datos sintéticos. No autoriza corte DNS, datos sensibles, modo CRM, usuarios del Hub ni producción hasta cerrar los gates.

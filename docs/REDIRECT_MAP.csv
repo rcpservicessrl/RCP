@@ -1,10 +1,37 @@
 source,target,status,reason
-/index.html,/,301,Legacy homepage
-/servicios.html,/servicios,301,Legacy extension
-/tienda.html,/tienda,301,Legacy extension
-/nosotros.html,/nosotros,301,Legacy extension
-/media.html,/media,301,Legacy extension
-/carreras.html,/carreras,301,Legacy extension
-/portal.html,/portal,301,Legacy extension
-/dashboard.html,/dashboard,301,Legacy extension
-/checkout.html,/checkout,301,Legacy extension
+/index.html,/,308,legacy extension
+/servicios.html,/servicios,308,legacy extension
+/tienda.html,/catalogo,308,catalog replaces store
+/diagnostico.html,/diagnostico,308,legacy extension
+/nosotros.html,/nosotros,308,legacy extension
+/media.html,/media,308,legacy extension
+/carreras.html,/especialistas,308,legacy specialist route to canonical network
+/portal.html,/portal,308,legacy extension
+/dashboard.html,/portal,308,dashboard removed from public site
+/checkout.html,/checkout,308,legacy reference compatibility
+/privacidad.html,/privacidad,308,legacy extension
+/terminos.html,/terminos,308,legacy extension
+/cookies.html,/cookies,308,legacy extension
+/accesibilidad.html,/accesibilidad,308,legacy extension
+/reembolsos.html,/terminos,308,terms now contain applicable cancellation boundary
+/tienda,/catalogo,308,catalog replaces store
+/dashboard,/portal,307,temporary Portal boundary
+/onboarding,/portal,307,onboarding removed from public site
+/formulario-contacto,/diagnostico,308,single qualification entry
+/reembolsos,/terminos,307,temporary legal consolidation
+/propuesta-inversion,/,307,restricted content removed from public site
+/carreras,/especialistas,308,canonical specialist network replacement
+/en/careers,/en/specialists,308,English specialist network replacement
+/quienes-somos,/nosotros,308,approved campaign alias
+/renovacion,/servicios/renovacion,308,approved campaign alias
+/consultoria,/servicios/consultoria,308,approved campaign alias
+/publicidad,/servicios/publicidad,308,approved campaign alias
+/tecnologia,/soluciones-tecnologicas,308,approved campaign alias
+/productos,/catalogo,308,approved campaign alias
+/evaluacion-rcp-360,/diagnostico,308,approved campaign alias
+/recursos/facturacion-electronica,/facturacion-electronica,308,educational e-CF alias
+/productos/erp,/soluciones-tecnologicas?capacidad=erp,308,human-first technology routing
+/productos/pos-inventario,/soluciones-tecnologicas?capacidad=pos,308,human-first technology routing
+/productos/paginas-web-catalogos,/catalogo?servicio=sitios-web,308,human-first catalog routing
+/productos/software-a-la-medida,/software-a-la-medida,308,human-first custom software routing
+/productos/automatizacion,/soluciones-tecnologicas?capacidad=bpa,308,human-first technology routing

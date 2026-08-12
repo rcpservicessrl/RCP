@@ -1,32 +1,35 @@
-# Runbook de staging
+# Runbook de staging RCP Services 6.0-RC2
 
-## Propósito
+## Objetivo
 
-Staging permite validar cambios sin modificar `rcp.services`, DNS ni GitHub Pages. La producción canónica sigue siendo GitHub Pages desde `master`.
+Validar la aplicación Next en Vercel sin modificar `rcp.services`, datos productivos ni autenticación externa.
 
-## Entorno actual
+## Preparación
 
-- Proyecto Vercel: `rcp-services-staging`.
-- URL de staging: `https://rcp-services-staging.vercel.app`.
-- Variable pública de compilación: `PUBLIC_DEPLOYMENT_ENV=staging`.
-- Comportamiento: aviso visible de staging y `noindex, nofollow, noarchive`.
+1. Vincular el repositorio al proyecto Vercel de RCP y confirmar que pertenece al equipo autorizado.
+2. Usar Node 24 y los comandos declarados en el repositorio.
+3. Configurar Preview y Production por separado.
+4. Definir en staging `RCP_DEPLOYMENT_ENV=preview` y `NEXT_PUBLIC_SITE_URL=https://staging.rcp.services`.
+5. Mantener `RCP_INTAKE_DELIVERY_MODE=email` durante el piloto.
+6. Usar direcciones controladas y nunca datos reales de clientes en pruebas.
+7. Verificar que `robots.txt` bloquea todo y que las páginas incluyen `noindex`.
 
-## Flujo de trabajo
+## UAT
 
-1. Implementar cambios en una rama y abrir PR.
-2. Validar CI y desplegar esa revisión al proyecto de staging.
-3. Ejecutar UAT en staging: navegación, móvil, catálogo, cotización por WhatsApp/correo, consentimiento analítico y enlaces legales.
-4. Registrar el resultado y aprobar el PR.
-5. Fusionar a `master`. GitHub Pages ejecuta el despliegue de producción.
-6. Ejecutar smoke test de producción y monitorear durante 60 minutos.
+- 390×844, 768×1024, 1280×720 y 1440×900.
+- ES/EN, claro/oscuro, música, búsqueda, Pulso, menú y cursor con mouse.
+- Portada, tres pilares, catálogo, seis soluciones, glosario, evaluación, especialistas, e-CF y legales.
+- Evaluación y postulación entregadas una sola vez con referencia del proveedor.
+- WhatsApp disponible cuando falle el canal principal, sin afirmar que el registro fue exitoso.
+- Redirects 308 de un salto; alias fuera de sitemap, canonicales y `hreflang`.
+- JSON-LD, sitemap, robots, `llms.txt`, índice de catálogo y 404.
+- CSP, HSTS, ausencia de secretos en bundles, consola limpia y `/api/health`.
+- Auditoría de accesibilidad sin errores críticos o serios.
 
-## Límites de seguridad
+## Evidencia
 
-- No conectar el dominio `rcp.services` a Vercel.
-- `vercel --prod` solo puede usarse dentro del proyecto aislado `rcp-services-staging` para actualizar su alias estable; nunca publica `rcp.services`.
-- No guardar tokens, credenciales de Zoho, GA4 o Supabase en el repositorio.
-- Mantener datos de prueba sintéticos; la cotización no persiste datos en el sitio.
+Registrar SHA, URL/deployment ID, fecha, responsable, dimensiones, navegador, referencia de formulario, hallazgos y decisión. Staging solo se aprueba si el correo llegó al buzón controlado y la referencia coincide.
 
-## Rollback
+## Prohibiciones
 
-Staging se reemplaza con un nuevo despliegue de la rama validada. La reversión de producción sigue `docs/ROLLBACK_PLAN.md` y se realiza desde GitHub, no desde Vercel.
+No cambiar DNS, habilitar `/portal`, activar usuarios externos, usar `service_role` en navegador ni apuntar el formulario al CRM mientras continúe el `SECURITY-HOLD`.
