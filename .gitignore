@@ -32,16 +32,36 @@ nvm-setup.exe
 node_modules/
 dist/
 .astro/
+.next/
+.open-next/
+.wrangler/
+*.tsbuildinfo
+cloudflare-env.d.ts
 .env
 .env.*
 !.env.example
 
 # Local execution and audit artifacts
+tmp/
 build-output.log
 dev-server*.log
 static-server*.log
+local-server*.log
+workerd-preview*.log
 diff.txt
 .agents/**/.venv/
+
+# Graphify runtime artifacts; canonical graph and manifest stay versioned
+graphify-out/.graphify_labels.json
+graphify-out/.graphify_labels.json.sig
+graphify-out/.graphify_learning.json
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/.vocab.txt
+graphify-out/GRAPH_REPORT.md
+graphify-out/graph.html
+graphify-out/memory/
+graphify-out/reflections/
 
 # Ephemeral multi-agent execution records
 .agents/

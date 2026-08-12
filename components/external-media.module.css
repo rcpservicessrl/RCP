@@ -1,0 +1,95 @@
+.placeholder {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  padding: 30px;
+  background:
+    radial-gradient(circle at 78% 20%, rgb(252 181 63 / 18%), transparent 45%),
+    #070707;
+  color: #f8f8f5;
+}
+
+.placeholderAudio {
+  min-height: 152px;
+  border-radius: 12px;
+}
+
+.provider {
+  color: #fcb53f;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.placeholder strong {
+  margin-top: 9px;
+  font-size: 1rem;
+}
+
+.placeholder p {
+  max-width: 48ch;
+  margin-top: 8px;
+  color: #aaa9a4;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.placeholder div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.placeholder button,
+.placeholder a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.placeholder button {
+  border: 1px solid #fcb53f;
+  background: #fcb53f;
+  color: #111;
+}
+
+.placeholder a {
+  border: 1px solid rgb(255 255 255 / 18%);
+  color: #f8f8f5;
+}
+
+.placeholder button:focus-visible,
+.placeholder a:focus-visible {
+  outline: 2px solid #a8cf45;
+  outline-offset: 3px;
+}
+
+.video,
+.audio {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.audio {
+  min-height: 152px;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .placeholder button,
+  .placeholder a { scroll-behavior: auto; }
+}

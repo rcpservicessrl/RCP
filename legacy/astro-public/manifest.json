@@ -1,7 +1,7 @@
 {
-  "name": "RCP Services | Agencia 360° de Transformación Empresarial",
+  "name": "RCP Services | Renovación, Consultoría y Publicidad",
   "short_name": "RCP Services",
-  "description": "Tu Junta Directiva Externa. Renovación, Consultoría y Publicidad 360° para MIPYMEs en República Dominicana.",
+  "description": "Renovación, Consultoría y Publicidad para pequeños negocios en República Dominicana. Publicidad 360 integra lo digital, lo impreso y la presencia física.",
   "start_url": "./",
   "scope": "./",
   "id": "/",
@@ -49,7 +49,7 @@
     {
       "name": "Catálogo de Servicios",
       "short_name": "Servicios",
-      "description": "Explora nuestro catálogo interactivo 360°",
+      "description": "Explora nuestro catálogo de productos y servicios",
       "url": "./servicios/",
       "icons": [{ "src": "icono-rcp.png", "sizes": "192x192" }]
     },

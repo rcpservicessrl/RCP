@@ -1,0 +1,223 @@
+.root {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--bg);
+  animation: route-enter .52s var(--ease) both;
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient::before {
+  position: absolute;
+  top: 8%;
+  right: -18rem;
+  width: min(58vw, 50rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(252 181 63 / 9%), rgb(252 181 63 / 2%) 48%, transparent 70%);
+  content: "";
+  filter: blur(10px);
+  animation: ambient-drift 18s ease-in-out infinite alternate;
+}
+
+.ambient::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(115deg, transparent 22%, rgb(252 181 63 / 2.5%) 50%, transparent 78%),
+    radial-gradient(circle at 18% 58%, rgb(168 207 69 / 5%), transparent 24rem);
+  content: "";
+  opacity: .75;
+}
+
+.ambient span {
+  position: absolute;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  opacity: .42;
+}
+
+.ambient span:first-child {
+  top: 34%;
+  left: -12rem;
+  width: 28rem;
+  height: 28rem;
+}
+
+.ambient span:last-child {
+  right: 10%;
+  bottom: 8%;
+  width: 13rem;
+  height: 13rem;
+}
+
+.routeSignal {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  z-index: 950;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber) 42%, var(--green) 64%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+  animation: route-signal .78s var(--ease) both;
+}
+
+.root :global(section),
+.root :global(article),
+.root :global(header) {
+  position: relative;
+}
+
+.root[data-motion-ready="true"] :global([data-interior-reveal]) {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity .62s var(--ease),
+    transform .72s var(--ease);
+  transition-delay: calc(var(--interior-stagger, 0) * 42ms);
+  will-change: opacity, transform;
+}
+
+.root[data-motion-ready="true"] :global([data-interior-reveal][data-interior-visible]) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.root :global([data-interior-surface]) {
+  transition:
+    border-color .28s var(--ease),
+    box-shadow .34s var(--ease),
+    transform .34s var(--ease),
+    background-color .28s var(--ease);
+}
+
+.root :global(.button),
+.root :global(.text-link),
+.root :global(.text-button),
+.root :global(button) {
+  position: relative;
+  transition:
+    color .24s var(--ease),
+    background-color .24s var(--ease),
+    border-color .24s var(--ease),
+    box-shadow .3s var(--ease),
+    transform .3s var(--ease);
+}
+
+.root :global(.button) {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.root :global(.button)::after {
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  background: linear-gradient(105deg, transparent 22%, rgb(255 255 255 / 28%) 48%, transparent 72%);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-125%);
+  transition: transform .55s var(--ease);
+}
+
+.root :global(a svg),
+.root :global(button svg) {
+  transition: transform .28s var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .root :global([data-interior-surface]):hover,
+  .root :global([data-interior-surface]):focus-within {
+    border-color: rgb(252 181 63 / 42%);
+    box-shadow: 0 22px 64px rgb(0 0 0 / 13%), 0 0 0 1px rgb(252 181 63 / 5%);
+    transform: translate3d(0, -5px, 0);
+  }
+
+  .root :global(.button):hover::after,
+  .root :global(.button):focus-visible::after {
+    transform: translateX(125%);
+  }
+
+  .root :global(a:hover svg),
+  .root :global(button:hover svg) {
+    transform: translate3d(3px, 0, 0);
+  }
+
+  .root :global(button:not(:disabled)):active,
+  .root :global(.button):active {
+    transform: translateY(0) scale(.98);
+  }
+}
+
+@keyframes route-enter {
+  from { opacity: .72; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes route-signal {
+  0% { opacity: 0; transform: scaleX(0); }
+  28% { opacity: 1; transform: scaleX(.54); }
+  72% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
+
+@keyframes ambient-drift {
+  from { transform: translate3d(0, -2%, 0) scale(.96); }
+  to { transform: translate3d(-8%, 7%, 0) scale(1.06); }
+}
+
+@media (max-width: 760px) {
+  .ambient::before {
+    top: 14%;
+    right: -14rem;
+    width: 30rem;
+  }
+
+  .ambient span:first-child {
+    left: -18rem;
+  }
+
+  .root[data-motion-ready="true"] :global([data-interior-reveal]) {
+    transform: translate3d(0, 16px, 0);
+  }
+
+  .root[data-motion-ready="true"] :global([data-interior-reveal][data-interior-visible]) {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .ambient::before,
+  .routeSignal {
+    animation: none;
+  }
+
+  .routeSignal {
+    display: none;
+  }
+
+  .root :global([data-interior-reveal]),
+  .root :global([data-interior-surface]),
+  .root :global(.button),
+  .root :global(.text-link),
+  .root :global(.text-button),
+  .root :global(button),
+  .root :global(a svg),
+  .root :global(button svg) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
