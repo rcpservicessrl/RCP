@@ -4,7 +4,7 @@ import path from "node:path";
 import test from "node:test";
 
 const root = process.cwd();
-const read = (relativePath) => readFile(path.join(root, relativePath), "utf8");
+const read = (relativePath) => readFile(path.join(root, relativePath), "utf8").then((source) => source.replace(/\r\n/g, "\n"));
 
 function quotedProperty(source, property) {
   const match = source.match(new RegExp(`\\b${property}:\\s*"([^"]+)"`));
