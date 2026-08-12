@@ -43,7 +43,7 @@ La implementación Blueprint 5 queda apta para preview y validación de aceptaci
 
 - La revisión interactiva cubrió escritorio de baja altura y móvil, temas claro/oscuro, navegación, buscador, filtros, panel de Pulso y transferencia del catálogo al diagnóstico.
 - No se detectó desbordamiento horizontal en 1280 × 720 ni 390 × 844 durante la inspección visual.
-- El cuerpo usa 18 px y peso 500; el texto funcional más pequeño queda en 14,4 px. La jerarquía recupera legibilidad sin romper los viewports comprobados.
+- El cuerpo usa 18 px y peso 500; el contenido funcional visible parte de 16 px. La jerarquía recupera legibilidad sin romper los viewports comprobados.
 - El logotipo principal se amplió a 208 px en escritorio, 172 px en tableta y 164 px en móvil; el logotipo del pie llega a 224 px.
 - La portada ocupa 720 px en 1280 × 720 y 844 px en 390 × 844; el título, acciones, señales de confianza y Pulso permanecen dentro del primer cuadro de pantalla.
 - Las páginas interiores incorporan entrada progresiva, línea de recorrido, luces ambientales y respuesta de superficies, enlaces y botones a puntero, foco y pulsación.
