@@ -9,7 +9,7 @@ Validar la aplicación Next en Vercel sin modificar `rcp.services`, datos produc
 1. Vincular el repositorio al proyecto Vercel de RCP y confirmar que pertenece al equipo autorizado.
 2. Usar Node 24 y los comandos declarados en el repositorio.
 3. Configurar Preview y Production por separado.
-4. Definir en staging `RCP_DEPLOYMENT_ENV=preview` y `NEXT_PUBLIC_SITE_URL=https://staging.rcp.services`.
+4. Definir en el entorno Production del proyecto exclusivo de staging `RCP_DEPLOYMENT_ENV=staging` y `NEXT_PUBLIC_SITE_URL=https://staging.rcp.services`; usar `preview` únicamente en deployments de ramas.
 5. Mantener `RCP_INTAKE_DELIVERY_MODE=email` durante el piloto.
 6. Usar direcciones controladas y nunca datos reales de clientes en pruebas.
 7. Verificar que `robots.txt` bloquea todo y que las páginas incluyen `noindex`.
