@@ -114,5 +114,6 @@ test("delivery automation targets Vercel and requires an explicit production rel
   assert.match(deploy, /node-version: 24/);
   assert.doesNotMatch(deploy, /deploy-pages|github-pages|npm ci/i);
   assert.match(vercel, /"framework": "nextjs"/);
+  assert.match(vercel, /"cleanUrls": false/);
   assert.doesNotMatch(vercel, /_astro/);
 });
