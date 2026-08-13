@@ -66,7 +66,7 @@
 }
 
 .hero h1 span {
-  color: var(--amber);
+  color: var(--amber-text);
 }
 
 .summary {
@@ -106,7 +106,7 @@
 
 .languageCard a:hover {
   border-color: var(--amber);
-  color: var(--amber);
+  color: var(--amber-text);
 }
 
 .bodySection {
@@ -154,7 +154,7 @@
 }
 
 .contents a span {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-variant-numeric: tabular-nums;
 }
@@ -189,7 +189,7 @@
 
 .article header > span {
   padding-top: 5px;
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -220,7 +220,7 @@
 }
 
 .article a:hover {
-  color: var(--amber);
+  color: var(--amber-text);
 }
 
 .article code {
@@ -228,7 +228,7 @@
   border: 1px solid var(--line);
   border-radius: 5px;
   background: var(--surface-2);
-  color: var(--amber);
+  color: var(--amber-text);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: .84em;
   overflow-wrap: anywhere;

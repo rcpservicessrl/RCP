@@ -33,7 +33,7 @@
 }
 
 .steps span {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
 }
@@ -78,7 +78,7 @@
 }
 
 .stageGrid span {
-  color: var(--amber);
+  color: var(--amber-text);
   font-weight: 750;
   letter-spacing: .08em;
 }

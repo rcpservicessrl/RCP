@@ -32,7 +32,7 @@
 }
 
 .eyebrow {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
   letter-spacing: .11em;
@@ -115,7 +115,7 @@
 }
 
 .boundaryCard > strong {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -145,7 +145,7 @@
 .errorCard a {
   display: inline-flex;
   margin-top: 24px;
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
 }
@@ -255,7 +255,7 @@
 }
 
 .consent a {
-  color: var(--amber);
+  color: var(--amber-text);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -306,7 +306,7 @@
   padding: 12px 14px;
   border-radius: 8px;
   background: var(--bg);
-  color: var(--amber);
+  color: var(--amber-text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 

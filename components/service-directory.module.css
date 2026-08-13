@@ -97,7 +97,7 @@
 .coreServices li::before {
   content: "—";
   margin-right: 8px;
-  color: var(--amber);
+  color: var(--amber-text);
 }
 
 .catalogList {

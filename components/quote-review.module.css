@@ -44,7 +44,7 @@
 }
 
 .summary code {
-  color: var(--amber);
+  color: var(--amber-text);
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: .9rem;
   font-weight: 700;
@@ -64,7 +64,7 @@
 }
 
 .nextStep small {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
   letter-spacing: .1em;

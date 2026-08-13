@@ -85,6 +85,24 @@ test("homepage locks the approved human positioning and headline", async () => {
   assert.doesNotMatch(publicPositioning, /renovamos el coraz[oó]n de tu empresa para que crezca con direcci[oó]n/i);
 });
 
+test("brand accent text remains readable on light surfaces", async () => {
+  const [globalStyles, diagnosisStyles, specialistStyles] = await Promise.all([
+    read("app/globals.css"),
+    read("components/diagnosis-page.module.css"),
+    read("components/specialist-application-page.module.css"),
+  ]);
+
+  assert.match(globalStyles, /--amber-text:\s*#fcb53f/);
+  assert.match(globalStyles, /html\[data-theme="light"\][\s\S]*?--amber-text:\s*#7a4a00/);
+  assert.match(globalStyles, /html\[data-theme="light"\][\s\S]*?--green-text:\s*#3f6100/);
+  assert.match(globalStyles, /\.section-eyebrow,[\s\S]*?color:\s*var\(--amber-text\)/);
+  assert.match(globalStyles, /\.hero h1 em \{ color: var\(--amber-text\)/);
+  assert.match(diagnosisStyles, /\.steps span \{\s*color: var\(--amber-text\)/);
+  assert.match(diagnosisStyles, /\.stageGrid span \{\s*color: var\(--amber-text\)/);
+  assert.match(specialistStyles, /\.eyebrow \{\s*color: var\(--amber-text\)/);
+  assert.match(specialistStyles, /\.boundaryCard > strong \{\s*color: var\(--amber-text\)/);
+});
+
 test("the active RCP method uses action and outcome without legacy fields", async () => {
   const [content, types, home, diagnosisPage] = await Promise.all([
     read("lib/content.ts"),
