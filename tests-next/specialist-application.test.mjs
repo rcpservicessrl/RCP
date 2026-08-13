@@ -55,6 +55,9 @@ test("failed specialist submissions preserve form data and expose only a safe ma
   assert.match(form, /state === "error"[\s\S]*?fallbackHref/);
   assert.match(form, /mailto:\$\{fallbackEmail\}/);
   assert.match(endpoint, /mailto:\$\{fallbackEmail\}\?subject=/);
+  assert.match(form, /const fallbackEmail = "info@rcp\.services"/);
+  assert.match(endpoint, /const fallbackEmail = "info@rcp\.services"/);
+  assert.doesNotMatch(`${form}\n${endpoint}`, /talento@rcp\.services/);
   assert.doesNotMatch(form, /type="file"/);
   assert.doesNotMatch(endpoint, /console\.|portfolioUrl.*subject|experience.*subject/);
 });

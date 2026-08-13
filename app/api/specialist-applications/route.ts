@@ -3,7 +3,7 @@ import { consumeRateLimit } from "@/lib/server/rate-limit";
 
 const MAX_BODY_BYTES = 16_000;
 const noStoreHeaders = { "Cache-Control": "no-store" };
-const fallbackEmail = "talento@rcp.services";
+const fallbackEmail = "info@rcp.services";
 const categories = new Set(["renovacion", "consultoria", "publicidad", "tecnologia"]);
 const availabilityOptions = new Set(["por-proyecto", "parcial", "segun-alcance"]);
 

@@ -16,7 +16,7 @@ type ApplicationResponse = {
   fallbackUrl?: string;
 };
 
-const fallbackEmail = "talento@rcp.services";
+const fallbackEmail = "info@rcp.services";
 
 const copy = {
   es: {
@@ -51,7 +51,7 @@ const copy = {
     reference: "Referencia",
     errorTitle: "No pudimos confirmar el registro.",
     errorText: "Tus datos siguen en el formulario. Puedes intentarlo otra vez o enviarlos directamente al correo de talento.",
-    emailFallback: "Escribir a talento@rcp.services",
+    emailFallback: "Escribir a info@rcp.services",
     genericError: "La conexión con el sistema de registro no está disponible en este momento.",
   },
   en: {
@@ -86,7 +86,7 @@ const copy = {
     reference: "Reference",
     errorTitle: "We could not confirm the record.",
     errorText: "Your entries remain in the form. You can try again or send them directly to the talent inbox.",
-    emailFallback: "Email talento@rcp.services",
+    emailFallback: "Email info@rcp.services",
     genericError: "The registration system is currently unavailable.",
   },
 } as const;

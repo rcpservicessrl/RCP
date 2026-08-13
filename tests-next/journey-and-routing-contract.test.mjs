@@ -141,3 +141,26 @@ test("the documented legacy redirect map stays in exact parity with Next config"
     assert.deepEqual(configuredBySource.get(expected.source), expected, `${expected.source} must preserve its documented target and status`);
   }
 });
+
+test("legacy HTML aliases resolve directly instead of being normalized by Vercel first", async () => {
+  const [vercelSource, config] = await Promise.all([
+    read("vercel.json"),
+    read("next.config.ts"),
+  ]);
+  const vercel = JSON.parse(vercelSource);
+  assert.equal(vercel.cleanUrls, false);
+
+  const redirectsStart = config.indexOf("async redirects()");
+  const configured = [...config.slice(redirectsStart).matchAll(/\{\s*source:\s*"([^"]+)",\s*destination:\s*"([^"]+)",\s*permanent:\s*(true|false)\s*\}/g)]
+    .map((match) => ({ source: match[1], destination: match[2] }));
+  const bySource = new Map(configured.map((entry) => [entry.source, entry.destination]));
+
+  for (const [source, destination] of [
+    ["/tienda.html", "/catalogo"],
+    ["/carreras.html", "/especialistas"],
+    ["/dashboard.html", "/portal"],
+    ["/reembolsos.html", "/terminos"],
+  ]) {
+    assert.equal(bySource.get(source), destination, `${source} must redirect directly to ${destination}`);
+  }
+});
