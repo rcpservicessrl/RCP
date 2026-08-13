@@ -36,7 +36,7 @@
 }
 
 .eyebrow {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
   letter-spacing: .11em;
@@ -145,7 +145,7 @@
 .valueCard > span,
 .relationshipGrid article > span,
 .learningGrid article > span {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
 }
@@ -237,7 +237,7 @@
 .pillarCard > p { margin-top: 16px; }
 .pillarCard > strong { display: block; margin-top: 18px; color: var(--text); }
 .pillarCard ul { display: grid; gap: 8px; margin-top: 22px; }
-.pillarCard li::before { content: "—"; margin-right: 8px; color: var(--amber); }
+.pillarCard li::before { content: "—"; margin-right: 8px; color: var(--amber-text); }
 
 .technologyBridge {
   grid-template-columns: minmax(0, 1fr) auto;
@@ -264,7 +264,7 @@
 
 .timeline li > span,
 .specialistTimeline li > span {
-  color: var(--amber);
+  color: var(--amber-text);
   font-size: .9rem;
   font-weight: 700;
 }
@@ -314,13 +314,13 @@
 .mediaCopy h3 { margin-top: 10px; font-size: 1.45rem; }
 .mediaCopy p,
 .podcastHeader p { margin-top: 12px; color: var(--text-soft); font-size: .9rem; line-height: 1.65; }
-.mediaCopy a { display: inline-flex; gap: 8px; margin-top: 20px; color: var(--amber); font-size: .9rem; font-weight: 700; }
+.mediaCopy a { display: inline-flex; gap: 8px; margin-top: 20px; color: var(--amber-text); font-size: .9rem; font-weight: 700; }
 
 .podcastStack { display: grid; gap: 16px; }
 .podcastCard { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .65fr); gap: 24px; align-items: center; padding: 24px; }
 .podcastCard iframe { border: 0; border-radius: 12px; }
 .podcastHeader { display: grid; grid-template-columns: 48px 1fr; gap: 18px; }
-.podcastHeader > span { color: var(--amber); font-size: .9rem; font-weight: 700; }
+.podcastHeader > span { color: var(--amber-text); font-size: .9rem; font-weight: 700; }
 .podcastHeader h3 { margin-top: 7px; font-size: 1.2rem; }
 
 .learningGrid,
@@ -335,7 +335,7 @@
   align-items: start;
 }
 
-.archiveNote strong { color: var(--amber); font-size: .9rem; }
+.archiveNote strong { color: var(--amber-text); font-size: .9rem; }
 .archiveNote p { color: var(--text-soft); font-size: .9rem; line-height: 1.65; }
 
 .categoryGrid article {
@@ -345,11 +345,11 @@
   background: var(--surface);
 }
 
-.categoryGrid small { color: var(--amber); font-size: .9rem; font-weight: 700; text-transform: uppercase; }
+.categoryGrid small { color: var(--amber-text); font-size: .9rem; font-weight: 700; text-transform: uppercase; }
 .categoryGrid h3 { margin-top: 24px; font-size: 1.45rem; }
 .categoryGrid ul { display: grid; gap: 10px; margin-top: 20px; }
 .categoryGrid li { color: var(--text-soft); font-size: .9rem; line-height: 1.5; }
-.categoryGrid li::before { content: "—"; margin-right: 7px; color: var(--green); }
+.categoryGrid li::before { content: "—"; margin-right: 7px; color: var(--green-text); }
 
 .ctaSection {
   padding: 0 0 128px;
