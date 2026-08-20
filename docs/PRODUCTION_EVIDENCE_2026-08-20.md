@@ -55,6 +55,8 @@
   documental quedaron fusionados en `rcp-delivery-hub#4` y `#5`.
 - TypeScript, pruebas Vitest, lint, build Next y verificadores SQL locales
   de esquema, contratos, RLS, gates y leases pasan.
+- E2E local: 8/8 escenarios Playwright en escritorio y móvil pasan para las
+  superficies de Dirección, cliente, especialista y rechazo de acceso inválido.
 - El Hub tiene un Preview privado en Vercel, sin dominio público. El deployment
   actualizado es `dpl_54Mj21nAbsnvRrLwPnLA887Sumof`, con Node 24 y las rutas de
   health, CRM, Matrix release evidence y outbox compiladas; el deployment
