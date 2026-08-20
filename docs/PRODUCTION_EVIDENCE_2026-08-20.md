@@ -9,6 +9,9 @@
 - `sitemap.xml`: HTTP 200 con URLs públicas.
 - `/portal`: HTTP 200 y `noindex`.
 - `www.rcp.services`: redirección 308 de un solo salto.
+- `staging.rcp.services`: deployment Vercel `dpl_37QznB332LnmoDE1JfK5b9NA3iku`,
+  Ready, privado y `noindex`; SHA registrado
+  `a316c8306fb5767500ab516738a39da26418c7ae`.
 - Formulario público y postulación: entradas inválidas rechazadas con HTTP 400
   antes de cualquier entrega; no se enviaron datos reales durante esta
   verificación.
