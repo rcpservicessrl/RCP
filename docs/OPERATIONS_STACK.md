@@ -14,9 +14,9 @@ Se activa una herramienta solo cuando tiene proceso, propietario, datos autoriza
 | Antiabuso | Cloudflare Turnstile | Tecnología | gratuito; credenciales pendientes | token técnico, IP procesada por proveedor | desactivar por variable y sustituir challenge |
 | Datos y Auth del CRM | Supabase existente | Tecnología | gratuito durante piloto | datos corporativos bajo esquema `crm` | backup lógico cifrado y migraciones forward-only |
 | Datos y Auth del Hub | Supabase local / Pro separado | Tecnología | local ahora; Pro es gate externo | organizaciones, proyectos y evidencia | export SQL/Storage y contratos API versionados |
-| Errores | Sentry | Tecnología | activación pendiente | telemetría técnica sin PII | export de issues y retiro del DSN |
-| Analítica pública | PostHog | Comercial/Tecnología | activación pendiente | eventos consentidos sin PII/texto libre | export de eventos y retiro del script |
-| Disponibilidad | UptimeRobot | Tecnología | activación tras staging | URL, estado y latencia | export de monitores |
+| Errores | Sentry | Tecnología | diferido formalmente en RC2 | telemetría técnica sin PII | export de issues y retiro del DSN |
+| Analítica pública | PostHog | Comercial/Tecnología | diferido formalmente en RC2 | eventos consentidos sin PII/texto libre | export de eventos y retiro del script |
+| Disponibilidad | UptimeRobot | Tecnología | diferido formalmente hasta aprobar staging | URL, estado y latencia | export de monitores |
 | Operación comercial | RCP CRM | Operaciones | `SECURITY-HOLD` hasta saneamiento | contactos, empresas, oportunidades y consentimientos | export por cuenta + outbox reconciliable |
 | Entrega | RCP Delivery Hub | Operaciones/Tecnología | piloto local | proyectos, especialistas, entregables y QA | export por organización + revocación |
 | Búsqueda pública | índice SSR local | Tecnología | activo, sin proveedor | contenido público filtrado | JSON descargable y código portable |

@@ -31,7 +31,7 @@ que siguen abiertas son gates reales, no tareas de código ocultas.
 - [x] Deployment `staging.rcp.services` con `noindex` y SHA registrado; permanece privado en Hobby.
 - [ ] Resend/subdominio con SPF/DKIM y entrega única hacia Zoho.
 - [ ] Turnstile y protección distribuida/rate limit comprobados.
-- [ ] Sentry, PostHog y UptimeRobot configurados o diferidos formalmente.
+- [x] Sentry, PostHog y UptimeRobot diferidos formalmente con propietario, criterios de salida y sondas previstas.
 - [ ] UAT visual, funcional, SEO/AEO y formulario aprobado.
 
 ## 4. CRM

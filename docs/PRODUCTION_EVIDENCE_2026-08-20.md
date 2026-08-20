@@ -64,8 +64,9 @@
 - Migración del CRM a Vercel: requiere cargar credenciales server-side
   separadas, rotación/re-cifrado y prueba de restauración antes de activar
   `crm.rcp.services`.
-- Sentry, PostHog y UptimeRobot permanecen diferidos hasta definir propietario,
-  retención y alertas; no son requisitos para la web pública actual.
+- Sentry, PostHog y UptimeRobot están diferidos formalmente en
+  `docs/OBSERVABILITY_DEFERRED_RC2.md`, con propietario, criterios de salida y
+  sondas previstas; no son requisitos para la web pública actual.
 
 La web está operativa. El ecosistema completo no se declara abierto a clientes
 ni especialistas mientras los gates de CRM, Hub y Meta permanezcan pendientes.
