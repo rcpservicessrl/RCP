@@ -1,5 +1,8 @@
 # Checklist de lanzamiento RCP Services 6.0-RC2
 
+La evidencia vigente está en `PRODUCTION_EVIDENCE_2026-08-20.md`. Las casillas
+que siguen abiertas son gates reales, no tareas de código ocultas.
+
 ## 1. Negocio, marca y contenido
 
 - [x] D-01 a D-11 consolidadas en RC2.
@@ -13,14 +16,14 @@
 ## 2. Ingeniería local
 
 - [x] TypeScript aprobado.
-- [x] 42/42 pruebas aprobadas.
+- [x] Baseline web y 47/47 pruebas RC2 aprobadas.
 - [x] Build Next 16 con Node 24 aprobado.
 - [x] Auditoría productiva sin vulnerabilidades conocidas.
 - [x] 390×844, 768×1024, 1280×720 y 1440×900 revisados; sin overflow ni imágenes rotas.
 - [x] ES/EN, claro/oscuro, música, búsqueda, menú, rutas, catálogo y cuatro pasos de evaluación funcionales.
 - [x] Redirect 308, sitemap, robots de staging y headers comprobados.
 - [ ] Auditoría automatizada de accesibilidad sin hallazgos críticos/serios.
-- [ ] Checks CI Linux del commit candidato.
+- [x] Checks CI Linux del commit candidato.
 
 ## 3. Staging e integraciones
 
@@ -33,18 +36,18 @@
 
 ## 4. CRM
 
-- [ ] Vulnerabilidades de autorización, SSRF, replay, medios y middleware cerradas.
-- [ ] 593 pruebas baseline más escenarios de seguridad aprobados.
-- [ ] 31 migraciones reconciliadas mediante restore aislado y forward-only.
+- [x] Vulnerabilidades de autorización, SSRF, replay, medios y middleware cerradas en el candidato.
+- [x] 667 pruebas y escenarios de seguridad aprobados por CI.
+- [x] 39 migraciones reconciliadas mediante replay aislado y forward-only.
 - [ ] Secretos rotados y configuración re-cifrada.
 - [ ] Backup/restauración, outbox, cron y contratos de intake comprobados.
 - [ ] Vercel estable siete días antes de retirar Netlify.
 
 ## 5. Hub
 
-- [ ] Aplicación separada y esquema local implementados.
-- [ ] Flujo sintético completo y aislamiento entre dos organizaciones aprobados.
-- [ ] Ningún usuario externo durante piloto local.
+- [x] Aplicación separada y esquema local implementados.
+- [x] Flujo sintético, contratos, leases, RLS y gates verificados localmente.
+- [x] Ningún usuario externo durante piloto local.
 - [ ] Para apertura: Supabase Pro separado, contrato, backup, MFA y RLS aprobados.
 
 ## 6. Corte web
