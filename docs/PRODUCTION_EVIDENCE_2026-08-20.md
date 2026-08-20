@@ -49,11 +49,15 @@
 - PR funcional fusionado: `rcp-delivery-hub#1`.
 - PR documental del contrato/outbox fusionado: `rcp-delivery-hub#2`.
 - Evidencia del Preview sintético fusionada: `rcp-delivery-hub#3`
-  (merge `ec4d5a2`).
-- TypeScript, 14 pruebas Vitest, lint, build Next y verificadores SQL locales
+  (merge `ec4d5a2`). El receptor Matrix de evidencia y su actualización
+  documental quedaron fusionados en `rcp-delivery-hub#4` y `#5`.
+- TypeScript, pruebas Vitest, lint, build Next y verificadores SQL locales
   de esquema, contratos, RLS, gates y leases pasan.
-- El Hub tiene un Preview privado en Vercel, sin dominio público: `dpl_3UGrKrFQMC4vJDfqWNMJ5EXF16MH`.
-  `GET /api/health` confirma `environment=preview`, `dataMode=synthetic`,
+- El Hub tiene un Preview privado en Vercel, sin dominio público. El deployment
+  actualizado es `dpl_54Mj21nAbsnvRrLwPnLA887Sumof`, con Node 24 y las rutas de
+  health, CRM, Matrix release evidence y outbox compiladas; el deployment
+  inicial verificable permanece `dpl_3UGrKrFQMC4vJDfqWNMJ5EXF16MH`.
+  `GET /api/health` del deployment inicial confirma `environment=preview`, `dataMode=synthetic`,
   `externalUsers=false`, `crmEvents=disabled` y `outboundEvents=disabled`.
   `robots.txt` y el HTML están marcados como no indexables. No hay usuarios
   externos ni datos reales.
