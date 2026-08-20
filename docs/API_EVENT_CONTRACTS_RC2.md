@@ -2,6 +2,16 @@
 
 Estado: contrato de implementación. Los endpoints del CRM no se habilitan en producción mientras exista `SECURITY-HOLD`.
 
+## Frontera web pública y CRM
+
+La web pública recibe las solicitudes en `/api/inquiries` y
+`/api/specialist-applications`. Durante el piloto las entrega por Resend. Solo
+cuando `RCP_INTAKE_DELIVERY_MODE=crm` está habilitado y el CRM tiene sus
+credenciales server-side, el adaptador web reenvía el sobre firmado a los
+endpoints internos `/api/integrations/site/intakes` y
+`/api/integrations/site/specialist-applications` descritos abajo. No son rutas
+públicas del sitio y no deben aparecer en el sitemap.
+
 ## Seguridad común
 
 Toda llamada servidor-servidor requiere:
