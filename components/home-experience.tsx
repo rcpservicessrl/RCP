@@ -273,7 +273,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
             <div className="pillar-tabs" role="tablist" aria-label={c.solutionsTitle}>
               {pillars.map((pillar, index) => <button type="button" key={pillar.id} id={`pillar-tab-${pillar.id}`} data-pillar-id={pillar.id} role="tab" aria-selected={pillar.id === activePillar} aria-controls="pillar-panel" tabIndex={pillar.id === activePillar ? 0 : -1} className={`pillar-tab pillar-tab--${pillar.id} ${pillar.id === activePillar ? "is-active" : ""}`} onClick={() => setActivePillar(pillar.id)} onKeyDown={(event) => movePillarWithKeyboard(event, index)}><span>0{index + 1}</span><strong>{t(pillar.title, locale)}</strong><small>{t(pillar.eyebrow, locale)}</small></button>)}
             </div>
-            <article id="pillar-panel" role="tabpanel" aria-labelledby={`pillar-tab-${selectedPillar.id}`} className={`pillar-stage pillar-stage--${selectedPillar.id}`}>
+            <div id="pillar-panel" role="tabpanel" aria-labelledby={`pillar-tab-${selectedPillar.id}`} className={`pillar-stage pillar-stage--${selectedPillar.id}`}>
               <div className="pillar-stage__index">{selectedPillar.id === "renovacion" ? "R" : selectedPillar.id === "consultoria" ? "C" : "P"}</div>
               <div className="pillar-stage__intro"><small>{t(selectedPillar.eyebrow, locale)}</small><h3>{t(selectedPillar.title, locale)}</h3><p>{t(selectedPillar.summary, locale)}</p></div>
               <div className="pillar-stage__detail">
@@ -282,7 +282,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
                 <div><small>{c.techMay}</small><ul className="tech-tags">{selectedPillar.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul></div>
               </div>
               <div className="pillar-stage__guide"><Pulso scene={selectedPillar.id === "consultoria" ? "analyze" : "present"} size="medium" /></div>
-            </article>
+            </div>
           </div>
         </section>
 
@@ -305,12 +305,12 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
             <div className="method-steps" role="tablist" aria-label={c.methodTitle}>
               {methodSteps.map((step, index) => <button type="button" id={`method-tab-${step.id}`} data-method-id={step.id} role="tab" aria-selected={step.id === activeMethod} aria-controls="method-panel" tabIndex={step.id === activeMethod ? 0 : -1} className={step.id === activeMethod ? "is-active" : ""} key={step.id} onClick={() => setActiveMethod(step.id)} onKeyDown={(event) => moveMethodWithKeyboard(event, index)}><span>{step.number}</span><strong>{t(step.title, locale)}</strong></button>)}
             </div>
-            <article id="method-panel" role="tabpanel" aria-labelledby={`method-tab-${selectedMethod.id}`} className="method-stage">
+            <div id="method-panel" role="tabpanel" aria-labelledby={`method-tab-${selectedMethod.id}`} className="method-stage">
               <div className="method-stage__number">{selectedMethod.number}</div>
               <div><small>{c.stepAction}</small><h3>{t(selectedMethod.title, locale)}</h3><p>{t(selectedMethod.action, locale)}</p></div>
               <div className="method-stage__evidence"><ShieldIcon size={20} /><span><small>{c.stepOutcome}</small><strong>{t(selectedMethod.outcome, locale)}</strong></span></div>
               <div className="method-stage__pulse" aria-hidden="true"><i style={{ width: `${((methodSteps.findIndex((entry) => entry.id === activeMethod) + 1) / methodSteps.length) * 100}%` }} /></div>
-            </article>
+            </div>
           </div>
         </section>
 

@@ -10,6 +10,7 @@ const revealSelector = [
   ":scope > article > section > .container",
   ":scope > div > section > .container",
   "section article",
+  'section [role="tabpanel"]',
   "section aside",
   "section form",
   "section ol > li",
@@ -17,6 +18,7 @@ const revealSelector = [
 
 const surfaceSelector = [
   "section article",
+  'section [role="tabpanel"]',
   "section aside",
   "section form",
 ].join(",");
