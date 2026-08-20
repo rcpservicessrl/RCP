@@ -19,6 +19,9 @@
   y modo de entrega. Los valores permanecen cifrados en Vercel.
 - El HTML público conserva la promesa principal, los tres pilares y Pulso; no
   expone CRM interno, asuntos legales, e-CF ni estados no comerciales.
+- El smoke automatizado de accesibilidad no detectó errores de consola,
+  imágenes sin `alt`, overflow horizontal ni controles visibles sin nombre;
+  la auditoría WCAG completa sigue abierta para CI.
 
 ## CRM
 
