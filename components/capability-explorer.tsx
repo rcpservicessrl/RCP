@@ -70,7 +70,7 @@ export function CapabilityExplorer({ locale, initialCapability, compact = false 
         ))}
       </div>
 
-      <article id="solution-panel" role="tabpanel" aria-labelledby={`solution-tab-${solution.id}`} className="capability-card capability-card--solution">
+      <div id="solution-panel" role="tabpanel" aria-labelledby={`solution-tab-${solution.id}`} className="capability-card capability-card--solution">
         <header>
           <span className="capability-state capability-state--contextual">{locale === "es" ? "Software según tu necesidad" : "Software shaped to your need"}</span>
           <span className="capability-card__acronym">{String(technologySolutions.findIndex((entry) => entry.id === solution.id) + 1).padStart(2, "0")}</span>
@@ -91,7 +91,7 @@ export function CapabilityExplorer({ locale, initialCapability, compact = false 
           <p>{locale === "es" ? "No vendemos una caja genérica. Primero entendemos el proceso y después definimos alcance, propiedad, alojamiento y soporte." : "We do not sell a generic box. We first understand the process, then define scope, ownership, hosting and support."}</p>
           <Link href={t(solution.href, locale)}>{locale === "es" ? "Explorar esta solución" : "Explore this solution"}<ArrowIcon size={16} /></Link>
         </footer>
-      </article>
+      </div>
 
       {!compact && (
         <section className="technology-glossary" aria-labelledby="technology-glossary-title">
