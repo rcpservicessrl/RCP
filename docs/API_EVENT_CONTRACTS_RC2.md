@@ -73,7 +73,7 @@ Sobre común:
 ```json
 {
   "id": "uuid",
-  "type": "opportunity.approved.v1",
+  "type": "opportunity.qualified.v1",
   "occurredAt": "2026-08-12T16:00:00-04:00",
   "producer": "rcp-crm",
   "organizationId": "uuid",
@@ -84,7 +84,7 @@ Sobre común:
 
 Eventos autorizados:
 
-- `opportunity.approved.v1`: CRM → Hub; crea un engagement pendiente de aceptación operativa.
+- `opportunity.qualified.v1`: CRM → Hub; crea o resuelve de forma idempotente un engagement calificado pendiente de aceptación operativa.
 - `engagement.created.v1`: Hub → CRM; enlaza oportunidad y engagement.
 - `engagement.status_changed.v1`: Hub → CRM; sincroniza solo estado comercial resumido.
 - `technical_work.approved.v1`: Hub → Matrix; autoriza un trabajo técnico acotado.

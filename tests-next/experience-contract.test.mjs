@@ -223,3 +223,25 @@ test("diagnosis errors preserve form values and a server-provided handoff", asyn
   assert.match(form, /state === "error"[\s\S]*?handoffUrl && <a/);
   assert.match(form, /Tus datos siguen en pantalla/);
 });
+
+test("diagnosis binds each retry key to its semantic payload and clears it only after confirmed success", async () => {
+  const form = await read("components/diagnosis-form.tsx");
+  const fingerprint = form.indexOf("await fingerprintSubmissionPayload(payload)");
+  const resolution = form.indexOf("resolveSubmissionIdempotency(submissionIdempotency.current, fingerprint)");
+  const persistedIdentity = form.indexOf("submissionIdempotency.current = requestIdentity");
+  const requestHeader = form.indexOf('"Idempotency-Key": requestIdentity.key');
+  const acceptanceGuard = form.indexOf("result.accepted !== true");
+  const successState = form.indexOf('setState("success")', acceptanceGuard);
+  const keyRotation = form.indexOf("submissionIdempotency.current = null", successState);
+  const catchStart = form.indexOf("} catch {", keyRotation);
+  const catchEnd = form.indexOf("\n    }\n  };", catchStart);
+
+  assert.match(form, /const submissionIdempotency = useRef<SubmissionIdempotency \| null>\(null\)/);
+  assert.doesNotMatch(form, /crypto\.randomUUID\(\)/, "key generation belongs to the semantic idempotency helper");
+  assert.ok(fingerprint >= 0 && fingerprint < resolution, "the semantic fingerprint must be calculated first");
+  assert.ok(resolution < persistedIdentity && persistedIdentity < requestHeader, "the payload-bound identity must be persisted before the request");
+  assert.ok(requestHeader < acceptanceGuard, "the request must send the persisted key");
+  assert.ok(acceptanceGuard < successState && successState < keyRotation, "the key may rotate only after definitive acceptance");
+  assert.ok(catchStart > keyRotation && catchEnd > catchStart, "submission error branch was not found");
+  assert.doesNotMatch(form.slice(catchStart, catchEnd), /submissionIdempotency\.current\s*=\s*null/);
+});
