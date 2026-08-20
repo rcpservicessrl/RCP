@@ -12,8 +12,10 @@ Superficie: navegador con DOM accesible y logs de consola, sin enviar formulario
 - Sin overflow horizontal en el viewport auditado.
 - El honeypot y los campos técnicos de Turnstile son controles ocultos; no se
   consideran campos de interacción del usuario.
+- Lighthouse 13.4.1 con axe-core 4.13.0 obtuvo 100/100 en accesibilidad en
+  `https://rcp.services/`; no quedaron auditorías binarias fallidas.
+- La advertencia semántica de `tabpanel` sobre elementos `article` fue corregida
+  en el PR `#19` (`fix(a11y): use valid tabpanel semantics`) y pasó los checks CI.
 
-Este resultado es un smoke automatizado, no sustituye una auditoría WCAG
-completa de contraste, teclado, lectores de pantalla y movimiento reducido. La
-casilla de auditoría completa permanece abierta hasta ejecutarla con una
-herramienta especializada en el entorno de CI.
+El resultado automatizado pasó. La revisión manual de teclado, contraste,
+lectores de pantalla y movimiento reducido permanece como gate humano separado.

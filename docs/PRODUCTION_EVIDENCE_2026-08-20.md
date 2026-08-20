@@ -20,8 +20,10 @@
 - El HTML público conserva la promesa principal, los tres pilares y Pulso; no
   expone CRM interno, asuntos legales, e-CF ni estados no comerciales.
 - El smoke automatizado de accesibilidad no detectó errores de consola,
-  imágenes sin `alt`, overflow horizontal ni controles visibles sin nombre;
-  la auditoría WCAG completa sigue abierta para CI.
+  imágenes sin `alt`, overflow horizontal ni controles visibles sin nombre.
+  Lighthouse 13.4.1/axe-core 4.13.0 obtuvo 100/100 en accesibilidad en
+  `rcp.services`; la revisión manual WCAG de teclado, contraste, lectores de
+  pantalla y movimiento reducido permanece abierta.
 
 ## CRM
 

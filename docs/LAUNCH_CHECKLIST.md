@@ -22,7 +22,8 @@ que siguen abiertas son gates reales, no tareas de código ocultas.
 - [x] 390×844, 768×1024, 1280×720 y 1440×900 revisados; sin overflow ni imágenes rotas.
 - [x] ES/EN, claro/oscuro, música, búsqueda, menú, rutas, catálogo y cuatro pasos de evaluación funcionales.
 - [x] Redirect 308, sitemap, robots de staging y headers comprobados.
-- [ ] Auditoría automatizada de accesibilidad sin hallazgos críticos/serios.
+- [x] Lighthouse 13.4.1/axe-core 4.13.0: accesibilidad 100/100 y sin hallazgos
+  binarios críticos/serios; revisión manual WCAG permanece abierta.
 - [x] Checks CI Linux del commit candidato.
 
 ## 3. Staging e integraciones
