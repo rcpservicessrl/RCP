@@ -28,6 +28,11 @@
 - El CRM sigue en `SECURITY-HOLD` operativo: su proyecto Vercel no tiene aún
   variables de producción ni se ha cambiado DNS. El transporte Hub permanece
   desactivado (`RCP_HUB_EVENTS_ENABLED=false`).
+- Existe un Preview privado de prueba en Vercel (`dpl_9Zy5AmGoZTcU9uTpjC9fu4va3mic`):
+  el build y liveness pasan, `RCP_PILOT_MODE=true`, no tiene datos reales y
+  readiness permanece degradado hasta cargar credenciales coordinadas. La
+  evidencia detallada está en el repositorio CRM, en
+  `docs/VERCEL_PREVIEW_EVIDENCE_2026-08-20.md`.
 - `039_outbox_leases.sql` impide que un trabajador vencido complete una fila
   reasignada; los intentos agotados pasan a `dead`.
 
