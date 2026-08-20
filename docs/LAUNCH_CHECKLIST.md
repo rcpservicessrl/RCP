@@ -28,7 +28,7 @@ que siguen abiertas son gates reales, no tareas de código ocultas.
 ## 3. Staging e integraciones
 
 - [ ] Proyecto/equipo Vercel Pro confirmado.
-- [ ] Deployment `staging.rcp.services` con `noindex` y SHA registrado.
+- [x] Deployment `staging.rcp.services` con `noindex` y SHA registrado; permanece privado en Hobby.
 - [ ] Resend/subdominio con SPF/DKIM y entrega única hacia Zoho.
 - [ ] Turnstile y protección distribuida/rate limit comprobados.
 - [ ] Sentry, PostHog y UptimeRobot configurados o diferidos formalmente.
