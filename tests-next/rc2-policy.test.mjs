@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const read = (relativePath) => readFile(path.join(root, relativePath), "utf8");
@@ -35,6 +36,88 @@ test("legal services and internal CRM cannot leak into public selectable content
   const crmStart = content.indexOf('item("crm-marketing"');
   assert.match(content.slice(crmStart, content.indexOf("\n", crmStart)), /commercialState: "historical"[\s\S]*selectable: false/);
   assert.doesNotMatch(content.slice(content.indexOf("export const searchRecords")), /resource-portal/);
+});
+
+test("every public service surface comes from the filtered commercial catalog", async () => {
+  const contentUrl = `${pathToFileURL(path.join(root, "lib/content.ts")).href}?commercial-policy=${Date.now()}`;
+  const {
+    catalogInternal,
+    catalog,
+    isPublicCommercialEntry,
+    pillars,
+    publicCatalogByPillar,
+    searchRecords,
+    selectableCatalog,
+  } = await import(contentUrl);
+
+  const restrictedItems = catalogInternal.filter((entry) => !isPublicCommercialEntry(entry));
+  const restrictedIds = new Set(restrictedItems.map((entry) => entry.id));
+  assert.ok(restrictedIds.has("legal-corporativa"));
+  assert.ok(restrictedIds.has("formalizacion-empresarial"));
+  assert.ok(restrictedIds.has("facturacion-electronica"));
+
+  for (const entry of catalog) {
+    assert.equal(restrictedIds.has(entry.id), false, `${entry.id} cannot enter the public catalog`);
+    assert.ok(!entry.regulated || entry.requiresProfessionalReview, `${entry.id} needs its professional-review safeguard`);
+  }
+  for (const entry of selectableCatalog) {
+    assert.equal(restrictedIds.has(entry.id), false, `${entry.id} cannot become selectable`);
+    assert.equal(entry.selectable, true);
+  }
+
+  for (const pillar of pillars) {
+    const projectedItems = publicCatalogByPillar[pillar.id];
+    assert.deepEqual(
+      projectedItems.map((entry) => entry.id),
+      catalog.filter((entry) => entry.pillar === pillar.id).map((entry) => entry.id),
+    );
+    for (const service of pillar.services) {
+      assert.ok(
+        projectedItems.some((entry) => entry.title.es === service.es && entry.title.en === service.en),
+        `${service.es} must originate in the filtered ${pillar.id} catalog`,
+      );
+    }
+  }
+
+  for (const id of restrictedIds) {
+    assert.equal(searchRecords.some((record) => record.id === `service-${id}`), false, `${id} cannot enter search or the JSON index`);
+    for (const items of Object.values(publicCatalogByPillar)) {
+      assert.equal(items.some((entry) => entry.id === id), false, `${id} cannot enter a public pillar directory`);
+    }
+  }
+
+  const [content, home, directory, editorial, search, indexRoute, diagnosis, catalogExplorer] = await Promise.all([
+    read("lib/content.ts"),
+    read("components/home-experience.tsx"),
+    read("components/service-directory.tsx"),
+    read("components/editorial-page.tsx"),
+    read("components/search-palette.tsx"),
+    read("app/catalog-index.json/route.ts"),
+    read("components/diagnosis-form.tsx"),
+    read("components/catalog-explorer.tsx"),
+  ]);
+
+  assert.match(content, /catalogInternal\.filter\(isPublicCommercialEntry\)/);
+  assert.match(content, /services:\s*publicCatalogByPillar\[pillar\.id\][\s\S]*?\.map\(\(entry\) => entry\.title\)/);
+  assert.match(home, /selectedPillar\.services\.map/);
+  assert.match(directory, /publicCatalogByPillar\[pillar\.id\]/);
+  assert.doesNotMatch(directory, /catalog\.filter\(\(entry\) => entry\.pillar === pillar\.id\)/);
+  assert.match(editorial, /pillar\.services\.slice\(0, 3\)\.map/);
+  assert.match(search, /import \{ searchRecords, t \} from "@\/lib\/content"/);
+  assert.match(indexRoute, /records:\s*searchRecords/);
+  assert.match(diagnosis, /selectableCatalog\.filter/);
+  assert.match(diagnosis, /selectedServices = selectedItems\.map\(\(item\) => item\.id\)\.join\(","\)/);
+  assert.match(catalogExplorer, /catalog\.filter/);
+  assert.match(catalogExplorer, /selectableCatalog\.find/);
+  assert.match(catalogExplorer, /disabled=\{!entry\.selectable/);
+
+  const publicSurfaceSources = [home, directory, editorial, search, indexRoute, diagnosis, catalogExplorer];
+  for (const restricted of restrictedItems) {
+    for (const source of publicSurfaceSources) {
+      assert.equal(source.includes(restricted.title.es), false, `${restricted.id} Spanish title leaked into a public surface`);
+      assert.equal(source.includes(restricted.title.en), false, `${restricted.id} English title leaked into a public surface`);
+    }
+  }
 });
 
 test("e-CF remains educational and unavailable for contracting", async () => {

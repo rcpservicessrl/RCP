@@ -102,3 +102,7 @@ Fecha: 2026-08-12. Estado: aprobado. La web Next.js se construye y despliega en 
 ## ADR-021 - Delivery Hub privado y gate de apertura
 
 Fecha: 2026-08-12. Estado: aprobado. Delivery Hub es una aplicación y repositorio separados con `/ops`, `/cliente` y `/especialista`. El piloto gratuito usa Supabase local y datos sintéticos. No se habilita `hub.rcp.services`, usuarios externos ni datos reales hasta disponer de Supabase Pro separado, respaldo, revisión contractual, MFA privilegiado y prueba de aislamiento RLS entre dos organizaciones.
+
+## ADR-022 - WhatsApp oficial y activación diferida de Meta Business Agent
+
+Fecha: 2026-08-19. Estado: parcialmente aprobado. `+1 829-806-8092` es el canal oficial y cualquier integración con el CRM debe usar WhatsApp Business App Coexistence para conservar la aplicación y el catálogo. La activación de Meta Business Agent queda pendiente por decisión de Dirección General, fuera del camino crítico de RC2 y sujeta a elegibilidad, términos, costos, privacidad y control humano.

@@ -90,7 +90,8 @@ test("catalog selections reach the diagnosis through a validated server boundary
   assert.match(selection, /slice\(0, 4\)/);
   assert.match(spanishPage, /normalizeCatalogSelection/);
   assert.match(englishPage, /normalizeCatalogSelection/);
-  assert.match(form, /selectedServiceIds\.join/);
+  assert.match(form, /selectableCatalog\.filter\(\(item\) => selectedServiceIds\.includes\(item\.id\)\)/);
+  assert.match(form, /selectedItems\.map\(\(item\) => item\.id\)\.join\(","\)/);
   assert.doesNotMatch(form, /window\.location\.search/);
 });
 

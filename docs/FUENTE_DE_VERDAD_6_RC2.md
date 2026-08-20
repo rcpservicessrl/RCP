@@ -82,7 +82,9 @@ La experiencia mantiene ES/EN, claro/oscuro, búsqueda, música discreta, cursor
 - Delivery Hub: ejecución contractual, proyectos, especialistas, entregables, QA, aceptación, riesgos, cambios, cierre y auditoría.
 - RCP Matrix: autoridad de trabajo técnico y evidencia de releases.
 
-Ningún sistema escribe directamente en el esquema de otro. Las integraciones usan contratos versionados, HMAC, timestamp, idempotencia, outbox, reintentos y reconciliación manual.
+Ningún sistema escribe directamente en el esquema de otro. Las integraciones usan contratos versionados, HMAC, timestamp, idempotencia, outbox, reintentos y reconciliación manual. El traspaso canónico del CRM al Hub es `opportunity.qualified.v1`.
+
+El canal oficial de WhatsApp es `+1 829-806-8092`. Su futura conexión al CRM debe usar WhatsApp Business App Coexistence y conservar la aplicación y el catálogo. La activación de Meta Business Agent permanece pendiente por decisión de Dirección General, fuera del camino crítico de RC2 y condicionada a elegibilidad, términos, costos, privacidad y control humano.
 
 ## 9. Publicación y gates
 
@@ -90,7 +92,7 @@ La web se dirige a Vercel Pro con Route 53 autoritativo. Staging permanece `noin
 
 El CRM no sale de `SECURITY-HOLD` hasta corregir autorización, SSRF, webhooks, almacenamiento, middleware y rate limiting; reconciliar migraciones; rotar secretos; probar aislamiento, backup y restauración. El Hub permanece local con datos sintéticos hasta superar su gate externo.
 
-## 10. Decisiones D-01 a D-11
+## 10. Decisiones D-01 a D-13
 
 | ID | Decisión aprobada |
 |---|---|
@@ -105,6 +107,8 @@ El CRM no sale de `SECURITY-HOLD` hasta corregir autorización, SSRF, webhooks, 
 | D-09 | Red manual, sin marketplace ni Portal público. |
 | D-10 | Montserrat cuerpo, Space Grotesk títulos digitales y mínimos legibles. |
 | D-11 | Lockup secundario; logo compacto en encabezado. |
+| D-12 | Vercel puede alojar pruebas funcionales autorizadas mientras la plataforma las admita; no sustituye gates de seguridad, datos o usuarios externos. |
+| D-13 | `+1 829-806-8092` es el WhatsApp oficial; CRM únicamente por Coexistence, con aplicación y catálogo preservados. Meta Business Agent queda pendiente. |
 
 ## 11. Criterio de salida de RC2
 

@@ -16,7 +16,7 @@ export const t = (value: LocalText, locale: Locale) => value[locale];
 
 const lt = (es: string, en: string): LocalText => ({ es, en });
 
-export const pillars: Pillar[] = [
+const pillarDefinitions: Array<Omit<Pillar, "services">> = [
   {
     id: "renovacion",
     eyebrow: lt("Ordenar para avanzar", "Build order to move forward"),
@@ -29,12 +29,6 @@ export const pillars: Pillar[] = [
       "Una empresa más clara, adoptable y preparada para operar el cambio.",
       "A clearer, adoptable business prepared to operate change.",
     ),
-    services: [
-      lt("Procesos, SOP y modelo operativo", "Processes, SOPs and operating model"),
-      lt("Experiencia de cliente y servicio", "Customer and service experience"),
-      lt("Identidad empresarial y adopción", "Business identity and adoption"),
-      lt("Formación, indicadores y rituales", "Training, indicators and operating rhythms"),
-    ],
     technologies: ["CRM", "ERP", "POS", "WMS", "MRP", "BPA", "BI"],
     accent: "amber",
   },
@@ -50,13 +44,7 @@ export const pillars: Pillar[] = [
       "Más control, trazabilidad y criterio profesional en cada decisión sensible.",
       "More control, traceability and professional judgment for every sensitive decision.",
     ),
-    services: [
-      lt("Impositiva, contable y financiera", "Tax, accounting and finance"),
-      lt("Legal corporativa y contractual", "Corporate legal and contracts"),
-      lt("Formalización y documentación empresarial", "Formalization and business documentation"),
-      lt("Preparación e integración e-CF", "e-invoicing readiness and integration"),
-    ],
-    technologies: ["MIS", "ERP", "e-CF", "BI", "BPA", "RPA"],
+    technologies: ["MIS", "ERP", "BI", "BPA", "RPA"],
     accent: "white",
   },
   {
@@ -71,12 +59,6 @@ export const pillars: Pillar[] = [
       "Una presencia clara y coherente, desde el letrero y los impresos hasta la web y las redes.",
       "A clear and consistent presence, from signs and print to websites and social media.",
     ),
-    services: [
-      lt("Branding e imagen corporativa", "Branding and corporate identity"),
-      lt("Web, redes y community management", "Web, social and community management"),
-      lt("SEO, AEO, pauta y analítica", "SEO, AEO, paid media and analytics"),
-      lt("Impresos, letreros y materiales", "Print, signage and commercial materials"),
-    ],
     technologies: ["CRM", "CMS", "PIM", "SaaS", "BI", "BPA"],
     accent: "green",
   },
@@ -205,10 +187,39 @@ export const catalogInternal: CatalogItem[] = [
   item("merchandising-corporativo", "publicidad", "merchandising", lt("Merchandising y artículos corporativos", "Merchandise and corporate items"), lt("Artículos seleccionados según audiencia, uso, presupuesto y consistencia de marca.", "Items selected by audience, use, budget and brand consistency."), [lt("Tazas, termos y bolígrafos", "Mugs, tumblers and pens"), lt("Agendas, lanyards y bolsas", "Planners, lanyards and bags"), lt("Kits de bienvenida y regalos", "Welcome kits and gifts")], ["merchandising", "taza", "termo", "boligrafo", "agenda", "lanyard", "kit"], { kind: "physical" }),
 ];
 
-const publicCommercialStates = new Set(["public", "contextual"]);
+const publicCommercialStates: ReadonlySet<CatalogItem["commercialState"]> = new Set(["public", "contextual"]);
 
-export const catalog = catalogInternal.filter((entry) => publicCommercialStates.has(entry.commercialState));
+type PublicCommercialEntry = Pick<CatalogItem, "commercialState" | "regulated" | "requiresProfessionalReview">;
+
+export const isPublicCommercialEntry = (entry: PublicCommercialEntry) =>
+  publicCommercialStates.has(entry.commercialState)
+  && (!entry.regulated || entry.requiresProfessionalReview);
+
+export const catalog = catalogInternal.filter(isPublicCommercialEntry);
 export const selectableCatalog = catalog.filter((entry) => entry.selectable);
+
+export const publicCatalogByPillar = Object.fromEntries(
+  pillarDefinitions.map((pillar) => [
+    pillar.id,
+    catalog.filter((entry) => entry.pillar === pillar.id),
+  ]),
+) as Record<PillarId, CatalogItem[]>;
+
+const featuredServiceIdsByPillar: Record<PillarId, readonly string[]> = {
+  renovacion: ["procesos-operativos", "experiencia-cliente", "identidad-empresarial", "formacion-intervencion"],
+  consultoria: ["consultoria-impositiva", "iguala-contable", "control-financiero", "documentacion-empresarial"],
+  publicidad: ["branding-identidad", "sitios-web", "redes-community", "letreros-rotulacion"],
+};
+
+export const pillars: Pillar[] = pillarDefinitions.map((pillar) => {
+  const featuredIds = new Set(featuredServiceIdsByPillar[pillar.id]);
+  return {
+    ...pillar,
+    services: publicCatalogByPillar[pillar.id]
+      .filter((entry) => featuredIds.has(entry.id))
+      .map((entry) => entry.title),
+  };
+});
 
 const capability = (
   id: string,
@@ -256,7 +267,7 @@ export const capabilities: Capability[] = [
   capability("ecf", "e-CF", lt("Facturación electrónica", "Electronic invoicing"), lt("El proceso fiscal y los sistemas deben prepararse antes de una integración autorizada.", "Fiscal processes and systems must be prepared before an authorized integration."), lt("RCP publica orientación educativa; la integración está en desarrollo y no está disponible para contratación.", "RCP publishes educational guidance; integration is in development and unavailable for contracting."), ["consultoria", "renovacion"], "design", ["hybrid", "client"], ["ecf", "e-cf", "facturacion electronica", "dgii"], { commercialState: "in_development", regulated: true, requiresProfessionalReview: true, selectable: false }),
 ];
 
-export const publicCapabilities = capabilities.filter((entry) => publicCommercialStates.has(entry.commercialState));
+export const publicCapabilities = capabilities.filter(isPublicCommercialEntry);
 export const selectableCapabilities = publicCapabilities.filter((entry) => entry.selectable);
 export const glossaryCapabilities = capabilities.filter((entry) => ["public", "contextual", "in_development"].includes(entry.commercialState));
 

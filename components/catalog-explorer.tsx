@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Locale, PillarId } from "@/lib/types";
-import { catalog, pillars, t } from "@/lib/content";
+import { catalog, pillars, selectableCatalog, t } from "@/lib/content";
 import { ArrowIcon, CheckIcon, CloseIcon, PlusIcon, SearchIcon } from "@/components/icons";
 import { CatalogIcon } from "@/components/catalog-icon";
 
@@ -47,8 +47,9 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
     return balancedItems.slice(0, limit);
   }, [balanced, filter, limit, query]);
 
-  const selectedItems = selected.map((id) => catalog.find((entry) => entry.id === id)).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+  const selectedItems = selected.map((id) => selectableCatalog.find((entry) => entry.id === id)).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
   const toggleSelection = (id: string) => {
+    if (!selectableCatalog.some((entry) => entry.id === id)) return;
     setSelected((current) => current.includes(id) ? current.filter((entry) => entry !== id) : current.length < 4 ? [...current, id] : current);
   };
 
@@ -87,7 +88,7 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
               {!compact && <ul>{entry.includes.slice(0, 3).map((include) => <li key={include.es}><CheckIcon size={14} />{t(include, locale)}</li>)}</ul>}
               <footer>
                 <span>{locale === "es" ? "Alcance por diagnóstico" : "Scope by diagnosis"}</span>
-                <button type="button" onClick={() => toggleSelection(entry.id)} aria-pressed={isSelected} disabled={!isSelected && selected.length >= 4}>
+                <button type="button" onClick={() => toggleSelection(entry.id)} aria-pressed={isSelected} disabled={!entry.selectable || (!isSelected && selected.length >= 4)}>
                   {isSelected ? <><CheckIcon size={16} />{locale === "es" ? "Seleccionado" : "Selected"}</> : <><PlusIcon size={16} />{locale === "es" ? "Agregar" : "Add"}</>}
                 </button>
               </footer>

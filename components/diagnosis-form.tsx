@@ -5,7 +5,8 @@ import type { FormEvent } from "react";
 import type { Locale, NeedId } from "@/lib/types";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { TurnstileField } from "@/components/turnstile-field";
-import { catalog, selectableCapabilities, t, technologySolutions } from "@/lib/content";
+import { selectableCapabilities, selectableCatalog, t, technologySolutions } from "@/lib/content";
+import { fingerprintSubmissionPayload, resolveSubmissionIdempotency, type SubmissionIdempotency } from "@/lib/submission-idempotency";
 
 interface DiagnosisFormProps {
   locale: Locale;
@@ -32,8 +33,9 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
   const [verificationReset, setVerificationReset] = useState(0);
   const [selectedNeed, setSelectedNeed] = useState<NeedId | "">(initialNeed ?? "");
   const fieldsets = useRef<Array<HTMLFieldSetElement | null>>([]);
-  const selectedServices = selectedServiceIds.join(",");
-  const selectedItems = catalog.filter((item) => selectedServiceIds.includes(item.id));
+  const submissionIdempotency = useRef<SubmissionIdempotency | null>(null);
+  const selectedItems = selectableCatalog.filter((item) => selectedServiceIds.includes(item.id));
+  const selectedServices = selectedItems.map((item) => item.id).join(",");
   const selectedCapability = selectableCapabilities.find((item) => item.id === selectedCapabilityId);
   const selectedSolution = technologySolutions.find((item) => item.id === selectedSolutionId);
   const labels = stepLabels[locale];
@@ -92,9 +94,12 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
     const payload = Object.fromEntries(data.entries());
 
     try {
+      const fingerprint = await fingerprintSubmissionPayload(payload);
+      const requestIdentity = resolveSubmissionIdempotency(submissionIdempotency.current, fingerprint);
+      submissionIdempotency.current = requestIdentity;
       const response = await fetch("/api/inquiries", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Idempotency-Key": crypto.randomUUID() },
+        headers: { "Content-Type": "application/json", "Idempotency-Key": requestIdentity.key },
         body: JSON.stringify(payload),
       });
       const result = await response.json() as { accepted?: boolean; recorded?: boolean; reference?: string; handoffUrl?: string; message?: string };
@@ -104,6 +109,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
       setState("success");
       form.reset();
       setStep(1);
+      if (submissionIdempotency.current === requestIdentity) submissionIdempotency.current = null;
     } catch {
       setVerificationReset((current) => current + 1);
       setState("error");

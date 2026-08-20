@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowIcon } from "@/components/icons";
 import { InteriorShell } from "@/components/interior-shell";
 import { Pulso } from "@/components/pulso";
-import { catalog, pillars, t } from "@/lib/content";
+import { catalog, pillars, publicCatalogByPillar, t } from "@/lib/content";
 import type { Locale } from "@/lib/types";
 import styles from "./service-directory.module.css";
 
@@ -42,7 +42,7 @@ export function ServiceDirectory({ locale }: { locale: Locale }) {
 
           <div className={styles.pillars}>
             {pillars.map((pillar, index) => {
-              const items = catalog.filter((entry) => entry.pillar === pillar.id);
+              const items = publicCatalogByPillar[pillar.id];
               return (
                 <article id={pillar.id} className={styles.pillar} data-accent={pillar.accent} key={pillar.id}>
                   <header>
