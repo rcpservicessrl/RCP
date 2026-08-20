@@ -36,8 +36,10 @@
 - El CRM sigue en `SECURITY-HOLD` operativo: su proyecto Vercel no tiene aún
   variables de producción ni se ha cambiado DNS. El transporte Hub permanece
   desactivado (`RCP_HUB_EVENTS_ENABLED=false`).
-- Existe un Preview privado de prueba en Vercel (`dpl_67336hLSxidv7ubayU6VwMbBDJ8N`):
-  el build y liveness pasan, `RCP_PILOT_MODE=true`, no tiene datos reales y
+- Existe un Preview privado de prueba en Vercel; el deployment vigente es
+  `dpl_CE2xbRLkvEWPK9iyhqPgEn9XELQw` y su URL protegida es
+  `https://wacrm-89j5mco70-rcp-services.vercel.app`. El build y liveness pasan,
+  `RCP_PILOT_MODE=true`, no tiene datos reales y
   readiness permanece degradado hasta cargar credenciales coordinadas. La
   evidencia detallada está en el repositorio CRM, en
   `docs/VERCEL_PREVIEW_EVIDENCE_2026-08-20.md`.
