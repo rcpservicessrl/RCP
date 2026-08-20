@@ -21,6 +21,8 @@
 
 - PR de bandeja de solicitudes fusionado: `rcpservicessrl/crm#12`.
 - PR de concesiones del outbox fusionado: `rcpservicessrl/crm#14`.
+- PR de guarda del proyecto Supabase y deriva del ledger fusionado:
+  `rcpservicessrl/crm#15` (merge `3c19d1e`).
 - CI confirmó secret scan, replay aislado de migraciones, tests, auditoría,
   TypeScript, lint y build.
 - El CRM sigue en `SECURITY-HOLD` operativo: su proyecto Vercel no tiene aún
@@ -33,10 +35,15 @@
 
 - PR funcional fusionado: `rcp-delivery-hub#1`.
 - PR documental del contrato/outbox fusionado: `rcp-delivery-hub#2`.
+- Evidencia del Preview sintético fusionada: `rcp-delivery-hub#3`
+  (merge `ec4d5a2`).
 - TypeScript, 14 pruebas Vitest, lint, build Next y verificadores SQL locales
   de esquema, contratos, RLS, gates y leases pasan.
-- El Hub continúa local con datos sintéticos. No existe `hub.rcp.services`
-  público ni usuarios externos.
+- El Hub tiene un Preview privado en Vercel, sin dominio público: `dpl_3UGrKrFQMC4vJDfqWNMJ5EXF16MH`.
+  `GET /api/health` confirma `environment=preview`, `dataMode=synthetic`,
+  `externalUsers=false`, `crmEvents=disabled` y `outboundEvents=disabled`.
+  `robots.txt` y el HTML están marcados como no indexables. No hay usuarios
+  externos ni datos reales.
 
 ## Decisiones que permanecen pendientes
 
