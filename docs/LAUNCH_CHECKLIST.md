@@ -38,7 +38,7 @@ que siguen abiertas son gates reales, no tareas de código ocultas.
 
 - [x] Vulnerabilidades de autorización, SSRF, replay, medios y middleware cerradas en el candidato.
 - [x] 667 pruebas y escenarios de seguridad aprobados por CI.
-- [x] 39 migraciones reconciliadas mediante replay aislado y forward-only.
+- [x] Replay aislado de las 39 migraciones locales aprobado; la deriva del ledger remoto sigue documentada y bloqueada para reconciliación forward-only.
 - [ ] Secretos rotados y configuración re-cifrada.
 - [ ] Backup/restauración, outbox, cron y contratos de intake comprobados.
 - [ ] Vercel estable siete días antes de retirar Netlify.
@@ -47,6 +47,7 @@ que siguen abiertas son gates reales, no tareas de código ocultas.
 
 - [x] Aplicación separada y esquema local implementados.
 - [x] Flujo sintético, contratos, leases, RLS y gates verificados localmente.
+- [x] Preview privado sintético publicado en Vercel con `noindex`, health verificable e integraciones desactivadas.
 - [x] Ningún usuario externo durante piloto local.
 - [ ] Para apertura: Supabase Pro separado, contrato, backup, MFA y RLS aprobados.
 
