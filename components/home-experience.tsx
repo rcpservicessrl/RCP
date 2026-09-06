@@ -6,15 +6,16 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale, NeedId, PillarId } from "@/lib/types";
 import { methodSteps, needs, pillars, t } from "@/lib/content";
-import { ArrowIcon, CheckIcon, LayersIcon, ShieldIcon, SparkIcon } from "@/components/icons";
+import { ArrowIcon, CheckIcon, LayersIcon, ShieldIcon } from "@/components/icons";
 import { SiteHeader } from "@/components/site-header";
 import { SearchPalette } from "@/components/search-palette";
 import { Pulso, type PulsoScene } from "@/components/pulso";
 import { PulsoHelp } from "@/components/pulso-help";
 import { ConsentBanner } from "@/components/consent-banner";
-import { CapabilityExplorer } from "@/components/capability-explorer";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { DiagnosisForm } from "@/components/diagnosis-form";
+import { EditorialIntro, EditorialSectors } from "@/components/editorial-intro";
+import "./home-editorial.css";
 import { CursorHalo } from "@/components/cursor-halo";
 
 interface HomeExperienceProps {
@@ -25,16 +26,16 @@ const copy = {
   es: {
     signature: "Para pequeños negocios · República Dominicana",
     eyebrow: "Renovación · Consultoría · Publicidad",
-    h1Before: "Le damos nuevo impulso",
-    h1Accent: "a tu negocio.",
+    h1Before: "Tu negocio, en su mejor",
+    h1Accent: "versión.",
     hero: "Unimos Renovación, Consultoría y Publicidad para ordenar, proteger e impulsar tu negocio. Publicidad 360 integra lo digital, los impresos y la calle. Si hace falta software, lo adaptamos a tu forma de trabajar.",
     primary: "Solicitar evaluación sin costo",
     secondary: "Ver cómo funciona RCP",
     choose: "¿Qué necesita impulso hoy?",
     trust: ["Un equipo contigo", "Especialistas adecuados", "Entregas revisadas"],
-    problemEyebrow: "Reconoce el síntoma",
-    problemTitle: "Cuando el negocio pierde ritmo, se siente en todas partes.",
-    problemText: "El corazón de tu negocio está en cómo trabaja, decide y conecta con la gente. Elige lo que más te preocupa y te mostramos una ruta sencilla, sin términos complicados.",
+    problemEyebrow: "Empecemos por lo importante",
+    problemTitle: "Empieza por lo que necesitas.",
+    problemText: "No tienes que conocer la herramienta ni el nombre técnico. Elige qué quieres que cambie y llevamos esa prioridad a tu evaluación.",
     routeLabel: "Tu ruta inicial",
     routeCta: "Empezar por esta necesidad",
     solutionsEyebrow: "Tu ruta con RCP",
@@ -69,16 +70,16 @@ const copy = {
   en: {
     signature: "For small businesses · Dominican Republic",
     eyebrow: "Renewal · Consulting · Advertising",
-    h1Before: "We give your business",
-    h1Accent: "new momentum.",
+    h1Before: "Your business,",
+    h1Accent: "at its best.",
     hero: "We unite Renewal, Consulting and Advertising to organize, protect and grow your business. 360 Advertising brings digital, print and street presence together. When software is needed, we adapt it to the way you work.",
     primary: "Request a free assessment",
     secondary: "See how RCP works",
     choose: "What needs momentum today?",
     trust: ["One team by your side", "The right specialists", "Reviewed deliveries"],
-    problemEyebrow: "Recognize the symptom",
-    problemTitle: "When a business loses rhythm, it shows everywhere.",
-    problemText: "The heart of your business is how it works, decides and connects with people. Choose what concerns you most and we will show you a simple route, without complicated terms.",
+    problemEyebrow: "Start with what matters",
+    problemTitle: "Start with what you need.",
+    problemText: "You do not need to know the tool or technical name. Choose what you want to change and carry that priority into your assessment.",
     routeLabel: "Your starting route",
     routeCta: "Start with this need",
     solutionsEyebrow: "Your route with RCP",
@@ -131,22 +132,10 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
     document.documentElement.lang = locale === "es" ? "es-DO" : "en-US";
   }, [locale]);
 
-  useEffect(() => {
-    if (!autoPreview) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setAutoPreview(false);
-      return;
-    }
-    const interval = window.setInterval(() => {
-      setPreviewNeed((current) => needs[(needs.findIndex((entry) => entry.id === current) + 1) % needs.length].id);
-    }, 4_800);
-    return () => window.clearInterval(interval);
-  }, [autoPreview]);
+
 
   const selectedNeed = needs.find((entry) => entry.id === activeNeed) ?? needs[0];
   const selectedPillar = pillars.find((entry) => entry.id === activePillar) ?? pillars[0];
-  const previewedNeed = needs.find((entry) => entry.id === previewNeed) ?? needs[0];
-  const previewedPillar = pillars.find((entry) => entry.id === previewedNeed.pillar) ?? pillars[0];
   const selectedMethod = methodSteps.find((entry) => entry.id === activeMethod) ?? methodSteps[0];
   const helpContext = useMemo(() => locale === "es" ? `Estás explorando ${selectedPillar.title.es}. Puedo ayudarte a encontrar servicios relacionados.` : `You are exploring ${selectedPillar.title.en}. I can help you find related services.`, [locale, selectedPillar]);
 
@@ -200,42 +189,8 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
       <SiteHeader locale={locale} onOpenSearch={() => setSearchOpen(true)} />
       <SearchPalette locale={locale} open={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      <main lang={locale === "es" ? "es-DO" : "en-US"}>
-        <section className="hero page-scene" id="inicio">
-          <div className="hero__ambient" aria-hidden="true"><span /><span /><span /></div>
-          <div className="container hero__grid">
-            <div className="hero__copy">
-              <p className="signature-label"><span />{c.signature}</p>
-              <p className="eyebrow">{c.eyebrow}</p>
-              <h1>{c.h1Before} <em>{c.h1Accent}</em></h1>
-              <p className="hero__lead">{c.hero}</p>
-              <div className="hero__actions">
-                <a className="button button--primary button--large" href={`#${locale === "es" ? "diagnostico" : "diagnosis"}`}>{c.primary}<ArrowIcon size={18} /></a>
-                <a className="button button--secondary button--large" href="#necesidad">{c.secondary}</a>
-              </div>
-              <div className="hero__trust" aria-label={locale === "es" ? "Principios de entrega" : "Delivery principles"}>
-                {c.trust.map((entry) => <span key={entry}><CheckIcon size={14} />{entry}</span>)}
-              </div>
-            </div>
-
-            <div className={`hero-visual hero-visual--${previewNeed}`}>
-              <div className="hero-visual__pulse" aria-hidden="true">
-                <svg viewBox="0 0 640 260" preserveAspectRatio="none">
-                  <path className="pulse-track" d="M0 150h126l28-54 42 112 38-148 44 90h78l26-40 34 72 34-32h190" />
-                  <path className="pulse-active" d="M0 150h126l28-54 42 112 38-148 44 90h78l26-40 34 72 34-32h190" pathLength="100" />
-                </svg>
-              </div>
-              <div className="hero-visual__orbit" aria-hidden="true"><span>R</span><span>C</span><span>P</span></div>
-              <Pulso scene={sceneByNeed[previewNeed]} size="large" interactive label={locale === "es" ? "Pulso, Mascota Jaguar RCP" : "Pulso, RCP Jaguar Mascot"} />
-              <div className="hero-visual__caption">
-                <span>{t(previewedPillar.title, locale)}</span>
-                <strong>{t(previewedNeed.capabilities.length ? previewedNeed.helper : previewedPillar.outcome, locale)}</strong>
-                <ul>{previewedNeed.capabilities.map((entry) => <li key={entry}>{entry}</li>)}</ul>
-              </div>
-            </div>
-          </div>
-
-        </section>
+      <main className="editorial-home" lang={locale === "es" ? "es-DO" : "en-US"}>
+        <EditorialIntro locale={locale} />
 
         <section className="problem-section page-scene" id="necesidad">
           <div className="container problem-section__grid">
@@ -258,11 +213,13 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
               <article className="need-route" aria-live="polite">
                 <small>{c.routeLabel}</small>
                 <div><strong>{t(selectedPillar.title, locale)}</strong><span aria-hidden="true">+</span><p>{selectedNeed.capabilities.join(" · ")}</p></div>
-                <a className="text-link" href="#soluciones">{c.routeCta}<ArrowIcon size={17} /></a>
+                <a className="text-link" href={`#${locale === "es" ? "diagnostico" : "diagnosis"}`}>{c.routeCta}<ArrowIcon size={17} /></a>
               </article>
             </div>
           </div>
         </section>
+
+        <EditorialSectors locale={locale} />
 
         <section className="solutions-section page-scene" id="soluciones">
           <div className="container section-heading section-heading--split">
@@ -292,7 +249,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
             <div><p className="section-eyebrow">{c.technologyEyebrow}</p><h2>{c.technologyTitle}</h2></div>
             <div><p>{c.technologyText}</p><span className="technology-rule"><LayersIcon size={17} />{c.technologyRule}</span></div>
           </div>
-          <div className="container"><CapabilityExplorer locale={locale} compact /></div>
+          <div className="container editorial-tech-links"><Link href={locale === "es" ? "/herramientas" : "/en/tools"}>{locale === "es" ? "Explora tu ruta y calcula el tiempo de tu proceso" : "Explore your route and estimate process time"}<ArrowIcon size={20} /></Link><Link href={locale === "es" ? "/software-a-la-medida" : "/en/custom-software"}>{locale === "es" ? "Del proceso real a una herramienta útil" : "From a real process to a useful tool"}<ArrowIcon size={20} /></Link></div>
           <div className="container section-action"><Link className="text-link" href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"}>{c.exploreTechnology}<ArrowIcon size={17} /></Link></div>
         </section>
 
@@ -327,7 +284,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
           <div className="container specialists-section__grid">
             <div className="specialists-visual">
               <div className="specialists-visual__logo"><Image src="/logo_rcp_simbolo.svg" width={108} height={108} alt="" /></div>
-              <span className="specialist-node specialist-node--one">Legal</span><span className="specialist-node specialist-node--two">Contable</span><span className="specialist-node specialist-node--three">Marca</span><span className="specialist-node specialist-node--four">Tecnología</span>
+              <span className="specialist-node specialist-node--one">{locale === "es" ? "Procesos" : "Processes"}</span><span className="specialist-node specialist-node--two">Contable</span><span className="specialist-node specialist-node--three">Marca</span><span className="specialist-node specialist-node--four">Tecnología</span>
               <div className="specialists-visual__orbit" aria-hidden="true" />
             </div>
             <div>

@@ -349,6 +349,9 @@ export const methodSteps: MethodStep[] = [
 const pillarMap = Object.fromEntries(pillars.map((pillar) => [pillar.id, pillar])) as Record<PillarId, Pillar>;
 
 export const searchRecords: SearchRecord[] = [
+  { id: "route-tools", type: "route", title: lt("Herramientas para decidir", "Tools for better decisions"), description: lt("Orientación y calculadora de tiempo para definir tu próximo paso.", "Guidance and a time calculator to define your next step."), href: lt("/herramientas", "/en/tools"), keywords: ["calculadora", "horas", "tiempo", "orientacion", "herramientas", "calculator", "time", "tools"] },
+  { id: "route-retail", type: "route", title: lt("Soluciones para comercios", "Solutions for retail businesses"), description: lt("Conecta ventas, existencias, atención y presencia digital.", "Connect sales, stock, service and digital presence."), href: lt("/soluciones/comercios", "/en/solutions/retail"), keywords: ["comercio", "ventas", "retail", "sales"] },
+  { id: "route-service-businesses", type: "route", title: lt("Soluciones para empresas de servicios", "Solutions for service businesses"), description: lt("Organiza consultas, propuestas, responsables y entregas.", "Organize inquiries, proposals, owners and deliveries."), href: lt("/soluciones/empresas-de-servicios", "/en/solutions/service-businesses"), keywords: ["empresas", "servicios", "propuestas", "service business", "proposals"] },
   ...pillars.map((pillar) => ({
     id: `pillar-${pillar.id}`,
     type: "pillar" as const,
