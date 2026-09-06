@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/types";
 import { CloseIcon, GlobeIcon, MenuIcon, MoonIcon, SearchIcon, SunIcon } from "@/components/icons";
 import { MusicControl } from "@/components/music-control";
@@ -41,6 +42,10 @@ const copy = {
 };
 
 export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
+  const pathname = usePathname();
+  const discoveryLocales = [["/herramientas", "/en/tools"], ["/soluciones/comercios", "/en/solutions/retail"], ["/soluciones/empresas-de-servicios", "/en/solutions/service-businesses"]] as const;
+  const currentPair = discoveryLocales.find(pair => pair.some(path => path === pathname));
+  const alternateHref = currentPair ? currentPair[locale === "es" ? 1 : 0] : locale === "es" ? "/en" : "/";
   const labels = copy[locale];
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -132,7 +137,7 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
           <button type="button" className="utility-button header-search" onClick={onOpenSearch} aria-label={labels.search}>
             <SearchIcon size={18} /><kbd>⌘K</kbd>
           </button>
-          <Link className="utility-button desktop-only" href={locale === "es" ? "/en" : "/"} aria-label={locale === "es" ? "English" : "Español"}>
+          <Link className="utility-button desktop-only" href={alternateHref} aria-label={locale === "es" ? "English" : "Español"}>
             <GlobeIcon size={17} /><span>{locale === "es" ? "EN" : "ES"}</span>
           </Link>
           <button type="button" className="utility-button desktop-only" onClick={toggleTheme} aria-label={labels.theme}>
@@ -159,10 +164,11 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
             <Link href={locale === "es" ? "/catalogo" : "/en/catalog"} onClick={closeMenu}>{labels.catalog}</Link>
             <Link href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"} onClick={closeMenu}>{labels.technology}</Link>
             <Link href={specialistsHref} onClick={closeMenu}>{labels.specialists}</Link>
+            <Link href={locale === "es" ? "/herramientas" : "/en/tools"} onClick={closeMenu}>{locale === "es" ? "Herramientas" : "Tools"}</Link>
           </nav>
           <div className="mobile-menu__utilities">
             <button type="button" onClick={() => { onOpenSearch(); closeMenu(); }}><SearchIcon size={18} />{labels.search}</button>
-            <Link href={locale === "es" ? "/en" : "/"} onClick={closeMenu}><GlobeIcon size={18} />{locale === "es" ? "English" : "Español"}</Link>
+            <Link href={alternateHref} onClick={closeMenu}><GlobeIcon size={18} />{locale === "es" ? "English" : "Español"}</Link>
             <button type="button" onClick={toggleTheme}>{theme === "dark" ? <SunIcon size={18} /> : <MoonIcon size={18} />}{labels.theme}</button>
             <MusicControl locale={locale} />
           </div>

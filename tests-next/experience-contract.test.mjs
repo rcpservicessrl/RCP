@@ -60,11 +60,11 @@ test("homepage locks the approved human positioning and headline", async () => {
   const headline = `${quotedProperty(spanishCopy, "h1Before")} ${quotedProperty(spanishCopy, "h1Accent")}`;
   const englishHeadline = `${quotedProperty(englishCopy, "h1Before")} ${quotedProperty(englishCopy, "h1Accent")}`;
 
-  assert.equal(headline, "Le damos nuevo impulso a tu negocio.");
-  assert.equal(englishHeadline, "We give your business new momentum.");
+  assert.equal(headline, "Tu negocio, en su mejor versión.");
+  assert.equal(englishHeadline, "Your business, at its best.");
   assert.doesNotMatch(headline, /corazón/i);
   assert.doesNotMatch(englishHeadline, /heart/i);
-  assert.match(quotedProperty(spanishCopy, "problemText"), /El corazón de tu negocio/i);
+  assert.match(quotedProperty(spanishCopy, "problemText"), /prioridad a tu evaluación/i);
   assert.notEqual(headline, "Le damos un nuevo impulso al corazón de tu negocio.");
   assert.notEqual(headline, "Renovamos el corazón de tu empresa para que crezca con dirección.");
 
@@ -200,7 +200,7 @@ test("guided diagnosis has four steps and carries the selected context", async (
   assert.match(form, /name="selectedSolution" value={selectedSolution\?\.id \?\? ""}/);
   assert.match(form, /useState<NeedId \| "">\(initialNeed \?\? ""\)/);
   assert.match(home, /<DiagnosisForm locale={locale} guided initialNeed={activeNeed} \/>/);
-  assert.match(diagnosisPage, /<DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} guided \/>/);
+  assert.match(diagnosisPage, /<DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} guided \/>/);
 });
 
 test("diagnosis errors preserve form values and a server-provided handoff", async () => {

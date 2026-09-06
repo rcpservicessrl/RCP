@@ -1,4 +1,5 @@
 import { DiagnosisPage } from "@/components/diagnosis-page";
+import { normalizeNeed } from "@/lib/business-tools";
 import { normalizeCapabilitySelection } from "@/lib/capability-selection";
 import { normalizeCatalogSelection } from "@/lib/catalog-selection";
 import { createPublicPageMetadata } from "@/lib/metadata";
@@ -12,7 +13,7 @@ export const metadata = createPublicPageMetadata({
   paths: { es: "/diagnostico", en: "/en/diagnosis" },
 });
 
-export default async function DiagnosisRoute({ searchParams }: { searchParams: Promise<{ servicios?: string; services?: string; capacidad?: string; capability?: string; solucion?: string; solution?: string }> }) {
+export default async function DiagnosisRoute({ searchParams }: { searchParams: Promise<{ necesidad?: string; need?: string; servicios?: string; services?: string; capacidad?: string; capability?: string; solucion?: string; solution?: string }> }) {
   const params = await searchParams;
-  return <DiagnosisPage locale="es" selectedServiceIds={normalizeCatalogSelection(params.servicios ?? params.services)} selectedCapabilityId={normalizeCapabilitySelection(params.capacidad ?? params.capability)} selectedSolutionId={normalizeSolutionSelection(params.solucion ?? params.solution)} />;
+  return <DiagnosisPage locale="es" initialNeed={normalizeNeed(params.necesidad ?? params.need)} selectedServiceIds={normalizeCatalogSelection(params.servicios ?? params.services)} selectedCapabilityId={normalizeCapabilitySelection(params.capacidad ?? params.capability)} selectedSolutionId={normalizeSolutionSelection(params.solucion ?? params.solution)} />;
 }
