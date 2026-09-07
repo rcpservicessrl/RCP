@@ -228,9 +228,9 @@
     "semantic_hash": ""
   },
   ".neural_state.md": {
-    "mtime": 1788745341.058486,
-    "seen": 1788745422.7861662,
-    "ast_hash": "1ee5b52adf9a55d7210bf004d97e10a4",
+    "mtime": 1788799032.958147,
+    "seen": 1788799173.6667323,
+    "ast_hash": "1de3dbb48a522d228e2cc5d07396ccdd",
     "semantic_hash": ""
   },
   ".well-known/security.txt": {
@@ -1296,9 +1296,9 @@
     "semantic_hash": ""
   },
   "app/catalogo/page.tsx": {
-    "mtime": 1788744678.9935517,
-    "seen": 1788745422.78416,
-    "ast_hash": "ffcd4334dea10acd88ae659051186274",
+    "mtime": 1788750271.2064784,
+    "seen": 1788796055.5375159,
+    "ast_hash": "aa69580b24a80d18a55e486ea5f93217",
     "semantic_hash": ""
   },
   "app/checkout/page.tsx": {
@@ -1350,9 +1350,9 @@
     "semantic_hash": ""
   },
   "app/en/catalog/page.tsx": {
-    "mtime": 1788744678.9955592,
-    "seen": 1788745422.7851608,
-    "ast_hash": "9143f1e70ed747b97590a423e74db2d7",
+    "mtime": 1788750271.2331748,
+    "seen": 1788796055.5375159,
+    "ast_hash": "7b78e4375ac8c63ba0d2f0e30ca0a38d",
     "semantic_hash": ""
   },
   "app/en/contact/page.tsx": {
@@ -1506,9 +1506,9 @@
     "semantic_hash": ""
   },
   "app/layout.tsx": {
-    "mtime": 1788745008.944987,
-    "seen": 1788745422.7851608,
-    "ast_hash": "929ecac45db698fdb5e74ba1382cd535",
+    "mtime": 1788750515.5339863,
+    "seen": 1788796055.5407324,
+    "ast_hash": "4384405091ff230361a07fa8a6027cf5",
     "semantic_hash": ""
   },
   "app/llms.txt/route.ts": {
@@ -1638,14 +1638,14 @@
     "semantic_hash": ""
   },
   "components/catalog-explorer.tsx": {
-    "mtime": 1788744678.9885604,
-    "seen": 1788745422.7851608,
-    "ast_hash": "0be10b08b8a0d0feb18465bd6b6f7df7",
+    "mtime": 1788750853.8388968,
+    "seen": 1788796055.5407324,
+    "ast_hash": "3eb224b27f4732abdb12f583a4b1d66f",
     "semantic_hash": ""
   },
   "components/catalog-icon.tsx": {
-    "mtime": 1788743648.122647,
-    "seen": 1788745422.7851608,
+    "mtime": 1788755341.239312,
+    "seen": 1788796055.5407324,
     "ast_hash": "1f0a12bd7714eb699e9c6002710b1dce",
     "semantic_hash": ""
   },
@@ -1686,9 +1686,9 @@
     "semantic_hash": ""
   },
   "components/home-experience.tsx": {
-    "mtime": 1788743880.922326,
-    "seen": 1788745422.7851608,
-    "ast_hash": "14efae8b17cfda1ea8655adba50255d0",
+    "mtime": 1788750853.8439412,
+    "seen": 1788796055.5407324,
+    "ast_hash": "52f8ee58f363d68c14da285b935fba15",
     "semantic_hash": ""
   },
   "components/icons.tsx": {
@@ -1728,9 +1728,9 @@
     "semantic_hash": ""
   },
   "components/pulso-help.tsx": {
-    "mtime": 1788736660.5833263,
-    "seen": 1788738858.377643,
-    "ast_hash": "0e9ef96017de9a0b291312e0b4d9ecf3",
+    "mtime": 1788750187.878764,
+    "seen": 1788796055.5407324,
+    "ast_hash": "8bbecf46d8f5931b67dea693797c922b",
     "semantic_hash": ""
   },
   "components/pulso.tsx": {
@@ -1986,8 +1986,8 @@
     "semantic_hash": ""
   },
   "next-env.d.ts": {
-    "mtime": 1788745049.879753,
-    "seen": 1788745422.7861662,
+    "mtime": 1788760057.1279275,
+    "seen": 1788796055.5407324,
     "ast_hash": "0e4a65e8b2b9aa3ed0f8957b9406bd41",
     "semantic_hash": ""
   },
@@ -2238,9 +2238,9 @@
     "semantic_hash": ""
   },
   "components/editorial-intro.tsx": {
-    "mtime": 1788738224.4829478,
-    "seen": 1788738858.377643,
-    "ast_hash": "f1e25b555cc071e87977b7efcd428b8d",
+    "mtime": 1788750853.8353791,
+    "seen": 1788796055.5407324,
+    "ast_hash": "ee0590978a7967ca4079aff104df584f",
     "semantic_hash": ""
   },
   "legacy/astro-public/scripts/en.json": {
@@ -2334,9 +2334,9 @@
     "semantic_hash": ""
   },
   "components/business-visual.tsx": {
-    "mtime": 1788745008.9430046,
-    "seen": 1788745422.7851608,
-    "ast_hash": "3534b0b5c7a2741672e37fb993b5946e",
+    "mtime": 1788750271.2029407,
+    "seen": 1788796055.5407324,
+    "ast_hash": "2b41652099d58e11cd3e91f55df4fa52",
     "semantic_hash": ""
   },
   "components/product-artwork.tsx": {
@@ -2358,9 +2358,9 @@
     "semantic_hash": ""
   },
   "lib/product-art.ts": {
-    "mtime": 1788743588.946348,
-    "seen": 1788745422.7861662,
-    "ast_hash": "7df9e67285fe693c3df0caa2c2bb22ca",
+    "mtime": 1788758744.434515,
+    "seen": 1788796055.5407324,
+    "ast_hash": "56c70c58439adb2391e2008fb30e2b79",
     "semantic_hash": ""
   },
   "tests-next/discovery-context.test.mjs": {
@@ -2370,9 +2370,9 @@
     "semantic_hash": ""
   },
   "docs/WHOLE_SITE_EDITORIAL_2026-09-06.md": {
-    "mtime": 1788745337.1987808,
-    "seen": 1788745422.7861662,
-    "ast_hash": "a5fc33c30b1ca7c5290f640b8f2c5d14",
+    "mtime": 1788748540.2955046,
+    "seen": 1788796055.5423899,
+    "ast_hash": "92495efb390f5c748297873746880ab2",
     "semantic_hash": ""
   },
   "public/assets/editorial-v32/print.webp": {
@@ -2427,6 +2427,384 @@
     "mtime": 1785916186.0065086,
     "seen": 1788745422.789159,
     "ast_hash": "570dfe130a57d1df7c753d106b28b036",
+    "semantic_hash": ""
+  },
+  "components/business-route-map.tsx": {
+    "mtime": 1788796424.9512327,
+    "seen": 1788796830.3935103,
+    "ast_hash": "188d8fa26801a27844c9d97c8b859a44",
+    "semantic_hash": ""
+  },
+  "components/price-guide.tsx": {
+    "mtime": 1788795901.3283377,
+    "seen": 1788796055.5407324,
+    "ast_hash": "d67e7615eb94dbbf93596ab167986fb6",
+    "semantic_hash": ""
+  },
+  "docs/CATALOG_ARTWORK_INVENTORY_2026-09-07.json": {
+    "mtime": 1788758878.8506243,
+    "seen": 1788796055.5407324,
+    "ast_hash": "cf034b124e6f7a900fc9e14319a4a80f",
+    "semantic_hash": ""
+  },
+  "docs/WEB_RELEASE_ARTIFACTS_2026-09-07.json": {
+    "mtime": 1788760368.3985453,
+    "seen": 1788796055.5407324,
+    "ast_hash": "e38ba0e63c03afc04ec955a31ac77a78",
+    "semantic_hash": ""
+  },
+  "lib/catalog-photography.ts": {
+    "mtime": 1788755341.24495,
+    "seen": 1788796055.5407324,
+    "ast_hash": "40d80b686dc37e5204203beeecb5811d",
+    "semantic_hash": ""
+  },
+  "lib/pricing.ts": {
+    "mtime": 1788750187.8893242,
+    "seen": 1788796055.5407324,
+    "ast_hash": "99ded078631eedf2061d89b055541eb2",
+    "semantic_hash": ""
+  },
+  "tests-next/catalog-art.test.mjs": {
+    "mtime": 1788758787.6276555,
+    "seen": 1788796055.5417569,
+    "ast_hash": "f579dd1430fae56c9c9d402ce9613f33",
+    "semantic_hash": ""
+  },
+  "tests-next/customer-journey.test.mjs": {
+    "mtime": 1788758787.6248345,
+    "seen": 1788796055.5417569,
+    "ast_hash": "9e4aa5cc6be06e0fa3fb3577784522fc",
+    "semantic_hash": ""
+  },
+  "docs/CATALOG_ARTWORK_RECONCILIATION_2026-09-07.md": {
+    "mtime": 1788760368.5342598,
+    "seen": 1788796055.5423899,
+    "ast_hash": "6b15d9f38ee215e3ce1d255d8a8158c0",
+    "semantic_hash": ""
+  },
+  "docs/CATALOG_EXPANSION_PROMPTS_2026-09-07.md": {
+    "mtime": 1788760539.3803723,
+    "seen": 1788796055.5423899,
+    "ast_hash": "e24f21e595c46b48b67c94b25f644636",
+    "semantic_hash": ""
+  },
+  "docs/CATALOG_IMAGE_PROMPTS_2026-09-06.md": {
+    "mtime": 1788748506.7886472,
+    "seen": 1788796055.5423899,
+    "ast_hash": "c61e28bfe35cecf7b3e3c2b49af2537a",
+    "semantic_hash": ""
+  },
+  "docs/CUSTOMER_JOURNEY_AND_PRICING_2026-09-06.md": {
+    "mtime": 1788758931.9567642,
+    "seen": 1788796055.5423899,
+    "ast_hash": "bc68c1c34c901b95fcd8d061a0bad059",
+    "semantic_hash": ""
+  },
+  "docs/NATURAL_IMAGE_PROMPTS_2026-09-06.md": {
+    "mtime": 1788755341.2754261,
+    "seen": 1788796055.5423899,
+    "ast_hash": "9d99ebbd11e1b45a3eed271787c1693a",
+    "semantic_hash": ""
+  },
+  "docs/WEB_HANDOFF_2026-09-07.md": {
+    "mtime": 1788799032.9541533,
+    "seen": 1788799173.6677523,
+    "ast_hash": "4259c743b5bb83864e10911d07beea66",
+    "semantic_hash": ""
+  },
+  "docs/WEB_RELEASE_CANDIDATE_2026-09-07.md": {
+    "mtime": 1788760539.3909113,
+    "seen": 1788796055.5423899,
+    "ast_hash": "54ca778b35af04a11bdeb8a7ef953566",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260907_014608_which_components_preserve_the_public_discovery_jou.md": {
+    "mtime": 1788745568.1189096,
+    "seen": 1788796055.5423899,
+    "ast_hash": "8fe47f47e01570797dcc53b259cd6c4f",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260907_153659_business_route_map_interactive_svg_catalog_deploym.md": {
+    "mtime": 1788795419.2036657,
+    "seen": 1788796055.5423899,
+    "ast_hash": "2e5d855a3804613b989a4968b0124014",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/analitica-marketing.webp": {
+    "mtime": 1788750850.452,
+    "seen": 1788796055.5423899,
+    "ast_hash": "823e8ee7c52ca8c9e3c64304cf9133e7",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/cambio-adopcion.webp": {
+    "mtime": 1788750837.269,
+    "seen": 1788796055.5423899,
+    "ast_hash": "17dde3d98d335e6cd30a5332e1db79ff",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/campanas-digitales.webp": {
+    "mtime": 1788750849.549,
+    "seen": 1788796055.5423899,
+    "ast_hash": "b9228836d9eaaf3c6b2c1eb2e5ff5848",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/control-financiero.webp": {
+    "mtime": 1788750839.421,
+    "seen": 1788796055.5423899,
+    "ast_hash": "82cc996c64992420365373d57959b31a",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/diagnostico-rcp-360.webp": {
+    "mtime": 1788750829.184,
+    "seen": 1788796055.5423899,
+    "ast_hash": "4803659279203e9bc790e072dbad8345",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/documentacion-empresarial.webp": {
+    "mtime": 1788750840.376,
+    "seen": 1788796055.5423899,
+    "ast_hash": "709acca13cbe25ddc53df7e3d4e0716b",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/estrategia-marca.webp": {
+    "mtime": 1788750843.087,
+    "seen": 1788796055.5423899,
+    "ast_hash": "1f8eb94aa6b25a094a718c4574af9825",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/etiquetas-empaques.webp": {
+    "mtime": 1788750853.152,
+    "seen": 1788796055.5423899,
+    "ast_hash": "3d1259946466592b0a3da8a065e63fa6",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/expediente-necesidad.webp": {
+    "mtime": 1788750830.074,
+    "seen": 1788796055.5423899,
+    "ast_hash": "a296ceaca1f2c58becd5905880901436",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/experiencia-cliente.webp": {
+    "mtime": 1788750834.978,
+    "seen": 1788796055.5423899,
+    "ast_hash": "043c40317c37a8eea8319ba3ec9d1999",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/gran-formato.webp": {
+    "mtime": 1788750853.817,
+    "seen": 1788796055.5423899,
+    "ast_hash": "f21d8aa3bae800d4974fd9ab0d03af1d",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/hero-team.webp": {
+    "mtime": 1788750828.407,
+    "seen": 1788796055.5444326,
+    "ast_hash": "b6b3b60ef8bb47a5863119cf4138a855",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/identidad-empresarial.webp": {
+    "mtime": 1788750836.181,
+    "seen": 1788796055.5444326,
+    "ast_hash": "d8e6f2d5383ea667851d1b9328c8e235",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/iguala-contable.webp": {
+    "mtime": 1788750838.284,
+    "seen": 1788796055.5444326,
+    "ast_hash": "99494475b83479210a00f7dc5f3bc063",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/modelo-operativo-raci.webp": {
+    "mtime": 1788750833.262,
+    "seen": 1788796055.5444326,
+    "ast_hash": "346c7d4a2df2812c022722b623ed0835",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/papeleria-corporativa.webp": {
+    "mtime": 1788750851.427,
+    "seen": 1788796055.5444326,
+    "ast_hash": "403e1f76251d11720ec301ad27c51e27",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/promocionales-impresos.webp": {
+    "mtime": 1788750852.33,
+    "seen": 1788796055.5444326,
+    "ast_hash": "6e3867a6f6acabf532c12cf71c39bfec",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/redes-community.webp": {
+    "mtime": 1788750844.67,
+    "seen": 1788796055.5444326,
+    "ast_hash": "538525a961cac652511eef15afe46d59",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/riesgo-cumplimiento.webp": {
+    "mtime": 1788750841.869,
+    "seen": 1788796055.5444326,
+    "ast_hash": "b26dc7efcf480895a8f2cfa9040a1068",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/seo-aeo.webp": {
+    "mtime": 1788750846.376,
+    "seen": 1788796055.5444326,
+    "ast_hash": "e4d84766690f64fedcb6ed28a3375101",
+    "semantic_hash": ""
+  },
+  "public/assets/business-scenes/sop-documentacion.webp": {
+    "mtime": 1788750831.302,
+    "seen": 1788796055.5444326,
+    "ast_hash": "7e55d99d7f8450beed54031c8318606e",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/analitica-marketing.webp": {
+    "mtime": 1788755722.3661482,
+    "seen": 1788796055.5444326,
+    "ast_hash": "02477fcf44bd73298f3168a20b85edc8",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/branding.png": {
+    "mtime": 1788748299.7375982,
+    "seen": 1788796055.5444326,
+    "ast_hash": "5f699eb0318bde10c7aaeefaf24d1984",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/cambio-adopcion.webp": {
+    "mtime": 1788758712.945059,
+    "seen": 1788796055.5444326,
+    "ast_hash": "4059c73dc96065ecd50b5cea37492f85",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/campanas-digitales.webp": {
+    "mtime": 1788758718.0523179,
+    "seen": 1788796055.5444326,
+    "ast_hash": "4f27bb7c0995b5ef07cfcd419cd38087",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/content.png": {
+    "mtime": 1788748341.506519,
+    "seen": 1788796055.5444326,
+    "ast_hash": "83d17425ef1dc58b6c73450562058987",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/control-financiero.webp": {
+    "mtime": 1788758714.4183106,
+    "seen": 1788796055.5444326,
+    "ast_hash": "46da29a745436ad233d79938f0a20e56",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/documentacion-empresarial.webp": {
+    "mtime": 1788758710.584115,
+    "seen": 1788796055.5444326,
+    "ast_hash": "c7f3ef63bdd197f0cb9189148a4069d0",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/estrategia-marca.webp": {
+    "mtime": 1788758715.8363497,
+    "seen": 1788796055.5444326,
+    "ast_hash": "d2d1e6937f2ad88ad9ca76b35e294246",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/etiquetas-empaques.webp": {
+    "mtime": 1788758720.0857165,
+    "seen": 1788796055.5444326,
+    "ast_hash": "ecab4ac9f073a1fa16c10b30f474ca3d",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/expediente-necesidad.webp": {
+    "mtime": 1788755723.4064994,
+    "seen": 1788796055.5444326,
+    "ast_hash": "aefe8e9dfc96c0e1b4e3a3d6b331aaf1",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/gran-formato.webp": {
+    "mtime": 1788758720.719827,
+    "seen": 1788796055.5444326,
+    "ast_hash": "9cd9ada9ec7457d9b8ae64352f51e163",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/identidad-empresarial.webp": {
+    "mtime": 1788758712.2789373,
+    "seen": 1788796055.5444326,
+    "ast_hash": "a7c4c8e61509ea726691a75606ed5a5c",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/iguala-contable.webp": {
+    "mtime": 1788758713.6962543,
+    "seen": 1788796055.5444326,
+    "ast_hash": "3c58a3cf878abaa439cbdd0c9d205fec",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/modelo-operativo-raci.webp": {
+    "mtime": 1788758709.3120165,
+    "seen": 1788796055.5444326,
+    "ast_hash": "578c576e58127fd584aba6254aee624e",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/papeleria-corporativa.webp": {
+    "mtime": 1788758718.7171204,
+    "seen": 1788796055.5444326,
+    "ast_hash": "3a98640da5c0777ec09d9e9bed72b41e",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/processes.png": {
+    "mtime": 1788748198.085332,
+    "seen": 1788796055.5444326,
+    "ast_hash": "957fdc1f91c74a41732801cf64049743",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/promocionales-impresos.webp": {
+    "mtime": 1788758719.392596,
+    "seen": 1788796055.5444326,
+    "ast_hash": "d2b250b84ba299af8e0b39c90e43b35b",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/redes-community.webp": {
+    "mtime": 1788758716.539774,
+    "seen": 1788796055.5444326,
+    "ast_hash": "bacb2643cc10dbe69e5fd55a61f92e5d",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/riesgo-cumplimiento.webp": {
+    "mtime": 1788758715.107484,
+    "seen": 1788796055.5444326,
+    "ast_hash": "1514363b4c82e8be9d192818b8f4ac69",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/seo-aeo.webp": {
+    "mtime": 1788758717.2878437,
+    "seen": 1788796055.5444326,
+    "ast_hash": "e6abb38b049cbba1a2fb8a943b96390c",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/signage.png": {
+    "mtime": 1788748390.453941,
+    "seen": 1788796055.5444326,
+    "ast_hash": "fb747212eb641d2bdf1c4ed8e21a26e5",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/sop-documentacion.webp": {
+    "mtime": 1788758711.516198,
+    "seen": 1788796055.5444326,
+    "ast_hash": "ddeac0155aa7e6ddf8082740f303cdf0",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/textiles.png": {
+    "mtime": 1788748452.2445567,
+    "seen": 1788796055.5444326,
+    "ast_hash": "5f3e89435cb296670e96fcd974958e15",
+    "semantic_hash": ""
+  },
+  "public/assets/catalog-editorial/training.png": {
+    "mtime": 1788748238.6558056,
+    "seen": 1788796055.5444326,
+    "ast_hash": "cbf3a75767c63b949ca81c0f9256dfed",
+    "semantic_hash": ""
+  },
+  "docs/WEB_PUBLICATION_2026-09-07.md": {
+    "mtime": 1788799032.9476006,
+    "seen": 1788799173.6677523,
+    "ast_hash": "97177ea542fbea76c23398c3e0f806e9",
     "semantic_hash": ""
   }
 }

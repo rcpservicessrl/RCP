@@ -1,5 +1,7 @@
 # Continuidad de publicación web — 2026-09-07
 
+**Actualización posterior:** publicación y aceptación completadas; consultar `WEB_PUBLICATION_2026-09-07.md` para el SHA desplegado, pruebas y reversión. El resto de este archivo conserva el estado histórico de la entrega inicial.
+
 Registrado por el agente principal al detener el trabajo por solicitud del usuario. Este cierre actualiza el estado de despliegue que figura como pendiente en `WEB_RELEASE_CANDIDATE_2026-09-07.md`; conserva aquel documento como evidencia del build original.
 
 ## Fuente y cambios pendientes
