@@ -1,6 +1,6 @@
+import { BusinessVisual } from "@/components/business-visual";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso } from "@/components/pulso";
 import { createPublicPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPublicPageMetadata({
@@ -17,11 +17,11 @@ export default async function EnglishCatalogPage({ searchParams }: { searchParam
     <InteriorShell locale="en">
       <section className="interior-hero interior-hero--catalog">
         <div className="container interior-hero__grid">
-          <div><p className="section-eyebrow">RCP Catalog</p><h1>Explore by need. Compare with context.</h1><p>This catalog organizes products and services without turning them into universal solutions. Select up to four routes and use them as a starting point for an RCP 360 Diagnosis.</p><div className="interior-hero__facts"><span>No rigid public prices</span><span>Scope by diagnosis</span><span>One contractual owner</span></div></div>
-          <Pulso scene="analyze" size="large" label="Pulso, RCP catalog guide" />
+          <div><p className="section-eyebrow">RCP Catalog</p><h1>Explore by need. Compare with context.</h1><p>Find what your business needs: processes, advice, a digital presence and print. Choose up to four options to discuss during your free initial assessment.</p><div className="interior-hero__facts"><span>Made for your business</span><span>Scope agreed with you</span><span>One team to coordinate</span></div><div className="editorial-hero-actions"><a className="button button--primary" href="#explorar">Explore the catalog ↗</a></div></div>
+          <BusinessVisual kind="catalog" locale="en" />
         </div>
       </section>
-      <section className="catalog-page-section"><div className="container"><CatalogExplorer locale="en" initialService={service} /></div></section>
+      <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Services and products for your business</h2><CatalogExplorer locale="en" initialService={service} /></div></section>
     </InteriorShell>
   );
 }

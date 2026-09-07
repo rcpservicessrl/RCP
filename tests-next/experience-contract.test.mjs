@@ -200,7 +200,7 @@ test("guided diagnosis has four steps and carries the selected context", async (
   assert.match(form, /name="selectedSolution" value={selectedSolution\?\.id \?\? ""}/);
   assert.match(form, /useState<NeedId \| "">\(initialNeed \?\? ""\)/);
   assert.match(home, /<DiagnosisForm locale={locale} guided initialNeed={activeNeed} \/>/);
-  assert.match(diagnosisPage, /<DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} guided \/>/);
+  assert.match(diagnosisPage, /<DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} initialSector={initialSector} guided \/>/);
 });
 
 test("diagnosis errors preserve form values and a server-provided handoff", async () => {

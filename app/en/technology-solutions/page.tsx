@@ -1,6 +1,6 @@
+import { BusinessVisual } from "@/components/business-visual";
 import { CapabilityExplorer } from "@/components/capability-explorer";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso } from "@/components/pulso";
 import { createPublicPageMetadata } from "@/lib/metadata";
 import { glossaryCapabilities, technologySolutions } from "@/lib/content";
 
@@ -33,11 +33,11 @@ export default async function EnglishTechnologySolutionsPage({ searchParams }: {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="interior-hero interior-hero--technology">
         <div className="container interior-hero__grid">
-          <div><p className="section-eyebrow">Transversal technology</p><h1>Your need comes first. Technology follows.</h1><p>Explore six solutions explained in plain language. Acronyms remain a search and learning guide; they do not represent sixteen ready-to-install products.</p><div className="interior-hero__facts"><span>Six clear routes</span><span>Custom software</span><span>Ownership by project</span></div></div>
-          <Pulso scene="present" size="large" label="Pulso presents technology capabilities" />
+          <div><p className="section-eyebrow">Transversal technology</p><h1>Your need comes first. Technology follows.</h1><p>Explore six solutions explained in plain language. Acronyms remain a search and learning guide; they do not represent sixteen ready-to-install products.</p><div className="interior-hero__facts"><span>Six clear routes</span><span>Custom software</span><span>Ownership by project</span></div><div className="editorial-hero-actions"><a className="button button--primary" href="#explorar">Explore solutions ↗</a></div></div>
+          <BusinessVisual kind="technology" locale="en" />
         </div>
       </section>
-      <section className="technology-page-section"><div className="container"><CapabilityExplorer locale="en" initialCapability={capability} /></div></section>
+      <section className="technology-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Choose what you want to improve</h2><CapabilityExplorer locale="en" initialCapability={capability} /></div></section>
     </InteriorShell>
   );
 }

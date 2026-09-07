@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
+import { alternateRoute } from "@/lib/localized-routes";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/types";
 import { CloseIcon, GlobeIcon, MenuIcon, MoonIcon, SearchIcon, SunIcon } from "@/components/icons";
@@ -43,9 +44,10 @@ const copy = {
 
 export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
   const pathname = usePathname();
-  const discoveryLocales = [["/herramientas", "/en/tools"], ["/soluciones/comercios", "/en/solutions/retail"], ["/soluciones/empresas-de-servicios", "/en/solutions/service-businesses"]] as const;
-  const currentPair = discoveryLocales.find(pair => pair.some(path => path === pathname));
-  const alternateHref = currentPair ? currentPair[locale === "es" ? 1 : 0] : locale === "es" ? "/en" : "/";
+  const [alternateHref, setAlternateHref] = useState(alternateRoute(pathname, locale));
+  useEffect(() => {
+    setAlternateHref(alternateRoute(pathname, locale, window.location.search));
+  }, [pathname, locale]);
   const labels = copy[locale];
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -127,7 +129,7 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
 
         <nav className="main-nav" aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}>
           <Link href={servicesHref}>{labels.solutions}</Link>
-          <a href={`${homeHref}#${locale === "es" ? "metodo" : "method"}`}>{labels.method}</a>
+          <Link href={locale === "es" ? "/como-trabajamos" : "/en/how-we-work"}>{labels.method}</Link>
           <Link href={locale === "es" ? "/catalogo" : "/en/catalog"}>{labels.catalog}</Link>
           <Link href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"}>{labels.technology}</Link>
           <Link href={specialistsHref}>{labels.specialists}</Link>
@@ -160,7 +162,7 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
           </div>
           <nav>
             <Link href={servicesHref} onClick={closeMenu}>{labels.solutions}</Link>
-            <a href={`${homeHref}#${locale === "es" ? "metodo" : "method"}`} onClick={closeMenu}>{labels.method}</a>
+            <Link href={locale === "es" ? "/como-trabajamos" : "/en/how-we-work"} onClick={closeMenu}>{labels.method}</Link>
             <Link href={locale === "es" ? "/catalogo" : "/en/catalog"} onClick={closeMenu}>{labels.catalog}</Link>
             <Link href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"} onClick={closeMenu}>{labels.technology}</Link>
             <Link href={specialistsHref} onClick={closeMenu}>{labels.specialists}</Link>

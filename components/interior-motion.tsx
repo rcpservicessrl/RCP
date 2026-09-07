@@ -65,7 +65,9 @@ export function InteriorMotion({ children, language }: { children: ReactNode; la
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -8%", threshold: 0.08 },
+      // A long catalog container can never expose 8% of its area on a phone.
+      // Reveal on entry so large sections cannot keep their children hidden.
+      { rootMargin: "0px 0px -8%", threshold: 0 },
     );
 
     revealItems.forEach((item) => {
@@ -77,7 +79,7 @@ export function InteriorMotion({ children, language }: { children: ReactNode; la
 
   return (
     <main
-      className={styles.root}
+      className={`${styles.root} editorial-interior`}
       data-route={pathname}
       key={pathname}
       lang={language}

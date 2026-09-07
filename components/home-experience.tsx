@@ -12,6 +12,8 @@ import { SearchPalette } from "@/components/search-palette";
 import { Pulso, type PulsoScene } from "@/components/pulso";
 import { PulsoHelp } from "@/components/pulso-help";
 import { ConsentBanner } from "@/components/consent-banner";
+import { ConnectionDrawing } from "@/components/business-visual";
+import { ProductArtwork } from "@/components/product-artwork";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { DiagnosisForm } from "@/components/diagnosis-form";
 import { EditorialIntro, EditorialSectors } from "@/components/editorial-intro";
@@ -249,6 +251,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
             <div><p className="section-eyebrow">{c.technologyEyebrow}</p><h2>{c.technologyTitle}</h2></div>
             <div><p>{c.technologyText}</p><span className="technology-rule"><LayersIcon size={17} />{c.technologyRule}</span></div>
           </div>
+          <div className="container editorial-tech-showcase"><ConnectionDrawing locale={locale} /><div><ProductArtwork kind="pos" /><ProductArtwork kind="web" /><ProductArtwork kind="erp" /></div></div>
           <div className="container editorial-tech-links"><Link href={locale === "es" ? "/herramientas" : "/en/tools"}>{locale === "es" ? "Explora tu ruta y calcula el tiempo de tu proceso" : "Explore your route and estimate process time"}<ArrowIcon size={20} /></Link><Link href={locale === "es" ? "/software-a-la-medida" : "/en/custom-software"}>{locale === "es" ? "Del proceso real a una herramienta útil" : "From a real process to a useful tool"}<ArrowIcon size={20} /></Link></div>
           <div className="container section-action"><Link className="text-link" href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"}>{c.exploreTechnology}<ArrowIcon size={17} /></Link></div>
         </section>

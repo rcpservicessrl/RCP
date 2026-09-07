@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rcp.services";
-  const lastModified = new Date("2026-08-11T00:00:00-04:00");
+  const lastModified = new Date("2026-09-06T00:00:00-04:00");
   const routes = [
     ["", 1, "weekly"],
     ["/servicios", 0.95, "weekly"],

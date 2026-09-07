@@ -144,3 +144,5 @@
   .bridge { grid-template-columns: 1fr; gap: 30px; padding: 28px; }
   .actions { flex-direction: column; }
 }
+
+.pillar{background:var(--surface-2);border-radius:14px;padding:28px}.pillar :global(.product-artwork){height:210px;margin-top:24px;background:#e7eadb;border-radius:10px}.directory{padding-block:80px}.catalogList{margin-top:24px}.pillar h2{font-size:30px}

@@ -317,3 +317,6 @@
 @media (prefers-reduced-motion: reduce) {
   .heroOrbit { transform: none; }
 }
+
+/* Shared editorial presentation. */
+.section{padding-block:80px}.heroVisual{width:100%}.card,.valueCard,.pillarCard,.categoryGrid article,.relationshipGrid article{border-radius:14px;background:var(--surface-2)}.ctaCard{background:var(--surface-3);border:0;border-radius:14px}.detail{border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}.heading,.sectionHeading{max-width:860px}.heading h2,.sectionHeading h2{max-width:23ch}.heroCopy{min-width:0}

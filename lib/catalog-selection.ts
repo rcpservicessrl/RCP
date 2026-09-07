@@ -2,8 +2,8 @@ import { selectableCatalog } from "@/lib/content";
 
 const catalogIds = new Set(selectableCatalog.map((item) => item.id));
 
-export function normalizeCatalogSelection(raw?: string): string[] {
-  if (!raw) return [];
+export function normalizeCatalogSelection(raw?: unknown): string[] {
+  if (typeof raw !== "string" || !raw) return [];
 
   return [...new Set(raw
     .split(",")

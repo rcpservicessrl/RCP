@@ -1,6 +1,6 @@
+import { BusinessVisual } from "@/components/business-visual";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso } from "@/components/pulso";
 import { catalog } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
 
@@ -31,11 +31,11 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
       <section className="interior-hero interior-hero--catalog">
         <div className="container interior-hero__grid">
-          <div><p className="section-eyebrow">Catálogo RCP</p><h1>Explora por necesidad. Compara con contexto.</h1><p>Este catálogo organiza productos y servicios sin convertirlos en soluciones universales. Selecciona hasta cuatro rutas y utilízalas como punto de partida para el Diagnóstico RCP 360.</p><div className="interior-hero__facts"><span>Sin precios públicos rígidos</span><span>Alcance por diagnóstico</span><span>Un responsable contractual</span></div></div>
-          <Pulso scene="analyze" size="large" label="Pulso, guía del catálogo RCP" />
+          <div><p className="section-eyebrow">Catálogo RCP</p><h1>Explora por necesidad. Compara con contexto.</h1><p>Encuentra lo que tu negocio necesita: procesos, asesoría, presencia digital e impresos. Selecciona hasta cuatro opciones y llévalas a tu evaluación inicial sin costo.</p><div className="interior-hero__facts"><span>Hecho para tu negocio</span><span>Alcance acordado contigo</span><span>Una sola coordinación</span></div><div className="editorial-hero-actions"><a className="button button--primary" href="#explorar">Explorar el catálogo ↗</a></div></div>
+          <BusinessVisual kind="catalog" locale="es" />
         </div>
       </section>
-      <section className="catalog-page-section"><div className="container"><CatalogExplorer locale="es" initialService={servicio} /></div></section>
+      <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Servicios y productos para tu negocio</h2><CatalogExplorer locale="es" initialService={servicio} /></div></section>
     </InteriorShell>
   );
 }

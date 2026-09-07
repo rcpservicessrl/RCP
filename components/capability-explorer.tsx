@@ -12,6 +12,8 @@ import {
   technicalMaturityLabels,
   technologySolutions,
 } from "@/lib/content";
+import { ProductArtwork } from "@/components/product-artwork";
+import { solutionArt } from "@/lib/product-art";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 
 interface CapabilityExplorerProps {
@@ -64,7 +66,7 @@ export function CapabilityExplorer({ locale, initialCapability, compact = false 
             onClick={() => setSolutionId(entry.id)}
             onKeyDown={(event) => moveTab(event, index)}
           >
-            <span>{String(index + 1).padStart(2, "0")}</span>
+            <ProductArtwork kind={solutionArt[entry.id]} /><span>{String(index + 1).padStart(2, "0")}</span>
             <strong>{t(entry.title, locale)}</strong>
           </button>
         ))}
@@ -75,7 +77,7 @@ export function CapabilityExplorer({ locale, initialCapability, compact = false 
           <span className="capability-state capability-state--contextual">{locale === "es" ? "Software según tu necesidad" : "Software shaped to your need"}</span>
           <span className="capability-card__acronym">{String(technologySolutions.findIndex((entry) => entry.id === solution.id) + 1).padStart(2, "0")}</span>
         </header>
-        <h3>{t(solution.title, locale)}</h3>
+        <ProductArtwork kind={solutionArt[solution.id]} className="solution-art" large /><h3>{t(solution.title, locale)}</h3>
         <div className="capability-card__logic">
           <div><small>{locale === "es" ? "Lo que resolvemos" : "What we solve"}</small><p>{t(solution.description, locale)}</p></div>
           <ArrowIcon size={22} />

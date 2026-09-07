@@ -1,5 +1,6 @@
 "use client";
 
+import type { BusinessSector } from "@/lib/discovery-context";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Locale, NeedId } from "@/lib/types";
@@ -15,6 +16,7 @@ interface DiagnosisFormProps {
   selectedSolutionId?: string;
   guided?: boolean;
   initialNeed?: NeedId;
+  initialSector?: BusinessSector;
 }
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -24,7 +26,7 @@ const stepLabels = {
   en: ["Your business", "What is happening", "What we will assess", "How to contact you"],
 };
 
-export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, guided = false, initialNeed }: DiagnosisFormProps) {
+export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, guided = false, initialNeed, initialSector }: DiagnosisFormProps) {
   const [step, setStep] = useState(1);
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
@@ -153,7 +155,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
           <label><input type="radio" name="need" value="cumplir" required checked={selectedNeed === "cumplir"} onChange={() => setSelectedNeed("cumplir")} /><span><strong>{locale === "es" ? "Reducir riesgos" : "Reduce risks"}</strong><small>{locale === "es" ? "Impuestos, contabilidad, controles o documentos administrativos" : "Tax, accounting, controls or administrative documents"}</small></span></label>
           <label><input type="radio" name="need" value="crecer" required checked={selectedNeed === "crecer"} onChange={() => setSelectedNeed("crecer")} /><span><strong>{locale === "es" ? "Atraer más clientes" : "Attract more customers"}</strong><small>{locale === "es" ? "Marca, publicidad, web o seguimiento" : "Brand, advertising, web or follow-up"}</small></span></label>
         </div>
-        <label><span>{locale === "es" ? "¿A qué se dedica tu negocio?" : "What does your business do?"}</span><select name="sector" required defaultValue=""><option value="" disabled>{locale === "es" ? "Selecciona una opción" : "Select an option"}</option><option value="imprenta">{locale === "es" ? "Imprenta y personalización" : "Print and personalization"}</option><option value="comercio">{locale === "es" ? "Comercio, inventario y punto de venta" : "Retail, inventory and point of sale"}</option><option value="servicios">{locale === "es" ? "Empresa de servicios" : "Service business"}</option><option value="otro">{locale === "es" ? "Otro sector" : "Other sector"}</option></select></label>
+        <label><span>{locale === "es" ? "¿A qué se dedica tu negocio?" : "What does your business do?"}</span><select name="sector" required defaultValue={initialSector ?? ""}><option value="" disabled>{locale === "es" ? "Selecciona una opción" : "Select an option"}</option><option value="imprenta">{locale === "es" ? "Imprenta y personalización" : "Print and personalization"}</option><option value="comercio">{locale === "es" ? "Comercio, inventario y punto de venta" : "Retail, inventory and point of sale"}</option><option value="servicios">{locale === "es" ? "Empresa de servicios" : "Service business"}</option><option value="otro">{locale === "es" ? "Otro sector" : "Other sector"}</option></select></label>
       </fieldset>
 
       <fieldset ref={(node) => { fieldsets.current[1] = node; }} tabIndex={-1} hidden={guided && step !== 2} className="diagnosis-step">
