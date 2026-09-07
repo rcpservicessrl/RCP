@@ -1,7 +1,8 @@
+import { BusinessVisual } from "@/components/business-visual";
 import Link from "next/link";
 import { ExternalMedia } from "@/components/external-media";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso, type PulsoScene } from "@/components/pulso";
+import { type PulsoScene } from "@/components/pulso";
 import { pillars, t } from "@/lib/content";
 import type { Locale, LocalText } from "@/lib/types";
 import styles from "./editorial-page.module.css";
@@ -85,8 +86,8 @@ function EditorialHero({ locale, page }: EditorialPageProps) {
   }[page];
 
   return (
-    <header className={styles.hero}>
-      <div className={`container ${styles.heroGrid}`}>
+    <header className={`${styles.hero} editorial-page-hero`}>
+      <div className={`container ${styles.heroGrid} editorial-hero-grid`}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>{t(copy.eyebrow, locale)}</p>
           <h1>{t(copy.title, locale)}</h1>
@@ -96,9 +97,7 @@ function EditorialHero({ locale, page }: EditorialPageProps) {
           </ul>
         </div>
         <div className={styles.heroVisual}>
-          <span className={styles.heroOrbit} aria-hidden="true" />
-          <Pulso scene={copy.scene} size="large" label={t(label, locale)} />
-          <p>{locale === "es" ? "Guía visual · Pulso" : "Visual guide · Pulso"}</p>
+          <BusinessVisual kind={page} locale={locale} />
         </div>
       </div>
     </header>

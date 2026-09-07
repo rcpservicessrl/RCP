@@ -1,6 +1,6 @@
+import { BusinessVisual } from "@/components/business-visual";
 import { CapabilityExplorer } from "@/components/capability-explorer";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso } from "@/components/pulso";
 import { createPublicPageMetadata } from "@/lib/metadata";
 import { glossaryCapabilities, technologySolutions } from "@/lib/content";
 
@@ -33,11 +33,11 @@ export default async function TechnologySolutionsPage({ searchParams }: { search
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="interior-hero interior-hero--technology">
         <div className="container interior-hero__grid">
-          <div><p className="section-eyebrow">Tecnología transversal</p><h1>Primero tu necesidad. Después la tecnología.</h1><p>Explora seis soluciones explicadas en lenguaje claro. Las siglas quedan como guía para buscar y entender; no representan dieciséis productos listos para instalar.</p><div className="interior-hero__facts"><span>Seis rutas claras</span><span>Software a la medida</span><span>Propiedad por proyecto</span></div></div>
-          <Pulso scene="present" size="large" label="Pulso presenta las capacidades tecnológicas" />
+          <div><p className="section-eyebrow">Tecnología transversal</p><h1>Primero tu necesidad. Después la tecnología.</h1><p>Explora seis soluciones explicadas en lenguaje claro. Las siglas quedan como guía para buscar y entender; no representan dieciséis productos listos para instalar.</p><div className="interior-hero__facts"><span>Seis rutas claras</span><span>Software a la medida</span><span>Propiedad por proyecto</span></div><div className="editorial-hero-actions"><a className="button button--primary" href="#explorar">Explorar soluciones ↗</a></div></div>
+          <BusinessVisual kind="technology" locale="es" />
         </div>
       </section>
-      <section className="technology-page-section"><div className="container"><CapabilityExplorer locale="es" initialCapability={capacidad} /></div></section>
+      <section className="technology-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Elige lo que quieres mejorar</h2><CapabilityExplorer locale="es" initialCapability={capacidad} /></div></section>
     </InteriorShell>
   );
 }

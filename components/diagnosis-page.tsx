@@ -1,11 +1,13 @@
+import type { BusinessSector } from "@/lib/discovery-context";
+import Link from "next/link";
+import { BusinessVisual } from "@/components/business-visual";
 import { DiagnosisForm } from "@/components/diagnosis-form";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso } from "@/components/pulso";
 import { methodSteps, t } from "@/lib/content";
 import type { Locale, NeedId } from "@/lib/types";
 import styles from "./diagnosis-page.module.css";
 
-export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, initialNeed }: { locale: Locale; selectedServiceIds?: string[]; selectedCapabilityId?: string; selectedSolutionId?: string; initialNeed?: NeedId }) {
+export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, initialNeed, initialSector }: { locale: Locale; selectedServiceIds?: string[]; selectedCapabilityId?: string; selectedSolutionId?: string; initialNeed?: NeedId; initialSector?: BusinessSector }) {
   return (
     <InteriorShell locale={locale}>
       <section className="interior-hero">
@@ -15,8 +17,20 @@ export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabil
             <h1>{locale === "es" ? "Cuéntanos qué está frenando tu negocio." : "Tell us what is holding your business back."}</h1>
             <p>{locale === "es" ? "Solicita una conversación de 45 minutos, sin costo y sujeta a confirmación. Escuchamos la situación, ubicamos la prioridad y te explicamos cuál puede ser el próximo paso." : "Request a free 45-minute conversation, subject to confirmation. We listen, identify the priority and explain what the next step may be."}</p>
             <div className="interior-hero__facts"><span>{locale === "es" ? "45 minutos" : "45 minutes"}</span><span>{locale === "es" ? "Sin costo" : "No cost"}</span><span>{locale === "es" ? "Sujeta a confirmación" : "Subject to confirmation"}</span></div>
+            <div className="editorial-hero-actions"><Link className="button button--primary" href="#solicitud">{locale === "es" ? "Preparar mi solicitud" : "Prepare my request"} ↗</Link></div>
           </div>
-          <Pulso scene="analyze" size="large" label={locale === "es" ? "Pulso acompaña la evaluación inicial" : "Pulso accompanies the initial assessment"} />
+          <BusinessVisual kind="diagnosis" locale={locale} />
+        </div>
+      </section>
+
+      <section className="diagnosis-section" id="solicitud">
+        <div className="container diagnosis-section__grid">
+          <div>
+            <p className="section-eyebrow">{locale === "es" ? "Solicita tu evaluación" : "Request your assessment"}</p>
+            <h2>{locale === "es" ? "Explícalo como tú lo conoces." : "Explain it in your own words."}</h2>
+            <p className="section-lead">{locale === "es" ? "No tienes que conocer siglas ni escoger una herramienta. El equipo revisa la solicitud y confirma la conversación, el pilar que debe liderar y el próximo paso adecuado." : "You do not need to know acronyms or choose a tool. The team reviews the request and confirms the conversation, the lead pillar and the right next step."}</p>
+          </div>
+          <DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} initialSector={initialSector} guided />
         </div>
       </section>
 
@@ -52,16 +66,6 @@ export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabil
         </div>
       </section>
 
-      <section className="diagnosis-section" id="solicitud">
-        <div className="container diagnosis-section__grid">
-          <div>
-            <p className="section-eyebrow">{locale === "es" ? "Solicita tu evaluación" : "Request your assessment"}</p>
-            <h2>{locale === "es" ? "Explícalo como tú lo conoces." : "Explain it in your own words."}</h2>
-            <p className="section-lead">{locale === "es" ? "No tienes que conocer siglas ni escoger una herramienta. El equipo revisa la solicitud y confirma la conversación, el pilar que debe liderar y el próximo paso adecuado." : "You do not need to know acronyms or choose a tool. The team reviews the request and confirms the conversation, the lead pillar and the right next step."}</p>
-          </div>
-          <DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} guided />
-        </div>
-      </section>
     </InteriorShell>
   );
 }

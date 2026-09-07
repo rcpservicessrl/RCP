@@ -1,3 +1,4 @@
+import { BusinessVisual } from "@/components/business-visual";
 import Link from "next/link";
 import { InteriorShell } from "@/components/interior-shell";
 import { Pulso } from "@/components/pulso";
@@ -26,7 +27,7 @@ export function QuoteReview({ locale, references }: { locale: Locale; references
             <p>{locale === "es" ? "Conservamos las referencias recibidas desde el catálogo anterior, pero no reutilizamos precios, alcance ni disponibilidad obsoletos. El equipo debe validar la necesidad y preparar una propuesta vigente." : "We preserve references received from the former catalog, but we do not reuse obsolete prices, scope or availability. The team must validate the need and prepare a current proposal."}</p>
             <div className="interior-hero__facts"><span>{locale === "es" ? "Sin pago" : "No payment"}</span><span>{locale === "es" ? "Sin precio automático" : "No automatic price"}</span><span>{locale === "es" ? "Validación humana" : "Human validation"}</span></div>
           </div>
-          <Pulso scene="consider" size="large" label={locale === "es" ? "Pulso acompaña la revisión de referencias" : "Pulso accompanies the reference review"} />
+          <BusinessVisual kind="consulting" locale={locale} />
         </div>
       </section>
 

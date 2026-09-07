@@ -1,3 +1,5 @@
+import { BusinessVisual } from "@/components/business-visual";
+import { ProductArtwork } from "@/components/product-artwork";
 import Link from "next/link";
 import { ArrowIcon } from "@/components/icons";
 import { InteriorShell } from "@/components/interior-shell";
@@ -28,7 +30,7 @@ export function ServiceDirectory({ locale }: { locale: Locale }) {
               <span>{locale === "es" ? "Evidencia y aceptación" : "Evidence and acceptance"}</span>
             </div>
           </div>
-          <Pulso scene="present" size="large" label={locale === "es" ? "Pulso presenta los tres pilares de RCP Services" : "Pulso presents the three RCP Services pillars"} />
+          <BusinessVisual kind="services" locale={locale} />
         </div>
       </section>
 
@@ -49,7 +51,7 @@ export function ServiceDirectory({ locale }: { locale: Locale }) {
                     <span>0{index + 1}</span>
                     <div><small>{t(pillar.eyebrow, locale)}</small><h2>{t(pillar.title, locale)}</h2></div>
                   </header>
-                  <p>{t(pillar.summary, locale)}</p>
+                  <ProductArtwork kind={pillar.id === "renovacion" ? "erp" : pillar.id === "consultoria" ? "consulting" : "print"} /><p>{t(pillar.summary, locale)}</p>
                   <strong>{t(pillar.outcome, locale)}</strong>
                   <ul className={styles.coreServices}>
                     {pillar.services.map((service) => <li key={service.es}>{t(service, locale)}</li>)}

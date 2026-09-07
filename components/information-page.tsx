@@ -1,9 +1,10 @@
+import { BusinessVisual } from "@/components/business-visual";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { InteriorShell } from "@/components/interior-shell";
-import { Pulso, type PulsoScene } from "@/components/pulso";
-import { catalog, methodSteps, t } from "@/lib/content";
+import { type PulsoScene } from "@/components/pulso";
+import { catalog, methodSteps, t, technologySolutions } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
 import type { Locale, LocalText, PillarId } from "@/lib/types";
 import styles from "./information-page.module.css";
@@ -317,11 +318,11 @@ const configs: Record<InformationPageKind, InformationPageConfig> = {
     scene: "consider",
     introEyebrow: lt("Canales de contacto", "Contact channels"),
     introTitle: lt("Elige la forma más cómoda de comenzar.", "Choose the easiest way to begin."),
-    introText: lt("Para una necesidad que requiere contexto, el Diagnóstico RCP 360 es la mejor puerta de entrada.", "For a need that requires context, the RCP 360 Diagnosis is the best starting point."),
+    introText: lt("La evaluación inicial sin costo ayuda a entender tu necesidad y decidir el siguiente paso.", "The free initial assessment helps us understand your need and decide the next step."),
     cards: [
       card("Correo", "Email", "info@rcp.services", "info@rcp.services", "Úsalo para una consulta general o para dar seguimiento a una conversación existente.", "Use it for a general question or to follow up on an existing conversation.", link("Escribir por correo", "Send an email", "mailto:info@rcp.services", "mailto:info@rcp.services")),
       card("WhatsApp", "WhatsApp", "+1 829 806 8092", "+1 829 806 8092", "Canal directo para explicar brevemente la necesidad y confirmar cómo continuar.", "A direct channel to briefly explain the need and confirm how to continue.", link("Abrir WhatsApp", "Open WhatsApp", "https://wa.me/18298068092", "https://wa.me/18298068092")),
-      card("Diagnóstico", "Diagnosis", "Diagnóstico RCP 360", "RCP 360 Diagnosis", "Formulario guiado para organizar el problema, el resultado esperado y los servicios que quieres evaluar.", "A guided form to organize the problem, expected outcome and services you want to evaluate.", diagnosis),
+      card("Evaluación inicial", "Initial assessment", "Conversemos sobre tu negocio", "Let us discuss your business", "Formulario guiado para organizar el problema, el resultado esperado y los servicios que quieres evaluar.", "A guided form to organize the problem, expected outcome and services you want to evaluate.", diagnosis),
     ],
     detailEyebrow: lt("Qué pasa después", "What happens next"),
     detailTitle: lt("Una conversación clara, sin obligarte a comprar.", "A clear conversation without pressure to buy."),
@@ -349,11 +350,12 @@ const configs: Record<InformationPageKind, InformationPageConfig> = {
     facts: [lt("Contenido en español e inglés", "Content in Spanish and English"), lt("Sin precios rígidos", "No rigid public pricing"), lt("Alcance verificable", "Verifiable scope")],
     scene: "present",
     introEyebrow: lt("Empieza aquí", "Start here"),
-    introTitle: lt("Tres formas de conocer el ecosistema RCP.", "Three ways to understand the RCP ecosystem."),
+    introTitle: lt("Recursos para dar tu próximo paso.", "Resources for your next step."),
     introText: lt("Elige según lo que quieras resolver: servicios, tecnología o contenido educativo.", "Choose according to what you want to solve: services, technology or educational content."),
     cards: [
       card("Servicios", "Services", "Catálogo de productos y servicios", "Product and service catalog", "Renovación, Consultoría y Publicidad organizadas por necesidad y resultado esperado.", "Renewal, Consulting and Advertising organized by need and expected outcome.", catalogLink),
       card("Tecnología", "Technology", "Capacidades explicadas en contexto", "Capabilities explained in context", "CRM, ERP, POS, automatización y otros sistemas explicados por el problema que ayudan a resolver.", "CRM, ERP, POS, automation and other systems explained through the problems they help solve.", technology),
+      card("Herramientas", "Tools", "Encuentra tu ruta y mide el retrabajo", "Find your route and measure repeated work", "Orientación en tres preguntas y calculadora de tiempo sin registro. Puedes guardar tu ruta.", "Three-question guidance and a time calculator without registration. Save your route to keep it.", link("Usar herramientas", "Use the tools", "/herramientas", "/en/tools")),
       card("Biblioteca", "Library", "Videos y conversaciones", "Videos and conversations", "Contenido original para conocer ideas, decisiones y aprendizajes relacionados con el negocio.", "Original content about ideas, decisions and lessons related to business.", link("Abrir biblioteca", "Open library", "/media", "/en/media")),
     ],
     detailEyebrow: lt("Conoce el modelo", "Understand the model"),
@@ -420,8 +422,10 @@ function resolveDetails(config: InformationPageConfig, locale: Locale): Array<{ 
   }));
 }
 
-export function InformationPage({ locale, page }: { locale: Locale; page: InformationPageKind }) {
-  const config = configs[page];
+export function InformationPage({ locale, page, selectedSolutionId }: { locale: Locale; page: InformationPageKind; selectedSolutionId?: string }) {
+  const selectedSolution = technologySolutions.find(entry => entry.id === selectedSolutionId);
+  const baseConfig = configs[page];
+  const config = selectedSolution && page === "customSoftware" ? { ...baseConfig, primary: { ...baseConfig.primary, href: lt(`/diagnostico?solucion=${selectedSolution.id}#solicitud`, `/en/diagnosis?solution=${selectedSolution.id}#solicitud`) } } : baseConfig;
   const details = resolveDetails(config, locale);
   const pageUrl = `https://rcp.services${t(config.paths, locale)}`;
   const structuredData = {
@@ -439,17 +443,18 @@ export function InformationPage({ locale, page }: { locale: Locale; page: Inform
     <InteriorShell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className={styles.page}>
-        <header className={styles.hero}>
-          <div className={`container ${styles.heroGrid}`}>
+        <header className={`${styles.hero} editorial-page-hero`}>
+          <div className={`container ${styles.heroGrid} editorial-hero-grid`}>
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>{t(config.eyebrow, locale)}</p>
               <h1>{t(config.title, locale)}</h1>
               <p className={styles.heroLead}>{t(config.lead, locale)}</p>
+              {selectedSolution && <p className="chosen-solution">{locale === "es" ? "Tu interés" : "Your interest"}: <strong>{t(selectedSolution.title, locale)}</strong></p>}
               <ul className={styles.facts}>{config.facts.map((fact) => <li key={fact.es}>{t(fact, locale)}</li>)}</ul>
+              <div className="editorial-hero-actions"><ActionLink item={config.primary} locale={locale} className="button button--primary" /><ActionLink item={config.secondary} locale={locale} className="text-link" /></div>
             </div>
             <div className={styles.heroVisual}>
-              <div className={styles.heroOrbit} aria-hidden="true" />
-              <Pulso scene={config.scene} size="large" label={locale === "es" ? `Pulso presenta ${t(config.eyebrow, locale)}` : `Pulso presents ${t(config.eyebrow, locale)}`} />
+              <BusinessVisual kind={page} locale={locale} />
             </div>
           </div>
         </header>

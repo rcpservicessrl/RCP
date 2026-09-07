@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import { AudioProvider } from "@/components/audio-provider";
 import "./globals.css";
+import "./editorial-system.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rcp.services";
 const deploymentEnvironment = process.env.RCP_DEPLOYMENT_ENV ?? process.env.VERCEL_ENV ?? "development";
@@ -66,7 +67,7 @@ const themeScript = `
       const stored = localStorage.getItem('rcp-theme');
       const theme = stored === 'light' || stored === 'dark'
         ? stored
-        : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.dataset.theme = theme;
       document.documentElement.style.colorScheme = theme;
       document.documentElement.lang = location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en-US' : 'es-DO';
@@ -76,7 +77,7 @@ const themeScript = `
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="es-DO" data-theme="dark" suppressHydrationWarning className={`${montserrat.variable} ${spaceGrotesk.variable}`}>
+    <html data-scroll-behavior="smooth" lang="es-DO" data-theme="light" suppressHydrationWarning className={`${montserrat.variable} ${spaceGrotesk.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

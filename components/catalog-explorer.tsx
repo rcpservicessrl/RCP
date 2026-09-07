@@ -27,7 +27,7 @@ const filterLabels = {
 export function CatalogExplorer({ locale, initialService, limit, compact = false, balanced = false }: CatalogExplorerProps) {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<string[]>(initialService ? [initialService] : []);
+  const [selected, setSelected] = useState<string[]>(initialService && selectableCatalog.some(entry => entry.id === initialService) ? [initialService] : []);
   const labels = filterLabels[locale];
 
   const visibleItems = useMemo(() => {
@@ -53,14 +53,14 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
     setSelected((current) => current.includes(id) ? current.filter((entry) => entry !== id) : current.length < 4 ? [...current, id] : current);
   };
 
-  const diagnosisHref = `${locale === "es" ? "/diagnostico?servicios=" : "/en/diagnosis?services="}${selected.join(",")}`;
+  const diagnosisHref = `${locale === "es" ? "/diagnostico?servicios=" : "/en/diagnosis?services="}${selected.join(",")}#solicitud`;
 
   return (
     <div className={`catalog-explorer ${compact ? "catalog-explorer--compact" : ""}`}>
       <div className="catalog-controls">
         <div className="catalog-filters" role="group" aria-label={locale === "es" ? "Filtrar catálogo" : "Filter catalog"}>
           {(["all", "renovacion", "consultoria", "publicidad"] as Filter[]).map((entry) => (
-            <button type="button" key={entry} className={filter === entry ? "is-active" : ""} onClick={() => setFilter(entry)}>{labels[entry]}</button>
+            <button type="button" key={entry} className={filter === entry ? "is-active" : ""} aria-pressed={filter === entry} onClick={() => setFilter(entry)}>{labels[entry]}</button>
           ))}
         </div>
         {!compact && (
@@ -72,7 +72,8 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
         )}
       </div>
 
-      <div className="catalog-grid" aria-live="polite">
+      <p className="catalog-results" role="status">{locale === "es" ? `${visibleItems.length} ${visibleItems.length === 1 ? "opción" : "opciones"} · Selecciona hasta 4 para conversar con RCP.` : `${visibleItems.length} ${visibleItems.length === 1 ? "option" : "options"} · Choose up to 4 to discuss with RCP.`}</p>
+      <div className="catalog-grid">
         {visibleItems.map((entry) => {
           const pillar = pillars.find((candidate) => candidate.id === entry.pillar)!;
           const isSelected = selected.includes(entry.id);
@@ -80,15 +81,15 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
             <article className={`catalog-item catalog-item--${entry.pillar} ${isSelected ? "is-selected" : ""}`} key={entry.id} id={`service-${entry.id}`}>
               <header>
                 <span>{t(pillar.title, locale)}</span>
-                <small>{entry.kind === "entry" ? (locale === "es" ? "Punto de partida" : "Starting point") : (locale === "es" ? "Servicio" : "Service")}</small>
+                <small>{entry.kind === "entry" ? (locale === "es" ? "Punto de partida" : "Starting point") : entry.kind === "physical" ? (locale === "es" ? "Producto a medida" : "Custom product") : (locale === "es" ? "Servicio" : "Service")}</small>
               </header>
               <CatalogIcon id={entry.id} category={entry.category} pillar={entry.pillar} />
               <h3>{t(entry.title, locale)}</h3>
               <p>{t(entry.result, locale)}</p>
               {!compact && <ul>{entry.includes.slice(0, 3).map((include) => <li key={include.es}><CheckIcon size={14} />{t(include, locale)}</li>)}</ul>}
               <footer>
-                <span>{locale === "es" ? "Alcance por diagnóstico" : "Scope by diagnosis"}</span>
-                <button type="button" onClick={() => toggleSelection(entry.id)} aria-pressed={isSelected} disabled={!entry.selectable || (!isSelected && selected.length >= 4)}>
+                <span>{locale === "es" ? "Alcance a tu medida" : "Scope shaped to your need"}</span>
+                <button type="button" aria-label={`${isSelected ? (locale === "es" ? "Quitar" : "Remove") : (locale === "es" ? "Agregar" : "Add")} ${t(entry.title, locale)}`} onClick={() => toggleSelection(entry.id)} aria-pressed={isSelected} disabled={!entry.selectable || (!isSelected && selected.length >= 4)}>
                   {isSelected ? <><CheckIcon size={16} />{locale === "es" ? "Seleccionado" : "Selected"}</> : <><PlusIcon size={16} />{locale === "es" ? "Agregar" : "Add"}</>}
                 </button>
               </footer>

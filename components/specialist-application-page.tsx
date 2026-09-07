@@ -1,3 +1,4 @@
+import { BusinessVisual } from "@/components/business-visual";
 import Link from "next/link";
 import { InteriorShell } from "@/components/interior-shell";
 import { Pulso } from "@/components/pulso";
@@ -11,8 +12,8 @@ export function SpecialistApplicationPage({ locale }: { locale: Locale }) {
   return (
     <InteriorShell locale={locale}>
       <article className={styles.page} lang={isSpanish ? "es-DO" : "en-US"}>
-        <header className={styles.hero}>
-          <div className={`container ${styles.heroGrid}`}>
+        <header className={`${styles.hero} editorial-page-hero`}>
+          <div className={`container ${styles.heroGrid} editorial-hero-grid`}>
             <div>
               <p className={styles.eyebrow}>{isSpanish ? "Red de Especialistas RCP" : "RCP Specialist Network"}</p>
               <h1>{isSpanish ? "Presenta tu experiencia con claridad y sin documentos sensibles." : "Introduce your experience clearly and without sensitive documents."}</h1>
@@ -24,7 +25,7 @@ export function SpecialistApplicationPage({ locale }: { locale: Locale }) {
               </ul>
             </div>
             <div className={styles.heroVisual}>
-              <Pulso scene="consider" size="large" label={isSpanish ? "Pulso acompaña la postulación a la Red de Especialistas" : "Pulso accompanies the Specialist Network application"} />
+              <BusinessVisual kind="application" locale={locale} />
             </div>
           </div>
         </header>

@@ -109,9 +109,9 @@ test("new bilingual information pages declare canonical locale pairs and stay di
     ]);
     assert.ok(informationPage.includes(`paths: lt("${es}", "${en}")`), `${kind} must define matching locale paths`);
     assert.ok(spanishPage.includes(`getInformationPageMetadata("${kind}", "es")`), `${es} must emit Spanish canonical metadata`);
-    assert.ok(spanishPage.includes(`<InformationPage locale="es" page="${kind}" />`), `${es} must render the expected page`);
+    assert.ok(spanishPage.includes(`<InformationPage locale="es" page="${kind}"`), `${es} must render the expected page`);
     assert.ok(englishPage.includes(`getInformationPageMetadata("${kind}", "en")`), `${en} must emit English canonical metadata`);
-    assert.ok(englishPage.includes(`<InformationPage locale="en" page="${kind}" />`), `${en} must render the expected page`);
+    assert.ok(englishPage.includes(`<InformationPage locale="en" page="${kind}"`), `${en} must render the expected page`);
     assert.ok(sitemap.includes(`["${es}"`), `${es} must be discoverable`);
     assert.ok(sitemap.includes(`["${en}"`), `${en} must be discoverable`);
   }
