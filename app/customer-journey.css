@@ -32,9 +32,12 @@ body:has(.selection-tray) .pulso-help:not(.is-open) { bottom:180px; }
 .business-route-map svg { display:block; width:100%; height:auto; overflow:visible; }
 .route-line { stroke:#abb69b; stroke-width:2; transition:stroke .2s; }
 .route-line.is-selected { stroke:#896021; stroke-width:4; stroke-dasharray:8 5; animation:route-flow 1.2s linear 2; }
-.route-node { cursor:pointer; outline:none; }
-.route-node:focus-visible rect { stroke:#223cbd; stroke-width:5; }
-.route-node:hover rect { stroke-width:4; }
+.business-route-map__canvas { position:relative; }
+.business-route-map__canvas>svg { pointer-events:none; }
+.route-node { position:absolute; transform:translate(-50%,-50%); width:31.915%; min-height:44px; height:18.306%; padding:6px; border:2px solid #869879; border-radius:16px; background:#fffdf5; color:#203020; font-family:inherit; font-size:clamp(11px,1.2vw,14px); font-weight:600; line-height:1.15; cursor:pointer; touch-action:manipulation; }
+.route-node[aria-pressed="true"] { background:#fcb53f; border-color:#755214; }
+.route-node:focus-visible { outline:3px solid #223cbd; outline-offset:3px; }
+.route-node:hover { border-color:#203020; }
 .business-route-map .section-eyebrow { color:#6b4a17; font-size:10px; }
 .business-route-map h3 { font-size:clamp(23px,2.6vw,34px); line-height:1.2; letter-spacing:-.04em; margin:12px 0 18px; }
 .business-route-map ol { padding-left:22px; font-size:13px; line-height:1.9; list-style:decimal; }

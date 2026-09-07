@@ -20,15 +20,14 @@ export function BusinessRouteMap({ locale, compact = false }: { locale: Locale; 
   return <div className={`business-route-map ${compact ? "business-route-map--compact" : ""}`}>
     <div className="business-route-map__visual">
       <p>{es ? "Toca una prioridad y descubre tu ruta" : "Choose a priority to find your route"}</p>
-      <svg viewBox="0 0 470 295" role="group" aria-label={es ? "Mapa interactivo de prioridades" : "Interactive priority map"}>
+      <div className="business-route-map__canvas" role="group" aria-label={es ? "Mapa interactivo de prioridades" : "Interactive priority map"}>
+      <svg viewBox="0 0 470 295" aria-hidden="true" focusable="false">
         <circle cx="235" cy="143" r="75" fill="none" stroke="#a2b38d" strokeDasharray="3 7" />
         {routes.map((entry, index) => <path key={entry.id} d={`M235 143 L${entry.x} ${entry.y}`} className={selected === index ? "route-line is-selected" : "route-line"} />)}
         <circle cx="235" cy="143" r="45" fill="#203b2c" /><text x="235" y="140" textAnchor="middle" fill="#fff" fontSize="15" fontWeight="700">{es ? "Tu negocio" : "Your business"}</text><text x="235" y="159" textAnchor="middle" fill="#d4e4c9" fontSize="10">{es ? "Elige tu siguiente paso" : "Choose your next step"}</text>
-        {routes.map((entry, index) => <g key={entry.id} role="button" tabIndex={0} aria-pressed={selected === index} aria-controls={`${unique}-result`} aria-label={entry.label[locale]} onClick={() => setSelected(index)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setSelected(index); } }} className="route-node">
-          <rect x={entry.x - 75} y={entry.y - 27} width="150" height="54" rx="16" fill={selected === index ? "#fcb53f" : "#fffdf5"} stroke={selected === index ? "#755214" : "#869879"} strokeWidth="2" />
-          <text x={entry.x} y={entry.y + 5} textAnchor="middle" fill="#203020" fontSize="14" fontWeight="600">{entry.label[locale]}</text>
-        </g>)}
       </svg>
+      {routes.map((entry, index) => <button key={entry.id} type="button" aria-pressed={selected === index} aria-controls={`${unique}-result`} onClick={() => setSelected(index)} className="route-node" style={{ left: `${entry.x / 470 * 100}%`, top: `${entry.y / 295 * 100}%` }}>{entry.label[locale]}</button>)}
+      </div>
     </div>
     <div className="business-route-map__result" id={`${unique}-result`} aria-live="polite" aria-atomic="true">
       <span className="section-eyebrow">{es ? "Tu ruta sugerida" : "Your suggested route"}</span><h3>{route.title[locale]}</h3>
