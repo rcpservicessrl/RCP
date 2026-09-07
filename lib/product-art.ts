@@ -8,11 +8,24 @@ export const productArt = {
   consulting: "/assets/products-2026/06_Consultoria.png",
   web: "/assets/products-2026/07_Pagina_Web.png",
   tax: "/assets/products-2026/08_Consultoria_Impositiva.png",
+  processes: "/assets/catalog-editorial/processes.png",
+  training: "/assets/catalog-editorial/training.png",
+  branding: "/assets/catalog-editorial/branding.png",
+  content: "/assets/catalog-editorial/content.png",
+  signage: "/assets/catalog-editorial/signage.png",
+  textiles: "/assets/catalog-editorial/textiles.png",
 } as const;
 
 export type ProductArtKind = keyof typeof productArt;
 
 export function catalogArt(id: string, category: string, pillar: string): ProductArtKind {
+  if (id === "diagnostico-rcp-360") return "consulting";
+  if (/uniformes|textiles/.test(id)) return "textiles";
+  if (/letreros|rotulacion|banners|gran-formato/.test(id)) return "signage";
+  if (/contenido|fotografia|video/.test(id)) return "content";
+  if (/branding|identidad|posicionamiento|estrategia-marca/.test(id)) return "branding";
+  if (/formacion|capacitacion|cambio-adopcion/.test(id)) return "training";
+  if (/procesos|sop-|modelo-operativo|blueprint|expediente|documentacion/.test(id)) return "processes";
   if (/impositiva|contable|financiero|tss|cumplimiento|facturacion/.test(id)) return "tax";
   if (/impresos|exterior|merchandising/.test(category)) return "print";
   if (/sitios-web|seo|web/.test(id)) return "web";

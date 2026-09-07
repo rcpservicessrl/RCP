@@ -26,6 +26,10 @@ Fixed the long-catalog animation: an observer threshold of 8% could never be rea
 
 Discovery parameters are allowlisted when switching languages. Repeated/malformed query values are rejected safely. Public services, filtered search records, provider delivery, idempotency, consent, search, music and Pulso guidance remain available. No provider, DNS, Supabase schema, dependency or payment behavior changes are included.
 
+## Additional catalog illustrations
+
+The owner subsequently requested more images to explain other catalog areas. Six new transparent 3D illustrations cover processes, training, branding, audiovisual content, signage and textiles. They supplement the eight unchanged canonical assets, and service-specific mappings replace repeated generic software illustrations. Prompts and provenance are in `CATALOG_IMAGE_PROMPTS_2026-09-06.md`.
+
 ## Verification
 
 - `pnpm check`: TypeScript, 54 tests and production build passed; 65 generated pages.
