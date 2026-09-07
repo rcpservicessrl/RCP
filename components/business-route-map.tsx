@@ -24,7 +24,7 @@ export function BusinessRouteMap({ locale, compact = false }: { locale: Locale; 
       <svg viewBox="0 0 470 295" aria-hidden="true" focusable="false">
         <circle cx="235" cy="143" r="75" fill="none" stroke="#a2b38d" strokeDasharray="3 7" />
         {routes.map((entry, index) => <path key={entry.id} d={`M235 143 L${entry.x} ${entry.y}`} className={selected === index ? "route-line is-selected" : "route-line"} />)}
-        <circle cx="235" cy="143" r="45" fill="#203b2c" /><text x="235" y="140" textAnchor="middle" fill="#fff" fontSize="15" fontWeight="700">{es ? "Tu negocio" : "Your business"}</text><text x="235" y="159" textAnchor="middle" fill="#d4e4c9" fontSize="10">{es ? "Elige tu siguiente paso" : "Choose your next step"}</text>
+        <circle cx="235" cy="143" r="45" fill="#203b2c" /><text x="235" y="140" textAnchor="middle" fill="#fff" fontSize={es ? 15 : 12} fontWeight="700">{es ? "Tu negocio" : "Your business"}</text><text x="235" y="159" textAnchor="middle" fill="#d4e4c9" fontSize="8.5">{es ? "Tu siguiente paso" : "Your next step"}</text>
       </svg>
       {routes.map((entry, index) => <button key={entry.id} type="button" aria-pressed={selected === index} aria-controls={`${unique}-result`} onClick={() => setSelected(index)} className="route-node" style={{ left: `${entry.x / 470 * 100}%`, top: `${entry.y / 295 * 100}%` }}>{entry.label[locale]}</button>)}
       </div>
