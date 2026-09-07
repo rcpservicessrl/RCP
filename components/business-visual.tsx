@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Locale } from "@/lib/types";
 import { ProductArtwork } from "./product-artwork";
 import type { ProductArtKind } from "@/lib/product-art";
+import { BusinessRouteMap } from "./business-route-map";
 
 export function ConnectionDrawing({ locale }: { locale: Locale }) {
   const es = locale === "es";
@@ -21,6 +22,7 @@ export function BusinessVisual({ kind = "services", locale }: { kind?: string; l
   const photo = photoByPage[kind];
   const art = artByPage[kind];
   const es = locale === "es";
+  if (!photo && !art) return <BusinessRouteMap locale={locale} compact />;
   return <div className={`business-visual ${photo ? "business-visual--photo" : "business-visual--art"}`}>
     <span className="business-visual__eyebrow">{es ? "Conectamos lo que importa" : "Connect what matters"}</span>
     {photo ? <Image loading="eager" className="business-visual__photo" src={`/assets/editorial-v32/${photo}.webp`} alt="" width={800} height={900} sizes="(max-width: 760px) 90vw, 460px" /> : art ? <><ConnectionDrawing locale={locale} /><ProductArtwork kind={art} large /></> : <ConnectionDrawing locale={locale} />}

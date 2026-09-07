@@ -1,0 +1,319 @@
+{
+  "verifiedAt": "2026-09-07T05:52:48.034Z",
+  "baseCommit": "31963b673fb43ccd3f18480824f7cf385acbfd26",
+  "branch": "codex/rcp-human-customer-journey",
+  "buildId": "c_Gl2sIXKIHORaotEMLbA",
+  "sourceDigest": "82679f910264e9e8b2db04e160568fd73c2f787a977e587efcff418a1b63811a",
+  "sources": [
+    {
+      "path": "app/catalogo/page.tsx",
+      "bytes": 2552,
+      "sha256": "12cd63eb2d78c41652c540eb2c838d5c258f2461f1a3f326dc04faf750a913c1"
+    },
+    {
+      "path": "app/customer-journey.css",
+      "bytes": 5494,
+      "sha256": "f449c9b6bfc184789b1f599563b8407a32282eb9fb034a5be1c44217d010fe8a"
+    },
+    {
+      "path": "app/en/catalog/page.tsx",
+      "bytes": 1981,
+      "sha256": "28c83a07b706818508615e0891ee85dba2dbb66edb0e10b06b18e1b3feddd71e"
+    },
+    {
+      "path": "app/layout.tsx",
+      "bytes": 3793,
+      "sha256": "402f182941eb695c87f2f0631274b9c8e0ee05b8dd0a7dc802be6c7a1171dd16"
+    },
+    {
+      "path": "components/business-route-map.tsx",
+      "bytes": 4624,
+      "sha256": "08a8532c266cd42fa6bfd1c32921b77aa3fd55a560af0aeae1878d05e4f48cec"
+    },
+    {
+      "path": "components/business-visual.tsx",
+      "bytes": 3194,
+      "sha256": "daef5ccf4eccc9539fb213b2095b51a578a925e9978558129a0f2daf92287ea5"
+    },
+    {
+      "path": "components/catalog-explorer.tsx",
+      "bytes": 8502,
+      "sha256": "08efed1aa2224a0259fb3c620098bb6a76380aca899d794a45370d1e8f4f4aed"
+    },
+    {
+      "path": "components/editorial-intro.module.css",
+      "bytes": 7004,
+      "sha256": "8c99a0985a644fca33566f9fa15afc8312c6185ff0ff4d4352c12f2a6e29e27f"
+    },
+    {
+      "path": "components/editorial-intro.tsx",
+      "bytes": 6717,
+      "sha256": "0e69a9a9e42c8ccc2ac75a6a068a8b36c2f2e20e2200c6465e7db6067da67384"
+    },
+    {
+      "path": "components/home-experience.tsx",
+      "bytes": 24958,
+      "sha256": "792c722ad269a29e467be451b31a0f84ce8745f3477f706911feaff41f443f80"
+    },
+    {
+      "path": "components/price-guide.tsx",
+      "bytes": 2033,
+      "sha256": "e1f630a8d97c36d53d61c8c0c18b8404db306a0270f779d676eb23855b75663e"
+    },
+    {
+      "path": "components/pulso-help.tsx",
+      "bytes": 4647,
+      "sha256": "37c87beb1d752b96e6c7d78851442bd179c0ebe6edb3dae4f49ed668a50e418d"
+    },
+    {
+      "path": "lib/catalog-photography.ts",
+      "bytes": 792,
+      "sha256": "1ee4239fe68a98d65f056bcb616013dc32572d67088980076ea83a1b733980d7"
+    },
+    {
+      "path": "lib/pricing.ts",
+      "bytes": 4235,
+      "sha256": "cb6360e8a9ab1cf3eb7f805763c2cd0d035be9cd47a0ab58132dba69d92b3174"
+    },
+    {
+      "path": "lib/product-art.ts",
+      "bytes": 5172,
+      "sha256": "59fb98333c1a9c63e83e0de26c1e372f2744f81333e3dfd6c2874977be5c945d"
+    },
+    {
+      "path": "public/assets/business-scenes/analitica-marketing.webp",
+      "bytes": 61612,
+      "sha256": "e3b87f8fe13dad9c043cbe75eb2e6aa74b01c8cf4a830cf5058e8abb0b937480"
+    },
+    {
+      "path": "public/assets/business-scenes/cambio-adopcion.webp",
+      "bytes": 79496,
+      "sha256": "6f524fd459ac41b90bb203253be109c578042040e7989d637899d744d386beb6"
+    },
+    {
+      "path": "public/assets/business-scenes/campanas-digitales.webp",
+      "bytes": 70064,
+      "sha256": "fe821153974b555beddd9243f10cbfdf6f995cb7ce8602e6de05deb8c5cd8e7b"
+    },
+    {
+      "path": "public/assets/business-scenes/control-financiero.webp",
+      "bytes": 93676,
+      "sha256": "c4e1df1bdb111ee50eb551c5660c17a6bd4b59c80aadeb570e99797a87dab062"
+    },
+    {
+      "path": "public/assets/business-scenes/diagnostico-rcp-360.webp",
+      "bytes": 66582,
+      "sha256": "c9b8b49d2eb973917f249eee92eb470efe7accfaa99d6fc077b7b09eee7dc311"
+    },
+    {
+      "path": "public/assets/business-scenes/documentacion-empresarial.webp",
+      "bytes": 70578,
+      "sha256": "2793de07ca234be71a7b10c4726e90742ee29af690ed62a173136276d824b5e6"
+    },
+    {
+      "path": "public/assets/business-scenes/estrategia-marca.webp",
+      "bytes": 75626,
+      "sha256": "be5f02720808a1130b614e4d276c3e9b71535c6b9864738602051eee3ad91d33"
+    },
+    {
+      "path": "public/assets/business-scenes/etiquetas-empaques.webp",
+      "bytes": 66554,
+      "sha256": "fe41b506417e3dad248c2fde749165c92c556b45ffb2cc8ba5127b2f80869317"
+    },
+    {
+      "path": "public/assets/business-scenes/expediente-necesidad.webp",
+      "bytes": 73250,
+      "sha256": "a183749fb350b31ba99588a6772e8d8c22d3fcb20e3dc30399caa2e4d286d8c7"
+    },
+    {
+      "path": "public/assets/business-scenes/experiencia-cliente.webp",
+      "bytes": 89480,
+      "sha256": "14f877afad5234f885bffb6cf0e1d8a0eaeda21a4a3fc66aa4dd02613682c536"
+    },
+    {
+      "path": "public/assets/business-scenes/gran-formato.webp",
+      "bytes": 57008,
+      "sha256": "17f7d1e306e69a29e59f71707911eccc4e397afe7269a33491632e8bfe204a14"
+    },
+    {
+      "path": "public/assets/business-scenes/hero-team.webp",
+      "bytes": 119596,
+      "sha256": "a48a7497dff1636736cd6ade343712a5a0d55755f5303b8889ad27f3e2c40738"
+    },
+    {
+      "path": "public/assets/business-scenes/identidad-empresarial.webp",
+      "bytes": 83636,
+      "sha256": "532ddbc41c3701c0886ab8c2be6eb529f9280da53511decdb5bfb9d3d28cc46a"
+    },
+    {
+      "path": "public/assets/business-scenes/iguala-contable.webp",
+      "bytes": 97658,
+      "sha256": "e3e43121fbe15c9b3e0c811237a786424126ce7b86fddbb9fc4acb76804cf96f"
+    },
+    {
+      "path": "public/assets/business-scenes/modelo-operativo-raci.webp",
+      "bytes": 64794,
+      "sha256": "be0c368ccd9ccd594053931a7924d637adc184611843f69dd23769c449c39f81"
+    },
+    {
+      "path": "public/assets/business-scenes/papeleria-corporativa.webp",
+      "bytes": 69860,
+      "sha256": "cf5e060fabb5a248203518b15f689ded69c72b6f8b90e698c0ea86ea685f24b7"
+    },
+    {
+      "path": "public/assets/business-scenes/promocionales-impresos.webp",
+      "bytes": 66706,
+      "sha256": "d5e84540335aec0bb679f86e42ab4f15ddfccb457a08b77c76f9c88d0d0247ec"
+    },
+    {
+      "path": "public/assets/business-scenes/redes-community.webp",
+      "bytes": 86436,
+      "sha256": "a33803793f0e597dcbd2b8c47c8fec2e82bf2a7107fe1fa4e01730a7d6f56af2"
+    },
+    {
+      "path": "public/assets/business-scenes/riesgo-cumplimiento.webp",
+      "bytes": 92242,
+      "sha256": "aaebd7c9d768b913056e2fcd54417e702cb8f726109031ed08f1561b2bbc5b1f"
+    },
+    {
+      "path": "public/assets/business-scenes/seo-aeo.webp",
+      "bytes": 61234,
+      "sha256": "98c534e807a92f2d898978d7af0b99f88a581f5d5eb39d5e6c38745ca8bedbdf"
+    },
+    {
+      "path": "public/assets/business-scenes/sop-documentacion.webp",
+      "bytes": 67914,
+      "sha256": "e391b78172fcbf12a0c008fe489f68d0b722f2cf429f6f304e9193d045907718"
+    },
+    {
+      "path": "public/assets/catalog-editorial/analitica-marketing.webp",
+      "bytes": 67186,
+      "sha256": "883244b70d82f3e3ffe3a135def22fba1df37d872e635e737731ca8cc27fa120"
+    },
+    {
+      "path": "public/assets/catalog-editorial/cambio-adopcion.webp",
+      "bytes": 53270,
+      "sha256": "b238168f8f0252198dd4c66ce44285902f1dcdaebb06d79d3d627f113a696a10"
+    },
+    {
+      "path": "public/assets/catalog-editorial/campanas-digitales.webp",
+      "bytes": 85478,
+      "sha256": "ec8d71c1aee53e180cf6033fc5aacf168e09e635adb3b19c7a1c8be30efc3759"
+    },
+    {
+      "path": "public/assets/catalog-editorial/control-financiero.webp",
+      "bytes": 81122,
+      "sha256": "ec2e7ad1232849f257516eb5f935f656f293eb081fce7a9a5d872801c66eae07"
+    },
+    {
+      "path": "public/assets/catalog-editorial/documentacion-empresarial.webp",
+      "bytes": 69632,
+      "sha256": "09f690fcc3208a62a3c7a6171d1d0906d4db3b4359bce485af19036e10225035"
+    },
+    {
+      "path": "public/assets/catalog-editorial/estrategia-marca.webp",
+      "bytes": 72800,
+      "sha256": "293b13072b5674ca65ead22729b9cb34fe990992caefaa5f0f36b6becba21e50"
+    },
+    {
+      "path": "public/assets/catalog-editorial/etiquetas-empaques.webp",
+      "bytes": 65460,
+      "sha256": "3d75e3be91e760a95e84ae6dff3d3ab82d2d4f8ece529470dbbb0db97b310ac3"
+    },
+    {
+      "path": "public/assets/catalog-editorial/expediente-necesidad.webp",
+      "bytes": 54012,
+      "sha256": "9c92bf5aacbce9b01d909ac194aec58d3c81cfec7d9ce8a4b66c23efa89b81ab"
+    },
+    {
+      "path": "public/assets/catalog-editorial/gran-formato.webp",
+      "bytes": 64448,
+      "sha256": "b6167d82bfc2caa1461399fe1be94ea27cc2ad1329fa1215ca81e45b38125d11"
+    },
+    {
+      "path": "public/assets/catalog-editorial/identidad-empresarial.webp",
+      "bytes": 64264,
+      "sha256": "7a7727713b64920083ebbdd713165c16ab79dd2e988954a80d8099120c7c8291"
+    },
+    {
+      "path": "public/assets/catalog-editorial/iguala-contable.webp",
+      "bytes": 79890,
+      "sha256": "59b86997f44c4c878eaa950e9232570e745109078f4cdb40e3d9546073827dd2"
+    },
+    {
+      "path": "public/assets/catalog-editorial/modelo-operativo-raci.webp",
+      "bytes": 72596,
+      "sha256": "3c7a588863fbc96e6a9976fcac46f6ff3538c00c83282313ae063cd2761f8e3a"
+    },
+    {
+      "path": "public/assets/catalog-editorial/papeleria-corporativa.webp",
+      "bytes": 48368,
+      "sha256": "d3c5343fe313c87f79c3de668a1fc081b367acf23f971473e14e5042db11bc34"
+    },
+    {
+      "path": "public/assets/catalog-editorial/promocionales-impresos.webp",
+      "bytes": 80698,
+      "sha256": "213b5df73b1a06e64204d0ffa7eaed9ab44f5290992234e2beb22cef7b562597"
+    },
+    {
+      "path": "public/assets/catalog-editorial/redes-community.webp",
+      "bytes": 61938,
+      "sha256": "d5021dfb8818faf0fd168632543fffa37a58c5ff98632c5ee239f8d52d2b252e"
+    },
+    {
+      "path": "public/assets/catalog-editorial/riesgo-cumplimiento.webp",
+      "bytes": 63256,
+      "sha256": "f2c62c815f7111263835f234d29308a623f5d9c2e44fb7d39f676cf5daa1a944"
+    },
+    {
+      "path": "public/assets/catalog-editorial/seo-aeo.webp",
+      "bytes": 56664,
+      "sha256": "d0872d96506ad981e7563a094d133a7dc719778065b4e81a4fd71df537fa663e"
+    },
+    {
+      "path": "public/assets/catalog-editorial/sop-documentacion.webp",
+      "bytes": 58174,
+      "sha256": "cf010b8ef58f01b9cfe1ba8ada84be758d3edcc610e3f2decd87d59c638f731c"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": ".next/BUILD_ID",
+      "bytes": 21,
+      "sha256": "24e36963df8d3378b81559c902b59263790ffd784c7ae2174136e3fbc7909e47"
+    },
+    {
+      "path": ".next/build-manifest.json",
+      "bytes": 645,
+      "sha256": "0c75a54585b63f12ed0d473748075aee031cc75e821fe4249373c84a1ccd127b"
+    },
+    {
+      "path": ".next/prerender-manifest.json",
+      "bytes": 39456,
+      "sha256": "91aacf48e2e6a13d642dfd2dfe82f1f3ccd4f37074835c97b23a9b0b6ed01783"
+    },
+    {
+      "path": ".next/routes-manifest.json",
+      "bytes": 18995,
+      "sha256": "99b27b6499101600fd6d0f846601c9f9281ae05cc855d9abbbb7bf524600193a"
+    },
+    {
+      "path": ".next/app-path-routes-manifest.json",
+      "bytes": 2923,
+      "sha256": "205a537f41f5bef0a41669d6380b7a7383798e649c37a5cafa27d97c552c3817"
+    }
+  ],
+  "verification": {
+    "typecheck": "passed",
+    "tests": {
+      "passed": 59,
+      "failed": 0
+    },
+    "nextBuild": "passed",
+    "staticGeneration": "65/65",
+    "productionDependencyAudit": "no known vulnerabilities found",
+    "browserUat": "pending",
+    "vercelPrebuilt": "not created",
+    "deployment": "not performed"
+  }
+}

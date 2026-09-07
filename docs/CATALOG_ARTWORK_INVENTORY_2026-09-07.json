@@ -1,0 +1,164 @@
+[
+  {
+    "id": "modelo-operativo-raci",
+    "bytes": 72596,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "3c7a588863fbc96e6a9976fcac46f6ff3538c00c83282313ae063cd2761f8e3a",
+    "sourceFile": "exec-214caa61-5855-4df8-9313-b02b3ebefcfe.png"
+  },
+  {
+    "id": "analitica-marketing",
+    "bytes": 67186,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "883244b70d82f3e3ffe3a135def22fba1df37d872e635e737731ca8cc27fa120",
+    "sourceFile": "exec-559b3510-6f31-4fba-9540-1c6d97acde37.png"
+  },
+  {
+    "id": "expediente-necesidad",
+    "bytes": 54012,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "9c92bf5aacbce9b01d909ac194aec58d3c81cfec7d9ce8a4b66c23efa89b81ab",
+    "sourceFile": "exec-ae750388-9170-4dcc-9726-69367ccc7ac0.png"
+  },
+  {
+    "id": "documentacion-empresarial",
+    "bytes": 69632,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "09f690fcc3208a62a3c7a6171d1d0906d4db3b4359bce485af19036e10225035",
+    "sourceFile": "exec-cb2cd751-6885-4557-ae48-7c32eb18a933.png"
+  },
+  {
+    "id": "sop-documentacion",
+    "bytes": 58174,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "cf010b8ef58f01b9cfe1ba8ada84be758d3edcc610e3f2decd87d59c638f731c",
+    "sourceFile": "exec-e79eb88c-ae3c-460d-bbb8-8d9d71a2878b.png"
+  },
+  {
+    "id": "identidad-empresarial",
+    "bytes": 64264,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "7a7727713b64920083ebbdd713165c16ab79dd2e988954a80d8099120c7c8291",
+    "sourceFile": "exec-5dce046c-ffaa-4163-a4dd-3d4f5b4fae15.png"
+  },
+  {
+    "id": "cambio-adopcion",
+    "bytes": 53270,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "b238168f8f0252198dd4c66ce44285902f1dcdaebb06d79d3d627f113a696a10",
+    "sourceFile": "exec-0e102179-3ba6-4e18-b6de-70d04e75a4ca.png"
+  },
+  {
+    "id": "iguala-contable",
+    "bytes": 79890,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "59b86997f44c4c878eaa950e9232570e745109078f4cdb40e3d9546073827dd2",
+    "sourceFile": "exec-aaf7d2ab-faaa-4d79-94a1-327ec52f980c.png"
+  },
+  {
+    "id": "control-financiero",
+    "bytes": 81122,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "ec2e7ad1232849f257516eb5f935f656f293eb081fce7a9a5d872801c66eae07",
+    "sourceFile": "exec-0691c4e6-8615-4382-b3fa-bd92146a65a6.png"
+  },
+  {
+    "id": "riesgo-cumplimiento",
+    "bytes": 63256,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "f2c62c815f7111263835f234d29308a623f5d9c2e44fb7d39f676cf5daa1a944",
+    "sourceFile": "exec-f70cc36a-70e0-4ce6-b0c8-fbc4aad0c4db.png"
+  },
+  {
+    "id": "estrategia-marca",
+    "bytes": 72800,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "293b13072b5674ca65ead22729b9cb34fe990992caefaa5f0f36b6becba21e50",
+    "sourceFile": "exec-534a72b9-1852-4867-b229-56af3b257421.png"
+  },
+  {
+    "id": "redes-community",
+    "bytes": 61938,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "d5021dfb8818faf0fd168632543fffa37a58c5ff98632c5ee239f8d52d2b252e",
+    "sourceFile": "exec-0751ec28-54ef-4861-bf78-e70ff160cd9b.png"
+  },
+  {
+    "id": "seo-aeo",
+    "bytes": 56664,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "d0872d96506ad981e7563a094d133a7dc719778065b4e81a4fd71df537fa663e",
+    "sourceFile": "exec-1f844fb3-7222-4547-aab6-3b334599ce40.png"
+  },
+  {
+    "id": "campanas-digitales",
+    "bytes": 85478,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "ec8d71c1aee53e180cf6033fc5aacf168e09e635adb3b19c7a1c8be30efc3759",
+    "sourceFile": "exec-f6b1e4ad-b4f4-4b43-850b-82e49368b53d.png"
+  },
+  {
+    "id": "papeleria-corporativa",
+    "bytes": 48368,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "d3c5343fe313c87f79c3de668a1fc081b367acf23f971473e14e5042db11bc34",
+    "sourceFile": "exec-413dc031-5e0f-4e6e-aa62-d2802104d0dc.png"
+  },
+  {
+    "id": "promocionales-impresos",
+    "bytes": 80698,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "213b5df73b1a06e64204d0ffa7eaed9ab44f5290992234e2beb22cef7b562597",
+    "sourceFile": "exec-39ab9ae3-3f1d-492b-8980-d02c2732ead0.png"
+  },
+  {
+    "id": "etiquetas-empaques",
+    "bytes": 65460,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "3d75e3be91e760a95e84ae6dff3d3ab82d2d4f8ece529470dbbb0db97b310ac3",
+    "sourceFile": "exec-cb98de58-eb51-4add-b406-627f5624dd41.png"
+  },
+  {
+    "id": "gran-formato",
+    "bytes": 64448,
+    "width": 640,
+    "height": 640,
+    "alpha": true,
+    "sha256": "b6167d82bfc2caa1461399fe1be94ea27cc2ad1329fa1215ca81e45b38125d11",
+    "sourceFile": "exec-90e76d1c-d071-4b13-8f94-ee626742ae7b.png"
+  }
+]

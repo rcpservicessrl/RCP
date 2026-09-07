@@ -1,4 +1,5 @@
 import { BusinessVisual } from "@/components/business-visual";
+import { PriceGuide } from "@/components/price-guide";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { InteriorShell } from "@/components/interior-shell";
 import { catalog } from "@/lib/content";
@@ -35,6 +36,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
           <BusinessVisual kind="catalog" locale="es" />
         </div>
       </section>
+      <PriceGuide locale="es" />
       <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Servicios y productos para tu negocio</h2><CatalogExplorer locale="es" initialService={servicio} /></div></section>
     </InteriorShell>
   );

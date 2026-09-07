@@ -6,6 +6,7 @@ import type { Locale, PillarId } from "@/lib/types";
 import { catalog, pillars, selectableCatalog, t } from "@/lib/content";
 import { ArrowIcon, CheckIcon, CloseIcon, PlusIcon, SearchIcon } from "@/components/icons";
 import { CatalogIcon } from "@/components/catalog-icon";
+import { estimateForService, priceLabel } from "@/lib/pricing";
 
 interface CatalogExplorerProps {
   locale: Locale;
@@ -77,6 +78,7 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
         {visibleItems.map((entry) => {
           const pillar = pillars.find((candidate) => candidate.id === entry.pillar)!;
           const isSelected = selected.includes(entry.id);
+          const estimate = estimateForService(entry.id);
           return (
             <article className={`catalog-item catalog-item--${entry.pillar} ${isSelected ? "is-selected" : ""}`} key={entry.id} id={`service-${entry.id}`}>
               <header>
@@ -87,8 +89,9 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
               <h3>{t(entry.title, locale)}</h3>
               <p>{t(entry.result, locale)}</p>
               {!compact && <ul>{entry.includes.slice(0, 3).map((include) => <li key={include.es}><CheckIcon size={14} />{t(include, locale)}</li>)}</ul>}
+              {estimate && <details className="catalog-estimate"><summary>{priceLabel(estimate, locale)} <small>{estimate.cadence === "month" ? (locale === "es" ? "/ mes estimado" : "/ estimated month") : (locale === "es" ? "/ proyecto estimado" : "/ estimated project")}</small></summary><p>{estimate.scope[locale]}</p><p>{estimate.exclusions[locale]}</p><p>{locale === "es" ? "Impuestos aplicables aparte. Sujeto a cotización escrita." : "Applicable taxes excluded. Subject to a written quote."}</p></details>}
               <footer>
-                <span>{locale === "es" ? "Alcance a tu medida" : "Scope shaped to your need"}</span>
+                <span>{entry.id === "diagnostico-rcp-360" ? (locale === "es" ? "45 min sin costo · por confirmar" : "45 min at no cost · to be confirmed") : (locale === "es" ? "Alcance a tu medida" : "Scope shaped to your need")}</span>
                 <button type="button" aria-label={`${isSelected ? (locale === "es" ? "Quitar" : "Remove") : (locale === "es" ? "Agregar" : "Add")} ${t(entry.title, locale)}`} onClick={() => toggleSelection(entry.id)} aria-pressed={isSelected} disabled={!entry.selectable || (!isSelected && selected.length >= 4)}>
                   {isSelected ? <><CheckIcon size={16} />{locale === "es" ? "Seleccionado" : "Selected"}</> : <><PlusIcon size={16} />{locale === "es" ? "Agregar" : "Add"}</>}
                 </button>
@@ -98,7 +101,8 @@ export function CatalogExplorer({ locale, initialService, limit, compact = false
         })}
       </div>
 
-      {visibleItems.length === 0 && <div className="catalog-empty"><strong>{locale === "es" ? "No encontramos esa combinación." : "We could not find that combination."}</strong><p>{locale === "es" ? "Prueba otra palabra o describe tu necesidad en el diagnóstico." : "Try another term or describe your need in the diagnosis."}</p></div>}
+      {visibleItems.length === 0 && <div className="catalog-empty"><strong>{locale === "es" ? "No encontramos esa combinación." : "We could not find that combination."}</strong><p>{locale === "es" ? "Prueba otra palabra o describe tu necesidad en el diagnóstico." : "Try another term or describe your need in the diagnosis."}</p><button className="button button--secondary" type="button" onClick={() => { setQuery(""); setFilter("all"); }}>{locale === "es" ? "Ver todo el catálogo" : "See the full catalog"}</button></div>}
+      {!compact && <p className="catalog-image-note">{locale === "es" ? "Escenas e imágenes ilustrativas, algunas generadas con IA. No representan clientes, proyectos entregados ni integrantes de RCP." : "Illustrative scenes and images, some generated with AI. They do not depict RCP clients, delivered projects or team members."}</p>}
 
       {selectedItems.length > 0 && (
         <aside className="selection-tray" aria-label={locale === "es" ? "Selección para diagnóstico" : "Diagnosis selection"}>

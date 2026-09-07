@@ -4,6 +4,7 @@ import { Montserrat, Space_Grotesk } from "next/font/google";
 import { AudioProvider } from "@/components/audio-provider";
 import "./globals.css";
 import "./editorial-system.css";
+import "./customer-journey.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rcp.services";
 const deploymentEnvironment = process.env.RCP_DEPLOYMENT_ENV ?? process.env.VERCEL_ENV ?? "development";

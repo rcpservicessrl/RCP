@@ -12,7 +12,8 @@ import { SearchPalette } from "@/components/search-palette";
 import { Pulso, type PulsoScene } from "@/components/pulso";
 import { PulsoHelp } from "@/components/pulso-help";
 import { ConsentBanner } from "@/components/consent-banner";
-import { ConnectionDrawing } from "@/components/business-visual";
+import { BusinessRouteMap } from "@/components/business-route-map";
+import { PriceGuide } from "@/components/price-guide";
 import { ProductArtwork } from "@/components/product-artwork";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { DiagnosisForm } from "@/components/diagnosis-form";
@@ -58,7 +59,7 @@ const copy = {
     stepOutcome: "Lo dejamos claro con",
     catalogEyebrow: "Todo lo que RCP puede activar",
     catalogTitle: "Encuentra ayuda para lo que tu negocio necesita hoy.",
-    catalogText: "Renovación, Consultoría y Publicidad reunidas en un solo catálogo. Dentro de Publicidad 360 encuentras desde redes y páginas web hasta impresos y letreros. El alcance y el precio se definen después de entender bien tu caso.",
+    catalogText: "Renovación, Consultoría y Publicidad reunidas en un solo catálogo. Dentro de Publicidad 360 encuentras desde redes y páginas web hasta impresos y letreros. Consulta inversiones estimadas y define el alcance final después de entender bien tu caso.",
     fullCatalog: "Abrir catálogo completo",
     specialistsEyebrow: "Personas correctas, trabajo coordinado",
     specialistsTitle: "Buscamos al especialista. Tú sigues hablando con RCP.",
@@ -102,7 +103,7 @@ const copy = {
     stepOutcome: "We make it clear with",
     catalogEyebrow: "Everything RCP can activate",
     catalogTitle: "Find help for what your business needs today.",
-    catalogText: "Renewal, Consulting and Advertising in one catalog. Our 360 Advertising scope covers everything from social media and websites to print and signage. Scope and price are defined after we understand your case.",
+    catalogText: "Renewal, Consulting and Advertising in one catalog. Our 360 Advertising scope covers everything from social media and websites to print and signage. Explore planning estimates and define the final scope after we understand your case.",
     fullCatalog: "Open the full catalog",
     specialistsEyebrow: "The right people, coordinated work",
     specialistsTitle: "We find the specialist. You keep talking with RCP.",
@@ -251,7 +252,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
             <div><p className="section-eyebrow">{c.technologyEyebrow}</p><h2>{c.technologyTitle}</h2></div>
             <div><p>{c.technologyText}</p><span className="technology-rule"><LayersIcon size={17} />{c.technologyRule}</span></div>
           </div>
-          <div className="container editorial-tech-showcase"><ConnectionDrawing locale={locale} /><div><ProductArtwork kind="pos" /><ProductArtwork kind="web" /><ProductArtwork kind="erp" /></div></div>
+          <div className="container"><BusinessRouteMap locale={locale} /></div>
           <div className="container editorial-tech-links"><Link href={locale === "es" ? "/herramientas" : "/en/tools"}>{locale === "es" ? "Explora tu ruta y calcula el tiempo de tu proceso" : "Explore your route and estimate process time"}<ArrowIcon size={20} /></Link><Link href={locale === "es" ? "/software-a-la-medida" : "/en/custom-software"}>{locale === "es" ? "Del proceso real a una herramienta útil" : "From a real process to a useful tool"}<ArrowIcon size={20} /></Link></div>
           <div className="container section-action"><Link className="text-link" href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"}>{c.exploreTechnology}<ArrowIcon size={17} /></Link></div>
         </section>
@@ -274,6 +275,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
           </div>
         </section>
 
+        <PriceGuide locale={locale} />
         <section className="catalog-section page-scene" id="catalogo">
           <div className="container section-heading section-heading--split">
             <div><p className="section-eyebrow">{c.catalogEyebrow}</p><h2>{c.catalogTitle}</h2></div>

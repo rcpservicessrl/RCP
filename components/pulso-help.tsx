@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Locale } from "@/lib/types";
 import { ArrowIcon, CloseIcon, SearchIcon, SparkIcon } from "@/components/icons";
 import { Pulso, type PulsoScene } from "@/components/pulso";
@@ -70,7 +71,7 @@ export function PulsoHelp({ locale, scene = "idle", contextLabel, onOpenSearch }
         </section>
       )}
       <button ref={triggerRef} type="button" className="pulso-help__trigger" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-label={locale === "es" ? "Abrir guía de Pulso" : "Open Pulso guide"}>
-        <span className="pulso-help__avatar"><Pulso scene="consider" size="small" /></span>
+        <span className="pulso-help__avatar"><Image src="/icono-rcp.png" width={48} height={48} alt="" sizes="48px" /></span>
         <span className="pulso-help__name"><strong>Pulso</strong><small>{locale === "es" ? "¿Te oriento?" : "Need a route?"}</small></span>
       </button>
     </div>

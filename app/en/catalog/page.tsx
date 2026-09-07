@@ -1,4 +1,5 @@
 import { BusinessVisual } from "@/components/business-visual";
+import { PriceGuide } from "@/components/price-guide";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { InteriorShell } from "@/components/interior-shell";
 import { createPublicPageMetadata } from "@/lib/metadata";
@@ -21,6 +22,7 @@ export default async function EnglishCatalogPage({ searchParams }: { searchParam
           <BusinessVisual kind="catalog" locale="en" />
         </div>
       </section>
+      <PriceGuide locale="en" />
       <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Services and products for your business</h2><CatalogExplorer locale="en" initialService={service} /></div></section>
     </InteriorShell>
   );

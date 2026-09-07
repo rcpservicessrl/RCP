@@ -26,7 +26,7 @@ export function EditorialIntro({ locale }: { locale: Locale }) {
         <div className={styles.audiences}><span>{es ? "Hecho para" : "Made for"}</span><a href="#sectores">{es ? "Comercios" : "Retail businesses"} ↗</a><a href="#sectores">{es ? "Empresas de servicios" : "Service businesses"} ↗</a></div>
       </div>
       <div className={styles.scene}>
-        <figure className={styles.portrait}><Image src="/assets/editorial-v32/hero.webp" width={1000} height={1250} alt={es ? "Escena ilustrativa de una conversación sobre la operación de un comercio" : "Illustrative scene of a conversation about a retail business"} priority sizes="(max-width: 760px) 90vw, 43vw" /><figcaption>{es ? "El negocio real." : "Real business."}<br /><strong>{es ? "En el centro de todo." : "At the center of everything."}</strong></figcaption></figure>
+        <figure className={styles.portrait}><Image src="/assets/business-scenes/hero-team.webp" width={1000} height={1250} alt={es ? "Escena ilustrativa de una comerciante y dos asesores trabajando juntos en su negocio" : "Illustrative scene of a shop owner and two advisors working together in her business"} priority sizes="(max-width: 760px) 90vw, 43vw" /><figcaption>{es ? "El negocio real." : "Real business."}<br /><strong>{es ? "En el centro de todo." : "At the center of everything."}</strong></figcaption></figure>
         <div className={styles.stamp} aria-hidden="true"><span>{es ? "Una sola" : "One clear"}</span><strong>{es ? "dirección." : "direction."}</strong><b>↗</b></div>
         <div className={styles.story}>
           <div className={styles.storyTop}><span>{es ? "Así empieza el cambio" : "Where change begins"}</span><span>0{story + 1} / 03</span></div>
