@@ -105,7 +105,7 @@
 .root :global(.button),
 .root :global(.text-link),
 .root :global(.text-button),
-.root :global(button) {
+.root :global(button:not(.route-node)) {
   position: relative;
   transition:
     color .24s var(--ease),
