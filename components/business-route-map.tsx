@@ -34,7 +34,7 @@ export function BusinessRouteMap({ locale, compact = false }: { locale: Locale; 
       <ol>{route.steps[locale].map(step => <li key={step}>{step}</li>)}</ol>
       <p className="business-route-map__price">{priceLabel(estimate, locale)} <small>{estimate.cadence === "month" ? (es ? "/ mes estimado" : "/ estimated month") : (es ? "/ proyecto estimado" : "/ estimated project")}</small></p>
       <p className="business-route-map__terms">{es ? "Impuestos y gastos externos aparte. Alcance base y condiciones en la guía de precios." : "Taxes and external costs excluded. Base scope and terms in the pricing guide."}</p>
-      <Link className="button button--primary" href={`${es ? "/diagnostico?servicio=" : "/en/diagnosis?service="}${route.id}#solicitud`}>{es ? "Preparar mi solicitud" : "Prepare my request"} ↗</Link>
+      <Link className="button button--primary" href={`${es ? "/diagnostico?servicios=" : "/en/diagnosis?services="}${route.id}#solicitud`}>{es ? "Preparar mi solicitud" : "Prepare my request"} ↗</Link>
       <Link className="text-link" href={`${es ? "/catalogo" : "/en/catalog"}#precios`}>{es ? "Ver alcance y precios" : "See scope and prices"} ↗</Link>
     </div>
   </div>;

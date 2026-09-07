@@ -14,7 +14,7 @@ export function PriceGuide({ locale }: { locale: Locale }) {
       <small>{entry.cadence === "month" ? (es ? "por mes" : "per month") : (es ? "por proyecto" : "per project")}</small>
       <p>{entry.scope[locale]}</p>
       <details><summary>{es ? "Qué se cotiza aparte" : "What is quoted separately"}</summary><p>{entry.exclusions[locale]}</p></details>
-      <Link className="button button--primary" href={`${es ? "/diagnostico?servicio=" : "/en/diagnosis?service="}${entry.serviceId}#solicitud`}>{es ? "Conversar sobre este alcance" : "Discuss this scope"} ↗</Link>
+      <Link className="button button--primary" href={`${es ? "/diagnostico?servicios=" : "/en/diagnosis?services="}${entry.serviceId}#solicitud`}>{es ? "Conversar sobre este alcance" : "Discuss this scope"} ↗</Link>
     </article>)}</div>
     <p className="price-guide__terms">{estimateTerms[locale]}</p>
     <p className="price-guide__free">{es ? "¿Todavía no sabes por dónde empezar?" : "Not sure where to start?"} <Link href={es ? "/diagnostico#solicitud" : "/en/diagnosis#solicitud"}>{es ? "Evaluación inicial de 45 minutos sin costo, sujeta a confirmación" : "45-minute initial assessment at no cost, subject to confirmation"} ↗</Link></p>
