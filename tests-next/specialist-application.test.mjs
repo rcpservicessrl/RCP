@@ -2,6 +2,9 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { pathToFileURL } from "node:url";
+import { runInNewContext } from "node:vm";
+import { loadBindings, transform } from "next/dist/build/swc/index.js";
 
 const root = process.cwd();
 const read = (relativePath) => readFile(path.join(root, relativePath), "utf8");
@@ -67,4 +70,74 @@ test("legacy specialist routes redirect directly to their canonical replacements
   assert.match(config, /source: "\/carreras", destination: "\/especialistas", permanent: true/);
   assert.match(config, /source: "\/en\/careers", destination: "\/en\/specialists", permanent: true/);
   assert.match(config, /source: "\/carreras\.html", destination: "\/especialistas", permanent: true/);
+});
+
+test("specialist retries preserve their key until the submitted content changes or succeeds", async () => {
+  const source = await read("components/specialist-application-form.tsx");
+  const helpers = await import(pathToFileURL(path.join(root, "lib/submission-idempotency.ts")).href);
+  await loadBindings();
+  const { code: compiled } = await transform(source, {
+    filename: "specialist-application-form.tsx",
+    jsc: { parser: { syntax: "typescript", tsx: true }, target: "es2022", transform: { react: { runtime: "automatic" } } },
+    module: { type: "commonjs" },
+  });
+  const exports = {};
+  const requests = [];
+  let confirmed = false;
+  let resetCount = 0;
+  const jsx = (type, props) => ({ type, props });
+  const modules = {
+    react: { useState: (initial) => [initial, () => {}], useRef: (current) => ({ current }) },
+    "react/jsx-runtime": { jsx, jsxs: jsx },
+    "next/link": { default: "a" },
+    "@/components/turnstile-field": { TurnstileField: "turnstile" },
+    "@/lib/submission-idempotency": helpers,
+    "./specialist-application-page.module.css": { default: {} },
+  };
+  runInNewContext(compiled, {
+    exports,
+    require: (name) => {
+      assert.ok(name in modules, `Unexpected component dependency: ${name}`);
+      return modules[name];
+    },
+    FormData: class { constructor(form) { return form.data; } },
+    fetch: async (url, options) => {
+      assert.equal(url, "/api/specialist-applications");
+      requests.push({ key: options.headers["Idempotency-Key"], payload: JSON.parse(options.body) });
+      return Response.json(
+        { accepted: confirmed, recorded: confirmed, ...(confirmed ? { reference: "TEST-REFERENCE" } : {}) },
+        { status: confirmed ? 202 : 503 },
+      );
+    },
+  });
+  const form = {
+    data: new FormData(),
+    reset: () => { resetCount++; },
+  };
+  for (const [name, value] of Object.entries({
+    name: "Test applicant", email: "test@example.com", category: "consultoria",
+    experience: "Experience in business analysis and project delivery.",
+    portfolioUrl: "", availability: "por-proyecto", consent: "true", website: "", turnstileToken: "first-token",
+  })) form.data.set(name, value);
+  const rendered = exports.SpecialistApplicationForm({ locale: "es" });
+  assert.equal(rendered.type, "form");
+  const submit = () => rendered.props.onSubmit({ preventDefault() {}, currentTarget: form });
+
+  await submit();
+  form.data.set("turnstileToken", "renewed-token");
+  await submit();
+  assert.equal(requests[1].key, requests[0].key, "human verification refresh must keep the original request identity");
+  assert.equal(resetCount, 0, "unconfirmed submissions must preserve the form");
+
+  form.data.set("experience", "Updated experience in software development and consulting.");
+  await submit();
+  assert.notEqual(requests[2].key, requests[1].key, "editing the application must use a fresh provider key");
+  assert.notEqual(requests[2].payload.experience, requests[1].payload.experience);
+
+  confirmed = true;
+  await submit();
+  assert.equal(requests[3].key, requests[2].key, "unchanged retry must keep the edited request identity");
+  assert.equal(resetCount, 1);
+  await submit();
+  assert.notEqual(requests[4].key, requests[3].key, "confirmed success must retire the request identity");
 });

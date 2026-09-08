@@ -270,15 +270,15 @@
     "semantic_hash": ""
   },
   "RCP_SERVICES_SHARED_ARCHITECTURE.md": {
-    "mtime": 1788736660.392438,
-    "seen": 1788738858.3786628,
-    "ast_hash": "3876bd47abf5e6bfa5f28bccb41d6f98",
+    "mtime": 1788851247.2711902,
+    "seen": 1788851356.975088,
+    "ast_hash": "8fb1146e3da79781a73115fbf3f65e11",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1788736660.3934362,
-    "seen": 1788738858.3786628,
-    "ast_hash": "1d50c682d60fc564fcb1ec6017f6726f",
+    "mtime": 1788851192.5888903,
+    "seen": 1788851356.975088,
+    "ast_hash": "d451d6c4fb90934ce97918cfb82cc5a5",
     "semantic_hash": ""
   },
   "STYLE_GUIDE.md": {
@@ -1781,126 +1781,6 @@
     "ast_hash": "f9eed407b2be1a49ce77c94dc928897f",
     "semantic_hash": ""
   },
-  "legacy/astro-pages/404.astro": {
-    "mtime": 1788736660.7113373,
-    "seen": 1788738858.377643,
-    "ast_hash": "13718bf25a25274dff287b842cefc1f5",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/accesibilidad.astro": {
-    "mtime": 1788736660.7123516,
-    "seen": 1788738858.377643,
-    "ast_hash": "3c17cc65d973ee9f8bdd2075aa6ce26f",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/carreras.astro": {
-    "mtime": 1788736660.714337,
-    "seen": 1788738858.377643,
-    "ast_hash": "b8f1d42da70d6be41f938dca795f1a03",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/casos/electromuebles.astro": {
-    "mtime": 1788736660.717334,
-    "seen": 1788738858.377643,
-    "ast_hash": "de6e342cb248e620584dab8e5800630c",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/checkout.astro": {
-    "mtime": 1788736660.718336,
-    "seen": 1788738858.377643,
-    "ast_hash": "c8618f7506836dbfb555fb478a1f5f18",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/cookies.astro": {
-    "mtime": 1788736660.719335,
-    "seen": 1788738858.377643,
-    "ast_hash": "5dceded86321e53ef21076b5b886bcef",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/dashboard.astro": {
-    "mtime": 1788736660.7213683,
-    "seen": 1788738858.377643,
-    "ast_hash": "fb88fc0d73c57bf64c659a18c64d1c30",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/diagnostico.astro": {
-    "mtime": 1788736660.7233858,
-    "seen": 1788738858.377643,
-    "ast_hash": "9e9118e3f90c56df5ccffdcd391585f3",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/formulario-contacto.astro": {
-    "mtime": 1788736660.7243843,
-    "seen": 1788738858.377643,
-    "ast_hash": "a2d59b410f0dde15938d29ae28323144",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/index.astro": {
-    "mtime": 1788736660.7263842,
-    "seen": 1788738858.377643,
-    "ast_hash": "ff8703266a2e0b5eb506dd0205ffe847",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/media.astro": {
-    "mtime": 1788736660.7273843,
-    "seen": 1788738858.377643,
-    "ast_hash": "3c01a385e1727855f6e340aeba9096ad",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/nosotros.astro": {
-    "mtime": 1788736660.7293816,
-    "seen": 1788738858.377643,
-    "ast_hash": "494b7b3f40615ce8cc252dcad1d9c6ed",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/onboarding.astro": {
-    "mtime": 1788736660.730385,
-    "seen": 1788738858.377643,
-    "ast_hash": "fb60f4e4daea59fce97c8afad42b674b",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/portal.astro": {
-    "mtime": 1788736660.7323842,
-    "seen": 1788738858.377643,
-    "ast_hash": "073fae2cf4523d91d27fbb53598a41b5",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/privacidad.astro": {
-    "mtime": 1788736660.73338,
-    "seen": 1788738858.377643,
-    "ast_hash": "34e0d805f72fb8cc75cfc933f980d3f6",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/propuesta-inversion.astro": {
-    "mtime": 1788736660.7366557,
-    "seen": 1788738858.377643,
-    "ast_hash": "67cf206516fa2ff876395c9ac0981d97",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/reembolsos.astro": {
-    "mtime": 1788736660.737651,
-    "seen": 1788738858.377643,
-    "ast_hash": "06e1b3d777ae0a4b903d1537a38083ea",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/servicios.astro": {
-    "mtime": 1788736660.7386484,
-    "seen": 1788738858.377643,
-    "ast_hash": "320451a48b093826ed1d713971b1313a",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/terminos.astro": {
-    "mtime": 1788736660.7406476,
-    "seen": 1788738858.377643,
-    "ast_hash": "57366753c6e911c4095ac40a0c1c1536",
-    "semantic_hash": ""
-  },
-  "legacy/astro-pages/tienda.astro": {
-    "mtime": 1788736660.7416499,
-    "seen": 1788738858.377643,
-    "ast_hash": "c23f5c18f29838423b68cd330ce83e4f",
-    "semantic_hash": ""
-  },
   "legacy/astro-public/manifest.json": {
     "mtime": 1788736660.7486508,
     "seen": 1788738858.377643,
@@ -1986,8 +1866,8 @@
     "semantic_hash": ""
   },
   "next-env.d.ts": {
-    "mtime": 1788760057.1279275,
-    "seen": 1788796055.5407324,
+    "mtime": 1788850881.8378818,
+    "seen": 1788850908.7893214,
     "ast_hash": "0e4a65e8b2b9aa3ed0f8957b9406bd41",
     "semantic_hash": ""
   },
@@ -2118,9 +1998,9 @@
     "semantic_hash": ""
   },
   "docs/README.md": {
-    "mtime": 1788736660.658218,
-    "seen": 1788738858.3796673,
-    "ast_hash": "189d34890d9692f1f3d9503d98bfe24c",
+    "mtime": 1788851247.2607324,
+    "seen": 1788851356.975088,
+    "ast_hash": "fc459979a10e489cb67eecfa53af7865",
     "semantic_hash": ""
   },
   "docs/VERIFICATION_REPORT_2026-08-11.md": {
@@ -2238,9 +2118,9 @@
     "semantic_hash": ""
   },
   "components/editorial-intro.tsx": {
-    "mtime": 1788750853.8353791,
-    "seen": 1788796055.5407324,
-    "ast_hash": "ee0590978a7967ca4079aff104df584f",
+    "mtime": 1788850627.2541044,
+    "seen": 1788850908.7893214,
+    "ast_hash": "aef8ecb275cfa4e1f88b39a88a537404",
     "semantic_hash": ""
   },
   "legacy/astro-public/scripts/en.json": {
@@ -2802,9 +2682,21 @@
     "semantic_hash": ""
   },
   "docs/WEB_PUBLICATION_2026-09-07.md": {
-    "mtime": 1788799032.9476006,
-    "seen": 1788799173.6677523,
-    "ast_hash": "97177ea542fbea76c23398c3e0f806e9",
+    "mtime": 1788799189.9950304,
+    "seen": 1788850908.7903106,
+    "ast_hash": "4d26b6e6d3f035f1b32f2b73c8789b87",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260908_070034_audit_homepage_svg_and_explore_my_business_images.md": {
+    "mtime": 1788850834.1006665,
+    "seen": 1788850908.7903106,
+    "ast_hash": "0b9c7c1e4a10db5a83b1d457df49c0c8",
+    "semantic_hash": ""
+  },
+  "docs/VISUAL_AUDIT_2026-09-08.md": {
+    "mtime": 1788850941.7017703,
+    "seen": 1788851356.9761984,
+    "ast_hash": "4647a45b6817b5df5a8427808e96adcc",
     "semantic_hash": ""
   }
 }

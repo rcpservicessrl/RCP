@@ -1,5 +1,10 @@
 # Gobierno documental del sitio RCP Services
 
+- [Auditoría visual del 8 de septiembre](VISUAL_AUDIT_2026-09-08.md): SVG, imágenes de negocios, corrección local y límites de validación.
+- [Publicación web vigente](WEB_PUBLICATION_2026-09-07.md): fuente, destino y evidencia de producción.
+
+El dominio público opera con Next.js en Vercel según la evidencia del 2026-09-07. Las referencias anteriores a Astro/GitHub Pages como sitio activo y a un corte todavía pendiente describen el estado previo. El registro de publicación prevalece para el estado operativo; la recepción real de formularios y la integración CRM requieren su propia evidencia.
+
 ## Orden de autoridad
 
 1. `FUENTE_DE_VERDAD_6_RC2.md` y las decisiones explícitas posteriores de Dirección General.
@@ -14,6 +19,7 @@ Las decisiones D-01 a D-11 fueron aprobadas el 2026-08-12 y están consolidadas 
 ## Documentos vigentes para RC2
 
 - `FUENTE_DE_VERDAD_6_RC2.md`: autoridad consolidada de negocio, marca, oferta y gates.
+- `WEB_PUBLICATION_2026-09-07.md`: estado operativo publicado, aceptación, límites y procedimiento de reversión; sustituye el estado previo al corte de los documentos anteriores.
 - `API_EVENT_CONTRACTS_RC2.md`: contratos servidor-servidor y eventos CRM/Hub/Matrix.
 - `RC2_OPERATIONS_AND_GOVERNANCE.md`: fronteras de datos, RBAC/RLS, privacidad, retención, onboarding, backups, incidentes, despliegue y herramientas.
 
@@ -21,12 +27,12 @@ Las decisiones D-01 a D-11 fueron aprobadas el 2026-08-12 y están consolidadas 
 - `OPERATIONS_STACK.md`: herramientas por necesidad, estado y criterio de activación.
 - `DEPLOYMENT_RUNBOOK.md`: construcción, preview, despliegue y corte.
 - `STAGING_RUNBOOK.md`: UAT aislado.
-- `ROLLBACK_PLAN.md`: reversión de Vercel y de apex/`www` hacia Astro.
+- `ROLLBACK_PLAN.md`: plan histórico de reversión del corte; para el deployment anterior verificado y la reversión de la publicación vigente, consultar `WEB_PUBLICATION_2026-09-07.md`.
 - `MIGRATION_PARITY_MATRIX.md`: paridad frente al sitio Astro.
 - `VERIFICATION_REPORT_2026-08-11.md`: evidencia local reproducible.
 - `FUENTE_DE_VERDAD_6_RC1_CONTRASTE_2026-08-12.md`: contraste integral, complementos aceptados y correcciones requeridas para RC2.
 - `FUENTE_DE_VERDAD_6_RC1_DECISION_MATRIX.csv`: resolución y trazabilidad de D-01 a D-11.
-- `LAUNCH_CHECKLIST.md`: gates que todavía impiden el corte productivo.
+- `LAUNCH_CHECKLIST.md`: lista de gates preparada antes del corte; sus casillas no representan el estado actual de producción. Consultar la evidencia y los pendientes separados en `WEB_PUBLICATION_2026-09-07.md`.
 - `ROUTE_INVENTORY.csv` y `REDIRECT_MAP.csv`: contratos de navegación vigentes.
 - `MEASUREMENT_PLAN.md` y `POST_LAUNCH_MONITORING.md`: medición y observabilidad.
 

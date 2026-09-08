@@ -9,10 +9,10 @@ La propuesta une tres pilares oficiales —Renovación, Consultoría y Publicida
 ## Estado comprobado
 
 - Next.js 16.3, React 19 y TypeScript.
-- 42 pruebas automatizadas, TypeScript y build de producción aprobados.
-- Rutas ES/EN, claro/oscuro, búsqueda, música, Pulso, catálogo y evaluación guiada verificados localmente.
-- Destino de la web: Vercel Pro. Route 53 conserva la autoridad DNS.
-- `rcp.services` continúa en Astro/GitHub Pages hasta superar UAT, entrega real del formulario y autorización de corte.
+- `rcp.services` y `www` publicados en Vercel y verificados el 2026-09-07. La fuente exacta, el deployment, la aceptación y la reversión están en [el registro de publicación](docs/WEB_PUBLICATION_2026-09-07.md).
+- Evidencia del 2026-09-07: TypeScript, 59 pruebas automatizadas y build remoto de producción aprobados; aceptación del artefacto y comprobaciones posteriores en el dominio público registradas.
+- Rutas ES/EN, mapa de servicios, catálogo y contexto de la evaluación guiada comprobados según ese registro. La recepción real del correo y la integración operativa con CRM no quedan acreditadas por esas pruebas.
+- La [auditoría visual del 2026-09-08](docs/VISUAL_AUDIT_2026-09-08.md) documenta el encuadre de «Explorar mi negocio» y distingue la validación local del estado publicado.
 - Cloudflare/OpenNext queda como alternativa técnica validada, fuera del lanzamiento RC2.
 
 ## Límites públicos
@@ -56,7 +56,7 @@ La API solo confirma éxito cuando el proveedor seleccionado acepta la entrega y
 
 ## Documentación
 
-La autoridad comienza en `docs/FUENTE_DE_VERDAD_6_RC2.md`. El índice completo, contratos, runbooks y gates están en `docs/README.md`.
+La autoridad de negocio y marca comienza en [FUENTE_DE_VERDAD_6_RC2.md](docs/FUENTE_DE_VERDAD_6_RC2.md). El estado operativo publicado se consulta en [WEB_PUBLICATION_2026-09-07.md](docs/WEB_PUBLICATION_2026-09-07.md); sus límites de validación siguen vigentes salvo evidencia posterior explícita. El [índice documental](docs/README.md) distingue los contratos y runbooks vigentes de los gates históricos anteriores al corte.
 
 ## Marca
 

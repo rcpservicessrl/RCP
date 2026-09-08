@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/types";
 import { TurnstileField } from "@/components/turnstile-field";
+import { fingerprintSubmissionPayload, resolveSubmissionIdempotency, type SubmissionIdempotency } from "@/lib/submission-idempotency";
 import styles from "./specialist-application-page.module.css";
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
@@ -96,7 +97,7 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
   const [state, setState] = useState<SubmissionState>("idle");
   const [reference, setReference] = useState("");
   const [message, setMessage] = useState("");
-  const idempotencyKey = useRef<string | null>(null);
+  const submissionIdempotency = useRef<SubmissionIdempotency | null>(null);
   const defaultFallbackHref = `mailto:${fallbackEmail}?subject=${encodeURIComponent(locale === "es" ? "Postulación a la Red de Especialistas RCP" : "RCP Specialist Network application")}`;
   const [fallbackHref, setFallbackHref] = useState(defaultFallbackHref);
   const [verificationReset, setVerificationReset] = useState(0);
@@ -120,14 +121,16 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
 
     setState("submitting");
     setMessage("");
-    idempotencyKey.current ??= crypto.randomUUID();
 
     try {
+      const fingerprint = await fingerprintSubmissionPayload({ ...Object.fromEntries(data.entries()), locale });
+      const requestIdentity = resolveSubmissionIdempotency(submissionIdempotency.current, fingerprint);
+      submissionIdempotency.current = requestIdentity;
       const response = await fetch("/api/specialist-applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Idempotency-Key": idempotencyKey.current,
+          "Idempotency-Key": requestIdentity.key,
         },
         body: JSON.stringify(payload),
       });
@@ -140,7 +143,7 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
         setReference(result.reference);
         setState("success");
         form.reset();
-        idempotencyKey.current = null;
+        if (submissionIdempotency.current === requestIdentity) submissionIdempotency.current = null;
         return;
       }
 

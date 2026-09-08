@@ -1,0 +1,5 @@
+# Astro sources are archived history, not the current Next.js application.
+# Keep their files intact; the installed AST extractor does not parse them fully.
+legacy/**/*.astro
+# The remaining Astro components are also outside the Next TypeScript project.
+src/**/*.astro
