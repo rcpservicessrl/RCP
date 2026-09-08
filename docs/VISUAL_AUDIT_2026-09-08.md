@@ -51,8 +51,9 @@ nueva cuando cambia el contenido o la entrega termina correctamente.
   enlaces correctos.
 - La verificación pública comprobó ES/EN, catálogo con 31 imágenes distintas,
   `/api/health`, `www` y ausencia de errores de página. No se enviaron formularios.
-- Evidencia: `C:/RCP/.artifacts/web-visual-audit-20260908/public-final/public-results.json`
-  y `C:/RCP/.artifacts/web-visual-audit-20260908/public-sectors-results.json`.
+- Evidencia: `C:/RCP/.artifacts/web-visual-audit-20260908/public-final/public-results.json`,
+  `C:/RCP/.artifacts/web-visual-audit-20260908/public-sectors-results.json` y
+  `C:/RCP/.artifacts/web-visual-audit-20260908/public-svg-results.json`.
 
 ## Límites de evidencia
 

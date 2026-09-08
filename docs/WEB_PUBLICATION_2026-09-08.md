@@ -50,6 +50,7 @@ Evidencia reproducible fuera del checkout:
 
 - `C:/RCP/.artifacts/web-visual-audit-20260908/public-final/public-results.json`
 - `C:/RCP/.artifacts/web-visual-audit-20260908/public-sectors-results.json`
+- `C:/RCP/.artifacts/web-visual-audit-20260908/public-svg-results.json`
 - `C:/RCP/.artifacts/web-visual-audit-20260908/public-final/public-home-390.png`
 - `C:/RCP/.artifacts/web-visual-audit-20260908/public-final/public-services-390.png`
 
