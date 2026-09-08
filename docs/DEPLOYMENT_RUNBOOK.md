@@ -4,7 +4,7 @@ Este runbook no autoriza pagos, cambios DNS ni envío de secretos. El corte solo
 
 ## Publicaciones posteriores al corte de septiembre
 
-El dominio ya usa Next.js/Vercel. Para una corrección del sitio existente, prevalece el flujo comprobado en [WEB_PUBLICATION_2026-09-07.md](WEB_PUBLICATION_2026-09-07.md):
+El dominio ya usa Next.js/Vercel. Para una corrección del sitio existente, prevalece el flujo comprobado en [WEB_PUBLICATION_2026-09-08.md](WEB_PUBLICATION_2026-09-08.md):
 
 1. Revisar el diff autorizado, ejecutar TypeScript y las pruebas vigentes, y registrar el commit exacto.
 2. Exportar ese commit con `git archive` a un directorio de entrega, sin archivos locales ni credenciales, y registrar su SHA-256.
@@ -16,7 +16,7 @@ Este flujo no necesita volver a cambiar DNS, contratar un plan, rotar credencial
 
 ## Referencia histórica del corte inicial
 
-Las secciones de preview, producción Vercel y corte Route 53 que siguen describen el corte inicial de RC2. El dominio ya fue promovido; no se debe repetir ese corte ni cambiar DNS para una corrección posterior. El baseline vigente es TypeScript y 59 pruebas aprobadas, documentado en `WEB_PUBLICATION_2026-09-07.md`.
+Las secciones de preview, producción Vercel y corte Route 53 que siguen describen el corte inicial de RC2. El dominio ya fue promovido; no se debe repetir ese corte ni cambiar DNS para una corrección posterior. El baseline vigente es TypeScript y 60 pruebas aprobadas, documentado en `WEB_PUBLICATION_2026-09-08.md`.
 
 ## Verificación local
 
@@ -30,7 +30,7 @@ pnpm run build
 pnpm audit --prod --audit-level high
 ```
 
-Registrar SHA, el baseline vigente de pruebas (59 en la publicación del 2026-09-07), build y auditoría.
+Registrar SHA, el baseline vigente de pruebas (60 en la publicación del 2026-09-08), build y auditoría.
 
 ## Vercel Preview
 
