@@ -24,7 +24,7 @@ export const isAllowedRequestOrigin = (request: Request) => {
   return allowed.has(origin);
 };
 
-export const isTurnstileRequired = () => process.env.RCP_DEPLOYMENT_ENV === "production" || process.env.RCP_REQUIRE_TURNSTILE === "true";
+export const isTurnstileRequired = () => process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production" || process.env.RCP_DEPLOYMENT_ENV === "production" || process.env.RCP_REQUIRE_TURNSTILE === "true";
 
 const hostMatches = (hostname: string, pattern: string) => hostname === pattern || hostname.endsWith(`.${pattern}`);
 

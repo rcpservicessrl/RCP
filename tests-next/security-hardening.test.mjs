@@ -15,6 +15,7 @@ test("active web intake fails closed and blocks cross-site abuse", async () => {
     read("components/turnstile-field.tsx"),
   ]);
   assert.match(security, /fetchSite === "cross-site"/);
+  assert.match(security, /NODE_ENV === "production"/);
   assert.match(security, /RCP_DEPLOYMENT_ENV === "production"/);
   assert.match(inquiry, /isAllowedRequestOrigin\(request\)/);
   assert.match(specialist, /isAllowedRequestOrigin\(request\)/);
