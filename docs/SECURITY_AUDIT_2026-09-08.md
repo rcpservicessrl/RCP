@@ -8,7 +8,7 @@
 
 La publicación que estaba activa antes de este cambio no cumplía un corte estricto: los formularios mostraban únicamente campos Turnstile ocultos, no un widget visible ni token; la protección podía quedar desactivada por configuración. También tenía CSP con `unsafe-inline` para scripts, limitación de solicitudes sólo en memoria y una cadena de dependencia de OpenNext con `qs` vulnerable.
 
-El código corregido queda publicado en producción en `dpl_BjnQTBpakyX3ETfmEfdDJWGY5b7E`. La publicación quedó protegida: si falta la clave pública de Turnstile, la nueva versión bloquea el envío en producción de forma segura hasta corregir la variable.
+El código corregido queda publicado en producción en `dpl_FMXwG6AnjkgrDMc1p7QAiRrvxK4r`. La publicación quedó protegida: si falta la clave pública de Turnstile, la nueva versión bloquea el envío en producción de forma segura hasta corregir la variable.
 
 ## Evidencia observada antes de corregir
 
@@ -55,7 +55,7 @@ El código corregido queda publicado en producción en `dpl_BjnQTBpakyX3ETfmEfdD
 
 ## Verificación post-release
 
-- Vercel deployment `dpl_BjnQTBpakyX3ETfmEfdDJWGY5b7E` terminó `READY` y quedó aliased en `https://rcp.services`.
+- Vercel deployment `dpl_FMXwG6AnjkgrDMc1p7QAiRrvxK4r` terminó `READY` y quedó aliased en `https://rcp.services`.
 - `/`, `/diagnostico`, `/especialistas/postular` y `/catalogo` respondieron `200`; los dos endpoints de intake respondieron `405` a `GET` y conservaron `no-store`.
 - Las respuestas públicas llevan `Strict-Transport-Security: max-age=31536000; includeSubDomains` y una CSP con nonce por respuesta, sin `unsafe-inline` en `script-src`; los tres scripts inline de diagnóstico llevan nonce.
 - Prueba controlada sin envío: `Origin` externo respondió `403 origin_not_allowed`; solicitudes válidas sintéticas sin token Turnstile respondieron `400 human_verification_failed` en ambos formularios.
