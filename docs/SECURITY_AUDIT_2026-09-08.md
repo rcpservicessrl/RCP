@@ -8,7 +8,7 @@
 
 La publicación que estaba activa antes de este cambio no cumplía un corte estricto: los formularios mostraban únicamente campos Turnstile ocultos, no un widget visible ni token; la protección podía quedar desactivada por configuración. También tenía CSP con `unsafe-inline` para scripts, limitación de solicitudes sólo en memoria y una cadena de dependencia de OpenNext con `qs` vulnerable.
 
-El código corregido queda listo para publicar y pasa las pruebas locales. La publicación productiva debe verificarse de nuevo porque Vercel muestra los valores cifrados sin revelar si las claves Turnstile están realmente llenas. Si falta la clave pública, la nueva versión bloqueará el envío en producción de forma segura hasta corregir la variable.
+El código corregido queda publicado en producción en `dpl_BjnQTBpakyX3ETfmEfdDJWGY5b7E`. La publicación quedó protegida: si falta la clave pública de Turnstile, la nueva versión bloquea el envío en producción de forma segura hasta corregir la variable.
 
 ## Evidencia observada antes de corregir
 
@@ -38,7 +38,7 @@ El código corregido queda listo para publicar y pasa las pruebas locales. La pu
 ## Límites que aún requieren verificación autorizada
 
 1. El limitador de solicitudes sigue siendo por instancia en memoria. Debe complementarse con Vercel Firewall/Cloudflare WAF o un almacén distribuido antes de tráfico de abuso a escala.
-2. Se debe comprobar en Vercel que `RCP_REQUIRE_TURNSTILE=true`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY` y `TURNSTILE_SECRET_KEY` tienen valores reales, y luego repetir una prueba controlada sin enviar datos personales.
+2. Vercel lista las variables Turnstile como ocultas, pero el HTML productivo no recibió `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (no hay `data-sitekey` ni iframe). El formulario queda bloqueado de forma intencional (`human_verification_failed`) hasta cargar el par real de claves y repetir una prueba controlada sin datos personales.
 3. No se acreditó la entrega real de Resend/CRM ni la configuración de RLS del proyecto Supabase. La documentación mantiene una discrepancia entre el esquema `public` y `rcp_services`; no se ejecutó SQL remoto ni se cambió el proveedor.
 4. Las Cloud Functions heredadas están en `404` en sus URLs documentadas. Si se vuelven a desplegar, deben conservar las nuevas variables de host permitido y una revisión de IAM/secret manager.
 5. Cloudflare inyectaba un beacon bloqueado por CSP en la publicación anterior. Se mantuvo bloqueado por defecto para no autorizar analítica externa no declarada; la decisión de habilitarlo debe hacerse en el proveedor y en la política de privacidad.
@@ -52,3 +52,11 @@ El código corregido queda listo para publicar y pasa las pruebas locales. La pu
 - `py -3 -m compileall -q cloud_function` — correcto.
 - `docker compose ... config --quiet` para IA privada — correcto con clave de auditoría efímera.
 - Build local servido: CSP con nonce distinto por respuesta, HSTS con `includeSubDomains`, formularios sin errores de consola; API de producción simulada respondió `human_verification_failed` sin credenciales Turnstile, como exige el cierre seguro.
+
+## Verificación post-release
+
+- Vercel deployment `dpl_BjnQTBpakyX3ETfmEfdDJWGY5b7E` terminó `READY` y quedó aliased en `https://rcp.services`.
+- `/`, `/diagnostico`, `/especialistas/postular` y `/catalogo` respondieron `200`; los dos endpoints de intake respondieron `405` a `GET` y conservaron `no-store`.
+- Las respuestas públicas llevan `Strict-Transport-Security: max-age=31536000; includeSubDomains` y una CSP con nonce por respuesta, sin `unsafe-inline` en `script-src`; los tres scripts inline de diagnóstico llevan nonce.
+- Prueba controlada sin envío: `Origin` externo respondió `403 origin_not_allowed`; solicitudes válidas sintéticas sin token Turnstile respondieron `400 human_verification_failed` en ambos formularios.
+- Se inspeccionaron 12 bundles públicos; no apareció `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `service_role`, claves CRM, Gemini, Odoo, `sk-rcp-local-dev`, n8n ni claves Supabase publishable.
