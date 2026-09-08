@@ -15,9 +15,8 @@
       const supabaseUrl = isLocal
         ? 'http://127.0.0.1:54321'
         : 'https://wpfovxgbennpgydbellw.supabase.co';
-      const supabaseKey = isLocal
-        ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH'
-        : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+      // Archived snapshot: inject the publishable key at runtime when restored.
+      const supabaseKey = (globalThis.RCP_PUBLIC_SUPABASE_KEY || '').trim();
       let supabase = null;
       try {
         if (window.supabase) {

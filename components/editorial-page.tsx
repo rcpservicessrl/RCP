@@ -2,6 +2,7 @@ import { BusinessVisual } from "@/components/business-visual";
 import Link from "next/link";
 import { ExternalMedia } from "@/components/external-media";
 import { InteriorShell } from "@/components/interior-shell";
+import { JsonLd } from "@/components/json-ld";
 import { type PulsoScene } from "@/components/pulso";
 import { pillars, t } from "@/lib/content";
 import type { Locale, LocalText } from "@/lib/types";
@@ -537,7 +538,7 @@ export function EditorialPage({ locale, page }: EditorialPageProps) {
   return (
     <InteriorShell locale={locale}>
       <article className={styles.page} lang={locale === "es" ? "es-DO" : "en-US"}>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schema }} />
+        <JsonLd data={schema} />
         <EditorialHero locale={locale} page={page} />
         {page === "about" && <AboutContent locale={locale} />}
         {page === "media" && <MediaContent locale={locale} />}

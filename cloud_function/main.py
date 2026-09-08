@@ -1,6 +1,8 @@
+import hashlib
 import os, requests, unicodedata, random, time
 from collections import defaultdict
 from flask import jsonify
+from urllib.parse import urlparse
 
 GEMINI_API_KEYS = [
     os.getenv('GEMINI_API_KEY'),
@@ -10,6 +12,12 @@ GEMINI_API_KEYS = [
 GEMINI_API_KEYS = [k for k in GEMINI_API_KEYS if k]
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+ALLOWED_ORIGINS = {
+    'https://bubloy.github.io',
+    'https://rcp.services',
+    'https://www.rcp.services',
+    'https://rcpservicessrl.github.io',
+}
 
 CONFIDENTIAL_KEYWORDS = [
     'docker', 'n8n', 'litellm', 'ollama', 'comfyui', 'odoo', 'localhost', 
@@ -44,8 +52,34 @@ def _client_ip(request):
     """Extract client IP, respecting X-Forwarded-For when behind Cloud Run."""
     xff = request.headers.get('X-Forwarded-For', '')
     if xff:
-        return xff.split(',')[0].strip()
+        # Proxies append the address they observed at the right side. Never
+        # trust an arbitrary left-most value supplied by a caller.
+        return xff.split(',')[-1].strip()
     return request.remote_addr or 'unknown'
+
+
+def _cors_headers(request):
+    origin = request.headers.get('Origin')
+    if not origin:
+        return {'Vary': 'Origin'}
+    allow_local = os.getenv('RCP_ALLOW_LOCAL_ORIGINS', '').lower() == 'true'
+    local_origin = origin.startswith('http://localhost:') or origin.startswith('http://127.0.0.1:')
+    if origin in ALLOWED_ORIGINS or (allow_local and local_origin):
+        return {'Access-Control-Allow-Origin': origin, 'Vary': 'Origin'}
+    return {'Vary': 'Origin'}
+
+
+def _is_safe_n8n_url(value):
+    try:
+        parsed = urlparse(value)
+        allowed_hosts = {
+            host.strip().lower()
+            for host in os.getenv('N8N_ALLOWED_HOSTS', '').split(',')
+            if host.strip()
+        }
+        return parsed.scheme == 'https' and not parsed.username and not parsed.password and parsed.hostname and parsed.hostname.lower() in allowed_hosts
+    except Exception:
+        return False
 
 def check_rate_limit(request, key_suffix, limit):
     """Returns (allowed: bool, retry_after: int)."""
@@ -111,29 +145,21 @@ def call_gemini(prompt: str) -> str:
             return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
         except Exception as e:
             last_error = e
-            print(f"Error calling Gemini with key {api_key[:10]}...: {e}")
+            print("Gemini upstream request failed; trying the next configured key.")
             continue
             
     raise last_error or Exception("All Gemini API keys failed to generate content.")
 
 def rcpChat(request):
-    # Determine CORS Origin dynamically
     origin = request.headers.get('Origin')
-    allowed_origins = [
-        'https://bubloy.github.io',
-        'https://rcp.services',
-        'https://www.rcp.services',
-        'https://rcpservicessrl.github.io'
-    ]
-    if origin and (origin in allowed_origins or origin.startswith('http://localhost') or origin.startswith('http://127.0.0.1')):
-        cors_origin = origin
-    else:
-        cors_origin = 'https://www.rcp.services'
+    headers = _cors_headers(request)
+    if origin and 'Access-Control-Allow-Origin' not in headers:
+        return (jsonify({"error": "origin_not_allowed"}), 403, headers)
 
     # Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
         headers = {
-            'Access-Control-Allow-Origin': cors_origin,
+            **headers,
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp',
             'Access-Control-Max-Age': '3600'
@@ -141,10 +167,6 @@ def rcpChat(request):
         return ('', 204, headers)
 
     # Set CORS headers for the main request
-    headers = {
-        'Access-Control-Allow-Origin': cors_origin
-    }
-
     # ─── RATE LIMIT (chat endpoint) ───
     allowed, retry_after = check_rate_limit(request, 'chat', CHAT_RATE_LIMIT)
     if not allowed:
@@ -171,8 +193,9 @@ def rcpChat(request):
     try:
         answer = call_gemini(message)
         return (jsonify({"response": answer}), 200, headers)
-    except Exception as e:
-        return (jsonify({"error": str(e)}), 500, headers)
+    except Exception:
+        print("Gemini request failed after all configured keys were attempted.")
+        return (jsonify({"error": "upstream_unavailable"}), 502, headers)
 
 
 def rcpLead(request):
@@ -180,30 +203,21 @@ def rcpLead(request):
     Stable Cloud Function endpoint for lead capture.
     Receives form data from the website and forwards it to:
     1. The n8n tunnel (if available) for CRM processing
-    2. Logs the lead as a fallback if n8n is unreachable
+    2. Records only a non-sensitive correlation digest in logs if n8n is unreachable
     """
     origin = request.headers.get('Origin')
-    allowed_origins = [
-        'https://bubloy.github.io',
-        'https://rcp.services',
-        'https://www.rcp.services',
-        'https://rcpservicessrl.github.io'
-    ]
-    if origin and (origin in allowed_origins or origin.startswith('http://localhost') or origin.startswith('http://127.0.0.1')):
-        cors_origin = origin
-    else:
-        cors_origin = 'https://www.rcp.services'
+    headers = _cors_headers(request)
+    if origin and 'Access-Control-Allow-Origin' not in headers:
+        return (jsonify({"error": "origin_not_allowed"}), 403, headers)
 
     if request.method == 'OPTIONS':
         headers = {
-            'Access-Control-Allow-Origin': cors_origin,
+            **headers,
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, X-RCP-Timestamp',
             'Access-Control-Max-Age': '3600'
         }
         return ('', 204, headers)
-
-    headers = {'Access-Control-Allow-Origin': cors_origin}
 
     # ─── RATE LIMIT (lead endpoint) ───
     allowed, retry_after = check_rate_limit(request, 'lead', LEAD_RATE_LIMIT)
@@ -229,23 +243,24 @@ def rcpLead(request):
     n8n_tunnel_url = os.getenv('N8N_TUNNEL_URL', '')
     n8n_success = False
     
-    if n8n_tunnel_url:
+    if n8n_tunnel_url and _is_safe_n8n_url(n8n_tunnel_url):
         try:
             n8n_resp = requests.post(
                 f"{n8n_tunnel_url}/webhook/rcp_lead_capture/trigger/rcp-lead",
                 json=body,
                 headers={
                     'Content-Type': 'application/json',
-                    'X-RCP-Timestamp': request.headers.get('X-RCP-Timestamp', '')
+                    'X-RCP-Timestamp': str(int(time.time()))
                 },
                 timeout=10
             )
             n8n_success = n8n_resp.status_code < 400
-        except Exception as e:
-            print(f"[rcpLead] n8n tunnel unreachable: {e}")
+        except Exception:
+            print("[rcpLead] n8n forwarding failed.")
 
-    # Log the lead (always, as fallback persistence)
-    print(f"[rcpLead] Lead captured: {body.get('user_name', 'N/A')} - {body.get('user_email', 'N/A')} - {body.get('user_company', 'N/A')} - Service: {body.get('user_service', 'N/A')} - n8n_forwarded: {n8n_success}")
+    # Log only a non-reversible correlation digest; never place lead PII in logs.
+    lead_digest = hashlib.sha256(f"{body.get('user_email', '')}:{body.get('user_name', '')}".encode()).hexdigest()[:12]
+    print(f"[rcpLead] Lead processed digest={lead_digest} n8n_forwarded={n8n_success}")
 
     # Sync to Odoo Online CRM (best-effort)
     odoo_lead_id = None
@@ -261,8 +276,8 @@ def rcpLead(request):
         )
         if odoo_lead_id:
             print(f"[rcpLead] Odoo CRM lead created: ID {odoo_lead_id}")
-    except Exception as e:
-        print(f"[rcpLead] Odoo sync skipped: {e}")
+    except Exception:
+        print("[rcpLead] Odoo sync skipped.")
 
     return (jsonify({
         "success": True, 

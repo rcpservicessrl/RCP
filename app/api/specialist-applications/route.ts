@@ -1,5 +1,6 @@
 import { deliverCrm, deliverEmail, resolveDeliveryMode, validIdempotencyKey } from "@/lib/server/delivery";
 import { consumeRateLimit } from "@/lib/server/rate-limit";
+import { isAllowedRequestOrigin, isTurnstileRequired } from "@/lib/server/request-security";
 
 const MAX_BODY_BYTES = 16_000;
 const noStoreHeaders = { "Cache-Control": "no-store" };
@@ -40,7 +41,7 @@ const validPortfolioUrl = (value: string) => {
 };
 
 const verifyTurnstile = async (token: string) => {
-  if (process.env.RCP_REQUIRE_TURNSTILE !== "true") return true;
+  if (!isTurnstileRequired()) return true;
   const secret = process.env.TURNSTILE_SECRET_KEY;
   if (!secret || !token) return false;
   try {
@@ -63,6 +64,7 @@ const fallbackUrl = (locale: "es" | "en", reference: string) => {
 };
 
 export async function POST(request: Request) {
+  if (!isAllowedRequestOrigin(request)) return invalid("origin_not_allowed", 403);
   if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return invalid("unsupported_media_type", 415);
   const idempotencyKey = request.headers.get("idempotency-key");
   if (!validIdempotencyKey(idempotencyKey)) return invalid("invalid_idempotency_key");

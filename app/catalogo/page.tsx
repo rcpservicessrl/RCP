@@ -4,6 +4,7 @@ import { CatalogExplorer } from "@/components/catalog-explorer";
 import { InteriorShell } from "@/components/interior-shell";
 import { catalog } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata = createPublicPageMetadata({
   locale: "es",
@@ -29,7 +30,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
   };
   return (
     <InteriorShell locale="es">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+      <JsonLd data={itemList} />
       <section className="interior-hero interior-hero--catalog">
         <div className="container interior-hero__grid">
           <div><p className="section-eyebrow">Catálogo RCP</p><h1>Explora por necesidad. Compara con contexto.</h1><p>Encuentra lo que tu negocio necesita: procesos, asesoría, presencia digital e impresos. Selecciona hasta cuatro opciones y llévalas a tu evaluación inicial sin costo.</p><div className="interior-hero__facts"><span>Hecho para tu negocio</span><span>Alcance acordado contigo</span><span>Una sola coordinación</span></div><div className="editorial-hero-actions"><a className="button button--primary" href="#explorar">Explorar el catálogo ↗</a></div></div>

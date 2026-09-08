@@ -1,4 +1,5 @@
 import { HomeExperience } from "@/components/home-experience";
+import { JsonLd } from "@/components/json-ld";
 import { createPublicPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPublicPageMetadata({
@@ -44,8 +45,8 @@ const websiteJsonLd = {
 export default function HomePage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+      <JsonLd data={organizationJsonLd} />
+      <JsonLd data={websiteJsonLd} />
       <HomeExperience locale="es" />
     </>
   );

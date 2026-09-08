@@ -30,6 +30,7 @@ python health_check.py
 SUPABASE_URL=https://wpfovxgbennpgydbellw.supabase.co
 SUPABASE_KEY=<anon_key>
 N8N_TUNNEL_URL=https://tu-tunnel.trycloudflare.com
+N8N_ALLOWED_HOSTS=tu-tunnel.trycloudflare.com
 ODOO_URL=https://rcp-services.odoo.com
 WHATSAPP_NOTIFY=http://localhost:8080/message/sendText/rcp_whatsapp_2026
 ```

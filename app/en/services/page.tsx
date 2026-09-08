@@ -1,6 +1,7 @@
 import { ServiceDirectory } from "@/components/service-directory";
 import { catalog } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata = createPublicPageMetadata({
   locale: "en",
@@ -18,5 +19,5 @@ export default function ServicesPage() {
     numberOfItems: catalog.length,
     itemListElement: catalog.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.title.en, url: `https://rcp.services/en/catalog?service=${entry.id}` })),
   };
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><ServiceDirectory locale="en" /></>;
+  return <><JsonLd data={structuredData} /><ServiceDirectory locale="en" /></>;
 }

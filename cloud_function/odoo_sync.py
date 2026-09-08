@@ -10,7 +10,7 @@ import os
 # Tu instancia gratuita de Odoo Online
 ODOO_URL = os.getenv('ODOO_URL', 'https://rcp-services.odoo.com')
 ODOO_DB = os.getenv('ODOO_DB', 'rcp-services')
-ODOO_USER = os.getenv('ODOO_USER', 'rcpservicessrl@gmail.com')
+ODOO_USER = os.getenv('ODOO_USER', '')
 ODOO_API_KEY = os.getenv('ODOO_API_KEY', '')  # Generar en Odoo > Perfil > API Keys
 
 # Hard timeouts (seconds) so a slow/unreachable Odoo never blocks the Cloud
@@ -38,14 +38,14 @@ def _server_proxy(path):
 
 def odoo_authenticate():
     """Authenticate with Odoo Online via XML-RPC"""
-    if not ODOO_API_KEY:
+    if not ODOO_USER or not ODOO_API_KEY:
         return None
     try:
         common = _server_proxy('/xmlrpc/2/common')
         uid = common.authenticate(ODOO_DB, ODOO_USER, ODOO_API_KEY, {})
         return uid
-    except Exception as e:
-        print(f"[odoo_sync] authenticate failed: {e}")
+    except Exception:
+        print("[odoo_sync] authenticate failed.")
         return None
 
 def odoo_create_lead(name, email, phone, company, service, message=''):
@@ -73,6 +73,6 @@ def odoo_create_lead(name, email, phone, company, service, message=''):
             'crm.lead', 'create', [lead_data]
         )
         return lead_id
-    except Exception as e:
-        print(f"[odoo_sync] create_lead failed: {e}")
+    except Exception:
+        print("[odoo_sync] create_lead failed.")
         return None

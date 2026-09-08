@@ -52,20 +52,21 @@ test("selected technology context is validated before it reaches the inquiry pro
   assert.match(endpoint, /const commonRecord = \{/);
 });
 
-test("Turnstile is optional by default and enforced consistently when enabled", async () => {
-  const [environment, field, form, endpoint, config] = await Promise.all([
+test("Turnstile stays optional in development and fails closed in production", async () => {
+  const [environment, field, form, endpoint, middleware] = await Promise.all([
     read(".env.example"),
     read("components/turnstile-field.tsx"),
     read("components/diagnosis-form.tsx"),
     read("app/api/inquiries/route.ts"),
-    read("next.config.ts"),
+    read("middleware.ts"),
   ]);
 
   assert.match(environment, /^RCP_REQUIRE_TURNSTILE=false$/m);
   assert.match(environment, /^NEXT_PUBLIC_TURNSTILE_SITE_KEY=$/m);
   assert.match(environment, /^TURNSTILE_SECRET_KEY=$/m);
 
-  assert.match(field, /if \(!siteKey\) return <input type="hidden" name="turnstileToken" value="" readOnly \/>/);
+  assert.match(field, /if \(!siteKey\) return <>/);
+  assert.match(field, /role="alert"/);
   assert.match(field, /https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
   assert.match(field, /sitekey: siteKey/);
   assert.match(field, /callback: \(nextToken: string\) => setToken\(nextToken\)/);
@@ -75,7 +76,7 @@ test("Turnstile is optional by default and enforced consistently when enabled", 
   assert.match(form, /<TurnstileField locale=\{locale\} resetSignal=\{verificationReset\} \/>/);
   assert.match(form, /setVerificationReset\(\(current\) => current \+ 1\)/);
 
-  assert.match(endpoint, /if \(process\.env\.RCP_REQUIRE_TURNSTILE !== "true"\) return true/);
+  assert.match(endpoint, /isTurnstileRequired\(\)/);
   assert.match(endpoint, /const secret = process\.env\.TURNSTILE_SECRET_KEY/);
   assert.match(endpoint, /verifyTurnstile\(text\(raw\.turnstileToken, 2_000\)\)/);
   assert.match(endpoint, /if \(!secret \|\| !token\) return false/);
@@ -85,9 +86,8 @@ test("Turnstile is optional by default and enforced consistently when enabled", 
   assert.match(endpoint, /if \(!await verifyTurnstile\(text\(raw\.turnstileToken, 2_000\)\)\) return invalid\("human_verification_failed"\)/);
   assert.doesNotMatch(endpoint, /NEXT_PUBLIC_TURNSTILE_SITE_KEY/);
 
-  assert.match(config, /const scriptPolicy =[^\n]*https:\/\/challenges\.cloudflare\.com/);
-  assert.match(config, /`script-src \$\{scriptPolicy\}`/);
-  assert.match(config, /frame-src[^\n]*https:\/\/challenges\.cloudflare\.com/);
+  assert.match(middleware, /script-src 'self' 'nonce-\$\{nonce\}'/);
+  assert.match(middleware, /frame-src[^\n]*https:\/\/challenges\.cloudflare\.com/);
 });
 
 test("new bilingual information pages declare canonical locale pairs and stay discoverable", async () => {

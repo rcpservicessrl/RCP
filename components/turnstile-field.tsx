@@ -36,7 +36,10 @@ export function TurnstileField({ locale, resetSignal = 0 }: { locale: Locale; re
     return () => window.turnstile?.remove(widgetId);
   }, [ready, resetSignal, siteKey]);
 
-  if (!siteKey) return <input type="hidden" name="turnstileToken" value="" readOnly />;
+  if (!siteKey) return <>
+    <input type="hidden" name="turnstileToken" value="" readOnly />
+    <small role="alert">{locale === "es" ? "La verificación de seguridad no está disponible todavía." : "The security verification is not available yet."}</small>
+  </>;
 
   return (
     <div className="turnstile-field">

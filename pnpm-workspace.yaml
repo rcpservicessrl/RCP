@@ -6,3 +6,6 @@ nodeLinker: hoisted
 allowBuilds:
   esbuild: true
   workerd: true
+
+overrides:
+  qs: 6.16.0

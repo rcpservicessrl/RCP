@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import { AudioProvider } from "@/components/audio-provider";
+import { headers } from "next/headers";
 import "./globals.css";
 import "./editorial-system.css";
 import "./customer-journey.css";
@@ -76,11 +77,12 @@ const themeScript = `
   })();
 `;
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const nonce = (await headers()).get("x-csp-nonce") ?? undefined;
   return (
     <html data-scroll-behavior="smooth" lang="es-DO" data-theme="light" suppressHydrationWarning className={`${montserrat.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body><AudioProvider>{children}</AudioProvider></body>
     </html>

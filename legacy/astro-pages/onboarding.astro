@@ -119,7 +119,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
-    const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+    const supabaseKey = ((globalThis as any).RCP_PUBLIC_SUPABASE_KEY || '').trim();
     let supabase: any = null;
     try {
       if ((window as any).supabase) {

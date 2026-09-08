@@ -3,6 +3,7 @@ import { normalizeCatalogSelection } from "@/lib/catalog-selection";
 import { deliverCrm, deliverEmail, resolveDeliveryMode, validIdempotencyKey } from "@/lib/server/delivery";
 import { consumeRateLimit } from "@/lib/server/rate-limit";
 import { normalizeSolutionSelection } from "@/lib/solution-selection";
+import { isAllowedRequestOrigin, isTurnstileRequired } from "@/lib/server/request-security";
 
 const MAX_BODY_BYTES = 24_000;
 const WHATSAPP_NUMBER = "18298068092";
@@ -42,7 +43,7 @@ const stableReference = async (idempotencyKey: string) => {
 };
 
 const verifyTurnstile = async (token: string) => {
-  if (process.env.RCP_REQUIRE_TURNSTILE !== "true") return true;
+  if (!isTurnstileRequired()) return true;
   const secret = process.env.TURNSTILE_SECRET_KEY;
   if (!secret || !token) return false;
   try {
@@ -60,6 +61,7 @@ const verifyTurnstile = async (token: string) => {
 };
 
 export async function POST(request: Request) {
+  if (!isAllowedRequestOrigin(request)) return invalid("origin_not_allowed", 403);
   if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return invalid("unsupported_media_type", 415);
 
   const idempotencyKey = request.headers.get("idempotency-key");
@@ -114,8 +116,8 @@ export async function POST(request: Request) {
 
   const reference = await stableReference(idempotencyKey!);
   const whatsappMessage = locale === "es"
-    ? `Hola, RCP Services. Quiero continuar la solicitud ${reference} para ${inquiry.company}. Necesito mejorar: ${inquiry.problem.slice(0, 360)}`
-    : `Hello, RCP Services. I want to continue request ${reference} for ${inquiry.company}. I need to improve: ${inquiry.problem.slice(0, 360)}`;
+    ? `Hola, RCP Services. Quiero continuar la solicitud ${reference} para ${inquiry.company}.`
+    : `Hello, RCP Services. I want to continue request ${reference} for ${inquiry.company}.`;
   const handoffUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
   const commonRecord = {
     ...inquiry,

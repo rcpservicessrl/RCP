@@ -5,8 +5,9 @@ const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 8;
 
 const clientAddress = (request: Request) => {
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return forwarded || request.headers.get("x-real-ip")?.trim() || "unknown";
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",").map((part) => part.trim()).filter(Boolean).at(-1);
+  const real = request.headers.get("x-real-ip")?.trim();
+  return forwarded || real || "unknown";
 };
 
 const digest = async (value: string) => {

@@ -1,3 +1,5 @@
+import { isSafeCrmUrl } from "@/lib/server/request-security";
+
 export type DeliveryMode = "email" | "crm";
 
 export type CrmConfirmation = {
@@ -69,6 +71,7 @@ export async function deliverEmail(input: EmailDeliveryInput) {
 }
 
 export async function deliverCrm(input: CrmDeliveryInput): Promise<CrmConfirmation | null> {
+  if (!isSafeCrmUrl(input.url)) return null;
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const body = JSON.stringify(input.body);
   const signature = await createHmacSignature(input.hmacSecret, timestamp, body);
