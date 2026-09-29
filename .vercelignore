@@ -3,6 +3,8 @@
 .vercel
 .env
 .env.*
+# Next.js traces this public template into prebuilt functions.
+!.env.example
 node_modules
 .next
 .open-next
