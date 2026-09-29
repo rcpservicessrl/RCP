@@ -41,6 +41,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
   const selectedCapability = selectableCapabilities.find((item) => item.id === selectedCapabilityId);
   const selectedSolution = technologySolutions.find((item) => item.id === selectedSolutionId);
   const labels = stepLabels[locale];
+  const antiAbuseUnavailable = typeof process !== "undefined" && process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   useEffect(() => {
     if (initialNeed) setSelectedNeed(initialNeed);
@@ -202,7 +203,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
 
       <div className="diagnosis-actions">
         {guided && step > 1 && <button type="button" className="button button--secondary" onClick={previousStep}>{locale === "es" ? "Volver" : "Back"}</button>}
-        {guided && step < 4 ? <button type="button" className="button button--primary" onClick={nextStep}>{locale === "es" ? "Continuar" : "Continue"}<ArrowIcon size={18} /></button> : <button type="submit" className="button button--primary" disabled={state === "submitting"}>{state === "submitting" ? (locale === "es" ? "Enviando…" : "Sending…") : (locale === "es" ? "Solicitar evaluación sin costo" : "Request free assessment")}<ArrowIcon size={18} /></button>}
+        {guided && step < 4 ? <button type="button" className="button button--primary" onClick={nextStep} disabled={antiAbuseUnavailable}>{antiAbuseUnavailable ? (locale === "es" ? "Verificación pendiente" : "Verification pending") : (locale === "es" ? "Continuar" : "Continue")}<ArrowIcon size={18} /></button> : <button type="submit" className="button button--primary" disabled={state === "submitting" || antiAbuseUnavailable}>{state === "submitting" ? (locale === "es" ? "Enviando…" : "Sending…") : antiAbuseUnavailable ? (locale === "es" ? "Verificación pendiente" : "Verification pending") : (locale === "es" ? "Solicitar evaluación sin costo" : "Request free assessment")}<ArrowIcon size={18} /></button>}
       </div>
     </form>
   );

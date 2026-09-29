@@ -5,6 +5,9 @@ import { InteriorShell } from "@/components/interior-shell";
 import { catalog } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/json-ld";
+import { loadPublishedCatalog } from "@/lib/public-site-catalog";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = createPublicPageMetadata({
   locale: "es",
@@ -16,12 +19,13 @@ export const metadata = createPublicPageMetadata({
 
 export default async function CatalogPage({ searchParams }: { searchParams: Promise<{ servicio?: string }> }) {
   const { servicio } = await searchParams;
+  const { items: entries } = await loadPublishedCatalog();
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Catálogo de productos y servicios RCP Services",
-    numberOfItems: catalog.length,
-    itemListElement: catalog.map((entry, index) => ({
+    numberOfItems: entries.length,
+    itemListElement: entries.map((entry, index) => ({
       "@type": "ListItem",
       position: index + 1,
       url: `https://rcp.services/catalogo?servicio=${entry.id}`,
@@ -38,7 +42,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
         </div>
       </section>
       <PriceGuide locale="es" />
-      <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Servicios y productos para tu negocio</h2><CatalogExplorer locale="es" initialService={servicio} /></div></section>
+      <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Servicios y productos para tu negocio</h2><CatalogExplorer locale="es" entries={entries} initialService={servicio} /></div></section>
     </InteriorShell>
   );
 }

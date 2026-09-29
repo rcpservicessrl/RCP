@@ -1,6 +1,7 @@
 import { deliverCrm, deliverEmail, resolveDeliveryMode, validIdempotencyKey } from "@/lib/server/delivery";
 import { consumeRateLimit } from "@/lib/server/rate-limit";
-import { isAllowedRequestOrigin, isTurnstileRequired } from "@/lib/server/request-security";
+import { PayloadTooLargeError, readLimitedRequestBody } from "@/lib/server/request-body";
+import { isAllowedRequestOrigin, isAllowedTurnstileHostname, isTurnstileRequired } from "@/lib/server/request-security";
 
 const MAX_BODY_BYTES = 16_000;
 const noStoreHeaders = { "Cache-Control": "no-store" };
@@ -40,19 +41,20 @@ const validPortfolioUrl = (value: string) => {
   }
 };
 
-const verifyTurnstile = async (token: string) => {
+const verifyTurnstile = async (token: unknown) => {
   if (!isTurnstileRequired()) return true;
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret || !token) return false;
+  if (!secret || typeof token !== "string" || !token || token.length > 2_048) return false;
   try {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ secret, response: token }).toString(),
       signal: AbortSignal.timeout(5_000),
+      redirect: "error",
     });
-    const result = await response.json() as { success?: boolean };
-    return result.success === true;
+    const result = await response.json() as { success?: boolean; hostname?: unknown };
+    return response.ok && result.success === true && isAllowedTurnstileHostname(result.hostname);
   } catch {
     return false;
   }
@@ -77,11 +79,12 @@ export async function POST(request: Request) {
 
   let raw: SpecialistApplicationPayload;
   try {
-    const body = await request.text();
+    const body = await readLimitedRequestBody(request, MAX_BODY_BYTES);
     if (byteLength(body) > MAX_BODY_BYTES) return invalid("payload_too_large", 413);
     raw = JSON.parse(body) as SpecialistApplicationPayload;
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return invalid("invalid_json");
-  } catch {
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) return invalid("payload_too_large", 413);
     return invalid("invalid_json");
   }
 
@@ -101,7 +104,7 @@ export async function POST(request: Request) {
   if (application.name.length < 2 || application.experience.length < 40 || !categories.has(application.category) || !availabilityOptions.has(application.availability)) return invalid("incomplete_request");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(application.email)) return invalid("invalid_email");
   if (!validPortfolioUrl(application.portfolioUrl)) return invalid("invalid_portfolio_url");
-  if (!await verifyTurnstile(text(raw.turnstileToken, 2_000))) return invalid("human_verification_failed");
+  if (!await verifyTurnstile(raw.turnstileToken)) return invalid("human_verification_failed");
 
   const reference = await stableReference(idempotencyKey!);
   const mailFallback = fallbackUrl(locale, reference);

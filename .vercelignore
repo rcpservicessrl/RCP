@@ -1,0 +1,21 @@
+# Only the Next.js application and its public assets belong in this deployment.
+.git
+.vercel
+.env
+.env.*
+node_modules
+.next
+.open-next
+.wrangler
+graphify-out
+.neural*
+.agents
+agents
+docs
+private
+cloud_function
+supabase
+tests-next
+tmp
+*.log
+*.tsbuildinfo

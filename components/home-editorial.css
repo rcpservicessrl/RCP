@@ -4,6 +4,11 @@
 .editorial-home .page-scene{animation:none;opacity:1;transform:none}
 .editorial-home .problem-section,.editorial-home .solutions-section,.editorial-home .catalog-section,.editorial-home .specialists-section{background:#f3f2eb;color:#172017;padding-block:80px;--text:#172017;--text-soft:#4b5845;--muted:#56634d;--line:#cad0c0;--line-strong:#b0bba1;--surface:#e8eade;--surface-2:#e1e5d5;--amber-text:#72551f;--green-text:#42601c;--bg:#f3f2eb}
 .editorial-home .section-eyebrow{font-size:10px;letter-spacing:.12em}
+.editorial-home .problem-section .section-eyebrow,.editorial-home .specialists-section .section-eyebrow{color:#6b4a17}
+.editorial-home .problem-section .section-lead,.editorial-home .specialists-section .section-lead{color:#4b5845}
+.editorial-home .need-selector--scene>small,.editorial-home .need-selector--scene button small,.editorial-home .need-selector--scene button>span:first-child,.editorial-home .need-route>small,.editorial-home .need-route p{color:#4b5845}
+.editorial-home .specialist-points li{color:#344428}
+.editorial-home .specialists-section .text-link{color:#24472b;border-color:#8a9b7d}
 .editorial-home .section-lead,.editorial-home .section-heading>p{font-size:15px;line-height:1.85}
 .editorial-home .need-selector{border:0;box-shadow:none;padding:0;background:transparent;border-radius:0}
 .editorial-home .need-selector [role=radiogroup]{gap:0}
@@ -28,6 +33,9 @@
 .editorial-home .specialists-visual{background:transparent}
 .editorial-home .specialist-node{background:#e4e8d7;color:#344428;border-color:#b7c3a6}
 .editorial-home .diagnosis-section{background:var(--bg);color:var(--text);padding-block:85px}
+.editorial-home .diagnosis-section .section-lead,.editorial-home .diagnosis-section__pulso small{color:var(--text-soft)}
+.editorial-home .diagnosis-section__pulso strong{color:var(--amber-text)}
+.editorial-home .diagnosis-form{color:#f8f8f5;--text:#f8f8f5;--text-soft:#c4cbc1;--muted:#b8c1b3;--amber-text:#fcb53f;--green-text:#b9d47d}
 .editorial-home .diagnosis-section h2{font-size:clamp(40px,4vw,58px)}
 .editorial-home .catalog-card{box-shadow:none}
 @media(max-width:760px){.editorial-home .problem-section,.editorial-home .solutions-section,.editorial-home .catalog-section,.editorial-home .specialists-section,.editorial-home .method-section,.editorial-home .technology-section,.editorial-home .diagnosis-section{padding-block:56px}.editorial-tech-links{grid-template-columns:1fr;gap:0}.editorial-tech-links>a{font-size:18px}.editorial-home .pillar-stage{display:flex;flex-direction:column;gap:26px}.editorial-home .pillar-stage__index{display:none}}

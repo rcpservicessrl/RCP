@@ -61,6 +61,7 @@ export async function deliverEmail(input: EmailDeliveryInput) {
         text: input.content,
       }),
       signal: AbortSignal.timeout(8_000),
+      redirect: "error",
     });
     const result = await response.json().catch(() => null) as { id?: unknown } | null;
     const providerId = typeof result?.id === "string" ? result.id.trim().slice(0, 160) : "";
@@ -89,6 +90,7 @@ export async function deliverCrm(input: CrmDeliveryInput): Promise<CrmConfirmati
       },
       body,
       signal: AbortSignal.timeout(8_000),
+      redirect: "error",
     });
     const result = await response.json().catch(() => null) as Partial<CrmConfirmation> | null;
     if (!response.ok || result?.recorded !== true || typeof result.reference !== "string") return null;

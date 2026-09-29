@@ -1,11 +1,13 @@
 const productionOrigins = new Set(["https://rcp.services", "https://www.rcp.services"]);
 
+export const isProductionEnvironment = () => process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production" || process.env.RCP_DEPLOYMENT_ENV === "production";
+
 const configuredOrigin = () => {
   const value = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (!value) return null;
   try {
     const url = new URL(value);
-    if (url.protocol !== "https:" && process.env.NODE_ENV === "production") return null;
+    if (url.protocol !== "https:" && isProductionEnvironment()) return null;
     return url.origin;
   } catch {
     return null;
@@ -16,7 +18,7 @@ export const isAllowedRequestOrigin = (request: Request) => {
   const origin = request.headers.get("origin")?.trim();
   const fetchSite = request.headers.get("sec-fetch-site")?.trim().toLowerCase();
   if (fetchSite === "cross-site") return false;
-  if (!origin) return true;
+  if (!origin) return !isProductionEnvironment();
 
   const allowed = new Set(productionOrigins);
   const configured = configuredOrigin();
@@ -24,7 +26,15 @@ export const isAllowedRequestOrigin = (request: Request) => {
   return allowed.has(origin);
 };
 
-export const isTurnstileRequired = () => process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production" || process.env.RCP_DEPLOYMENT_ENV === "production" || process.env.RCP_REQUIRE_TURNSTILE === "true";
+export const isTurnstileRequired = () => isProductionEnvironment() || process.env.RCP_REQUIRE_TURNSTILE === "true";
+
+export const isAllowedTurnstileHostname = (hostname: unknown) => {
+  if (typeof hostname !== "string") return false;
+  const origins = new Set(productionOrigins);
+  const configured = configuredOrigin();
+  if (configured) origins.add(configured);
+  return [...origins].some((origin) => new URL(origin).hostname === hostname);
+};
 
 const hostMatches = (hostname: string, pattern: string) => hostname === pattern || hostname.endsWith(`.${pattern}`);
 

@@ -64,14 +64,18 @@ test("legacy Astro pages remain archived and cannot conflict with App Router", a
 });
 
 test("security headers include a restrictive browser boundary", async () => {
-  const [config, middleware] = await Promise.all([
+  const [config, proxy, layout] = await Promise.all([
     readFile(path.join(root, "next.config.ts"), "utf8"),
-    readFile(path.join(root, "middleware.ts"), "utf8"),
+    readFile(path.join(root, "proxy.ts"), "utf8"),
+    readFile(path.join(root, "app/layout.tsx"), "utf8"),
   ]);
-  assert.match(middleware, /Content-Security-Policy/);
-  assert.match(middleware, /nonce-\$\{nonce\}/);
-  assert.match(middleware, /object-src 'none'/);
-  assert.match(middleware, /frame-ancestors 'self'/);
+  assert.match(proxy, /export function proxy/);
+  assert.match(proxy, /Content-Security-Policy/);
+  assert.match(proxy, /nonce-\$\{nonce\}/);
+  assert.match(proxy, /requestHeaders\.set\("Content-Security-Policy", scriptPolicy\)/);
+  assert.match(layout, /await headers\(\)/);
+  assert.match(proxy, /object-src 'none'/);
+  assert.match(proxy, /frame-ancestors 'self'/);
   assert.match(config, /Permissions-Policy/);
   assert.match(config, /Strict-Transport-Security/);
 });

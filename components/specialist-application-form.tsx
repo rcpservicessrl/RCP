@@ -101,6 +101,7 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
   const defaultFallbackHref = `mailto:${fallbackEmail}?subject=${encodeURIComponent(locale === "es" ? "Postulación a la Red de Especialistas RCP" : "RCP Specialist Network application")}`;
   const [fallbackHref, setFallbackHref] = useState(defaultFallbackHref);
   const [verificationReset, setVerificationReset] = useState(0);
+  const antiAbuseUnavailable = typeof process !== "undefined" && process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -239,8 +240,8 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
       <TurnstileField locale={locale} resetSignal={verificationReset} />
 
       <div className={styles.formActions}>
-        <button className="button button--primary button--large" type="submit" disabled={state === "submitting"}>
-          {state === "submitting" ? c.submitting : c.submit}
+        <button className="button button--primary button--large" type="submit" disabled={state === "submitting" || antiAbuseUnavailable}>
+          {state === "submitting" ? c.submitting : antiAbuseUnavailable ? (locale === "es" ? "Verificación pendiente" : "Verification pending") : c.submit}
         </button>
         <a className={styles.emailLink} href={fallbackHref}>{fallbackEmail}</a>
       </div>

@@ -15,16 +15,18 @@ const basePolicy = [
   "frame-ancestors 'self'",
 ].join("; ");
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const bytes = new Uint8Array(16);
   crypto.getRandomValues(bytes);
   const nonce = btoa(String.fromCharCode(...bytes));
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-csp-nonce", nonce);
-  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  requestHeaders.set("x-nonce", nonce);
   const scriptPolicy = process.env.NODE_ENV === "development"
     ? `${basePolicy}; script-src 'self' 'nonce-${nonce}' 'unsafe-eval' https://challenges.cloudflare.com`
     : `${basePolicy}; script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com`;
+  requestHeaders.set("Content-Security-Policy", scriptPolicy);
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set("Content-Security-Policy", scriptPolicy);
   return response;
 }

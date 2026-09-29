@@ -42,6 +42,8 @@ html[data-theme="dark"] { --bg:#142019; --surface:#1b2921; --surface-2:#223127; 
 @keyframes connect-path { from { stroke-dashoffset:280; opacity:.2; } to { stroke-dashoffset:0; opacity:1; } }
 @keyframes connect-node { from { transform:translateY(8px); opacity:.3; } to { transform:translateY(0); opacity:1; } }
 .catalog-page-section,.technology-page-section { padding-block:70px 110px; background:var(--bg); }
+.technology-page-section { color:var(--text); }
+.technology-page-section .section-eyebrow { color:var(--amber-text); }
 .catalog-results { color:var(--text-soft); margin:22px 0; font-size:12px; }
 .catalog-grid { gap:22px; }
 .catalog-item { display:flex; flex-direction:column; background:var(--surface-2); border:1px solid var(--line); border-radius:14px; padding:24px; min-height:0; }
@@ -80,6 +82,10 @@ html[data-theme="dark"] { --bg:#142019; --surface:#1b2921; --surface-2:#223127; 
 .capability-card footer a { min-height:44px; }
 .technology-glossary { margin-top:65px; }
 .technology-glossary__grid article { background:var(--surface-2); border-radius:12px; padding:24px; }
+.technology-glossary>div:first-child h3,.technology-glossary__grid h4 { color:var(--text); }
+.technology-glossary>div:first-child>p:last-child,.technology-glossary__grid p { color:var(--text-soft); }
+.technology-glossary__grid header strong { color:var(--amber-text); }
+.technology-glossary__grid header span,.technology-glossary__grid article>small { color:var(--muted); }
 .technology-glossary__grid h4 { font-size:16px; }
 .technology-glossary__grid p { font-size:13px; }
 .technology-glossary__grid small { font-size:11px; }
@@ -115,6 +121,7 @@ html[data-theme="dark"] { --bg:#142019; --surface:#1b2921; --surface-2:#223127; 
 .explorer-heading { margin:0 0 30px; }
 
 .editorial-interior .interior-hero .section-eyebrow,.editorial-interior .editorial-page-hero [class*="eyebrow"]:not(.business-visual__eyebrow) { color:#fcb53f; }
+.editorial-interior .interior-hero .business-route-map .section-eyebrow,.editorial-interior .editorial-page-hero .business-route-map .section-eyebrow { color:#6b4a17; }
 .editorial-interior .diagnosis-section { background:#101614; --text:#f6f5ed; --text-soft:#c9d0c3; --muted:#c1ccba; --amber-text:#fcb53f; --green-text:#b9d47d; --line:#ffffff2a; }
 .editorial-interior .diagnosis-form,.editorial-interior .diagnosis-success { background:#1b2921; border-color:#536147; box-shadow:none; }
 .editorial-interior .diagnosis-form input,.editorial-interior .diagnosis-form select,.editorial-interior .diagnosis-form textarea,.editorial-interior .need-choice-grid label>span { background:#152019; }

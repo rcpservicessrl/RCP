@@ -11,6 +11,11 @@ const securityHeaders = [
   { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
 ];
 
+const privateRobotsHeaders = [
+  { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+  { key: "Cache-Control", value: "private, no-store" },
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   typedRoutes: true,
@@ -27,6 +32,10 @@ const nextConfig: NextConfig = {
         source: "/assets/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
+      ...["/api/:path*", "/app/:path*", "/portal/:path*", "/en/portal/:path*", "/checkout/:path*", "/en/request/:path*", "/dashboard/:path*", "/onboarding/:path*", "/private/:path*"].map((source) => ({
+        source,
+        headers: privateRobotsHeaders,
+      })),
     ];
   },
   async redirects() {

@@ -2,8 +2,9 @@ import { normalizeCapabilitySelection } from "@/lib/capability-selection";
 import { normalizeCatalogSelection } from "@/lib/catalog-selection";
 import { deliverCrm, deliverEmail, resolveDeliveryMode, validIdempotencyKey } from "@/lib/server/delivery";
 import { consumeRateLimit } from "@/lib/server/rate-limit";
+import { PayloadTooLargeError, readLimitedRequestBody } from "@/lib/server/request-body";
 import { normalizeSolutionSelection } from "@/lib/solution-selection";
-import { isAllowedRequestOrigin, isTurnstileRequired } from "@/lib/server/request-security";
+import { isAllowedRequestOrigin, isAllowedTurnstileHostname, isTurnstileRequired } from "@/lib/server/request-security";
 
 const MAX_BODY_BYTES = 24_000;
 const WHATSAPP_NUMBER = "18298068092";
@@ -42,19 +43,20 @@ const stableReference = async (idempotencyKey: string) => {
   return `RCP-EVAL-${suffix}`;
 };
 
-const verifyTurnstile = async (token: string) => {
+const verifyTurnstile = async (token: unknown) => {
   if (!isTurnstileRequired()) return true;
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret || !token) return false;
+  if (!secret || typeof token !== "string" || !token || token.length > 2_048) return false;
   try {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ secret, response: token }).toString(),
       signal: AbortSignal.timeout(5_000),
+      redirect: "error",
     });
-    const result = await response.json() as { success?: boolean };
-    return result.success === true;
+    const result = await response.json() as { success?: boolean; hostname?: unknown };
+    return response.ok && result.success === true && isAllowedTurnstileHostname(result.hostname);
   } catch {
     return false;
   }
@@ -77,11 +79,12 @@ export async function POST(request: Request) {
 
   let raw: InquiryPayload;
   try {
-    const body = await request.text();
+    const body = await readLimitedRequestBody(request, MAX_BODY_BYTES);
     if (byteLength(body) > MAX_BODY_BYTES) return invalid("payload_too_large", 413);
     raw = JSON.parse(body) as InquiryPayload;
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return invalid("invalid_json");
-  } catch {
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) return invalid("payload_too_large", 413);
     return invalid("invalid_json");
   }
 
@@ -112,7 +115,7 @@ export async function POST(request: Request) {
   if (!needOptions.has(inquiry.need) || !sectorOptions.has(inquiry.sector) || !contactOptions.has(inquiry.contactPreference)) return invalid("invalid_selection");
   if (inquiry.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email)) return invalid("invalid_email");
   if (inquiry.phone && inquiry.phone.replace(/\D/g, "").length < 7) return invalid("invalid_phone");
-  if (!await verifyTurnstile(text(raw.turnstileToken, 2_000))) return invalid("human_verification_failed");
+  if (!await verifyTurnstile(raw.turnstileToken)) return invalid("human_verification_failed");
 
   const reference = await stableReference(idempotencyKey!);
   const whatsappMessage = locale === "es"

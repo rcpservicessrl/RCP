@@ -3,6 +3,9 @@ type Bucket = { count: number; resetAt: number };
 const buckets = new Map<string, Bucket>();
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 8;
+const MAX_BUCKETS = 10_000;
+const CLEANUP_INTERVAL_MS = 60_000;
+let nextCleanupAt = 0;
 
 const clientAddress = (request: Request) => {
   const forwarded = request.headers.get("x-forwarded-for")?.split(",").map((part) => part.trim()).filter(Boolean).at(-1);
@@ -19,9 +22,19 @@ const digest = async (value: string) => {
 export async function consumeRateLimit(request: Request, scope: string) {
   const now = Date.now();
   const key = `${scope}:${await digest(clientAddress(request))}`;
+  if (now >= nextCleanupAt) {
+    for (const [bucketKey, bucket] of buckets) {
+      if (bucket.resetAt <= now) buckets.delete(bucketKey);
+    }
+    nextCleanupAt = now + CLEANUP_INTERVAL_MS;
+  }
   const current = buckets.get(key);
 
   if (!current || current.resetAt <= now) {
+    // Bound memory without evicting active clients and resetting their limits.
+    if (!current && buckets.size >= MAX_BUCKETS) {
+      return { allowed: false, retryAfter: Math.max(1, Math.ceil((nextCleanupAt - now) / 1000)) };
+    }
     buckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
     return { allowed: true, retryAfter: 0 };
   }

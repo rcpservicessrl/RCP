@@ -4,11 +4,11 @@ import Link from "next/link";
 import { ArrowIcon } from "@/components/icons";
 import { InteriorShell } from "@/components/interior-shell";
 import { Pulso } from "@/components/pulso";
-import { catalog, pillars, publicCatalogByPillar, t } from "@/lib/content";
-import type { Locale } from "@/lib/types";
+import { catalog, pillars, t } from "@/lib/content";
+import type { CatalogItem, Locale } from "@/lib/types";
 import styles from "./service-directory.module.css";
 
-export function ServiceDirectory({ locale }: { locale: Locale }) {
+export function ServiceDirectory({ locale, entries = catalog }: { locale: Locale; entries?: CatalogItem[] }) {
   const catalogHref = locale === "es" ? "/catalogo" : "/en/catalog";
   const technologyHref = locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions";
   const diagnosisHref = locale === "es" ? "/diagnostico" : "/en/diagnosis";
@@ -25,7 +25,7 @@ export function ServiceDirectory({ locale }: { locale: Locale }) {
             <h1>{locale === "es" ? "Tres pilares. Una intervención conectada." : "Three pillars. One connected intervention."}</h1>
             <p>{locale === "es" ? "Renovación, Consultoría y Publicidad trabajan como puertas de entrada complementarias. La tecnología se incorpora únicamente cuando mejora el proceso, el control o el resultado que la empresa necesita." : "Renewal, Consulting and Advertising work as complementary entry points. Technology is introduced only when it improves the process, control or outcome the business needs."}</p>
             <div className="interior-hero__facts">
-              <span>{locale === "es" ? `${catalog.length} rutas documentadas` : `${catalog.length} documented routes`}</span>
+              <span>{locale === "es" ? `${entries.length} rutas documentadas` : `${entries.length} documented routes`}</span>
               <span>{locale === "es" ? "Alcance por diagnóstico" : "Scope defined by diagnosis"}</span>
               <span>{locale === "es" ? "Evidencia y aceptación" : "Evidence and acceptance"}</span>
             </div>
@@ -44,7 +44,7 @@ export function ServiceDirectory({ locale }: { locale: Locale }) {
 
           <div className={styles.pillars}>
             {pillars.map((pillar, index) => {
-              const items = publicCatalogByPillar[pillar.id];
+              const items = entries.filter((entry) => entry.pillar === pillar.id);
               return (
                 <article id={pillar.id} className={styles.pillar} data-accent={pillar.accent} key={pillar.id}>
                   <header>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/types";
+import { readPreference, writePreference } from "@/lib/browser-preferences";
 
 type Consent = "essential" | "analytics" | null;
 
@@ -10,12 +11,12 @@ export function ConsentBanner({ locale }: { locale: Locale }) {
   const [consent, setConsent] = useState<Consent>("essential");
 
   useEffect(() => {
-    const stored = localStorage.getItem("rcp-consent-v2");
+    const stored = readPreference("rcp-consent-v2");
     setConsent(stored === "essential" || stored === "analytics" ? stored : null);
   }, []);
 
   const save = (next: Exclude<Consent, null>) => {
-    localStorage.setItem("rcp-consent-v2", next);
+    writePreference("rcp-consent-v2", next);
     setConsent(next);
     window.dispatchEvent(new CustomEvent("rcp:consent", { detail: next }));
   };

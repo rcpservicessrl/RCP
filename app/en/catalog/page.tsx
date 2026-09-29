@@ -3,6 +3,9 @@ import { PriceGuide } from "@/components/price-guide";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { InteriorShell } from "@/components/interior-shell";
 import { createPublicPageMetadata } from "@/lib/metadata";
+import { loadPublishedCatalog } from "@/lib/public-site-catalog";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = createPublicPageMetadata({
   locale: "en",
@@ -14,6 +17,7 @@ export const metadata = createPublicPageMetadata({
 
 export default async function EnglishCatalogPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
   const { service } = await searchParams;
+  const { items: entries } = await loadPublishedCatalog();
   return (
     <InteriorShell locale="en">
       <section className="interior-hero interior-hero--catalog">
@@ -23,7 +27,7 @@ export default async function EnglishCatalogPage({ searchParams }: { searchParam
         </div>
       </section>
       <PriceGuide locale="en" />
-      <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Services and products for your business</h2><CatalogExplorer locale="en" initialService={service} /></div></section>
+      <section className="catalog-page-section" id="explorar"><div className="container"><h2 className="explorer-heading">Services and products for your business</h2><CatalogExplorer locale="en" entries={entries} initialService={service} /></div></section>
     </InteriorShell>
   );
 }

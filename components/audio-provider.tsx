@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { readPreference, writePreference } from "@/lib/browser-preferences";
 
 interface AudioContextValue {
   playing: boolean;
@@ -17,9 +18,9 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const [volume, setVolumeState] = useState(0.18);
 
   useEffect(() => {
-    const storedVolume = Number.parseFloat(localStorage.getItem("rcp-music-volume") ?? "0.18");
+    const storedVolume = Number.parseFloat(readPreference("rcp-music-volume") ?? "0.18");
     const safeVolume = Number.isFinite(storedVolume) ? Math.min(0.45, Math.max(0, storedVolume)) : 0.18;
-    const storedTime = Number.parseFloat(localStorage.getItem("rcp-music-time") ?? "0");
+    const storedTime = Number.parseFloat(readPreference("rcp-music-time") ?? "0");
     const audio = new Audio("/Fondo%20Tech%20Emotivo.mp3");
     audio.loop = true;
     audio.preload = "metadata";
@@ -31,13 +32,13 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       if (Number.isFinite(storedTime) && storedTime > 0 && Number.isFinite(audio.duration) && storedTime < audio.duration) audio.currentTime = storedTime;
     };
     const persistTime = () => {
-      if (Number.isFinite(audio.currentTime)) localStorage.setItem("rcp-music-time", String(Math.round(audio.currentTime * 10) / 10));
+      if (Number.isFinite(audio.currentTime)) writePreference("rcp-music-time", String(Math.round(audio.currentTime * 10) / 10));
     };
     const handleVisibility = () => {
       if (document.hidden && !audio.paused) {
         audio.pause();
         persistTime();
-        localStorage.setItem("rcp-music-playing", "false");
+        writePreference("rcp-music-playing", "false");
         setPlaying(false);
       }
     };
@@ -62,24 +63,24 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     if (audio.paused) {
       try {
         await audio.play();
-        localStorage.setItem("rcp-music-playing", "true");
+        writePreference("rcp-music-playing", "true");
         setPlaying(true);
       } catch {
-        localStorage.setItem("rcp-music-playing", "false");
+        writePreference("rcp-music-playing", "false");
         setPlaying(false);
       }
       return;
     }
     audio.pause();
-    localStorage.setItem("rcp-music-time", String(Math.round(audio.currentTime * 10) / 10));
-    localStorage.setItem("rcp-music-playing", "false");
+    writePreference("rcp-music-time", String(Math.round(audio.currentTime * 10) / 10));
+    writePreference("rcp-music-playing", "false");
     setPlaying(false);
   }, []);
 
   const setVolume = useCallback((value: number) => {
     const safeVolume = Math.min(0.45, Math.max(0, value));
     setVolumeState(safeVolume);
-    localStorage.setItem("rcp-music-volume", String(safeVolume));
+    writePreference("rcp-music-volume", String(safeVolume));
     if (audioRef.current) audioRef.current.volume = safeVolume;
   }, []);
 

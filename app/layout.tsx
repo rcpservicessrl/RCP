@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Montserrat, Space_Grotesk } from "next/font/google";
-import { AudioProvider } from "@/components/audio-provider";
+import Script from "next/script";
 import { headers } from "next/headers";
+import { AudioProvider } from "@/components/audio-provider";
 import "./globals.css";
 import "./editorial-system.css";
 import "./customer-journey.css";
@@ -63,26 +64,12 @@ export const viewport: Viewport = {
   colorScheme: "dark light",
 };
 
-const themeScript = `
-  (() => {
-    try {
-      const stored = localStorage.getItem('rcp-theme');
-      const theme = stored === 'light' || stored === 'dark'
-        ? stored
-        : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-      document.documentElement.lang = location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en-US' : 'es-DO';
-    } catch (_) {}
-  })();
-`;
-
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const nonce = (await headers()).get("x-csp-nonce") ?? undefined;
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html data-scroll-behavior="smooth" lang="es-DO" data-theme="light" suppressHydrationWarning className={`${montserrat.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <Script src="/theme-init.js" strategy="beforeInteractive" nonce={nonce} />
       </head>
       <body><AudioProvider>{children}</AudioProvider></body>
     </html>

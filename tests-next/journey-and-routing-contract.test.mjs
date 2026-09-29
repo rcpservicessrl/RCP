@@ -53,12 +53,12 @@ test("selected technology context is validated before it reaches the inquiry pro
 });
 
 test("Turnstile stays optional in development and fails closed in production", async () => {
-  const [environment, field, form, endpoint, middleware] = await Promise.all([
+  const [environment, field, form, endpoint, proxy] = await Promise.all([
     read(".env.example"),
     read("components/turnstile-field.tsx"),
     read("components/diagnosis-form.tsx"),
     read("app/api/inquiries/route.ts"),
-    read("middleware.ts"),
+    read("proxy.ts"),
   ]);
 
   assert.match(environment, /^RCP_REQUIRE_TURNSTILE=false$/m);
@@ -78,16 +78,16 @@ test("Turnstile stays optional in development and fails closed in production", a
 
   assert.match(endpoint, /isTurnstileRequired\(\)/);
   assert.match(endpoint, /const secret = process\.env\.TURNSTILE_SECRET_KEY/);
-  assert.match(endpoint, /verifyTurnstile\(text\(raw\.turnstileToken, 2_000\)\)/);
-  assert.match(endpoint, /if \(!secret \|\| !token\) return false/);
+  assert.match(endpoint, /verifyTurnstile\(raw\.turnstileToken\)/);
+  assert.match(endpoint, /if \(!secret \|\| typeof token !== "string" \|\| !token \|\| token\.length > 2_048\) return false/);
   assert.match(endpoint, /https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/siteverify/);
   assert.match(endpoint, /new URLSearchParams\(\{ secret, response: token \}\)/);
-  assert.match(endpoint, /return result\.success === true/);
-  assert.match(endpoint, /if \(!await verifyTurnstile\(text\(raw\.turnstileToken, 2_000\)\)\) return invalid\("human_verification_failed"\)/);
+  assert.match(endpoint, /return response\.ok && result\.success === true && isAllowedTurnstileHostname\(result\.hostname\)/);
+  assert.match(endpoint, /if \(!await verifyTurnstile\(raw\.turnstileToken\)\) return invalid\("human_verification_failed"\)/);
   assert.doesNotMatch(endpoint, /NEXT_PUBLIC_TURNSTILE_SITE_KEY/);
 
-  assert.match(middleware, /script-src 'self' 'nonce-\$\{nonce\}'/);
-  assert.match(middleware, /frame-src[^\n]*https:\/\/challenges\.cloudflare\.com/);
+  assert.match(proxy, /script-src 'self' 'nonce-\$\{nonce\}'/);
+  assert.match(proxy, /frame-src[^\n]*https:\/\/challenges\.cloudflare\.com/);
 });
 
 test("new bilingual information pages declare canonical locale pairs and stay discoverable", async () => {

@@ -8,18 +8,24 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (relative) => readFile(path.join(root, relative), "utf8");
 
 test("active web intake fails closed and blocks cross-site abuse", async () => {
-  const [security, inquiry, specialist, field] = await Promise.all([
+  const [security, inquiry, specialist, field, diagnosisForm, specialistForm] = await Promise.all([
     read("lib/server/request-security.ts"),
     read("app/api/inquiries/route.ts"),
     read("app/api/specialist-applications/route.ts"),
     read("components/turnstile-field.tsx"),
+    read("components/diagnosis-form.tsx"),
+    read("components/specialist-application-form.tsx"),
   ]);
   assert.match(security, /fetchSite === "cross-site"/);
+  assert.match(security, /if \(!origin\) return !isProductionEnvironment\(\)/);
   assert.match(security, /NODE_ENV === "production"/);
   assert.match(security, /RCP_DEPLOYMENT_ENV === "production"/);
   assert.match(inquiry, /isAllowedRequestOrigin\(request\)/);
   assert.match(specialist, /isAllowedRequestOrigin\(request\)/);
-  assert.match(field, /security verification is not available yet/);
+  assert.match(field, /Security verification is pending/);
+  assert.match(diagnosisForm, /onClick=\{nextStep\} disabled=\{antiAbuseUnavailable\}/);
+  assert.match(diagnosisForm, /disabled=\{state === "submitting" \|\| antiAbuseUnavailable\}/);
+  assert.match(specialistForm, /disabled=\{state === "submitting" \|\| antiAbuseUnavailable\}/);
 });
 
 test("server delivery has an explicit CRM host boundary and private handoff", async () => {

@@ -38,7 +38,7 @@ export function TurnstileField({ locale, resetSignal = 0 }: { locale: Locale; re
 
   if (!siteKey) return <>
     <input type="hidden" name="turnstileToken" value="" readOnly />
-    <small role="alert">{locale === "es" ? "La verificación de seguridad no está disponible todavía." : "The security verification is not available yet."}</small>
+    <small role="alert">{locale === "es" ? "La verificación de seguridad está pendiente. La solicitud se habilitará cuando RCP complete esta configuración." : "Security verification is pending. Submission will be enabled when RCP completes this configuration."}</small>
   </>;
 
   return (
