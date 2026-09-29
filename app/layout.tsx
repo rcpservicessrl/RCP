@@ -4,6 +4,9 @@ import { Montserrat, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import { headers } from "next/headers";
 import { AudioProvider } from "@/components/audio-provider";
+import { JsonLd } from "@/components/json-ld";
+import { homeDescriptions } from "@/lib/public-contact";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 import "./editorial-system.css";
 import "./customer-journey.css";
@@ -20,11 +23,15 @@ export const metadata: Metadata = {
     default: "RCP Services | Estrategia que transforma. Tecnología que impulsa.",
     template: "%s | RCP Services",
   },
-  description: "Le damos nuevo impulso a tu negocio con Renovación, Consultoría y Publicidad, apoyadas por tecnología cuando aporta valor.",
+  description: homeDescriptions.es,
   applicationName: "RCP Services",
   authors: [{ name: "RCP Services SRL", url: siteUrl }],
   creator: "RCP Services SRL",
   publisher: "RCP Services SRL",
+  verification: {
+    google: "pB_WF5BiCe7lQ-brB0yIEuzZh_15pKuQ7OUSJxm5UFY",
+    other: { "msvalidate.01": "C79DA2E05C8B71C55756078EA7E5991D" },
+  },
   formatDetection: { email: false, address: false, telephone: false },
   icons: {
     icon: [{ url: "/icono-rcp.png", sizes: "512x512", type: "image/png" }],
@@ -71,7 +78,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <Script src="/theme-init.js" strategy="beforeInteractive" nonce={nonce} />
       </head>
-      <body><AudioProvider>{children}</AudioProvider></body>
+      <body><JsonLd data={organizationJsonLd} /><JsonLd data={websiteJsonLd} /><AudioProvider>{children}</AudioProvider></body>
     </html>
   );
 }

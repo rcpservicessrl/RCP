@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/types";
 import { readPreference, writePreference } from "@/lib/browser-preferences";
+import { WhatsAppIcon } from "@/components/icons";
+import { publicContact } from "@/lib/public-contact";
 
 type Consent = "essential" | "analytics" | null;
 
@@ -26,7 +28,10 @@ export function ConsentBanner({ locale }: { locale: Locale }) {
   return (
     <aside className="consent-banner" aria-label={locale === "es" ? "Preferencias de privacidad" : "Privacy preferences"}>
       <div>
-        <strong>{locale === "es" ? "Tu experiencia, bajo tu control." : "Your experience, under your control."}</strong>
+        <div className="consent-banner__heading">
+          <strong>{locale === "es" ? "Tu experiencia, bajo tu control." : "Your experience, under your control."}</strong>
+          <a className="consent-whatsapp" href={publicContact.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={locale === "es" ? "Contactar a RCP por WhatsApp (abre en otra pestaña)" : "Contact RCP on WhatsApp (opens in a new tab)"}><WhatsAppIcon size={24} /></a>
+        </div>
         <p>{locale === "es" ? "Guardamos tema, idioma y música en este dispositivo. La analítica solo se activa con tu permiso." : "We save theme, language and music on this device. Analytics only activates with your permission."} <Link href={locale === "es" ? "/cookies" : "/en/cookies"}>{locale === "es" ? "Ver política" : "View policy"}</Link>.</p>
       </div>
       <div className="consent-banner__actions">

@@ -1,6 +1,21 @@
 .pulso-help__avatar { width:48px; height:48px; display:grid; place-items:center; }
 .pulso-help__avatar>img { width:46px; height:46px; object-fit:contain; }
 .pulso-help__trigger { min-width:60px; min-height:60px; }
+.contact-dock { display:flex; align-items:center; gap:10px; }
+.whatsapp-float { display:grid; place-items:center; width:60px; height:60px; flex:none; border:1px solid #b57915; border-radius:50%; background:#fcb53f; color:#151b17; box-shadow:0 10px 30px rgb(0 0 0 / 20%); }
+.whatsapp-float:hover { background:#ffd17c; }
+.whatsapp-float:focus-visible, .consent-whatsapp:focus-visible, .social-links a:focus-visible { outline:3px solid #fcb53f; outline-offset:4px; }
+.site-footer .social-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.site-footer .social-links a { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:9px 12px; border:1px solid #fcb53f66; border-radius:8px; color:#fcb53f; }
+.site-footer .social-links a span { color:inherit; }
+.site-footer .social-links a:hover { color:#151b17; background:#fcb53f; }
+.site-footer__bottom { padding-bottom:84px; }
+.consent-whatsapp { display:none; }
+@media(max-width:760px) {
+  body:has(.consent-banner) .pulso-help { visibility:hidden; pointer-events:none; }
+  .consent-banner__heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .consent-whatsapp { display:grid; place-items:center; flex:0 0 44px; width:44px; height:44px; border-radius:50%; background:#fcb53f; color:#151b17; }
+}
 .pulso-help__panel { max-height:calc(100svh - 110px); overflow-y:auto; }
 body:has(.selection-tray) .pulso-help:not(.is-open) { bottom:180px; }
 .price-guide { background:#f2f1e9; color:#1c2a20; padding:76px 0; }

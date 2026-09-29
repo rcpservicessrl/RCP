@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
+import { localizedRoutes } from "@/lib/localized-routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rcp.services";
-  const lastModified = new Date("2026-09-06T00:00:00-04:00");
   const routes = [
     ["", 1, "weekly"],
     ["/servicios", 0.95, "weekly"],
@@ -56,10 +56,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/en/accessibility", 0.2, "yearly"],
   ] as const;
 
-  return routes.map(([path, priority, changeFrequency]) => ({
-    url: `${baseUrl}${path}`,
-    lastModified,
-    changeFrequency,
-    priority,
-  }));
+  return routes.map(([path, priority, changeFrequency]) => {
+    const languages = localizedRoutes.find((pair) => pair.some((route) => route === (path || "/")));
+    return {
+      url: `${baseUrl}${path}`,
+      changeFrequency,
+      priority,
+      ...(languages && {
+        alternates: {
+          languages: {
+            "es-DO": `${baseUrl}${languages[0]}`,
+            "en-US": `${baseUrl}${languages[1]}`,
+          },
+        },
+      }),
+    };
+  });
 }

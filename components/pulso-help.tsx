@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/types";
-import { ArrowIcon, CloseIcon, SearchIcon, SparkIcon } from "@/components/icons";
+import { ArrowIcon, CloseIcon, SearchIcon, SparkIcon, WhatsAppIcon } from "@/components/icons";
+import { publicContact } from "@/lib/public-contact";
 import { Pulso, type PulsoScene } from "@/components/pulso";
 
 interface PulsoHelpProps {
@@ -70,10 +71,15 @@ export function PulsoHelp({ locale, scene = "idle", contextLabel, onOpenSearch }
           <p className="pulso-help__limit">{locale === "es" ? "Pulso orienta; no emite diagnósticos legales, fiscales ni financieros." : "Pulso guides; it does not issue legal, tax or financial diagnoses."}</p>
         </section>
       )}
+      <div className="contact-dock">
       <button ref={triggerRef} type="button" className="pulso-help__trigger" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-label={locale === "es" ? "Abrir guía de Pulso" : "Open Pulso guide"}>
         <span className="pulso-help__avatar"><Image src="/icono-rcp.png" width={48} height={48} alt="" sizes="48px" /></span>
         <span className="pulso-help__name"><strong>Pulso</strong><small>{locale === "es" ? "¿Te oriento?" : "Need a route?"}</small></span>
       </button>
+      <a className="whatsapp-float" href={publicContact.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={locale === "es" ? "Contactar a RCP por WhatsApp (abre en otra pestaña)" : "Contact RCP on WhatsApp (opens in a new tab)"}>
+        <WhatsAppIcon size={28} />
+      </a>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { publicContact } from "@/lib/public-contact";
+
 const content = `# RCP Services
 
 RCP Services is a business transformation company for small businesses in the Dominican Republic.
@@ -9,6 +11,7 @@ Public promise in Spanish: "Le damos nuevo impulso a tu negocio." Heart and puls
 - Renewal, Consulting and Advertising are the three pillars. 360 Advertising describes how the Advertising pillar brings together digital channels, print, signage and promotional materials.
 - Technology is transversal and is selected only when it improves a process, reduces risk or accelerates an outcome.
 - RCP 360 Diagnosis is the qualification entry point.
+- The initial assessment is a free 45-minute conversation, subject to confirmation. A deeper diagnosis, if needed, is scoped separately.
 - Software is designed or integrated to fit the client's process; it is not a universal suite.
 
 ## Public routes
@@ -24,6 +27,9 @@ Public promise in Spanish: "Le damos nuevo impulso a tu negocio." Heart and puls
 - https://rcp.services/facturacion-electronica
 - https://rcp.services/como-trabajamos
 - https://rcp.services/sectores
+- https://rcp.services/soluciones/comercios
+- https://rcp.services/soluciones/empresas-de-servicios
+- https://rcp.services/herramientas
 - https://rcp.services/diagnostico
 - https://rcp.services/contacto
 - https://rcp.services/recursos
@@ -42,6 +48,9 @@ Public promise in Spanish: "Le damos nuevo impulso a tu negocio." Heart and puls
 - https://rcp.services/en/electronic-invoicing
 - https://rcp.services/en/how-we-work
 - https://rcp.services/en/sectors
+- https://rcp.services/en/solutions/retail
+- https://rcp.services/en/solutions/service-businesses
+- https://rcp.services/en/tools
 - https://rcp.services/en/diagnosis
 - https://rcp.services/en/contact
 - https://rcp.services/en/resources
@@ -59,6 +68,10 @@ Public promise in Spanish: "Le damos nuevo impulso a tu negocio." Heart and puls
 - The public catalog does not publish rigid prices or process online payments; scope and ownership are defined after qualification.
 
 Contact: info@rcp.services
+Phone: +1-829-806-8092
+Address: Av. Rómulo Betancourt 1302, Bella Vista, Santo Domingo, Dominican Republic.
+Sitemap: https://rcp.services/sitemap.xml
+Official profiles: ${publicContact.socialProfiles.map((profile) => profile.href).join(", ")}
 `;
 
 export function GET() {
