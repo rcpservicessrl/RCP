@@ -119,7 +119,7 @@ test("delivery automation targets Vercel and requires an explicit production rel
   assert.match(deploy, /workflow_dispatch/);
   assert.match(deploy, /DEPLOY_RCP_SERVICES/);
   assert.match(deploy, /vercel@latest deploy --prod --skip-domain/);
-  assert.match(deploy, /vercel@latest curl \/api\/health/);
+  assert.match(deploy, /vercel@latest --token="\$VERCEL_TOKEN" curl \/api\/health/);
   assert.match(deploy, /vercel@latest promote/);
   assert.match(deploy, /scripts\/deployment-smoke\.mjs/);
   assert.match(deploy, /vercel@latest rollback/);
