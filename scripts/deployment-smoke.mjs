@@ -50,7 +50,10 @@ try {
 
       await page.goto(new URL("/diagnostico", origin).href, { waitUntil: "domcontentloaded" });
       await page.waitForTimeout(1200);
-      assert.equal(await page.getByRole("button", { name: "Cambiar tema" }).count() > 0, true, "site must stay interactive");
+      const headerControl = width === 390
+        ? page.getByRole("button", { name: "Abrir menú" })
+        : page.getByRole("button", { name: "Cambiar tema" });
+      await headerControl.waitFor({ state: "visible" });
       assert.deepEqual(errors, [], `browser errors at ${width}px`);
       console.log(`Production browser smoke passed at ${width}px`);
     } finally {

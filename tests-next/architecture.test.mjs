@@ -124,7 +124,7 @@ test("delivery automation targets Vercel and requires an explicit production rel
   assert.doesNotMatch(deploy, /--token=/);
   assert.match(deploy, /vercel@latest promote/);
   assert.match(deploy, /scripts\/deployment-smoke\.mjs/);
-  assert.match(deploy, /vercel@latest rollback/);
+  assert.match(deploy, /promote "\$ROLLBACK_DEPLOYMENT_ID"/);
   assert.doesNotMatch(deploy, /vercel@latest (?:pull|build)|--prebuilt/);
   assert.match(deploy, /node-version: 24/);
   assert.doesNotMatch(deploy, /deploy-pages|github-pages|npm ci/i);

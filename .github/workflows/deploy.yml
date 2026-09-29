@@ -74,7 +74,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           ROLLBACK_DEPLOYMENT_ID: ${{ inputs.rollback_deployment_id }}
-        run: pnpm dlx vercel@latest rollback "$ROLLBACK_DEPLOYMENT_ID" --yes
+        run: pnpm dlx vercel@latest promote "$ROLLBACK_DEPLOYMENT_ID" --yes
       - name: Fail the release if smoke failed
         if: ${{ always() && steps.smoke.outcome == 'failure' }}
         run: exit 1
