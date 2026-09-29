@@ -47,7 +47,7 @@ jobs:
       - name: Deploy a staged production build
         id: candidate
         run: |
-          url=$(pnpm dlx vercel@latest deploy --prod --skip-domain --yes --token="$VERCEL_TOKEN")
+          url=$(pnpm dlx vercel@latest deploy --prod --skip-domain --yes)
           echo "url=$url" >> "$GITHUB_OUTPUT"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           DEPLOYMENT_URL: ${{ steps.candidate.outputs.url }}
         run: |
-          pnpm dlx vercel@latest --token="$VERCEL_TOKEN" curl /api/health --deployment "$DEPLOYMENT_URL" -- --silent --show-error > health.json
+          pnpm dlx vercel@latest curl /api/health --deployment "$DEPLOYMENT_URL" > health.json
           node -e 'const h=require("./health.json"); if (!h.ok || h.deliveryMode !== "crm") process.exit(1)'
       - name: Install browser for production smoke test
         run: pnpm exec playwright install --with-deps chromium
@@ -64,7 +64,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           DEPLOYMENT_URL: ${{ steps.candidate.outputs.url }}
-        run: pnpm dlx vercel@latest promote "$DEPLOYMENT_URL" --yes --token="$VERCEL_TOKEN"
+        run: pnpm dlx vercel@latest promote "$DEPLOYMENT_URL" --yes
       - name: Verify production interactions on desktop and mobile
         id: smoke
         continue-on-error: true
@@ -74,7 +74,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           ROLLBACK_DEPLOYMENT_ID: ${{ inputs.rollback_deployment_id }}
-        run: pnpm dlx vercel@latest rollback "$ROLLBACK_DEPLOYMENT_ID" --yes --token="$VERCEL_TOKEN"
+        run: pnpm dlx vercel@latest rollback "$ROLLBACK_DEPLOYMENT_ID" --yes
       - name: Fail the release if smoke failed
         if: ${{ always() && steps.smoke.outcome == 'failure' }}
         run: exit 1
