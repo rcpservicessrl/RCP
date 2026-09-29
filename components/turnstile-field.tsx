@@ -16,27 +16,33 @@ declare global {
 }
 
 export function TurnstileField({ locale, resetSignal = 0 }: { locale: Locale; resetSignal?: number }) {
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const configuredSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const siteKey = configuredSiteKey && configuredSiteKey !== "[SENSITIVE]" ? configuredSiteKey : undefined;
   const containerRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
   const [token, setToken] = useState("");
+  const [renderFailed, setRenderFailed] = useState(false);
 
   useEffect(() => {
-    if (!siteKey || !ready || !containerRef.current || !window.turnstile) return;
+    if (!siteKey || !ready || renderFailed || !containerRef.current || !window.turnstile) return;
     setToken("");
-    const widgetId = window.turnstile.render(containerRef.current, {
-      sitekey: siteKey,
-      theme: "auto",
-      size: "flexible",
-      appearance: "interaction-only",
-      callback: (nextToken: string) => setToken(nextToken),
-      "expired-callback": () => setToken(""),
-      "error-callback": () => setToken(""),
-    });
-    return () => window.turnstile?.remove(widgetId);
-  }, [ready, resetSignal, siteKey]);
+    try {
+      const widgetId = window.turnstile.render(containerRef.current, {
+        sitekey: siteKey,
+        theme: "auto",
+        size: "flexible",
+        appearance: "interaction-only",
+        callback: (nextToken: string) => setToken(nextToken),
+        "expired-callback": () => setToken(""),
+        "error-callback": () => setToken(""),
+      });
+      return () => window.turnstile?.remove(widgetId);
+    } catch {
+      setRenderFailed(true);
+    }
+  }, [ready, renderFailed, resetSignal, siteKey]);
 
-  if (!siteKey) return <>
+  if (!siteKey || renderFailed) return <>
     <input type="hidden" name="turnstileToken" value="" readOnly />
     <small role="alert">{locale === "es" ? "La verificación de seguridad está pendiente. La solicitud se habilitará cuando RCP complete esta configuración." : "Security verification is pending. Submission will be enabled when RCP completes this configuration."}</small>
   </>;

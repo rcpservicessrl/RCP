@@ -118,8 +118,12 @@ test("delivery automation targets Vercel and requires an explicit production rel
   assert.match(pullRequest, /pnpm install --frozen-lockfile/);
   assert.match(deploy, /workflow_dispatch/);
   assert.match(deploy, /DEPLOY_RCP_SERVICES/);
-  assert.match(deploy, /vercel@latest build --prod/);
-  assert.match(deploy, /vercel@latest deploy --prebuilt --prod/);
+  assert.match(deploy, /vercel@latest deploy --prod --skip-domain/);
+  assert.match(deploy, /vercel@latest curl \/api\/health/);
+  assert.match(deploy, /vercel@latest promote/);
+  assert.match(deploy, /scripts\/deployment-smoke\.mjs/);
+  assert.match(deploy, /vercel@latest rollback/);
+  assert.doesNotMatch(deploy, /vercel@latest (?:pull|build)|--prebuilt/);
   assert.match(deploy, /node-version: 24/);
   assert.doesNotMatch(deploy, /deploy-pages|github-pages|npm ci/i);
   assert.match(vercel, /"framework": "nextjs"/);

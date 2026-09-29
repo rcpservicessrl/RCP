@@ -65,7 +65,8 @@ test("Turnstile stays optional in development and fails closed in production", a
   assert.match(environment, /^NEXT_PUBLIC_TURNSTILE_SITE_KEY=$/m);
   assert.match(environment, /^TURNSTILE_SECRET_KEY=$/m);
 
-  assert.match(field, /if \(!siteKey\) return <>/);
+  assert.match(field, /configuredSiteKey !== "\[SENSITIVE\]"/);
+  assert.match(field, /if \(!siteKey \|\| renderFailed\) return <>/);
   assert.match(field, /role="alert"/);
   assert.match(field, /https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
   assert.match(field, /sitekey: siteKey/);

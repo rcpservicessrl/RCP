@@ -7,6 +7,10 @@ on:
         description: Type DEPLOY_RCP_SERVICES after the exact commit and rollback have been approved
         required: true
         type: string
+      rollback_deployment_id:
+        description: Previously verified production deployment ID to restore if the browser smoke test fails
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -40,12 +44,37 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: https://rcp.services
           RCP_DEPLOYMENT_ENV: production
-      - name: Pull Vercel production settings
-        run: pnpm dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build the approved production artifact
-        run: pnpm dlx vercel@latest build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy a staged production build
+        id: candidate
+        run: |
+          url=$(pnpm dlx vercel@latest deploy --prod --skip-domain --yes --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
         env:
-          NEXT_PUBLIC_SITE_URL: https://rcp.services
-          RCP_DEPLOYMENT_ENV: production
-      - name: Deploy the prebuilt artifact
-        run: pnpm dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - name: Check the staged deployment
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.candidate.outputs.url }}
+        run: |
+          pnpm dlx vercel@latest curl /api/health --deployment "$DEPLOYMENT_URL" --token="$VERCEL_TOKEN" -- --silent --show-error > health.json
+          node -e 'const h=require("./health.json"); if (!h.ok || h.deliveryMode !== "crm") process.exit(1)'
+      - name: Install browser for production smoke test
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Promote the verified build
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.candidate.outputs.url }}
+        run: pnpm dlx vercel@latest promote "$DEPLOYMENT_URL" --yes --token="$VERCEL_TOKEN"
+      - name: Verify production interactions on desktop and mobile
+        id: smoke
+        continue-on-error: true
+        run: node scripts/deployment-smoke.mjs https://rcp.services
+      - name: Restore the verified production deployment if smoke fails
+        if: steps.smoke.outcome == 'failure'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          ROLLBACK_DEPLOYMENT_ID: ${{ inputs.rollback_deployment_id }}
+        run: pnpm dlx vercel@latest rollback "$ROLLBACK_DEPLOYMENT_ID" --yes --token="$VERCEL_TOKEN"
+      - name: Fail the release if smoke failed
+        if: ${{ always() && steps.smoke.outcome == 'failure' }}
+        run: exit 1
