@@ -2,7 +2,7 @@
 id: sitio-web-social-search-20260930
 project: sitio-web
 status: current
-recorded_at: 2026-09-30T04:33:00-04:00
+recorded_at: 2026-09-30T04:51:31-04:00
 source_refs:
   - daeeff4cb21e6ab8e869eaf2c6655643b787f2d2
   - 77e697c85b13a0bd767fb9f9e53fc8bbe5e5e658
@@ -16,6 +16,9 @@ validation:
   - Google verified the HTTPS URL-prefix property using the published HTML tag on 2026-09-30
   - Google sitemap reported Correcto and 50 discovered pages on 2026-09-30
   - Bing verified the published HTML tag and registered the sitemap as Processing on 2026-09-30
+  - Google URL Inspection confirmed the homepage indexed with matching canonical and successful smartphone crawl on 2026-09-30
+  - Google live URL test confirmed the published homepage available and indexable on 2026-09-30
+  - Bing accepted a technical SEO/GEO scan limited to the public sitemap and 50 pages on 2026-09-30
 supersedes: []
 superseded_by: null
 owner: RCP Services
@@ -51,12 +54,22 @@ Bing Webmaster Tools verificó `https://rcp.services/` mediante la etiqueta HTML
 
 Evidencias locales: `C:/RCP/.artifacts/site-social-seo-20260929/google-sitemap-success.png`, `google-index-processing.png` y `bing-sitemap-submitted.png` en el mismo directorio. No contienen credenciales y no se publican en el repositorio.
 
+### Comprobación posterior de indexación y análisis técnico
+
+La inspección individual de `https://rcp.services/` confirmó **La URL está en Google** y **La página está indexada**. El último rastreo fue el 2026-09-30 a las 04:30:31 con el robot para smartphones: rastreo permitido, obtención correcta e indexación permitida. La canónica declarada y la seleccionada por Google coinciden con la URL inspeccionada. Este resultado corresponde a la portada; no demuestra que las 50 páginas estén indexadas. El informe agregado de exclusiones continúa procesándose.
+
+La prueba en tiempo real del 2026-09-30 a las 04:48 confirmó **La URL está disponible para Google** y **La página se puede indexar**. No se solicitó de nuevo la indexación de una portada ya indexada y rastreada ese mismo día. Evidencias: `google-home-indexed.png` y `google-home-live-test.png` en el directorio local anterior.
+
+Bing aceptó el análisis **RCP public SEO GEO audit 2026-09-30**, limitado a `https://rcp.services/sitemap.xml` y 50 páginas. Pasó de **Queued** a **Processing**. Para ese análisis puntual de URLs públicas se autorizó ignorar robots.txt; las reglas publicadas del sitio permanecen vigentes. Se desactivaron los correos del análisis y no se incluyeron subdominios ni rutas privadas. Todavía no hay totales de errores o advertencias del análisis; los guiones no se interpretan como cero. Evidencia local: `bing-site-scan-queued.png`.
+
+Las recomendaciones de Bing mostraron **No data available**. El informe **AI Performance** para Microsoft Copilots and Partners mostró cero citas y ninguna fila entre el 2026-06-29 y el 2026-09-28; la consola aclara que presenta una muestra que puede cambiar con el procesamiento. No se atribuye este resultado a otros buscadores de IA ni se presenta como una garantía de ausencia de citas. Evidencia local: `bing-ai-performance.png`.
+
 El bloqueo de automatización se resolvió para esta tarea usando el control soportado de la extensión de Chrome en el perfil RCP mediante `cua_repl`. El método nativo de Windows había fallado al identificar la URL con suficiente confianza; no se alteró esa protección ni se ha demostrado reparado ese método. La consola de Bing quedó en blanco después de verificar; una recarga recuperó la página y permitió registrar el sitemap.
 
 ## Límites y próximo paso
 
 La configuración pública, las verificaciones HTTPS y los envíos de sitemap a Google y Bing están completados. La propiedad de dominio de Google permanece sin verificar en la cuenta RCP; no se necesita para el sitemap y los informes de la propiedad HTTPS confirmada. No se ampliaron permisos de DNS, no se crearon nuevas credenciales OAuth y no se extrajeron cookies. La alternativa gcloud quedó descartada por su respuesta `403` de scopes insuficientes.
 
-El único seguimiento pendiente es revisar los resultados de rastreo, indexación y exclusiones cuando los proveedores terminen de procesar. No reenviar el mismo sitemap mientras esté en Processing ni repetir el POST de IndexNow recibido. La presencia en resultados, citas de IA y posiciones no están garantizadas por el envío. No hay una nueva publicación de código pendiente derivada de estas acciones en las consolas.
+El seguimiento pendiente es revisar los resultados de rastreo, exclusiones y el análisis técnico SEO/GEO de Bing cuando los proveedores terminen de procesar. La indexación de la portada está confirmada; la cobertura completa todavía no. No reenviar el mismo sitemap mientras esté en Processing, duplicar el análisis en curso ni repetir el POST de IndexNow recibido. La presencia en resultados, citas de IA y posiciones no están garantizadas por el envío. No hay una nueva publicación de código pendiente derivada de estas acciones en las consolas.
 
 Referencias públicas: [IndexNow](https://www.indexnow.org/documentation), [rastreadores de Amazon](https://developer.amazon.com/en/amazonbot), [YepBot](https://yep.com/yepbot/), [Naver Yeti](https://searchadvisor.naver.com/guide/seo-basic-firewall), [SeznamBot](https://o-seznam.cz/napoveda/vyhledavani/en/crawling-control/) y [Yandex](https://yandex.com/support/webmaster/en/robot-workings/user-agent).
