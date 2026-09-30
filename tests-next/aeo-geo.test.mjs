@@ -15,12 +15,12 @@ test("discovery bots can crawl public production routes while private and previe
     process.env.RCP_DEPLOYMENT_ENV = "production";
     const { rules } = robots();
     const ruleFor = (bot) => rules.find((rule) => [].concat(rule.userAgent).includes(bot)) ?? rules.find((rule) => rule.userAgent === "*");
-    for (const bot of ["Googlebot", "Google-Extended", "OAI-SearchBot", "PerplexityBot", "Bingbot", "DuckDuckBot", "Applebot", "Claude-SearchBot", "Claude-User"]) {
+    for (const bot of ["Googlebot", "Google-Extended", "OAI-SearchBot", "PerplexityBot", "Bingbot", "DuckDuckBot", "Applebot", "Claude-SearchBot", "Claude-User", "YandexBot", "SeznamBot", "Yeti", "YepBot", "AhrefsBot", "Amzn-SearchBot", "Amzn-User"]) {
       const rule = ruleFor(bot);
       assert.equal(rule.allow, "/", `${bot} must discover public pages`);
       for (const route of ["/api/", "/portal", "/en/portal", "/checkout", "/en/request", "/private/"]) assert.ok(rule.disallow.includes(route), `${bot} must exclude ${route}`);
     }
-    for (const bot of ["CCBot", "GPTBot", "ClaudeBot", "Bytespider", "Applebot-Extended", "UnknownBot"]) assert.equal(ruleFor(bot).disallow, "/", `${bot} must remain excluded`);
+    for (const bot of ["CCBot", "GPTBot", "ClaudeBot", "Bytespider", "Applebot-Extended", "Amazonbot", "UnknownBot"]) assert.equal(ruleFor(bot).disallow, "/", `${bot} must remain excluded`);
     process.env.RCP_DEPLOYMENT_ENV = "preview";
     assert.deepEqual(robots().rules, [{ userAgent: "*", disallow: "/" }]);
   } finally {

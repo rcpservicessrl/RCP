@@ -13,12 +13,12 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: ["Googlebot", "Google-Extended", "OAI-SearchBot", "PerplexityBot", "Bingbot", "DuckDuckBot", "Applebot", "Claude-SearchBot", "Claude-User"],
+        userAgent: ["Googlebot", "Google-Extended", "OAI-SearchBot", "PerplexityBot", "Bingbot", "DuckDuckBot", "Applebot", "Claude-SearchBot", "Claude-User", "YandexBot", "SeznamBot", "Yeti", "YepBot", "AhrefsBot", "Amzn-SearchBot", "Amzn-User"],
         allow: "/",
         disallow: privatePaths,
       },
       {
-        userAgent: ["CCBot", "GPTBot", "ClaudeBot", "Bytespider", "Applebot-Extended"],
+        userAgent: ["CCBot", "GPTBot", "ClaudeBot", "Bytespider", "Applebot-Extended", "Amazonbot"],
         disallow: "/",
       },
       {
