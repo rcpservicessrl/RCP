@@ -1,5 +1,6 @@
 # Gobierno documental del sitio RCP Services
 
+- [Publicación de redes y descubrimiento del 30 de septiembre](SEO_SOCIAL_RELEASE_2026-09-30.md): canales oficiales, WhatsApp, SEO publicado, recepción de IndexNow y verificaciones pendientes de Google/Bing.
 - [Auditoría visual del 8 de septiembre](VISUAL_AUDIT_2026-09-08.md): SVG, imágenes de negocios, corrección publicada y evidencia responsive.
 - [Publicación web vigente](WEB_PUBLICATION_2026-09-08.md): fuente, deployment, aceptación y límites operativos.
 
