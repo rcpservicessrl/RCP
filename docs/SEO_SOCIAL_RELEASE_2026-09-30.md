@@ -2,7 +2,7 @@
 id: sitio-web-social-search-20260930
 project: sitio-web
 status: current
-recorded_at: 2026-09-30T04:51:31-04:00
+recorded_at: 2026-10-01T02:26:40-04:00
 source_refs:
   - daeeff4cb21e6ab8e869eaf2c6655643b787f2d2
   - 77e697c85b13a0bd767fb9f9e53fc8bbe5e5e658
@@ -19,6 +19,9 @@ validation:
   - Google URL Inspection confirmed the homepage indexed with matching canonical and successful smartphone crawl on 2026-09-30
   - Google live URL test confirmed the published homepage available and indexable on 2026-09-30
   - Bing accepted a technical SEO/GEO scan limited to the public sitemap and 50 pages on 2026-09-30
+  - Bing sitemap Success with 50 discovered URLs, zero sitemap errors and warnings on 2026-10-01
+  - Bing technical scan Completed for 50 pages with zero errors and 38 image-alt warnings on 2026-10-01
+  - Public HTML audit of 50 pages found 340 img elements and zero missing alt attributes on 2026-10-01
 supersedes: []
 superseded_by: null
 owner: RCP Services
@@ -66,10 +69,22 @@ Las recomendaciones de Bing mostraron **No data available**. El informe **AI Per
 
 El bloqueo de automatización se resolvió para esta tarea usando el control soportado de la extensión de Chrome en el perfil RCP mediante `cua_repl`. El método nativo de Windows había fallado al identificar la URL con suficiente confianza; no se alteró esa protección ni se ha demostrado reparado ese método. La consola de Bing quedó en blanco después de verificar; una recarga recuperó la página y permitió registrar el sitemap.
 
+### Resultados confirmados el 2026-10-01
+
+Bing muestra el sitemap en **Success**, con última lectura del 2026-09-30, **50 URLs descubiertas**, cero errores y cero advertencias de sitemap. Evidencia local: `bing-sitemap-success-20261001.png` en el directorio anterior. El descubrimiento no demuestra indexación completa.
+
+El análisis `d0243c42-e718-4360-97f3-7d4dffb99f48` está **Completed**, con **50 páginas revisadas, cero errores y 38 advertencias**. Todas las advertencias pertenecen a una categoría: `SEO013_ImgAltExists_Failed`, «Alt attribute for images is missing». Evidencias: `bing-site-scan-completed-20261001.png` y `bing-alt-warning-20261001.txt`.
+
+La comprobación del HTML público de las 50 URLs del sitemap encontró **340 elementos img y cero atributos alt ausentes**. Los valores vacíos se corresponden con fotografías ambientales, ilustraciones repetidas junto a su texto, símbolos de marca y avatares decorativos. `ProductArtwork` los envuelve con `aria-hidden`; `Pulso` usa una figura oculta o una leyenda; el botón de ayuda ya tiene nombre accesible. La inspección del DOM renderizado de `/en/contact` confirmó los atributos en producción. Evidencia reproducible: `audit-public-image-alt.py` y `public-image-alt-audit-20261001.json` en el directorio local anterior.
+
+Se conservan los valores `alt=""` de las imágenes decorativas: [W3C WAI](https://www.w3.org/WAI/tutorials/images/decorative/) indica que permiten omitir contenido redundante en lectores de pantalla. La advertencia automática se clasifica como diferencia de criterio del escáner, no como un atributo ausente demostrado. No se añaden descripciones redundantes para eliminar una advertencia de SEO. Las 38 advertencias siguen visibles en el informe de Bing y esta clasificación no equivale a una certificación integral de accesibilidad.
+
+La cuenta RCP y la propiedad HTTPS correcta de Google volvieron a consultarse el 2026-10-01: el informe agregado de indexación aún muestra «Se están procesando los datos; vuelve a comprobar esta sección mañana». Evidencia: `google-index-processing-20261001.png`. El acceso por Chrome se recuperó al obtener el inventario actual y vincular las pestañas ya abiertas después de los intentos que agotaron el tiempo; no se atribuye una reparación del método nativo de Windows.
+
 ## Límites y próximo paso
 
 La configuración pública, las verificaciones HTTPS y los envíos de sitemap a Google y Bing están completados. La propiedad de dominio de Google permanece sin verificar en la cuenta RCP; no se necesita para el sitemap y los informes de la propiedad HTTPS confirmada. No se ampliaron permisos de DNS, no se crearon nuevas credenciales OAuth y no se extrajeron cookies. La alternativa gcloud quedó descartada por su respuesta `403` de scopes insuficientes.
 
-El seguimiento pendiente es revisar los resultados de rastreo, exclusiones y el análisis técnico SEO/GEO de Bing cuando los proveedores terminen de procesar. La indexación de la portada está confirmada; la cobertura completa todavía no. No reenviar el mismo sitemap mientras esté en Processing, duplicar el análisis en curso ni repetir el POST de IndexNow recibido. La presencia en resultados, citas de IA y posiciones no están garantizadas por el envío. No hay una nueva publicación de código pendiente derivada de estas acciones en las consolas.
+El seguimiento pendiente es revisar el informe agregado de exclusiones de Google cuando termine de procesar. El sitemap y el análisis técnico de Bing ya terminaron; sus advertencias se revisaron contra el HTML publicado y el criterio de W3C. La indexación de la portada está confirmada; la cobertura completa todavía no. No repetir el POST de IndexNow recibido ni los envíos de sitemap aceptados sin cambios nuevos. La presencia en resultados, citas de IA y posiciones no están garantizadas por el envío. No hay una nueva publicación de código pendiente derivada de estas acciones en las consolas.
 
 Referencias públicas: [IndexNow](https://www.indexnow.org/documentation), [rastreadores de Amazon](https://developer.amazon.com/en/amazonbot), [YepBot](https://yep.com/yepbot/), [Naver Yeti](https://searchadvisor.naver.com/guide/seo-basic-firewall), [SeznamBot](https://o-seznam.cz/napoveda/vyhledavani/en/crawling-control/) y [Yandex](https://yandex.com/support/webmaster/en/robot-workings/user-agent).
