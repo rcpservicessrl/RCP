@@ -22,6 +22,7 @@ export function EditorialIntro({ locale }: { locale: Locale }) {
         <h1>{es ? "Tu negocio," : "Your business,"}<br />{es ? "en su mejor" : "at its"}<br /><em>{es ? "versión." : "best."}</em></h1>
         <p className={styles.description}>{es ? "Estrategia para decidir. Tecnología para avanzar. Una marca que conecta." : "Strategy to decide. Technology to move forward. A brand that connects."}<br /><strong>{es ? "Todo, con una sola dirección." : "All moving in one direction."}</strong></p>
         <div className={styles.actions}><a className="button button--primary" href="#necesidad">{es ? "Descubrir mi siguiente paso" : "Discover my next step"}<ArrowIcon size={18} /></a><Link href={es ? "/servicios" : "/en/services"}>{es ? "Explorar soluciones" : "Explore solutions"} ↗</Link></div>
+        <Link className={`button button--secondary ${styles.demoLink}`} href={es ? "/demo" : "/en/demo"}>{es ? "Probar el sistema de ventas sin registro" : "Try the sales system without signing up"} ↗</Link>
         <p className={styles.reassurance}>{es ? "Sin contratarlo todo. Sin empezar desde cero." : "Without buying everything. Without starting from scratch."}</p>
         <div className={styles.audiences}><span>{es ? "Hecho para" : "Made for"}</span><a href="#sectores">{es ? "Comercios" : "Retail businesses"} ↗</a><a href="#sectores">{es ? "Empresas de servicios" : "Service businesses"} ↗</a></div>
       </div>

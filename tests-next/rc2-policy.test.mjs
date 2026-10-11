@@ -156,7 +156,13 @@ test("public navigation hides the private portal and typography is locally self-
     read("app/globals.css"),
   ]);
   for (const source of [header, home, interior, help]) assert.doesNotMatch(source, /href=\{[^\n]*\/portal|href="\/portal"|Portal RCP/);
-  assert.match(layout, /Montserrat, Space_Grotesk/);
+  assert.match(layout, /from "next\/font\/local"/);
+  assert.doesNotMatch(layout, /next\/font\/google/);
+  for (const font of ["montserrat-latin-variable.woff2", "space-grotesk-latin-variable.woff2"]) {
+    const bytes = await readFile(new URL(`../app/fonts/${font}`, import.meta.url));
+    assert.equal(bytes.subarray(0, 4).toString(), "wOF2");
+    assert.ok(bytes.length > 1000);
+  }
   assert.doesNotMatch(layout, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
   assert.match(css, /html \{[^\n]*font-size: 18px/);
   assert.match(css, /body \{[\s\S]*?font-weight: 500/);

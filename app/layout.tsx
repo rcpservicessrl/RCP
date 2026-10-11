@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Montserrat, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { AudioProvider } from "@/components/audio-provider";
 import "./globals.css";
 import "./editorial-system.css";
@@ -8,8 +8,8 @@ import "./editorial-system.css";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rcp.services";
 const deploymentEnvironment = process.env.RCP_DEPLOYMENT_ENV ?? process.env.VERCEL_ENV ?? "development";
 const isPublicProduction = deploymentEnvironment === "production";
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-montserrat", display: "swap" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-space-grotesk", display: "swap" });
+const montserrat = localFont({ src: "./fonts/montserrat-latin-variable.woff2", weight: "500 700", variable: "--font-montserrat", display: "swap" });
+const spaceGrotesk = localFont({ src: "./fonts/space-grotesk-latin-variable.woff2", weight: "500 700", variable: "--font-space-grotesk", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

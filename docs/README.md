@@ -13,6 +13,8 @@ Las decisiones D-01 a D-11 fueron aprobadas el 2026-08-12 y están consolidadas 
 
 ## Documentos vigentes para RC2
 
+- `DEMO_SHOWCASE_2026-10-11.md`: demo abierta Mercado Aurora, presentación ES/EN, verificaciones y publicación del botón.
+
 - `FUENTE_DE_VERDAD_6_RC2.md`: autoridad consolidada de negocio, marca, oferta y gates.
 - `API_EVENT_CONTRACTS_RC2.md`: contratos servidor-servidor y eventos CRM/Hub/Matrix.
 - `RC2_OPERATIONS_AND_GOVERNANCE.md`: fronteras de datos, RBAC/RLS, privacidad, retención, onboarding, backups, incidentes, despliegue y herramientas.
