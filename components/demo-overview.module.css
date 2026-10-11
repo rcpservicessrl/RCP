@@ -1,0 +1,7 @@
+.features { color: var(--text); }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 32px 0; }
+.card { padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); }
+.card h3 { margin-bottom: 14px; font-size: 1.3rem; }
+.card p { color: var(--text-soft); line-height: 1.7; }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
