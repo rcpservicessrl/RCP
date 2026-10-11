@@ -9,9 +9,13 @@ source_refs:
 validation:
   - baseline public navigation: 58 routes, 232 page checks, 808 main controls inventoried
   - baseline accessibility: 232 checks with axe-core 4.11.0
-  - local TypeScript and 82 unit tests passed
+  - local TypeScript and 85 unit tests passed
   - local production build passed
-  - final candidate and public verification pending
+  - final candidate: 58 routes, 232 page checks, 816 main controls inventoried
+  - final candidate: 64 resolved interactive scenarios and 8 visual checks passed
+  - final candidate: 201 internal destinations and hash targets passed
+  - final candidate: zero violations in the 11 configured axe rules
+  - public domain verification required after merge
 supersedes: []
 superseded_by: null
 owner: RCP Services
@@ -65,6 +69,15 @@ checks wait for the requested theme and its color transitions before measuring.
 Automated contrast checks leave gradients and some SVG text incomplete; they
 do not establish complete WCAG conformance.
 
+The final candidate has 64 distinct interactive scenarios. Initial offer
+fixtures inspected an existing heading before client navigation completed;
+wait for the destination URL before asserting the page. One mobile navigation
+exceeded the fixture's original ten-second limit while concurrent audits ran;
+its targeted recheck passed with a thirty-second navigation timeout. One theme
+snapshot was taken before initialization settled; wait explicitly for the
+requested theme. Original and targeted recheck evidence are retained separately.
+These are test timing corrections, not additional application fixes.
+
 Form success and provider failure paths are intercepted test fixtures. They
 validate UI behavior and request payloads, not actual downstream CRM delivery.
 The local build has no public Turnstile key; full form checks must run against
@@ -89,3 +102,17 @@ The known good rollback before this release is
 `dpl_8YDhXSQf9Trhuv97SqaqN6wZLgoy` (PR 31, latest approved visuals).
 Record candidate commit, required checks, deployment and public results here
 before treating this audit as published.
+
+Candidate source: `2175bf30703b4e5300036136dee14694308a5e07`.
+Remote production build: `dpl_E83VcXbGFV3pKTDAVTEZMLxvUkpk`, READY,
+staged without public domain assignment. The final documentation commit changes
+no application input. GitHub validation and both Vercel checks passed for the
+candidate source. Local build and 85 unit tests passed; the remote candidate
+also compiled the final application inputs successfully.
+
+Evidence files: `offer-candidate-audit.json`,
+`offer-candidate-resource-dark-audit.json`,
+`offer-candidate-interactions-resolved.json`, `offer-candidate-visuals.json`.
+The candidate covers Spanish/English, desktop/mobile, light/dark; body text in
+the new offer is 18px and the narrow layouts have no horizontal overflow.
+Public promotion and final domain checks remain a release step.
