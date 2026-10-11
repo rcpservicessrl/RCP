@@ -57,7 +57,8 @@ jobs:
       - name: Build production remotely with its actual configuration
         id: candidate
         run: |
-          candidate_url=$(vercel deploy --prod --skip-domain --yes --archive=tgz --scope "$VERCEL_ORG_ID")
+          vercel deploy --prod --skip-domain --yes --archive=tgz --scope "$VERCEL_ORG_ID" > /tmp/rcp-candidate-output.txt
+          candidate_url=$(node --input-type=module -e 'import fs from "node:fs"; const raw=fs.readFileSync("/tmp/rcp-candidate-output.txt","utf8").trim(); let url; try {url=JSON.parse(raw).deployment.url} catch {url=raw.split("\n").find(line=>/^https:\/\//.test(line.trim()))?.trim()} const u=new URL(url); if(u.protocol!=="https:" || !u.hostname.endsWith(".vercel.app")) process.exit(1); console.log(u.origin)')
           CANDIDATE_URL="$candidate_url" node --input-type=module -e 'const u=new URL(process.env.CANDIDATE_URL); if(u.protocol!=="https:" || !u.hostname.endsWith(".vercel.app")) process.exit(1)'
           printf 'url=%s\n' "$candidate_url" >> "$GITHUB_OUTPUT"
         env:
