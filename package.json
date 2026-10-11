@@ -31,6 +31,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "playwright": "1.63.0",
     "typescript": "latest",
     "wrangler": "latest"
   }
