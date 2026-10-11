@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 
+if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() === "[SENSITIVE]") {
+  throw new Error("Turnstile public configuration was redacted. Build production on Vercel with its actual environment variables.");
+}
+
 const scriptPolicy = process.env.NODE_ENV === "development" ? "'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com" : "'self' 'unsafe-inline' https://challenges.cloudflare.com";
 const contentSecurityPolicy = [
   "default-src 'self'",

@@ -24,3 +24,16 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
+        env:
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Verify browser runtime and provider failure isolation
+        run: |
+          pnpm start --hostname 127.0.0.1 --port 3117 > /tmp/rcp-runtime.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:3117/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/runtime-smoke.mjs

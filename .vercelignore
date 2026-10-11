@@ -1,0 +1,21 @@
+# Upload only the corporate Next.js application and build inputs.
+*
+!app
+!app/**
+!components
+!components/**
+!lib
+!lib/**
+!public
+!public/**
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!next.config.ts
+!next-env.d.ts
+!proxy.ts
+!tsconfig.json
+!vercel.json
+!.vercelignore
+!.nvmrc
+!.env.example

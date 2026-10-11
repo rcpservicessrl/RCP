@@ -65,7 +65,8 @@ test("Turnstile is optional by default and enforced consistently when enabled", 
   assert.match(environment, /^NEXT_PUBLIC_TURNSTILE_SITE_KEY=$/m);
   assert.match(environment, /^TURNSTILE_SECRET_KEY=$/m);
 
-  assert.match(field, /if \(!siteKey\) return <input type="hidden" name="turnstileToken" value="" readOnly \/>/);
+  assert.match(field, /if \(!siteKey \|\| unavailable\) return/);
+  assert.match(field, /name="turnstileToken" value="" readOnly/);
   assert.match(field, /https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
   assert.match(field, /sitekey: siteKey/);
   assert.match(field, /callback: \(nextToken: string\) => setToken\(nextToken\)/);
