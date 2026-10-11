@@ -99,3 +99,9 @@ normal de PR y publicación.
 ## Electronic and accounting revision 5
 
 PR 28 updates the custom-domain CTA and ES/EN tour to E31/E32/E34. The public demo now generates automatic journal entries and reconciles inventory, customers and suppliers. Electronic invoice previews use grayscale logos, a real demo QR and an illustrative unsigned XML; no DGII connection or certification is claimed. The demo engine passed 26 tests, TypeScript, production build and a zero-vulnerability production dependency audit. Current browser visual QA is pending because the browser surface was unavailable. Website TypeScript and 56 tests passed locally. Record the PR merge and production workflow outcome below after release.
+
+## Confirmed domain and revision 5 publication
+
+PR 28 merged as 9cc0e318cf80d492ea0ee8a70b4e10dec3831eab. Production workflow 38132890877 succeeded, deployment dpl_DyKMEYajQ3YT4YwTzn3xQxntqMXM is Ready, and anonymous /demo and /en/demo HTML points to the custom domain. The homepage keeps its internal /demo button. The demo final build is dpl_4oKnGyy2XxkavqKMrPpQZwVWkubr from 7a2da2581ec27148ad2fa9276289454e90ef9ee7 with 27 engine tests passed. Receipt fiscal status is resolved from the current document after session serialization, avoiding stale reprints. Anonymous health remains 200 with database disabled and business GET/POST APIs remain 403. Both transparent soft-drink PNGs return 200 and match the packaged bytes.
+
+A follow-up corrects the ES/EN SEO descriptions, which still mentioned the paper series despite the updated page content. Current browser/print visual QA and the two ImgBB uploads remain pending. The following release must keep these limits explicit; no actual DGII integration, certification or fiscal-validity claim is authorized.
