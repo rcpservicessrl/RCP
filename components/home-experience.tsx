@@ -15,6 +15,7 @@ import { PulsoHelp } from "@/components/pulso-help";
 import { ConsentBanner } from "@/components/consent-banner";
 import { ConnectedExperience, MethodBlueprint } from "@/components/transformation-canvas";
 import { CommercialOffers } from "@/components/commercial-offers";
+import { PosOffer } from "@/components/pos-offer";
 import { PriceGuide } from "@/components/price-guide";
 import { ProductArtwork } from "@/components/product-artwork";
 import { CatalogExplorer } from "@/components/catalog-explorer";
@@ -201,6 +202,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
         <ExperienceMotion />
         <EditorialIntro locale={locale} />
         <CommercialOffers locale={locale} />
+        <PosOffer locale={locale} showDetails />
 
         <section className="problem-section page-scene" id="necesidad">
           <div className="container problem-section__grid">

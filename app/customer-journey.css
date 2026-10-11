@@ -19,7 +19,7 @@
 .pulso-help__panel { max-height:calc(100svh - 110px); overflow-y:auto; }
 body:has(.selection-tray) .pulso-help:not(.is-open) { bottom:180px; }
 .price-guide { background:#f2f1e9; color:#1c2a20; padding:76px 0; }
-.price-guide .section-eyebrow { color:#6b4a17; }
+.price-guide .section-eyebrow, .editorial-home .price-guide .section-eyebrow { color:#6b4a17; }
 .price-guide h2 { font-size:clamp(30px,4vw,48px); line-height:1.15; letter-spacing:-.045em; max-width:740px; }
 .price-guide__lead { max-width:680px; margin:18px 0 30px; line-height:1.8; color:#46533e; }
 .price-guide__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }

@@ -54,7 +54,7 @@ test("every public service surface comes from the filtered commercial catalog", 
   const restrictedIds = new Set(restrictedItems.map((entry) => entry.id));
   assert.ok(restrictedIds.has("legal-corporativa"));
   assert.ok(restrictedIds.has("formalizacion-empresarial"));
-  assert.ok(restrictedIds.has("facturacion-electronica"));
+  assert.equal(restrictedIds.has("facturacion-electronica"), false);
 
   for (const entry of catalog) {
     assert.equal(restrictedIds.has(entry.id), false, `${entry.id} cannot enter the public catalog`);
@@ -123,15 +123,17 @@ test("every public service surface comes from the filtered commercial catalog", 
   }
 });
 
-test("e-CF remains educational and unavailable for contracting", async () => {
+test("e-CF integration is available with taxpayer requirements and professional review", async () => {
   const [content, page] = await Promise.all([read("lib/content.ts"), read("components/information-page.tsx")]);
   const ecfStart = content.indexOf('item("facturacion-electronica"');
   const ecfItem = content.slice(ecfStart, content.indexOf("\n", ecfStart));
-  assert.match(ecfItem, /commercialState: "in_development"/);
-  assert.match(ecfItem, /selectable: false/);
-  assert.match(page, /Integración en desarrollo/);
-  assert.match(page, /Sin contratación disponible/);
-  assert.match(page, /Orientación, no oferta de implementación/);
+  assert.match(ecfItem, /commercialState: "public"/);
+  assert.match(ecfItem, /selectable: true/);
+  assert.match(ecfItem, /regulated: true, requiresProfessionalReview: true/);
+  assert.match(page, /Integración e-CF disponible/);
+  assert.match(page, /habilitación del contribuyente, certificado digital vigente y pruebas acordadas/);
+  assert.match(page, /no afirma ser proveedor de servicios de facturación electrónica certificado por la DGII/);
+  assert.doesNotMatch(page, /Integración en desarrollo|Sin contratación disponible/);
 });
 
 test("six human-first technology solutions precede the SSR glossary", async () => {

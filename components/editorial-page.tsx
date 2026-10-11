@@ -322,7 +322,7 @@ function MediaContent({ locale }: { locale: Locale }) {
                   <small>{t(video.label, locale)}</small>
                   <h3>{video.title}</h3>
                   <p>{t(video.description, locale)}</p>
-                  <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir en YouTube" : "Open on YouTube"}<span aria-hidden="true">↗</span></a>
+                  <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener noreferrer">{locale === "es" ? "Abrir en YouTube" : "Open on YouTube"}<span aria-hidden="true">↗</span></a>
                 </div>
               </article>
             ))}

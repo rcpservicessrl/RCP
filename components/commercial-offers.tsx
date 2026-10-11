@@ -20,7 +20,7 @@ export function CommercialOffers({ locale }: { locale: Locale }) {
         <p>{es ? "Una solución adaptada al proceso de tu negocio, con las funciones e integraciones que hagan falta." : "A solution adapted to your business workflow, with the features and integrations you need."}</p>
         <strong>{es ? "Presupuesto después de validar alcance y viabilidad" : "Quote after validating scope and feasibility"}</strong>
         <p>{es ? "Primero revisamos proceso, usuarios, funciones, integraciones y viabilidad. Después acordamos alcance, presupuesto y plazo en una propuesta." : "We first review workflow, users, features, integrations and feasibility. Then we agree scope, budget and timing in a proposal."}</p>
-        <p>{es ? "La facturación electrónica e-CF sigue en desarrollo y no está disponible para contratar." : "e-CF electronic invoicing is in development and is not available to contract."}</p>
+        <p>{es ? "También implementamos POS integrado con facturación electrónica e-CF, con activación según los requisitos de tu negocio." : "We also implement POS integrated with e-CF electronic invoicing, with activation based on your business requirements."}</p>
         <Link className="button button--primary" href={`${route}?offer=SOFTWARE#solicitud`}>{es ? "Consultar por mi software" : "Ask about my software"} →</Link>
       </article>
     </div>

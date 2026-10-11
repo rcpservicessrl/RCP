@@ -164,7 +164,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
         <h3>{locale === "es" ? "Ya tenemos un punto de partida." : "We now have a starting point."}</h3>
         {reference && <p>{locale === "es" ? "Referencia" : "Reference"}: <strong>{reference}</strong></p>}
         <p>{locale === "es" ? "Nuestro equipo revisará la necesidad y confirmará si podemos agendar la conversación inicial de 45 minutos. Si luego hace falta un Diagnóstico RCP 360, se propondrá por separado con alcance e inversión acordados." : "Our team will review the need and confirm whether we can schedule the 45-minute initial conversation. If an RCP 360 Diagnosis is later needed, it will be proposed separately with an agreed scope and investment."}</p>
-        {handoffUrl && <a className="button button--primary" href={handoffUrl} target="_blank" rel="noreferrer">{locale === "es" ? "Abrir conversación en WhatsApp" : "Open WhatsApp conversation"}<ArrowIcon size={17} /></a>}
+        {handoffUrl && <a className="button button--primary" href={handoffUrl} target="_blank" rel="noopener noreferrer">{locale === "es" ? "Abrir conversación en WhatsApp" : "Open WhatsApp conversation"}<ArrowIcon size={17} /></a>}
         <button type="button" className="text-button" onClick={() => setState("idle")}>{locale === "es" ? "Preparar otra solicitud" : "Prepare another request"}</button>
       </div>
     );

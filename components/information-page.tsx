@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { InteriorShell } from "@/components/interior-shell";
 import { JsonLd } from "@/components/json-ld";
+import { PosOffer } from "@/components/pos-offer";
+import { posOfferDiagnosisHref, posOfferStructuredData } from "@/lib/pos-offer";
 import { type PulsoScene } from "@/components/pulso";
 import { catalog, methodSteps, t, technologySolutions } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
@@ -243,12 +245,12 @@ const configs: Record<InformationPageKind, InformationPageConfig> = {
   },
   electronicInvoicing: {
     paths: lt("/facturacion-electronica", "/en/electronic-invoicing"),
-    seoTitle: lt("Facturación electrónica e-CF", "Electronic invoicing and e-CF"),
-    seoDescription: lt("Guía educativa para entender la preparación operativa, fiscal y técnica de la facturación electrónica e-CF en República Dominicana.", "Educational guide to understand operational, tax and technical readiness for electronic invoicing in the Dominican Republic."),
-    eyebrow: lt("Guía educativa e-CF · En desarrollo", "Educational e-invoicing guide · In development"),
-    title: lt("Prepara tu negocio para facturar electrónicamente sin improvisar.", "Prepare your business for electronic invoicing without improvising."),
-    lead: lt("Esta página explica qué debe preparar un negocio antes de integrar e-CF. La integración de facturación electrónica de RCP está en desarrollo y no está disponible para contratación.", "This page explains what a business should prepare before integrating electronic invoicing. RCP's electronic invoicing integration is in development and unavailable for contracting."),
-    facts: [lt("Contenido educativo", "Educational content"), lt("Integración en desarrollo", "Integration in development"), lt("Sin contratación disponible", "Not available for engagement")],
+    seoTitle: lt("POS con facturación electrónica en República Dominicana", "POS with electronic invoicing in the Dominican Republic"),
+    seoDescription: lt("RCP implementa POS integrado con e-CF: ventas, inventario y caja. Implementación desde RD$9,900; licencia y emisión aparte. Solicita tu evaluación sin costo.", "RCP implements POS integrated with e-CF: sales, inventory and cash management. Implementation from RD$9,900; license and issuance separate. Request a free assessment."),
+    eyebrow: lt("POS y facturación electrónica · Disponible", "POS and electronic invoicing · Available"),
+    title: lt("Tu punto de venta, conectado con la facturación electrónica.", "Your point of sale, connected to electronic invoicing."),
+    lead: lt("Implementamos sistemas POS integrados con e-CF para que vendas, controles inventario y organices el cierre de caja en una misma operación. Revisamos tu negocio y preparamos la activación fiscal según los requisitos aplicables.", "We implement POS systems integrated with e-CF so you can sell, manage inventory and organize cash closing in one operation. We review your business and prepare fiscal activation according to applicable requirements."),
+    facts: [lt("Ventas, inventario y caja", "Sales, inventory and cash management"), lt("Integración e-CF disponible", "e-CF integration available"), lt("Evaluación inicial sin costo", "Free initial assessment")],
     scene: "analyze",
     introEyebrow: lt("Antes de integrar", "Before integration"),
     introTitle: lt("La factura electrónica toca más que un botón de emitir.", "Electronic invoicing involves more than an issue button."),
@@ -259,21 +261,21 @@ const configs: Record<InformationPageKind, InformationPageConfig> = {
       card("03", "03", "Pruebas y continuidad", "Testing and continuity", "Definimos casos de prueba, manejo de errores, soporte y próximos pasos.", "We define test cases, error handling, support and next steps."),
     ],
     detailEyebrow: lt("Alcance posible", "Possible scope"),
-    detailTitle: lt("Lo que conviene preparar antes de escoger una integración.", "What to prepare before choosing an integration."),
-    detailText: lt("La condición del contribuyente, los sistemas actuales y las instrucciones oficiales determinan el orden y la profundidad. Esta guía no sustituye revisión fiscal ni confirma disponibilidad comercial.", "Taxpayer status, current systems and official instructions determine order and depth. This guide does not replace tax review or confirm commercial availability."),
+    detailTitle: lt("Una implementación preparada para tu operación.", "An implementation prepared for your operation."),
+    detailText: lt("Revisamos la condición del contribuyente, los datos y sistemas actuales. La propuesta escrita define configuración, licencia, volumen de emisión, capacitación y soporte. La revisión fiscal corresponde al profesional autorizado.", "We review taxpayer status, data and current systems. The written proposal defines configuration, license, issuance volume, training and support. Tax review belongs to the authorized professional."),
     details: [
       detail("Evaluación de preparación", "Readiness assessment", "Revisión del proceso actual, actores, datos, documentos y dependencias.", "Review of the current process, actors, data, documents and dependencies."),
       detail("Organización fiscal y operativa", "Tax and operational organization", "Reglas, catálogos, responsables y escenarios que deben quedar claros.", "Rules, catalogs, owners and scenarios that must be clear."),
-      detail("Puntos de integración", "Integration points", "Inventario educativo de datos, accesos y sistemas que una futura integración tendría que considerar.", "Educational inventory of data, access and systems a future integration would need to consider."),
+      detail("Configuración e integración", "Configuration and integration", "Conectamos ventas, catálogo e inventario con la emisión e-CF según el alcance acordado.", "We connect sales, catalog and inventory to e-CF issuance according to the agreed scope."),
       detail("Pruebas y salida", "Testing and handoff", "Casos acordados, evidencia, correcciones y plan de operación o soporte.", "Agreed cases, evidence, corrections and an operating or support plan."),
     ],
-    boundaryTitle: lt("Orientación, no oferta de implementación.", "Guidance, not an implementation offer."),
-    boundaryText: lt("RCP no ofrece actualmente la integración e-CF ni afirma una condición de proveedor autorizado. La emisión y aceptación dependen de la normativa, el contribuyente y las capacidades autorizadas aplicables.", "RCP does not currently offer e-invoicing integration or claim authorized-provider status. Issuance and acceptance depend on regulation, taxpayer status and applicable authorized capabilities."),
-    boundaryItems: [lt("Consulta siempre las instrucciones vigentes de la DGII.", "Always consult current DGII guidance."), lt("Una revisión fiscal requiere el profesional autorizado correspondiente.", "A tax review requires the appropriate authorized professional."), lt("La disponibilidad se actualizará solo cuando exista evidencia operativa y contractual.", "Availability will be updated only when operational and contractual evidence exists.")],
-    ctaTitle: lt("Sigue aprendiendo antes de escoger una herramienta.", "Keep learning before choosing a tool."),
-    ctaText: lt("Explora cómo RCP separa las necesidades del negocio, las capacidades tecnológicas y los límites profesionales.", "Explore how RCP separates business needs, technology capabilities and professional boundaries."),
-    primary: technology,
-    secondary: link("Explorar recursos", "Explore resources", "/recursos", "/en/resources"),
+    boundaryTitle: lt("Requisitos para activar la emisión real.", "Requirements for activating actual issuance."),
+    boundaryText: lt("La integración está disponible. La emisión fiscal exige habilitación del contribuyente, certificado digital vigente y pruebas acordadas. RCP ofrece implementación y acompañamiento; no afirma ser proveedor de servicios de facturación electrónica certificado por la DGII.", "Integration is available. Fiscal issuance requires taxpayer authorization, a valid digital certificate and agreed testing. RCP provides implementation and support; it does not claim to be a DGII-certified electronic invoicing service provider."),
+    boundaryItems: [lt("Consulta las instrucciones vigentes de la DGII.", "Consult current DGII guidance."), lt("La licencia, emisión y certificado se cotizan por separado.", "License, issuance and certificate are quoted separately."), lt("La fecha de activación y el soporte se acuerdan según tu caso.", "Activation date and support are agreed for your case.")],
+    ctaTitle: lt("Cotiza tu POS con facturación electrónica.", "Get a quote for your POS with electronic invoicing."),
+    ctaText: lt("Cuéntanos cuántas cajas y usuarios necesitas y cómo vendes hoy. Te presentamos el alcance y todos los costos antes de contratar.", "Tell us how many registers and users you need and how you sell today. We present the scope and all costs before engagement."),
+    primary: link("Solicitar mi oferta POS + e-CF", "Request my POS + e-CF quote", posOfferDiagnosisHref("es"), posOfferDiagnosisHref("en")),
+    secondary: link("Explorar la demo", "Explore the demo", "/demo", "/en/demo"),
   },
   sectors: {
     paths: lt("/sectores", "/en/sectors"),
@@ -393,7 +395,7 @@ function ActionLink({ item, locale, className }: { item: PageLink; locale: Local
   const href = t(item.href, locale);
   const label = t(item.label, locale);
   const content = <>{label}<ArrowIcon size={16} /></>;
-  if (href.startsWith("http")) return <a className={className} href={href} target="_blank" rel="noreferrer">{content}</a>;
+  if (href.startsWith("http")) return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{content}</a>;
   if (href.startsWith("mailto:")) return <a className={className} href={href}>{content}</a>;
   return <Link className={className} href={href}>{content}</Link>;
 }
@@ -443,6 +445,7 @@ export function InformationPage({ locale, page, selectedSolutionId }: { locale: 
   return (
     <InteriorShell locale={locale}>
       <JsonLd data={structuredData} />
+      {page === "electronicInvoicing" && <JsonLd data={posOfferStructuredData(locale)} />}
       <div className={styles.page}>
         <header className={`${styles.hero} editorial-page-hero`}>
           <div className={`container ${styles.heroGrid} editorial-hero-grid`}>
@@ -459,6 +462,8 @@ export function InformationPage({ locale, page, selectedSolutionId }: { locale: 
             </div>
           </div>
         </header>
+
+        {page === "electronicInvoicing" && <PosOffer locale={locale} />}
 
         <section className={styles.section}>
           <div className="container">
