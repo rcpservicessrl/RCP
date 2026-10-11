@@ -67,7 +67,31 @@ La demo pública tiene 12 fotografías reales alojadas en ImgBB con respaldo
 local, acceso abierto, estado ficticio por pestaña y API empresarial denegada.
 Su release independiente es `95f6b93232daaf870c402b5b4b11aeba844e4181`.
 
-Conservar como rollback el despliegue previo
-`dpl_9emHny8uQj3b4NgZpQfD4xk61kaH`. No alterar DNS, proveedores de formularios
+## Dirección y catálogo revisados
+
+La dirección solicitada es https://mercadodemo.rcp.services/. Vercel la
+verificó para `mercado-aurora-demo` y su health anónimo respondió HTTP 200
+con base de datos deshabilitada. El DNS autoritativo observado el 11 de octubre
+es Cloudflare (`alice.ns.cloudflare.com`, `cullen.ns.cloudflare.com`); las
+referencias históricas de Route 53 no autorizan cambios en esa zona antigua.
+Se creó sólo el CNAME `mercadodemo` con el destino recomendado por Vercel,
+sin proxy y TTL 60. La evidencia DNS y su estado previo permanecen locales.
+
+El botón ES/EN usa el subdominio solicitado. El catálogo revisado sustituye
+las cuatro bebidas alcohólicas por Coca-Cola y 7UP de Fenómeno: diez productos,
+todos con imágenes transparentes. Se conservaron las ocho fotografías de
+embutidos y quesos y se extrajo el fondo blanco de los dos refrescos mediante
+la herramienta integrada de imágenes. La demo cambia a estado versión 4 para
+evitar que sesiones anteriores sigan mostrando el catálogo sustituido.
+
+Los ocho originales usan ImgBB; los dos nuevos recortes están incluidos en
+el paquete. Su carga a ImgBB queda pendiente porque el navegador dejó de estar
+disponible, sin una credencial API de ImgBB configurada. La demo permanece
+funcional con los archivos incluidos. Este apartado debe completarse con el
+PR y despliegue del cambio de enlace antes de atribuirle publicación remota.
+
+Conservar como rollback de este ajuste el despliegue del lanzamiento anterior
+`dpl_5Edy1EemtL6GZ3mr4dTqm4vjsscv`. El anterior a PR 27 es
+`dpl_9emHny8uQj3b4NgZpQfD4xk61kaH`. No alterar proveedores de formularios
 ni variables productivas. Los siguientes cambios de código siguen el flujo
-normal de PR y publicación; esta nota de cierre no requiere otro despliegue.
+normal de PR y publicación.
