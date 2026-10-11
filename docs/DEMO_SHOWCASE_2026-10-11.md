@@ -6,13 +6,16 @@ recorded_at: 2026-10-11T04:35:00-04:00
 source_refs:
   - repository: rcpservicessrl/RCP
     path: components/demo-overview.tsx
-    revision: working-tree; release commit recorded by pull request
+    revision: 667322bac904611ce6aaa41d1ae181b089f2da18
 validation:
   - local: Next.js 16.3.8 production build; passed
   - local: TypeScript and 56 tests; passed
   - local: production dependency audit; zero vulnerabilities
   - local: mobile, tablet, desktop, light and dark themes, ES/EN navigation; passed
-  - remote: publication pending approved CI checks
+  - remote: GitHub validate and Vercel preview checks; passed
+  - remote: production workflow 38124487244 on 667322b; passed
+  - remote: anonymous home, /demo and /en/demo HTTP 200; passed
+  - remote: public /demo opened in browser with correct CTA and simulation limits; passed
 supersedes: []
 superseded_by: null
 owner: RCP Services
@@ -44,8 +47,27 @@ licencias SIL OFL mediante `next/font/local`, conservando las familias,
 variables CSS y pesos 500–700. La compilación ya no descarga las fuentes.
 Referencia técnica: https://nextjs.org/docs/app/api-reference/components/font.
 
-Publicar mediante PR con los checks `validate` y `Vercel – rcp-services-web`.
+## Publicación verificada
+
+El PR https://github.com/rcpservicessrl/RCP/pull/27 se integró mediante squash
+como `667322bac904611ce6aaa41d1ae181b089f2da18`, después de aprobar ambos
+checks requeridos. El workflow productivo
+https://github.com/rcpservicessrl/RCP/actions/runs/38124487244 terminó con éxito
+para ese mismo commit. Vercel informa Ready, target production, despliegue
+`dpl_5Edy1EemtL6GZ3mr4dTqm4vjsscv`, con alias https://rcp.services/.
+
+Se verificaron respuestas anónimas 200 de portada, `/demo` y `/en/demo`.
+La portada contiene el nuevo botón y ambas presentaciones enlazan la demo.
+El navegador abrió `/demo` con las funciones y límites esperados. Su primer
+intento de abrir la portada mostró un error de carga del navegador, aunque la
+verificación HTTP confirmó el HTML; no se atribuye a una falla del servidor.
+
+Evidencia visual pública: `C:/RCP/artifacts/demo-evidence/site-demo-public.png`.
+La demo pública tiene 12 fotografías reales alojadas en ImgBB con respaldo
+local, acceso abierto, estado ficticio por pestaña y API empresarial denegada.
+Su release independiente es `95f6b93232daaf870c402b5b4b11aeba844e4181`.
+
 Conservar como rollback el despliegue previo
 `dpl_9emHny8uQj3b4NgZpQfD4xk61kaH`. No alterar DNS, proveedores de formularios
-ni variables productivas. Registrar la publicación real y su commit en la
-evidencia de release; un build local no demuestra la publicación.
+ni variables productivas. Los siguientes cambios de código siguen el flujo
+normal de PR y publicación; esta nota de cierre no requiere otro despliegue.
