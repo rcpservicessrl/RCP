@@ -95,3 +95,7 @@ Conservar como rollback de este ajuste el despliegue del lanzamiento anterior
 `dpl_9emHny8uQj3b4NgZpQfD4xk61kaH`. No alterar proveedores de formularios
 ni variables productivas. Los siguientes cambios de código siguen el flujo
 normal de PR y publicación.
+
+## Electronic and accounting revision 5
+
+PR 28 updates the custom-domain CTA and ES/EN tour to E31/E32/E34. The public demo now generates automatic journal entries and reconciles inventory, customers and suppliers. Electronic invoice previews use grayscale logos, a real demo QR and an illustrative unsigned XML; no DGII connection or certification is claimed. The demo engine passed 26 tests, TypeScript, production build and a zero-vulnerability production dependency audit. Current browser visual QA is pending because the browser surface was unavailable. Website TypeScript and 56 tests passed locally. Record the PR merge and production workflow outcome below after release.
