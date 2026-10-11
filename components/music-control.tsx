@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { Locale } from "@/lib/types";
-import { MusicIcon, PauseIcon, PlayIcon, VolumeIcon } from "@/components/icons";
+import { MusicIcon, VolumeIcon } from "@/components/icons";
 import { useRcpAudio } from "@/components/audio-provider";
 
 interface MusicControlProps {
@@ -12,12 +12,14 @@ interface MusicControlProps {
 
 export function MusicControl({ locale, compact = false }: MusicControlProps) {
   const [expanded, setExpanded] = useState(false);
+  const expandRef = useRef<HTMLButtonElement>(null);
+  const volumeId = useId();
   const { playing, volume, toggle, setVolume } = useRcpAudio();
 
   const status = locale === "es" ? (playing ? "Pausar ambiente" : "Activar ambiente") : playing ? "Pause ambience" : "Play ambience";
 
   return (
-    <div className={`music-control ${expanded ? "is-expanded" : ""} ${compact ? "is-compact" : ""}`}>
+    <div className={`music-control ${expanded ? "is-expanded" : ""} ${compact ? "is-compact" : ""}`} onKeyDown={(event) => { if (event.key === "Escape" && expanded) { event.preventDefault(); setExpanded(false); expandRef.current?.focus(); } }}>
       <button
         type="button"
         className="utility-button music-control__toggle"
@@ -33,16 +35,18 @@ export function MusicControl({ locale, compact = false }: MusicControlProps) {
         <span className={`music-bars ${playing ? "is-playing" : ""}`} aria-hidden="true"><i /><i /><i /></span>
       </button>
       <button
+        ref={expandRef}
         type="button"
         className="music-control__expand"
         onClick={() => setExpanded((current) => !current)}
         aria-expanded={expanded}
+        aria-controls={expanded ? volumeId : undefined}
         aria-label={locale === "es" ? "Ajustar volumen" : "Adjust volume"}
       >
-        {playing ? <PauseIcon size={14} /> : <PlayIcon size={14} />}
+        <VolumeIcon size={14} />
       </button>
       {expanded && (
-        <div className="music-control__popover">
+        <div className="music-control__popover" id={volumeId}>
           <VolumeIcon size={16} />
           <input
             type="range"

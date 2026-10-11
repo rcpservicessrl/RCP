@@ -47,6 +47,9 @@ submission was used. Controls were exercised through their visible UI.
   not evidence that those links were broken or exploitable.
 - English legacy quote review now uses `services` in the diagnosis handoff and
   focuses its form anchor. Both language aliases were accepted before this fix.
+- The compact desktop music control hid the only normal-click volume access.
+  Show the volume button, use its volume icon and support Escape with focus
+  restored to that button. Right-click remains an optional shortcut.
 
 ## Test interpretation
 

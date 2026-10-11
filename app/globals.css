@@ -244,8 +244,7 @@
   .music-bars.is-playing i { animation: music-bar .9s ease-in-out infinite alternate; }
   .music-bars.is-playing i:nth-child(2) { animation-delay: -.3s; }
   .music-bars.is-playing i:nth-child(3) { animation-delay: -.6s; }
-  .music-control__expand { display: none; width: 28px; height: 28px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
-  .music-control:not(.is-compact) .music-control__expand { display: grid; place-items: center; }
+  .music-control__expand { display: grid; place-items: center; width: 32px; height: 40px; border: 0; background: transparent; color: var(--text-soft); cursor: pointer; }
   .music-control__popover { position: absolute; top: calc(100% + 12px); right: 0; display: flex; align-items: center; gap: 9px; width: 210px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); box-shadow: var(--shadow); }
   .music-control__popover input { width: 120px; accent-color: var(--amber); }
   .music-control__popover span { min-width: 38px; color: var(--muted); font-size: .9rem; }
