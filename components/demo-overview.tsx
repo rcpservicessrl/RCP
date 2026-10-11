@@ -20,7 +20,6 @@ export function DemoOverview({ locale }: { locale: Locale }) {
     ["Start again", "Export your test data or reset the demo. Changes remain in your browser tab."],
   ];
   return <InteriorShell locale={locale}>
-    <main>
       <section className="interior-hero interior-hero--technology"><div className="container">
         <p className="section-eyebrow">{es ? "Demo interactiva · Mercado Aurora" : "Interactive demo · Mercado Aurora"}</p>
         <h1>{es ? "Prueba una operación completa, de la venta al reporte." : "Try a complete workflow, from checkout to reports."}</h1>
@@ -34,6 +33,5 @@ export function DemoOverview({ locale }: { locale: Locale }) {
         <p className="section-lead">{es ? "Recorrido sugerido: crea un cliente con RNC 000000004, vende con E31, registra una compra y un abono, revisa la caja y comprueba la conciliación contable. La simulación electrónica está preparada; encontrarás una guía dentro de la demo." : "Suggested tour: create a customer with tax ID 000000004, issue E31, record a purchase and a settlement, review cash and check accounting reconciliation. The electronic simulation is ready; a guide is available inside the demo."}</p>
         <p>{es ? "Cada visitante tiene su propia prueba. Al cerrar la pestaña se descartan los cambios. La implementación real se adapta y valida según los procesos y requisitos de tu negocio." : "Each visitor has their own demo session. Closing the tab discards changes. A real implementation is adapted and validated for your business processes and requirements."}</p>
       </div></section>
-    </main>
   </InteriorShell>;
 }

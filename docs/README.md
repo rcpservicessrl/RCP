@@ -13,6 +13,9 @@ Las decisiones D-01 a D-11 fueron aprobadas el 2026-08-12 y están consolidadas 
 
 ## Documentos vigentes para RC2
 
+- `FULL_SITE_CONTROLS_AUDIT_2026-10-11.md`: revisión de rutas, controles, accesibilidad y estado de la propuesta POS con e-CF.
+- `POS_OFFER_RESEARCH_2026-10-11.md`: comparación de ofertas públicas y propuesta comercial pendiente de confirmar la integración operativa.
+
 - `LATEST_VISUAL_RECOVERY_2026-10-11.md`: conciliación de la propuesta visual aprobada con la demo y la reparación de carga.
 
 - `DEMO_SHOWCASE_2026-10-11.md`: demo abierta Mercado Aurora, presentación ES/EN, verificaciones y publicación del botón.

@@ -15,7 +15,7 @@ export function parseQuoteReferences(value?: string) {
 export function QuoteReview({ locale, references }: { locale: Locale; references: string[] }) {
   const homeHref = locale === "es" ? "/catalogo" : "/en/catalog";
   const diagnosisBase = locale === "es" ? "/diagnostico" : "/en/diagnosis";
-  const diagnosisHref = references.length ? `${diagnosisBase}?servicios=${encodeURIComponent(references.join(","))}` : diagnosisBase;
+  const diagnosisHref = references.length ? `${diagnosisBase}?${locale === "es" ? "servicios" : "services"}=${encodeURIComponent(references.join(","))}#solicitud` : diagnosisBase;
 
   return (
     <InteriorShell locale={locale}>

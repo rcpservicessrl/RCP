@@ -38,7 +38,8 @@
   line-height: 1.5;
 }
 
-.placeholder div {
+.placeholder div,
+.controls {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -46,7 +47,9 @@
 }
 
 .placeholder button,
-.placeholder a {
+.placeholder a,
+.controls button,
+.controls a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -59,21 +62,44 @@
   cursor: pointer;
 }
 
-.placeholder button {
+.placeholder button,
+.controls button {
   border: 1px solid #fcb53f;
   background: #fcb53f;
   color: #111;
 }
 
-.placeholder a {
+.placeholder a,
+.controls a {
   border: 1px solid rgb(255 255 255 / 18%);
   color: #f8f8f5;
 }
 
 .placeholder button:focus-visible,
-.placeholder a:focus-visible {
+.placeholder a:focus-visible,
+.controls button:focus-visible,
+.controls a:focus-visible {
   outline: 2px solid #a8cf45;
   outline-offset: 3px;
+}
+
+.enabled {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #070707;
+  color: #f8f8f5;
+}
+
+.controls {
+  margin-top: 0;
+  padding: 10px 14px;
+}
+
+.enabled iframe {
+  flex: 1 1 auto;
+  min-height: 152px;
 }
 
 .video,

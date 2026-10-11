@@ -393,7 +393,7 @@ function ActionLink({ item, locale, className }: { item: PageLink; locale: Local
   const href = t(item.href, locale);
   const label = t(item.label, locale);
   const content = <>{label}<ArrowIcon size={16} /></>;
-  if (href.startsWith("http")) return <a className={className} href={href} target="_blank" rel="noreferrer">{content}</a>;
+  if (href.startsWith("http")) return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{content}</a>;
   if (href.startsWith("mailto:")) return <a className={className} href={href}>{content}</a>;
   return <Link className={className} href={href}>{content}</Link>;
 }

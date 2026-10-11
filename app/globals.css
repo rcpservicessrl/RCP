@@ -663,13 +663,13 @@
 
   /* Pulso help */
   .pulso-help { position: fixed; right: 22px; bottom: 22px; z-index: 900; display: grid; justify-items: end; gap: 12px; }
-  .pulso-help__trigger { display: flex; align-items: center; gap: 9px; min-height: 64px; padding: 5px 14px 5px 7px; border: 1px solid var(--line-strong); border-radius: 18px; background: var(--panel); color: var(--text); box-shadow: 0 15px 45px rgb(0 0 0 / 22%); backdrop-filter: blur(20px); cursor: pointer; }
+  .pulso-help__trigger { display: flex; align-items: center; gap: 9px; min-height: 64px; padding: 5px 14px 5px 7px; border: 1px solid var(--line-strong); border-radius: 18px; background: var(--surface-2); color: var(--text); box-shadow: 0 15px 45px rgb(0 0 0 / 22%); cursor: pointer; }
   .pulso-help__avatar { display: grid; place-items: end center; width: 48px; height: 54px; overflow: visible; border-radius: 0; }
   .pulso-help__avatar .pulso { width: 38px; }
   .pulso-help__avatar .pulso__frame { border: 0; border-radius: 0; box-shadow: none; }
   .pulso-help__name { display: grid; text-align: left; }
   .pulso-help__name strong { font-size: .9rem; }
-  .pulso-help__name small { color: var(--muted); font-size: .9rem; }
+  .pulso-help__name small { color: var(--text-soft); font-size: .9rem; }
   .pulso-help__panel { width: min(360px, calc(100vw - 32px)); overflow: hidden; border: 1px solid var(--line-strong); border-radius: 18px; background: var(--surface); box-shadow: 0 30px 90px rgb(0 0 0 / 35%); animation: help-in .28s var(--ease); }
   @keyframes help-in { from { opacity: 0; transform: translateY(10px) scale(.98); } }
   .pulso-help__panel > header { display: flex; align-items: center; justify-content: space-between; min-height: 62px; padding: 0 17px; border-bottom: 1px solid var(--line); }
