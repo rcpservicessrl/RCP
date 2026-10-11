@@ -38,6 +38,12 @@ Next.js se actualiza a 16.3.8 y `source-map-js` a 1.2.2 para corregir los avisos
 de seguridad de las dependencias productivas. El lockfile conserva pnpm 11.16.0
 y Node 24. La auditoría final informa cero vulnerabilidades.
 
+La primera validación GitHub detectó un fallo del resolvedor `next/font/google`
+en Linux. Se versionaron las mismas fuentes Latin WOFF2 del build local y sus
+licencias SIL OFL mediante `next/font/local`, conservando las familias,
+variables CSS y pesos 500–700. La compilación ya no descarga las fuentes.
+Referencia técnica: https://nextjs.org/docs/app/api-reference/components/font.
+
 Publicar mediante PR con los checks `validate` y `Vercel – rcp-services-web`.
 Conservar como rollback el despliegue previo
 `dpl_9emHny8uQj3b4NgZpQfD4xk61kaH`. No alterar DNS, proveedores de formularios
