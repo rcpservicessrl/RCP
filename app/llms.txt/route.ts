@@ -14,6 +14,15 @@ Public promise in Spanish: "Le damos nuevo impulso a tu negocio." Heart and puls
 - The initial assessment is a free 45-minute conversation, subject to confirmation. A deeper diagnosis, if needed, is scoped separately.
 - Software is designed or integrated to fit the client's process; it is not a universal suite.
 
+## POS and electronic invoicing
+
+- RCP offers implementation of POS systems integrated with e-CF in the Dominican Republic.
+- Essential POS implementation starts at RD$9,900 once. Optional RCP accompaniment starts at RD$1,990/month; this is not the POS license price.
+- System licensing, issuance plans and consumption, digital certificates, hardware and extra scope are quoted separately. Applicable taxes are excluded from starting fees.
+- Actual issuance requires taxpayer authorization, a valid certificate and agreed testing. RCP does not claim to be a DGII-certified invoicing service provider.
+- Public demo data and fiscal documents are simulated.
+- Current scope and written quote: https://rcp.services/facturacion-electronica and https://rcp.services/en/electronic-invoicing
+
 ## Public routes
 
 - https://rcp.services/
@@ -62,7 +71,7 @@ Public promise in Spanish: "Le damos nuevo impulso a tu negocio." Heart and puls
 ## Important boundaries
 
 - RCP does not guarantee sales, search rankings, tax outcomes or regulatory acceptance.
-- Electronic invoicing is presented as readiness and integration through authorized capability.
+- Electronic invoicing integration is available; fiscal activation is subject to taxpayer requirements.
 - Ownership, infrastructure, support and exit are defined per project.
 - Pulso is the official RCP Jaguar Mascot and public guide; it does not issue legal, tax or financial advice.
 - The public catalog does not publish rigid prices or process online payments; scope and ownership are defined after qualification.

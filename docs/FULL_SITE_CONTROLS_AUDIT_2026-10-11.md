@@ -70,13 +70,15 @@ validate UI behavior and request payloads, not actual downstream CRM delivery.
 The local build has no public Turnstile key; full form checks must run against
 the remotely built production candidate with its actual public configuration.
 
-## Commercial work pending owner confirmation
+## Owner-confirmed commercial availability
 
-The owner requested an integrated e-CF POS offer. Existing commercial content
-still marks e-CF unavailable, and the demo intentionally simulates issuance.
-The operational integration/provider was requested before changing that state.
+The owner confirmed operational e-CF integration on October 11 and authorized
+announcing the service. Supplier identity is private and excluded from public
+content. Replace the outdated unavailable state across pages, catalog and search.
+The demo intentionally continues to simulate issuance.
 See `POS_OFFER_RESEARCH_2026-10-11.md` for first-party competitor sources, a
-proposed peso-denominated offer and its explicit scope and separate costs.
+implementation offer from RD$9,900 once, optional accompaniment from
+RD$1,990/month and explicit separate licensing, issuance and certificate costs.
 Do not infer DGII acceptance, provider certification or unlimited fiscal
 documents from simulated demo receipts.
 

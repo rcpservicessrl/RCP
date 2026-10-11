@@ -50,6 +50,7 @@ export const catalogArtByService = {
   "formacion-intervencion": "training",
   "tableros-operacion": "saas",
   "consultoria-impositiva": "tax",
+  "facturacion-electronica": "pos",
   "iguala-contable": "iguala-contable",
   "control-financiero": "control-financiero",
   "documentacion-empresarial": "documentacion-empresarial",

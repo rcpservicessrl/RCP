@@ -3,9 +3,10 @@
 ## Scope and current decision
 
 The owner requested publication of POS systems integrated with electronic
-invoicing and a competitive offer. Existing published content still describes
-e-CF as in development; the public demo explicitly simulates fiscal documents.
-An operational provider/integration confirmation was requested in this chat.
+invoicing and a competitive offer. On October 11 the owner confirmed operational
+integration and authorized announcing the service. Supplier identity is private
+and is excluded from public content and this record. The public demo still
+explicitly simulates fiscal documents.
 A demo receipt is not evidence of DGII acceptance or RCP provider certification.
 
 ## Public competitor evidence
@@ -22,8 +23,9 @@ the cheapest is made. Prices may change.
 
 ## Proposed RCP offer
 
-POS Esencial, planning estimate from RD$1,990/month, implementation from
-RD$9,900 once: one location, one register, up to three users, product/customer
+POS Esencial implementation from RD$9,900 once; optional RCP accompaniment
+from RD$1,990/month. The monthly accompaniment is not the POS license price.
+Scope: one location, one register, up to three users, product/customer
 catalog, sales, inventory, cash closing and reports; initial configuration,
 import of up to 300 products from an agreed template and one two-hour remote
 training session. Support scope and service hours are agreed in writing.
@@ -47,6 +49,6 @@ status. No certification or live fiscal transaction was performed in this task.
 
 ## Next step
 
-Resolve operational integration evidence before changing commercial availability.
-Audit and repair website controls independently. Preserve the latest approved
+Publish owner-confirmed availability with taxpayer activation requirements and
+separate license/emission costs. Preserve the latest approved
 visual source, demo isolation and PR 30/31 runtime recovery.

@@ -1,0 +1,19 @@
+.section { padding: clamp(3rem, 7vw, 6rem) 0; background: var(--surface-2); color: var(--text); }
+.grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.copy { position: sticky; top: 7rem; }
+.section h2 { font-size: clamp(2rem, 3.4vw, 3.4rem); line-height: 1.12; margin: .9rem 0 1.5rem; }
+.section p { font-size: 1.125rem; line-height: 1.65; margin: 0 0 1.2rem; }
+.section .eyebrow { color: var(--text-soft); font-size: .95rem; font-weight: 700; letter-spacing: .05em; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin: 2rem 0 1.25rem; }
+.section .note { color: var(--text-soft); font-size: 1rem; }
+.card { padding: clamp(1.4rem, 3vw, 2.5rem); border: 1px solid var(--line); border-radius: 1.5rem; background: var(--surface); box-shadow: 0 18px 60px rgb(0 0 0 / .06); }
+.card h3 { margin: 0 0 .4rem; font-size: 1.4rem; }
+.card h4 { margin: 1.5rem 0 .65rem; font-size: 1.125rem; line-height: 1.4; }
+.section .price { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 750; line-height: 1.12; letter-spacing: -.04em; margin: 0 0 .7rem; }
+.section .cadence { color: var(--text-soft); font-size: 1rem; font-weight: 600; }
+.support { border-block: 1px solid var(--line); padding-bottom: .35rem; margin: 1.5rem 0; }
+.support strong { font-size: 1.4rem; }
+.section .terms { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: 1.5rem; color: var(--text-soft); font-size: 1rem; }
+@media (max-width: 850px) { .grid { grid-template-columns: 1fr; } .copy { position: static; } }
+@media (max-width: 480px) { .actions { align-items: stretch; flex-direction: column; } .actions a { white-space: normal; text-align: center; } }
+
