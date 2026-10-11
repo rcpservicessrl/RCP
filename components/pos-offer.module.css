@@ -16,4 +16,3 @@
 .section .terms { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: 1.5rem; color: var(--text-soft); font-size: 1rem; }
 @media (max-width: 850px) { .grid { grid-template-columns: 1fr; } .copy { position: static; } }
 @media (max-width: 480px) { .actions { align-items: stretch; flex-direction: column; } .actions a { white-space: normal; text-align: center; } }
-
