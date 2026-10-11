@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/types";
 import { TurnstileField } from "@/components/turnstile-field";
+import { fingerprintSubmissionPayload, resolveSubmissionIdempotency, type SubmissionIdempotency } from "@/lib/submission-idempotency";
 import styles from "./specialist-application-page.module.css";
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
@@ -96,13 +97,16 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
   const [state, setState] = useState<SubmissionState>("idle");
   const [reference, setReference] = useState("");
   const [message, setMessage] = useState("");
-  const idempotencyKey = useRef<string | null>(null);
+  const submissionIdempotency = useRef<SubmissionIdempotency | null>(null);
+  const submitting = useRef(false);
   const defaultFallbackHref = `mailto:${fallbackEmail}?subject=${encodeURIComponent(locale === "es" ? "Postulación a la Red de Especialistas RCP" : "RCP Specialist Network application")}`;
   const [fallbackHref, setFallbackHref] = useState(defaultFallbackHref);
   const [verificationReset, setVerificationReset] = useState(0);
+  const antiAbuseUnavailable = typeof process !== "undefined" && process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting.current) return;
     const form = event.currentTarget;
     const data = new FormData(form);
     const payload = {
@@ -118,18 +122,22 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
       turnstileToken: data.get("turnstileToken"),
     };
 
+    submitting.current = true;
     setState("submitting");
     setMessage("");
-    idempotencyKey.current ??= crypto.randomUUID();
 
     try {
+      const fingerprint = await fingerprintSubmissionPayload({ ...Object.fromEntries(data.entries()), locale });
+      const requestIdentity = resolveSubmissionIdempotency(submissionIdempotency.current, fingerprint);
+      submissionIdempotency.current = requestIdentity;
       const response = await fetch("/api/specialist-applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Idempotency-Key": idempotencyKey.current,
+          "Idempotency-Key": requestIdentity.key,
         },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(20000),
       });
       const result = await response.json().catch(() => ({})) as ApplicationResponse;
       if (typeof result.fallbackUrl === "string" && result.fallbackUrl.startsWith(`mailto:${fallbackEmail}`)) {
@@ -140,7 +148,7 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
         setReference(result.reference);
         setState("success");
         form.reset();
-        idempotencyKey.current = null;
+        if (submissionIdempotency.current === requestIdentity) submissionIdempotency.current = null;
         return;
       }
 
@@ -151,6 +159,8 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
       setMessage(c.genericError);
       setState("error");
       setVerificationReset((current) => current + 1);
+    } finally {
+      submitting.current = false;
     }
   };
 
@@ -233,11 +243,11 @@ export function SpecialistApplicationForm({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      <TurnstileField locale={locale} resetSignal={verificationReset} />
+      <TurnstileField locale={locale} resetSignal={verificationReset} contact="specialist" />
 
       <div className={styles.formActions}>
-        <button className="button button--primary button--large" type="submit" disabled={state === "submitting"}>
-          {state === "submitting" ? c.submitting : c.submit}
+        <button className="button button--primary button--large" type="submit" disabled={state === "submitting" || antiAbuseUnavailable}>
+          {state === "submitting" ? c.submitting : antiAbuseUnavailable ? (locale === "es" ? "Verificación pendiente" : "Verification pending") : c.submit}
         </button>
         <a className={styles.emailLink} href={fallbackHref}>{fallbackEmail}</a>
       </div>

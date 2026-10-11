@@ -7,18 +7,23 @@ import Link from "next/link";
 import type { Locale, NeedId, PillarId } from "@/lib/types";
 import { methodSteps, needs, pillars, t } from "@/lib/content";
 import { ArrowIcon, CheckIcon, LayersIcon, ShieldIcon } from "@/components/icons";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SearchPalette } from "@/components/search-palette";
 import { Pulso, type PulsoScene } from "@/components/pulso";
 import { PulsoHelp } from "@/components/pulso-help";
 import { ConsentBanner } from "@/components/consent-banner";
-import { ConnectionDrawing } from "@/components/business-visual";
+import { ConnectedExperience, MethodBlueprint } from "@/components/transformation-canvas";
+import { CommercialOffers } from "@/components/commercial-offers";
+import { PriceGuide } from "@/components/price-guide";
 import { ProductArtwork } from "@/components/product-artwork";
 import { CatalogExplorer } from "@/components/catalog-explorer";
 import { DiagnosisForm } from "@/components/diagnosis-form";
 import { EditorialIntro, EditorialSectors } from "@/components/editorial-intro";
+import { ClientShowcase } from "@/components/client-showcase";
 import "./home-editorial.css";
 import { CursorHalo } from "@/components/cursor-halo";
+import { ExperienceMotion } from "@/components/experience-motion";
 
 interface HomeExperienceProps {
   locale: Locale;
@@ -58,7 +63,7 @@ const copy = {
     stepOutcome: "Lo dejamos claro con",
     catalogEyebrow: "Todo lo que RCP puede activar",
     catalogTitle: "Encuentra ayuda para lo que tu negocio necesita hoy.",
-    catalogText: "Renovación, Consultoría y Publicidad reunidas en un solo catálogo. Dentro de Publicidad 360 encuentras desde redes y páginas web hasta impresos y letreros. El alcance y el precio se definen después de entender bien tu caso.",
+    catalogText: "Renovación, Consultoría y Publicidad reunidas en un solo catálogo. Dentro de Publicidad 360 encuentras desde redes y páginas web hasta impresos y letreros. Consulta inversiones estimadas y define el alcance final después de entender bien tu caso.",
     fullCatalog: "Abrir catálogo completo",
     specialistsEyebrow: "Personas correctas, trabajo coordinado",
     specialistsTitle: "Buscamos al especialista. Tú sigues hablando con RCP.",
@@ -67,7 +72,7 @@ const copy = {
     specialistCta: "Conocer cómo coordinamos especialistas",
     diagnosisEyebrow: "Evaluación Inicial RCP 360°",
     diagnosisTitle: "¿Qué necesita un nuevo impulso en tu negocio?",
-    diagnosisText: "Responde cuatro pasos sencillos para solicitar una conversación de 45 minutos, sin costo y sujeta a confirmación. El diagnóstico profundo, si hace falta, se propone después por separado.",
+    diagnosisText: "Deja tus datos de contacto y una prioridad para solicitar una conversación de 45 minutos, sin costo y sujeta a confirmación. El diagnóstico profundo, si hace falta, se propone después por separado.",
   },
   en: {
     signature: "For small businesses · Dominican Republic",
@@ -102,7 +107,7 @@ const copy = {
     stepOutcome: "We make it clear with",
     catalogEyebrow: "Everything RCP can activate",
     catalogTitle: "Find help for what your business needs today.",
-    catalogText: "Renewal, Consulting and Advertising in one catalog. Our 360 Advertising scope covers everything from social media and websites to print and signage. Scope and price are defined after we understand your case.",
+    catalogText: "Renewal, Consulting and Advertising in one catalog. Our 360 Advertising scope covers everything from social media and websites to print and signage. Explore planning estimates and define the final scope after we understand your case.",
     fullCatalog: "Open the full catalog",
     specialistsEyebrow: "The right people, coordinated work",
     specialistsTitle: "We find the specialist. You keep talking with RCP.",
@@ -111,7 +116,7 @@ const copy = {
     specialistCta: "See how we coordinate specialists",
     diagnosisEyebrow: "RCP 360° Initial Assessment",
     diagnosisTitle: "What needs fresh momentum in your business?",
-    diagnosisText: "Complete four simple steps to request a free 45-minute conversation, subject to confirmation. A deeper paid diagnosis, if needed, is proposed separately later.",
+    diagnosisText: "Leave your contact details and a priority to request a free 45-minute conversation, subject to confirmation. A deeper paid diagnosis, if needed, is proposed separately later.",
   },
 };
 
@@ -137,6 +142,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
 
 
   const selectedNeed = needs.find((entry) => entry.id === activeNeed) ?? needs[0];
+  const needPillar = pillars.find((entry) => entry.id === selectedNeed.pillar) ?? pillars[0];
   const selectedPillar = pillars.find((entry) => entry.id === activePillar) ?? pillars[0];
   const selectedMethod = methodSteps.find((entry) => entry.id === activeMethod) ?? methodSteps[0];
   const helpContext = useMemo(() => locale === "es" ? `Estás explorando ${selectedPillar.title.es}. Puedo ayudarte a encontrar servicios relacionados.` : `You are exploring ${selectedPillar.title.en}. I can help you find related services.`, [locale, selectedPillar]);
@@ -192,7 +198,9 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
       <SearchPalette locale={locale} open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       <main className="editorial-home" lang={locale === "es" ? "es-DO" : "en-US"}>
+        <ExperienceMotion />
         <EditorialIntro locale={locale} />
+        <CommercialOffers locale={locale} />
 
         <section className="problem-section page-scene" id="necesidad">
           <div className="container problem-section__grid">
@@ -214,7 +222,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
               </div>
               <article className="need-route" aria-live="polite">
                 <small>{c.routeLabel}</small>
-                <div><strong>{t(selectedPillar.title, locale)}</strong><span aria-hidden="true">+</span><p>{selectedNeed.capabilities.join(" · ")}</p></div>
+                <div><strong>{t(needPillar.title, locale)}</strong><span aria-hidden="true">+</span><p>{selectedNeed.capabilities.join(" · ")}</p></div>
                 <a className="text-link" href={`#${locale === "es" ? "diagnostico" : "diagnosis"}`}>{c.routeCta}<ArrowIcon size={17} /></a>
               </article>
             </div>
@@ -251,10 +259,12 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
             <div><p className="section-eyebrow">{c.technologyEyebrow}</p><h2>{c.technologyTitle}</h2></div>
             <div><p>{c.technologyText}</p><span className="technology-rule"><LayersIcon size={17} />{c.technologyRule}</span></div>
           </div>
-          <div className="container editorial-tech-showcase"><ConnectionDrawing locale={locale} /><div><ProductArtwork kind="pos" /><ProductArtwork kind="web" /><ProductArtwork kind="erp" /></div></div>
+          <div className="container"><ConnectedExperience locale={locale} /></div>
           <div className="container editorial-tech-links"><Link href={locale === "es" ? "/herramientas" : "/en/tools"}>{locale === "es" ? "Explora tu ruta y calcula el tiempo de tu proceso" : "Explore your route and estimate process time"}<ArrowIcon size={20} /></Link><Link href={locale === "es" ? "/software-a-la-medida" : "/en/custom-software"}>{locale === "es" ? "Del proceso real a una herramienta útil" : "From a real process to a useful tool"}<ArrowIcon size={20} /></Link></div>
           <div className="container section-action"><Link className="text-link" href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"}>{c.exploreTechnology}<ArrowIcon size={17} /></Link></div>
         </section>
+
+        <ClientShowcase locale={locale} />
 
         <section className="method-section page-scene" id={locale === "es" ? "metodo" : "method"}>
           <div className="container section-heading section-heading--split">
@@ -271,9 +281,11 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
               <div className="method-stage__evidence"><ShieldIcon size={20} /><span><small>{c.stepOutcome}</small><strong>{t(selectedMethod.outcome, locale)}</strong></span></div>
               <div className="method-stage__pulse" aria-hidden="true"><i style={{ width: `${((methodSteps.findIndex((entry) => entry.id === activeMethod) + 1) / methodSteps.length) * 100}%` }} /></div>
             </div>
+            <MethodBlueprint locale={locale} step={methodSteps.findIndex((entry) => entry.id === activeMethod)} />
           </div>
         </section>
 
+        <PriceGuide locale={locale} />
         <section className="catalog-section page-scene" id="catalogo">
           <div className="container section-heading section-heading--split">
             <div><p className="section-eyebrow">{c.catalogEyebrow}</p><h2>{c.catalogTitle}</h2></div>
@@ -309,15 +321,7 @@ export function HomeExperience({ locale }: HomeExperienceProps) {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container site-footer__top">
-          <div><Image className="footer-logo" src="/assets/brand/logos/logo_rcp_lockup_3p_oscuro.png" width={380} height={125} alt={locale === "es" ? "RCP Services · Renovación · Consultoría · Publicidad" : "RCP Services · Renewal · Consulting · Advertising"} /><p>{locale === "es" ? "Le damos nuevo impulso a tu negocio." : "We give your business new momentum."}</p></div>
-          <div><small>{locale === "es" ? "Soluciones" : "Solutions"}</small><Link href={locale === "es" ? "/servicios" : "/en/services"}>{locale === "es" ? "Tres pilares" : "Three pillars"}</Link><Link href={locale === "es" ? "/catalogo" : "/en/catalog"}>{locale === "es" ? "Catálogo" : "Catalog"}</Link><Link href={locale === "es" ? "/software-a-la-medida" : "/en/custom-software"}>{locale === "es" ? "Software a la medida" : "Custom software"}</Link><Link href={locale === "es" ? "/facturacion-electronica" : "/en/electronic-invoicing"}>{locale === "es" ? "Facturación electrónica" : "Electronic invoicing"}</Link><Link href={locale === "es" ? "/sectores" : "/en/sectors"}>{locale === "es" ? "Sectores" : "Sectors"}</Link></div>
-          <div><small>{locale === "es" ? "Empresa" : "Company"}</small><Link href={locale === "es" ? "/nosotros" : "/en/about"}>{locale === "es" ? "Nosotros" : "About"}</Link><Link href={locale === "es" ? "/como-trabajamos" : "/en/how-we-work"}>{locale === "es" ? "Cómo trabajamos" : "How we work"}</Link><Link href={locale === "es" ? "/recursos" : "/en/resources"}>{locale === "es" ? "Recursos" : "Resources"}</Link><Link href={locale === "es" ? "/especialistas" : "/en/specialists"}>{locale === "es" ? "Red de especialistas" : "Specialist network"}</Link></div>
-          <div><small>{locale === "es" ? "Contacto" : "Contact"}</small><Link href={locale === "es" ? "/contacto" : "/en/contact"}>{locale === "es" ? "Hablar con RCP" : "Talk to RCP"}</Link><a href="mailto:info@rcp.services">info@rcp.services</a><a href="https://wa.me/18298068092" target="_blank" rel="noreferrer">+1 829 806 8092</a><span>Santo Domingo, República Dominicana</span></div>
-        </div>
-        <div className="container site-footer__bottom"><span>© {new Date().getFullYear()} RCP Services SRL · RNC 132-147103</span><nav><Link href={locale === "es" ? "/privacidad" : "/en/privacy"}>{locale === "es" ? "Privacidad" : "Privacy"}</Link><Link href={locale === "es" ? "/terminos" : "/en/terms"}>{locale === "es" ? "Términos" : "Terms"}</Link><Link href={locale === "es" ? "/cookies" : "/en/cookies"}>Cookies</Link><Link href={locale === "es" ? "/accesibilidad" : "/en/accessibility"}>{locale === "es" ? "Accesibilidad" : "Accessibility"}</Link></nav></div>
-      </footer>
+      <SiteFooter locale={locale} />
 
       <PulsoHelp locale={locale} scene={selectedPillar.id === "consultoria" ? "analyze" : "present"} contextLabel={helpContext} onOpenSearch={() => setSearchOpen(true)} />
       <ConsentBanner locale={locale} />

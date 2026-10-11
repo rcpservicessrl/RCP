@@ -1,3 +1,5 @@
+import { isSafeCrmUrl } from "@/lib/server/request-security";
+
 export type DeliveryMode = "email" | "crm";
 
 export type CrmConfirmation = {
@@ -59,6 +61,7 @@ export async function deliverEmail(input: EmailDeliveryInput) {
         text: input.content,
       }),
       signal: AbortSignal.timeout(8_000),
+      redirect: "error",
     });
     const result = await response.json().catch(() => null) as { id?: unknown } | null;
     const providerId = typeof result?.id === "string" ? result.id.trim().slice(0, 160) : "";
@@ -69,6 +72,7 @@ export async function deliverEmail(input: EmailDeliveryInput) {
 }
 
 export async function deliverCrm(input: CrmDeliveryInput): Promise<CrmConfirmation | null> {
+  if (!isSafeCrmUrl(input.url)) return null;
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const body = JSON.stringify(input.body);
   const signature = await createHmacSignature(input.hmacSecret, timestamp, body);
@@ -86,6 +90,7 @@ export async function deliverCrm(input: CrmDeliveryInput): Promise<CrmConfirmati
       },
       body,
       signal: AbortSignal.timeout(8_000),
+      redirect: "error",
     });
     const result = await response.json().catch(() => null) as Partial<CrmConfirmation> | null;
     if (!response.ok || result?.recorded !== true || typeof result.reference !== "string") return null;

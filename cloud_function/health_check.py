@@ -32,7 +32,7 @@ except ImportError:
 # ─── Configuration ───────────────────────────────────────────────────────────
 
 SUPABASE_URL = os.getenv('SUPABASE_URL', 'https://wpfovxgbennpgydbellw.supabase.co')
-SUPABASE_KEY = os.getenv('SUPABASE_KEY', 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY', '')
 N8N_TUNNEL_URL = os.getenv('N8N_TUNNEL_URL', '')
 ODOO_URL = os.getenv('ODOO_URL', 'https://rcp-services.odoo.com')
 GCP_CHAT_URL = 'https://us-central1-rcp-services-cloud.cloudfunctions.net/rcpChat'
@@ -68,6 +68,14 @@ def check_website():
 
 def check_supabase():
     """Ping Supabase REST API by querying the roles table (public read)."""
+    if not SUPABASE_KEY:
+        return {
+            'service': 'Supabase DB',
+            'status': 'SKIP',
+            'code': 0,
+            'latency_ms': -1,
+            'detail': 'SUPABASE_KEY is not configured'
+        }
     try:
         url = f"{SUPABASE_URL}/rest/v1/roles?select=slug&limit=1"
         headers = {'apikey': SUPABASE_KEY, 'Authorization': f'Bearer {SUPABASE_KEY}'}

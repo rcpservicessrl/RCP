@@ -28,3 +28,10 @@ test("English solution links resolve to canonical selections and malformed value
   for (const invalid of [undefined, null, ["sales-inventory"], {}, "  "]) assert.equal(canonicalSolution(invalid), undefined);
   assert.equal(canonicalSolution("__proto__"), "__proto__");
 });
+
+test("language switching retains only valid commercial offer and detailed mode", () => {
+  assert.equal(alternateRoute("/diagnostico", "es", "?offer=WEB&mode=detailed&email=private@example.test"), "/en/diagnosis?offer=WEB&mode=detailed");
+  assert.equal(alternateRoute("/en/diagnosis", "en", "?offer=SOFTWARE"), "/diagnostico?offer=SOFTWARE");
+  assert.equal(alternateRoute("/diagnostico", "es", "?offer=ECF&mode=unsafe"), "/en/diagnosis");
+  assert.equal(alternateRoute("/diagnostico", "es", "?offer=WEB&offer=SOFTWARE"), "/en/diagnosis");
+});

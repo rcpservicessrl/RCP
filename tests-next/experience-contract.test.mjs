@@ -192,15 +192,15 @@ test("guided diagnosis has four steps and carries the selected context", async (
   assert.match(form, /guided && step < 4/);
   assert.match(form, /Paso"\s*:\s*"Step"}\s*{step}\s*\/ 4/);
   assert.match(form, /aria-current={step === index \+ 1 \? "step" : undefined}/);
-  for (let index = 0; index < 4; index += 1) {
-    assert.match(form, new RegExp(`fieldsets\\.current\\[${index}\\][^\\n]*hidden=\\{guided && step !== ${index + 1}\\}`));
-  }
-
+  assert.equal((form.match(/fieldsets\.current\[\d\] = node/g) ?? []).length, 4);
+  assert.equal((form.match(/disabled=\{brief \|\| state === "submitting"\}/g) ?? []).length, 3);
+  assert.match(form, /hidden=\{!brief && guided && step !== 4\}/);
+  assert.match(form, /noValidate=\{!brief && guided\}/);
   assert.match(form, /name="selectedServices" value={selectedServices}/);
   assert.match(form, /name="selectedSolution" value={selectedSolution\?\.id \?\? ""}/);
   assert.match(form, /useState<NeedId \| "">\(initialNeed \?\? ""\)/);
   assert.match(home, /<DiagnosisForm locale={locale} guided initialNeed={activeNeed} \/>/);
-  assert.match(diagnosisPage, /<DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} initialSector={initialSector} guided \/>/);
+  assert.match(diagnosisPage, /<DiagnosisForm initialOffer={initialOffer} detailed={detailed} locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} initialSector={initialSector} guided \/>/);
 });
 
 test("diagnosis errors preserve form values and a server-provided handoff", async () => {
@@ -209,7 +209,7 @@ test("diagnosis errors preserve form values and a server-provided handoff", asyn
   const acceptanceGuard = form.indexOf("result.accepted !== true");
   const successState = form.indexOf('setState("success")');
   const reset = form.indexOf("form.reset()");
-  const catchStart = form.indexOf("} catch {", reset);
+  const catchStart = form.indexOf("} catch (error) {", reset);
   const catchEnd = form.indexOf("\n    }\n  };", catchStart);
 
   assert.ok(handoffAssignment >= 0 && handoffAssignment < acceptanceGuard, "handoff must be saved before a rejected response throws");
@@ -220,7 +220,7 @@ test("diagnosis errors preserve form values and a server-provided handoff", asyn
   const errorBranch = form.slice(catchStart, catchEnd);
   assert.match(errorBranch, /setState\("error"\)/);
   assert.doesNotMatch(errorBranch, /form\.reset\(|setHandoffUrl\(""\)|setStep\(1\)/);
-  assert.match(form, /state === "error"[\s\S]*?handoffUrl && <a/);
+  assert.match(form, /state === "error"[\s\S]*?href={handoffUrl \|\| publicContact.whatsappHref}/, "errors must offer the provider handoff or the public contact fallback");
   assert.match(form, /Tus datos siguen en pantalla/);
 });
 
@@ -233,7 +233,7 @@ test("diagnosis binds each retry key to its semantic payload and clears it only 
   const acceptanceGuard = form.indexOf("result.accepted !== true");
   const successState = form.indexOf('setState("success")', acceptanceGuard);
   const keyRotation = form.indexOf("submissionIdempotency.current = null", successState);
-  const catchStart = form.indexOf("} catch {", keyRotation);
+  const catchStart = form.indexOf("} catch (error) {", keyRotation);
   const catchEnd = form.indexOf("\n    }\n  };", catchStart);
 
   assert.match(form, /const submissionIdempotency = useRef<SubmissionIdempotency \| null>\(null\)/);

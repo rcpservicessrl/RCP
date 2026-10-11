@@ -1,16 +1,20 @@
 "use client";
 
+import { captureInquiryCampaign, type CommercialOffer, type CampaignContext } from "@/lib/commercial-intake";
 import type { BusinessSector } from "@/lib/discovery-context";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Locale, NeedId } from "@/lib/types";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { TurnstileField } from "@/components/turnstile-field";
+import { publicContact } from "@/lib/public-contact";
 import { selectableCapabilities, selectableCatalog, t, technologySolutions } from "@/lib/content";
 import { fingerprintSubmissionPayload, resolveSubmissionIdempotency, type SubmissionIdempotency } from "@/lib/submission-idempotency";
 
 interface DiagnosisFormProps {
   locale: Locale;
+  initialOffer?: CommercialOffer;
+  detailed?: boolean;
   selectedServiceIds?: string[];
   selectedCapabilityId?: string;
   selectedSolutionId?: string;
@@ -26,7 +30,14 @@ const stepLabels = {
   en: ["Your business", "What is happening", "What we will assess", "How to contact you"],
 };
 
-export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, guided = false, initialNeed, initialSector }: DiagnosisFormProps) {
+export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, guided = false, initialNeed, initialSector, initialOffer, detailed = false }: DiagnosisFormProps) {
+  const [brief, setBrief] = useState(!detailed);
+  const [offer, setOffer] = useState<CommercialOffer | "">(initialOffer ?? (selectedServiceIds.includes("sitios-web") ? "WEB" : ""));
+  const [briefProblem, setBriefProblem] = useState("");
+  const [campaign, setCampaign] = useState<CampaignContext>({});
+  const submitting = useRef(false);
+  useEffect(() => { setCampaign(captureInquiryCampaign()); }, []);
+  useEffect(() => { if (initialOffer) setOffer(initialOffer); }, [initialOffer]);
   const [step, setStep] = useState(1);
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
@@ -41,6 +52,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
   const selectedCapability = selectableCapabilities.find((item) => item.id === selectedCapabilityId);
   const selectedSolution = technologySolutions.find((item) => item.id === selectedSolutionId);
   const labels = stepLabels[locale];
+  const antiAbuseUnavailable = typeof process !== "undefined" && process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   useEffect(() => {
     if (initialNeed) setSelectedNeed(initialNeed);
@@ -74,11 +86,20 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (guided && step < 4) {
+    if (submitting.current) return;
+    if (!brief && guided && step < 4) {
       nextStep();
       return;
     }
 
+    if (!brief && guided) {
+      for (let index = 1; index <= 4; index++) {
+        const controls = fieldsets.current[index - 1]?.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("input, select, textarea");
+        const invalid = Array.from(controls ?? []).find(control => !control.checkValidity());
+        if (invalid) { setStep(index); requestAnimationFrame(() => { invalid.focus(); invalid.reportValidity(); }); return; }
+      }
+      if (!event.currentTarget.querySelector<HTMLSelectElement>('select[name="offer"]')?.reportValidity()) return;
+    }
     const form = event.currentTarget;
     const data = new FormData(form);
     const email = String(data.get("email") ?? "").trim();
@@ -86,14 +107,22 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
     if (!email && !phone) {
       setState("error");
       setMessage(locale === "es" ? "Escribe un correo o un número de WhatsApp para poder responderte." : "Enter an email address or WhatsApp number so we can reply.");
-      setStep(4);
+      if (!brief) setStep(4);
       return;
     }
 
+    submitting.current = true;
     setState("submitting");
     setMessage("");
     setHandoffUrl("");
     const payload = Object.fromEntries(data.entries());
+    // Keep capture current even after client navigation between campaign URLs.
+    payload.campaign = JSON.stringify(captureInquiryCampaign());
+    if (brief) {
+      payload.need = selectedNeed || (offer === "WEB" ? "crecer" : "ordenar");
+      payload.sector = initialSector ?? "otro";
+      payload.contactPreference = phone ? "whatsapp" : "email";
+    }
 
     try {
       const fingerprint = await fingerprintSubmissionPayload(payload);
@@ -103,6 +132,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
         method: "POST",
         headers: { "Content-Type": "application/json", "Idempotency-Key": requestIdentity.key },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(20000),
       });
       const result = await response.json() as { accepted?: boolean; recorded?: boolean; reference?: string; handoffUrl?: string; message?: string };
       setHandoffUrl(result.handoffUrl ?? "");
@@ -110,12 +140,19 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
       setReference(result.reference ?? "");
       setState("success");
       form.reset();
+      setBriefProblem("");
+      setSelectedNeed(initialNeed ?? "");
+      setVerificationReset(current => current + 1);
       setStep(1);
       if (submissionIdempotency.current === requestIdentity) submissionIdempotency.current = null;
-    } catch {
+    } catch (error) {
       setVerificationReset((current) => current + 1);
       setState("error");
-      setMessage(locale === "es" ? "No pudimos confirmar el envío todavía. Tus datos siguen en pantalla; puedes intentarlo de nuevo o continuar por WhatsApp." : "We could not confirm delivery yet. Your details remain on screen; try again or continue on WhatsApp.");
+      setMessage(error instanceof Error && error.message === "crm_attribution_capacity_exceeded"
+        ? (locale === "es" ? "Tu diagnóstico necesita otro canal para conservar todas las respuestas. Tus datos siguen en pantalla; puedes continuar por WhatsApp y acordar con RCP cómo compartirlo completo." : "Your diagnosis needs another channel to retain every answer. Your details remain on screen; continue on WhatsApp and agree with RCP how to share it in full.")
+        : (locale === "es" ? "No pudimos confirmar el envío todavía. Tus datos siguen en pantalla; puedes intentarlo de nuevo o continuar por WhatsApp." : "We could not confirm delivery yet. Your details remain on screen; try again or continue on WhatsApp."));
+    } finally {
+      submitting.current = false;
     }
   };
 
@@ -134,21 +171,29 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
   }
 
   return (
-    <form className={`diagnosis-form ${guided ? "diagnosis-form--guided" : ""}`} onSubmit={submit} noValidate={false}>
+    <form className={`diagnosis-form ${guided ? "diagnosis-form--guided" : ""}`} onSubmit={submit} noValidate={!brief && guided}>
+      <input type="hidden" name="intakeMode" value={brief ? "brief" : "detailed"} />
+      <input type="hidden" name="campaign" value={JSON.stringify(campaign)} />
+      <div className="form-selection">
+        <label><span>{locale === "es" ? "¿Sobre qué quieres conversar?" : "What would you like to discuss?"}</span><select name="offer" required value={offer} onChange={event => setOffer(event.target.value as CommercialOffer)}><option value="" disabled>{locale === "es" ? "Selecciona una opción" : "Select an option"}</option><option value="WEB">WEB · {locale === "es" ? "Tu negocio, visible" : "Make your business visible"}</option><option value="SOFTWARE">SOFTWARE · {locale === "es" ? "Solución a medida" : "Tailored solution"}</option><option value="OTHER">{locale === "es" ? "Otra necesidad / Quiero orientación" : "Another need / I need guidance"}</option></select></label>
+        <button type="button" className="text-button" aria-expanded={!brief} disabled={state === "submitting"} onClick={() => { setBrief(!brief); setStep(1); setMessage(""); setState("idle"); }}>{brief ? (locale === "es" ? "Prefiero explicar mi caso en detalle" : "I prefer to explain my case in detail") : (locale === "es" ? "Volver a la consulta breve" : "Return to the brief inquiry")}</button>
+        {brief && <p>{locale === "es" ? "Solo necesitamos tu nombre, negocio y un medio para responder. El alcance se define contigo en la evaluación." : "We only need your name, business and a way to reply. Scope is defined with you during assessment."}</p>}
+        {brief && (selectedItems.length > 0 || selectedCapability || selectedSolution) && <p>{locale === "es" ? "Selección conservada" : "Selection retained"}: {[...selectedItems.map(item => t(item.title, locale)), ...(selectedCapability ? [selectedCapability.acronym] : []), ...(selectedSolution ? [t(selectedSolution.title, locale)] : [])].join(" · ")}</p>}
+      </div>
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="selectedServices" value={selectedServices} />
       <input type="hidden" name="selectedCapability" value={selectedCapability?.id ?? ""} />
       <input type="hidden" name="selectedSolution" value={selectedSolution?.id ?? ""} />
       <label className="honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
 
-      {guided && (
+      {!brief && guided && (
         <div className="diagnosis-progress" aria-label={locale === "es" ? "Progreso de la solicitud de evaluación" : "Assessment request progress"}>
           <div><span>{locale === "es" ? "Paso" : "Step"} {step} / 4</span><strong>{labels[step - 1]}</strong></div>
           <ol>{labels.map((label, index) => <li key={label} className={step > index ? "is-active" : ""} aria-current={step === index + 1 ? "step" : undefined}><span>{index + 1}</span><small>{label}</small></li>)}</ol>
         </div>
       )}
 
-      <fieldset ref={(node) => { fieldsets.current[0] = node; }} tabIndex={-1} hidden={guided && step !== 1} className="diagnosis-step">
+      <fieldset ref={(node) => { fieldsets.current[0] = node; }} tabIndex={-1} disabled={brief || state === "submitting"} hidden={brief || (guided && step !== 1)} className="diagnosis-step">
         <legend>{locale === "es" ? "Empecemos por lo que más necesita atención" : "Start with what needs the most attention"}</legend>
         <div className="need-choice-grid">
           <label><input type="radio" name="need" value="ordenar" required checked={selectedNeed === "ordenar"} onChange={() => setSelectedNeed("ordenar")} /><span><strong>{locale === "es" ? "Ordenar el negocio" : "Organize the business"}</strong><small>{locale === "es" ? "Procesos, ventas, inventario o equipo" : "Processes, sales, inventory or team"}</small></span></label>
@@ -158,13 +203,13 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
         <label><span>{locale === "es" ? "¿A qué se dedica tu negocio?" : "What does your business do?"}</span><select name="sector" required defaultValue={initialSector ?? ""}><option value="" disabled>{locale === "es" ? "Selecciona una opción" : "Select an option"}</option><option value="imprenta">{locale === "es" ? "Imprenta y personalización" : "Print and personalization"}</option><option value="comercio">{locale === "es" ? "Comercio, inventario y punto de venta" : "Retail, inventory and point of sale"}</option><option value="servicios">{locale === "es" ? "Empresa de servicios" : "Service business"}</option><option value="otro">{locale === "es" ? "Otro sector" : "Other sector"}</option></select></label>
       </fieldset>
 
-      <fieldset ref={(node) => { fieldsets.current[1] = node; }} tabIndex={-1} hidden={guided && step !== 2} className="diagnosis-step">
+      <fieldset ref={(node) => { fieldsets.current[1] = node; }} tabIndex={-1} disabled={brief || state === "submitting"} hidden={brief || (guided && step !== 2)} className="diagnosis-step">
         <legend>{locale === "es" ? "Cuéntanos qué está frenando el negocio" : "Tell us what is holding the business back"}</legend>
         <label><span>{locale === "es" ? "¿Qué proceso o problema necesita mejorar?" : "Which process or problem needs improvement?"}</span><textarea name="problem" required minLength={20} maxLength={1000} rows={5} placeholder={locale === "es" ? "Ejemplo: perdemos ventas porque no damos seguimiento a tiempo…" : "Example: we lose sales because follow-up is late…"} /></label>
         <label><span>{locale === "es" ? "¿Qué te gustaría lograr?" : "What would you like to achieve?"}</span><textarea name="expectedOutcome" required minLength={10} maxLength={600} rows={3} placeholder={locale === "es" ? "Explícalo con tus propias palabras." : "Explain it in your own words."} /></label>
       </fieldset>
 
-      <fieldset ref={(node) => { fieldsets.current[2] = node; }} tabIndex={-1} hidden={guided && step !== 3} className="diagnosis-step">
+      <fieldset ref={(node) => { fieldsets.current[2] = node; }} tabIndex={-1} disabled={brief || state === "submitting"} hidden={brief || (guided && step !== 3)} className="diagnosis-step">
         <legend>{locale === "es" ? "Confirmemos qué vamos a evaluar" : "Confirm what we will assess"}</legend>
         {selectedItems.length > 0 || selectedCapability || selectedSolution ? (
           <div className="form-selection" role="status">
@@ -183,7 +228,7 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
         <div className="form-note"><strong>{locale === "es" ? "Todavía no envíes documentos sensibles." : "Do not send sensitive documents yet."}</strong><p>{locale === "es" ? "RNC, cédula, certificados, contratos y estados financieros se solicitan después, en un espacio protegido, solo si hacen falta." : "Tax IDs, identity documents, certificates, contracts and financial statements are requested later in a protected space, only if needed."}</p></div>
       </fieldset>
 
-      <fieldset ref={(node) => { fieldsets.current[3] = node; }} tabIndex={-1} hidden={guided && step !== 4} className="diagnosis-step">
+      <fieldset ref={(node) => { fieldsets.current[3] = node; }} tabIndex={-1} disabled={state === "submitting"} hidden={!brief && guided && step !== 4} className="diagnosis-step">
         <legend>{locale === "es" ? "¿A quién debemos contactar?" : "Who should we contact?"}</legend>
         <div className="form-row">
           <label><span>{locale === "es" ? "Tu nombre" : "Your name"}</span><input name="name" required minLength={2} maxLength={80} autoComplete="name" /></label>
@@ -196,13 +241,14 @@ export function DiagnosisForm({ locale, selectedServiceIds = [], selectedCapabil
         <label className="checkbox-label"><input type="checkbox" name="consent" value="true" required /><span>{locale === "es" ? "Autorizo a RCP Services a usar estos datos para responder esta solicitud, según su política de privacidad." : "I authorize RCP Services to use this data to respond to this request under its privacy policy."}</span></label>
       </fieldset>
 
-      {state === "error" && <div className="form-error" role="alert"><p>{message}</p>{handoffUrl && <a href={handoffUrl} target="_blank" rel="noreferrer">{locale === "es" ? "Continuar por WhatsApp" : "Continue on WhatsApp"}<ArrowIcon size={15} /></a>}</div>}
+      {brief && <label><span>{locale === "es" ? "¿Qué necesitas? (opcional)" : "What do you need? (optional)"}</span><textarea name="problem" value={briefProblem} onChange={event => setBriefProblem(event.target.value)} maxLength={1000} rows={3} placeholder={locale === "es" ? "Una idea breve es suficiente. No incluyas documentos ni datos sensibles." : "A brief idea is enough. Do not include documents or sensitive information."} /></label>}
+      {state === "error" && <div className="form-error" role="alert"><p>{message}</p><a href={handoffUrl || publicContact.whatsappHref} target="_blank" rel="noopener noreferrer">{locale === "es" ? "Continuar por WhatsApp" : "Continue on WhatsApp"}<ArrowIcon size={15} /></a></div>}
 
       <TurnstileField locale={locale} resetSignal={verificationReset} />
 
       <div className="diagnosis-actions">
-        {guided && step > 1 && <button type="button" className="button button--secondary" onClick={previousStep}>{locale === "es" ? "Volver" : "Back"}</button>}
-        {guided && step < 4 ? <button type="button" className="button button--primary" onClick={nextStep}>{locale === "es" ? "Continuar" : "Continue"}<ArrowIcon size={18} /></button> : <button type="submit" className="button button--primary" disabled={state === "submitting"}>{state === "submitting" ? (locale === "es" ? "Enviando…" : "Sending…") : (locale === "es" ? "Solicitar evaluación sin costo" : "Request free assessment")}<ArrowIcon size={18} /></button>}
+        {!brief && guided && step > 1 && <button type="button" className="button button--secondary" onClick={previousStep}>{locale === "es" ? "Volver" : "Back"}</button>}
+        {!brief && guided && step < 4 ? <button type="button" className="button button--primary" onClick={nextStep}>{locale === "es" ? "Continuar" : "Continue"}<ArrowIcon size={18} /></button> : <button type="submit" className="button button--primary" disabled={state === "submitting" || antiAbuseUnavailable}>{state === "submitting" ? (locale === "es" ? "Enviando…" : "Sending…") : antiAbuseUnavailable ? (locale === "es" ? "Verificación pendiente" : "Verification pending") : (locale === "es" ? "Solicitar evaluación sin costo" : "Request free assessment")}<ArrowIcon size={18} /></button>}
       </div>
     </form>
   );

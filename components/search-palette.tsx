@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/types";
 import { searchRecords, t } from "@/lib/content";
+import type { SearchRecord } from "@/lib/types";
 import { ArrowIcon, CloseIcon, SearchIcon } from "@/components/icons";
 import { Pulso } from "@/components/pulso";
 
@@ -22,6 +23,7 @@ const typeLabels = {
 
 export function SearchPalette({ locale, open, onClose }: SearchPaletteProps) {
   const [query, setQuery] = useState("");
+  const [records, setRecords] = useState<SearchRecord[]>(searchRecords);
   const inputRef = useRef<HTMLInputElement>(null);
   const paletteRef = useRef<HTMLDivElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
@@ -30,6 +32,17 @@ export function SearchPalette({ locale, open, onClose }: SearchPaletteProps) {
   useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
+
+  useEffect(() => {
+    if (!open) return;
+    const controller = new AbortController();
+    void fetch("/catalog-index.json", { cache: "no-store", signal: controller.signal })
+      .then(async (response) => response.ok ? response.json() : null)
+      .then((payload: { records?: SearchRecord[] } | null) => {
+        if (!controller.signal.aborted && Array.isArray(payload?.records) && payload.records.length <= 200) setRecords(payload.records);
+      }).catch(() => {});
+    return () => controller.abort();
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -67,8 +80,8 @@ export function SearchPalette({ locale, open, onClose }: SearchPaletteProps) {
 
   const results = useMemo(() => {
     const normalizedQuery = normalize(query.trim());
-    if (!normalizedQuery) return searchRecords.slice(0, 8);
-    return searchRecords
+    if (!normalizedQuery) return records.slice(0, 8);
+    return records
       .map((record) => {
         const haystack = normalize([record.title.es, record.title.en, record.description.es, record.description.en, ...record.keywords].join(" "));
         const title = normalize(t(record.title, locale));
@@ -79,7 +92,7 @@ export function SearchPalette({ locale, open, onClose }: SearchPaletteProps) {
       .sort((a, b) => b.score - a.score)
       .slice(0, 12)
       .map((entry) => entry.record);
-  }, [locale, query]);
+  }, [locale, query, records]);
 
   if (!open) return null;
 

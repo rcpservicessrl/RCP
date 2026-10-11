@@ -9,11 +9,11 @@ test("catalog illustrations distinguish the service instead of repeating generic
     ["formacion-intervencion", "adopcion", "renovacion", "training"],
     ["branding-identidad", "marca", "publicidad", "branding"],
     ["contenido-multimedia", "contenido", "publicidad", "content"],
-    ["gran-formato", "exterior", "publicidad", "signage"],
+    ["gran-formato", "exterior", "publicidad", "gran-formato"],
     ["uniformes-textiles", "merchandising", "publicidad", "textiles"],
     ["consultoria-impositiva", "impositiva", "consultoria", "tax"],
     ["sitios-web", "digital", "publicidad", "web"],
-    ["papeleria-corporativa", "impresos", "publicidad", "print"],
+    ["papeleria-corporativa", "impresos", "publicidad", "papeleria-corporativa"],
   ]) assert.equal(catalogArt(id, category, pillar), expected);
 });
 

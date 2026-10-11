@@ -1,3 +1,4 @@
+import type { CommercialOffer } from "@/lib/commercial-intake";
 import type { BusinessSector } from "@/lib/discovery-context";
 import Link from "next/link";
 import { BusinessVisual } from "@/components/business-visual";
@@ -7,7 +8,7 @@ import { methodSteps, t } from "@/lib/content";
 import type { Locale, NeedId } from "@/lib/types";
 import styles from "./diagnosis-page.module.css";
 
-export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, initialNeed, initialSector }: { locale: Locale; selectedServiceIds?: string[]; selectedCapabilityId?: string; selectedSolutionId?: string; initialNeed?: NeedId; initialSector?: BusinessSector }) {
+export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabilityId, selectedSolutionId, initialNeed, initialSector, initialOffer, detailed }: { initialOffer?: CommercialOffer; detailed?: boolean; locale: Locale; selectedServiceIds?: string[]; selectedCapabilityId?: string; selectedSolutionId?: string; initialNeed?: NeedId; initialSector?: BusinessSector }) {
   return (
     <InteriorShell locale={locale}>
       <section className="interior-hero">
@@ -30,7 +31,7 @@ export function DiagnosisPage({ locale, selectedServiceIds = [], selectedCapabil
             <h2>{locale === "es" ? "Explícalo como tú lo conoces." : "Explain it in your own words."}</h2>
             <p className="section-lead">{locale === "es" ? "No tienes que conocer siglas ni escoger una herramienta. El equipo revisa la solicitud y confirma la conversación, el pilar que debe liderar y el próximo paso adecuado." : "You do not need to know acronyms or choose a tool. The team reviews the request and confirms the conversation, the lead pillar and the right next step."}</p>
           </div>
-          <DiagnosisForm locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} initialSector={initialSector} guided />
+          <DiagnosisForm initialOffer={initialOffer} detailed={detailed} locale={locale} selectedServiceIds={selectedServiceIds} selectedCapabilityId={selectedCapabilityId} selectedSolutionId={selectedSolutionId} initialNeed={initialNeed} initialSector={initialSector} guided />
         </div>
       </section>
 
