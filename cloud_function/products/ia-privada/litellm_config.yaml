@@ -18,7 +18,7 @@ model_list:
       api_base: http://ollama:11434
 
 general_settings:
-  master_key: sk-rcp-local-dev
+  master_key: os.environ/LITELLM_MASTER_KEY
   drop_params: true
 
 litellm_settings:

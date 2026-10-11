@@ -14,11 +14,68 @@ export const productArt = {
   content: "/assets/catalog-editorial/content.png",
   signage: "/assets/catalog-editorial/signage.png",
   textiles: "/assets/catalog-editorial/textiles.png",
+  "modelo-operativo-raci": "/assets/catalog-editorial/modelo-operativo-raci.webp",
+  "analitica-marketing": "/assets/catalog-editorial/analitica-marketing.webp",
+  "expediente-necesidad": "/assets/catalog-editorial/expediente-necesidad.webp",
+  "documentacion-empresarial": "/assets/catalog-editorial/documentacion-empresarial.webp",
+  "sop-documentacion": "/assets/catalog-editorial/sop-documentacion.webp",
+  "identidad-empresarial": "/assets/catalog-editorial/identidad-empresarial.webp",
+  "cambio-adopcion": "/assets/catalog-editorial/cambio-adopcion.webp",
+  "iguala-contable": "/assets/catalog-editorial/iguala-contable.webp",
+  "control-financiero": "/assets/catalog-editorial/control-financiero.webp",
+  "riesgo-cumplimiento": "/assets/catalog-editorial/riesgo-cumplimiento.webp",
+  "estrategia-marca": "/assets/catalog-editorial/estrategia-marca.webp",
+  "redes-community": "/assets/catalog-editorial/redes-community.webp",
+  "seo-aeo": "/assets/catalog-editorial/seo-aeo.webp",
+  "campanas-digitales": "/assets/catalog-editorial/campanas-digitales.webp",
+  "papeleria-corporativa": "/assets/catalog-editorial/papeleria-corporativa.webp",
+  "promocionales-impresos": "/assets/catalog-editorial/promocionales-impresos.webp",
+  "etiquetas-empaques": "/assets/catalog-editorial/etiquetas-empaques.webp",
+  "gran-formato": "/assets/catalog-editorial/gran-formato.webp",
 } as const;
 
 export type ProductArtKind = keyof typeof productArt;
 
+/** Explicit assignments preserve a distinct illustration for every public service. */
+export const catalogArtByService = {
+  "diagnostico-rcp-360": "consulting",
+  "expediente-necesidad": "expediente-necesidad",
+  "blueprint-intervencion": "erp",
+  "procesos-operativos": "processes",
+  "sop-documentacion": "sop-documentacion",
+  "modelo-operativo-raci": "modelo-operativo-raci",
+  "experiencia-cliente": "crm",
+  "identidad-empresarial": "identidad-empresarial",
+  "cambio-adopcion": "cambio-adopcion",
+  "formacion-intervencion": "training",
+  "tableros-operacion": "saas",
+  "consultoria-impositiva": "tax",
+  "iguala-contable": "iguala-contable",
+  "control-financiero": "control-financiero",
+  "documentacion-empresarial": "documentacion-empresarial",
+  "riesgo-cumplimiento": "riesgo-cumplimiento",
+  "estrategia-marca": "estrategia-marca",
+  "branding-identidad": "branding",
+  "sitios-web": "web",
+  "redes-community": "redes-community",
+  "contenido-multimedia": "content",
+  "seo-aeo": "seo-aeo",
+  "campanas-digitales": "campanas-digitales",
+  "analitica-marketing": "analitica-marketing",
+  "papeleria-corporativa": "papeleria-corporativa",
+  "promocionales-impresos": "promocionales-impresos",
+  "etiquetas-empaques": "etiquetas-empaques",
+  "gran-formato": "gran-formato",
+  "letreros-rotulacion": "signage",
+  "uniformes-textiles": "textiles",
+  "merchandising-corporativo": "print",
+} as const satisfies Record<string, ProductArtKind>;
+
 export function catalogArt(id: string, category: string, pillar: string): ProductArtKind {
+  if (Object.hasOwn(catalogArtByService, id)) {
+    return catalogArtByService[id as keyof typeof catalogArtByService];
+  }
+  if (id === "blueprint-intervencion") return "erp";
   if (id === "diagnostico-rcp-360") return "consulting";
   if (/uniformes|textiles/.test(id)) return "textiles";
   if (/letreros|rotulacion|banners|gran-formato/.test(id)) return "signage";

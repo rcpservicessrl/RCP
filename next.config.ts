@@ -4,31 +4,21 @@ if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() === "[SENSITIVE]") {
   throw new Error("Turnstile public configuration was redacted. Build production on Vercel with its actual environment variables.");
 }
 
-const scriptPolicy = process.env.NODE_ENV === "development" ? "'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com" : "'self' 'unsafe-inline' https://challenges.cloudflare.com";
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  `script-src ${scriptPolicy}`,
-  "style-src 'self' 'unsafe-inline'",
-  "font-src 'self' data:",
-  "img-src 'self' data: blob:",
-  "media-src 'self'",
-  "connect-src 'self'",
-  "frame-src https://www.youtube-nocookie.com https://open.spotify.com https://challenges.cloudflare.com",
-  "worker-src 'self' blob:",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self' mailto:",
-  "frame-ancestors 'self'",
-].join("; ");
 
 const securityHeaders = [
-  { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-  { key: "Strict-Transport-Security", value: "max-age=31536000" },
+  { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
+  { key: "X-DNS-Prefetch-Control", value: "off" },
+  { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
+];
+
+const privateRobotsHeaders = [
+  { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+  { key: "Cache-Control", value: "private, no-store" },
 ];
 
 const nextConfig: NextConfig = {
@@ -47,6 +37,10 @@ const nextConfig: NextConfig = {
         source: "/assets/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
+      ...["/api/:path*", "/app/:path*", "/portal/:path*", "/en/portal/:path*", "/checkout/:path*", "/en/request/:path*", "/dashboard/:path*", "/onboarding/:path*", "/private/:path*"].map((source) => ({
+        source,
+        headers: privateRobotsHeaders,
+      })),
     ];
   },
   async redirects() {

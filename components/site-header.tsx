@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { alternateRoute } from "@/lib/localized-routes";
+import { writePreference } from "@/lib/browser-preferences";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/types";
 import { CloseIcon, GlobeIcon, MenuIcon, MoonIcon, SearchIcon, SunIcon } from "@/components/icons";
@@ -112,7 +113,7 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
     const nextTheme = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = nextTheme;
     document.documentElement.style.colorScheme = nextTheme;
-    localStorage.setItem("rcp-theme", nextTheme);
+    writePreference("rcp-theme", nextTheme);
     setTheme(nextTheme);
   }, [theme]);
 
@@ -131,6 +132,7 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
           <Link href={servicesHref}>{labels.solutions}</Link>
           <Link href={locale === "es" ? "/como-trabajamos" : "/en/how-we-work"}>{labels.method}</Link>
           <Link href={locale === "es" ? "/catalogo" : "/en/catalog"}>{labels.catalog}</Link>
+          <Link href={locale === "es" ? "/#experiencias" : "/en#experiencias"}>{locale === "es" ? "Sistemas en acción" : "Systems in action"}</Link>
           <Link href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"}>{labels.technology}</Link>
           <Link href={specialistsHref}>{labels.specialists}</Link>
         </nav>
@@ -164,6 +166,7 @@ export function SiteHeader({ locale, onOpenSearch }: SiteHeaderProps) {
             <Link href={servicesHref} onClick={closeMenu}>{labels.solutions}</Link>
             <Link href={locale === "es" ? "/como-trabajamos" : "/en/how-we-work"} onClick={closeMenu}>{labels.method}</Link>
             <Link href={locale === "es" ? "/catalogo" : "/en/catalog"} onClick={closeMenu}>{labels.catalog}</Link>
+            <Link href={locale === "es" ? "/#experiencias" : "/en#experiencias"} onClick={closeMenu}>{locale === "es" ? "Sistemas en acción" : "Systems in action"}</Link>
             <Link href={locale === "es" ? "/soluciones-tecnologicas" : "/en/technology-solutions"} onClick={closeMenu}>{labels.technology}</Link>
             <Link href={specialistsHref} onClick={closeMenu}>{labels.specialists}</Link>
             <Link href={locale === "es" ? "/herramientas" : "/en/tools"} onClick={closeMenu}>{locale === "es" ? "Herramientas" : "Tools"}</Link>

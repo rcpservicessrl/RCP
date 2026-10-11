@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/types";
+import { publicContact } from "@/lib/public-contact";
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: Record<string, unknown>) => string;
@@ -15,7 +16,7 @@ declare global {
   }
 }
 
-export function TurnstileField({ locale, resetSignal = 0 }: { locale: Locale; resetSignal?: number }) {
+export function TurnstileField({ locale, resetSignal = 0, contact = "inquiry" }: { locale: Locale; resetSignal?: number; contact?: "inquiry" | "specialist" }) {
   const configuredSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
   const siteKey = configuredSiteKey && configuredSiteKey !== "[SENSITIVE]" ? configuredSiteKey : undefined;
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,22 +37,21 @@ export function TurnstileField({ locale, resetSignal = 0 }: { locale: Locale; re
         "expired-callback": () => setToken(""),
         "error-callback": () => { setToken(""); setUnavailable(true); },
       });
-      return () => {
-        try { window.turnstile?.remove(widgetId); } catch { /* The provider may have already removed the widget. */ }
-      };
+      return () => { try { window.turnstile?.remove(widgetId); } catch { /* The provider may have already removed the widget. */ } };
     } catch {
-      setToken("");
       setUnavailable(true);
     }
-  }, [ready, resetSignal, siteKey, unavailable]);
+  }, [ready, unavailable, resetSignal, siteKey]);
 
   if (!siteKey || unavailable) return <>
     <input type="hidden" name="turnstileToken" value="" readOnly />
     <div className="form-note" role="alert">
-      <strong>{locale === "es" ? "La verificación no está disponible." : "Verification is unavailable."}</strong>
-      <p>{locale === "es" ? "Tu solicitud no se ha enviado. Puedes contactar a RCP directamente." : "Your request has not been sent. You can contact RCP directly."}</p>
-      <a href="https://wa.me/18298068092?text=Hola%20RCP%20Services%2C%20quiero%20mi%20evaluaci%C3%B3n%20inicial" target="_blank" rel="noopener noreferrer">{locale === "es" ? "Continuar por WhatsApp" : "Continue on WhatsApp"}</a>{" · "}
-      <a href="mailto:info@rcp.services">{locale === "es" ? "Contactar por correo" : "Contact by email"}</a>
+      <strong>{locale === "es" ? "Puedes continuar por otro canal." : "You can continue through another channel."}</strong>
+      <p>{locale === "es" ? "La verificación de seguridad está pendiente o no está disponible. Puedes contactar a RCP directamente; el formulario no ha confirmado el envío." : "Security verification is pending or unavailable. You can contact RCP directly; the form has not confirmed delivery."}</p>
+      <div className="diagnosis-actions">
+        {contact === "inquiry" && <a className="button button--secondary" href={publicContact.whatsappHref} target="_blank" rel="noopener noreferrer">{locale === "es" ? "Continuar por WhatsApp" : "Continue on WhatsApp"}</a>}
+        <a className="button button--secondary" href={contact === "specialist" ? "mailto:info@rcp.services?subject=Red%20de%20Especialistas%20RCP" : "mailto:info@rcp.services"}>{locale === "es" ? "Contactar por correo" : "Contact by email"}</a>
+      </div>
     </div>
   </>;
 

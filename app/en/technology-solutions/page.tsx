@@ -3,6 +3,7 @@ import { CapabilityExplorer } from "@/components/capability-explorer";
 import { InteriorShell } from "@/components/interior-shell";
 import { createPublicPageMetadata } from "@/lib/metadata";
 import { glossaryCapabilities, technologySolutions } from "@/lib/content";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata = createPublicPageMetadata({
   locale: "en",
@@ -30,7 +31,7 @@ export default async function EnglishTechnologySolutionsPage({ searchParams }: {
   ];
   return (
     <InteriorShell locale="en">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <JsonLd data={structuredData} />
       <section className="interior-hero interior-hero--technology">
         <div className="container interior-hero__grid">
           <div><p className="section-eyebrow">Transversal technology</p><h1>Your need comes first. Technology follows.</h1><p>Explore six solutions explained in plain language. Acronyms remain a search and learning guide; they do not represent sixteen ready-to-install products.</p><div className="interior-hero__facts"><span>Six clear routes</span><span>Custom software</span><span>Ownership by project</span></div><div className="editorial-hero-actions"><a className="button button--primary" href="#explorar">Explore solutions ↗</a></div></div>

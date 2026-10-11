@@ -1,3 +1,4 @@
+import { normalizeOffer } from "@/lib/commercial-intake";
 import { normalizeBusinessSector } from "@/lib/discovery-context";
 import { DiagnosisPage } from "@/components/diagnosis-page";
 import { normalizeNeed } from "@/lib/business-tools";
@@ -14,7 +15,7 @@ export const metadata = createPublicPageMetadata({
   paths: { es: "/diagnostico", en: "/en/diagnosis" },
 });
 
-export default async function DiagnosisRoute({ searchParams }: { searchParams: Promise<{ sector?: string; necesidad?: string; need?: string; servicios?: string; services?: string; capacidad?: string; capability?: string; solucion?: string; solution?: string }> }) {
+export default async function DiagnosisRoute({ searchParams }: { searchParams: Promise<{ offer?: string; mode?: string; sector?: string; necesidad?: string; need?: string; servicios?: string; services?: string; capacidad?: string; capability?: string; solucion?: string; solution?: string }> }) {
   const params = await searchParams;
-  return <DiagnosisPage locale="es" initialSector={normalizeBusinessSector(params.sector)} initialNeed={normalizeNeed(params.necesidad ?? params.need)} selectedServiceIds={normalizeCatalogSelection(params.servicios ?? params.services)} selectedCapabilityId={normalizeCapabilitySelection(params.capacidad ?? params.capability)} selectedSolutionId={normalizeSolutionSelection(params.solucion ?? params.solution)} />;
+  return <DiagnosisPage initialOffer={normalizeOffer(params.offer)} detailed={params.mode === "detailed"} locale="es" initialSector={normalizeBusinessSector(params.sector)} initialNeed={normalizeNeed(params.necesidad ?? params.need)} selectedServiceIds={normalizeCatalogSelection(params.servicios ?? params.services)} selectedCapabilityId={normalizeCapabilitySelection(params.capacidad ?? params.capability)} selectedSolutionId={normalizeSolutionSelection(params.solucion ?? params.solution)} />;
 }

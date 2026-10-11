@@ -13,6 +13,8 @@ Las decisiones D-01 a D-11 fueron aprobadas el 2026-08-12 y están consolidadas 
 
 ## Documentos vigentes para RC2
 
+- `LATEST_VISUAL_RECOVERY_2026-10-11.md`: conciliación de la propuesta visual aprobada con la demo y la reparación de carga.
+
 - `DEMO_SHOWCASE_2026-10-11.md`: demo abierta Mercado Aurora, presentación ES/EN, verificaciones y publicación del botón.
 
 - `FUENTE_DE_VERDAD_6_RC2.md`: autoridad consolidada de negocio, marca, oferta y gates.

@@ -1,5 +1,6 @@
 export const localizedRoutes = [
   ["/", "/en"],
+  ["/demo", "/en/demo"],
   ["/servicios", "/en/services"],
   ["/servicios/renovacion", "/en/services/renewal"],
   ["/servicios/consultoria", "/en/services/consulting"],
@@ -38,5 +39,8 @@ export function alternateRoute(pathname: string, locale: "es" | "en", search = "
     const value = current.get(locale === "es" ? es : en) ?? current.get(locale === "es" ? en : es);
     if (value && /^[a-z0-9,-]{1,250}$/i.test(value)) translated.set(locale === "es" ? en : es, value);
   }
+  const offer = current.get("offer");
+  if (current.getAll("offer").length === 1 && (offer === "WEB" || offer === "SOFTWARE" || offer === "OTHER")) translated.set("offer", offer);
+  if (current.getAll("mode").length === 1 && current.get("mode") === "detailed") translated.set("mode", "detailed");
   return `${target}${translated.size ? `?${translated}` : ""}`;
 }

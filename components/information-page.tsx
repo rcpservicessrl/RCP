@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { InteriorShell } from "@/components/interior-shell";
+import { JsonLd } from "@/components/json-ld";
 import { type PulsoScene } from "@/components/pulso";
 import { catalog, methodSteps, t, technologySolutions } from "@/lib/content";
 import { createPublicPageMetadata } from "@/lib/metadata";
@@ -425,7 +426,7 @@ function resolveDetails(config: InformationPageConfig, locale: Locale): Array<{ 
 export function InformationPage({ locale, page, selectedSolutionId }: { locale: Locale; page: InformationPageKind; selectedSolutionId?: string }) {
   const selectedSolution = technologySolutions.find(entry => entry.id === selectedSolutionId);
   const baseConfig = configs[page];
-  const config = selectedSolution && page === "customSoftware" ? { ...baseConfig, primary: { ...baseConfig.primary, href: lt(`/diagnostico?solucion=${selectedSolution.id}#solicitud`, `/en/diagnosis?solution=${selectedSolution.id}#solicitud`) } } : baseConfig;
+  const config = page === "customSoftware" ? { ...baseConfig, primary: { ...baseConfig.primary, href: lt(`/diagnostico?offer=SOFTWARE${selectedSolution ? `&solucion=${selectedSolution.id}` : ""}#solicitud`, `/en/diagnosis?offer=SOFTWARE${selectedSolution ? `&solution=${selectedSolution.id}` : ""}#solicitud`) } } : baseConfig;
   const details = resolveDetails(config, locale);
   const pageUrl = `https://rcp.services${t(config.paths, locale)}`;
   const structuredData = {
@@ -441,7 +442,7 @@ export function InformationPage({ locale, page, selectedSolutionId }: { locale: 
 
   return (
     <InteriorShell locale={locale}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <JsonLd data={structuredData} />
       <div className={styles.page}>
         <header className={`${styles.hero} editorial-page-hero`}>
           <div className={`container ${styles.heroGrid} editorial-hero-grid`}>

@@ -25,7 +25,7 @@ try {
       await page.locator('h1').first().waitFor();
       assert.doesNotMatch(await page.locator('h1').first().innerText(),/couldn.t load/i);
       if (['render-error','load-error','callback-error'].includes(scenario)) {
-        await page.getByRole('alert').filter({hasText:'La verificación no está disponible.'}).waitFor();
+        await page.getByRole('alert').filter({hasText:'La verificación de seguridad está pendiente o no está disponible.'}).waitFor();
         assert.equal(await page.locator('input[name="turnstileToken"]').first().inputValue(),'');
         assert.ok(await page.getByRole('link',{name:'Continuar por WhatsApp',exact:true}).count());
       } else {

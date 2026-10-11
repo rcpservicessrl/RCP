@@ -1,9 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
+import { InquiryCampaign } from "@/components/inquiry-campaign";
 import localFont from "next/font/local";
+import Script from "next/script";
+import { headers } from "next/headers";
 import { AudioProvider } from "@/components/audio-provider";
+import { JsonLd } from "@/components/json-ld";
+import { homeDescriptions } from "@/lib/public-contact";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 import "./editorial-system.css";
+import "./customer-journey.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rcp.services";
 const deploymentEnvironment = process.env.RCP_DEPLOYMENT_ENV ?? process.env.VERCEL_ENV ?? "development";
@@ -17,11 +24,15 @@ export const metadata: Metadata = {
     default: "RCP Services | Estrategia que transforma. Tecnología que impulsa.",
     template: "%s | RCP Services",
   },
-  description: "Le damos nuevo impulso a tu negocio con Renovación, Consultoría y Publicidad, apoyadas por tecnología cuando aporta valor.",
+  description: homeDescriptions.es,
   applicationName: "RCP Services",
   authors: [{ name: "RCP Services SRL", url: siteUrl }],
   creator: "RCP Services SRL",
   publisher: "RCP Services SRL",
+  verification: {
+    google: "pB_WF5BiCe7lQ-brB0yIEuzZh_15pKuQ7OUSJxm5UFY",
+    other: { "msvalidate.01": "C79DA2E05C8B71C55756078EA7E5991D" },
+  },
   formatDetection: { email: false, address: false, telephone: false },
   icons: {
     icon: [{ url: "/icono-rcp.png", sizes: "512x512", type: "image/png" }],
@@ -61,27 +72,14 @@ export const viewport: Viewport = {
   colorScheme: "dark light",
 };
 
-const themeScript = `
-  (() => {
-    try {
-      const stored = localStorage.getItem('rcp-theme');
-      const theme = stored === 'light' || stored === 'dark'
-        ? stored
-        : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-      document.documentElement.lang = location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en-US' : 'es-DO';
-    } catch (_) {}
-  })();
-`;
-
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html data-scroll-behavior="smooth" lang="es-DO" data-theme="light" suppressHydrationWarning className={`${montserrat.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <Script src="/theme-init.js" strategy="beforeInteractive" nonce={nonce} />
       </head>
-      <body><AudioProvider>{children}</AudioProvider></body>
+      <body><Suspense fallback={null}><InquiryCampaign /></Suspense><JsonLd data={organizationJsonLd} /><JsonLd data={websiteJsonLd} /><AudioProvider>{children}</AudioProvider></body>
     </html>
   );
 }

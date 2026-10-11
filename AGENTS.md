@@ -1,10 +1,13 @@
 # RCP Services site rules
 
-- This checkout is the canonical source for `https://rcp.services`.
+- Production follows the integrated `master` source. Read `docs/LATEST_VISUAL_RECOVERY_2026-10-11.md` before publishing; preserve the approved October 10 visuals, PR 29 demo and PR 30 runtime repair together.
 - Read `RCP_SERVICES_SHARED_ARCHITECTURE.md` and `.neural_state.md` before
   changing Supabase links, Auth, forms, portal data or deployment configuration.
-- The site belongs to corporate project `wpfovxgbennpgydbellw`, currently using
-  `public`. Do not add client tables to this schema.
+- The site belongs to corporate project `wpfovxgbennpgydbellw`. The live ledger
+  confirms the corporate `rcp_services` schema; CRM uses `crm`. The current
+  public Next.js forms deliver through server-side providers, not direct
+  browser database writes. Do not add client tables or replay legacy `public`
+  snippets. See the 2026-09-08 Matrix security audit for verified grants.
 - Do not create another site variant to work around dirty state or migration
   drift. Resolve changes in this checkout and update RCP Matrix.
 - Query Graphify before broad inspection and update the graph after structural

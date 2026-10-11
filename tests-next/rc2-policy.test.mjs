@@ -100,15 +100,18 @@ test("every public service surface comes from the filtered commercial catalog", 
   assert.match(content, /catalogInternal\.filter\(isPublicCommercialEntry\)/);
   assert.match(content, /services:\s*publicCatalogByPillar\[pillar\.id\][\s\S]*?\.map\(\(entry\) => entry\.title\)/);
   assert.match(home, /selectedPillar\.services\.map/);
-  assert.match(directory, /publicCatalogByPillar\[pillar\.id\]/);
-  assert.doesNotMatch(directory, /catalog\.filter\(\(entry\) => entry\.pillar === pillar\.id\)/);
+  assert.match(directory, /entries = catalog/);
+  assert.match(directory, /entries\.filter\(\(entry\) => entry\.pillar === pillar\.id\)/);
+  assert.match(await read("lib/public-site-catalog.ts"), /catalog\.map\(\(item\) => \(\{ \.\.\.item \}\)\)/);
   assert.match(editorial, /pillar\.services\.slice\(0, 3\)\.map/);
   assert.match(search, /import \{ searchRecords, t \} from "@\/lib\/content"/);
-  assert.match(indexRoute, /records:\s*searchRecords/);
+  assert.match(indexRoute, /searchRecords\.map/);
+  assert.match(indexRoute, /records,/);
   assert.match(diagnosis, /selectableCatalog\.filter/);
   assert.match(diagnosis, /selectedServices = selectedItems\.map\(\(item\) => item\.id\)\.join\(","\)/);
-  assert.match(catalogExplorer, /catalog\.filter/);
-  assert.match(catalogExplorer, /selectableCatalog\.find/);
+  assert.match(catalogExplorer, /activeEntries = entries \?\? hydratedEntries/);
+  assert.match(catalogExplorer, /activeEntries\.filter/);
+  assert.match(catalogExplorer, /activeEntries\.find/);
   assert.match(catalogExplorer, /disabled=\{!entry\.selectable/);
 
   const publicSurfaceSources = [home, directory, editorial, search, indexRoute, diagnosis, catalogExplorer];

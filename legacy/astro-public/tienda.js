@@ -7,7 +7,9 @@
 // ─── SUPABASE CONFIG ───
 var isLocal = new URLSearchParams(window.location.search).get('local_db') === '1';
 var SUPABASE_URL = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
-var SUPABASE_KEY = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+// Archived snapshot: inject the publishable key at runtime when this snapshot is
+// intentionally restored. Never commit a project key to source control.
+var SUPABASE_KEY = (globalThis.RCP_PUBLIC_SUPABASE_KEY || '').trim();
 
 // Inject loading spinner CSS
 (function(){var s=document.createElement('style');s.textContent='.store-loading-spinner{width:40px;height:40px;border:3px solid rgba(252,181,63,0.2);border-top-color:var(--accent,#fcb53f);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto}@keyframes spin{to{transform:rotate(360deg)}}';document.head.appendChild(s);})();

@@ -122,7 +122,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const QUOTE_EMAIL = 'info@rcp.services';
     const isLocal = new URLSearchParams(window.location.search).get('local_db') === '1';
     const supabaseUrl = isLocal ? 'http://127.0.0.1:54321' : 'https://wpfovxgbennpgydbellw.supabase.co';
-    const supabaseKey = isLocal ? 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' : 'sb_publishable_wQHzaXkyhbfuOdDkMAWAKQ_VOE14bfO';
+    const supabaseKey = ((globalThis as any).RCP_PUBLIC_SUPABASE_KEY || '').trim();
     const allowedSku = /^[A-Z0-9-]{2,40}$/;
     const requestedSkus = [...new Set((new URLSearchParams(location.search).get('items') || '')
       .split(',').map((sku) => sku.trim().toUpperCase()).filter((sku) => allowedSku.test(sku)))].slice(0, 20);

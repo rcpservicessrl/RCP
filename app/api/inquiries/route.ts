@@ -1,14 +1,20 @@
+import { normalizeOffer, parseCampaignJson, legacyAssessmentContext, detailedCrmProblem } from "@/lib/commercial-intake";
 import { normalizeCapabilitySelection } from "@/lib/capability-selection";
 import { normalizeCatalogSelection } from "@/lib/catalog-selection";
 import { deliverCrm, deliverEmail, resolveDeliveryMode, validIdempotencyKey } from "@/lib/server/delivery";
 import { consumeRateLimit } from "@/lib/server/rate-limit";
+import { PayloadTooLargeError, readLimitedRequestBody } from "@/lib/server/request-body";
 import { normalizeSolutionSelection } from "@/lib/solution-selection";
+import { isAllowedRequestOrigin, isAllowedTurnstileHostname, isTurnstileRequired } from "@/lib/server/request-security";
 
 const MAX_BODY_BYTES = 24_000;
 const WHATSAPP_NUMBER = "18298068092";
 const noStoreHeaders = { "Cache-Control": "no-store" };
 
 type InquiryPayload = {
+  intakeMode?: unknown;
+  offer?: unknown;
+  campaign?: unknown;
   name?: unknown;
   company?: unknown;
   contact?: unknown;
@@ -41,25 +47,27 @@ const stableReference = async (idempotencyKey: string) => {
   return `RCP-EVAL-${suffix}`;
 };
 
-const verifyTurnstile = async (token: string) => {
-  if (process.env.RCP_REQUIRE_TURNSTILE !== "true") return true;
+const verifyTurnstile = async (token: unknown) => {
+  if (!isTurnstileRequired()) return true;
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret || !token) return false;
+  if (!secret || typeof token !== "string" || !token || token.length > 2_048) return false;
   try {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ secret, response: token }).toString(),
       signal: AbortSignal.timeout(5_000),
+      redirect: "error",
     });
-    const result = await response.json() as { success?: boolean };
-    return result.success === true;
+    const result = await response.json() as { success?: boolean; hostname?: unknown };
+    return response.ok && result.success === true && isAllowedTurnstileHostname(result.hostname);
   } catch {
     return false;
   }
 };
 
 export async function POST(request: Request) {
+  if (!isAllowedRequestOrigin(request)) return invalid("origin_not_allowed", 403);
   if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return invalid("unsupported_media_type", 415);
 
   const idempotencyKey = request.headers.get("idempotency-key");
@@ -75,11 +83,12 @@ export async function POST(request: Request) {
 
   let raw: InquiryPayload;
   try {
-    const body = await request.text();
+    const body = await readLimitedRequestBody(request, MAX_BODY_BYTES);
     if (byteLength(body) > MAX_BODY_BYTES) return invalid("payload_too_large", 413);
     raw = JSON.parse(body) as InquiryPayload;
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return invalid("invalid_json");
-  } catch {
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) return invalid("payload_too_large", 413);
     return invalid("invalid_json");
   }
 
@@ -90,13 +99,18 @@ export async function POST(request: Request) {
   const selectedServices = normalizeCatalogSelection(text(raw.selectedServices, 500));
   const selectedCapability = normalizeCapabilitySelection(text(raw.selectedCapability, 80));
   const selectedSolution = normalizeSolutionSelection(text(raw.selectedSolution, 80));
+  const intakeMode = raw.intakeMode === "brief" ? "brief" : "detailed";
+  if (raw.intakeMode != null && raw.intakeMode !== "brief" && raw.intakeMode !== "detailed") return invalid("invalid_intake_mode");
+  const offer = normalizeOffer(raw.offer);
+  if ((intakeMode === "brief" || raw.offer != null) && !offer) return invalid("invalid_offer");
+  const campaign = parseCampaignJson(raw.campaign);
   const inquiry = {
     name: text(raw.name, 80),
     company: text(raw.company, 120),
     email: text(raw.email ?? raw.contact, 120).toLowerCase(),
     phone: text(raw.phone, 30),
-    need: text(raw.need, 30),
-    sector: text(raw.sector, 60),
+    need: text(raw.need, 30) || (intakeMode === "brief" ? (offer === "WEB" ? "crecer" : "ordenar") : ""),
+    sector: text(raw.sector, 60) || (intakeMode === "brief" ? "otro" : ""),
     problem: text(raw.problem, 1000),
     expectedOutcome: text(raw.expectedOutcome, 600),
     contactPreference: text(raw.contactPreference, 20),
@@ -106,19 +120,28 @@ export async function POST(request: Request) {
     locale,
   };
 
-  if (inquiry.name.length < 2 || inquiry.company.length < 2 || (!inquiry.email && !inquiry.phone) || inquiry.problem.length < 20 || inquiry.expectedOutcome.length < 10) return invalid("incomplete_request");
+  if (inquiry.name.length < 2 || inquiry.company.length < 2 || (!inquiry.email && !inquiry.phone)) return invalid("incomplete_request");
+  if (intakeMode === "detailed" && (inquiry.problem.length < 20 || inquiry.expectedOutcome.length < 10)) return invalid("incomplete_request");
   if (!needOptions.has(inquiry.need) || !sectorOptions.has(inquiry.sector) || !contactOptions.has(inquiry.contactPreference)) return invalid("invalid_selection");
   if (inquiry.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email)) return invalid("invalid_email");
   if (inquiry.phone && inquiry.phone.replace(/\D/g, "").length < 7) return invalid("invalid_phone");
-  if (!await verifyTurnstile(text(raw.turnstileToken, 2_000))) return invalid("human_verification_failed");
+  if ((inquiry.contactPreference === "email" && !inquiry.email) || ((inquiry.contactPreference === "whatsapp" || inquiry.contactPreference === "call") && !inquiry.phone)) return invalid("preferred_contact_required");
+  if (!await verifyTurnstile(raw.turnstileToken)) return invalid("human_verification_failed");
 
   const reference = await stableReference(idempotencyKey!);
   const whatsappMessage = locale === "es"
-    ? `Hola, RCP Services. Quiero continuar la solicitud ${reference} para ${inquiry.company}. Necesito mejorar: ${inquiry.problem.slice(0, 360)}`
-    : `Hello, RCP Services. I want to continue request ${reference} for ${inquiry.company}. I need to improve: ${inquiry.problem.slice(0, 360)}`;
-  const handoffUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+    ? `Hola, RCP Services. Quiero continuar la solicitud ${reference} para ${inquiry.company}.`
+    : `Hello, RCP Services. I want to continue request ${reference} for ${inquiry.company}.`;
+  const handoffContext = [`Oferta / Offer: ${offer ?? "OTHER"}`, ...Object.entries(campaign).map(([key, value]) => `${key}: ${value}`)].join("\n");
+  const handoffUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${whatsappMessage}\n${handoffContext}`)}`;
   const commonRecord = {
     ...inquiry,
+    // Status notes are explicit; never invent client answers for omitted fields.
+    problem: intakeMode === "brief" ? legacyAssessmentContext(offer, intakeMode, campaign) + "\n\nProblem:\n" + (inquiry.problem || "Consulta inicial. Proceso pendiente de evaluar con el cliente.") : inquiry.problem,
+    expectedOutcome: inquiry.expectedOutcome || "Resultado pendiente de definir con el cliente en la evaluación.",
+    offer: offer ?? null,
+    intakeMode,
+    campaign,
     reference,
     source: "rcp.services",
     type: "initial_assessment_request",
@@ -127,6 +150,11 @@ export async function POST(request: Request) {
   };
 
   if (resolveDeliveryMode() === "crm") {
+    if (intakeMode === "detailed") {
+      const problem = detailedCrmProblem(inquiry.problem, offer, campaign);
+      if (problem === null) return Response.json({ accepted: false, recorded: false, reference, handoffUrl, message: "crm_attribution_capacity_exceeded" }, { status: 503, headers: noStoreHeaders });
+      commonRecord.problem = problem;
+    }
     const url = process.env.RCP_CRM_INGEST_URL;
     const token = process.env.RCP_CRM_INGEST_TOKEN;
     const hmacSecret = process.env.RCP_CRM_HMAC_SECRET;
@@ -139,6 +167,9 @@ export async function POST(request: Request) {
 
   const lines = [
     `Reference: ${reference}`,
+    `Offer: ${offer ?? "OTHER"}`,
+    `Intake: ${intakeMode}`,
+    ...Object.entries(campaign).map(([key, value]) => `${key}: ${value}`),
     "Stage: Initial RCP 360 assessment request",
     `Name: ${inquiry.name}`,
     `Company: ${inquiry.company}`,
@@ -152,10 +183,10 @@ export async function POST(request: Request) {
     `Selected capability: ${inquiry.selectedCapability || "None"}`,
     "",
     "Problem:",
-    inquiry.problem,
+    inquiry.problem || "Not supplied; discuss during assessment.",
     "",
     "Expected outcome:",
-    inquiry.expectedOutcome,
+    inquiry.expectedOutcome || "To be defined with the requester.",
   ];
   const delivery = await deliverEmail({
     idempotencyKey: `site-intake:${idempotencyKey}`,
