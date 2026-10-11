@@ -20,7 +20,7 @@ export function ExternalMedia({ locale, title, embedSrc, externalHref, provider,
 
   if (enabled) {
     return (
-      <div className={styles.enabled}>
+      <div className={styles.enabled} data-media-enabled>
         <iframe
           className={mode === "video" ? styles.video : styles.audio}
           src={embedSrc}

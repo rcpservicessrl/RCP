@@ -308,6 +308,10 @@
   border: 0;
 }
 
+.videoFrame:has([data-media-enabled]) {
+  aspect-ratio: auto;
+}
+
 .mediaCopy { padding: 28px; }
 .mediaCopy small,
 .podcastHeader small { color: var(--muted); font-size: .9rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
