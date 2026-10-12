@@ -13,6 +13,8 @@ Las decisiones D-01 a D-11 fueron aprobadas el 2026-08-12 y están consolidadas 
 
 ## Documentos vigentes para RC2
 
+- `PULSO_WORKERS_AI_2026-10-12.md`: implementación de ayuda pública con IA limitada y respaldo local, preparada y desactivada; permisos y activación pendientes.
+
 - `FULL_SITE_CONTROLS_AUDIT_2026-10-11.md`: revisión de rutas, controles, accesibilidad y estado de la propuesta POS con e-CF.
 - `POS_OFFER_RESEARCH_2026-10-11.md`: comparación de ofertas públicas y propuesta comercial pendiente de confirmar la integración operativa.
 

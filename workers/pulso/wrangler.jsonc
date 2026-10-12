@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "rcp-pulso-public",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-12",
+  "workers_dev": true,
+  "preview_urls": false,
+  "ai": { "binding": "AI", "remote": false },
+  "durable_objects": { "bindings": [{ "name": "PULSO_BUDGET", "class_name": "PulsoBudget" }] },
+  "migrations": [{ "tag": "pulso-v1", "new_sqlite_classes": ["PulsoBudget"] }],
+  "vars": { "AI_ENABLED": "false", "ACCOUNT_TIER": "unverified", "ALLOWED_ORIGINS": "https://rcp.services,https://www.rcp.services" },
+  "observability": { "enabled": false },
+  "placement": { "mode": "off" }
+}

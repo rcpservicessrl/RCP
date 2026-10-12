@@ -1,0 +1,324 @@
+{
+  "version": "pulso-public-v1",
+  "source": "lib/content.ts (integrated master PR32)",
+  "records": [
+    {
+      "id": "service-sitios-web",
+      "type": "service",
+      "title": {
+        "es": "Sitios web y páginas de captación",
+        "en": "Websites and landing pages"
+      },
+      "description": {
+        "es": "Una experiencia web rápida, clara y conectada con el siguiente paso comercial.",
+        "en": "A fast, clear web experience connected to the next commercial step."
+      },
+      "href": {
+        "es": "/catalogo?servicio=sitios-web",
+        "en": "/en/catalog?service=sitios-web"
+      },
+      "keywords": [
+        "digital",
+        "publicidad",
+        "web",
+        "pagina",
+        "landing",
+        "ecommerce",
+        "website",
+        "Arquitectura y contenido",
+        "Architecture and content",
+        "Diseño y desarrollo",
+        "Design and development",
+        "SEO técnico y medición",
+        "Technical SEO and measurement"
+      ],
+      "generative": true
+    },
+    {
+      "id": "service-branding-identidad",
+      "type": "service",
+      "title": {
+        "es": "Branding, identidad visual e imagen corporativa",
+        "en": "Branding, visual identity and corporate image"
+      },
+      "description": {
+        "es": "Un sistema visual reconocible, consistente y listo para aplicarse.",
+        "en": "A recognizable, consistent visual system ready for use."
+      },
+      "href": {
+        "es": "/catalogo?servicio=branding-identidad",
+        "en": "/en/catalog?service=branding-identidad"
+      },
+      "keywords": [
+        "marca",
+        "publicidad",
+        "branding",
+        "logo",
+        "identidad",
+        "imagen corporativa",
+        "Dirección creativa",
+        "Creative direction",
+        "Identidad y activos editables",
+        "Identity and editable assets",
+        "Manual de uso",
+        "Usage guide"
+      ],
+      "generative": true
+    },
+    {
+      "id": "service-redes-community",
+      "type": "service",
+      "title": {
+        "es": "Redes sociales y community management",
+        "en": "Social media and community management"
+      },
+      "description": {
+        "es": "Publicación, conversación y seguimiento alineados con la estrategia de marca.",
+        "en": "Publishing, conversation and follow-up aligned with brand strategy."
+      },
+      "href": {
+        "es": "/catalogo?servicio=redes-community",
+        "en": "/en/catalog?service=redes-community"
+      },
+      "keywords": [
+        "digital",
+        "publicidad",
+        "redes",
+        "community manager",
+        "instagram",
+        "social media",
+        "Plan editorial",
+        "Editorial plan",
+        "Contenido y publicación",
+        "Content and publishing",
+        "Gestión de comunidad",
+        "Community management"
+      ],
+      "generative": true
+    },
+    {
+      "id": "route-custom-software",
+      "type": "route",
+      "title": {
+        "es": "Software a la medida",
+        "en": "Custom software"
+      },
+      "description": {
+        "es": "CRM, ERP, POS, inventario, portales y automatización alrededor del proceso real.",
+        "en": "CRM, ERP, POS, inventory, portals and automation built around the real process."
+      },
+      "href": {
+        "es": "/software-a-la-medida",
+        "en": "/en/custom-software"
+      },
+      "keywords": [
+        "software",
+        "desarrollo",
+        "aplicacion",
+        "saas",
+        "custom",
+        "development"
+      ],
+      "generative": true
+    },
+    {
+      "id": "route-method",
+      "type": "route",
+      "title": {
+        "es": "Cómo trabajamos",
+        "en": "How we work"
+      },
+      "description": {
+        "es": "La ruta RCP desde escuchar la necesidad hasta comprobar y dar continuidad.",
+        "en": "The RCP route from understanding the need to verification and continuity."
+      },
+      "href": {
+        "es": "/como-trabajamos",
+        "en": "/en/how-we-work"
+      },
+      "keywords": [
+        "metodo",
+        "proceso",
+        "ruta",
+        "method",
+        "process",
+        "delivery"
+      ],
+      "generative": true
+    },
+    {
+      "id": "route-sectors",
+      "type": "route",
+      "title": {
+        "es": "Soluciones por sector",
+        "en": "Solutions by sector"
+      },
+      "description": {
+        "es": "Rutas comunes para comercios, servicios, imprentas y otros pequeños negocios.",
+        "en": "Common routes for retail, services, print shops and other small businesses."
+      },
+      "href": {
+        "es": "/sectores",
+        "en": "/en/sectors"
+      },
+      "keywords": [
+        "sectores",
+        "industrias",
+        "comercio",
+        "servicios",
+        "sectors",
+        "industries"
+      ],
+      "generative": true
+    },
+    {
+      "id": "resource-about",
+      "type": "resource",
+      "title": {
+        "es": "Nosotros",
+        "en": "About RCP Services"
+      },
+      "description": {
+        "es": "Modelo de intervención, límites y arquitectura 3P+T.",
+        "en": "Intervention model, boundaries and 3P+T architecture."
+      },
+      "href": {
+        "es": "/nosotros",
+        "en": "/en/about"
+      },
+      "keywords": [
+        "nosotros",
+        "empresa",
+        "modelo",
+        "about",
+        "company",
+        "model"
+      ],
+      "generative": true
+    },
+    {
+      "id": "resource-services",
+      "type": "resource",
+      "title": {
+        "es": "Directorio de servicios",
+        "en": "Services directory"
+      },
+      "description": {
+        "es": "Renovación, Consultoría y Publicidad organizadas por resultado.",
+        "en": "Renewal, Consulting and Advertising organized by outcome."
+      },
+      "href": {
+        "es": "/servicios",
+        "en": "/en/services"
+      },
+      "keywords": [
+        "servicios",
+        "soluciones",
+        "pilares",
+        "services",
+        "solutions",
+        "pillars"
+      ],
+      "generative": true
+    },
+    {
+      "id": "resource-specialists",
+      "type": "resource",
+      "title": {
+        "es": "Red de Especialistas RCP",
+        "en": "RCP Specialist Network"
+      },
+      "description": {
+        "es": "Categorías, estándares y proceso de revisión de especialistas.",
+        "en": "Specialist categories, standards and review process."
+      },
+      "href": {
+        "es": "/especialistas",
+        "en": "/en/specialists"
+      },
+      "keywords": [
+        "especialistas",
+        "carreras",
+        "colaboradores",
+        "specialists",
+        "careers",
+        "network"
+      ],
+      "generative": true
+    },
+    {
+      "id": "resource-diagnosis",
+      "type": "resource",
+      "title": {
+        "es": "Solicitar Evaluación Inicial RCP 360°",
+        "en": "Request an RCP 360° Initial Assessment"
+      },
+      "description": {
+        "es": "Una conversación de 45 minutos, sin costo y sujeta a confirmación, para entender la necesidad y definir el siguiente paso.",
+        "en": "A free 45-minute conversation, subject to confirmation, to understand the need and define the next step."
+      },
+      "href": {
+        "es": "/diagnostico",
+        "en": "/en/diagnosis"
+      },
+      "keywords": [
+        "diagnostico",
+        "contacto",
+        "cotizacion",
+        "ayuda",
+        "diagnosis",
+        "contact",
+        "quote"
+      ],
+      "generative": false
+    },
+    {
+      "id": "route-electronic-invoicing",
+      "type": "route",
+      "title": {
+        "es": "POS con facturación electrónica e-CF",
+        "en": "POS with e-CF electronic invoicing"
+      },
+      "description": {
+        "es": "POS integrado con e-CF: ventas, inventario, caja y capacitación. Consulta la oferta de implementación; licencia y emisión aparte.",
+        "en": "POS integrated with e-CF: sales, inventory, cash management and training. Explore the implementation offer; license and issuance separate."
+      },
+      "href": {
+        "es": "/facturacion-electronica",
+        "en": "/en/electronic-invoicing"
+      },
+      "keywords": [
+        "ecf",
+        "dgii",
+        "facturacion",
+        "comprobantes",
+        "electronic invoicing"
+      ],
+      "generative": false
+    },
+    {
+      "id": "route-contact",
+      "type": "route",
+      "title": {
+        "es": "Contacto",
+        "en": "Contact"
+      },
+      "description": {
+        "es": "Canales para explicar tu necesidad y confirmar el próximo paso con RCP Services.",
+        "en": "Channels to explain your need and confirm the next step with RCP Services."
+      },
+      "href": {
+        "es": "/contacto",
+        "en": "/en/contact"
+      },
+      "keywords": [
+        "contacto",
+        "whatsapp",
+        "correo",
+        "contact",
+        "email"
+      ],
+      "generative": false
+    }
+  ]
+}

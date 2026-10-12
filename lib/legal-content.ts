@@ -66,6 +66,13 @@ export const legalDocuments = {
           ]],
         },
         {
+          id: "guia-publica-pulso",
+          title: "Guía pública Pulso",
+          paragraphs: [[
+            "Pulso conserva tu pregunta únicamente en el panel abierto del navegador. No la envía a analítica ni guarda un historial de conversación. Si se habilita la ayuda con IA, el navegador envía a Cloudflare sólo identificadores de temas públicos y el idioma; el modelo recibe extractos públicos revisados, sin tu texto libre. Cloudflare recibe la dirección IP por la conexión y el Worker de RCP utiliza un identificador diario protegido y contadores para limitar el uso. RCP no guarda la IP en esos contadores. Las respuestas pueden contener errores: consulta las fuentes y confirma precios, asuntos regulados y alcance con el equipo. Si la IA no está disponible, se muestra información predefinida local. No escribas información personal o confidencial.",
+          ]],
+        },
+        {
           id: "conservacion-y-seguridad",
           title: "Conservación y seguridad",
           paragraphs: [[
@@ -124,6 +131,13 @@ export const legalDocuments = {
             "Quotations continue through WhatsApp or email. The ",
             link("info@rcp.services", "mailto:info@rcp.services"),
             " mailbox is managed through Zoho Mail. The website is delivered through Vercel and uses Supabase for authorized data functions; requests may be sent server-side to RCP CRM. When configured, Resend may be used server-side for transactional notifications and Cloudflare Turnstile for anti-abuse protection. PostHog, Sentry or other analytics or error tools are used only when configured, with consent where required, data minimization and redaction. These providers may process data outside the Dominican Republic under their own terms and security measures.",
+          ]],
+        },
+        {
+          id: "pulso-public-guide",
+          title: "Pulso public guide",
+          paragraphs: [[
+            "Pulso keeps your question only in the open browser panel. It does not send it to analytics or store a conversation history. If AI help is enabled, the browser sends only public topic identifiers and the language to Cloudflare; the model receives reviewed public excerpts without your free text. Cloudflare receives the IP address through the connection, and the RCP Worker uses a protected daily identifier and counters to limit usage. RCP does not store the IP in those counters. Answers may contain errors: consult the sources and confirm pricing, regulated matters and scope with the team. When AI is unavailable, predefined local information is shown. Do not enter personal or confidential information.",
           ]],
         },
         {

@@ -1,0 +1,239 @@
+{
+  "id": "web-pulso-validation-20261012",
+  "status": "partial",
+  "recorded_at": "2026-10-12T02:17:32.274Z",
+  "repository": "rcpservicessrl/RCP",
+  "branch": "codex/pulso-workers-ai-free-20261012",
+  "base": "3d6393df4ab8ee0453313196aa8df35d98eb6e8d",
+  "publication": "not_performed",
+  "liveInference": "not_run",
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed (Pulso files + hooks)",
+    "snapshot": "passed",
+    "unit": {
+      "passed": 100,
+      "failed": 0,
+      "log": "C:/RCP/.artifacts/pulso-workers-ai-20261012/unit-tests.log"
+    },
+    "build": {
+      "passed": true,
+      "log": "C:/RCP/.artifacts/pulso-workers-ai-20261012/build.log"
+    },
+    "workerSQLite": {
+      "passed": true,
+      "concurrent": 150,
+      "reserved": 100,
+      "rejected": 50,
+      "modelCalls": 0,
+      "log": "C:/RCP/.artifacts/pulso-workers-ai-20261012/sqlite.log"
+    },
+    "pulsoBrowser": {
+      "passed": 22,
+      "results": [
+        {
+          "width": 1440,
+          "scenario": "generated",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "quota",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "invalid",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "network",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "timeout",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "retry",
+          "passed": true,
+          "requests": 2
+        },
+        {
+          "width": 1440,
+          "scenario": "close",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "policy",
+          "passed": true,
+          "requests": 0
+        },
+        {
+          "width": 1440,
+          "scenario": "offline",
+          "passed": true,
+          "requests": 0
+        },
+        {
+          "width": 1440,
+          "scenario": "disabled",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 1440,
+          "scenario": "english-themes",
+          "passed": true
+        },
+        {
+          "width": 390,
+          "scenario": "generated",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "quota",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "invalid",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "network",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "timeout",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "retry",
+          "passed": true,
+          "requests": 2
+        },
+        {
+          "width": 390,
+          "scenario": "close",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "policy",
+          "passed": true,
+          "requests": 0
+        },
+        {
+          "width": 390,
+          "scenario": "offline",
+          "passed": true,
+          "requests": 0
+        },
+        {
+          "width": 390,
+          "scenario": "disabled",
+          "passed": true,
+          "requests": 1
+        },
+        {
+          "width": 390,
+          "scenario": "english-themes",
+          "passed": true
+        }
+      ]
+    },
+    "turnstileRegression": {
+      "passed": 10,
+      "viewports": [
+        1440,
+        390
+      ],
+      "provider": "mocked",
+      "realSubmissions": 0
+    },
+    "visualAssets": {
+      "changed": false,
+      "approvedMascotHashes": "passed existing contracts"
+    }
+  },
+  "cloudflare": {
+    "account": "61abb9f65c512b813439611f673aa6eb",
+    "inferenceCalls": 0,
+    "results": [
+      {
+        "endpoint": "workers/account-settings",
+        "status": 401,
+        "verified": false
+      },
+      {
+        "endpoint": "subscriptions",
+        "status": 403,
+        "verified": false
+      },
+      {
+        "endpoint": "ai/models/search?search=llama-3.2-3b-instruct",
+        "status": 403,
+        "verified": false
+      }
+    ],
+    "activation": "requires_explicit_free_plan_and_model_access_review"
+  },
+  "graph": {
+    "scope": "local incremental AST only; no semantic rebuild",
+    "nodes": 1391,
+    "edges": 2158,
+    "evidence": "C:/RCP/.artifacts/pulso-workers-ai-20261012/graph-update.json",
+    "generatedFiles": "kept local, excluded from focused PR"
+  },
+  "codeHashes": {
+    "components/pulso-help.tsx": "cbd01ca3e2c5c1e008adfe12ace72848638e0503b6ba92e9a74e9e2a8c7ecbb2",
+    "components/pulso-question.tsx": "5700e86f6c4f93c8e4e90314511268674e5587519e5b06de1f9faf06839f5923",
+    "lib/pulso-public.ts": "83d93095cbec3ee6d1d37009d8889011b060772c8c6118a2e2049108efbaf2b7",
+    "lib/pulso-endpoint.ts": "d299e6b3da628fcfad26e75a2b50c09c8e1e45a47feb56cf80d90966783eb3bd",
+    "lib/pulso-http.ts": "d50bd17d17e48e3ea0b1ba655c0f138138e52e51e73baaf21786119754459e15",
+    "lib/pulso-knowledge.json": "34d95b6321a5ea6d46db3987f77d8f9d52354b4f1a9fdfca2e36e8ce905cb19c",
+    "lib/legal-content.ts": "71898ca8db81ce89e89e20dcd1bc4b97077b31b773dcc9120f56a35c6a83d438",
+    "workers/pulso/worker.ts": "fdbdfb6fd24f56cc3c32b113fd9830237d6e62f8388bc909be719c0aae820c34",
+    "workers/pulso/budget.ts": "d980887184d0421330f19b867506052955ee4074ef38d59beb9a5c0c848bc461",
+    "workers/pulso/model.ts": "538608946fa00dfba96c566047bba2695b1eb6caf6f7478570eac346f0e21694",
+    "workers/pulso/wrangler.jsonc": "7812a01a1c5accff85d988294f89816a5bc1adbfd39668e39d522b51b2c48ce2",
+    "app/globals.css": "ca02a993a720e0c12d71c5faa083b1ab4eb4d2e8743bf0a2311368cd3654a0c1",
+    "app/customer-journey.css": "5fccbec35dc2faa7c8d70e277458a4791b505f1b25ba1718f38f8286126651c8",
+    "proxy.ts": "bddb83a85c097cf540e15a260ed664561bfc763de4227084488589a25cea7cdd",
+    "scripts/pulso-browser.mjs": "da0eb7df74f99b22843b3441805a983db88163fcbbc7c403342e0f13b3a8bc32",
+    "scripts/pulso-knowledge.mjs": "3e6cfaf3ef1b1c37320bcea246153c49821017186b43f212c2c1697991044c8c",
+    "scripts/pulso-sqlite.mjs": "eaf1808d8889533050e0c3724c601fc498a6af9b1c2ab431a180dea7be30ae7a",
+    "scripts/pulso-cloudflare-check.mjs": "829b02909517e46087d3dc1aa5dd8006964020a1a3e6b4f9447b7c552c4a6103",
+    "tests-next/pulso-runtime.test.mjs": "15f82e1f8e751f5fc3a4c3aedd0eb75805a34b970f68d4faeb28f49d43806e1f",
+    "package.json": "87769892090b4f26b92cf76015e948db235244890a310790d17ff3975e465e80",
+    "pnpm-lock.yaml": "bc4ec30b3db9ae45e775f4d0d3ef9f12aba6dcc92718277721616456f86d1206"
+  },
+  "remaining": [
+    "Confirm Workers Free and actual model access; existing reads 401/403",
+    "Owner approval for Worker permissions and namespace",
+    "Owner enters VISITOR_HMAC_SECRET securely",
+    "Authorized synthetic live inference and quality/cost check",
+    "Review and authorize exact source publication; no production activation yet"
+  ]
+}

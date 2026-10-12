@@ -26,6 +26,11 @@ jobs:
       - run: pnpm check
         env:
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+          NEXT_PUBLIC_PULSO_WORKER_URL: https://pulso-fixture.example.workers.dev/answer
+      - name: Verify local SQLite quota without model calls
+        run: pnpm run test:pulso:sqlite
+        env:
+          WRANGLER_SEND_METRICS: "false"
       - run: pnpm exec playwright install --with-deps chromium
       - name: Verify browser runtime and provider failure isolation
         run: |
@@ -37,3 +42,4 @@ jobs:
             sleep 1
           done
           node scripts/runtime-smoke.mjs
+          RCP_E2E_BASE_URL=http://127.0.0.1:3117 node scripts/pulso-browser.mjs
