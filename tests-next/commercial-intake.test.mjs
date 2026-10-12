@@ -5,7 +5,13 @@ import path from "node:path";
 import { test, after } from "node:test";
 import { campaignFromUrl, normalizeCampaign, normalizeOffer, parseCampaignJson, detailedCrmProblem } from "../lib/commercial-intake.ts";
 const hooks = registerHooks({ resolve(specifier, context, next) { return next(specifier.startsWith("@/") ? pathToFileURL(path.join(process.cwd(), `${specifier.slice(2)}.ts`)).href : specifier, context); } });
-after(() => hooks.deregister());
+const deploymentEnvironment = process.env.RCP_DEPLOYMENT_ENV;
+delete process.env.RCP_DEPLOYMENT_ENV;
+after(() => {
+ hooks.deregister();
+ if (deploymentEnvironment === undefined) delete process.env.RCP_DEPLOYMENT_ENV;
+ else process.env.RCP_DEPLOYMENT_ENV = deploymentEnvironment;
+});
 const { POST } = await import("../app/api/inquiries/route.ts");
 let sequence=0;
 function request(payload, key=`commercial-test-${++sequence}`) { return new Request("https://rcp.services/api/inquiries", {method:"POST", headers:{origin:"https://rcp.services","content-type":"application/json","idempotency-key":key,"x-forwarded-for":`local-${++sequence}`},body:JSON.stringify(payload)}); }
