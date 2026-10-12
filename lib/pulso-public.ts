@@ -65,9 +65,12 @@ export function modelMessages(ids: string[], locale: PulsoLocale) {
 export function validatedGeneration(raw: unknown, ids: string[], locale: PulsoLocale): PulsoReply | null {
   if (!approvedTopics(ids, true) || !raw || typeof raw !== 'object') return null;
   const response = (raw as { response?: unknown }).response;
-  if (typeof response !== 'string' || response.length > 2400) return null;
   try {
-    const value = JSON.parse(response) as { answer?: unknown; sourceIds?: unknown };
+    // Workers AI JSON mode can return an already parsed response object.
+    const encoded = typeof response === 'string' ? response : JSON.stringify(response);
+    if (!encoded || encoded.length > 2400) return null;
+    const value = JSON.parse(encoded) as { answer?: unknown; sourceIds?: unknown };
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
     const sources = approvedTopics(value.sourceIds, true);
     if (typeof value.answer !== 'string' || !sources || sources.some(id => !ids.includes(id))) return null;
     const answer = value.answer.trim();

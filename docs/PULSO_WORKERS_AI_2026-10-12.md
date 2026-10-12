@@ -2,7 +2,7 @@
 id: web-pulso-workers-ai-20261012
 project: rcpservicessrl/RCP
 status: partial
-recorded_at: 2026-10-12T02:13:43.088Z
+recorded_at: 2026-10-12T08:44:00Z
 source_refs:
   - master:3d6393df4ab8ee0453313196aa8df35d98eb6e8d
   - components/pulso-question.tsx
@@ -10,7 +10,8 @@ source_refs:
   - workers/pulso/worker.ts
 validation:
   - local types/lint/unit/build and SQLite; final receipt records browser results
-  - remote account metadata: blocked by current token scopes; no inference
+  - Workers Free and live ES/EN generation verified; AI restored to disabled
+  - release check: 101 tests, types, scoped lint, public snapshot and production build passed
 supersedes:
   - ADR-010 prohibition of text response generation, only within this gated implementation
 superseded_by: null
@@ -18,6 +19,31 @@ owner: RCP Services
 ---
 
 # Pulso público: Workers AI y respaldo local
+
+## Integración del sitio preparada: 2026-10-12
+
+Se configuró `NEXT_PUBLIC_PULSO_WORKER_URL` en Production del proyecto Vercel
+`rcp-services-web`, con el endpoint público verificado del Worker. La variable
+no contiene secretos. La configuración se aplicará al siguiente build.
+La corrección de respuestas JSON está incluida en esta revisión. `pnpm check`
+aprobó 101 pruebas, tipos, lint, snapshot público y build con el endpoint real.
+La publicación actual sigue siendo master `3d6393d`, deployment
+`dpl_3CRqYhxdWvpTHidS5bdAcVcRsM9x`, confirmado como respaldo de esta entrega.
+La revisión visual del candidato y su promoción se registrarán cuando finalicen.
+`AI_ENABLED=false` hasta completar la verificación del sitio.
+
+## Estado verificado posterior: 2026-10-12 08:23 UTC
+
+El Worker ya está desplegado y el propietario registró su secreto. Workers Free
+fue confirmado visualmente. Se corrigió la lectura de respuestas JSON estructuradas
+del modelo; las consultas reales ES/EN, duplicados y cooldown pasaron. Al cerrar
+las pruebas, `ACCOUNT_TIER=workers-free` y `AI_ENABLED=false`, confirmado por HTTP.
+El consumo exacto del proveedor sigue sin observarse por timeout del panel.
+La integración/publicación del sitio continúa pendiente. El código corregido
+debe incorporarse antes de promover PR33. Evidencia y hashes locales:
+`C:/RCP/.artifacts/pulso-workers-ai-20261012/cloudflare-continuity/RESULT-20261012-LIVE-AI-PASSED.md`.
+Las referencias siguientes a acceso pendiente o cero inferencias describen el
+checkpoint original de preparación, no el estado vigente.
 
 Implementación preparada en `codex/pulso-workers-ai-free-20261012`, desde el
 master integrado PR32. Conserva PR30/31/32, el manifiesto visual aprobado,

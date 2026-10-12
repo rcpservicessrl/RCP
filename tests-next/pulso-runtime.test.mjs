@@ -90,6 +90,23 @@ test('persistent global reservations are atomic across concurrency and restart; 
   assert.equal(data.snapshot().count, 1);
 });
 
+test('Workers AI parsed JSON responses retain the same content, source and size boundaries', async () => {
+  const parsed = { answer, sourceIds: ids };
+  assert.deepEqual(validatedGeneration({ response: parsed }, ids, 'es'), validatedGeneration(output(), ids, 'es'));
+  for (const response of [null, [], true, 42, { answer, sourceIds: ['private'] },
+    { answer: 'Visita https://evil.test para contratar.', sourceIds: ids },
+    { answer: 'El sitio web cuesta 500 dólares.', sourceIds: ids },
+    { ...parsed, padding: 'x'.repeat(2400) }]) {
+    assert.equal(validatedGeneration({ response }, ids, 'es'), null);
+  }
+  const runtime = env(async () => ({ response: parsed }));
+  const reply = await (await handlePulso(workerRequest(), runtime)).json();
+  assert.equal(reply.mode, 'generated');
+  assert.equal(reply.sources[0].href, '/catalogo?servicio=sitios-web');
+  assert.equal(runtime.calls(), 1);
+  assert.equal(runtime.data.snapshot().count, 1);
+});
+
 test('visitors have cooldown, six daily calls and deduplicated transport retries', async () => {
   const data = storage(); const now = Date.UTC(2026, 9, 12);
   assert.equal((await changeBudget(data, visitor, 'first', 'reserve', now)).allowed, true);
