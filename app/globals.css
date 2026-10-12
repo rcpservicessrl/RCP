@@ -669,13 +669,13 @@
   .pulso-help__name { display: grid; text-align: left; }
   .pulso-help__name strong { font-size: .9rem; }
   .pulso-help__name small { color: var(--text-soft); font-size: .9rem; }
-  .pulso-help__panel { width: min(360px, calc(100vw - 32px)); overflow: hidden; border: 1px solid var(--line-strong); border-radius: 18px; background: var(--surface); box-shadow: 0 30px 90px rgb(0 0 0 / 35%); animation: help-in .28s var(--ease); }
+  .pulso-help__panel { width: min(360px, calc(100vw - 32px)); max-height: calc(100dvh - 210px); overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line-strong); border-radius: 18px; background: var(--surface); box-shadow: 0 30px 90px rgb(0 0 0 / 35%); animation: help-in .28s var(--ease); }
   @keyframes help-in { from { opacity: 0; transform: translateY(10px) scale(.98); } }
-  .pulso-help__panel > header { display: flex; align-items: center; justify-content: space-between; min-height: 62px; padding: 0 17px; border-bottom: 1px solid var(--line); }
+  .pulso-help__panel > header { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; min-height: 62px; padding: 0 17px; border-bottom: 1px solid var(--line); background: var(--surface); }
   .pulso-help__panel header div { display: grid; }
   .pulso-help__panel header small { color: var(--amber); font-size: .9rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
   .pulso-help__panel header strong { font-size: .9rem; }
-  .pulso-help__panel header button { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; }
+  .pulso-help__panel header button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 7px; background: transparent; color: var(--text); cursor: pointer; }
   .pulso-help__intro { display: grid; grid-template-columns: 88px 1fr; gap: 16px; align-items: center; padding: 17px; }
   .pulso-help__intro .pulso { width: 82px; }
   .pulso-help__intro .pulso__frame { border-radius: 0; }
@@ -690,6 +690,18 @@
   .pulso-help__dot { width: 9px; height: 9px; margin-left: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 5px rgb(168 207 69 / 10%); }
   .pulso-help__portal { display: grid !important; place-items: center; width: 22px; height: 22px; border: 1px solid var(--amber); border-radius: 5px; color: var(--amber); font-size: .9rem; font-weight: 700; }
   .pulso-help__limit { padding: 13px 17px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; line-height: 1.5; }
+  .pulso-question { display: grid; gap: 12px; padding: 17px; border-top: 1px solid var(--line); font-size: .9rem; }
+  .pulso-question form { display: grid; gap: 10px; }
+  .pulso-question label { font-weight: 700; color: var(--text); }
+  .pulso-question__privacy, .pulso-question__reply small { color: var(--text-soft); line-height: 1.5; }
+  .pulso-question input { min-width: 0; width: 100%; min-height: 44px; border: 1px solid var(--line-strong); border-radius: 8px; padding: 10px; background: var(--surface-2); color: var(--text); font-size: 16px; }
+  .pulso-question button { min-height: 44px; padding: 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface-2); color: var(--text); cursor: pointer; }
+  .pulso-question button:disabled { opacity: .6; cursor: default; }
+  .pulso-question__reply { display: grid; gap: 10px; overflow-wrap: anywhere; }
+  .pulso-question__reply:empty { display: none; }
+  .pulso-question__reply p { color: var(--text-soft); line-height: 1.6; white-space: pre-line; }
+  .pulso-question a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; color: var(--text); }
+  .pulso-question__reply ul { padding-left: 18px; }
 
   /* Consent */
   .consent-banner { position: fixed; top: auto; right: auto; bottom: 18px; left: 18px; z-index: 1500; display: grid; grid-template-columns: 1fr; gap: 14px; width: min(460px, calc(100% - 36px)); padding: 18px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface-2); box-shadow: var(--shadow); }

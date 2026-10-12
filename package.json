@@ -15,7 +15,10 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests-next/*.test.mjs",
-    "check": "pnpm run typecheck && pnpm test && pnpm run build",
+    "lint:pulso": "eslint --config eslint.pulso.config.mjs components/pulso-help.tsx components/pulso-question.tsx lib/pulso-*.ts proxy.ts workers/pulso/*.ts scripts/pulso-*.mjs",
+    "test:pulso:browser": "node scripts/pulso-browser.mjs",
+    "test:pulso:sqlite": "wrangler deploy --dry-run --config workers/pulso/wrangler.jsonc --outdir ../../tmp/pulso-bundle && node scripts/pulso-sqlite.mjs",
+    "check": "pnpm run typecheck && pnpm run lint:pulso && node scripts/pulso-knowledge.mjs --check && pnpm test && pnpm run build",
     "preview": "pnpm run build:cloudflare && opennextjs-cloudflare preview",
     "deploy": "pnpm dlx vercel@latest deploy",
     "deploy:cloudflare": "pnpm run build:cloudflare && opennextjs-cloudflare deploy",
@@ -27,12 +30,17 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@opennextjs/cloudflare": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@typescript/native": "npm:typescript@7.0.2",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "playwright": "1.63.0",
-    "typescript": "latest",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.71.1",
     "wrangler": "latest"
   }
 }

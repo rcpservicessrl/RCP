@@ -1,4 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { safePulsoEndpoint } from "@/lib/pulso-endpoint";
+
+const pulsoEndpoint = safePulsoEndpoint(process.env.NEXT_PUBLIC_PULSO_WORKER_URL);
 
 const basePolicy = [
   "default-src 'self'",
@@ -6,7 +9,7 @@ const basePolicy = [
   "font-src 'self' data:",
   "img-src 'self' data: blob:",
   "media-src 'self'",
-  "connect-src 'self'",
+  `connect-src 'self'${pulsoEndpoint ? ` ${new URL(pulsoEndpoint).origin}` : ""}`,
   "frame-src https://www.youtube-nocookie.com https://open.spotify.com https://challenges.cloudflare.com",
   "worker-src 'self' blob:",
   "object-src 'none'",

@@ -3,6 +3,13 @@
 **Date:** 2026-08-11  
 **Status:** accepted.
 
+**Evolución textual preparada, 2026-10-12:** [Workers AI con respaldo local](PULSO_WORKERS_AI_2026-10-12.md)
+implementa la ampliación autorizada de respuestas públicas. Sustituye únicamente
+la prohibición de generación de **texto** bajo sus gates de contenido, coste y
+activación. Por defecto sigue desactivada y no está publicada. La identidad,
+imágenes, poses, accesibilidad y exclusión de conclusiones reguladas permanecen.
+La decisión original de abajo conserva el historial del runtime determinista.
+
 ## Decision
 
 Pulso is the official name of the RCP Jaguar Mascot and the visual identity of the public guide. Search, contextual tour and help converge into one deterministic experience.

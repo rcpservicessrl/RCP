@@ -16,7 +16,7 @@
   .consent-banner__heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
   .consent-whatsapp { display:grid; place-items:center; flex:0 0 44px; width:44px; height:44px; border-radius:50%; background:#fcb53f; color:#151b17; }
 }
-.pulso-help__panel { max-height:calc(100svh - 110px); overflow-y:auto; }
+.pulso-help__panel { max-height:calc(100dvh - 210px); overflow-y:auto; }
 body:has(.selection-tray) .pulso-help:not(.is-open) { bottom:180px; }
 .price-guide { background:#f2f1e9; color:#1c2a20; padding:76px 0; }
 .price-guide .section-eyebrow, .editorial-home .price-guide .section-eyebrow { color:#6b4a17; }

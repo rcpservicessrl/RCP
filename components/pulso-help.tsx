@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/types";
 import { ArrowIcon, CloseIcon, SearchIcon, SparkIcon, WhatsAppIcon } from "@/components/icons";
 import { publicContact } from "@/lib/public-contact";
 import { Pulso, type PulsoScene } from "@/components/pulso";
+import { PulsoQuestion } from "@/components/pulso-question";
 
 interface PulsoHelpProps {
   locale: Locale;
@@ -23,6 +24,7 @@ export function PulsoHelp({ locale, scene = "idle", contextLabel, onOpenSearch }
 
   useEffect(() => {
     if (!open) return;
+    const trigger = triggerRef.current;
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -30,7 +32,7 @@ export function PulsoHelp({ locale, scene = "idle", contextLabel, onOpenSearch }
         return;
       }
       if (event.key !== "Tab") return;
-      const focusable = panelRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      const focusable = panelRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])');
       if (!focusable?.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -47,7 +49,7 @@ export function PulsoHelp({ locale, scene = "idle", contextLabel, onOpenSearch }
     return () => {
       window.clearTimeout(timer);
       document.removeEventListener("keydown", handleKey);
-      triggerRef.current?.focus();
+      trigger?.focus();
     };
   }, [open]);
 
@@ -68,6 +70,7 @@ export function PulsoHelp({ locale, scene = "idle", contextLabel, onOpenSearch }
             <a href={locale === "es" ? "/#metodo" : "/en#method"} onClick={() => setOpen(false)}><SparkIcon size={17} /><span><strong>{locale === "es" ? "Ver cómo trabajamos" : "See how we work"}</strong><small>{locale === "es" ? "Del problema a la evidencia" : "From problem to evidence"}</small></span><ArrowIcon size={16} /></a>
             <Link href={locale === "es" ? "/diagnostico" : "/en/diagnosis"} onClick={() => setOpen(false)}><span className="pulso-help__dot" /><span><strong>{locale === "es" ? "Solicitar evaluación" : "Request an assessment"}</strong><small>{locale === "es" ? "45 minutos sin costo, sujeto a confirmación" : "45 minutes at no cost, subject to confirmation"}</small></span><ArrowIcon size={16} /></Link>
           </div>
+          <PulsoQuestion locale={locale} />
           <p className="pulso-help__limit">{locale === "es" ? "Pulso orienta; no emite diagnósticos legales, fiscales ni financieros." : "Pulso guides; it does not issue legal, tax or financial diagnoses."}</p>
         </section>
       )}
