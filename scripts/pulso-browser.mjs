@@ -59,6 +59,10 @@ try {
         throw error;
       }
       assert.equal(await input.evaluate(element => element.labels?.[0]?.textContent), '¿Qué necesitas encontrar?');
+      const questionBounds = await panel.locator('.pulso-question').boundingBox();
+      const actionsBounds = await panel.locator('.pulso-help__actions').boundingBox();
+      assert.ok(questionBounds && actionsBounds && questionBounds.y < actionsBounds.y, 'consultation appears before secondary actions');
+      assert.ok(actionsBounds.height <= 160, 'secondary actions stay compact');
       await input.fill(scenario === 'policy' ? 'precio de sitio web y certificación DGII' : 'necesito un sitio web');
       if (scenario === 'offline') await context.setOffline(true);
       await panel.getByRole('button', { name: 'Consultar a Pulso', exact: true }).click();

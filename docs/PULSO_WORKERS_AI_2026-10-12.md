@@ -1,17 +1,21 @@
 ---
 id: web-pulso-workers-ai-20261012
 project: rcpservicessrl/RCP
-status: partial
-recorded_at: 2026-10-12T08:44:00Z
+status: current
+recorded_at: 2026-10-12T10:37:16Z
 source_refs:
-  - master:3d6393df4ab8ee0453313196aa8df35d98eb6e8d
+  - master:36934397652fe2da59789175253b229afb4cfa97
+  - components/pulso-help.tsx
   - components/pulso-question.tsx
+  - app/globals.css
+  - scripts/pulso-browser.mjs
   - lib/pulso-public.ts
   - workers/pulso/worker.ts
 validation:
   - local types/lint/unit/build and SQLite; final receipt records browser results
-  - Workers Free and live ES/EN generation verified; AI restored to disabled
+  - Workers Free and live ES/EN generation verified; AI enabled in accepted production
   - release check: 101 tests, types, scoped lint, public snapshot and production build passed
+  - compact panel: 22 browser scenarios passed in Chrome at 1440 and 390 pixels
 supersedes:
   - ADR-010 prohibition of text response generation, only within this gated implementation
 superseded_by: null
@@ -19,6 +23,43 @@ owner: RCP Services
 ---
 
 # Pulso público: Workers AI y respaldo local
+
+## Consulta prioritaria y panel compacto: 2026-10-12
+
+La consulta aparece inmediatamente después del encabezado y antes de las acciones
+secundarias. Se retiraron la ilustración introductoria, las descripciones repetidas
+y el aviso inferior; la información completa de privacidad y alcance permanece en
+un detalle desplegable. Las tres acciones se conservaron como filas compactas con
+objetivos táctiles de 44 px.
+
+La prueba de navegador ahora exige que la consulta esté visualmente por encima de
+las acciones y que el bloque secundario no exceda 160 px. Pasaron 22 escenarios en
+Chrome para 1440 × 900 y 390 × 844, incluidos generación, respaldo, cuota, red,
+cierre, teclado, ES/EN y temas. No hubo desbordamiento horizontal. También pasaron
+101 pruebas unitarias, TypeScript, lint y build de producción.
+
+## Producción aceptada: 2026-10-12 09:02 UTC
+
+PR33 está integrado en master `3693439`. La fuente del candidato construido
+`959d123` coincide exactamente con ese árbol Git. Vercel promovió
+`dpl_9e1mVhkqWzjSpaQuaQLfed685Qv5`; la inspección de `rcp.services` confirma
+esa versión Ready. El despliegue automático del merge falló con `git_info_fail`;
+se utilizó el candidato ya probado sin alterar permisos ni protecciones.
+
+`AI_ENABLED=true`, `ACCOUNT_TIER=workers-free`. La página pública generó
+respuestas válidas ES/escritorio y EN/móvil, con fuentes locales correctas.
+La vista de 390 × 844 no tiene desbordamiento horizontal. Salud HTTP y CSP
+aprobadas; consulta Vercel de errores de los últimos 15 minutos sin resultados.
+El panel Workers AI muestra 7,62/10.000 neuronas hoy. CI y `pnpm check` aprobados.
+El respaldo es `dpl_3CRqYhxdWvpTHidS5bdAcVcRsM9x`; apagar `AI_ENABLED` conserva
+la orientación predefinida. No se enviaron formularios de contacto reales.
+El error de metadata de Git quedó sorteado para esta entrega mediante promoción;
+su causa en la integración automática no está diagnosticada.
+
+Recibo y capturas locales:
+`C:/RCP/.artifacts/pulso-workers-ai-20261012/cloudflare-continuity/RESULT-20261012-PRODUCTION-ACCEPTED.md`.
+Las secciones fechadas siguientes conservan los checkpoints anteriores;
+sus pendientes de activación y publicación quedan reemplazados por esta entrega.
 
 ## Integración del sitio preparada: 2026-10-12
 

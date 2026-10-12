@@ -67,7 +67,7 @@ export function PulsoQuestion({ locale }: { locale: PulsoLocale }) {
     <div className="pulso-question">
       <form onSubmit={event => { event.preventDefault(); void ask(); }}>
         <label htmlFor={id}>{es ? '¿Qué necesitas encontrar?' : 'What would you like to find?'}</label>
-        <p id={`${id}-privacy`} className="pulso-question__privacy">{es ? 'Pregunta sobre servicios públicos. No escribas datos personales ni confidenciales. Para la ayuda con IA se envían sólo temas públicos a Cloudflare; tu texto permanece en este panel.' : 'Ask about public services. Do not enter personal or confidential data. AI help sends only public topics to Cloudflare; your text stays in this panel.'}</p>
+        <p id={`${id}-privacy`} className="pulso-question__privacy">{es ? 'Consulta nuestros servicios sin incluir datos personales.' : 'Ask about our services without including personal data.'}</p>
         <input id={id} value={query} onChange={event => { setQuery(event.target.value); setRetry(null); }} maxLength={PULSO_QUERY_LIMIT} autoComplete="off" aria-describedby={`${id}-privacy`} disabled={busy} placeholder={es ? 'Por ejemplo: necesito un sitio web' : 'For example: I need a website'} />
         <button type="submit" disabled={busy || !query.trim()}>{busy ? (es ? 'Consultando…' : 'Checking…') : (es ? 'Consultar a Pulso' : 'Ask Pulso')}</button>
       </form>
@@ -81,6 +81,10 @@ export function PulsoQuestion({ locale }: { locale: PulsoLocale }) {
         </>}
       </div>
       <Link href={es ? '/contacto' : '/en/contact'}>{es ? 'Hablar con el equipo de RCP' : 'Talk to the RCP team'}</Link>
+      <details className="pulso-question__details">
+        <summary>{es ? 'Privacidad y alcance' : 'Privacy and scope'}</summary>
+        <p>{es ? 'No escribas datos personales ni confidenciales. Para la ayuda con IA se envían sólo temas públicos a Cloudflare; tu texto permanece en este panel. Pulso orienta; no emite diagnósticos legales, fiscales ni financieros.' : 'Do not enter personal or confidential data. AI help sends only public topics to Cloudflare; your text stays in this panel. Pulso guides; it does not issue legal, tax or financial diagnoses.'}</p>
+      </details>
     </div>
   );
 }
