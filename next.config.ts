@@ -21,6 +21,14 @@ const privateRobotsHeaders = [
   { key: "Cache-Control", value: "private, no-store" },
 ];
 
+// These responses are static files, not HTML application documents. A fixed
+// policy blocks script execution even when opened directly (including SVG),
+// without invoking the nonce proxy on CDN hits. Never apply this to app/API pages.
+const staticResourceHeaders = [{
+  key: "Content-Security-Policy",
+  value: "default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'",
+}];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   typedRoutes: true,
@@ -35,8 +43,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/assets/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+        headers: [...staticResourceHeaders, { key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
+      ...["/theme-init.js", "/manifest.webmanifest", "/icono-rcp.png", "/favicon.ico", "/logo_rcp_:name.:extension(png|svg)"].map((source) => ({
+        source,
+        headers: staticResourceHeaders,
+      })),
       ...["/api/:path*", "/app/:path*", "/portal/:path*", "/en/portal/:path*", "/checkout/:path*", "/en/request/:path*", "/dashboard/:path*", "/onboarding/:path*", "/private/:path*"].map((source) => ({
         source,
         headers: privateRobotsHeaders,
