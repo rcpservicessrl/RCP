@@ -35,5 +35,7 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  // Only repository-owned static resources bypass nonce generation. Document,
+  // API and private routes retain the per-request CSP and existing guards.
+  matcher: ["/((?!_next/static|_next/image|favicon\\.ico$|assets(?:/|$)|theme-init\\.js$|manifest\\.webmanifest$|icono-rcp\\.png$|logo_rcp_[^/]+\\.(?:png|svg)$).*)"],
 };
